@@ -1,0 +1,443 @@
+[
+  {
+    "q": "Error Spotting: Identify the error -> 'Neither of the two candidates who had applied for the post were eligible.'",
+    "opts": [
+      "were eligible",
+      "had applied",
+      "Neither of the",
+      "for the post"
+    ]
+  },
+  {
+    "q": "Synonyms: What is the closest meaning of the word 'Ebullient'?",
+    "opts": [
+      "Enthusiastic",
+      "Depressed",
+      "Arrogant",
+      "Deceitful"
+    ]
+  },
+  {
+    "q": "Parajumbles: Arrange -> P: to understand Q: is essential R: the context S: clearly.",
+    "opts": [
+      "RQPS",
+      "PQRS",
+      "QRPS",
+      "SQRP"
+    ]
+  },
+  {
+    "q": "Active/Passive: Convert to Passive -> 'The manager will give you a ticket.'",
+    "opts": [
+      "A ticket will be given to you by the manager.",
+      "You will be given a ticket by the manager.",
+      "Both A and B",
+      "None"
+    ]
+  },
+  {
+    "q": "Direct/Indirect: 'He said, \"I have been reading this book.\"'",
+    "opts": [
+      "He said that he had been reading that book.",
+      "He said he has been reading this book.",
+      "He told he had read that book.",
+      "He said that he is reading that book."
+    ]
+  },
+  {
+    "q": "Reading Comprehension Analysis: What is the primary tone of a passage discussing catastrophic climate failures?",
+    "opts": [
+      "Pessimistic / Objective",
+      "Joyful",
+      "Humorous",
+      "Apathetic"
+    ]
+  },
+  {
+    "q": "Cloze Test: The scientist was highly ___ by his peers for his groundbreaking research.",
+    "opts": [
+      "revered",
+      "ignored",
+      "criticized",
+      "demolished"
+    ]
+  },
+  {
+    "q": "Modifier Misplacement: Fix -> 'Running down the street, the tree caught my attention.'",
+    "opts": [
+      "As I was running down the street, the tree caught my attention.",
+      "Running down the street, my attention was caught by the tree.",
+      "The tree caught my attention running down the street.",
+      "No fix needed."
+    ]
+  },
+  {
+    "q": "Prepositions: She is completely averse ___ the idea of moving abroad.",
+    "opts": [
+      "to",
+      "from",
+      "against",
+      "with"
+    ]
+  },
+  {
+    "q": "Logical Deduction: If all Bloops are Razzies and all Razzies are Lazzies, then...",
+    "opts": [
+      "All Bloops are Lazzies",
+      "All Lazzies are Bloops",
+      "Some Bloops are not Lazzies",
+      "Cannot be determined"
+    ]
+  },
+  {
+    "q": "Tense Consistency: By the time the police arrived, the burglar ___.",
+    "opts": [
+      "had escaped",
+      "escaped",
+      "has escaped",
+      "was escaped"
+    ]
+  },
+  {
+    "q": "Vocabulary Root: The root 'phil' in philanthropy means:",
+    "opts": [
+      "Love",
+      "Hate",
+      "Light",
+      "Time"
+    ]
+  },
+  {
+    "q": "Idioms: To 'bite the bullet' means to:",
+    "opts": [
+      "Endure a painful experience bravely",
+      "Take a huge risk for money",
+      "Literally fight someone",
+      "Be indecisive"
+    ]
+  },
+  {
+    "q": "Phonology: Which word has a silent 'b'?",
+    "opts": [
+      "Doubt",
+      "Obtain",
+      "Symbol",
+      "Rubber"
+    ]
+  },
+  {
+    "q": "Punctuation: Which sentence is correctly punctuated?",
+    "opts": [
+      "Let's eat, Grandma!",
+      "Lets eat, Grandma!",
+      "Let's eat Grandma!",
+      "Lets eat Grandma!"
+    ]
+  },
+  {
+    "q": "Sentence Improvement: He is the smartest of the two brothers.",
+    "opts": [
+      "smarter of the two",
+      "smartest among the two",
+      "more smart of the two",
+      "No improvement"
+    ]
+  },
+  {
+    "q": "Semantic Ambiguity: 'I saw the man with the telescope.' This means:",
+    "opts": [
+      "I used it, or he had it (ambiguous)",
+      "I used the telescope",
+      "The man had the telescope",
+      "Neither"
+    ]
+  },
+  {
+    "q": "Parallelism: She likes cooking, jogging, and ___.",
+    "opts": [
+      "reading",
+      "to read",
+      "read",
+      "she reads"
+    ]
+  },
+  {
+    "q": "Subjunctive Mood: It is essential that he ___ his homework immediately.",
+    "opts": [
+      "finish",
+      "finishes",
+      "finished",
+      "will finish"
+    ]
+  },
+  {
+    "q": "Subject-Verb Concord: The bouquet of red roses ___ a beautiful aroma.",
+    "opts": [
+      "has",
+      "have",
+      "are having",
+      "were having"
+    ]
+  },
+  {
+    "q": "Sentence Improvement: Had he realized the implications of his actions, he ___ beforehand.",
+    "opts": [
+      "would have reconsidered",
+      "will reconsider",
+      "might reconsider",
+      "had reconsidered"
+    ]
+  },
+  {
+    "q": "Error Spotting: 'Scarcely had the minister started his speech than the crowd began to roar angrily.'",
+    "opts": [
+      "when the crowd began",
+      "than the crowd began",
+      "did the crowd begin",
+      "No error"
+    ]
+  },
+  {
+    "q": "Vocabulary: Choose the exact antonym for 'Obfuscate'.",
+    "opts": [
+      "Elucidate",
+      "Confuse",
+      "Amalgamate",
+      "Enervate"
+    ]
+  },
+  {
+    "q": "Parajumbles: Arrange -> P: but the conceptual Q: entirely empirical R: foundation is S: not.",
+    "opts": [
+      "PRSQ",
+      "PQRS",
+      "RQPS",
+      "SPQR"
+    ]
+  },
+  {
+    "q": "Active/Passive: Convert to Passive -> 'Someone has stolen my purse.'",
+    "opts": [
+      "My purse has been stolen.",
+      "My purse had been stolen.",
+      "Someone had stolen my purse.",
+      "My purse is stolen."
+    ]
+  },
+  {
+    "q": "Direct/Indirect: 'Please give me a glass of water,' she said to him.",
+    "opts": [
+      "She requested him to give her a glass of water.",
+      "She ordered him to give her a glass of water.",
+      "She told him to give me a glass of water.",
+      "She asked him to give a glass of water."
+    ]
+  },
+  {
+    "q": "Reading Comprehension Analysis: What is the primary tone of an editorial decrying political corruption?",
+    "opts": [
+      "Indignant",
+      "Sycophantic",
+      "Empathetic",
+      "Ambivalent"
+    ]
+  },
+  {
+    "q": "Cloze Test: The committee's decision was met with ___ approval from all members.",
+    "opts": [
+      "unanimous",
+      "equivocal",
+      "dissenting",
+      "trivial"
+    ]
+  },
+  {
+    "q": "Modifier Misplacement: Fix -> 'Covered in mud, she watched the dog run into the house.'",
+    "opts": [
+      "She watched the dog, covered in mud, run into the house.",
+      "She watched the dog run into the house, covered in mud.",
+      "Covered in mud, the dog ran into the house as she watched.",
+      "No fix needed."
+    ]
+  },
+  {
+    "q": "Prepositions: The management is fully apprised ___ the situation.",
+    "opts": [
+      "of",
+      "about",
+      "with",
+      "for"
+    ]
+  },
+  {
+    "q": "Logical Deduction: If all A's are B's and no B's are C's, then...",
+    "opts": [
+      "No A's are C's",
+      "Some A's are C's",
+      "All C's are A's",
+      "Cannot be determined"
+    ]
+  },
+  {
+    "q": "Tense Consistency: We ___ the meeting before the manager arrived.",
+    "opts": [
+      "had started",
+      "started",
+      "have started",
+      "were starting"
+    ]
+  },
+  {
+    "q": "Vocabulary Root: The root 'chron' in chronology means:",
+    "opts": [
+      "Time",
+      "Color",
+      "Measure",
+      "Sound"
+    ]
+  },
+  {
+    "q": "Idioms: To 'let the cat out of the bag' means to:",
+    "opts": [
+      "Reveal a secret",
+      "Release an animal",
+      "Make a mistake",
+      "Buy something unexpectedly"
+    ]
+  },
+  {
+    "q": "Phonology: Which word has a different vowel sound?",
+    "opts": [
+      "Bat",
+      "Cat",
+      "Mat",
+      "Call"
+    ]
+  },
+  {
+    "q": "Punctuation: Choose the correct sentence.",
+    "opts": [
+      "Its a beautiful day.",
+      "It's a beautiful day.",
+      "Its' a beautiful day.",
+      "It is a beautiful day,"
+    ]
+  },
+  {
+    "q": "Sentence Improvement: If I was you, I wouldn't do that.",
+    "opts": [
+      "were",
+      "am",
+      "had been",
+      "No improvement"
+    ]
+  },
+  {
+    "q": "Semantic Ambiguity: 'Visiting relatives can be boring.' means:",
+    "opts": [
+      "Going to see relatives",
+      "Relatives coming to see us",
+      "Both A and B",
+      "Neither"
+    ]
+  },
+  {
+    "q": "Parallelism: The teacher told the students to read, write, and ___ their answers.",
+    "opts": [
+      "review",
+      "to review",
+      "reviewing",
+      "reviewed"
+    ]
+  },
+  {
+    "q": "Subjunctive Mood: I demand that he ___ immediately.",
+    "opts": [
+      "leave",
+      "leaves",
+      "left",
+      "will leave"
+    ]
+  },
+  {
+    "q": "Subject-Verb Concord: A number of students ___ absent.",
+    "opts": [
+      "are",
+      "is",
+      "was",
+      "has been"
+    ]
+  },
+  {
+    "q": "Error Spotting: 'The furniture in this room are made of oak.'",
+    "opts": [
+      "is made",
+      "were made",
+      "has made",
+      "No error"
+    ]
+  },
+  {
+    "q": "Vocabulary: A person who hates mankind is a:",
+    "opts": [
+      "Misanthrope",
+      "Philanthropist",
+      "Misogynist",
+      "Introvert"
+    ]
+  },
+  {
+    "q": "Parajumbles: Arrange -> P: and it Q: profoundly changed R: scientific thinking S: forever.",
+    "opts": [
+      "PQRS",
+      "RQSP",
+      "SQRP",
+      "RSQP"
+    ]
+  },
+  {
+    "q": "Active/Passive: 'Who wrote this book?'",
+    "opts": [
+      "By whom was this book written?",
+      "Who was written this book?",
+      "This book was written by whom?",
+      "Whom wrote this book?"
+    ]
+  },
+  {
+    "q": "Direct/Indirect: 'I will go tomorrow,' he said.",
+    "opts": [
+      "He said he would go the next day.",
+      "He said he will go tomorrow.",
+      "He said he would go tomorrow.",
+      "He said he will go the next day."
+    ]
+  },
+  {
+    "q": "Prepositions: She congratulated him ___ his success.",
+    "opts": [
+      "on",
+      "for",
+      "about",
+      "with"
+    ]
+  },
+  {
+    "q": "Idioms: 'A piece of cake' means:",
+    "opts": [
+      "Very easy",
+      "Delicious",
+      "A small fraction",
+      "A sweet dessert"
+    ]
+  },
+  {
+    "q": "Tense Consistency: I have been knowing him for ten years.",
+    "opts": [
+      "have known",
+      "know",
+      "knew",
+      "No change"
+    ]
+  }
+]

@@ -42,12 +42,40 @@ export async function POST(req: Request) {
     const data = await response.json();
     
     let finalOutput = "";
+    let pistonFailed = false;
+
     if (data.compile && data.compile.code !== 0) {
         finalOutput = data.compile.stderr || data.compile.output;
     } else if (data.run) {
         finalOutput = data.run.stderr || data.run.output;
     } else {
         finalOutput = data.message || "Execution Matrix Error";
+        pistonFailed = true;
+    }
+
+    if (pistonFailed || finalOutput.includes("whitelist") || finalOutput.includes("Error")) {
+        // Fallback to local execution for testing since API is blocked
+        if (language !== "javascript" && language !== "python" && language !== "python3") {
+             return NextResponse.json({ output: "Compilation Error: The remote execution API was blocked/rate-limited, and local fallback does not support " + language.toUpperCase() + "." });
+        }
+
+        const tempFile = path.join(os.tmpdir(), `test_${Date.now()}.${language === "python" ? "py" : "js"}`);
+        fs.writeFileSync(tempFile, finalCode);
+        const command = language === "python" ? `python "${tempFile}"` : `node "${tempFile}"`;
+        
+        try {
+           const { stdout, stderr } = await new Promise<{stdout: string, stderr: string}>((resolve, reject) => {
+               exec(command, { timeout: 5000 }, (err, stdout, stderr) => {
+                   if (err && !stdout) resolve({ stdout: "", stderr: stderr || err.message });
+                   else resolve({ stdout, stderr });
+               });
+           });
+           finalOutput = stdout || stderr;
+        } catch (e: any) {
+           finalOutput = e.message;
+        } finally {
+           try { fs.unlinkSync(tempFile); } catch(e){}
+        }
     }
 
     return NextResponse.json({ output: finalOutput.trim() || 'No Output' });

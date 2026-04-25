@@ -1,0 +1,452 @@
+[
+  {
+    "q": "Number System: Find the largest number of four digits exactly divisible by 12, 15, 18, and 27.",
+    "opts": [
+      "9720",
+      "9930",
+      "9960",
+      "9990"
+    ]
+  },
+  {
+    "q": "Ratio & Proportion: A bag contains rupees, 50-paise and 25-paise coins in the ratio 5:6:8. If the total amount is Rs.210, find the number of 25-paise coins.",
+    "opts": [
+      "168",
+      "120",
+      "144",
+      "100"
+    ]
+  },
+  {
+    "q": "Probability: Two dice are thrown simultaneously. What is the probability of getting two numbers whose product is even?",
+    "opts": [
+      "1/2",
+      "3/4",
+      "5/8",
+      "7/12"
+    ]
+  },
+  {
+    "q": "Time & Work: A can do a piece of work in 24 days. If B is 60% more efficient than A, then how many days does B require to do the same work?",
+    "opts": [
+      "15 days",
+      "12 days",
+      "18 days",
+      "20 days"
+    ]
+  },
+  {
+    "q": "Speed & Distance: A train running at 54 km/hr crosses a platform in 20 seconds. If the length of the train is 150m, what is the length of the platform?",
+    "opts": [
+      "150 m",
+      "250 m",
+      "300 m",
+      "100 m"
+    ]
+  },
+  {
+    "q": "Algebra: If x + 1/x = 5, find the value of x^3 + 1/x^3.",
+    "opts": [
+      "110",
+      "125",
+      "115",
+      "100"
+    ]
+  },
+  {
+    "q": "Geometry: A triangle has sides 5, 12, and 13. What is the radius of the inscribed circle?",
+    "opts": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "q": "Trigonometry: In a right angled triangle, if tan(A) = 3/4, what is the value of cos(A)?",
+    "opts": [
+      "4/5",
+      "3/5",
+      "5/4",
+      "1/2"
+    ]
+  },
+  {
+    "q": "Clocks: What is the angle between the minute hand and the hour hand of a clock at 3:40?",
+    "opts": [
+      "130 degrees",
+      "140 degrees",
+      "150 degrees",
+      "160 degrees"
+    ]
+  },
+  {
+    "q": "Calendars: What day of the week was on 15th August 1947?",
+    "opts": [
+      "Friday",
+      "Monday",
+      "Wednesday",
+      "Saturday"
+    ]
+  },
+  {
+    "q": "Profit & Loss: A merchant marks his goods up by 50% and then offers a discount on the marked price. If he makes a 20% profit, what is the discount percentage?",
+    "opts": [
+      "20%",
+      "25%",
+      "30%",
+      "15%"
+    ]
+  },
+  {
+    "q": "Logarithms: If log(2) = 0.3010 and log(3) = 0.4771, find the value of log(72).",
+    "opts": [
+      "1.8573",
+      "1.9542",
+      "2.1245",
+      "1.5643"
+    ]
+  },
+  {
+    "q": "Combinatorics: In how many ways can a committee of 5 be formed from 6 men and 4 women if at least 2 women must be included?",
+    "opts": [
+      "186",
+      "240",
+      "150",
+      "200"
+    ]
+  },
+  {
+    "q": "Mixture: A container contains 40 litres of milk. From this, 4 litres of milk was taken out and replaced by water. This process was repeated further two times. How much milk is now in the container?",
+    "opts": [
+      "29.16 L",
+      "30 L",
+      "28.5 L",
+      "32.1 L"
+    ]
+  },
+  {
+    "q": "Simple Interest: At what rate percent per annum will a sum of money double in 16 years?",
+    "opts": [
+      "6.25%",
+      "8%",
+      "10%",
+      "5%"
+    ]
+  },
+  {
+    "q": "Ages: The present ages of A and B are in the ratio 4:5. Eight years hence, the ratio of their ages will be 5:6. What is A's present age?",
+    "opts": [
+      "32 years",
+      "40 years",
+      "24 years",
+      "28 years"
+    ]
+  },
+  {
+    "q": "Data Interpretation: From a dataset of 5, 9, x, 14, 21, if the mean is 12, what is the value of x?",
+    "opts": [
+      "11",
+      "12",
+      "10",
+      "13"
+    ]
+  },
+  {
+    "q": "Mensuration: If the radius of a cylinder is doubled and its height is halved, by what percent does its volume increase?",
+    "opts": [
+      "100%",
+      "50%",
+      "200%",
+      "No change"
+    ]
+  },
+  {
+    "q": "Pipes & Cisterns: Pipe A can fill a tank in 10 hours, B in 15 hours. If both are opened together, how long will it take?",
+    "opts": [
+      "6 hours",
+      "8 hours",
+      "5 hours",
+      "12 hours"
+    ]
+  },
+  {
+    "q": "Permutations: How many unique string sets can be formed by rearranging ALGORITHM?",
+    "opts": [
+      "362880",
+      "40320",
+      "5040",
+      "2560"
+    ]
+  },
+  {
+    "q": "Number Theory: If 2^x = 3^y = 6^-z, what is the value of 1/x + 1/y + 1/z?",
+    "opts": [
+      "0",
+      "1",
+      "-1",
+      "Cannot be determined"
+    ]
+  },
+  {
+    "q": "Probability: In a group of 50 people, what is the probability that at least two people share the same birthday?",
+    "opts": [
+      "~97%",
+      "~50%",
+      "~10%",
+      "~99%"
+    ]
+  },
+  {
+    "q": "Combinatorics: A spider has 8 distinguishable legs. It wants to put on 8 socks and 8 shoes, one on each leg. The sock must go on before the shoe. How many orders are possible?",
+    "opts": [
+      "16! / 2^8",
+      "16!",
+      "8! * 8!",
+      "(16! * 8!) / 2"
+    ]
+  },
+  {
+    "q": "Geometry: A point P is inside an equilateral triangle. Its perpendicular distances from the three sides are 3, 4, and 5. What is the side length of the triangle?",
+    "opts": [
+      "8√3",
+      "12",
+      "16",
+      "24/√3"
+    ]
+  },
+  {
+    "q": "Algebra: Evaluate the infinite nested radical √(2 + √(2 + √(2 + ...)))",
+    "opts": [
+      "2",
+      "1",
+      "Undefined",
+      "Infinity"
+    ]
+  },
+  {
+    "q": "Number Theory: Find the remainder when 3^2022 is divided by 5.",
+    "opts": [
+      "4",
+      "1",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "q": "Probability: Three points are chosen independently at random on the circumference of a circle. What is the probability that the triangle formed by them contains the center?",
+    "opts": [
+      "1/4",
+      "1/8",
+      "1/2",
+      "1/3"
+    ]
+  },
+  {
+    "q": "Work & Time: A takes as much time as B and C together. B takes 3 times as much time as C and A together. If C takes 20 days, how long do A, B, and C take together?",
+    "opts": [
+      "4 days",
+      "5 days",
+      "3.33 days",
+      "6 days"
+    ]
+  },
+  {
+    "q": "Permutations: Determine the number of ways to arrange the letters of the word 'ASSASSINATION' such that no two A's are adjacent.",
+    "opts": [
+      "10!/ (4!*2!*2!) * 11C3",
+      "13! / (4!*3!*2!*2!)",
+      "11! / (4!*2!*2!)",
+      "None of these"
+    ]
+  },
+  {
+    "q": "Game Theory: Two players play a game starting with 100 on a board. At each turn, a player can subtract a divisor of the current number (but not the number itself). The player unable to make a move loses. Who wins?",
+    "opts": [
+      "First Player",
+      "Second Player",
+      "Draw",
+      "Depends on initial moves"
+    ]
+  },
+  {
+    "q": "Algebra: If f(x) = (x^2+1)/(x), what is the minimum value of f(x) for x > 0?",
+    "opts": [
+      "2",
+      "1",
+      "0",
+      "-2"
+    ]
+  },
+  {
+    "q": "Combinatorics: How many paths are there from (0,0) to (5,5) on a grid moving only up and right?",
+    "opts": [
+      "252",
+      "120",
+      "25",
+      "10^5"
+    ]
+  },
+  {
+    "q": "Probability: Two numbers are chosen randomly between 0 and 1. What is the probability that their sum is less than 1?",
+    "opts": [
+      "1/2",
+      "1",
+      "1/4",
+      "1/8"
+    ]
+  },
+  {
+    "q": "Number Theory: What is the last digit of 7^2023?",
+    "opts": [
+      "3",
+      "7",
+      "9",
+      "1"
+    ]
+  },
+  {
+    "q": "Mixture: 20L of 30% alcohol is mixed with 30L of 60% alcohol. What is the final concentration?",
+    "opts": [
+      "48%",
+      "45%",
+      "50%",
+      "42%"
+    ]
+  },
+  {
+    "q": "Speed & Distance: Two trains start towards each other from A and B. After crossing, they take 4h and 9h to reach B and A. Find ratio of speeds.",
+    "opts": [
+      "3:2",
+      "2:3",
+      "4:9",
+      "Inconclusive"
+    ]
+  },
+  {
+    "q": "Work & Time: A and B can do a job in 12 days, B and C in 15 days, C and A in 20 days. How long for A alone?",
+    "opts": [
+      "30",
+      "60",
+      "24",
+      "45"
+    ]
+  },
+  {
+    "q": "Geometry: A cube of side 4 is cut into smaller cubes of side 1. The ratio of new surface area to old is?",
+    "opts": [
+      "4:1",
+      "1:4",
+      "2:1",
+      "16:1"
+    ]
+  },
+  {
+    "q": "Probability: 3 coins are tossed. Probability of getting exactly 2 heads?",
+    "opts": [
+      "3/8",
+      "1/8",
+      "1/4",
+      "1/2"
+    ]
+  },
+  {
+    "q": "Algebra: Sum of roots of x^3 - 6x^2 + 11x - 6 = 0 is?",
+    "opts": [
+      "6",
+      "-6",
+      "11",
+      "-11"
+    ]
+  },
+  {
+    "q": "Number Theory: The number of trailing zeros in 100! is?",
+    "opts": [
+      "24",
+      "21",
+      "20",
+      "25"
+    ]
+  },
+  {
+    "q": "Profit & Loss: A man sells two articles at Rs99 each. One at 10% profit, other at 10% loss. Net result?",
+    "opts": [
+      "Loss 1%",
+      "No profit no loss",
+      "Profit 1%",
+      "Loss 2%"
+    ]
+  },
+  {
+    "q": "Clock: Angle between hands at 4:15?",
+    "opts": [
+      "37.5",
+      "30",
+      "45",
+      "42.5"
+    ]
+  },
+  {
+    "q": "Trig: Max value of 3sin(x) + 4cos(x)?",
+    "opts": [
+      "5",
+      "7",
+      "1",
+      "12"
+    ]
+  },
+  {
+    "q": "Permutations: Words from 'MISSISSIPPI'?",
+    "opts": [
+      "34650",
+      "39916800",
+      "495",
+      "11!"
+    ]
+  },
+  {
+    "q": "Venn: In a class, 40 like Math, 30 like Science, 10 like both. Total?",
+    "opts": [
+      "60",
+      "70",
+      "50",
+      "80"
+    ]
+  },
+  {
+    "q": "Interest: Difference between CI and SI on Rs1000 for 2 yrs at 10%?",
+    "opts": [
+      "10",
+      "100",
+      "0",
+      "20"
+    ]
+  },
+  {
+    "q": "Age: Father is 3x son. In 10 years, he will be 2x. Father's current age?",
+    "opts": [
+      "30",
+      "40",
+      "45",
+      "50"
+    ]
+  },
+  {
+    "q": "Pipes: Pipe A fills in 4h, B in 6h. C empties in 12h. Together they fill in?",
+    "opts": [
+      "3h",
+      "2h",
+      "4h",
+      "5h"
+    ]
+  },
+  {
+    "q": "Dist: A walks at 4kmph and reaches 10min late. At 5kmph he is 5min early. Distance?",
+    "opts": [
+      "5km",
+      "4km",
+      "10km",
+      "6km"
+    ]
+  }
+]

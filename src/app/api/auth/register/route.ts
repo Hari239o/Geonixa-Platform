@@ -50,10 +50,7 @@ export async function POST(req: Request) {
         });
     }
 
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const dateOptions: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const examDate = tomorrow.toLocaleDateString("en-US", dateOptions) + " at 10:00 AM IST";
+    // Removed specific date generation to prevent Gmail AI Event extraction
 
     const mncHtmlTemplate = `
       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; max-width: 650px; margin: 0 auto; border: 1px solid #e2e8f0; border-top: 5px solid #0f172a; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
@@ -66,13 +63,13 @@ export async function POST(req: Request) {
         </div>
         <div style="padding: 40px 30px;">
           <h2 style="margin-top: 0; color: #1e293b; font-size: 20px;">Dear ${name || 'Candidate'},</h2>
-          <p style="line-height: 1.6; color: #334155;">Congratulations! Your profile originating from <strong>${college || 'your institution'}</strong> has been successfully shortlisted for the <strong>${domain || 'specialized'}</strong> role. You are hereby invited to attend the mandatory <strong>AI-Proctored Technical Assessment</strong> as the first round of the evaluation structure.</p>
+          <p style="line-height: 1.6; color: #334155;">Congratulations! Your profile originating from <strong>${college || 'your institution'}</strong> has been approved for the <strong>${domain || 'specialized'}</strong> skill evaluation phase. You are hereby invited to attend the mandatory <strong>AI-Proctored Technical Assessment</strong> as the first round of the evaluation structure.</p>
           
           <div style="background-color: #f1f5f9; padding: 20px; border-radius: 8px; margin: 30px 0; border: 1px dashed #cbd5e1;">
             <h3 style="margin: 0 0 15px; color: #0f172a; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">Strict Assessment Credentials</h3>
             <ul style="margin: 0; padding: 0; list-style: none;">
               <li style="margin-bottom: 10px; display: flex;"><strong style="width: 150px; color: #475569;">Target Role:</strong> <span>${domain || 'Software Assessment'}</span></li>
-              <li style="margin-bottom: 10px; display: flex;"><strong style="width: 150px; color: #475569;">Mandatory Date:</strong> <span style="font-weight: 600; color: #b91c1c;">${examDate}</span></li>
+              <li style="margin-bottom: 10px; display: flex;"><strong style="width: 150px; color: #475569;">Access Window:</strong> <span style="font-weight: 600; color: #b91c1c;">Valid for 48 Hours</span></li>
               <li style="margin-bottom: 10px; display: flex;"><strong style="width: 150px; color: #475569;">Duration Allowed:</strong> <span>55 Minutes (Time Constrained)</span></li>
               <li style="margin-bottom: 10px; display: flex;"><strong style="width: 150px; color: #475569;">Allocated Login ID:</strong> <span>${email}</span></li>
               <li style="display: flex; align-items: center;"><strong style="width: 150px; color: #475569;">Secure Pass-Key:</strong> <span style="font-family: monospace; background: #22c55e; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; letter-spacing: 2px;">${password}</span></li>

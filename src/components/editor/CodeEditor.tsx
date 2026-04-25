@@ -29,7 +29,15 @@ export default function CodeEditor({ initialCode, language: initialLanguage, tes
   );
 
   useEffect(() => {
-    if (selectedLanguage === "python" && code.includes("function ")) {
+    if (selectedLanguage === "java") {
+        setCode(`// Online Java Compiler\n// Use this editor to write, compile and run your Java code online\n\nclass Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}`);
+    } else if (selectedLanguage === "cpp") {
+        setCode(`// Online C++ Compiler\n\n#include <iostream>\n\nint main() {\n    std::cout << "Hello, World!";\n    return 0;\n}`);
+    } else if (selectedLanguage === "c") {
+        setCode(`// Online C Compiler\n\n#include <stdio.h>\n\nint main() {\n    printf("Hello, World!");\n    return 0;\n}`);
+    } else if (selectedLanguage === "csharp") {
+        setCode(`// Online C# Compiler\n\nusing System;\n\nclass HelloWorld {\n    static void Main() {\n        Console.WriteLine("Hello, World!");\n    }\n}`);
+    } else if (selectedLanguage === "python" && code.includes("function ")) {
        const strippedLogs = code.replace(/console\.log\(.*\);?/g, "");
        const rep = strippedLogs.replace(/function ([a-zA-Z0-9_]+)\((.*)\) \{[\s\S]*?\}/, "def $1($2):\n    pass").trim();
        setCode(rep);
@@ -77,18 +85,18 @@ export default function CodeEditor({ initialCode, language: initialLanguage, tes
            let userStdout = rawExecutionOutput.trim();
            
            if (rawExecutionOutput.includes("----GEONIXA_EVAL----")) {
-              const parts = rawExecutionOutput.split("----GEONIXA_EVAL----");
-              const candidateLogs = parts[0].trim();
-              const evalValue = parts[parts.length - 1].trim();
-              
-              finalTargetOutput = evalValue;
-              
-              if (candidateLogs) {
-                 userStdout = `[Diagnostics]:\n${candidateLogs}\n\n[Returned]: ${evalValue}`;
-              } else {
-                 userStdout = evalValue;
-              }
-           }
+               const parts = rawExecutionOutput.split("----GEONIXA_EVAL----");
+               const candidateLogs = parts[0].trim();
+               const evalValue = parts[parts.length - 1].trim();
+               
+               finalTargetOutput = evalValue;
+               
+               if (candidateLogs && candidateLogs !== "undefined") {
+                  userStdout = `[Diagnostics]:\n${candidateLogs}\n\n[Returned]: ${evalValue}`;
+               } else {
+                  userStdout = `[Returned]: ${evalValue}`;
+               }
+            }
 
            const cleanFormat = (s: string) => (s || "").toString().replace(/\s+/g, "").toLowerCase().replace(/'/g, '"');
            

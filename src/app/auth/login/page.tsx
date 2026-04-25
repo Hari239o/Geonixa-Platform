@@ -9,8 +9,8 @@ export default function Login() {
     e.preventDefault();
     if (typeof window !== "undefined") {
       // Hardcoded explicit Admin Details requirement
-      if (email === "harikishorereddy9908@gmail.com") {
-        if (password === "Hari@9908") {
+      if (email === "talent@geonixa.com") {
+        if (password === "Talent@9908") {
           localStorage.setItem("geonixa_current_user", email);
           window.location.href = "/admin/dashboard";
           return;
@@ -27,7 +27,7 @@ export default function Login() {
       if (status === "SUCCESS") {
         localStorage.setItem("geonixa_current_user", email);
         alert(`Authentication Confirmed.\nVerified secure pipeline for ${email}. Access authorized.`);
-        window.location.href = "/student/dashboard";
+        window.location.href = "/exam/123";
       } else if (status === "INVALID_PASS") {
         alert("Standard authentication verification failed! Incorrect Exam Password.");
       } else {

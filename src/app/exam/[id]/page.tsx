@@ -53,18 +53,54 @@ export default function ExamSession({ params }: { params: { id: string } }) {
     network: false,
   });
 
+  const isExamActiveRef = useRef(true);
+  const severeWarningCountRef = useRef(0);
+  const noiseWarningCountRef = useRef(0);
+  const lastNoiseWarningTimeRef = useRef(0);
+  
+  useEffect(() => {
+    isExamActiveRef.current = examState === "ACTIVE";
+  }, [examState]);
+
   const handleFinalSubmit = async () => {
+    isExamActiveRef.current = false;
     try {
       const currentUser = typeof window !== "undefined" ? localStorage.getItem("geonixa_current_user") || "anonymous" : "anonymous";
       const typingLines = typingText.split('\n').length;
-      await storeExamAnswers(currentUser, { aiQuests: aiQuestions, codingProgress, finalRoundCompleted: true, r1Answers, r2Answers, typingLines, backspacesUsed: backspaceCount });
+
+      // Compute structured results for the database
+      const r1Results = r1List.map((q, i) => ({
+        question: q.q,
+        selected: r1Answers[i] || "Not Attempted",
+        correct: q.correctAnswer || q.opts[0],
+        isRight: r1Answers[i] === (q.correctAnswer || q.opts[0])
+      }));
+
+      const r2Results = r2List.map((q, i) => ({
+        question: q.q,
+        selected: r2Answers[i] || "Not Attempted",
+        correct: q.correctAnswer || q.opts[0],
+        isRight: r2Answers[i] === (q.correctAnswer || q.opts[0])
+      }));
+
+      await storeExamAnswers(currentUser, { 
+        aiQuests: aiQuestions, 
+        codingProgress, 
+        finalRoundCompleted: true, 
+        r1Answers, 
+        r2Answers, 
+        r1Results,
+        r2Results,
+        typingLines, 
+        backspacesUsed: backspaceCount 
+      });
     } catch (e) { }
     setExamState("SUBMITTED");
     if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => { });
   };
 
   useEffect(() => {
-    if (examState === "ACTIVE" && roundTimes[currentRound as keyof typeof timeLimits] > 0) {
+    if (examState === "ACTIVE") {
       const timer = setInterval(() => {
         setRoundTimes(prev => {
           const currentLeft = prev[currentRound as keyof typeof timeLimits];
@@ -73,7 +109,10 @@ export default function ExamSession({ params }: { params: { id: string } }) {
               setCurrentRound(c => c + 1);
             } else {
               handleFinalSubmit();
-              alert("Time is up! Your exam has been automatically submitted.");
+              // Prevent multiple alerts if interval triggers right before cleanup
+              if (currentLeft === 1) {
+                alert("Time is up! Your exam has been automatically submitted.");
+              }
             }
             return { ...prev, [currentRound]: 0 };
           }
@@ -82,7 +121,7 @@ export default function ExamSession({ params }: { params: { id: string } }) {
       }, 1000);
       return () => clearInterval(timer);
     }
-  }, [examState, currentRound, roundTimes]);
+  }, [examState, currentRound]);
 
   // Exam Persistance to prevent 2nd chance
   useEffect(() => {
@@ -220,6 +259,36 @@ export default function ExamSession({ params }: { params: { id: string } }) {
       { q: "Mensuration: If the radius of a cylinder is doubled and its height is halved, by what percent does its volume increase?", opts: ["100%", "50%", "200%", "No change"] },
       { q: "Pipes & Cisterns: Pipe A can fill a tank in 10 hours, B in 15 hours. If both are opened together, how long will it take?", opts: ["6 hours", "8 hours", "5 hours", "12 hours"] },
       { q: "Permutations: How many unique string sets can be formed by rearranging ALGORITHM?", opts: ["362880", "40320", "5040", "2560"] },
+      { q: "Number Theory: If 2^x = 3^y = 6^-z, what is the value of 1/x + 1/y + 1/z?", opts: ["0", "1", "-1", "Cannot be determined"] },
+      { q: "Probability: In a group of 50 people, what is the probability that at least two people share the same birthday?", opts: ["~97%", "~50%", "~10%", "~99%"] },
+      { q: "Combinatorics: A spider has 8 distinguishable legs. It wants to put on 8 socks and 8 shoes, one on each leg. The sock must go on before the shoe. How many orders are possible?", opts: ["16! / 2^8", "16!", "8! * 8!", "(16! * 8!) / 2"] },
+      { q: "Geometry: A point P is inside an equilateral triangle. Its perpendicular distances from the three sides are 3, 4, and 5. What is the side length of the triangle?", opts: ["8√3", "12", "16", "24/√3"] },
+      { q: "Algebra: Evaluate the infinite nested radical √(2 + √(2 + √(2 + ...)))", opts: ["2", "1", "Undefined", "Infinity"] },
+      { q: "Number Theory: Find the remainder when 3^2022 is divided by 5.", opts: ["4", "1", "2", "3"] },
+      { q: "Probability: Three points are chosen independently at random on the circumference of a circle. What is the probability that the triangle formed by them contains the center?", opts: ["1/4", "1/8", "1/2", "1/3"] },
+      { q: "Work & Time: A takes as much time as B and C together. B takes 3 times as much time as C and A together. If C takes 20 days, how long do A, B, and C take together?", opts: ["4 days", "5 days", "3.33 days", "6 days"] },
+      { q: "Permutations: Determine the number of ways to arrange the letters of the word 'ASSASSINATION' such that no two A's are adjacent.", opts: ["10!/ (4!*2!*2!) * 11C3", "13! / (4!*3!*2!*2!)", "11! / (4!*2!*2!)", "None of these"] },
+      { q: "Game Theory: Two players play a game starting with 100 on a board. At each turn, a player can subtract a divisor of the current number (but not the number itself). The player unable to make a move loses. Who wins?", opts: ["First Player", "Second Player", "Draw", "Depends on initial moves"] },
+      { q: "Algebra: If f(x) = (x^2+1)/(x), what is the minimum value of f(x) for x > 0?", opts: ["2", "1", "0", "-2"] },
+      { q: "Combinatorics: How many paths are there from (0,0) to (5,5) on a grid moving only up and right?", opts: ["252", "120", "25", "10^5"] },
+      { q: "Probability: Two numbers are chosen randomly between 0 and 1. What is the probability that their sum is less than 1?", opts: ["1/2", "1", "1/4", "1/8"] },
+      { q: "Number Theory: What is the last digit of 7^2023?", opts: ["3", "7", "9", "1"] },
+      { q: "Mixture: 20L of 30% alcohol is mixed with 30L of 60% alcohol. What is the final concentration?", opts: ["48%", "45%", "50%", "42%"] },
+      { q: "Speed & Distance: Two trains start towards each other from A and B. After crossing, they take 4h and 9h to reach B and A. Find ratio of speeds.", opts: ["3:2", "2:3", "4:9", "Inconclusive"] },
+      { q: "Work & Time: A and B can do a job in 12 days, B and C in 15 days, C and A in 20 days. How long for A alone?", opts: ["30", "60", "24", "45"] },
+      { q: "Geometry: A cube of side 4 is cut into smaller cubes of side 1. The ratio of new surface area to old is?", opts: ["4:1", "1:4", "2:1", "16:1"] },
+      { q: "Probability: 3 coins are tossed. Probability of getting exactly 2 heads?", opts: ["3/8", "1/8", "1/4", "1/2"] },
+      { q: "Algebra: Sum of roots of x^3 - 6x^2 + 11x - 6 = 0 is?", opts: ["6", "-6", "11", "-11"] },
+      { q: "Number Theory: The number of trailing zeros in 100! is?", opts: ["24", "21", "20", "25"] },
+      { q: "Profit & Loss: A man sells two articles at Rs99 each. One at 10% profit, other at 10% loss. Net result?", opts: ["Loss 1%", "No profit no loss", "Profit 1%", "Loss 2%"] },
+      { q: "Clock: Angle between hands at 4:15?", opts: ["37.5", "30", "45", "42.5"] },
+      { q: "Trig: Max value of 3sin(x) + 4cos(x)?", opts: ["5", "7", "1", "12"] },
+      { q: "Permutations: Words from 'MISSISSIPPI'?", opts: ["34650", "39916800", "495", "11!"] },
+      { q: "Venn: In a class, 40 like Math, 30 like Science, 10 like both. Total?", opts: ["60", "70", "50", "80"] },
+      { q: "Interest: Difference between CI and SI on Rs1000 for 2 yrs at 10%?", opts: ["10", "100", "0", "20"] },
+      { q: "Age: Father is 3x son. In 10 years, he will be 2x. Father's current age?", opts: ["30", "40", "45", "50"] },
+      { q: "Pipes: Pipe A fills in 4h, B in 6h. C empties in 12h. Together they fill in?", opts: ["3h", "2h", "4h", "5h"] },
+      { q: "Dist: A walks at 4kmph and reaches 10min late. At 5kmph he is 5min early. Distance?", opts: ["5km", "4km", "10km", "6km"] },
     ];
 
     const allGrammar = [
@@ -243,6 +312,35 @@ export default function ExamSession({ params }: { params: { id: string } }) {
       { q: "Parallelism: She likes cooking, jogging, and ___.", opts: ["reading", "to read", "read", "she reads"] },
       { q: "Subjunctive Mood: It is essential that he ___ his homework immediately.", opts: ["finish", "finishes", "finished", "will finish"] },
       { q: "Subject-Verb Concord: The bouquet of red roses ___ a beautiful aroma.", opts: ["has", "have", "are having", "were having"] },
+      { q: "Sentence Improvement: Had he realized the implications of his actions, he ___ beforehand.", opts: ["would have reconsidered", "will reconsider", "might reconsider", "had reconsidered"] },
+      { q: "Error Spotting: 'Scarcely had the minister started his speech than the crowd began to roar angrily.'", opts: ["when the crowd began", "than the crowd began", "did the crowd begin", "No error"] },
+      { q: "Vocabulary: Choose the exact antonym for 'Obfuscate'.", opts: ["Elucidate", "Confuse", "Amalgamate", "Enervate"] },
+      { q: "Parajumbles: Arrange -> P: but the conceptual Q: entirely empirical R: foundation is S: not.", opts: ["PRSQ", "PQRS", "RQPS", "SPQR"] },
+      { q: "Active/Passive: Convert to Passive -> 'Someone has stolen my purse.'", opts: ["My purse has been stolen.", "My purse had been stolen.", "Someone had stolen my purse.", "My purse is stolen."] },
+      { q: "Direct/Indirect: 'Please give me a glass of water,' she said to him.", opts: ["She requested him to give her a glass of water.", "She ordered him to give her a glass of water.", "She told him to give me a glass of water.", "She asked him to give a glass of water."] },
+      { q: "Reading Comprehension Analysis: What is the primary tone of an editorial decrying political corruption?", opts: ["Indignant", "Sycophantic", "Empathetic", "Ambivalent"] },
+      { q: "Cloze Test: The committee's decision was met with ___ approval from all members.", opts: ["unanimous", "equivocal", "dissenting", "trivial"] },
+      { q: "Modifier Misplacement: Fix -> 'Covered in mud, she watched the dog run into the house.'", opts: ["She watched the dog, covered in mud, run into the house.", "She watched the dog run into the house, covered in mud.", "Covered in mud, the dog ran into the house as she watched.", "No fix needed."] },
+      { q: "Prepositions: The management is fully apprised ___ the situation.", opts: ["of", "about", "with", "for"] },
+      { q: "Logical Deduction: If all A's are B's and no B's are C's, then...", opts: ["No A's are C's", "Some A's are C's", "All C's are A's", "Cannot be determined"] },
+      { q: "Tense Consistency: We ___ the meeting before the manager arrived.", opts: ["had started", "started", "have started", "were starting"] },
+      { q: "Vocabulary Root: The root 'chron' in chronology means:", opts: ["Time", "Color", "Measure", "Sound"] },
+      { q: "Idioms: To 'let the cat out of the bag' means to:", opts: ["Reveal a secret", "Release an animal", "Make a mistake", "Buy something unexpectedly"] },
+      { q: "Phonology: Which word has a different vowel sound?", opts: ["Bat", "Cat", "Mat", "Call"] },
+      { q: "Punctuation: Choose the correct sentence.", opts: ["Its a beautiful day.", "It's a beautiful day.", "Its' a beautiful day.", "It is a beautiful day,"] },
+      { q: "Sentence Improvement: If I was you, I wouldn't do that.", opts: ["were", "am", "had been", "No improvement"] },
+      { q: "Semantic Ambiguity: 'Visiting relatives can be boring.' means:", opts: ["Going to see relatives", "Relatives coming to see us", "Both A and B", "Neither"] },
+      { q: "Parallelism: The teacher told the students to read, write, and ___ their answers.", opts: ["review", "to review", "reviewing", "reviewed"] },
+      { q: "Subjunctive Mood: I demand that he ___ immediately.", opts: ["leave", "leaves", "left", "will leave"] },
+      { q: "Subject-Verb Concord: A number of students ___ absent.", opts: ["are", "is", "was", "has been"] },
+      { q: "Error Spotting: 'The furniture in this room are made of oak.'", opts: ["is made", "were made", "has made", "No error"] },
+      { q: "Vocabulary: A person who hates mankind is a:", opts: ["Misanthrope", "Philanthropist", "Misogynist", "Introvert"] },
+      { q: "Parajumbles: Arrange -> P: and it Q: profoundly changed R: scientific thinking S: forever.", opts: ["PQRS", "RQSP", "SQRP", "RSQP"] },
+      { q: "Active/Passive: 'Who wrote this book?'", opts: ["By whom was this book written?", "Who was written this book?", "This book was written by whom?", "Whom wrote this book?"] },
+      { q: "Direct/Indirect: 'I will go tomorrow,' he said.", opts: ["He said he would go the next day.", "He said he will go tomorrow.", "He said he would go tomorrow.", "He said he will go the next day."] },
+      { q: "Prepositions: She congratulated him ___ his success.", opts: ["on", "for", "about", "with"] },
+      { q: "Idioms: 'A piece of cake' means:", opts: ["Very easy", "Delicious", "A small fraction", "A sweet dessert"] },
+      { q: "Tense Consistency: I have been knowing him for ten years.", opts: ["have known", "know", "knew", "No change"] },
     ];
 
     // Seed Randomness globally for diversity across logins
@@ -252,9 +350,15 @@ export default function ExamSession({ params }: { params: { id: string } }) {
 
     const seededShuffle = (array: any[]) => array.sort(() => 0.5 - Math.random());
 
+    const shuffleOpts = (list: any[]) => list.map(q => ({
+      ...q,
+      correctAnswer: q.opts[0],
+      opts: seededShuffle([...q.opts])
+    }));
+
     setAiQuestions(seededShuffle([...hardLeetcodePool]).slice(0, 3));
-    setR1List(seededShuffle([...allAptitude]).slice(0, 15));
-    setR2List(seededShuffle([...allGrammar]).slice(0, 15));
+    setR1List(shuffleOpts(seededShuffle([...allAptitude]).slice(0, 30)));
+    setR2List(shuffleOpts(seededShuffle([...allGrammar]).slice(0, 30)));
 
   }, []);
 
@@ -269,19 +373,26 @@ export default function ExamSession({ params }: { params: { id: string } }) {
     const disableContext = (e: MouseEvent) => e.preventDefault();
     const disableCopyPaste = (e: ClipboardEvent) => {
       e.preventDefault();
-      alert("Copy/Paste is strictly disabled.");
+      handleProctorViolation("COPY_PASTE", "Copy/Paste is strictly disabled.");
+    };
+    const detectScreenshot = (e: KeyboardEvent) => {
+      if (e.key === "PrintScreen" || (e.metaKey && e.shiftKey) || (e.metaKey && e.shiftKey && e.key.toLowerCase() === 's')) {
+        handleProctorViolation("SCREENSHOT", "Screenshot or Screen Snip detected!");
+      }
     };
 
     if (examState === "ACTIVE") {
       document.addEventListener("contextmenu", disableContext);
       document.addEventListener("copy", disableCopyPaste);
       document.addEventListener("paste", disableCopyPaste);
+      window.addEventListener("keyup", detectScreenshot);
     }
 
     return () => {
       document.removeEventListener("contextmenu", disableContext);
       document.removeEventListener("copy", disableCopyPaste);
       document.removeEventListener("paste", disableCopyPaste);
+      window.removeEventListener("keyup", detectScreenshot);
     };
   }, [examState]);
 
@@ -331,33 +442,77 @@ export default function ExamSession({ params }: { params: { id: string } }) {
   };
 
   const handleProctorViolation = (type: string, message: string) => {
+    if (!isExamActiveRef.current) return; // Completely ignore violations if submitted
+
     if (type === "TAB_SWITCH") {
+      isExamActiveRef.current = false;
       setExamState("SUBMITTED");
-      if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen();
+      if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => {});
       alert("CRITICAL VIOLATION: Tab switch detected! Your exam has been automatically submitted and nullified.");
       handleFinalSubmit();
       return;
     }
 
-    setWarnings(prev => {
-      const newWarnings = [...prev, `AI FLAG [${new Date().toLocaleTimeString()}]: ${message}`];
-      alert(`SYSTEM WARNING: ${message}\n\nYou have ${3 - newWarnings.length} warnings remaining before automatic forceful submission.`);
-      if (newWarnings.length >= 3 && examState === "ACTIVE") {
-        alert("CRITICAL VIOLATION LIMIT TRIGGERED! 3 AI Warnings Recorded. Submitting assessment permanently.");
+    const now = Date.now();
+    const isSevere = type === "VISUAL" || type === "SCREENSHOT" || type === "COPY_PASTE";
+
+    if (isSevere) {
+        severeWarningCountRef.current += 1;
+        const sCount = severeWarningCountRef.current;
+        setWarnings(prev => [...prev, `SEVERE FLAG [${new Date().toLocaleTimeString()}]: ${message}`]);
+        
+        setTimeout(() => {
+           if (sCount === 1) {
+              alert(`SEVERE WARNING: ${message}\n\nYou have 1 severe warning remaining before automatic forceful submission.`);
+           } else if (sCount >= 2 && isExamActiveRef.current) {
+              isExamActiveRef.current = false;
+              alert("CRITICAL VIOLATION LIMIT TRIGGERED! 2 Severe AI Warnings Recorded. Submitting assessment permanently.");
+              handleFinalSubmit();
+           }
+        }, 50);
+        return;
+    }
+
+    // Audio/Noise Logic
+    const count = noiseWarningCountRef.current;
+
+    // Cooldown logic
+    if (count === 1) {
+      // 2 minute cooldown between 1st and 2nd warning
+      if (now - lastNoiseWarningTimeRef.current < 120000) return;
+    } else if (count >= 2) {
+      // 5 minute cooldown between 2nd and 3rd warning
+      if (now - lastNoiseWarningTimeRef.current < 300000) return;
+    }
+
+    noiseWarningCountRef.current += 1;
+    lastNoiseWarningTimeRef.current = now;
+    const currentCount = noiseWarningCountRef.current;
+
+    setWarnings(prev => [...prev, `AUDIO FLAG [${new Date().toLocaleTimeString()}]: ${message}`]);
+
+    setTimeout(() => {
+      alert(`SYSTEM WARNING: ${message}\n\nYou have ${3 - currentCount} audio warnings remaining before automatic forceful submission.`);
+      if (currentCount >= 3 && isExamActiveRef.current) {
+        isExamActiveRef.current = false;
+        alert("CRITICAL VIOLATION LIMIT TRIGGERED! 3 Audio AI Warnings Recorded. Submitting assessment permanently.");
         handleFinalSubmit();
       }
-      return newWarnings;
-    });
+    }, 50);
   };
 
   const handleCodeExecution = async (code: string, language: string) => {
-    const res = await fetch("/api/execute", {
-      method: "POST",
-      body: JSON.stringify({ code, language }),
-      headers: { "Content-Type": "application/json" }
-    });
-    const data = await res.json();
-    return data.output || data.error;
+    try {
+      const res = await fetch("/api/execute", {
+        method: "POST",
+        body: JSON.stringify({ code, language }),
+        headers: { "Content-Type": "application/json" }
+      });
+      const data = await res.json();
+      return data.output || data.error || "No Output";
+    } catch (err: any) {
+      return `Execution Error: ${err.message || "Network failure"}`;
+    }
   };
 
   const nextRound = () => setCurrentRound(prev => (prev < totalRounds ? prev + 1 : prev));
@@ -460,7 +615,7 @@ export default function ExamSession({ params }: { params: { id: string } }) {
     };
 
     return (
-      <div className="animate-fade-in" style={{ padding: "5rem", textAlign: "center", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "var(--bg-color)" }}>
+      <div className="animate-fade-in" style={{ padding: "5rem", textAlign: "center", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", backgroundColor: "var(--bg-color)" }}>
         <h1 style={{ color: examState === "VIOLATION_TERMINATED" ? "var(--danger)" : "var(--success)", fontSize: "2.5rem", marginBottom: "1rem" }}>
           {examState === "VIOLATION_TERMINATED" ? "EXAM TERMINATED" : "Exam Submitted Successfully"}
         </h1>
@@ -555,7 +710,7 @@ export default function ExamSession({ params }: { params: { id: string } }) {
         {currentRound === 1 && r1List.length > 0 && (
           <div style={{ flex: 1, display: "flex", gap: "2rem" }}>
             <div style={{ flex: 3 }}>
-              <h2>Q{q1Index + 1}/15: {r1List[q1Index].q}</h2>
+              <h2>Q{q1Index + 1}/30: {r1List[q1Index].q}</h2>
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "2rem", maxWidth: "800px" }}>
                 {r1List[q1Index].opts.map((opt: any, i: number) => {
                   const isSelected = r1Answers[q1Index] === opt;
@@ -575,15 +730,15 @@ export default function ExamSession({ params }: { params: { id: string } }) {
               </div>
               <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between" }}>
                 <button className="btn btn-outline" disabled={q1Index === 0} onClick={() => setQ1Index(p => p - 1)}>Previous</button>
-                <button className="btn btn-primary" onClick={() => q1Index < 14 ? setQ1Index(p => p + 1) : nextRound()}>
-                  {q1Index < 14 ? "Next Question" : "Submit Section"}
+                <button className="btn btn-primary" onClick={() => q1Index < 29 ? setQ1Index(p => p + 1) : nextRound()}>
+                  {q1Index < 29 ? "Next Question" : "Submit Section"}
                 </button>
               </div>
             </div>
             <div style={{ flex: 1, backgroundColor: "var(--card-bg)", padding: "1rem", borderRadius: "8px", border: "1px solid var(--border-color)", alignSelf: "flex-start" }}>
               <h4 style={{ margin: "0 0 1rem" }}>Question Tracker</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.5rem" }}>
-                {Array.from({ length: 15 }, (_, i) => {
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "0.5rem", maxHeight: "400px", overflowY: "auto" }}>
+                {Array.from({ length: 30 }, (_, i) => {
                   const statusBg = r1Answers[i] ? (i === q1Index ? "var(--primary-color)" : "#10b981") : (i === q1Index ? "var(--primary-color)" : "white");
                   const statusColor = r1Answers[i] ? "white" : (i === q1Index ? "white" : "black");
                   return (
@@ -600,7 +755,7 @@ export default function ExamSession({ params }: { params: { id: string } }) {
         {currentRound === 2 && r2List.length > 0 && (
           <div style={{ flex: 1, display: "flex", gap: "2rem" }}>
             <div style={{ flex: 3 }}>
-              <h2>Q{q2Index + 1}/15: {r2List[q2Index].q}</h2>
+              <h2>Q{q2Index + 1}/30: {r2List[q2Index].q}</h2>
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "2rem", maxWidth: "800px" }}>
                 {r2List[q2Index].opts.map((opt: any, i: number) => {
                   const isSelected = r2Answers[q2Index] === opt;
@@ -620,15 +775,15 @@ export default function ExamSession({ params }: { params: { id: string } }) {
               </div>
               <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between" }}>
                 <button className="btn btn-outline" disabled={q2Index === 0} onClick={() => setQ2Index(p => p - 1)}>Previous</button>
-                <button className="btn btn-primary" onClick={() => q2Index < 14 ? setQ2Index(p => p + 1) : nextRound()}>
-                  {q2Index < 14 ? "Next Question" : "Submit Section"}
+                <button className="btn btn-primary" onClick={() => q2Index < 29 ? setQ2Index(p => p + 1) : nextRound()}>
+                  {q2Index < 29 ? "Next Question" : "Submit Section"}
                 </button>
               </div>
             </div>
             <div style={{ flex: 1, backgroundColor: "var(--card-bg)", padding: "1rem", borderRadius: "8px", border: "1px solid var(--border-color)", alignSelf: "flex-start" }}>
               <h4 style={{ margin: "0 0 1rem" }}>Question Tracker</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.5rem" }}>
-                {Array.from({ length: 15 }, (_, i) => {
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "0.5rem", maxHeight: "400px", overflowY: "auto" }}>
+                {Array.from({ length: 30 }, (_, i) => {
                   const statusBg = r2Answers[i] ? (i === q2Index ? "var(--primary-color)" : "#10b981") : (i === q2Index ? "var(--primary-color)" : "white");
                   const statusColor = r2Answers[i] ? "white" : (i === q2Index ? "white" : "black");
                   return (
@@ -711,7 +866,7 @@ export default function ExamSession({ params }: { params: { id: string } }) {
             <div style={{ display: "flex", border: "1px solid var(--border-color)", borderRadius: "8px", overflow: "hidden", height: "650px", backgroundColor: "white" }}>
 
               {/* Left Pane - Problem Description */}
-              <div style={{ flex: "1 1 40%", padding: "2rem", overflowY: "auto", borderRight: "1px solid #e2e8f0", backgroundColor: "#f8fafc" }}>
+              <div style={{ flex: "1 1 30%", padding: "2rem", overflowY: "auto", borderRight: "1px solid #e2e8f0", backgroundColor: "#f8fafc" }}>
                 <h2 style={{ fontSize: "1.5rem", margin: "0 0 1rem", color: "#0f172a" }}>Coding {currentCodingQuestionIndex + 1}/3: {aiQuestions[currentCodingQuestionIndex].title}</h2>
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                   <div>
@@ -741,7 +896,7 @@ export default function ExamSession({ params }: { params: { id: string } }) {
               </div>
 
               {/* Right Pane - Virtual Editor */}
-              <div style={{ flex: "1 1 60%", display: "flex", flexDirection: "column" }}>
+              <div style={{ flex: "1 1 70%", display: "flex", flexDirection: "column" }}>
                 <CodeEditor
                   key={currentCodingQuestionIndex}
                   language="javascript"
@@ -767,21 +922,15 @@ export default function ExamSession({ params }: { params: { id: string } }) {
               </div>
             )}
 
-            {/* Massive End Check Button Block added per user request */}
-            <div style={{ padding: "2.5rem", borderRadius: "12px", border: codingProgress.every(Boolean) ? "2px solid var(--success)" : "2px dashed var(--danger)", backgroundColor: "var(--card-bg)", marginTop: "3rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
-              <h2 style={{ color: "var(--primary-color)", margin: 0 }}>Final Code Assessment Completion</h2>
-              <p style={{ color: "var(--text-muted)", margin: 0, textAlign: "center" }}>
-                {codingProgress.every(Boolean) ? "All Code matrix systems are green. Ready for encrypted payload delivery!" : "You have not passed all required test cases. Submitting now will generate partial score analytics."}
-              </p>
+            <div style={{ marginTop: "1rem", display: "flex", justifyContent: "flex-end" }}>
               <button
                 className="btn btn-primary"
                 style={{
-                  padding: "1rem 3rem",
-                  fontSize: "1.2rem",
+                  padding: "0.8rem 2rem",
+                  fontSize: "1rem",
                   fontWeight: "bold",
                   backgroundColor: "var(--danger)",
                   border: "none",
-                  boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
                   cursor: "pointer"
                 }}
                 onClick={() => {

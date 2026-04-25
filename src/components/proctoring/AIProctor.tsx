@@ -16,6 +16,7 @@ export default function AIProctor({ onViolation }: ProctorProps) {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const recordedChunksRef = useRef<Blob[]>([]);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const isMounted = useRef(true);
 
   const onViolationRef = useRef(onViolation);
   
@@ -24,6 +25,7 @@ export default function AIProctor({ onViolation }: ProctorProps) {
   }, [onViolation]);
 
   useEffect(() => {
+    isMounted.current = true;
     let checkAudioTimer: NodeJS.Timeout;
     let triggerVisualProctorMetrics: NodeJS.Timeout;
 
@@ -61,12 +63,13 @@ export default function AIProctor({ onViolation }: ProctorProps) {
         const dataArray = new Uint8Array(bufferLength);
         
         const checkAudio = () => {
+          if (!isMounted.current) return;
           if (!audioContextRef.current || audioContextRef.current.state === "closed") return;
           analyser.getByteFrequencyData(dataArray);
           let sum = 0;
           for(let i = 0; i < bufferLength; i++) { sum += dataArray[i]; }
           let average = sum / bufferLength;
-          if (average > 80) {
+          if (average > 40) {
             onViolationRef.current("AUDIO", "Loud noise/talking detected by mic anomaly graph!");
           }
           checkAudioTimer = setTimeout(checkAudio, 4000); // Check every 4 seconds
@@ -89,13 +92,20 @@ export default function AIProctor({ onViolation }: ProctorProps) {
               if (typeof window !== "undefined" && (window as any).cocoSsd) {
                  try {
                     const model = await (window as any).cocoSsd.load();
+                    if (!isMounted.current) return;
                     setIsModelLoaded(true);
                     setProctorStatus("Deep Object Detection & Biometrics Active");
                     
                     triggerVisualProctorMetrics = setInterval(async () => {
+                       if (!isMounted.current) {
+                           clearInterval(triggerVisualProctorMetrics);
+                           return;
+                       }
                        // 1. LIVE OBJECT DETECTION
                        if (videoRef.current && videoRef.current.readyState === 4) {
-                          const predictions = await model.detect(videoRef.current);
+                          const predictions = await model.detect(videoRef.current, 50, 0.4);
+                          if (!isMounted.current) return; // FIX: Component might unmount during await
+                          
                           const forbiddenObjects = ['cell phone', 'laptop', 'book', 'remote'];
                           const detectedForbidden = predictions.find((p: any) => forbiddenObjects.includes(p.class));
                           
@@ -109,15 +119,16 @@ export default function AIProctor({ onViolation }: ProctorProps) {
                        }
                        
                        // 2. MATHEMATICAL BIOMETRIC POSTURE (Head/Eyes)
+                       if (!isMounted.current) return;
                        const pts = Array.from({length: 8}, () => ({x: 10 + Math.random()*80, y: 10 + Math.random()*80}));
                        setTrackingPoints(pts);
-                       const r = Math.random();
-                       if (r > 0.92) onViolationRef.current("VISUAL", "Extreme Head posture deviation (eyes down/up).");
-                       else if (r > 0.85) onViolationRef.current("VISUAL", "Suspicious Eye Movement tracking anomaly.");
-
+                       
+                       // Mock tracking purely for visual UI
+                       // Real facial landmark models (like MediaPipe) would go here
+                       // Random violation triggers removed to prevent false positive complaints
                     }, 3000);
                  } catch(e) {
-                    setIsModelLoaded(true);
+                    if (isMounted.current) setIsModelLoaded(true);
                  }
               }
            };
@@ -125,8 +136,10 @@ export default function AIProctor({ onViolation }: ProctorProps) {
 
       } catch (err) {
         console.error("Camera access denied", err);
-        setProctorStatus("Camera or Microphone access required!");
-        onViolationRef.current("HARDWARE_ERROR", "Camera/Mic access denied by user.");
+        if (isMounted.current) {
+            setProctorStatus("Camera or Microphone access required!");
+            onViolationRef.current("HARDWARE_ERROR", "Camera/Mic access denied by user.");
+        }
       }
     };
 
@@ -142,6 +155,7 @@ export default function AIProctor({ onViolation }: ProctorProps) {
     }
 
     return () => {
+      isMounted.current = false;
       clearTimeout(checkAudioTimer);
       clearInterval(triggerVisualProctorMetrics);
       
@@ -162,7 +176,7 @@ export default function AIProctor({ onViolation }: ProctorProps) {
   }, []);
 
   return (
-    <div style={{ position: "fixed", bottom: "20px", right: "20px", width: "220px", zIndex: 9999 }}>
+    <div style={{ position: "fixed", bottom: "20px", left: "20px", width: "220px", zIndex: 9999 }}>
       <div style={{ 
           backgroundColor: '#0f172a', 
           color: 'white', 

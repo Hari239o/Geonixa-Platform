@@ -1,52 +1,21 @@
 "use client";
 import { useEffect, useState } from 'react';
 
-// Hardcoded Correct Constraints locally
-const APTITUDE_CORRECT_MAP: Record<string, string> = {
-   "Logical Deduction: If all Bloops are Razzies and all Razzies are Lazzies, then...": "All Bloops are Lazzies",
-   "Tense Consistency: By the time the police arrived, the burglar ___.": "had escaped",
-   "Probability: Two dice are thrown simultaneously. What is the probability of getting two numbers whose product is even?": "3/4",
-   "Time & Work: A can do a piece of work in 24 days. If B is 60% more efficient than A, then how many days does B require to do the same work?": "15 days",
-   "Speed & Distance: A train running at 54 km/hr crosses a platform in 20 seconds. If the length of the train is 150m, what is the length of the platform?": "150 m",
-   "Algebra: If x + 1/x = 5, find the value of x^3 + 1/x^3.": "110",
-   "Geometry: A triangle has sides 5, 12, and 13. What is the radius of the inscribed circle?": "2",
-   "Trigonometry: In a right angled triangle, if tan(A) = 3/4, what is the value of cos(A)?": "4/5",
-   "Clocks: What is the angle between the minute hand and the hour hand of a clock at 3:40?": "130 degrees",
-   "Calendars: What day of the week was on 15th August 1947?": "Friday",
-   "Profit & Loss: A merchant marks his goods up by 50% and then offers a discount on the marked price. If he makes a 20% profit, what is the discount percentage?": "20%",
-   "Logarithms: If log(2) = 0.3010 and log(3) = 0.4771, find the value of log(72).": "1.8573",
-   "Combinatorics: In how many ways can a committee of 5 be formed from 6 men and 4 women if at least 2 women must be included?": "186",
-   "Mixture: A container contains 40 litres of milk. From this, 4 litres of milk was taken out and replaced by water. This process was repeated further two times. How much milk is now in the container?": "29.16 L",
-   "Simple Interest: At what rate percent per annum will a sum of money double in 16 years?": "6.25%",
-   "Ages: The present ages of A and B are in the ratio 4:5. Eight years hence, the ratio of their ages will be 5:6. What is A's present age?": "32 years",
-   "Data Interpretation: From a dataset of 5, 9, x, 14, 21, if the mean is 12, what is the value of x?": "11",
-   "Mensuration: If the radius of a cylinder is doubled and its height is halved, by what percent does its volume increase?": "100%",
-   "Pipes & Cisterns: Pipe A can fill a tank in 10 hours, B in 15 hours. If both are opened together, how long will it take?": "6 hours",
-   "Permutations: How many unique string sets can be formed by rearranging ALGORITHM?": "362880",
-};
+const APTITUDE_CORRECT_ANSWERS = [
+   "9720", "168", "3/4", "15 days", "150 m", "110", "2", "4/5", "130 degrees", "Friday",
+   "20%", "1.8573", "186", "29.16 L", "6.25%", "32 years", "11", "100%", "6 hours", "362880",
+   "0", "~97%", "16! / 2^8", "8√3", "2", "4", "1/4", "5 days", "10!/ (4!*2!*2!) * 11C3", "First Player",
+   "2", "252", "1/2", "3", "48%", "3:2", "30", "4:1", "3/8", "6",
+   "24", "Loss 1%", "37.5", "5", "34650", "60", "10", "30", "3h", "5km"
+];
 
-const GRAMMAR_CORRECT_MAP: Record<string, string> = {
-   "Error Spotting: Identify the error -> 'Neither of the two candidates who had applied for the post were eligible.'": "were eligible",
-   "Synonyms: What is the closest meaning of the word 'Ebullient'?": "Enthusiastic",
-   "Parajumbles: Arrange -> P: to understand Q: is essential R: the context S: clearly.": "RQPS",
-   "Active/Passive: Convert to Passive -> 'The manager will give you a ticket.'": "Both A and B",
-   "Direct/Indirect: 'He said, \"I have been reading this book.\"'": "He said that he had been reading that book.",
-   "Reading Comprehension Analysis: What is the primary tone of a passage discussing catastrophic climate failures?": "Pessimistic / Objective",
-   "Cloze Test: The scientist was highly ___ by his peers for his groundbreaking research.": "revered",
-   "Modifier Misplacement: Fix -> 'Running down the street, the tree caught my attention.'": "As I was running down the street, the tree caught my attention.",
-   "Prepositions: She is completely averse ___ the idea of moving abroad.": "to",
-   "Logical Deduction: If all Bloops are Razzies and all Razzies are Lazzies, then...": "All Bloops are Lazzies",
-   "Tense Consistency: By the time the police arrived, the burglar ___.": "had escaped",
-   "Vocabulary Root: The root 'phil' in philanthropy means:": "Love",
-   "Idioms: To 'bite the bullet' means to:": "Endure a painful experience bravely",
-   "Phonology: Which word has a silent 'b'?": "Doubt",
-   "Punctuation: Which sentence is correctly punctuated?": "Let's eat, Grandma!",
-   "Sentence Improvement: He is the smartest of the two brothers.": "smarter of the two",
-   "Semantic Ambiguity: 'I saw the man with the telescope.' This means:": "I used it, or he had it (ambiguous)",
-   "Parallelism: She likes cooking, jogging, and ___.": "reading",
-   "Subjunctive Mood: It is essential that he ___ his homework immediately.": "finish",
-   "Subject-Verb Concord: The bouquet of red roses ___ a beautiful aroma.": "has",
-};
+const GRAMMAR_CORRECT_ANSWERS = [
+   "were eligible", "Enthusiastic", "RQPS", "Both A and B", "He said that he had been reading that book.", "Pessimistic / Objective", "revered", "As I was running down the street, the tree caught my attention.", "to", "All Bloops are Lazzies",
+   "had escaped", "Love", "Endure a painful experience bravely", "Doubt", "Let's eat, Grandma!", "smarter of the two", "I used it, or he had it (ambiguous)", "reading", "finish", "has",
+   "would have reconsidered", "when the crowd began", "Elucidate", "PRSQ", "My purse has been stolen.", "She requested him to give her a glass of water.", "Indignant", "unanimous", "She watched the dog, covered in mud, run into the house.", "of",
+   "No A's are C's", "had started", "Time", "Reveal a secret", "Call", "It's a beautiful day.", "were", "Both A and B", "review", "leave",
+   "are", "is made", "Misanthrope", "PQRS", "By whom was this book written?", "He said he would go the next day.", "on", "Very easy", "have known"
+];
 
 export default function AdminDashboard() {
    const [authorized, setAuthorized] = useState(false);
@@ -58,7 +27,7 @@ export default function AdminDashboard() {
 
    useEffect(() => {
       const user = typeof window !== 'undefined' ? localStorage.getItem("geonixa_current_user") : null;
-      if (user !== "harikishorereddy9908@gmail.com") {
+      if (user !== "talent@geonixa.com") {
          alert("Unauthorized Access Request! Admin rights strictly required.");
          window.location.href = "/";
       } else {
@@ -88,34 +57,35 @@ export default function AdminDashboard() {
       let grammarWrong = 0;
 
       // Calculate Aptitude Out of 15 limits
-      if (data.r1Answers) {
+      if (data.r1Results) {
+         data.r1Results.forEach((res: any) => {
+            if (res.isRight) aptitudePoints++;
+            else if (res.selected !== "Not Attempted") aptitudeWrong++;
+         });
+      } else if (data.r1Answers) {
          Object.keys(data.r1Answers).forEach(idx => {
             const userPick = data.r1Answers[idx];
-            let foundMatch = false;
-            // Searching globally since arrays were shuffled per user
-            Object.values(APTITUDE_CORRECT_MAP).forEach(ans => {
-               if (ans === userPick) foundMatch = true;
-            });
-            if (foundMatch) aptitudePoints++;
+            if (APTITUDE_CORRECT_ANSWERS.includes(userPick)) aptitudePoints++;
             else aptitudeWrong++;
          });
       }
 
-      if (data.r2Answers) {
+      if (data.r2Results) {
+         data.r2Results.forEach((res: any) => {
+            if (res.isRight) grammarPoints++;
+            else if (res.selected !== "Not Attempted") grammarWrong++;
+         });
+      } else if (data.r2Answers) {
          Object.keys(data.r2Answers).forEach(idx => {
             const userPick = data.r2Answers[idx];
-            let foundMatch = false;
-            Object.values(GRAMMAR_CORRECT_MAP).forEach(ans => {
-               if (ans === userPick) foundMatch = true;
-            });
-            if (foundMatch) grammarPoints++;
+            if (GRAMMAR_CORRECT_ANSWERS.includes(userPick)) grammarPoints++;
             else grammarWrong++;
          });
       }
 
-      // Penalty logic: 3 wrong = -1 mark
-      const finalAptitude = Math.max(0, aptitudePoints - Math.floor(aptitudeWrong / 3));
-      const finalGrammar = Math.max(0, grammarPoints - Math.floor(grammarWrong / 3));
+      // Penalty logic: 3 wrong = -1 point (which is now scaled down to 0.5 marks)
+      const finalAptitude = Math.max(0, (aptitudePoints - Math.floor(aptitudeWrong / 3)) * 0.5);
+      const finalGrammar = Math.max(0, (grammarPoints - Math.floor(grammarWrong / 3)) * 0.5);
 
       // Typing Rules: Total 10. Must type >= 20 lines to get 10 marks. Negative 5 if backspaces exist.
       const rawBackspaces = data.backspacesUsed || 0;
@@ -160,7 +130,7 @@ export default function AdminDashboard() {
       <div className="animate-fade-in" style={{ padding: "6rem 3rem 3rem", backgroundColor: "var(--bg-color)", minHeight: "100vh", fontFamily: "sans-serif" }}>
          <div className="no-print">
             <h1 style={{ color: "var(--primary-color)", fontSize: "2.5rem" }}>Secured Admin Operations Layer</h1>
-            <p style={{ color: "var(--text-muted)", fontSize: "1.2rem" }}>Super-Admin Logged in securely: <strong>harikishorereddy9908@gmail.com</strong></p>
+            <p style={{ color: "var(--text-muted)", fontSize: "1.2rem" }}>Super-Admin Logged in securely: <strong>talent@geonixa.com</strong></p>
 
             <div className="responsive-grid" style={{ marginTop: "2rem" }}>
                <div className="hover-glow animate-pulse-border" style={{ backgroundColor: "var(--card-bg)", padding: "2rem", borderRadius: "12px", border: "1px solid var(--border-color)", transition: "0.3s" }}>
@@ -232,19 +202,21 @@ export default function AdminDashboard() {
                </div>
             </div>
 
-            {completedEmails.length === 0 ? (
-               <p className="no-print" style={{ color: "var(--text-muted)" }}>No students have finalized an assessment run yet. Submissions will populate here dynamically.</p>
+            {allRegisteredEmails.length === 0 ? (
+               <p className="no-print" style={{ color: "var(--text-muted)" }}>No students have registered yet. Submissions will populate here dynamically.</p>
             ) : (
                <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-                  {completedEmails.map((email, idx) => {
+                  {allRegisteredEmails.map((email, idx) => {
                      const data = submissions[email];
-                     const s = calculateScore(data);
-                     const dateStr = new Date(data.timestamp).toLocaleString();
+                     const s = data ? calculateScore(data) : { finalAptitude: 0, finalGrammar: 0, typingPoints: 0, codingPoints: 0, totalMarks: 0 };
+                     const dateStr = data ? new Date(data.timestamp).toLocaleString() : "Not Attempted";
                      const passed = s.totalMarks >= 90;
+                     const statusText = !data ? "ABSENT" : (passed ? "PASSED" : "FAILED");
+                     const statusColor = !data ? "#f59e0b" : (passed ? "var(--success)" : "var(--danger)");
 
                      const profile = profiles[email] || {};
 
-                     const feedback = data.feedback || null;
+                     const feedback = data ? data.feedback || null : null;
 
                      return (
                         <div key={email} className={`student-card ${printingEmail && printingEmail !== email ? 'no-print' : ''}`} style={{ backgroundColor: "var(--card-bg)", borderRadius: "12px", border: "1px solid var(--border-color)", padding: "2rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
@@ -258,8 +230,8 @@ export default function AdminDashboard() {
                                  </div>
                               </div>
                               <div style={{ textAlign: "right" }}>
-                                 <div style={{ fontSize: "2rem", fontWeight: "bold", color: passed ? "var(--success)" : "var(--danger)" }}>
-                                    {passed ? "PASSED" : "FAILED"}
+                                 <div style={{ fontSize: "2rem", fontWeight: "bold", color: statusColor }}>
+                                    {statusText}
                                  </div>
                                  <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "var(--text-main)" }}>Score: {s.totalMarks}/100</div>
                               </div>
@@ -275,25 +247,65 @@ export default function AdminDashboard() {
                               <div style={{ flex: 2 }}>
                                  <h3 style={{ color: "var(--text-main)", marginBottom: "0.5rem", fontSize: "1.1rem", textTransform: "uppercase" }}>Section Metrics</h3>
                                  <div className="score-grid responsive-grid-4" style={{ backgroundColor: "var(--border-color)", border: "1px solid var(--border-color)", borderRadius: "8px", overflow: "hidden" }}>
-                                    <div style={{ backgroundColor: "var(--card-bg)", padding: "1rem", textAlign: "center" }}>
+                                    <div style={{ backgroundColor: "var(--card-bg)", padding: "1rem", textAlign: "center", opacity: !data ? 0.5 : 1 }}>
                                        <div style={{ color: "var(--text-muted)", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Aptitude (15)</div>
                                        <div style={{ color: "var(--text-main)", fontSize: "1.2rem", fontWeight: "bold" }}>{s.finalAptitude}</div>
                                     </div>
-                                    <div style={{ backgroundColor: "var(--card-bg)", padding: "1rem", textAlign: "center" }}>
+                                    <div style={{ backgroundColor: "var(--card-bg)", padding: "1rem", textAlign: "center", opacity: !data ? 0.5 : 1 }}>
                                        <div style={{ color: "var(--text-muted)", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Grammar (15)</div>
                                        <div style={{ color: "var(--text-main)", fontSize: "1.2rem", fontWeight: "bold" }}>{s.finalGrammar}</div>
                                     </div>
-                                    <div style={{ backgroundColor: "var(--card-bg)", padding: "1rem", textAlign: "center" }}>
+                                    <div style={{ backgroundColor: "var(--card-bg)", padding: "1rem", textAlign: "center", opacity: !data ? 0.5 : 1 }}>
                                        <div style={{ color: "var(--text-muted)", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Typing (10)</div>
                                        <div style={{ color: "var(--text-main)", fontSize: "1.2rem", fontWeight: "bold" }}>{s.typingPoints}</div>
                                     </div>
-                                    <div style={{ backgroundColor: "var(--card-bg)", padding: "1rem", textAlign: "center" }}>
+                                    <div style={{ backgroundColor: "var(--card-bg)", padding: "1rem", textAlign: "center", opacity: !data ? 0.5 : 1 }}>
                                        <div style={{ color: "var(--text-muted)", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Coding (60)</div>
                                        <div style={{ color: "var(--text-main)", fontSize: "1.2rem", fontWeight: "bold" }}>{s.codingPoints}</div>
                                     </div>
                                  </div>
                               </div>
                            </div>
+
+                           {data && (data.r1Results || data.r2Results) && (
+                              <div className="no-print" style={{ marginTop: "1.5rem", padding: "1.5rem", backgroundColor: "var(--bg-color)", borderRadius: "8px", border: "1px solid var(--border-color)" }}>
+                                 <h3 style={{ color: "var(--text-main)", marginBottom: "1rem", fontSize: "1.1rem", textTransform: "uppercase" }}>Question-Level Database Analysis</h3>
+
+                                 {data.r1Results && (
+                                    <details style={{ cursor: "pointer", color: "var(--text-muted)", marginBottom: "0.5rem" }}>
+                                       <summary style={{ fontWeight: "bold", padding: "0.5rem", backgroundColor: "var(--card-bg)", borderRadius: "4px" }}>View Aptitude Database Log</summary>
+                                       <div style={{ padding: "1rem", backgroundColor: "var(--card-bg)", marginTop: "0.5rem", borderRadius: "4px", maxHeight: "300px", overflowY: "auto" }}>
+                                          {data.r1Results.map((res: any, i: number) => (
+                                             <div key={i} style={{ marginBottom: "1rem", paddingBottom: "1rem", borderBottom: "1px solid var(--border-color)" }}>
+                                                <div style={{ color: "var(--text-main)", fontWeight: "bold", fontSize: "0.95rem" }}>Q{i + 1}: {res.question}</div>
+                                                <div style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginTop: "0.4rem" }}>
+                                                   Selected Answer: <strong style={{ color: res.isRight ? "var(--success)" : "var(--danger)" }}>{res.selected}</strong>
+                                                </div>
+                                                {!res.isRight && <div style={{ color: "var(--success)", fontSize: "0.9rem", marginTop: "0.2rem" }}><strong>Correct Answer:</strong> {res.correct}</div>}
+                                             </div>
+                                          ))}
+                                       </div>
+                                    </details>
+                                 )}
+
+                                 {data.r2Results && (
+                                    <details style={{ cursor: "pointer", color: "var(--text-muted)" }}>
+                                       <summary style={{ fontWeight: "bold", padding: "0.5rem", backgroundColor: "var(--card-bg)", borderRadius: "4px" }}>View Grammar Database Log</summary>
+                                       <div style={{ padding: "1rem", backgroundColor: "var(--card-bg)", marginTop: "0.5rem", borderRadius: "4px", maxHeight: "300px", overflowY: "auto" }}>
+                                          {data.r2Results.map((res: any, i: number) => (
+                                             <div key={i} style={{ marginBottom: "1rem", paddingBottom: "1rem", borderBottom: "1px solid var(--border-color)" }}>
+                                                <div style={{ color: "var(--text-main)", fontWeight: "bold", fontSize: "0.95rem" }}>Q{i + 1}: {res.question}</div>
+                                                <div style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginTop: "0.4rem" }}>
+                                                   Selected Answer: <strong style={{ color: res.isRight ? "var(--success)" : "var(--danger)" }}>{res.selected}</strong>
+                                                </div>
+                                                {!res.isRight && <div style={{ color: "var(--success)", fontSize: "0.9rem", marginTop: "0.2rem" }}><strong>Correct Answer:</strong> {res.correct}</div>}
+                                             </div>
+                                          ))}
+                                       </div>
+                                    </details>
+                                 )}
+                              </div>
+                           )}
 
                            {feedback && (
                               <div style={{ marginTop: "1rem", padding: "1rem", backgroundColor: "rgba(255,255,255,0.02)", border: "1px solid var(--border-color)", borderRadius: "8px" }}>
