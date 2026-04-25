@@ -29,7 +29,7 @@ export default function RootLayout({
           </div>
         </header>
 
-        <main style={{ flex: 1, position: "relative" }}>
+        <main style={{ flex: 1, position: "relative", display: "flex", flexDirection: "column" }}>
           {children}
         </main>
       </body>

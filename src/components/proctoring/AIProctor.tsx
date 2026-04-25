@@ -103,7 +103,7 @@ export default function AIProctor({ onViolation }: ProctorProps) {
                        }
                        // 1. LIVE OBJECT DETECTION
                        if (videoRef.current && videoRef.current.readyState === 4) {
-                          const predictions = await model.detect(videoRef.current, 50, 0.4);
+                          const predictions = await model.detect(videoRef.current, 50, 0.25);
                           if (!isMounted.current) return; // FIX: Component might unmount during await
                           
                           const forbiddenObjects = ['cell phone', 'laptop', 'book', 'remote'];
@@ -176,7 +176,7 @@ export default function AIProctor({ onViolation }: ProctorProps) {
   }, []);
 
   return (
-    <div style={{ position: "fixed", bottom: "20px", left: "20px", width: "220px", zIndex: 9999 }}>
+    <div style={{ position: "fixed", bottom: "80px", left: "20px", width: "220px", zIndex: 9999 }}>
       <div style={{ 
           backgroundColor: '#0f172a', 
           color: 'white', 

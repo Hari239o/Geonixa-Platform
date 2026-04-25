@@ -842,7 +842,7 @@ export default function ExamSession({ params }: { params: { id: string } }) {
         )}
 
         {currentRound === 4 && aiQuestions.length === 3 && (
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", paddingBottom: "15rem" }}>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", paddingBottom: "2rem" }}>
             <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
               {aiQuestions.map((_, idx) => (
                 <button

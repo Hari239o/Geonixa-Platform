@@ -27,6 +27,10 @@ export async function POST(req: Request) {
        finalOrigin = origin.replace("localhost", getLocalIp());
     }
 
+    const loginLink = process.env.NEXT_PUBLIC_BASE_URL 
+      ? `${process.env.NEXT_PUBLIC_BASE_URL}/auth/login` 
+      : `${finalOrigin}/auth/login`;
+
     let transporter;
     
     if (process.env.SMTP_USER && process.env.SMTP_PASS) {
@@ -85,7 +89,7 @@ export async function POST(req: Request) {
           </ul>
 
           <div style="margin-top: 40px; text-align: center;">
-            <a href="${finalOrigin}/auth/login" style="background-color: #0f172a; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Proceed to Secure Login Portal</a>
+            <a href="${loginLink}" style="background-color: #0f172a; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Proceed to Secure Login Portal</a>
           </div>
         </div>
         <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8;">
