@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import AIProctor from "@/components/proctoring/AIProctor";
 import CodeEditor from "@/components/editor/CodeEditor";
 import { storeExamAnswers } from "@/lib/firebase";
 
 type ExamState = "SYS_CHECK" | "INSTRUCTIONS" | "ACTIVE" | "SUBMITTED" | "VIOLATION_TERMINATED";
 
-export default function ExamSession({ params }: { params: { id: string } }) {
+export default function ExamSession({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params);
+  const examId = resolvedParams.id;
   const [warnings, setWarnings] = useState<string[]>([]);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [examState, setExamState] = useState<ExamState>("SYS_CHECK");
@@ -26,6 +28,9 @@ export default function ExamSession({ params }: { params: { id: string } }) {
   // MCQ Answers Tracker
   const [r1Answers, setR1Answers] = useState<Record<number, string>>({});
   const [r2Answers, setR2Answers] = useState<Record<number, string>>({});
+  const [r1Flags, setR1Flags] = useState<Record<number, boolean>>({});
+  const [r2Flags, setR2Flags] = useState<Record<number, boolean>>({});
+  const [isOnline, setIsOnline] = useState(true);
 
   // Specific Time Limits tracking (Aptitude 10m, Grammar 10m, Typing 5m, Coding 30m)
   const timeLimits = { 1: 10 * 60, 2: 10 * 60, 3: 5 * 60, 4: 45 * 60 };
@@ -60,6 +65,15 @@ export default function ExamSession({ params }: { params: { id: string } }) {
   
   useEffect(() => {
     isExamActiveRef.current = examState === "ACTIVE";
+    
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
   }, [examState]);
 
   const handleFinalSubmit = async () => {
@@ -515,7 +529,38 @@ export default function ExamSession({ params }: { params: { id: string } }) {
     }
   };
 
-  const nextRound = () => setCurrentRound(prev => (prev < totalRounds ? prev + 1 : prev));
+  const saveStateToFirebase = async () => {
+    if (typeof window !== 'undefined') {
+      const email = localStorage.getItem("geonixa_current_user");
+      if (email) {
+        await storeExamAnswers(email, {
+          r1Answers,
+          r2Answers,
+          typingText,
+          typingLines: typingText.split('\n').length,
+          backspacesUsed: backspaceCount,
+          codingProgress,
+          currentRound,
+          timestamp: Date.now()
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (examState === "ACTIVE") saveStateToFirebase();
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [examState, r1Answers, r2Answers, typingText, codingProgress]);
+
+  const nextRound = () => {
+    if (confirm(`FINAL SECTION LOCK: You are about to submit PART ${String.fromCharCode(64 + currentRound)} and move to the next section. \n\nYou will NOT be able to return to this section. Proceed?`)) {
+      saveStateToFirebase();
+      setCurrentRound(prev => (prev < totalRounds ? prev + 1 : prev));
+      if (currentRound === 1) setQ2Index(0); // Reset index for next round
+    }
+  };
 
   // --- RENDERING DIFFERENT STATES --- //
 
@@ -615,7 +660,25 @@ export default function ExamSession({ params }: { params: { id: string } }) {
     };
 
     return (
-      <div className="animate-fade-in" style={{ padding: "5rem", textAlign: "center", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", backgroundColor: "var(--bg-color)" }}>
+      <div style={{ height: "100vh", width: "100vw", overflow: "hidden", display: "flex", flexDirection: "column", backgroundColor: "var(--bg-color)" }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          body { overflow: hidden !important; margin: 0; padding: 0; }
+        `}} />
+        <div style={{ backgroundColor: "#0f172a", color: "white", padding: "0.8rem 2.5rem", display: "flex", alignItems: "center", gap: "0.8rem", borderBottom: "4px solid #ea580c" }}>
+          <div style={{ width: "35px", height: "35px", backgroundColor: "#3b82f6", borderRadius: "8px", display: "flex", justifyContent: "center", alignItems: "center", flexShrink: 0 }}>
+             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+               <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+               <polyline points="2 17 12 22 22 17"></polyline>
+               <polyline points="2 12 12 17 22 12"></polyline>
+             </svg>
+          </div>
+          <div>
+            <h1 style={{ color: "white", fontSize: "1.4rem", margin: 0, letterSpacing: "1px", fontWeight: "bold" }}>GEONIXA</h1>
+            <p style={{ color: "#94a3b8", fontSize: "0.6rem", margin: 0, textTransform: "uppercase", letterSpacing: "1.5px" }}>Corporate Systems</p>
+          </div>
+        </div>
+        
+        <div className="animate-fade-in" style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "1rem", textAlign: "center" }}>
         <h1 style={{ color: examState === "VIOLATION_TERMINATED" ? "var(--danger)" : "var(--success)", fontSize: "2.5rem", marginBottom: "1rem" }}>
           {examState === "VIOLATION_TERMINATED" ? "EXAM TERMINATED" : "Exam Submitted Successfully"}
         </h1>
@@ -626,7 +689,7 @@ export default function ExamSession({ params }: { params: { id: string } }) {
         )}
 
         {examState === "SUBMITTED" && !feedbackSubmitted && (
-          <div style={{ marginTop: "2rem", width: "100%", maxWidth: "600px", padding: "2rem", backgroundColor: "var(--card-bg)", borderRadius: "12px", border: "1px solid var(--border-color)", borderTop: "4px solid var(--primary-color)", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)" }}>
+          <div style={{ marginTop: "1rem", width: "100%", maxWidth: "600px", padding: "1.5rem", backgroundColor: "var(--card-bg)", borderRadius: "12px", border: "1px solid var(--border-color)", borderTop: "4px solid var(--primary-color)", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)" }}>
             <h2 style={{ color: "var(--text-main)", marginBottom: "0.5rem" }}>Candidate Experience Review</h2>
             <p style={{ color: "var(--text-muted)", marginBottom: "2rem" }}>Help us improve the Geonixa assessment architecture. Your feedback is entirely secure.</p>
 
@@ -657,56 +720,75 @@ export default function ExamSession({ params }: { params: { id: string } }) {
           </div>
         )}
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   // ACTIVE EXAM RENDER //
   return (
-    <div style={{ display: "flex", height: "100vh", backgroundColor: "var(--bg-color)" }}>
-      <div style={{ width: "320px", backgroundColor: "var(--card-bg)", borderRight: "1px solid var(--border-color)", padding: "1rem", display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--border-color)", paddingBottom: "1rem" }}>
-          <h2 style={{ fontSize: "1.2rem", color: "var(--primary-color)", margin: 0 }}>Active Section</h2>
-          <div style={{ fontWeight: "bold", fontFamily: "monospace", fontSize: "1.2rem", padding: "0.5rem", borderRadius: "4px", backgroundColor: roundTimes[currentRound as keyof typeof timeLimits] < 60 ? "#fef2f2" : "#fff7ed", color: roundTimes[currentRound as keyof typeof timeLimits] < 60 ? "var(--danger)" : "var(--primary-color)" }}>
-            {formatTime(roundTimes[currentRound as keyof typeof timeLimits])}
-          </div>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        body { overflow: hidden !important; margin: 0; padding: 0; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+      `}} />
+      
+      <div style={{ display: "flex", flexDirection: "column", height: "100vh", width: "100vw", backgroundColor: "var(--bg-color)", position: "relative", overflow: "hidden" }}>
+      {/* MNC Header Bar */}
+      <div style={{ backgroundColor: "#0f172a", color: "white", padding: "0.8rem 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "4px solid #ea580c" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+           <h2 style={{ margin: 0, fontSize: "1.5rem", fontWeight: "900", letterSpacing: "-1px" }}>
+             <span style={{ color: "#ea580c" }}>Geo</span>Nixa <span style={{ fontSize: "0.7rem", fontWeight: "normal", color: "#94a3b8", verticalAlign: "middle", marginLeft: "10px" }}>CORPORATE SYSTEMS</span>
+           </h2>
+           <div style={{ height: "20px", width: "1px", backgroundColor: "#334155" }} />
+           <div style={{ fontSize: "0.85rem", color: "#94a3b8" }}>
+             Assessment ID: <span style={{ color: "#f8fafc", fontFamily: "monospace" }}>GX-{examId.toUpperCase()}-2026</span>
+           </div>
         </div>
-
-        <div style={{ marginTop: "1.5rem", flex: 1, overflowY: "auto" }}>
-          <div style={{ padding: "1rem", backgroundColor: currentRound === 1 ? "#fff7ed" : "transparent", borderRadius: "8px", border: currentRound === 1 ? "1px solid var(--primary-color)" : "1px solid transparent", opacity: currentRound >= 1 ? 1 : 0.5 }}>
-            <strong>Round 1: Aptitude</strong>
-            <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "0.2rem" }}>10 Mins (Locks after submit)</div>
-          </div>
-
-          <div style={{ padding: "1rem", backgroundColor: currentRound === 2 ? "#fff7ed" : "transparent", borderRadius: "8px", border: currentRound === 2 ? "1px solid var(--primary-color)" : "1px solid transparent", opacity: currentRound >= 2 ? 1 : 0.5, marginTop: "0.5rem" }}>
-            <strong>Round 2: Grammar</strong>
-            <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "0.2rem" }}>10 Mins (Locks after submit)</div>
-          </div>
-
-          <div style={{ padding: "1rem", backgroundColor: currentRound === 3 ? "#fff7ed" : "transparent", borderRadius: "8px", border: currentRound === 3 ? "1px solid var(--primary-color)" : "1px solid transparent", opacity: currentRound >= 3 ? 1 : 0.5, marginTop: "0.5rem" }}>
-            <strong>Round 3: Typing Skill</strong>
-            <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "0.2rem" }}>5 Mins (Locks after submit)</div>
-          </div>
-
-          <div style={{ padding: "1rem", backgroundColor: currentRound === 4 ? "#fff7ed" : "transparent", borderRadius: "8px", border: currentRound === 4 ? "1px solid var(--primary-color)" : "1px solid transparent", opacity: currentRound >= 4 ? 1 : 0.5, marginTop: "0.5rem" }}>
-            <strong>Round 4: Coding Tasks</strong>
-            <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "0.2rem" }}>30 Mins (Final Submission)</div>
-          </div>
+        
+        <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+           <div style={{ textAlign: "right" }}>
+             <div style={{ fontSize: "0.7rem", color: "#94a3b8", textTransform: "uppercase" }}>Candidate Portal</div>
+             <div style={{ fontSize: "0.9rem", fontWeight: "bold" }}>{typeof window !== "undefined" ? localStorage.getItem("geonixa_current_user") || "H. Kishore Reddy" : "H. Kishore Reddy"}</div>
+           </div>
+           <div style={{ padding: "0.4rem 1rem", backgroundColor: "#1e293b", borderRadius: "4px", border: "1px solid #334155", color: "#10b981", fontSize: "0.8rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: "8px" }}>
+             <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#10b981", animation: "blink 1s infinite" }} />
+             SECURE ENVIRONMENT
+           </div>
         </div>
-
-        {currentRound === 4 && (
-          <button
-            className="btn btn-primary"
-            style={{ width: '100%', fontSize: '1rem', fontWeight: 600, backgroundColor: 'var(--danger)', opacity: codingProgress.every(Boolean) ? 1 : 0.5 }}
-            disabled={!codingProgress.every(Boolean)}
-            onClick={() => {
-              if (confirm("Submit Assessment final?")) {
-                handleFinalSubmit();
-              }
-            }}> {codingProgress.every(Boolean) ? "End & Submit Complete Exam" : "Pass All Tests To Submit"} </button>
-        )}
       </div>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: currentRound === 4 ? "0" : "2rem", overflowY: "auto", paddingBottom: currentRound === 4 ? "0" : "15rem" }}>
+      {/* Security Watermark Overlay - MNC High-Security Grid */}
+      <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, pointerEvents: "none", zIndex: 99999, display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gridTemplateRows: "repeat(5, 1fr)", opacity: 0.02, gap: "50px" }}>
+         {Array.from({length: 25}).map((_, i) => (
+           <div key={i} style={{ 
+             fontSize: "1.4rem", 
+             fontWeight: "900", 
+             transform: "rotate(-30deg)", 
+             whiteSpace: "nowrap", 
+             color: "#1e293b",
+             fontFamily: "monospace",
+             display: "flex",
+             flexDirection: "column",
+             alignItems: "center",
+             justifyContent: "center",
+             border: "1px solid rgba(0,0,0,0.1)",
+             padding: "20px"
+           }}>
+             <div>{typeof window !== "undefined" ? localStorage.getItem("geonixa_current_user") : "CONFIDENTIAL"}</div>
+             <div style={{ fontSize: "0.6rem" }}>PROPERTY OF GEONIXA CORP</div>
+           </div>
+         ))}
+      </div>
+
+      <div style={{ display: "flex", flex: 1, flexDirection: "column", overflow: "hidden" }}>
+        {/* Main Workspace Area */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+
+
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: currentRound === 4 ? "0" : "1rem", overflowY: "auto" }}>
         {currentRound === 1 && r1List.length > 0 && (
           <div style={{ flex: 1, display: "flex", gap: "2rem" }}>
             <div style={{ flex: 3 }}>
@@ -728,8 +810,16 @@ export default function ExamSession({ params }: { params: { id: string } }) {
                   )
                 })}
               </div>
-              <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between" }}>
-                <button className="btn btn-outline" disabled={q1Index === 0} onClick={() => setQ1Index(p => p - 1)}>Previous</button>
+              <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", gap: "1rem" }}>
+                  <button className="btn btn-outline" disabled={q1Index === 0} onClick={() => setQ1Index(p => p - 1)}>Previous</button>
+                  <button 
+                    onClick={() => setR1Flags(prev => ({ ...prev, [q1Index]: !prev[q1Index] }))}
+                    style={{ padding: "0.75rem 1.5rem", borderRadius: "6px", border: "1px solid #f59e0b", color: r1Flags[q1Index] ? "white" : "#f59e0b", backgroundColor: r1Flags[q1Index] ? "#f59e0b" : "transparent", fontWeight: "bold", cursor: "pointer" }}
+                  >
+                    {r1Flags[q1Index] ? "🚩 Flagged for Review" : "🏳️ Flag for Review"}
+                  </button>
+                </div>
                 <button className="btn btn-primary" onClick={() => q1Index < 29 ? setQ1Index(p => p + 1) : nextRound()}>
                   {q1Index < 29 ? "Next Question" : "Submit Section"}
                 </button>
@@ -742,8 +832,9 @@ export default function ExamSession({ params }: { params: { id: string } }) {
                   const statusBg = r1Answers[i] ? (i === q1Index ? "var(--primary-color)" : "#10b981") : (i === q1Index ? "var(--primary-color)" : "white");
                   const statusColor = r1Answers[i] ? "white" : (i === q1Index ? "white" : "black");
                   return (
-                    <button key={i} onClick={() => setQ1Index(i)} style={{ padding: "0.5rem", border: "1px solid var(--border-color)", transition: "0.2s all", backgroundColor: statusBg, color: statusColor, borderRadius: "4px", cursor: "pointer", fontWeight: "bold" }}>
+                    <button key={i} onClick={() => setQ1Index(i)} style={{ padding: "0.5rem", border: "1px solid var(--border-color)", transition: "0.2s all", backgroundColor: statusBg, color: statusColor, borderRadius: "4px", cursor: "pointer", fontWeight: "bold", position: "relative" }}>
                       {i + 1}
+                      {r1Flags[i] && <div style={{ position: "absolute", top: "-5px", right: "-5px", fontSize: "0.6rem" }}>🚩</div>}
                     </button>
                   );
                 })}
@@ -773,8 +864,16 @@ export default function ExamSession({ params }: { params: { id: string } }) {
                   )
                 })}
               </div>
-              <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between" }}>
-                <button className="btn btn-outline" disabled={q2Index === 0} onClick={() => setQ2Index(p => p - 1)}>Previous</button>
+              <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", gap: "1rem" }}>
+                  <button className="btn btn-outline" disabled={q2Index === 0} onClick={() => setQ2Index(p => p - 1)}>Previous</button>
+                  <button 
+                    onClick={() => setR2Flags(prev => ({ ...prev, [q2Index]: !prev[q2Index] }))}
+                    style={{ padding: "0.75rem 1.5rem", borderRadius: "6px", border: "1px solid #f59e0b", color: r2Flags[q2Index] ? "white" : "#f59e0b", backgroundColor: r2Flags[q2Index] ? "#f59e0b" : "transparent", fontWeight: "bold", cursor: "pointer" }}
+                  >
+                    {r2Flags[q2Index] ? "🚩 Flagged for Review" : "🏳️ Flag for Review"}
+                  </button>
+                </div>
                 <button className="btn btn-primary" onClick={() => q2Index < 29 ? setQ2Index(p => p + 1) : nextRound()}>
                   {q2Index < 29 ? "Next Question" : "Submit Section"}
                 </button>
@@ -787,8 +886,9 @@ export default function ExamSession({ params }: { params: { id: string } }) {
                   const statusBg = r2Answers[i] ? (i === q2Index ? "var(--primary-color)" : "#10b981") : (i === q2Index ? "var(--primary-color)" : "white");
                   const statusColor = r2Answers[i] ? "white" : (i === q2Index ? "white" : "black");
                   return (
-                    <button key={i} onClick={() => setQ2Index(i)} style={{ padding: "0.5rem", border: "1px solid var(--border-color)", transition: "0.2s all", backgroundColor: statusBg, color: statusColor, borderRadius: "4px", cursor: "pointer", fontWeight: "bold" }}>
+                    <button key={i} onClick={() => setQ2Index(i)} style={{ padding: "0.5rem", border: "1px solid var(--border-color)", transition: "0.2s all", backgroundColor: statusBg, color: statusColor, borderRadius: "4px", cursor: "pointer", fontWeight: "bold", position: "relative" }}>
                       {i + 1}
+                      {r2Flags[i] && <div style={{ position: "absolute", top: "-5px", right: "-5px", fontSize: "0.6rem" }}>🚩</div>}
                     </button>
                   );
                 })}
@@ -945,13 +1045,56 @@ export default function ExamSession({ params }: { params: { id: string } }) {
           </div>
         )}
 
-        {currentRound === 3 && (
-          <div style={{ marginTop: "2rem", paddingTop: "2rem", borderTop: "1px solid var(--border-color)", display: "flex", justifyContent: "flex-end" }}>
-            <button className="btn btn-primary" onClick={nextRound}> Submit Section & Continue {'>'} </button>
+        </div>
+      </div>
+
+      {/* Modern MNC Bottom Controls Dock */}
+      <div style={{ height: "140px", backgroundColor: "#0f172a", color: "white", padding: "1rem 2rem", display: "flex", gap: "2rem", borderTop: "2px solid #1e293b", zIndex: 100 }}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", borderRight: "1px solid #334155", paddingRight: "2rem" }}>
+          <span style={{ fontSize: "0.8rem", color: "#94a3b8", textTransform: "uppercase" }}>Round Remaining Time</span>
+          <div style={{ fontSize: "2rem", fontWeight: "900", fontFamily: "monospace", color: roundTimes[currentRound as keyof typeof timeLimits] < 60 ? "var(--danger)" : "#3b82f6" }}>
+            {formatTime(roundTimes[currentRound as keyof typeof timeLimits])}
           </div>
-        )}
+        </div>
+
+        <div style={{ flex: 1, display: "flex", gap: "1rem", alignItems: "center", overflowX: "auto" }}>
+          {[1, 2, 3, 4].map(round => {
+            const names = ["APTITUDE", "VERBAL", "TYPING", "ALGORITHMS"];
+            const isActive = currentRound === round;
+            const isDone = currentRound > round;
+            return (
+              <div key={round} style={{ padding: "0.8rem 1.2rem", backgroundColor: isActive ? "#1e293b" : "transparent", borderRadius: "8px", border: isActive ? "1px solid #3b82f6" : "1px solid transparent", opacity: isActive || isDone ? 1 : 0.3, minWidth: "180px" }}>
+                <div style={{ fontSize: "0.65rem", color: isActive ? "#3b82f6" : "#94a3b8" }}>ROUND {round}</div>
+                <div style={{ fontWeight: "bold", fontSize: "0.9rem" }}>{names[round-1]} {isDone && "✅"}</div>
+              </div>
+            )
+          })}
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+             <div style={{ display: "flex", alignItems: "center", gap: "6px", color: isOnline ? "#10b981" : "#ef4444", fontSize: "0.75rem", fontWeight: "bold" }}>
+               <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: isOnline ? "#10b981" : "#ef4444", animation: isOnline ? "blink 1.5s infinite" : "none" }} />
+               {isOnline ? "SENTINEL: LINK STABLE" : "SENTINEL: LINK INTERRUPTED"}
+             </div>
+             <div style={{ fontSize: "0.6rem", color: "#64748b" }}>LATENCY: {isOnline ? "24ms" : "---"} | SYNC: ACTIVE</div>
+          </div>
+
+          <button 
+             onClick={() => alert("MNC Standard Scientific Calculator Activated (Mock).")}
+             style={{ height: "50px", padding: "0 1.5rem", backgroundColor: "#1e293b", border: "1px solid #3b82f6", color: "white", borderRadius: "8px", fontWeight: "bold", cursor: "pointer" }}
+          >
+             🧮 SCIENTIFIC CALCULATOR
+          </button>
+          <div style={{ textAlign: "right", fontSize: "0.7rem", color: "#94a3b8" }}>
+            GEONIXA SECURE ENV<br/>
+            SESSION: {examId}
+          </div>
+        </div>
+      </div>
       </div>
       {examState === "ACTIVE" && <AIProctor onViolation={handleProctorViolation} />}
     </div>
+    </>
   );
 }

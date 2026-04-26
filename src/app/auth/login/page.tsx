@@ -22,7 +22,7 @@ export default function Login() {
       }
 
       // Match securely generated student credentials via Firebase
-      const { verifyCandidateFirebase } = await import('@/lib/firebase');
+      const { verifyCandidateFirebase, isFirebaseConfigured } = await import('@/lib/firebase');
       const status = await verifyCandidateFirebase(email, password);
 
       if (status === "SUCCESS") {
@@ -32,13 +32,31 @@ export default function Login() {
       } else if (status === "INVALID_PASS") {
         alert("Standard authentication verification failed! Incorrect Exam Password.");
       } else {
-        alert("Email not found in registered candidates pool. Please sign up the student first.");
+        let errorMsg = "Email not found in registered candidates pool. Please sign up the student first.";
+        if (!isFirebaseConfigured) {
+           errorMsg += "\n\n⚠️ NOTE: Firebase is not configured in this environment. Credentials only work on the specific browser where the student registered.";
+        }
+        alert(errorMsg);
       }
     }
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: "var(--bg-color)", fontFamily: "sans-serif" }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh", backgroundColor: "var(--bg-color)", fontFamily: "sans-serif" }}>
+      <header style={{ padding: "1.2rem 2.5rem", backgroundColor: "#0f172a", display: "flex", alignItems: "center", gap: "0.8rem", borderBottom: "1px solid #1e293b", zIndex: 100, position: "relative" }}>
+        <div style={{ width: "35px", height: "35px", backgroundColor: "#3b82f6", borderRadius: "8px", display: "flex", justifyContent: "center", alignItems: "center", flexShrink: 0 }}>
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+             <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+             <polyline points="2 17 12 22 22 17"></polyline>
+             <polyline points="2 12 12 17 22 12"></polyline>
+           </svg>
+        </div>
+        <div>
+          <h1 style={{ color: "white", fontSize: "1.4rem", margin: 0, letterSpacing: "1px", fontWeight: "bold" }}>GEONIXA</h1>
+          <p style={{ color: "#94a3b8", fontSize: "0.6rem", margin: 0, textTransform: "uppercase", letterSpacing: "1.5px" }}>Corporate Systems</p>
+        </div>
+      </header>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flex: 1 }}>
       <div style={{ padding: "3rem", backgroundColor: "var(--card-bg)", borderRadius: "8px", border: "1px solid var(--border-color)", width: "90%", maxWidth: "400px", boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)" }}>
         <h2 style={{ color: "var(--primary-color)", margin: "0 0 2rem", textAlign: "center" }}>Secure Login Portal</h2>
         <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
@@ -72,6 +90,7 @@ export default function Login() {
           </button>
         </form>
       </div>
+    </div>
     </div>
   );
 }

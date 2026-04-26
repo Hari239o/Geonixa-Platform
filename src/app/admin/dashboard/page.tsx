@@ -25,6 +25,13 @@ export default function AdminDashboard() {
    const [printingEmail, setPrintingEmail] = useState<string | null>(null);
    const [loadingDb, setLoadingDb] = useState(true);
 
+   // Invitation States
+   const [inviteEmail, setInviteEmail] = useState("");
+   const [inviteName, setInviteName] = useState("");
+   const [inviteCollege, setInviteCollege] = useState("");
+   const [inviteDomain, setInviteDomain] = useState("Java");
+   const [inviting, setInviting] = useState(false);
+
    useEffect(() => {
       const user = typeof window !== 'undefined' ? localStorage.getItem("geonixa_current_user") : null;
       if (user !== "talent@geonixa.com") {
@@ -105,6 +112,35 @@ export default function AdminDashboard() {
       return { finalAptitude, finalGrammar, typingPoints, codingPoints, totalMarks };
    };
 
+   const handleSendInvite = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setInviting(true);
+      try {
+         const autoPass = "GEONIXA-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+         const { registerCandidateFirebase } = await import('@/lib/firebase');
+         await registerCandidateFirebase(inviteEmail, autoPass, { name: inviteName, college: inviteCollege, domain: inviteDomain });
+
+         const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: inviteEmail, password: autoPass, name: inviteName, college: inviteCollege, domain: inviteDomain })
+         });
+         const data = await res.json();
+         if (data.success) {
+            alert(`INVITATION DISPATCHED SUCCESSFULLY!\nCredentials sent to ${inviteEmail}\nPass-Key: ${autoPass}`);
+            setInviteEmail("");
+            setInviteName("");
+            setInviteCollege("");
+         } else {
+            alert("Error dispatching: " + data.error);
+         }
+      } catch (err) {
+         alert("Internal System Error during dispatch.");
+      } finally {
+         setInviting(false);
+      }
+   };
+
    const handleDeleteTarget = async (targetEmail: string) => {
       if (confirm(`CRITICAL: Do you really want to permanently erase the entire record and exam locks for candidate: ${targetEmail}?`)) {
          const { deleteCandidateFirebase } = await import('@/lib/firebase');
@@ -126,8 +162,16 @@ export default function AdminDashboard() {
       }
    };
 
-   return (
-      <div className="animate-fade-in" style={{ padding: "6rem 3rem 3rem", backgroundColor: "var(--bg-color)", minHeight: "100vh", fontFamily: "sans-serif" }}>
+    return (
+      <div style={{ height: "100vh", width: "100vw", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          body { overflow: hidden !important; margin: 0; padding: 0; }
+          ::-webkit-scrollbar { width: 8px; }
+          ::-webkit-scrollbar-track { background: #f1f5f9; }
+          ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+          ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        `}} />
+        <div className="animate-fade-in" style={{ flex: 1, overflowY: "auto", padding: "6rem 3rem 3rem", backgroundColor: "var(--bg-color)", fontFamily: "sans-serif" }}>
          <div className="no-print">
             <h1 style={{ color: "var(--primary-color)", fontSize: "2.5rem" }}>Secured Admin Operations Layer</h1>
             <p style={{ color: "var(--text-muted)", fontSize: "1.2rem" }}>Super-Admin Logged in securely: <strong>talent@geonixa.com</strong></p>
@@ -140,6 +184,24 @@ export default function AdminDashboard() {
                <div className="hover-glow" style={{ backgroundColor: "var(--card-bg)", padding: "2rem", borderRadius: "12px", border: "1px solid var(--border-color)", transition: "0.3s" }}>
                   <h3 style={{ color: "var(--text-main)" }}>Finalized Exams Logged</h3>
                   <p style={{ fontSize: "3rem", fontWeight: "bold", margin: "1rem 0 0", color: "var(--success)" }}>{completedEmails.length}</p>
+               </div>
+               <div style={{ backgroundColor: "var(--card-bg)", padding: "2rem", borderRadius: "12px", border: "2px dashed var(--primary-color)", gridColumn: "span 1" }}>
+                  <h3 style={{ color: "var(--primary-color)", margin: "0 0 1rem" }}>Authorized Invitation Dispatch</h3>
+                  <form onSubmit={handleSendInvite} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                     <input type="text" placeholder="Candidate Name" required style={{ width: "100%", padding: "0.8rem", borderRadius: "6px", border: "1px solid var(--border-color)" }} value={inviteName} onChange={e => setInviteName(e.target.value)} />
+                     <input type="email" placeholder="Candidate Email" required style={{ width: "100%", padding: "0.8rem", borderRadius: "6px", border: "1px solid var(--border-color)" }} value={inviteEmail} onChange={e => setInviteEmail(e.target.value)} />
+                     <div style={{ display: "flex", gap: "1rem" }}>
+                        <input type="text" placeholder="College" required style={{ flex: 1, padding: "0.8rem", borderRadius: "6px", border: "1px solid var(--border-color)" }} value={inviteCollege} onChange={e => setInviteCollege(e.target.value)} />
+                        <select style={{ flex: 1, padding: "0.8rem", borderRadius: "6px", border: "1px solid var(--border-color)" }} value={inviteDomain} onChange={e => setInviteDomain(e.target.value)}>
+                           <option value="Java">Java</option>
+                           <option value="Python">Python</option>
+                           <option value="Web Development">Web Development</option>
+                        </select>
+                     </div>
+                     <button disabled={inviting} type="submit" style={{ padding: "0.8rem", backgroundColor: "var(--primary-color)", color: "white", border: "none", borderRadius: "6px", fontWeight: "bold", cursor: "pointer" }}>
+                        {inviting ? "Processing..." : "Dispatch Secure Invitation"}
+                     </button>
+                  </form>
                </div>
             </div>
          </div>
@@ -345,7 +407,8 @@ export default function AdminDashboard() {
                   })}
                </div>
             )}
-         </div>
+          </div>
+        </div>
       </div>
-   );
+    );
 }

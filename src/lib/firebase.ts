@@ -11,6 +11,8 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "dummy",
 };
 
+export const isFirebaseConfigured = firebaseConfig.projectId !== "dummy";
+
 // Start safely
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 

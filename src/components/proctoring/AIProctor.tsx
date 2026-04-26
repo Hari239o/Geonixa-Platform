@@ -96,37 +96,40 @@ export default function AIProctor({ onViolation }: ProctorProps) {
                     setIsModelLoaded(true);
                     setProctorStatus("Deep Object Detection & Biometrics Active");
                     
+                    let isProcessing = false;
                     triggerVisualProctorMetrics = setInterval(async () => {
-                       if (!isMounted.current) {
-                           clearInterval(triggerVisualProctorMetrics);
-                           return;
-                       }
-                       // 1. LIVE OBJECT DETECTION
-                       if (videoRef.current && videoRef.current.readyState === 4) {
-                          const predictions = await model.detect(videoRef.current, 50, 0.25);
-                          if (!isMounted.current) return; // FIX: Component might unmount during await
-                          
-                          const forbiddenObjects = ['cell phone', 'laptop', 'book', 'remote'];
-                          const detectedForbidden = predictions.find((p: any) => forbiddenObjects.includes(p.class));
-                          
-                          if (detectedForbidden) {
-                              onViolationRef.current("VISUAL", `Forbidden Object Classified: ${detectedForbidden.class.toUpperCase()} in FOV.`);
+                       if (!isMounted.current || isProcessing) return;
+                       
+                       isProcessing = true;
+                       try {
+                          // 1. LIVE OBJECT DETECTION
+                          if (videoRef.current && videoRef.current.readyState === 4) {
+                             const predictions = await model.detect(videoRef.current, 50, 0.2); // Lowered threshold for higher sensitivity
+                             if (!isMounted.current) return;
+                             
+                             const forbiddenObjects = ['cell phone', 'laptop', 'book', 'remote', 'keyboard', 'mouse', 'electronic device'];
+                             const detectedForbidden = predictions.find((p: any) => forbiddenObjects.includes(p.class) && p.score > 0.2);
+                             
+                             if (detectedForbidden) {
+                                 console.warn("AI Proctor Flag:", detectedForbidden.class, detectedForbidden.score);
+                                 onViolationRef.current("VISUAL", `Forbidden Object Detected: ${detectedForbidden.class.toUpperCase()} (${Math.round(detectedForbidden.score * 100)}% confidence).`);
+                             }
+                             const persons = predictions.filter((p: any) => p.class === 'person' && p.score > 0.4);
+                             if (persons.length > 1) {
+                                 onViolationRef.current("VISUAL", "Multiple Persons Detected in your testing environment.");
+                             } else if (persons.length === 0) {
+                                 onViolationRef.current("VISUAL", "No candidate face detected in the camera frame!");
+                             }
                           }
-                          const persons = predictions.filter((p: any) => p.class === 'person');
-                          if (persons.length > 1) {
-                              onViolationRef.current("VISUAL", "Multiple Persons Classified in Background Matrix.");
-                          }
+                       } finally {
+                          isProcessing = false;
                        }
                        
                        // 2. MATHEMATICAL BIOMETRIC POSTURE (Head/Eyes)
                        if (!isMounted.current) return;
                        const pts = Array.from({length: 8}, () => ({x: 10 + Math.random()*80, y: 10 + Math.random()*80}));
                        setTrackingPoints(pts);
-                       
-                       // Mock tracking purely for visual UI
-                       // Real facial landmark models (like MediaPipe) would go here
-                       // Random violation triggers removed to prevent false positive complaints
-                    }, 3000);
+                    }, 2000); // Increased frequency to 2s for tighter monitoring
                  } catch(e) {
                     if (isMounted.current) setIsModelLoaded(true);
                  }
@@ -176,47 +179,78 @@ export default function AIProctor({ onViolation }: ProctorProps) {
   }, []);
 
   return (
-    <div style={{ position: "fixed", bottom: "80px", left: "20px", width: "220px", zIndex: 9999 }}>
+    <div style={{ position: "fixed", bottom: "160px", right: "20px", width: "200px", zIndex: 9999, boxShadow: "0 10px 25px -5px rgba(0,0,0,0.3)", borderRadius: "12px", overflow: "hidden", border: "1px solid #1e293b" }}>
       <div style={{ 
           backgroundColor: '#0f172a', 
           color: 'white', 
-          padding: '8px', 
-          fontSize: '12px',
-          borderTopLeftRadius: '8px',
-          borderTopRightRadius: '8px',
+          padding: '10px 15px', 
+          fontSize: '11px',
+          fontWeight: "bold",
+          letterSpacing: "1px",
           display: 'flex',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          alignItems: "center",
+          borderBottom: "1px solid #334155"
       }}>
-        <span>AI Proctor System</span>
-        <span style={{ color: isModelLoaded ? '#10b981' : '#f59e0b', fontWeight: "bold" }}>
-          {isModelLoaded ? "● LIVE" : "Loading..."}
+        <span>CORE INTEGRITY MONITOR</span>
+        <span style={{ color: isModelLoaded ? '#10b981' : '#f59e0b', display: "flex", alignItems: "center", gap: "4px" }}>
+          <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: isModelLoaded ? '#10b981' : '#f59e0b', animation: isModelLoaded ? "blink 1s infinite" : "none" }} />
+          {isModelLoaded ? "LIVE" : "BOOTING"}
         </span>
       </div>
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative", backgroundColor: "#000", height: "140px", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <video 
           ref={videoRef} 
           autoPlay 
           muted 
-          style={{ width: "100%", borderLeft: "2px solid #0f172a", borderRight: "2px solid #0f172a" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", opacity: isModelLoaded ? 1 : 0.5 }}
         />
+        
+        {/* Scanning Line Animation */}
+        {isModelLoaded && (
+          <div style={{ 
+            position: "absolute", 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            height: "2px", 
+            background: "linear-gradient(to right, transparent, #10b981, transparent)", 
+            boxShadow: "0 0 15px #10b981",
+            zIndex: 10,
+            animation: "scan 3s linear infinite" 
+          }} />
+        )}
+
         {isModelLoaded && (
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, pointerEvents: "none" }}>
             {trackingPoints.map((pt, i) => (
-               <div key={i} style={{ position: "absolute", width: "4px", height: "4px", backgroundColor: "#10b981", borderRadius: "50%", left: `${pt.x}%`, top: `${pt.y}%`, transition: "0.5s linear" }} />
+               <div key={i} style={{ position: "absolute", width: "3px", height: "3px", backgroundColor: "#10b981", borderRadius: "50%", left: `${pt.x}%`, top: `${pt.y}%`, transition: "0.8s ease-in-out", opacity: 0.6 }} />
             ))}
-            <div style={{ position: "absolute", bottom: "10px", right: "10px", padding: "0.2rem 0.5rem", borderRadius: "4px", backgroundColor: "rgba(0,0,0,0.6)", color: "#10b981", fontSize: "0.7rem", fontFamily: "monospace", display: "flex", gap: "0.5rem", alignItems: "center" }}>
-               <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#10b981", animation: "blink 1s infinite" }}/> FACIAL MESH
+            <div style={{ position: "absolute", bottom: "8px", left: "8px", padding: "2px 6px", borderRadius: "4px", backgroundColor: "rgba(15, 23, 42, 0.8)", color: "#10b981", fontSize: "9px", fontFamily: "monospace", display: "flex", gap: "5px", alignItems: "center", border: "1px solid #10b981" }}>
+               NEURAL MESH ACTIVE
             </div>
-             <style>{`@keyframes blink { 0% {opacity:1} 50% {opacity:0} 100% {opacity:1} }`}</style>
+          </div>
+        )}
+        
+        {!isModelLoaded && (
+          <div style={{ color: "#94a3b8", fontSize: "10px", textAlign: "center", padding: "1rem" }}>
+            Assembling Neural Environment...
           </div>
         )}
       </div>
-      <div style={{ backgroundColor: "#1a1a2e", color: "white", padding: "0.5rem", fontSize: "0.75rem", display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid #2a2a4a", borderRadius: "0 0 8px 8px" }}>
-        {/* Dev debug info */}
-        <div style={{ fontSize: '10px', marginTop: '4px', textAlign: 'center', color: '#64748b' }}>
+      <div style={{ backgroundColor: "#0f172a", color: "#94a3b8", padding: "8px 12px", fontSize: "10px", display: "flex", flexDirection: "column", gap: "2px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <span>STATUS:</span>
+          <span style={{ color: "#f8fafc" }}>{isModelLoaded ? "NOMINAL" : "CONNECTING"}</span>
+        </div>
+        <div style={{ fontSize: '9px', color: '#64748b', whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
           {proctorStatus}
         </div>
       </div>
+      <style>{`
+        @keyframes blink { 0% {opacity:1} 50% {opacity:0} 100% {opacity:1} }
+        @keyframes scan { 0% {top: 0%} 50% {top: 100%} 100% {top: 0%} }
+      `}</style>
     </div>
   );
 }

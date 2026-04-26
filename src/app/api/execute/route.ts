@@ -17,25 +17,17 @@ export async function POST(req: Request) {
         finalCode = code.replace(/true/g, 'True').replace(/false/g, 'False');
     }
 
-    const versionMap: Record<string, string> = {
-      javascript: "18.15.0",
-      python: "3.10.0",
-      c: "10.2.0",
-      cpp: "10.2.0",
-      java: "15.0.2",
-      csharp: "6.12.0"
-    };
-
-    const pistonLang = language === "cpp" ? "c++" : language;
-    const version = versionMap[language] || "*";
-
+    const pistonLang = language === "cpp" ? "c++" : (language === "javascript" ? "node" : language);
+    
     const response = await fetch("https://emkc.org/api/v2/piston/execute", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         language: pistonLang,
-        version: version,
-        files: [{ content: finalCode }]
+        version: "*",
+        files: [{ content: finalCode }],
+        compile_timeout: 10000,
+        run_timeout: 10000
       })
     });
 

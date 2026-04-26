@@ -27,9 +27,7 @@ export async function POST(req: Request) {
        finalOrigin = origin.replace("localhost", getLocalIp());
     }
 
-    const loginLink = process.env.NEXT_PUBLIC_BASE_URL 
-      ? `${process.env.NEXT_PUBLIC_BASE_URL}/auth/login` 
-      : `${finalOrigin}/auth/login`;
+    const loginLink = `${finalOrigin}/auth/login`;
 
     let transporter;
     
@@ -88,8 +86,17 @@ export async function POST(req: Request) {
             <li>Ensure a stable 5Mbps+ constant internet pipeline.</li>
           </ul>
 
-          <div style="margin-top: 40px; text-align: center;">
-            <a href="${loginLink}" style="background-color: #0f172a; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Proceed to Secure Login Portal</a>
+          <div style="margin-top: 40px; padding: 25px; border-radius: 8px; background-color: #f8fafc; border: 1px solid #e2e8f0; text-align: left;">
+            <p style="margin: 0 0 12px; font-weight: bold; color: #0f172a; font-size: 16px;">Next Steps to Begin:</p>
+            <p style="margin: 0 0 15px; line-height: 1.6; color: #475569;">
+              Your registration is now complete. Please follow these steps to access your assessment:
+            </p>
+            <ol style="margin: 0 0 20px; padding-left: 20px; line-height: 1.6; color: #475569;">
+              <li>Open your web browser and navigate to our official assessment portal.</li>
+              <li>Go to the <strong>Login Page</strong> from the navigation menu.</li>
+              <li>Enter your registered email and the <strong>Secure Pass-Key</strong> provided above.</li>
+            </ol>
+
           </div>
         </div>
         <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8;">
