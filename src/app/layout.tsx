@@ -13,6 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script src="https://cdn.tailwindcss.com"></script>
+      </head>
       <body className="animate-fade-in" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <main style={{ flex: 1, position: "relative", display: "flex", flexDirection: "column" }}>
           {children}

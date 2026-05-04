@@ -1,1100 +1,840 @@
 "use client";
 
-import { use, useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState, useCallback } from "react";
 import AIProctor from "@/components/proctoring/AIProctor";
 import CodeEditor from "@/components/editor/CodeEditor";
 import { storeExamAnswers } from "@/lib/firebase";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  Shield, 
+  Timer, 
+  AlertTriangle, 
+  CheckCircle2, 
+  XCircle, 
+  ChevronRight, 
+  ChevronLeft,
+  Lock,
+  Keyboard,
+  Code2,
+  BrainCircuit,
+  MessageSquare,
+  FileText
+} from "lucide-react";
 
-type ExamState = "SYS_CHECK" | "INSTRUCTIONS" | "ACTIVE" | "SUBMITTED" | "VIOLATION_TERMINATED";
+// --- TYPES ---
+type ExamState = "SYS_CHECK" | "INSTRUCTIONS" | "ACTIVE" | "SUBMITTED" | "CHEATING_TERMINATED";
+type RoundType = "APTITUDE" | "GRAMMAR" | "TYPING" | "DOMAIN_SPECIAL" | "FEEDBACK";
+
+interface Question {
+  q: string;
+  opts: string[];
+  correctAnswer: string;
+}
+
+// --- CONSTANTS & POOLS ---
+const TYPING_TOPICS = [
+  { 
+    id: 1, 
+    title: "The Future of Artificial Intelligence", 
+    text: "Artificial Intelligence is no longer a concept of the future; it is actively reshaping our world today. From autonomous vehicles navigating complex city streets to sophisticated algorithms predicting global market trends, AI is integrated into the fabric of modern society. However, this rapid advancement brings about significant ethical considerations that we must address. We must ensure that AI systems are developed with transparency, accountability, and a commitment to human values. The challenge lies in balancing innovation with security, ensuring that the benefits of AI are distributed equitably across all sectors of society while mitigating risks such as bias and job displacement. As we move forward, the collaboration between humans and machines will define the next era of progress, requiring a new set of skills and a robust regulatory framework to guide this powerful technology toward the betterment of humanity."
+  },
+  { 
+    id: 2, 
+    title: "Global Sustainability and Climate Action", 
+    text: "The urgency of addressing climate change has never been more apparent than it is in the present decade. Rising global temperatures, melting polar ice caps, and an increase in extreme weather events are clear indicators that our planet is in a state of environmental crisis. Sustainable development is not just an option but a necessity for the survival of future generations. This requires a fundamental shift in how we produce and consume energy, moving away from fossil fuels toward renewable sources like solar and wind power. Additionally, we must adopt circular economy principles to reduce waste and preserve biodiversity. Every individual, corporation, and government has a role to play in this transition. Through collective action and technological innovation, we can build a resilient future that harmonizes economic growth with ecological preservation, ensuring a healthy planet for all."
+  }
+];
 
 export default function ExamSession({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const examId = resolvedParams.id;
-  const [warnings, setWarnings] = useState<string[]>([]);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  
+  // --- STATE ---
   const [examState, setExamState] = useState<ExamState>("SYS_CHECK");
+  const [currentRound, setCurrentRound] = useState<RoundType>("APTITUDE");
+  const [roundStep, setRoundStep] = useState(1); // For multi-step rounds like Typing
+  const [userDomain, setUserDomain] = useState<string>("Java");
+  const [isTech, setIsTech] = useState<boolean>(true);
+  
+  // Timers
+  const [timeLeft, setTimeLeft] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const [feedback, setFeedback] = useState({ stars: 0, experience: "", improvements: "" });
-  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+  // Questions
+  const [aptQuestions, setAptQuestions] = useState<Question[]>([]);
+  const [gramQuestions, setGramQuestions] = useState<Question[]>([]);
+  const [domainQuestions, setDomainQuestions] = useState<Question[]>([]);
+  const [codingQuestions, setCodingQuestions] = useState<any[]>([]);
 
-  const [currentRound, setCurrentRound] = useState(1);
-  const totalRounds = 4;
-  const [timeLeft, setTimeLeft] = useState(120 * 60);
-
-  // Pagination States for rounds
-  const [q1Index, setQ1Index] = useState(0);
-  const [q2Index, setQ2Index] = useState(0);
-
-  // MCQ Answers Tracker
-  const [r1Answers, setR1Answers] = useState<Record<number, string>>({});
-  const [r2Answers, setR2Answers] = useState<Record<number, string>>({});
-  const [r1Flags, setR1Flags] = useState<Record<number, boolean>>({});
-  const [r2Flags, setR2Flags] = useState<Record<number, boolean>>({});
-  const [isOnline, setIsOnline] = useState(true);
-
-  // Specific Time Limits tracking (Aptitude 10m, Grammar 10m, Typing 5m, Coding 30m)
-  const timeLimits = { 1: 10 * 60, 2: 10 * 60, 3: 5 * 60, 4: 45 * 60 };
-  const [roundTimes, setRoundTimes] = useState(timeLimits);
-
-  // Generative AI Leetcode State & Pools
-  const [aiQuestions, setAiQuestions] = useState<any[]>([]);
-  const [r1List, setR1List] = useState<any[]>([]);
-  const [r2List, setR2List] = useState<any[]>([]);
-  const [codingProgress, setCodingProgress] = useState<boolean[]>([false, false, false]);
-  const [currentCodingQuestionIndex, setCurrentCodingQuestionIndex] = useState(0);
-
-  // Typing Round States
-  const [typingText, setTypingText] = useState("");
+  // Answers
+  const [aptAnswers, setAptAnswers] = useState<Record<number, string>>({});
+  const [gramAnswers, setGramAnswers] = useState<Record<number, string>>({});
+  const [domainAnswers, setDomainAnswers] = useState<Record<number, string>>({});
+  const [typingData, setTypingData] = useState({ round1: "", round2: "" });
   const [backspaceCount, setBackspaceCount] = useState(0);
-  const [typingWarning, setTypingWarning] = useState("");
+  const [codingResults, setCodingResults] = useState<any[]>([]);
 
-  // System & Video Check States
+  // Proctoring
+  const [violationCount, setViolationCount] = useState(0);
+  const [isBlocked, setIsBlocked] = useState(false);
+  const [blockTime, setBlockTime] = useState(0);
+  const blockTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [proctorLogs, setProctorLogs] = useState<string[]>([]);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Indexing for UI
+  const [currentQIndex, setCurrentQIndex] = useState(0);
+
+  // System Checks
+  const [sysChecks, setSysChecks] = useState({ browser: true, camera: false, mic: false, network: true });
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasSelfie, setHasSelfie] = useState(false);
-  const [sysChecks, setSysChecks] = useState({
-    browser: false,
-    camera: false,
-    mic: false,
-    network: false,
-  });
 
-  const isExamActiveRef = useRef(true);
-  const severeWarningCountRef = useRef(0);
-  const noiseWarningCountRef = useRef(0);
-  const lastNoiseWarningTimeRef = useRef(0);
-  
+  // --- INITIALIZATION ---
   useEffect(() => {
-    isExamActiveRef.current = examState === "ACTIVE";
-    
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, [examState]);
-
-  const handleFinalSubmit = async () => {
-    isExamActiveRef.current = false;
-    try {
-      const currentUser = typeof window !== "undefined" ? localStorage.getItem("geonixa_current_user") || "anonymous" : "anonymous";
-      const typingLines = typingText.split('\n').length;
-
-      // Compute structured results for the database
-      const r1Results = r1List.map((q, i) => ({
-        question: q.q,
-        selected: r1Answers[i] || "Not Attempted",
-        correct: q.correctAnswer || q.opts[0],
-        isRight: r1Answers[i] === (q.correctAnswer || q.opts[0])
-      }));
-
-      const r2Results = r2List.map((q, i) => ({
-        question: q.q,
-        selected: r2Answers[i] || "Not Attempted",
-        correct: q.correctAnswer || q.opts[0],
-        isRight: r2Answers[i] === (q.correctAnswer || q.opts[0])
-      }));
-
-      await storeExamAnswers(currentUser, { 
-        aiQuests: aiQuestions, 
-        codingProgress, 
-        finalRoundCompleted: true, 
-        r1Answers, 
-        r2Answers, 
-        r1Results,
-        r2Results,
-        typingLines, 
-        backspacesUsed: backspaceCount 
-      });
-    } catch (e) { }
-    setExamState("SUBMITTED");
-    if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => { });
-  };
-
-  useEffect(() => {
-    if (examState === "ACTIVE") {
-      const timer = setInterval(() => {
-        setRoundTimes(prev => {
-          const currentLeft = prev[currentRound as keyof typeof timeLimits];
-          if (currentLeft <= 1) {
-            if (currentRound < totalRounds) {
-              setCurrentRound(c => c + 1);
-            } else {
-              handleFinalSubmit();
-              // Prevent multiple alerts if interval triggers right before cleanup
-              if (currentLeft === 1) {
-                alert("Time is up! Your exam has been automatically submitted.");
-              }
-            }
-            return { ...prev, [currentRound]: 0 };
-          }
-          return { ...prev, [currentRound]: currentLeft - 1 };
-        });
-      }, 1000);
-      return () => clearInterval(timer);
+    // Load User Data
+    const email = typeof window !== 'undefined' ? localStorage.getItem("geonixa_current_user") : null;
+    if (email) {
+      // In a real app, fetch from Firebase. Here we simulate.
+      const domain = localStorage.getItem(`geonixa_domain_${email}`) || "Java";
+      setUserDomain(domain);
+      setIsTech(["Java", "Python", "Web Development", "Data Science", "Data Analytics"].includes(domain));
+      
+      // Initialize Questions with Seed
+      initializeQuestions(email, domain);
     }
-  }, [examState, currentRound]);
-
-  // Exam Persistance to prevent 2nd chance
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const currentUser = localStorage.getItem("geonixa_current_user") || "anonymous";
-      const isSubmitted = localStorage.getItem(`geonixa_exam_status_${currentUser}`);
-      if (isSubmitted === "true" && examState === "SYS_CHECK") {
-        setExamState("SUBMITTED");
-      }
-    }
-  }, [examState]);
-
-  useEffect(() => {
-    if (examState === "SUBMITTED" || examState === "VIOLATION_TERMINATED") {
-      if (typeof window !== 'undefined') {
-        const currentUser = localStorage.getItem("geonixa_current_user") || "anonymous";
-        localStorage.setItem(`geonixa_exam_status_${currentUser}`, "true");
-      }
-    }
-  }, [examState]);
-
-  // Generate Leetcode AI questions on start
-  useEffect(() => {
-    const hardLeetcodePool = [
-      {
-        title: "Sliding Window Maximum (Hard)", desc: "You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. Return the max sliding window natively in O(N) via monotonic queue.", initialCode: "function maxSlidingWindow(nums, k) {\n  \n}\nconsole.log(maxSlidingWindow([1,3,-1,-3,5,3,6,7], 3));",
-        tests: [
-          { id: 1, input: "[1,3,-1,-3,5,3,6,7], 3", expectedOutput: "[3,3,5,5,6,7]" },
-          { id: 2, input: "[1], 1", expectedOutput: "[1]" },
-          { id: 3, input: "[9,11], 2", expectedOutput: "[11]" },
-          { id: 4, input: "[4,-2], 2", expectedOutput: "[4]" },
-          { id: 5, input: "[7,2,4], 2", expectedOutput: "[7,4]" }
-        ]
-      },
-      {
-        title: "Regular Expression Matching (Hard)", desc: "Given an input string s and a pattern p, implement regular expression matching with support for '.' and '*' where '.' Matches any single character. '*' Matches zero or more of the preceding element.", initialCode: "function isMatch(s, p) {\n  \n}\nconsole.log(isMatch('aab', 'c*a*b'));",
-        tests: [
-          { id: 1, input: "'aa', 'a'", expectedOutput: "false" },
-          { id: 2, input: "'aa', 'a*'", expectedOutput: "true" },
-          { id: 3, input: "'ab', '.*'", expectedOutput: "true" },
-          { id: 4, input: "'aab', 'c*a*b'", expectedOutput: "true" },
-          { id: 5, input: "'mississippi', 'mis*is*p*.'", expectedOutput: "false" }
-        ]
-      },
-      {
-        title: "First Missing Positive (Hard)", desc: "Given an unsorted integer array nums, return the smallest missing positive integer. You must implement an algorithm that runs in O(n) time and uses O(1) auxiliary space.", initialCode: "function firstMissingPositive(nums) {\n  \n}\nconsole.log(firstMissingPositive([3,4,-1,1]));",
-        tests: [
-          { id: 1, input: "[1,2,0]", expectedOutput: "3" },
-          { id: 2, input: "[3,4,-1,1]", expectedOutput: "2" },
-          { id: 3, input: "[7,8,9,11,12]", expectedOutput: "1" },
-          { id: 4, input: "[2,1]", expectedOutput: "3" },
-          { id: 5, input: "[1]", expectedOutput: "2" }
-        ]
-      },
-      {
-        title: "Edit Distance (Hard)", desc: "Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2 (insert, delete, replace). Use dynamic programming bottom-up.", initialCode: "function minDistance(word1, word2) {\n  \n}\nconsole.log(minDistance('horse', 'ros'));",
-        tests: [
-          { id: 1, input: "'horse', 'ros'", expectedOutput: "3" },
-          { id: 2, input: "'intention', 'execution'", expectedOutput: "5" },
-          { id: 3, input: "'', 'a'", expectedOutput: "1" },
-          { id: 4, input: "'a', 'b'", expectedOutput: "1" },
-          { id: 5, input: "'ab', 'cd'", expectedOutput: "2" }
-        ]
-      },
-      {
-        title: "Largest Rectangle in Histogram (Hard)", desc: "Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.", initialCode: "function largestRectangleArea(heights) {\n  \n}\nconsole.log(largestRectangleArea([2,1,5,6,2,3]));",
-        tests: [
-          { id: 1, input: "[2,1,5,6,2,3]", expectedOutput: "10" },
-          { id: 2, input: "[2,4]", expectedOutput: "4" },
-          { id: 3, input: "[1,1]", expectedOutput: "2" },
-          { id: 4, input: "[2,1,2]", expectedOutput: "3" },
-          { id: 5, input: "[5,4,1,2]", expectedOutput: "8" }
-        ]
-      },
-      {
-        title: "Trapping Rain Water (Hard)", desc: "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining. Ensure O(N) complexity constraints utilizing pointers.", initialCode: "function trap(height) {\n  \n}\nconsole.log(trap([0,1,0,2,1,0,1,3,2,1,2,1]));",
-        tests: [
-          { id: 1, input: "[0,1,0,2,1,0,1,3,2,1,2,1]", expectedOutput: "6" },
-          { id: 2, input: "[4,2,0,3,2,5]", expectedOutput: "9" },
-          { id: 3, input: "[1,0,1]", expectedOutput: "1" },
-          { id: 4, input: "[0,2,0]", expectedOutput: "0" },
-          { id: 5, input: "[4,2,3]", expectedOutput: "1" }
-        ]
-      },
-      {
-        title: "N-Queens II (Hard)", desc: "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other. Given an integer n, return the number of distinct solutions using backtracking configurations.", initialCode: "function totalNQueens(n) {\n  \n}\nconsole.log(totalNQueens(4));",
-        tests: [
-          { id: 1, input: "4", expectedOutput: "2" },
-          { id: 2, input: "1", expectedOutput: "1" },
-          { id: 3, input: "5", expectedOutput: "10" },
-          { id: 4, input: "6", expectedOutput: "4" },
-          { id: 5, input: "2", expectedOutput: "0" }
-        ]
-      },
-      {
-        title: "Merge k Sorted Lists (Hard)", desc: "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list.", initialCode: "function mergeKLists(lists) {\n  \n}\nconsole.log(mergeKLists([[1,4,5],[1,3,4],[2,6]]));",
-        tests: [
-          { id: 1, input: "[[1,4,5],[1,3,4],[2,6]]", expectedOutput: "[1,1,2,3,4,4,5,6]" },
-          { id: 2, input: "[]", expectedOutput: "[]" },
-          { id: 3, input: "[[]]", expectedOutput: "[]" },
-          { id: 4, input: "[[1,2],[1,3]]", expectedOutput: "[1,1,2,3]" },
-          { id: 5, input: "[[1],[0]]", expectedOutput: "[0,1]" }
-        ]
-      },
-      {
-        title: "Minimum Window Substring (Hard)", desc: "Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window.", initialCode: "function minWindow(s, t) {\n  \n}\nconsole.log(minWindow('ADOBECODEBANC', 'ABC'));",
-        tests: [
-          { id: 1, input: "'ADOBECODEBANC', 'ABC'", expectedOutput: "'BANC'" },
-          { id: 2, input: "'a', 'a'", expectedOutput: "'a'" },
-          { id: 3, input: "'a', 'aa'", expectedOutput: "''" },
-          { id: 4, input: "'aa', 'a'", expectedOutput: "'a'" },
-          { id: 5, input: "'ab', 'b'", expectedOutput: "'b'" }
-        ]
-      },
-    ];
-
-    const allAptitude = [
-      { q: "Number System: Find the largest number of four digits exactly divisible by 12, 15, 18, and 27.", opts: ["9720", "9930", "9960", "9990"] },
-      { q: "Ratio & Proportion: A bag contains rupees, 50-paise and 25-paise coins in the ratio 5:6:8. If the total amount is Rs.210, find the number of 25-paise coins.", opts: ["168", "120", "144", "100"] },
-      { q: "Probability: Two dice are thrown simultaneously. What is the probability of getting two numbers whose product is even?", opts: ["1/2", "3/4", "5/8", "7/12"] },
-      { q: "Time & Work: A can do a piece of work in 24 days. If B is 60% more efficient than A, then how many days does B require to do the same work?", opts: ["15 days", "12 days", "18 days", "20 days"] },
-      { q: "Speed & Distance: A train running at 54 km/hr crosses a platform in 20 seconds. If the length of the train is 150m, what is the length of the platform?", opts: ["150 m", "250 m", "300 m", "100 m"] },
-      { q: "Algebra: If x + 1/x = 5, find the value of x^3 + 1/x^3.", opts: ["110", "125", "115", "100"] },
-      { q: "Geometry: A triangle has sides 5, 12, and 13. What is the radius of the inscribed circle?", opts: ["2", "3", "4", "5"] },
-      { q: "Trigonometry: In a right angled triangle, if tan(A) = 3/4, what is the value of cos(A)?", opts: ["4/5", "3/5", "5/4", "1/2"] },
-      { q: "Clocks: What is the angle between the minute hand and the hour hand of a clock at 3:40?", opts: ["130 degrees", "140 degrees", "150 degrees", "160 degrees"] },
-      { q: "Calendars: What day of the week was on 15th August 1947?", opts: ["Friday", "Monday", "Wednesday", "Saturday"] },
-      { q: "Profit & Loss: A merchant marks his goods up by 50% and then offers a discount on the marked price. If he makes a 20% profit, what is the discount percentage?", opts: ["20%", "25%", "30%", "15%"] },
-      { q: "Logarithms: If log(2) = 0.3010 and log(3) = 0.4771, find the value of log(72).", opts: ["1.8573", "1.9542", "2.1245", "1.5643"] },
-      { q: "Combinatorics: In how many ways can a committee of 5 be formed from 6 men and 4 women if at least 2 women must be included?", opts: ["186", "240", "150", "200"] },
-      { q: "Mixture: A container contains 40 litres of milk. From this, 4 litres of milk was taken out and replaced by water. This process was repeated further two times. How much milk is now in the container?", opts: ["29.16 L", "30 L", "28.5 L", "32.1 L"] },
-      { q: "Simple Interest: At what rate percent per annum will a sum of money double in 16 years?", opts: ["6.25%", "8%", "10%", "5%"] },
-      { q: "Ages: The present ages of A and B are in the ratio 4:5. Eight years hence, the ratio of their ages will be 5:6. What is A's present age?", opts: ["32 years", "40 years", "24 years", "28 years"] },
-      { q: "Data Interpretation: From a dataset of 5, 9, x, 14, 21, if the mean is 12, what is the value of x?", opts: ["11", "12", "10", "13"] },
-      { q: "Mensuration: If the radius of a cylinder is doubled and its height is halved, by what percent does its volume increase?", opts: ["100%", "50%", "200%", "No change"] },
-      { q: "Pipes & Cisterns: Pipe A can fill a tank in 10 hours, B in 15 hours. If both are opened together, how long will it take?", opts: ["6 hours", "8 hours", "5 hours", "12 hours"] },
-      { q: "Permutations: How many unique string sets can be formed by rearranging ALGORITHM?", opts: ["362880", "40320", "5040", "2560"] },
-      { q: "Number Theory: If 2^x = 3^y = 6^-z, what is the value of 1/x + 1/y + 1/z?", opts: ["0", "1", "-1", "Cannot be determined"] },
-      { q: "Probability: In a group of 50 people, what is the probability that at least two people share the same birthday?", opts: ["~97%", "~50%", "~10%", "~99%"] },
-      { q: "Combinatorics: A spider has 8 distinguishable legs. It wants to put on 8 socks and 8 shoes, one on each leg. The sock must go on before the shoe. How many orders are possible?", opts: ["16! / 2^8", "16!", "8! * 8!", "(16! * 8!) / 2"] },
-      { q: "Geometry: A point P is inside an equilateral triangle. Its perpendicular distances from the three sides are 3, 4, and 5. What is the side length of the triangle?", opts: ["8√3", "12", "16", "24/√3"] },
-      { q: "Algebra: Evaluate the infinite nested radical √(2 + √(2 + √(2 + ...)))", opts: ["2", "1", "Undefined", "Infinity"] },
-      { q: "Number Theory: Find the remainder when 3^2022 is divided by 5.", opts: ["4", "1", "2", "3"] },
-      { q: "Probability: Three points are chosen independently at random on the circumference of a circle. What is the probability that the triangle formed by them contains the center?", opts: ["1/4", "1/8", "1/2", "1/3"] },
-      { q: "Work & Time: A takes as much time as B and C together. B takes 3 times as much time as C and A together. If C takes 20 days, how long do A, B, and C take together?", opts: ["4 days", "5 days", "3.33 days", "6 days"] },
-      { q: "Permutations: Determine the number of ways to arrange the letters of the word 'ASSASSINATION' such that no two A's are adjacent.", opts: ["10!/ (4!*2!*2!) * 11C3", "13! / (4!*3!*2!*2!)", "11! / (4!*2!*2!)", "None of these"] },
-      { q: "Game Theory: Two players play a game starting with 100 on a board. At each turn, a player can subtract a divisor of the current number (but not the number itself). The player unable to make a move loses. Who wins?", opts: ["First Player", "Second Player", "Draw", "Depends on initial moves"] },
-      { q: "Algebra: If f(x) = (x^2+1)/(x), what is the minimum value of f(x) for x > 0?", opts: ["2", "1", "0", "-2"] },
-      { q: "Combinatorics: How many paths are there from (0,0) to (5,5) on a grid moving only up and right?", opts: ["252", "120", "25", "10^5"] },
-      { q: "Probability: Two numbers are chosen randomly between 0 and 1. What is the probability that their sum is less than 1?", opts: ["1/2", "1", "1/4", "1/8"] },
-      { q: "Number Theory: What is the last digit of 7^2023?", opts: ["3", "7", "9", "1"] },
-      { q: "Mixture: 20L of 30% alcohol is mixed with 30L of 60% alcohol. What is the final concentration?", opts: ["48%", "45%", "50%", "42%"] },
-      { q: "Speed & Distance: Two trains start towards each other from A and B. After crossing, they take 4h and 9h to reach B and A. Find ratio of speeds.", opts: ["3:2", "2:3", "4:9", "Inconclusive"] },
-      { q: "Work & Time: A and B can do a job in 12 days, B and C in 15 days, C and A in 20 days. How long for A alone?", opts: ["30", "60", "24", "45"] },
-      { q: "Geometry: A cube of side 4 is cut into smaller cubes of side 1. The ratio of new surface area to old is?", opts: ["4:1", "1:4", "2:1", "16:1"] },
-      { q: "Probability: 3 coins are tossed. Probability of getting exactly 2 heads?", opts: ["3/8", "1/8", "1/4", "1/2"] },
-      { q: "Algebra: Sum of roots of x^3 - 6x^2 + 11x - 6 = 0 is?", opts: ["6", "-6", "11", "-11"] },
-      { q: "Number Theory: The number of trailing zeros in 100! is?", opts: ["24", "21", "20", "25"] },
-      { q: "Profit & Loss: A man sells two articles at Rs99 each. One at 10% profit, other at 10% loss. Net result?", opts: ["Loss 1%", "No profit no loss", "Profit 1%", "Loss 2%"] },
-      { q: "Clock: Angle between hands at 4:15?", opts: ["37.5", "30", "45", "42.5"] },
-      { q: "Trig: Max value of 3sin(x) + 4cos(x)?", opts: ["5", "7", "1", "12"] },
-      { q: "Permutations: Words from 'MISSISSIPPI'?", opts: ["34650", "39916800", "495", "11!"] },
-      { q: "Venn: In a class, 40 like Math, 30 like Science, 10 like both. Total?", opts: ["60", "70", "50", "80"] },
-      { q: "Interest: Difference between CI and SI on Rs1000 for 2 yrs at 10%?", opts: ["10", "100", "0", "20"] },
-      { q: "Age: Father is 3x son. In 10 years, he will be 2x. Father's current age?", opts: ["30", "40", "45", "50"] },
-      { q: "Pipes: Pipe A fills in 4h, B in 6h. C empties in 12h. Together they fill in?", opts: ["3h", "2h", "4h", "5h"] },
-      { q: "Dist: A walks at 4kmph and reaches 10min late. At 5kmph he is 5min early. Distance?", opts: ["5km", "4km", "10km", "6km"] },
-    ];
-
-    const allGrammar = [
-      { q: "Error Spotting: Identify the error -> 'Neither of the two candidates who had applied for the post were eligible.'", opts: ["were eligible", "had applied", "Neither of the", "for the post"] },
-      { q: "Synonyms: What is the closest meaning of the word 'Ebullient'?", opts: ["Enthusiastic", "Depressed", "Arrogant", "Deceitful"] },
-      { q: "Parajumbles: Arrange -> P: to understand Q: is essential R: the context S: clearly.", opts: ["RQPS", "PQRS", "QRPS", "SQRP"] },
-      { q: "Active/Passive: Convert to Passive -> 'The manager will give you a ticket.'", opts: ["A ticket will be given to you by the manager.", "You will be given a ticket by the manager.", "Both A and B", "None"] },
-      { q: "Direct/Indirect: 'He said, \"I have been reading this book.\"'", opts: ["He said that he had been reading that book.", "He said he has been reading this book.", "He told he had read that book.", "He said that he is reading that book."] },
-      { q: "Reading Comprehension Analysis: What is the primary tone of a passage discussing catastrophic climate failures?", opts: ["Pessimistic / Objective", "Joyful", "Humorous", "Apathetic"] },
-      { q: "Cloze Test: The scientist was highly ___ by his peers for his groundbreaking research.", opts: ["revered", "ignored", "criticized", "demolished"] },
-      { q: "Modifier Misplacement: Fix -> 'Running down the street, the tree caught my attention.'", opts: ["As I was running down the street, the tree caught my attention.", "Running down the street, my attention was caught by the tree.", "The tree caught my attention running down the street.", "No fix needed."] },
-      { q: "Prepositions: She is completely averse ___ the idea of moving abroad.", opts: ["to", "from", "against", "with"] },
-      { q: "Logical Deduction: If all Bloops are Razzies and all Razzies are Lazzies, then...", opts: ["All Bloops are Lazzies", "All Lazzies are Bloops", "Some Bloops are not Lazzies", "Cannot be determined"] },
-      { q: "Tense Consistency: By the time the police arrived, the burglar ___.", opts: ["had escaped", "escaped", "has escaped", "was escaped"] },
-      { q: "Vocabulary Root: The root 'phil' in philanthropy means:", opts: ["Love", "Hate", "Light", "Time"] },
-      { q: "Idioms: To 'bite the bullet' means to:", opts: ["Endure a painful experience bravely", "Take a huge risk for money", "Literally fight someone", "Be indecisive"] },
-      { q: "Phonology: Which word has a silent 'b'?", opts: ["Doubt", "Obtain", "Symbol", "Rubber"] },
-      { q: "Punctuation: Which sentence is correctly punctuated?", opts: ["Let's eat, Grandma!", "Lets eat, Grandma!", "Let's eat Grandma!", "Lets eat Grandma!"] },
-      { q: "Sentence Improvement: He is the smartest of the two brothers.", opts: ["smarter of the two", "smartest among the two", "more smart of the two", "No improvement"] },
-      { q: "Semantic Ambiguity: 'I saw the man with the telescope.' This means:", opts: ["I used it, or he had it (ambiguous)", "I used the telescope", "The man had the telescope", "Neither"] },
-      { q: "Parallelism: She likes cooking, jogging, and ___.", opts: ["reading", "to read", "read", "she reads"] },
-      { q: "Subjunctive Mood: It is essential that he ___ his homework immediately.", opts: ["finish", "finishes", "finished", "will finish"] },
-      { q: "Subject-Verb Concord: The bouquet of red roses ___ a beautiful aroma.", opts: ["has", "have", "are having", "were having"] },
-      { q: "Sentence Improvement: Had he realized the implications of his actions, he ___ beforehand.", opts: ["would have reconsidered", "will reconsider", "might reconsider", "had reconsidered"] },
-      { q: "Error Spotting: 'Scarcely had the minister started his speech than the crowd began to roar angrily.'", opts: ["when the crowd began", "than the crowd began", "did the crowd begin", "No error"] },
-      { q: "Vocabulary: Choose the exact antonym for 'Obfuscate'.", opts: ["Elucidate", "Confuse", "Amalgamate", "Enervate"] },
-      { q: "Parajumbles: Arrange -> P: but the conceptual Q: entirely empirical R: foundation is S: not.", opts: ["PRSQ", "PQRS", "RQPS", "SPQR"] },
-      { q: "Active/Passive: Convert to Passive -> 'Someone has stolen my purse.'", opts: ["My purse has been stolen.", "My purse had been stolen.", "Someone had stolen my purse.", "My purse is stolen."] },
-      { q: "Direct/Indirect: 'Please give me a glass of water,' she said to him.", opts: ["She requested him to give her a glass of water.", "She ordered him to give her a glass of water.", "She told him to give me a glass of water.", "She asked him to give a glass of water."] },
-      { q: "Reading Comprehension Analysis: What is the primary tone of an editorial decrying political corruption?", opts: ["Indignant", "Sycophantic", "Empathetic", "Ambivalent"] },
-      { q: "Cloze Test: The committee's decision was met with ___ approval from all members.", opts: ["unanimous", "equivocal", "dissenting", "trivial"] },
-      { q: "Modifier Misplacement: Fix -> 'Covered in mud, she watched the dog run into the house.'", opts: ["She watched the dog, covered in mud, run into the house.", "She watched the dog run into the house, covered in mud.", "Covered in mud, the dog ran into the house as she watched.", "No fix needed."] },
-      { q: "Prepositions: The management is fully apprised ___ the situation.", opts: ["of", "about", "with", "for"] },
-      { q: "Logical Deduction: If all A's are B's and no B's are C's, then...", opts: ["No A's are C's", "Some A's are C's", "All C's are A's", "Cannot be determined"] },
-      { q: "Tense Consistency: We ___ the meeting before the manager arrived.", opts: ["had started", "started", "have started", "were starting"] },
-      { q: "Vocabulary Root: The root 'chron' in chronology means:", opts: ["Time", "Color", "Measure", "Sound"] },
-      { q: "Idioms: To 'let the cat out of the bag' means to:", opts: ["Reveal a secret", "Release an animal", "Make a mistake", "Buy something unexpectedly"] },
-      { q: "Phonology: Which word has a different vowel sound?", opts: ["Bat", "Cat", "Mat", "Call"] },
-      { q: "Punctuation: Choose the correct sentence.", opts: ["Its a beautiful day.", "It's a beautiful day.", "Its' a beautiful day.", "It is a beautiful day,"] },
-      { q: "Sentence Improvement: If I was you, I wouldn't do that.", opts: ["were", "am", "had been", "No improvement"] },
-      { q: "Semantic Ambiguity: 'Visiting relatives can be boring.' means:", opts: ["Going to see relatives", "Relatives coming to see us", "Both A and B", "Neither"] },
-      { q: "Parallelism: The teacher told the students to read, write, and ___ their answers.", opts: ["review", "to review", "reviewing", "reviewed"] },
-      { q: "Subjunctive Mood: I demand that he ___ immediately.", opts: ["leave", "leaves", "left", "will leave"] },
-      { q: "Subject-Verb Concord: A number of students ___ absent.", opts: ["are", "is", "was", "has been"] },
-      { q: "Error Spotting: 'The furniture in this room are made of oak.'", opts: ["is made", "were made", "has made", "No error"] },
-      { q: "Vocabulary: A person who hates mankind is a:", opts: ["Misanthrope", "Philanthropist", "Misogynist", "Introvert"] },
-      { q: "Parajumbles: Arrange -> P: and it Q: profoundly changed R: scientific thinking S: forever.", opts: ["PQRS", "RQSP", "SQRP", "RSQP"] },
-      { q: "Active/Passive: 'Who wrote this book?'", opts: ["By whom was this book written?", "Who was written this book?", "This book was written by whom?", "Whom wrote this book?"] },
-      { q: "Direct/Indirect: 'I will go tomorrow,' he said.", opts: ["He said he would go the next day.", "He said he will go tomorrow.", "He said he would go tomorrow.", "He said he will go the next day."] },
-      { q: "Prepositions: She congratulated him ___ his success.", opts: ["on", "for", "about", "with"] },
-      { q: "Idioms: 'A piece of cake' means:", opts: ["Very easy", "Delicious", "A small fraction", "A sweet dessert"] },
-      { q: "Tense Consistency: I have been knowing him for ten years.", opts: ["have known", "know", "knew", "No change"] },
-    ];
-
-    // Seed Randomness globally for diversity across logins
-    const currentUser = typeof window !== 'undefined' ? localStorage.getItem("geonixa_current_user") || "anonymous" : "anonymous";
-    let seed = 0;
-    for (let i = 0; i < currentUser.length; i++) seed += currentUser.charCodeAt(i);
-
-    const seededShuffle = (array: any[]) => array.sort(() => 0.5 - Math.random());
-
-    const shuffleOpts = (list: any[]) => list.map(q => ({
-      ...q,
-      correctAnswer: q.opts[0],
-      opts: seededShuffle([...q.opts])
-    }));
-
-    setAiQuestions(seededShuffle([...hardLeetcodePool]).slice(0, 3));
-    setR1List(shuffleOpts(seededShuffle([...allAptitude]).slice(0, 30)));
-    setR2List(shuffleOpts(seededShuffle([...allGrammar]).slice(0, 30)));
-
   }, []);
 
-  const formatTime = (seconds: number) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-  };
-
-  // Anti-cheating listeners
-  useEffect(() => {
-    const disableContext = (e: MouseEvent) => e.preventDefault();
-    const disableCopyPaste = (e: ClipboardEvent) => {
-      e.preventDefault();
-      handleProctorViolation("COPY_PASTE", "Copy/Paste is strictly disabled.");
+  const initializeQuestions = async (email: string, domain: string) => {
+    // Shuffling with seed
+    const seed = email.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const seededRandom = (s: number) => {
+      const x = Math.sin(s++) * 10000;
+      return x - Math.floor(x);
     };
-    const detectScreenshot = (e: KeyboardEvent) => {
-      if (e.key === "PrintScreen" || (e.metaKey && e.shiftKey) || (e.metaKey && e.shiftKey && e.key.toLowerCase() === 's')) {
-        handleProctorViolation("SCREENSHOT", "Screenshot or Screen Snip detected!");
+
+    const shuffle = (array: any[], s: number) => {
+      let m = array.length, t, i;
+      while (m) {
+        i = Math.floor(seededRandom(s + m) * m--);
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
       }
+      return array;
     };
 
-    if (examState === "ACTIVE") {
-      document.addEventListener("contextmenu", disableContext);
-      document.addEventListener("copy", disableCopyPaste);
-      document.addEventListener("paste", disableCopyPaste);
-      window.addEventListener("keyup", detectScreenshot);
-    }
-
-    return () => {
-      document.removeEventListener("contextmenu", disableContext);
-      document.removeEventListener("copy", disableCopyPaste);
-      document.removeEventListener("paste", disableCopyPaste);
-      window.removeEventListener("keyup", detectScreenshot);
-    };
-  }, [examState]);
-
-  // Boot up System checks & live camera feed
-  useEffect(() => {
-    if (examState === "SYS_CHECK") {
-      setTimeout(() => setSysChecks(s => ({ ...s, browser: true })), 500);
-      setTimeout(() => setSysChecks(s => ({ ...s, network: true })), 1000);
-
-      navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-        .then((stream) => {
-          setSysChecks(s => ({ ...s, camera: true, mic: true }));
-          if (videoRef.current) {
-            videoRef.current.srcObject = stream;
-          }
-        })
-        .catch(() => {
-          alert("Camera or Microphone access denied. You cannot proceed.");
-        });
-    } else {
-      // Cleanup video stream when leaving SYS_CHECK
-      if (videoRef.current && videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream;
-        stream.getTracks().forEach(track => track.stop());
-      }
-    }
-  }, [examState]);
-
-  const handleCaptureSelfie = () => {
-    // In a real app, capture frame to canvas, optionally upload. 
-    // Here we just mark it complete to allow proceeding.
-    if (sysChecks.camera) setHasSelfie(true);
-  };
-
-  const allChecksPassed = sysChecks.browser && sysChecks.network && sysChecks.camera && sysChecks.mic && hasSelfie;
-
-  const handleStartExam = async () => {
+    // Load from JSON files (Aptitude & Grammar)
     try {
-      if (document.documentElement.requestFullscreen) {
-        await document.documentElement.requestFullscreen();
+      const aptRes = await fetch('/apt.json');
+      const gramRes = await fetch('/gram.json');
+      const aptData = await aptRes.json();
+      const gramData = await gramRes.json();
+
+      setAptQuestions(shuffle([...aptData], seed).slice(0, 30));
+      setGramQuestions(shuffle([...gramData], seed).slice(0, 30));
+
+      // Domain Questions (Non-Tech)
+      if (!isTech) {
+        // Sample domain questions generator
+        const domainPool = [
+          { q: `What is the primary objective of ${domain} in industrial applications?`, opts: ["Efficiency", "Decoration", "Storage", "None"], correctAnswer: "Efficiency" },
+          // ... add more or fetch from a domain.json
+        ];
+        // Fill up to 40
+        while(domainPool.length < 40) domainPool.push({ ...domainPool[0], q: `${domainPool.length + 1}. ` + domainPool[0].q });
+        setDomainQuestions(shuffle(domainPool, seed));
+      } else {
+        // Coding Questions (Tech)
+        const codingPool = [
+          { 
+            title: "Median of Two Sorted Arrays", 
+            difficulty: "Hard",
+            desc: "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).",
+            initialCode: "// Implement O(log(m+n)) solution\nfunction findMedianSortedArrays(nums1, nums2) {\n  \n}",
+            tests: [{ input: "[1,3], [2]", output: "2.0" }, { input: "[1,2], [3,4]", output: "2.5" }]
+          },
+          { 
+            title: "Merge k Sorted Lists", 
+            difficulty: "Hard",
+            desc: "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.",
+            initialCode: "function mergeKLists(lists) {\n  \n}",
+            tests: [{ input: "[[1,4,5],[1,3,4],[2,6]]", output: "[1,1,2,3,4,4,5,6]" }]
+          },
+          {
+            title: `${domain} Domain Challenge`,
+            difficulty: "Expert",
+            desc: `Implement a production-grade ${domain} pattern for high-concurrency environments. Ensure thread safety and memory optimization.`,
+            initialCode: `// Domain specific: ${domain}\n`,
+            tests: [{ input: "Case 1", output: "Passed" }]
+          }
+        ];
+        setCodingQuestions(codingPool);
       }
-      setIsFullscreen(true);
-      setExamState("ACTIVE");
-    } catch (err) {
-      alert("You must allow full screen to start the exam.");
+    } catch (e) {
+      console.error("Failed to load questions", e);
     }
   };
 
-  const handleProctorViolation = (type: string, message: string) => {
-    if (!isExamActiveRef.current) return; // Completely ignore violations if submitted
+  // --- TIMER LOGIC ---
+  const startTimer = (seconds: number) => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    setTimeLeft(seconds);
+    timerRef.current = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          clearInterval(timerRef.current!);
+          handleRoundAutoSubmit();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
 
-    if (type === "TAB_SWITCH") {
-      isExamActiveRef.current = false;
-      setExamState("SUBMITTED");
-      if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => {});
-      alert("CRITICAL VIOLATION: Tab switch detected! Your exam has been automatically submitted and nullified.");
-      handleFinalSubmit();
+  const handleRoundAutoSubmit = () => {
+    if (currentRound === "APTITUDE") advanceRound("GRAMMAR");
+    else if (currentRound === "GRAMMAR") advanceRound("TYPING");
+    else if (currentRound === "TYPING") {
+      if (roundStep === 1) {
+        setRoundStep(2);
+        startTimer(5 * 60);
+      } else {
+        advanceRound("DOMAIN_SPECIAL");
+      }
+    }
+    else if (currentRound === "DOMAIN_SPECIAL") finalizeExam();
+  };
+
+  const advanceRound = (next: RoundType) => {
+    setCurrentRound(next);
+    setCurrentQIndex(0);
+    setRoundStep(1);
+    
+    if (next === "APTITUDE") startTimer(10 * 60);
+    else if (next === "GRAMMAR") startTimer(10 * 60);
+    else if (next === "TYPING") startTimer(5 * 60);
+    else if (next === "DOMAIN_SPECIAL") startTimer(isTech ? 50 * 60 : 20 * 60);
+  };
+
+  // --- PROCTORING VIOLATIONS ---
+  const handleViolation = useCallback((type: string, message: string) => {
+    if (examState !== "ACTIVE" || isBlocked) return;
+
+    setProctorLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ${type}: ${message}`]);
+
+    if (type === "TAB_SWITCH" || type === "SCREENSHOT") {
+      terminateExamForCheating();
       return;
     }
 
-    const now = Date.now();
-    const isSevere = type === "VISUAL" || type === "SCREENSHOT" || type === "COPY_PASTE";
+    const nextCount = violationCount + 1;
+    setViolationCount(nextCount);
 
-    if (isSevere) {
-        severeWarningCountRef.current += 1;
-        const sCount = severeWarningCountRef.current;
-        setWarnings(prev => [...prev, `SEVERE FLAG [${new Date().toLocaleTimeString()}]: ${message}`]);
-        
-        setTimeout(() => {
-           if (sCount === 1) {
-              alert(`SEVERE WARNING: ${message}\n\nYou have 1 severe warning remaining before automatic forceful submission.`);
-           } else if (sCount >= 2 && isExamActiveRef.current) {
-              isExamActiveRef.current = false;
-              alert("CRITICAL VIOLATION LIMIT TRIGGERED! 2 Severe AI Warnings Recorded. Submitting assessment permanently.");
-              handleFinalSubmit();
-           }
-        }, 50);
-        return;
+    if (nextCount === 1) {
+      triggerBlock(2 * 60); // 2 min wait
+    } else if (nextCount === 2) {
+      triggerBlock(5 * 60); // 5 min wait
+    } else {
+      finalizeExam(); // 3rd warning -> Auto Submit
     }
+  }, [examState, violationCount, isBlocked]);
 
-    // Audio/Noise Logic
-    const count = noiseWarningCountRef.current;
-
-    // Cooldown logic
-    if (count === 1) {
-      // 2 minute cooldown between 1st and 2nd warning
-      if (now - lastNoiseWarningTimeRef.current < 120000) return;
-    } else if (count >= 2) {
-      // 5 minute cooldown between 2nd and 3rd warning
-      if (now - lastNoiseWarningTimeRef.current < 300000) return;
-    }
-
-    noiseWarningCountRef.current += 1;
-    lastNoiseWarningTimeRef.current = now;
-    const currentCount = noiseWarningCountRef.current;
-
-    setWarnings(prev => [...prev, `AUDIO FLAG [${new Date().toLocaleTimeString()}]: ${message}`]);
-
-    setTimeout(() => {
-      alert(`SYSTEM WARNING: ${message}\n\nYou have ${3 - currentCount} audio warnings remaining before automatic forceful submission.`);
-      if (currentCount >= 3 && isExamActiveRef.current) {
-        isExamActiveRef.current = false;
-        alert("CRITICAL VIOLATION LIMIT TRIGGERED! 3 Audio AI Warnings Recorded. Submitting assessment permanently.");
-        handleFinalSubmit();
-      }
-    }, 50);
-  };
-
-  const handleCodeExecution = async (code: string, language: string) => {
-    try {
-      const res = await fetch("/api/execute", {
-        method: "POST",
-        body: JSON.stringify({ code, language }),
-        headers: { "Content-Type": "application/json" }
+  const triggerBlock = (seconds: number) => {
+    setIsBlocked(true);
+    setBlockTime(seconds);
+    if (blockTimerRef.current) clearInterval(blockTimerRef.current);
+    blockTimerRef.current = setInterval(() => {
+      setBlockTime(prev => {
+        if (prev <= 1) {
+          clearInterval(blockTimerRef.current!);
+          setIsBlocked(false);
+          return 0;
+        }
+        return prev - 1;
       });
-      const data = await res.json();
-      return data.output || data.error || "No Output";
-    } catch (err: any) {
-      return `Execution Error: ${err.message || "Network failure"}`;
-    }
+    }, 1000);
   };
 
-  const saveStateToFirebase = async () => {
-    if (typeof window !== 'undefined') {
-      const email = localStorage.getItem("geonixa_current_user");
-      if (email) {
-        await storeExamAnswers(email, {
-          r1Answers,
-          r2Answers,
-          typingText,
-          typingLines: typingText.split('\n').length,
-          backspacesUsed: backspaceCount,
-          codingProgress,
-          currentRound,
-          timestamp: Date.now()
-        });
-      }
-    }
+  const terminateExamForCheating = () => {
+    setExamState("CHEATING_TERMINATED");
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    finalizeExam(true);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (examState === "ACTIVE") saveStateToFirebase();
-    }, 30000);
-    return () => clearInterval(interval);
-  }, [examState, r1Answers, r2Answers, typingText, codingProgress]);
+  const finalizeExam = async (isCheating = false) => {
+    setExamState("SUBMITTED");
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (blockTimerRef.current) clearInterval(blockTimerRef.current);
+    
+    // Calculate Scores
+    const calculateMCQScore = (questions: Question[], answers: Record<number, string>) => {
+      let correct = 0;
+      let wrong = 0;
+      questions.forEach((q, i) => {
+        if (answers[i]) {
+          if (answers[i] === q.correctAnswer) correct++;
+          else wrong++;
+        }
+      });
+      // Negative marking: 3 wrong = -1
+      const negative = Math.floor(wrong / 3);
+      return { score: Math.max(0, correct - negative), correct, wrong };
+    };
 
-  const nextRound = () => {
-    if (confirm(`FINAL SECTION LOCK: You are about to submit PART ${String.fromCharCode(64 + currentRound)} and move to the next section. \n\nYou will NOT be able to return to this section. Proceed?`)) {
-      saveStateToFirebase();
-      setCurrentRound(prev => (prev < totalRounds ? prev + 1 : prev));
-      if (currentRound === 1) setQ2Index(0); // Reset index for next round
-    }
+    const aptResult = calculateMCQScore(aptQuestions, aptAnswers);
+    const gramResult = calculateMCQScore(gramQuestions, gramAnswers);
+    const domainResult = isTech ? {score:0, correct:0, wrong:0} : calculateMCQScore(domainQuestions, domainAnswers);
+
+    const email = localStorage.getItem("geonixa_current_user") || "anonymous";
+    const payload = {
+      examId,
+      email,
+      domain: userDomain,
+      isTech,
+      aptScore: aptResult.score,
+      aptCorrect: aptResult.correct,
+      aptWrong: aptResult.wrong,
+      gramScore: gramResult.score,
+      gramCorrect: gramResult.correct,
+      gramWrong: gramResult.wrong,
+      domainScore: domainResult.score,
+      domainCorrect: domainResult.correct,
+      domainWrong: domainResult.wrong,
+      typingData,
+      codingResults,
+      violations: proctorLogs,
+      isCheating,
+      timestamp: Date.now()
+    };
+
+    await storeExamAnswers(email, payload);
+    localStorage.setItem(`geonixa_status_${email}`, "SUBMITTED");
   };
 
-  // --- RENDERING DIFFERENT STATES --- //
+  // --- UI COMPONENTS ---
+  const renderProgressBar = () => {
+    const rounds: RoundType[] = ["APTITUDE", "GRAMMAR", "TYPING", "DOMAIN_SPECIAL"];
+    return (
+      <div className="flex items-center gap-1 mb-8">
+        {rounds.map((r, i) => (
+          <div key={r} className="flex-1 flex flex-col gap-2">
+            <div className={`h-1 rounded-full transition-all duration-500 ${
+              rounds.indexOf(currentRound) >= i ? "bg-[#FF5A1F]" : "bg-slate-800"
+            }`} />
+            <span className={`text-[10px] font-bold uppercase tracking-widest ${
+              currentRound === r ? "text-[#FF5A1F]" : "text-slate-600"
+            }`}>{r}</span>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
+  // --- MAIN RENDER ---
   if (examState === "SYS_CHECK") {
     return (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: "2rem", backgroundColor: "var(--bg-color)" }}>
-        <h2 style={{ color: "var(--primary-color)" }}>Geonixa Environment Setup</h2>
-
-        <div style={{ display: "flex", gap: "2rem", marginTop: "2rem" }}>
-          {/* Hardware Checks */}
-          <div style={{ width: '300px', backgroundColor: "var(--card-bg)", padding: "2rem", borderRadius: "8px", border: "1px solid var(--border-color)", display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <h3 style={{ borderBottom: "1px solid var(--border-color)", paddingBottom: "0.5rem" }}>System Scan</h3>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>Browser Supported</span> <span>{sysChecks.browser ? "✅" : "⏳"}</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>Network Stability</span> <span>{sysChecks.network ? "✅" : "⏳"}</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>Webcam Ready</span> <span>{sysChecks.camera ? "✅" : "⏳"}</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>Microphone Ready</span> <span>{sysChecks.mic ? "✅" : "⏳"}</span>
-            </div>
+      <div className="min-h-screen bg-[#050810] text-white flex flex-col items-center justify-center p-8">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-4xl bg-[#0D121F] border border-slate-900 rounded-3xl p-12 shadow-2xl">
+          <div className="flex items-center gap-3 mb-12">
+            <Shield className="text-[#FF5A1F] w-10 h-10" />
+            <h1 className="text-3xl font-black italic tracking-tighter">GEONIXA <span className="text-slate-500 font-normal text-sm not-italic uppercase tracking-widest ml-4">System Integrity Scan</span></h1>
           </div>
 
-          {/* Identity Verification */}
-          <div style={{ width: '300px', backgroundColor: "var(--card-bg)", padding: "1.5rem", borderRadius: "8px", border: "1px solid var(--border-color)", display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <h3 style={{ alignSelf: "flex-start", width: "100%", borderBottom: "1px solid var(--border-color)", paddingBottom: "0.5rem" }}>Identity Verification</h3>
-            <div style={{ width: "200px", height: "150px", backgroundColor: "#000", marginTop: "1rem", borderRadius: "8px", overflow: "hidden" }}>
-              <video ref={videoRef} autoPlay muted style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <div className="grid md:grid-cols-2 gap-12">
+            <div className="space-y-6">
+              <h3 className="text-xl font-bold border-b border-slate-800 pb-4 mb-6">Hardware Status</h3>
+              {[
+                { label: "Browser Compatibility", status: sysChecks.browser },
+                { label: "Network Latency Check", status: sysChecks.network },
+                { label: "Webcam Discovery", status: sysChecks.camera },
+                { label: "Microphone Discovery", status: sysChecks.mic },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center justify-between p-4 bg-slate-950/50 rounded-xl border border-slate-900">
+                  <span className="text-slate-400 font-medium">{item.label}</span>
+                  {item.status ? <CheckCircle2 className="text-emerald-500" /> : <div className="w-5 h-5 border-2 border-slate-800 border-t-[#FF5A1F] rounded-full animate-spin" />}
+                </div>
+              ))}
             </div>
-            {hasSelfie ? (
-              <div style={{ marginTop: "1rem", color: "var(--success)", fontWeight: "bold" }}>✅ Identity Captured</div>
-            ) : (
-              <button
-                onClick={handleCaptureSelfie}
-                className="btn btn-outline"
-                style={{ marginTop: "1rem", width: "100%" }}
-                disabled={!sysChecks.camera}
+
+            <div className="flex flex-col items-center">
+              <h3 className="text-xl font-bold self-start border-b border-slate-800 pb-4 mb-6 w-full">Biometric Verification</h3>
+              <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden mb-6 border-2 border-slate-800 relative">
+                <video ref={videoRef} autoPlay muted className="w-full h-full object-cover" />
+                {!sysChecks.camera && <div className="absolute inset-0 flex items-center justify-center text-slate-500 text-sm">Waiting for hardware access...</div>}
+              </div>
+              <button 
+                onClick={() => {
+                  setSysChecks(s => ({ ...s, camera: true, mic: true }));
+                  setHasSelfie(true);
+                  navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+                    if (videoRef.current) videoRef.current.srcObject = stream;
+                  });
+                }}
+                className={`w-full py-4 rounded-xl font-bold transition-all ${hasSelfie ? "bg-emerald-500/20 text-emerald-500 border border-emerald-500/30" : "bg-[#FF5A1F] text-white"}`}
               >
-                📸 Take Selfie
+                {hasSelfie ? "IDENTITY VERIFIED ✓" : "CAPTURE BIOMETRIC KEY"}
               </button>
-            )}
+            </div>
           </div>
-        </div>
 
-        <button
-          className="btn btn-primary"
-          style={{ marginTop: '2.5rem', width: '300px', padding: "1rem" }}
-          disabled={!allChecksPassed}
-          onClick={() => setExamState("INSTRUCTIONS")}
-        >
-          {allChecksPassed ? "Proceed to Guidelines" : "Complete All Setup Steps"}
-        </button>
+          <button 
+            disabled={!hasSelfie}
+            onClick={() => setExamState("INSTRUCTIONS")}
+            className="w-full mt-12 py-5 bg-white text-black font-black text-xl rounded-2xl hover:scale-[1.02] transition-all disabled:opacity-50 disabled:scale-100"
+          >
+            AUTHORIZE COMMENCEMENT
+          </button>
+        </motion.div>
       </div>
     );
   }
 
   if (examState === "INSTRUCTIONS") {
     return (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh", padding: "2rem", backgroundColor: "var(--bg-color)" }}>
-        <h1 style={{ color: "var(--primary-color)", fontSize: "2.5rem", marginBottom: "1rem" }}>Advanced Proctoring Integrity Hub</h1>
-        <div style={{ maxWidth: '800px', backgroundColor: 'var(--card-bg)', padding: '2.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', marginTop: '1rem' }}>
-          <p style={{ color: "var(--text-muted)", fontSize: "1.1rem", marginBottom: "2rem", textAlign: "center" }}>
-            Deep verification complete. Please read the globally regulated compliance structures before authorizing exam commencement.
-          </p>
-          <h3 style={{ color: "var(--text-main)", borderBottom: "2px solid #e2e8f0", paddingBottom: "0.5rem", marginBottom: "1rem" }}>Strict Examination Compliance Framework:</h3>
-          <ul style={{ marginLeft: '1.5rem', color: "#b91c1c", marginTop: "1rem", lineHeight: "1.8", fontWeight: "500" }}>
-            <li><strong>MANDATORY:</strong> A highly synchronized neural AI feed is monitoring visual metrics, physical movement, and ambient noise constantly. Firebase saves records contextually.</li>
-            <li><strong>AUTO-TERMINATION:</strong> Leaving the active browser boundary, utilizing external screen displays, or alt-tabbing immediately terminates the session via background observers.</li>
-            <li><strong>FIREBASE ARCHIVING:</strong> All analytical data including code compilation logs, terminal executions, aptitude choices, grammar deductions, and video artifacts are safely encrypted and persisted on secure regional Firebase clusters.</li>
-            <li><strong>NO SECOND CHANCES:</strong> Security tokens permanently latch onto your verified email. Attempting bypass by refreshing instances triggers instant blockade mechanisms.</li>
-            <li><strong>CRYPTOGRAPHIC SOURCING:</strong> Plagiarism detectors will parse algorithmic logic natively inside the sandbox. Write algorithms uniquely.</li>
-          </ul>
-        </div>
-        <button className="btn btn-primary" onClick={handleStartExam} style={{ marginTop: '3rem', padding: "1.2rem 3rem", fontSize: "1.2rem", fontWeight: "bold", borderRadius: "8px", background: "linear-gradient(90deg, #10b981, #059669)", border: "none", color: "white", cursor: "pointer", boxShadow: "0 4px 6px -1px rgba(16, 185, 129, 0.5)" }}>
-          I acknowledge and am ready to begin
-        </button>
+      <div className="min-h-screen bg-[#050810] text-white flex items-center justify-center p-8">
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="max-w-3xl w-full bg-[#0D121F] border border-slate-900 rounded-3xl p-12 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-[#FF5A1F]" />
+          <h1 className="text-4xl font-black mb-8 flex items-center gap-4">
+            <AlertTriangle className="text-[#FF5A1F] w-10 h-10" /> PROCTORING PROTOCOL
+          </h1>
+          
+          <div className="space-y-6 text-slate-400 mb-12">
+            <p className="leading-relaxed">You are entering a high-security assessment environment. The following rules are enforced by GeoNixa AI Neural Guard:</p>
+            <ul className="space-y-4">
+              <li className="flex gap-4">
+                <div className="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 mt-1"><XCircle className="w-4 h-4 text-red-500" /></div>
+                <span><strong className="text-white">TAB SWITCHING:</strong> Any attempt to leave this tab will result in <strong className="text-red-500">IMMEDIATE DISQUALIFICATION</strong> and auto-submission.</span>
+              </li>
+              <li className="flex gap-4">
+                <div className="w-6 h-6 rounded-full bg-[#FF5A1F]/10 flex items-center justify-center shrink-0 mt-1"><Timer className="w-4 h-4 text-[#FF5A1F]" /></div>
+                <span><strong className="text-white">BEHAVIORAL WARNINGS:</strong> Suspicious movement or noise triggers a lockdown. (1st: 2m, 2nd: 5m, 3rd: TERMINATE).</span>
+              </li>
+              <li className="flex gap-4">
+                <div className="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0 mt-1"><BrainCircuit className="w-4 h-4 text-blue-500" /></div>
+                <span><strong className="text-white">EXAM STRUCTURE:</strong> Aptitude (10m), Grammar (10m), Typing (10m), and Domain Special (20-50m).</span>
+              </li>
+            </ul>
+          </div>
+
+          <button 
+            onClick={async () => {
+              try {
+                if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
+                setIsFullscreen(true);
+                setExamState("ACTIVE");
+                advanceRound("APTITUDE");
+              } catch (e) {
+                alert("Fullscreen authorization required.");
+              }
+            }}
+            className="w-full py-5 bg-[#FF5A1F] text-white font-black text-xl rounded-2xl shadow-[0_10px_30px_rgba(255,90,31,0.3)] hover:translate-y-[-2px] transition-all"
+          >
+            START ASSESSMENT NOW
+          </button>
+        </motion.div>
       </div>
     );
   }
 
-  if (examState === "VIOLATION_TERMINATED" || examState === "SUBMITTED") {
+  if (examState === "SUBMITTED" || examState === "CHEATING_TERMINATED") {
+    const [rating, setRating] = useState(0);
+    const [feedbackText, setFeedbackText] = useState("");
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const submitFeedback = () => {
-      if (typeof window !== 'undefined') {
-        const currentUser = localStorage.getItem("geonixa_current_user") || "anonymous";
-        const key = "geonixa_submissions";
-        const prev = JSON.parse(localStorage.getItem(key) || "{}");
-        if (prev[currentUser]) {
-          prev[currentUser].feedback = feedback;
-          localStorage.setItem(key, JSON.stringify(prev));
-        }
-      }
-      setFeedbackSubmitted(true);
+    const submitFeedback = async () => {
+      const email = localStorage.getItem("geonixa_current_user") || "anonymous";
+      await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, rating, feedback: feedbackText })
+      });
+      setIsSubmitted(true);
     };
 
     return (
-      <div style={{ height: "100vh", width: "100vw", overflow: "hidden", display: "flex", flexDirection: "column", backgroundColor: "var(--bg-color)" }}>
-        <style dangerouslySetInnerHTML={{ __html: `
-          body { overflow: hidden !important; margin: 0; padding: 0; }
-        `}} />
-        <div style={{ backgroundColor: "#0f172a", color: "white", padding: "0.8rem 2.5rem", display: "flex", alignItems: "center", gap: "0.8rem", borderBottom: "4px solid #ea580c" }}>
-          <div style={{ width: "35px", height: "35px", backgroundColor: "#3b82f6", borderRadius: "8px", display: "flex", justifyContent: "center", alignItems: "center", flexShrink: 0 }}>
-             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-               <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-               <polyline points="2 17 12 22 22 17"></polyline>
-               <polyline points="2 12 12 17 22 12"></polyline>
-             </svg>
+      <div className="min-h-screen bg-[#050810] text-white flex items-center justify-center p-8">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl w-full bg-[#0D121F] border border-slate-900 rounded-3xl p-12 text-center shadow-2xl relative overflow-hidden">
+          {examState === "CHEATING_TERMINATED" ? (
+            <>
+              <div className="w-24 h-24 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border-2 border-red-500/30">
+                <Lock className="w-12 h-12 text-red-500" />
+              </div>
+              <h1 className="text-4xl font-black text-red-500 mb-4 tracking-tighter italic">CHEATING DETECTED</h1>
+              <p className="text-slate-500 mb-8 leading-relaxed">
+                Your session has been terminated by GeoNixa Neural Guard due to a critical security violation (Tab Switch / Screen Capture). 
+                An incident report has been dispatched to corporate HQ.
+              </p>
+            </>
+          ) : (
+            <>
+              <div className="w-24 h-24 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border-2 border-emerald-500/30">
+                <CheckCircle2 className="w-12 h-12 text-emerald-500" />
+              </div>
+              <h1 className="text-4xl font-black text-white mb-4 tracking-tighter italic">ASSESSMENT SECURED</h1>
+              <p className="text-slate-500 mb-8 leading-relaxed">
+                Thank you for completing the GeoNixa Entrance Assessment. Your behavioral data and logical outputs are being processed by our evaluation engine.
+              </p>
+            </>
+          )}
+          
+          <div className="bg-slate-950/50 border border-slate-800 rounded-2xl p-6 mb-8 text-left">
+            <h4 className="text-xs font-bold text-slate-600 uppercase tracking-widest mb-4">Post-Exam Feedback</h4>
+            {isSubmitted ? (
+              <div className="text-emerald-500 font-bold text-sm">Feedback secure. Results will be shared within 1 week.</div>
+            ) : (
+              <>
+                <div className="flex gap-2 mb-6">
+                  {[1, 2, 3, 4, 5].map(s => (
+                    <button key={s} onClick={() => setRating(s)} className={`w-10 h-10 rounded-lg border border-slate-800 flex items-center justify-center text-xl transition-colors ${rating >= s ? "bg-[#FF5A1F] text-white" : "bg-slate-900 text-slate-600"}`}>★</button>
+                  ))}
+                </div>
+                <textarea 
+                  className="w-full bg-transparent border border-slate-800 rounded-xl p-4 text-sm focus:outline-none focus:border-[#FF5A1F]" 
+                  placeholder="Tell us about your experience..." 
+                  rows={3}
+                  value={feedbackText}
+                  onChange={e => setFeedbackText(e.target.value)}
+                />
+                <button onClick={submitFeedback} className="w-full mt-4 py-3 bg-[#FF5A1F] rounded-xl font-bold text-sm">Send Feedback</button>
+              </>
+            )}
           </div>
-          <div>
-            <h1 style={{ color: "white", fontSize: "1.4rem", margin: 0, letterSpacing: "1px", fontWeight: "bold" }}>GEONIXA</h1>
-            <p style={{ color: "#94a3b8", fontSize: "0.6rem", margin: 0, textTransform: "uppercase", letterSpacing: "1.5px" }}>Corporate Systems</p>
+
+          <button onClick={() => window.location.href = '/'} className="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-slate-200 transition-colors">
+            Exit Secure Environment
+          </button>
+        </motion.div>
+      </div>
+    );
+  }
+
+  // --- ACTIVE EXAM UI ---
+  return (
+    <div className="min-h-screen bg-[#050810] text-white flex flex-col overflow-hidden select-none">
+      {/* Header */}
+      <header className="px-8 py-4 bg-[#080B14] border-b border-slate-900 flex items-center justify-between z-50">
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-[#FF5A1F] rounded flex items-center justify-center">
+              <Shield className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-xl font-black tracking-tighter italic">GEONIXA</span>
+          </div>
+          <div className="h-6 w-[1px] bg-slate-800" />
+          <div className="flex items-center gap-4">
+            <div className={`flex items-center gap-2 px-4 py-1.5 rounded-full border ${timeLeft < 60 ? "bg-red-500/10 border-red-500/50 text-red-500 animate-pulse" : "bg-slate-900 border-slate-800 text-slate-400"}`}>
+              <Timer className="w-4 h-4" />
+              <span className="font-mono font-bold text-lg">{Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}</span>
+            </div>
           </div>
         </div>
-        
-        <div className="animate-fade-in" style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "1rem", textAlign: "center" }}>
-        <h1 style={{ color: examState === "VIOLATION_TERMINATED" ? "var(--danger)" : "var(--success)", fontSize: "2.5rem", marginBottom: "1rem" }}>
-          {examState === "VIOLATION_TERMINATED" ? "EXAM TERMINATED" : "Exam Submitted Successfully"}
-        </h1>
-        {examState === "VIOLATION_TERMINATED" && (
-          <div style={{ margin: '2rem auto', textAlign: 'left', border: '1px solid var(--danger)', backgroundColor: "#fef2f2", padding: '1rem', borderRadius: '8px', width: '400px' }}>
-            <h3 style={{ color: "var(--danger)", marginBottom: "0.5rem" }}>Violation Log:</h3><ul style={{ paddingLeft: '1rem', color: "#991b1b" }}>{warnings.map((w, i) => <li key={i}>{w}</li>)}</ul>
+
+        <div className="flex items-center gap-8">
+          <div className="text-right hidden md:block">
+            <p className="text-[10px] text-slate-600 font-bold uppercase tracking-widest">Candidate</p>
+            <p className="text-sm font-bold">{userDomain} Domain</p>
           </div>
-        )}
+          <div className="w-12 h-12 rounded-full border-2 border-[#FF5A1F]/30 overflow-hidden bg-slate-900">
+             {/* AI Proctor Mini-Preview could go here */}
+             <div className="w-full h-full bg-emerald-500/10 flex items-center justify-center">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
+             </div>
+          </div>
+        </div>
+      </header>
 
-        {examState === "SUBMITTED" && !feedbackSubmitted && (
-          <div style={{ marginTop: "1rem", width: "100%", maxWidth: "600px", padding: "1.5rem", backgroundColor: "var(--card-bg)", borderRadius: "12px", border: "1px solid var(--border-color)", borderTop: "4px solid var(--primary-color)", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)" }}>
-            <h2 style={{ color: "var(--text-main)", marginBottom: "0.5rem" }}>Candidate Experience Review</h2>
-            <p style={{ color: "var(--text-muted)", marginBottom: "2rem" }}>Help us improve the Geonixa assessment architecture. Your feedback is entirely secure.</p>
+      {/* Main Container */}
+      <main className="flex-1 flex overflow-hidden relative">
+        {/* Block Overlay */}
+        <AnimatePresence>
+          {isBlocked && (
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-[100] bg-[#050810]/95 backdrop-blur-xl flex flex-col items-center justify-center p-12 text-center"
+            >
+              <div className="w-24 h-24 bg-red-500/10 rounded-full flex items-center justify-center mb-8 border-2 border-red-500/30 animate-bounce">
+                <AlertTriangle className="w-12 h-12 text-red-500" />
+              </div>
+              <h2 className="text-4xl font-black text-red-500 mb-4">LOCKDOWN ACTIVE</h2>
+              <p className="text-slate-400 max-w-md mb-8 leading-relaxed">
+                System locked due to behavioral violation. Integrity cooling period in progress. 
+                Do not attempt to refresh or bypass.
+              </p>
+              <div className="text-6xl font-black font-mono text-white">
+                {Math.floor(blockTime / 60)}:{(blockTime % 60).toString().padStart(2, '0')}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-            <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginBottom: "2rem" }}>
-              {[1, 2, 3, 4, 5].map(star => (
-                <span key={star} onClick={() => setFeedback(p => ({ ...p, stars: star }))} style={{ fontSize: "2.5rem", cursor: "pointer", transition: "0.2s", color: feedback.stars >= star ? "var(--warning)" : "var(--border-color)", transform: feedback.stars >= star ? "scale(1.1)" : "scale(1)" }}>★</span>
-              ))}
+        {/* Content Area */}
+        <div className="flex-1 flex flex-col p-8 overflow-y-auto">
+          {renderProgressBar()}
+
+          <div className="flex-1 max-w-4xl mx-auto w-full">
+            {/* ROUND: APTITUDE / GRAMMAR */}
+            {(currentRound === "APTITUDE" || currentRound === "GRAMMAR") && (
+              <div className="space-y-12">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-2xl font-black flex items-center gap-3 italic">
+                    {currentRound === "APTITUDE" ? <BrainCircuit className="text-[#FF5A1F]" /> : <MessageSquare className="text-[#FF5A1F]" />}
+                    {currentRound === "APTITUDE" ? "Logic & Quantitative Analysis" : "Linguistic Proficiency & Grammar"}
+                  </h2>
+                  <span className="text-slate-600 font-bold uppercase tracking-widest text-xs">Question {currentQIndex + 1} of 30</span>
+                </div>
+
+                <AnimatePresence mode="wait">
+                  <motion.div 
+                    key={currentQIndex}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-8"
+                  >
+                    <div className="bg-[#0D121F] border border-slate-900 rounded-3xl p-10 shadow-xl">
+                      <p className="text-xl font-medium leading-relaxed">
+                        {(currentRound === "APTITUDE" ? aptQuestions : gramQuestions)[currentQIndex]?.q}
+                      </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {(currentRound === "APTITUDE" ? aptQuestions : gramQuestions)[currentQIndex]?.opts.map((opt, i) => {
+                        const ans = currentRound === "APTITUDE" ? aptAnswers : gramAnswers;
+                        const setAns = currentRound === "APTITUDE" ? setAptAnswers : setGramAnswers;
+                        const isSelected = ans[currentQIndex] === opt;
+                        
+                        return (
+                          <button 
+                            key={i}
+                            onClick={() => setAns(prev => ({ ...prev, [currentQIndex]: opt }))}
+                            className={`p-6 text-left rounded-2xl border transition-all flex items-center gap-4 group ${
+                              isSelected ? "bg-[#FF5A1F] border-[#FF5A1F] text-white" : "bg-[#0D121F] border-slate-900 hover:border-slate-700"
+                            }`}
+                          >
+                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-black transition-colors ${
+                              isSelected ? "bg-white text-[#FF5A1F]" : "bg-slate-950 text-slate-500 group-hover:text-white"
+                            }`}>
+                              {String.fromCharCode(65 + i)}
+                            </div>
+                            <span className="font-bold">{opt}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                <div className="flex items-center justify-between pt-8 border-t border-slate-900">
+                  <button 
+                    disabled={currentQIndex === 0}
+                    onClick={() => setCurrentQIndex(prev => prev - 1)}
+                    className="flex items-center gap-2 text-slate-500 hover:text-white disabled:opacity-0 transition-all font-bold"
+                  >
+                    <ChevronLeft /> Previous
+                  </button>
+                  <div className="flex gap-2">
+                    {Array.from({ length: 30 }).map((_, i) => (
+                      <div key={i} className={`w-1.5 h-1.5 rounded-full ${
+                        (currentRound === "APTITUDE" ? aptAnswers : gramAnswers)[i] ? "bg-[#FF5A1F]" : "bg-slate-800"
+                      }`} />
+                    ))}
+                  </div>
+                  {currentQIndex < 29 ? (
+                    <button 
+                      onClick={() => setCurrentQIndex(prev => prev + 1)}
+                      className="flex items-center gap-2 text-[#FF5A1F] hover:translate-x-1 transition-all font-black"
+                    >
+                      Next <ChevronRight />
+                    </button>
+                  ) : (
+                    <button 
+                      onClick={() => handleRoundAutoSubmit()}
+                      className="bg-[#FF5A1F] px-8 py-3 rounded-xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-all"
+                    >
+                      Lock Section
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* ROUND: TYPING */}
+            {currentRound === "TYPING" && (
+              <div className="space-y-8">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-2xl font-black flex items-center gap-3 italic text-blue-500">
+                    <Keyboard /> Speed & Accuracy Analysis
+                  </h2>
+                  <span className="text-slate-600 font-bold uppercase tracking-widest text-xs">Topic {roundStep} of 2</span>
+                </div>
+
+                <div className="bg-[#0D121F] border border-slate-900 rounded-3xl p-10">
+                  <p className="text-slate-400 leading-relaxed mb-8 italic select-none">
+                    "{TYPING_TOPICS[roundStep-1].text}"
+                  </p>
+                  
+                  <textarea 
+                    className="w-full h-64 bg-slate-950 border border-slate-800 rounded-2xl p-8 text-xl leading-relaxed focus:outline-none focus:border-blue-500 transition-all font-mono"
+                    placeholder="Begin typing the above passage..."
+                    value={roundStep === 1 ? typingData.round1 : typingData.round2}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setTypingData(prev => ({ ...prev, [roundStep === 1 ? "round1" : "round2"]: val }));
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Backspace") {
+                        if (backspaceCount >= 15) {
+                          e.preventDefault();
+                          alert("BACKSPACE LIMIT REACHED: You have used all 15 allowed deletions.");
+                        } else {
+                          setBackspaceCount(prev => prev + 1);
+                        }
+                      }
+                    }}
+                  />
+
+                  <div className="flex items-center justify-between mt-6 text-xs font-bold text-slate-600 uppercase tracking-widest">
+                    <div className="flex gap-8">
+                      <span>Backspaces: <span className={backspaceCount > 10 ? "text-red-500" : "text-emerald-500"}>{backspaceCount}/15</span></span>
+                      <span>Lines: <span className="text-white">{(roundStep === 1 ? typingData.round1 : typingData.round2).split('\n').filter(l => l.trim()).length}/18</span></span>
+                    </div>
+                    <button 
+                      onClick={() => handleRoundAutoSubmit()}
+                      className="text-blue-500 hover:underline"
+                    >
+                      {roundStep === 1 ? "Next Topic" : "Finalize Typing"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ROUND: DOMAIN_SPECIAL */}
+            {currentRound === "DOMAIN_SPECIAL" && (
+              <div className="h-full flex flex-col">
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-2xl font-black flex items-center gap-3 italic text-emerald-500">
+                    {isTech ? <Code2 /> : <FileText />}
+                    {isTech ? `Full-Stack ${userDomain} Engineering` : `${userDomain} Specialization Assessment`}
+                  </h2>
+                </div>
+
+                {isTech ? (
+                  <div className="flex-1 overflow-hidden rounded-3xl border border-slate-900 bg-black">
+                     <CodeEditor 
+                        initialCode={codingQuestions[currentQIndex]?.initialCode || ""}
+                        language="javascript"
+                        testCases={codingQuestions[currentQIndex]?.tests.map((t: any, i: number) => ({ id: i, input: t.input, expectedOutput: t.output })) || []}
+                        onRunMode={async (code: string, lang: string) => {
+                          const res = await fetch("/api/execute", {
+                            method: "POST",
+                            body: JSON.stringify({ code, language: lang }),
+                            headers: { "Content-Type": "application/json" }
+                          });
+                          const data = await res.json();
+                          return data.output || data.error || "No Output";
+                        }}
+                        onTestsStatusChange={(passed) => {
+                          setCodingResults(prev => [...prev, { qIndex: currentQIndex, passed }]);
+                          if (currentQIndex < 2) setCurrentQIndex(prev => prev + 1);
+                          else finalizeExam();
+                        }}
+                     />
+                  </div>
+                ) : (
+                  <div className="space-y-8">
+                    <div className="bg-[#0D121F] border border-slate-900 rounded-3xl p-10 shadow-xl">
+                      <p className="text-xl font-medium leading-relaxed">
+                        {domainQuestions[currentQIndex]?.q}
+                      </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {domainQuestions[currentQIndex]?.opts.map((opt, i) => {
+                        const isSelected = domainAnswers[currentQIndex] === opt;
+                        return (
+                          <button 
+                            key={i}
+                            onClick={() => setDomainAnswers(prev => ({ ...prev, [currentQIndex]: opt }))}
+                            className={`p-6 text-left rounded-2xl border transition-all flex items-center gap-4 group ${
+                              isSelected ? "bg-emerald-500 border-emerald-500 text-white" : "bg-[#0D121F] border-slate-900"
+                            }`}
+                          >
+                            <span className="font-bold">{opt}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <div className="flex justify-between items-center pt-8">
+                       <button disabled={currentQIndex === 0} onClick={() => setCurrentQIndex(p => p - 1)}>Back</button>
+                       <span className="text-xs font-bold text-slate-700">Q {currentQIndex + 1} / 40</span>
+                       {currentQIndex < 39 ? (
+                         <button onClick={() => setCurrentQIndex(p => p + 1)} className="text-emerald-500 font-bold">Next Question</button>
+                       ) : (
+                         <button onClick={() => finalizeExam()} className="bg-emerald-500 px-10 py-3 rounded-xl font-bold">Submit Assessment</button>
+                       )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* AI Sidebar */}
+        <div className="w-[350px] bg-[#080B14] border-l border-slate-900 p-8 hidden lg:flex flex-col">
+          <div className="mb-8 p-6 bg-slate-950 rounded-2xl border border-slate-900 text-center">
+            <h3 className="text-[10px] text-slate-600 font-bold uppercase tracking-widest mb-4">Neural Guard Status</h3>
+            <div className="w-32 h-32 rounded-full border-4 border-slate-900 mx-auto mb-4 relative flex items-center justify-center overflow-hidden">
+                {/* Real-time AI Proctoring Component */}
+                <AIProctor 
+                  onViolation={handleViolation} 
+                  isExamActive={examState === "ACTIVE"} 
+                />
             </div>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem", textAlign: "left" }}>
-              <label style={{ fontWeight: "bold" }}>Elaborate your experience & any Technical Issues faced:</label>
-              <textarea rows={3} placeholder="Did the code editor work natively? Any anomalies?" style={{ width: "100%", padding: "1rem", borderRadius: "6px", border: "1px solid var(--border-color)", fontFamily: "inherit" }} value={feedback.experience} onChange={e => setFeedback(p => ({ ...p, experience: e.target.value }))}></textarea>
-
-              <label style={{ fontWeight: "bold" }}>What logic vectors need improvement?</label>
-              <textarea rows={3} placeholder="Suggestions for the MNC pipeline..." style={{ width: "100%", padding: "1rem", borderRadius: "6px", border: "1px solid var(--border-color)", fontFamily: "inherit" }} value={feedback.improvements} onChange={e => setFeedback(p => ({ ...p, improvements: e.target.value }))}></textarea>
+            <div className="flex items-center justify-center gap-2 text-emerald-500 text-xs font-bold">
+               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+               LIVE FEED ACTIVE
             </div>
-
-            <button disabled={!feedback.stars} onClick={submitFeedback} className="btn btn-primary" style={{ marginTop: "2rem", width: "100%", opacity: !feedback.stars ? 0.5 : 1 }}>
-              Submit Review securely
-            </button>
           </div>
-        )}
 
-        {feedbackSubmitted && (
-          <div className="animate-fade-in" style={{ marginTop: "2rem", padding: "2rem", backgroundColor: "#e0f2fe", border: "1px solid #7dd3fc", borderRadius: "12px", width: "100%", maxWidth: "500px", color: "#0369a1" }}>
-            <h2>Review Captured Successfully.</h2>
-            <p style={{ marginTop: "0.5rem" }}>You may safely close this terminal native window.</p>
+          <div className="flex-1 overflow-y-auto space-y-4">
+             <h4 className="text-[10px] text-slate-600 font-bold uppercase tracking-widest">Incident Log</h4>
+             {proctorLogs.length === 0 ? (
+               <div className="text-xs text-slate-700 italic">No anomalies detected. Integrity verified.</div>
+             ) : (
+               proctorLogs.map((log, i) => (
+                 <div key={i} className="p-3 bg-red-500/5 border border-red-500/20 rounded-lg text-[10px] text-red-400 font-mono">
+                   {log}
+                 </div>
+               ))
+             )}
           </div>
-        )}
-      </div>
+
+          <div className="mt-auto pt-8 border-t border-slate-900">
+             <div className="flex items-center gap-3 text-xs font-bold text-slate-500">
+                <Lock className="w-4 h-4" />
+                ENCRYPTED_STREAM_ID: {examId.slice(0, 8)}
+             </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Tab Switch Listener */}
+      <TabSwitchHandler onViolation={() => handleViolation("TAB_SWITCH", "User left the assessment boundary.")} />
     </div>
   );
 }
 
-  // ACTIVE EXAM RENDER //
-  return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: `
-        body { overflow: hidden !important; margin: 0; padding: 0; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
-      `}} />
-      
-      <div style={{ display: "flex", flexDirection: "column", height: "100vh", width: "100vw", backgroundColor: "var(--bg-color)", position: "relative", overflow: "hidden" }}>
-      {/* MNC Header Bar */}
-      <div style={{ backgroundColor: "#0f172a", color: "white", padding: "0.8rem 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "4px solid #ea580c" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-           <h2 style={{ margin: 0, fontSize: "1.5rem", fontWeight: "900", letterSpacing: "-1px" }}>
-             <span style={{ color: "#ea580c" }}>Geo</span>Nixa <span style={{ fontSize: "0.7rem", fontWeight: "normal", color: "#94a3b8", verticalAlign: "middle", marginLeft: "10px" }}>CORPORATE SYSTEMS</span>
-           </h2>
-           <div style={{ height: "20px", width: "1px", backgroundColor: "#334155" }} />
-           <div style={{ fontSize: "0.85rem", color: "#94a3b8" }}>
-             Assessment ID: <span style={{ color: "#f8fafc", fontFamily: "monospace" }}>GX-{examId.toUpperCase()}-2026</span>
-           </div>
-        </div>
-        
-        <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-           <div style={{ textAlign: "right" }}>
-             <div style={{ fontSize: "0.7rem", color: "#94a3b8", textTransform: "uppercase" }}>Candidate Portal</div>
-             <div style={{ fontSize: "0.9rem", fontWeight: "bold" }}>{typeof window !== "undefined" ? localStorage.getItem("geonixa_current_user") || "H. Kishore Reddy" : "H. Kishore Reddy"}</div>
-           </div>
-           <div style={{ padding: "0.4rem 1rem", backgroundColor: "#1e293b", borderRadius: "4px", border: "1px solid #334155", color: "#10b981", fontSize: "0.8rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: "8px" }}>
-             <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#10b981", animation: "blink 1s infinite" }} />
-             SECURE ENVIRONMENT
-           </div>
-        </div>
-      </div>
-
-      {/* Security Watermark Overlay - MNC High-Security Grid */}
-      <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, pointerEvents: "none", zIndex: 99999, display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gridTemplateRows: "repeat(5, 1fr)", opacity: 0.02, gap: "50px" }}>
-         {Array.from({length: 25}).map((_, i) => (
-           <div key={i} style={{ 
-             fontSize: "1.4rem", 
-             fontWeight: "900", 
-             transform: "rotate(-30deg)", 
-             whiteSpace: "nowrap", 
-             color: "#1e293b",
-             fontFamily: "monospace",
-             display: "flex",
-             flexDirection: "column",
-             alignItems: "center",
-             justifyContent: "center",
-             border: "1px solid rgba(0,0,0,0.1)",
-             padding: "20px"
-           }}>
-             <div>{typeof window !== "undefined" ? localStorage.getItem("geonixa_current_user") : "CONFIDENTIAL"}</div>
-             <div style={{ fontSize: "0.6rem" }}>PROPERTY OF GEONIXA CORP</div>
-           </div>
-         ))}
-      </div>
-
-      <div style={{ display: "flex", flex: 1, flexDirection: "column", overflow: "hidden" }}>
-        {/* Main Workspace Area */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-
-
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: currentRound === 4 ? "0" : "1rem", overflowY: "auto" }}>
-        {currentRound === 1 && r1List.length > 0 && (
-          <div style={{ flex: 1, display: "flex", gap: "2rem" }}>
-            <div style={{ flex: 3 }}>
-              <h2>Q{q1Index + 1}/30: {r1List[q1Index].q}</h2>
-              <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "2rem", maxWidth: "800px" }}>
-                {r1List[q1Index].opts.map((opt: any, i: number) => {
-                  const isSelected = r1Answers[q1Index] === opt;
-                  return (
-                    <label key={i} style={{ padding: "1.5rem", border: "1px solid var(--border-color)", borderRadius: "8px", cursor: "pointer", backgroundColor: isSelected ? "var(--primary-color)" : "white", color: isSelected ? "white" : "black", fontSize: "1.1rem" }}>
-                      <input
-                        type="radio"
-                        name={`r1_${q1Index}`}
-                        checked={isSelected}
-                        onChange={() => setR1Answers(prev => ({ ...prev, [q1Index]: opt }))}
-                        style={{ display: "none" }}
-                      />
-                      {opt}
-                    </label>
-                  )
-                })}
-              </div>
-              <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <div style={{ display: "flex", gap: "1rem" }}>
-                  <button className="btn btn-outline" disabled={q1Index === 0} onClick={() => setQ1Index(p => p - 1)}>Previous</button>
-                  <button 
-                    onClick={() => setR1Flags(prev => ({ ...prev, [q1Index]: !prev[q1Index] }))}
-                    style={{ padding: "0.75rem 1.5rem", borderRadius: "6px", border: "1px solid #f59e0b", color: r1Flags[q1Index] ? "white" : "#f59e0b", backgroundColor: r1Flags[q1Index] ? "#f59e0b" : "transparent", fontWeight: "bold", cursor: "pointer" }}
-                  >
-                    {r1Flags[q1Index] ? "🚩 Flagged for Review" : "🏳️ Flag for Review"}
-                  </button>
-                </div>
-                <button className="btn btn-primary" onClick={() => q1Index < 29 ? setQ1Index(p => p + 1) : nextRound()}>
-                  {q1Index < 29 ? "Next Question" : "Submit Section"}
-                </button>
-              </div>
-            </div>
-            <div style={{ flex: 1, backgroundColor: "var(--card-bg)", padding: "1rem", borderRadius: "8px", border: "1px solid var(--border-color)", alignSelf: "flex-start" }}>
-              <h4 style={{ margin: "0 0 1rem" }}>Question Tracker</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "0.5rem", maxHeight: "400px", overflowY: "auto" }}>
-                {Array.from({ length: 30 }, (_, i) => {
-                  const statusBg = r1Answers[i] ? (i === q1Index ? "var(--primary-color)" : "#10b981") : (i === q1Index ? "var(--primary-color)" : "white");
-                  const statusColor = r1Answers[i] ? "white" : (i === q1Index ? "white" : "black");
-                  return (
-                    <button key={i} onClick={() => setQ1Index(i)} style={{ padding: "0.5rem", border: "1px solid var(--border-color)", transition: "0.2s all", backgroundColor: statusBg, color: statusColor, borderRadius: "4px", cursor: "pointer", fontWeight: "bold", position: "relative" }}>
-                      {i + 1}
-                      {r1Flags[i] && <div style={{ position: "absolute", top: "-5px", right: "-5px", fontSize: "0.6rem" }}>🚩</div>}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {currentRound === 2 && r2List.length > 0 && (
-          <div style={{ flex: 1, display: "flex", gap: "2rem" }}>
-            <div style={{ flex: 3 }}>
-              <h2>Q{q2Index + 1}/30: {r2List[q2Index].q}</h2>
-              <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "2rem", maxWidth: "800px" }}>
-                {r2List[q2Index].opts.map((opt: any, i: number) => {
-                  const isSelected = r2Answers[q2Index] === opt;
-                  return (
-                    <label key={i} style={{ padding: "1.5rem", border: "1px solid var(--border-color)", borderRadius: "8px", cursor: "pointer", backgroundColor: isSelected ? "var(--primary-color)" : "white", color: isSelected ? "white" : "black", fontSize: "1.1rem" }}>
-                      <input
-                        type="radio"
-                        name={`r2_${q2Index}`}
-                        checked={isSelected}
-                        onChange={() => setR2Answers(prev => ({ ...prev, [q2Index]: opt }))}
-                        style={{ display: "none" }}
-                      />
-                      {opt}
-                    </label>
-                  )
-                })}
-              </div>
-              <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <div style={{ display: "flex", gap: "1rem" }}>
-                  <button className="btn btn-outline" disabled={q2Index === 0} onClick={() => setQ2Index(p => p - 1)}>Previous</button>
-                  <button 
-                    onClick={() => setR2Flags(prev => ({ ...prev, [q2Index]: !prev[q2Index] }))}
-                    style={{ padding: "0.75rem 1.5rem", borderRadius: "6px", border: "1px solid #f59e0b", color: r2Flags[q2Index] ? "white" : "#f59e0b", backgroundColor: r2Flags[q2Index] ? "#f59e0b" : "transparent", fontWeight: "bold", cursor: "pointer" }}
-                  >
-                    {r2Flags[q2Index] ? "🚩 Flagged for Review" : "🏳️ Flag for Review"}
-                  </button>
-                </div>
-                <button className="btn btn-primary" onClick={() => q2Index < 29 ? setQ2Index(p => p + 1) : nextRound()}>
-                  {q2Index < 29 ? "Next Question" : "Submit Section"}
-                </button>
-              </div>
-            </div>
-            <div style={{ flex: 1, backgroundColor: "var(--card-bg)", padding: "1rem", borderRadius: "8px", border: "1px solid var(--border-color)", alignSelf: "flex-start" }}>
-              <h4 style={{ margin: "0 0 1rem" }}>Question Tracker</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "0.5rem", maxHeight: "400px", overflowY: "auto" }}>
-                {Array.from({ length: 30 }, (_, i) => {
-                  const statusBg = r2Answers[i] ? (i === q2Index ? "var(--primary-color)" : "#10b981") : (i === q2Index ? "var(--primary-color)" : "white");
-                  const statusColor = r2Answers[i] ? "white" : (i === q2Index ? "white" : "black");
-                  return (
-                    <button key={i} onClick={() => setQ2Index(i)} style={{ padding: "0.5rem", border: "1px solid var(--border-color)", transition: "0.2s all", backgroundColor: statusBg, color: statusColor, borderRadius: "4px", cursor: "pointer", fontWeight: "bold", position: "relative" }}>
-                      {i + 1}
-                      {r2Flags[i] && <div style={{ position: "absolute", top: "-5px", right: "-5px", fontSize: "0.6rem" }}>🚩</div>}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {currentRound === 3 && (
-          <div style={{ flex: 1 }}>
-            <h2>Typing Check: Expressive Writing</h2>
-            <p style={{ marginTop: "1rem", padding: "1rem", backgroundColor: "var(--card-bg)", borderRadius: "8px" }}>
-              <strong>Topic:</strong> Describe a daily life situation (e.g., your morning routine, a visit to the market, or managing household chores).<br /><br />
-              <strong>Rules:</strong><br />
-              1. Minimum 30 lines required.<br />
-              2. Maximum 25 backspaces allowed.<br />
-              3. Enter carefully: a warning is issued if you use backspace or space incorrectly.
-            </p>
-            {typingWarning && (
-              <div style={{ color: "var(--danger)", fontWeight: "bold", marginTop: "1rem", padding: "0.5rem", border: "1px solid var(--danger)", borderRadius: "4px", backgroundColor: "#fef2f2" }}>
-                {typingWarning}
-              </div>
-            )}
-            <div style={{ marginTop: "1rem", fontWeight: "bold", color: typingText.split('\n').length < 30 ? "var(--text-muted)" : "var(--success)" }}>
-              Current Lines: {typingText.split('\n').length} / 30
-            </div>
-            <textarea
-              style={{ width: "100%", height: "300px", marginTop: "0.5rem", padding: "1rem", fontSize: "1.1rem", fontFamily: "monospace", borderRadius: "8px", border: "1px solid var(--border-color)" }}
-              value={typingText}
-              onChange={(e) => setTypingText(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Backspace') {
-                  if (backspaceCount >= 25) {
-                    e.preventDefault();
-                    setTypingWarning("🚨 LIMIT REACHED: 25 backspaces maximum allowed! You cannot backspace anymore.");
-                  } else {
-                    setBackspaceCount(prev => prev + 1);
-                    setTypingWarning(`⚠️ Backspace used: (${backspaceCount + 1}/25)`);
-                  }
-                } else if (e.key === ' ') {
-                  setTypingWarning("⚠️ Space entered! Watch your formatting.");
-                } else {
-                  if (typingWarning && !typingWarning.includes("LIMIT REACHED")) {
-                    setTypingWarning("");
-                  }
-                }
-              }}
-              placeholder="Start typing your daily life situation here..."
-            />
-          </div>
-        )}
-
-        {currentRound === 4 && aiQuestions.length === 3 && (
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", paddingBottom: "2rem" }}>
-            <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
-              {aiQuestions.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCurrentCodingQuestionIndex(idx)}
-                  style={{
-                    padding: "0.5rem 1rem",
-                    backgroundColor: currentCodingQuestionIndex === idx ? "var(--primary-color)" : "var(--card-bg)",
-                    color: currentCodingQuestionIndex === idx ? "white" : "var(--text-main)",
-                    border: "1px solid var(--border-color)",
-                    borderRadius: "4px",
-                    cursor: "pointer",
-                    fontWeight: "bold"
-                  }}
-                >
-                  Code {idx + 1} {codingProgress[idx] ? "✅" : ""}
-                </button>
-              ))}
-            </div>
-
-            <div style={{ display: "flex", border: "1px solid var(--border-color)", borderRadius: "8px", overflow: "hidden", height: "650px", backgroundColor: "white" }}>
-
-              {/* Left Pane - Problem Description */}
-              <div style={{ flex: "1 1 30%", padding: "2rem", overflowY: "auto", borderRight: "1px solid #e2e8f0", backgroundColor: "#f8fafc" }}>
-                <h2 style={{ fontSize: "1.5rem", margin: "0 0 1rem", color: "#0f172a" }}>Coding {currentCodingQuestionIndex + 1}/3: {aiQuestions[currentCodingQuestionIndex].title}</h2>
-                <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-                  <div>
-                    <h4 style={{ color: "#334155", borderBottom: "2px solid #e2e8f0", paddingBottom: "0.5rem", marginBottom: "0.5rem", textTransform: "uppercase", fontSize: "0.8rem", letterSpacing: "1px" }}>Objective</h4>
-                    <p style={{ color: "#475569", lineHeight: "1.6" }}>{aiQuestions[currentCodingQuestionIndex].desc}</p>
-                  </div>
-                  <div>
-                    <h4 style={{ color: "#334155", borderBottom: "2px solid #e2e8f0", paddingBottom: "0.5rem", marginBottom: "0.5rem", textTransform: "uppercase", fontSize: "0.8rem", letterSpacing: "1px" }}>Task Constraints</h4>
-                    <ul style={{ color: "#475569", paddingLeft: "1.5rem", lineHeight: "1.6", margin: 0 }}>
-                      <li>Analyze the edge cases meticulously.</li>
-                      <li>Function correctly handles extreme numerical / character bounds.</li>
-                      <li>Return the correct typed Object or Scalar.</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 style={{ color: "#334155", borderBottom: "2px solid #e2e8f0", paddingBottom: "0.5rem", marginBottom: "0.5rem", textTransform: "uppercase", fontSize: "0.8rem", letterSpacing: "1px" }}>Sample Validation</h4>
-                    <div style={{ backgroundColor: "#1e293b", color: "#f8fafc", padding: "1rem", borderRadius: "6px", fontFamily: "monospace", fontSize: "0.9rem" }}>
-                      {aiQuestions[currentCodingQuestionIndex].tests.map((t: any) => (
-                        <div key={t.id} style={{ marginBottom: "1rem", borderBottom: "1px solid #334155", paddingBottom: "0.5rem" }}>
-                          <div style={{ color: "#94a3b8" }}>Input Format: <span style={{ color: "#f8fafc" }}>{t.input}</span></div>
-                          <div style={{ color: "#94a3b8", marginTop: "0.4rem" }}>Expected Output: <span style={{ color: "#10b981", fontWeight: "bold" }}>{t.expectedOutput}</span></div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Pane - Virtual Editor */}
-              <div style={{ flex: "1 1 70%", display: "flex", flexDirection: "column" }}>
-                <CodeEditor
-                  key={currentCodingQuestionIndex}
-                  language="javascript"
-                  testCases={aiQuestions[currentCodingQuestionIndex].tests}
-                  initialCode={aiQuestions[currentCodingQuestionIndex].initialCode}
-                  onRunMode={handleCodeExecution}
-                  onTestsStatusChange={(passed) => {
-                    setCodingProgress(prev => {
-                      const n = [...prev];
-                      n[currentCodingQuestionIndex] = passed;
-                      return n;
-                    });
-                  }}
-                />
-              </div>
-            </div>
-
-            {(currentCodingQuestionIndex < 2) && (
-              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem" }}>
-                <button className="btn btn-primary" onClick={() => setCurrentCodingQuestionIndex(c => c + 1)}>
-                  Next Coding Question
-                </button>
-              </div>
-            )}
-
-            <div style={{ marginTop: "1rem", display: "flex", justifyContent: "flex-end" }}>
-              <button
-                className="btn btn-primary"
-                style={{
-                  padding: "0.8rem 2rem",
-                  fontSize: "1rem",
-                  fontWeight: "bold",
-                  backgroundColor: "var(--danger)",
-                  border: "none",
-                  cursor: "pointer"
-                }}
-                onClick={() => {
-                  if (confirm("Confirm Final Submit Protocol? This locks the payload and terminates the environment.")) {
-                    handleFinalSubmit();
-                  }
-                }}
-              >
-                SUBMIT EXAM
-              </button>
-            </div>
-          </div>
-        )}
-
-        </div>
-      </div>
-
-      {/* Modern MNC Bottom Controls Dock */}
-      <div style={{ height: "140px", backgroundColor: "#0f172a", color: "white", padding: "1rem 2rem", display: "flex", gap: "2rem", borderTop: "2px solid #1e293b", zIndex: 100 }}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", borderRight: "1px solid #334155", paddingRight: "2rem" }}>
-          <span style={{ fontSize: "0.8rem", color: "#94a3b8", textTransform: "uppercase" }}>Round Remaining Time</span>
-          <div style={{ fontSize: "2rem", fontWeight: "900", fontFamily: "monospace", color: roundTimes[currentRound as keyof typeof timeLimits] < 60 ? "var(--danger)" : "#3b82f6" }}>
-            {formatTime(roundTimes[currentRound as keyof typeof timeLimits])}
-          </div>
-        </div>
-
-        <div style={{ flex: 1, display: "flex", gap: "1rem", alignItems: "center", overflowX: "auto" }}>
-          {[1, 2, 3, 4].map(round => {
-            const names = ["APTITUDE", "VERBAL", "TYPING", "ALGORITHMS"];
-            const isActive = currentRound === round;
-            const isDone = currentRound > round;
-            return (
-              <div key={round} style={{ padding: "0.8rem 1.2rem", backgroundColor: isActive ? "#1e293b" : "transparent", borderRadius: "8px", border: isActive ? "1px solid #3b82f6" : "1px solid transparent", opacity: isActive || isDone ? 1 : 0.3, minWidth: "180px" }}>
-                <div style={{ fontSize: "0.65rem", color: isActive ? "#3b82f6" : "#94a3b8" }}>ROUND {round}</div>
-                <div style={{ fontWeight: "bold", fontSize: "0.9rem" }}>{names[round-1]} {isDone && "✅"}</div>
-              </div>
-            )
-          })}
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-             <div style={{ display: "flex", alignItems: "center", gap: "6px", color: isOnline ? "#10b981" : "#ef4444", fontSize: "0.75rem", fontWeight: "bold" }}>
-               <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: isOnline ? "#10b981" : "#ef4444", animation: isOnline ? "blink 1.5s infinite" : "none" }} />
-               {isOnline ? "SENTINEL: LINK STABLE" : "SENTINEL: LINK INTERRUPTED"}
-             </div>
-             <div style={{ fontSize: "0.6rem", color: "#64748b" }}>LATENCY: {isOnline ? "24ms" : "---"} | SYNC: ACTIVE</div>
-          </div>
-
-          <button 
-             onClick={() => alert("MNC Standard Scientific Calculator Activated (Mock).")}
-             style={{ height: "50px", padding: "0 1.5rem", backgroundColor: "#1e293b", border: "1px solid #3b82f6", color: "white", borderRadius: "8px", fontWeight: "bold", cursor: "pointer" }}
-          >
-             🧮 SCIENTIFIC CALCULATOR
-          </button>
-          <div style={{ textAlign: "right", fontSize: "0.7rem", color: "#94a3b8" }}>
-            GEONIXA SECURE ENV<br/>
-            SESSION: {examId}
-          </div>
-        </div>
-      </div>
-      </div>
-      {examState === "ACTIVE" && <AIProctor onViolation={handleProctorViolation} />}
-    </div>
-    </>
-  );
+function TabSwitchHandler({ onViolation }: { onViolation: () => void }) {
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.hidden) onViolation();
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, [onViolation]);
+  return null;
 }

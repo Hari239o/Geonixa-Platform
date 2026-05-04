@@ -16,6 +16,10 @@
     "@supabase/supabase-js": "^2.104.0",
     "@types/nodemailer": "^8.0.0",
     "firebase": "^12.12.1",
+    "framer-motion": "^12.38.0",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
+    "lucide-react": "^1.14.0",
     "next": "^16.2.4",
     "nodemailer": "^8.0.5",
     "prismjs": "^1.30.0",
@@ -27,8 +31,11 @@
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.5.0",
     "eslint": "^10.2.1",
     "eslint-config-next": "^16.2.4",
+    "postcss": "^8.5.13",
+    "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3"
   }
 }

@@ -92,6 +92,19 @@ export const verifyCandidateFirebase = async (email: string, passKey: string) =>
   }
 };
 
+export const getCandidateProfile = async (email: string) => {
+  if (firebaseConfig.projectId === "dummy" && typeof window !== "undefined") {
+    const profiles = JSON.parse(localStorage.getItem("geonixa_student_profiles") || "{}");
+    return profiles[email] || null;
+  }
+  try {
+    const d = await getDoc(doc(collection(db, "student_profiles"), email));
+    return d.exists() ? d.data() : null;
+  } catch (e) {
+    return null;
+  }
+};
+
 export const fetchAllDashboardData = async () => {
   if (firebaseConfig.projectId === "dummy" && typeof window !== "undefined") {
     return {

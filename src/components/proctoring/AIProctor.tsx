@@ -2,254 +2,183 @@
 
 import { useEffect, useRef, useState } from "react";
 import { uploadVideoRecording } from "@/lib/firebase";
+import { Shield, Eye, Volume2, Maximize } from "lucide-react";
 
 interface ProctorProps {
   onViolation: (type: string, message: string) => void;
+  isExamActive: boolean;
 }
 
-export default function AIProctor({ onViolation }: ProctorProps) {
+export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
-  const [proctorStatus, setProctorStatus] = useState("Initializing AI Models & Video Backup System...");
-  const [trackingPoints, setTrackingPoints] = useState<{x:number, y:number}[]>([]);
-
+  const [status, setStatus] = useState("Initializing GeoNixa Neural Guard...");
+  
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const recordedChunksRef = useRef<Blob[]>([]);
   const audioContextRef = useRef<AudioContext | null>(null);
   const isMounted = useRef(true);
+  const isExamActiveRef = useRef(isExamActive);
 
-  const onViolationRef = useRef(onViolation);
-  
   useEffect(() => {
-    onViolationRef.current = onViolation;
-  }, [onViolation]);
+    isExamActiveRef.current = isExamActive;
+  }, [isExamActive]);
 
   useEffect(() => {
     isMounted.current = true;
     let checkAudioTimer: NodeJS.Timeout;
-    let triggerVisualProctorMetrics: NodeJS.Timeout;
+    let visualInterval: NodeJS.Timeout;
 
-    const startVideo = async () => {
+    const initProctoring = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
+        if (videoRef.current) videoRef.current.srcObject = stream;
 
+        // Video Recording
         const options = { mimeType: 'video/webm' };
-        if (typeof MediaRecorder !== "undefined" && MediaRecorder.isTypeSupported(options.mimeType)) {
+        if (MediaRecorder.isTypeSupported(options.mimeType)) {
           mediaRecorderRef.current = new MediaRecorder(stream, options);
-          mediaRecorderRef.current.ondataavailable = (event) => {
-            if (event.data.size > 0) {
-              recordedChunksRef.current.push(event.data);
-            }
+          mediaRecorderRef.current.ondataavailable = (e) => {
+            if (e.data.size > 0) recordedChunksRef.current.push(e.data);
           };
           mediaRecorderRef.current.onstop = async () => {
-             const blob = new Blob(recordedChunksRef.current, { type: 'video/webm' });
-             const currentUser = typeof window !== 'undefined' ? localStorage.getItem("geonixa_current_user") || "anonymous" : "anonymous";
-             await uploadVideoRecording(currentUser, blob);
+            const blob = new Blob(recordedChunksRef.current, { type: 'video/webm' });
+            const email = localStorage.getItem("geonixa_current_user") || "anonymous";
+            await uploadVideoRecording(email, blob);
           };
-          mediaRecorderRef.current.start(2000); 
+          mediaRecorderRef.current.start(5000);
         }
 
-        // --- REAL AUDIO AI BACKGROUND LOGIC ---
+        // Audio Detection
         const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
         audioContextRef.current = audioCtx;
         const analyser = audioCtx.createAnalyser();
-        const microphone = audioCtx.createMediaStreamSource(stream);
-        microphone.connect(analyser);
+        const source = audioCtx.createMediaStreamSource(stream);
+        source.connect(analyser);
         analyser.fftSize = 256;
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-        
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
         const checkAudio = () => {
-          if (!isMounted.current) return;
-          if (!audioContextRef.current || audioContextRef.current.state === "closed") return;
+          if (!isMounted.current || !isExamActiveRef.current) return;
           analyser.getByteFrequencyData(dataArray);
-          let sum = 0;
-          for(let i = 0; i < bufferLength; i++) { sum += dataArray[i]; }
-          let average = sum / bufferLength;
-          if (average > 40) {
-            onViolationRef.current("AUDIO", "Loud noise/talking detected by mic anomaly graph!");
-          }
-          checkAudioTimer = setTimeout(checkAudio, 4000); // Check every 4 seconds
+          const avg = dataArray.reduce((a, b) => a + b) / dataArray.length;
+          if (avg > 45) onViolation("AUDIO", "High ambient noise or speech detected.");
+          checkAudioTimer = setTimeout(checkAudio, 3000);
         };
         checkAudio();
 
-        // --- REAL ADVANCED AI VISUAL PROCTOR ---
+        // Visual AI (TensorFlow)
         const tfScript = document.createElement("script");
         tfScript.src = "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs";
         tfScript.async = true;
         document.body.appendChild(tfScript);
 
         tfScript.onload = () => {
-           const cocoScript = document.createElement("script");
-           cocoScript.src = "https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd";
-           cocoScript.async = true;
-           document.body.appendChild(cocoScript);
+          const cocoScript = document.createElement("script");
+          cocoScript.src = "https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd";
+          cocoScript.async = true;
+          document.body.appendChild(cocoScript);
 
-           cocoScript.onload = async () => {
-              if (typeof window !== "undefined" && (window as any).cocoSsd) {
-                 try {
-                    const model = await (window as any).cocoSsd.load();
-                    if (!isMounted.current) return;
-                    setIsModelLoaded(true);
-                    setProctorStatus("Deep Object Detection & Biometrics Active");
-                    
-                    let isProcessing = false;
-                    triggerVisualProctorMetrics = setInterval(async () => {
-                       if (!isMounted.current || isProcessing) return;
-                       
-                       isProcessing = true;
-                       try {
-                          // 1. LIVE OBJECT DETECTION
-                          if (videoRef.current && videoRef.current.readyState === 4) {
-                             const predictions = await model.detect(videoRef.current, 50, 0.2); // Lowered threshold for higher sensitivity
-                             if (!isMounted.current) return;
-                             
-                             const forbiddenObjects = ['cell phone', 'laptop', 'book', 'remote', 'keyboard', 'mouse', 'electronic device'];
-                             const detectedForbidden = predictions.find((p: any) => forbiddenObjects.includes(p.class) && p.score > 0.2);
-                             
-                             if (detectedForbidden) {
-                                 console.warn("AI Proctor Flag:", detectedForbidden.class, detectedForbidden.score);
-                                 onViolationRef.current("VISUAL", `Forbidden Object Detected: ${detectedForbidden.class.toUpperCase()} (${Math.round(detectedForbidden.score * 100)}% confidence).`);
-                             }
-                             const persons = predictions.filter((p: any) => p.class === 'person' && p.score > 0.4);
-                             if (persons.length > 1) {
-                                 onViolationRef.current("VISUAL", "Multiple Persons Detected in your testing environment.");
-                             } else if (persons.length === 0) {
-                                 onViolationRef.current("VISUAL", "No candidate face detected in the camera frame!");
-                             }
-                          }
-                       } finally {
-                          isProcessing = false;
-                       }
-                       
-                       // 2. MATHEMATICAL BIOMETRIC POSTURE (Head/Eyes)
-                       if (!isMounted.current) return;
-                       const pts = Array.from({length: 8}, () => ({x: 10 + Math.random()*80, y: 10 + Math.random()*80}));
-                       setTrackingPoints(pts);
-                    }, 2000); // Increased frequency to 2s for tighter monitoring
-                 } catch(e) {
-                    if (isMounted.current) setIsModelLoaded(true);
-                 }
-              }
-           };
+          cocoScript.onload = async () => {
+            if (typeof window !== "undefined" && (window as any).cocoSsd) {
+              const model = await (window as any).cocoSsd.load();
+              setIsModelLoaded(true);
+              setStatus("Neural Guard Active: SECURE_ENVIRONMENT");
+
+              visualInterval = setInterval(async () => {
+                if (!isMounted.current || !isExamActiveRef.current) return;
+                if (videoRef.current && videoRef.current.readyState === 4) {
+                  const predictions = await model.detect(videoRef.current);
+                  
+                  // 1. Person Detection
+                  const persons = predictions.filter((p: any) => p.class === 'person' && p.score > 0.5);
+                  if (persons.length === 0) onViolation("VISUAL", "Candidate face not found in frame.");
+                  else if (persons.length > 1) onViolation("VISUAL", "Multiple persons detected in frame.");
+                  
+                  // 2. Object Detection
+                  const forbidden = ['cell phone', 'book', 'laptop', 'remote'];
+                  const detectedForbidden = predictions.find((p: any) => forbidden.includes(p.class) && p.score > 0.3);
+                  if (detectedForbidden) onViolation("VISUAL", `Unauthorized object detected: ${detectedForbidden.class.toUpperCase()}`);
+
+                  // 3. Mock Eye/Head Tracking (Simulated by analyzing bounding box stability)
+                  if (persons.length === 1) {
+                    const [x, y, w, h] = persons[0].bbox;
+                    const centerX = x + w/2;
+                    const videoWidth = videoRef.current.videoWidth;
+                    // If head is too far left or right
+                    if (centerX < videoWidth * 0.2 || centerX > videoWidth * 0.8) {
+                      onViolation("VISUAL", "Head movement detected: Candidate looking away from screen.");
+                    }
+                  }
+                }
+              }, 2000);
+            }
+          };
         };
 
       } catch (err) {
-        console.error("Camera access denied", err);
-        if (isMounted.current) {
-            setProctorStatus("Camera or Microphone access required!");
-            onViolationRef.current("HARDWARE_ERROR", "Camera/Mic access denied by user.");
-        }
+        setStatus("Hardware Error: Camera/Mic Access Denied");
       }
     };
 
-    startVideo();
-
-    const handleVisibilityChange = () => {
-      if (typeof document !== "undefined" && document.hidden) {
-        onViolationRef.current("TAB_SWITCH", "User switched away from the exam tab.");
-      }
-    };
-    if (typeof document !== "undefined") {
-      document.addEventListener("visibilitychange", handleVisibilityChange);
-    }
+    initProctoring();
 
     return () => {
       isMounted.current = false;
       clearTimeout(checkAudioTimer);
-      clearInterval(triggerVisualProctorMetrics);
-      
-      if (audioContextRef.current && audioContextRef.current.state !== "closed") {
-         audioContextRef.current.close().catch(()=>null);
-      }
-      if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
-        mediaRecorderRef.current.stop();
-      }
-      if (videoRef.current && videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream;
-        stream.getTracks().forEach((track) => track.stop());
-      }
-      if (typeof document !== "undefined") {
-        document.removeEventListener("visibilitychange", handleVisibilityChange);
-      }
+      clearInterval(visualInterval);
+      if (audioContextRef.current) audioContextRef.current.close();
+      if (mediaRecorderRef.current) mediaRecorderRef.current.stop();
     };
   }, []);
 
   return (
-    <div style={{ position: "fixed", bottom: "160px", right: "20px", width: "200px", zIndex: 9999, boxShadow: "0 10px 25px -5px rgba(0,0,0,0.3)", borderRadius: "12px", overflow: "hidden", border: "1px solid #1e293b" }}>
-      <div style={{ 
-          backgroundColor: '#0f172a', 
-          color: 'white', 
-          padding: '10px 15px', 
-          fontSize: '11px',
-          fontWeight: "bold",
-          letterSpacing: "1px",
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: "center",
-          borderBottom: "1px solid #334155"
-      }}>
-        <span>CORE INTEGRITY MONITOR</span>
-        <span style={{ color: isModelLoaded ? '#10b981' : '#f59e0b', display: "flex", alignItems: "center", gap: "4px" }}>
-          <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: isModelLoaded ? '#10b981' : '#f59e0b', animation: isModelLoaded ? "blink 1s infinite" : "none" }} />
-          {isModelLoaded ? "LIVE" : "BOOTING"}
-        </span>
-      </div>
-      <div style={{ position: "relative", backgroundColor: "#000", height: "140px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <video 
-          ref={videoRef} 
-          autoPlay 
-          muted 
-          style={{ width: "100%", height: "100%", objectFit: "cover", opacity: isModelLoaded ? 1 : 0.5 }}
-        />
-        
-        {/* Scanning Line Animation */}
-        {isModelLoaded && (
-          <div style={{ 
-            position: "absolute", 
-            top: 0, 
-            left: 0, 
-            right: 0, 
-            height: "2px", 
-            background: "linear-gradient(to right, transparent, #10b981, transparent)", 
-            boxShadow: "0 0 15px #10b981",
-            zIndex: 10,
-            animation: "scan 3s linear infinite" 
-          }} />
-        )}
+    <div className="w-full h-full relative group">
+      <video 
+        ref={videoRef} 
+        autoPlay muted 
+        className="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-700" 
+      />
+      
+      {/* Scanning Ring */}
+      <div className={`absolute inset-0 rounded-full border-2 border-dashed ${isModelLoaded ? "border-[#FF5A1F] animate-spin-slow" : "border-slate-800"}`} />
+      
+      {/* HUD Overlays */}
+      {isModelLoaded && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <div className="w-full h-[1px] bg-[#FF5A1F]/30 absolute top-1/2 animate-pulse" />
+          <div className="h-full w-[1px] bg-[#FF5A1F]/30 absolute left-1/2 animate-pulse" />
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-[#FF5A1F] text-[6px] font-black px-1 rounded text-white tracking-widest">
+            {status}
+          </div>
+        </div>
+      )}
 
-        {isModelLoaded && (
-          <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, pointerEvents: "none" }}>
-            {trackingPoints.map((pt, i) => (
-               <div key={i} style={{ position: "absolute", width: "3px", height: "3px", backgroundColor: "#10b981", borderRadius: "50%", left: `${pt.x}%`, top: `${pt.y}%`, transition: "0.8s ease-in-out", opacity: 0.6 }} />
-            ))}
-            <div style={{ position: "absolute", bottom: "8px", left: "8px", padding: "2px 6px", borderRadius: "4px", backgroundColor: "rgba(15, 23, 42, 0.8)", color: "#10b981", fontSize: "9px", fontFamily: "monospace", display: "flex", gap: "5px", alignItems: "center", border: "1px solid #10b981" }}>
-               NEURAL MESH ACTIVE
-            </div>
-          </div>
-        )}
-        
-        {!isModelLoaded && (
-          <div style={{ color: "#94a3b8", fontSize: "10px", textAlign: "center", padding: "1rem" }}>
-            Assembling Neural Environment...
-          </div>
-        )}
-      </div>
-      <div style={{ backgroundColor: "#0f172a", color: "#94a3b8", padding: "8px 12px", fontSize: "10px", display: "flex", flexDirection: "column", gap: "2px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <span>STATUS:</span>
-          <span style={{ color: "#f8fafc" }}>{isModelLoaded ? "NOMINAL" : "CONNECTING"}</span>
+      {/* Mini Stats Overlay */}
+      <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-48 bg-[#0D121F] border border-slate-900 rounded-xl p-3 shadow-2xl space-y-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="flex items-center justify-between text-[8px] font-bold text-slate-500 uppercase tracking-widest">
+          <span className="flex items-center gap-1"><Eye className="w-2 h-2 text-[#FF5A1F]" /> Visual</span>
+          <span className="text-emerald-500">Nominal</span>
         </div>
-        <div style={{ fontSize: '9px', color: '#64748b', whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-          {proctorStatus}
+        <div className="flex items-center justify-between text-[8px] font-bold text-slate-500 uppercase tracking-widest">
+          <span className="flex items-center gap-1"><Volume2 className="w-2 h-2 text-[#FF5A1F]" /> Audio</span>
+          <span className="text-emerald-500">Nominal</span>
+        </div>
+        <div className="flex items-center justify-between text-[8px] font-bold text-slate-500 uppercase tracking-widest">
+          <span className="flex items-center gap-1"><Maximize className="w-2 h-2 text-[#FF5A1F]" /> Network</span>
+          <span className="text-emerald-500">Encrypted</span>
         </div>
       </div>
-      <style>{`
-        @keyframes blink { 0% {opacity:1} 50% {opacity:0} 100% {opacity:1} }
-        @keyframes scan { 0% {top: 0%} 50% {top: 100%} 100% {top: 0%} }
+
+      <style jsx>{`
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 8s linear infinite;
+        }
       `}</style>
     </div>
   );

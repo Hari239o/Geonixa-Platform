@@ -1,12 +1,12 @@
 :root {
-  /* Premium Dark/Modern Assessment Platform Design System */
-  --primary-color: #3b82f6;
-  --primary-hover: #2563eb;
-  --bg-color: #0f172a;
-  --card-bg: #1e293b;
+  /* GeoNixa Enterprise Assessment Design System */
+  --primary-color: #FF5A1F;
+  --primary-hover: #E44E18;
+  --bg-color: #050810;
+  --card-bg: #0D121F;
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
-  --border-color: #334155;
+  --border-color: #1E293B;
 
   --success: #10b981;
   --danger: #ef4444;
@@ -41,7 +41,7 @@ body::before {
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.07) 1px, transparent 0);
+    radial-gradient(circle at 2px 2px, rgba(255, 90, 31, 0.05) 1px, transparent 0);
   background-size: 30px 30px;
   pointer-events: none;
   z-index: -1;
@@ -54,7 +54,7 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 80%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 90, 31, 0.02) 0%, transparent 80%);
   pointer-events: none;
   z-index: -1;
 }
@@ -128,12 +128,12 @@ select {
 .btn-primary {
   background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
   color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 90, 31, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 8px 25px rgba(255, 90, 31, 0.5);
 }
 
 .btn-outline {
@@ -176,15 +176,15 @@ select {
 
 @keyframes pulseBorder {
   0% {
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    box-shadow: 0 0 0 0 rgba(255, 90, 31, 0.4);
   }
 
   70% {
-    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+    box-shadow: 0 0 0 10px rgba(255, 90, 31, 0);
   }
 
   100% {
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    box-shadow: 0 0 0 0 rgba(255, 90, 31, 0);
   }
 }
 

@@ -1,5 +1,8 @@
 "use client";
 import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Shield, ChevronRight, CheckCircle, Mail, Briefcase, GraduationCap } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -12,7 +15,10 @@ export default function Register() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [generatedPass, setGeneratedPass] = useState("");
 
-  const IS_REGISTRATION_OPEN = false; // Set to false to allow only Admin Invitations
+  const IS_REGISTRATION_OPEN = true; // Set to true to allow user registration for now
+
+  const techDomains = ["Java", "Python", "Web Development", "Data Science", "Data Analytics"];
+  const nonTechDomains = ["VLSI", "AutoCAD", "Embedded", "EV", "Civil"];
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,12 +29,10 @@ export default function Register() {
       try {
         const autoPass = "GEONIXA-" + Math.random().toString(36).substring(2, 8).toUpperCase();
 
-        // Save Name/College/Domain mapped to email securely natively using Firebase
         const { registerCandidateFirebase } = await import('@/lib/firebase');
         await registerCandidateFirebase(email, autoPass, { name, college, domain });
 
         const res = await fetch('/api/auth/register', {
-
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password: autoPass, name, college, domain })
@@ -54,118 +58,181 @@ export default function Register() {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh", backgroundColor: "var(--bg-color)", fontFamily: "sans-serif" }}>
-      <header style={{ padding: "1.2rem 2.5rem", backgroundColor: "#0f172a", display: "flex", alignItems: "center", gap: "0.8rem", borderBottom: "1px solid #1e293b", zIndex: 100, position: "relative" }}>
-        <div style={{ width: "35px", height: "35px", backgroundColor: "#3b82f6", borderRadius: "8px", display: "flex", justifyContent: "center", alignItems: "center", flexShrink: 0 }}>
-           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-             <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-             <polyline points="2 17 12 22 22 17"></polyline>
-             <polyline points="2 12 12 17 22 12"></polyline>
-           </svg>
+    <div className="flex flex-col min-h-screen bg-[#050810] text-white">
+      {/* GeoNixa Header */}
+      <header className="px-8 py-6 border-b border-slate-900 bg-[#080B14] flex items-center justify-between sticky top-0 z-50">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-[#FF5A1F] rounded flex items-center justify-center">
+            <Shield className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-xl font-black tracking-tighter leading-none">GEONIXA</h1>
+            <p className="text-[8px] text-slate-500 font-bold uppercase tracking-widest mt-1">Enterprise Security</p>
+          </div>
         </div>
-        <div>
-          <h1 style={{ color: "white", fontSize: "1.4rem", margin: 0, letterSpacing: "1px", fontWeight: "bold" }}>GEONIXA</h1>
-          <p style={{ color: "#94a3b8", fontSize: "0.6rem", margin: 0, textTransform: "uppercase", letterSpacing: "1.5px" }}>Corporate Systems</p>
+        <div className="text-[10px] text-slate-600 font-mono hidden md:block">
+          STATUS: <span className="text-emerald-500">ENCRYPTED_SESSION_ACTIVE</span>
         </div>
       </header>
-      <div className="animate-fade-in" style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center", overflowY: "auto", padding: "2rem" }}>
-      <div style={{ padding: "3rem", backgroundColor: "var(--card-bg)", borderRadius: "12px", border: "1px solid var(--border-color)", width: "100%", maxWidth: "550px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)" }}>
 
-        {!isRegistered ? (
-          <>
-            {IS_REGISTRATION_OPEN ? (
-              <>
-                <h2 style={{ color: "var(--primary-color)", margin: "0 0 0.5rem", textAlign: "center", fontSize: "1.8rem" }}>Candidate Registration</h2>
-                <p style={{ textAlign: "center", color: "var(--text-muted)", marginBottom: "2rem" }}>Enter candidate metadata exactly to deploy the assessment payload.</p>
+      <main className="flex-1 flex items-center justify-center p-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="w-full max-w-xl"
+        >
+          {!isRegistered ? (
+            <div className="bg-[#0D121F] border border-slate-900 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 blur-3xl rounded-full -mr-16 -mt-16" />
+              
+              <div className="text-center mb-10">
+                <h2 className="text-3xl font-black mb-3">Candidate Enrollment</h2>
+                <p className="text-slate-500 text-sm">Register your profile to receive assessment credentials.</p>
+              </div>
 
-                <form onSubmit={handleRegister} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-                  <div className="responsive-grid">
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                      <label style={{ fontWeight: 600 }}>Candidate Name</label>
-                      <input type="text" placeholder="John Doe" required style={{ width: "100%", padding: "0.8rem", borderRadius: "6px", border: "1px solid var(--border-color)" }} value={name} onChange={e => setName(e.target.value)} />
+              {IS_REGISTRATION_OPEN ? (
+                <form onSubmit={handleRegister} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                        <GraduationCap className="w-3 h-3 text-[#FF5A1F]" /> Full Name
+                      </label>
+                      <input 
+                        type="text" 
+                        placeholder="Kishore Reddy" 
+                        required 
+                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-[#FF5A1F] focus:outline-none transition-all placeholder:text-slate-700" 
+                        value={name} 
+                        onChange={e => setName(e.target.value)} 
+                      />
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                      <label style={{ fontWeight: 600 }}>College / University</label>
-                      <input type="text" placeholder="Stanford Institute..." required style={{ width: "100%", padding: "0.8rem", borderRadius: "6px", border: "1px solid var(--border-color)" }} value={college} onChange={e => setCollege(e.target.value)} />
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                        <GraduationCap className="w-3 h-3 text-[#FF5A1F]" /> College
+                      </label>
+                      <input 
+                        type="text" 
+                        placeholder="NIT Trichy" 
+                        required 
+                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-[#FF5A1F] focus:outline-none transition-all placeholder:text-slate-700" 
+                        value={college} 
+                        onChange={e => setCollege(e.target.value)} 
+                      />
                     </div>
                   </div>
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    <label style={{ fontWeight: 600 }}>Target Discipline / Domain</label>
-                    <select style={{ width: "100%", padding: "0.8rem", borderRadius: "6px", border: "1px solid var(--border-color)" }} value={domain} onChange={e => setDomain(e.target.value)}>
-                      <option value="Java">Java</option>
-                      <option value="Python">Python</option>
-                      <option value="Web Development">Web Development</option>
-                      <option value="Data Analyst">Data Analyst</option>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                      <Briefcase className="w-3 h-3 text-[#FF5A1F]" /> Assessment Domain
+                    </label>
+                    <select 
+                      className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-[#FF5A1F] focus:outline-none transition-all appearance-none" 
+                      value={domain} 
+                      onChange={e => setDomain(e.target.value)}
+                    >
+                      <optgroup label="Technology" className="bg-slate-900">
+                        {techDomains.map(d => <option key={d} value={d}>{d}</option>)}
+                      </optgroup>
+                      <optgroup label="Non-Technology" className="bg-slate-900">
+                        {nonTechDomains.map(d => <option key={d} value={d}>{d}</option>)}
+                      </optgroup>
                     </select>
                   </div>
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    <label style={{ fontWeight: 600 }}>Secure Delivery Email</label>
-                    <input type="email" placeholder="student@example.com" required style={{ width: "100%", padding: "0.8rem", borderRadius: "6px", border: "1px solid var(--border-color)" }} value={email} onChange={e => setEmail(e.target.value)} />
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                      <Mail className="w-3 h-3 text-[#FF5A1F]" /> Secure Delivery Email
+                    </label>
+                    <input 
+                      type="email" 
+                      placeholder="kishore@geonixa.com" 
+                      required 
+                      className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-[#FF5A1F] focus:outline-none transition-all placeholder:text-slate-700" 
+                      value={email} 
+                      onChange={e => setEmail(e.target.value)} 
+                    />
                   </div>
 
-                  <button disabled={isLoading} type="submit" style={{ padding: "1.2rem", backgroundColor: isLoading ? "#94a3b8" : "var(--primary-color)", color: "white", border: "none", borderRadius: "6px", fontWeight: "bold", fontSize: "1rem", cursor: isLoading ? "not-allowed" : "pointer", marginTop: "1rem", transition: "0.2s linear" }}>
-                    {isLoading ? "Assembling MNC Email & Processing..." : "Generate Candidate File & Deliver Email"}
+                  <button 
+                    disabled={isLoading} 
+                    type="submit" 
+                    className="w-full bg-[#FF5A1F] hover:bg-[#E44E18] text-white py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 group shadow-[0_10px_20px_rgba(255,90,31,0.2)] disabled:opacity-50"
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                        Generating Credentials...
+                      </span>
+                    ) : (
+                      <>Generate Secure Access <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></>
+                    )}
                   </button>
                 </form>
-              </>
-            ) : (
-              <div style={{ textAlign: "center", padding: "2rem" }}>
-                <h2 style={{ color: "var(--danger)", marginBottom: "1rem" }}>Public Registration Suspended</h2>
-                <p style={{ color: "var(--text-muted)", lineHeight: "1.6" }}>
-                  The GeoNixa assessment window is currently restricted to pre-authorized candidates only. 
-                  <br/><br/>
-                  If you are an invited candidate, please check your email for the <strong>Secure Pass-Key</strong> and proceed to the login portal.
-                </p>
-              </div>
-            )}
-            <p style={{ marginTop: "2rem", fontSize: "0.9rem", textAlign: "center", color: "var(--text-muted)" }}>
-              Already registered? <a href="/auth/login" style={{ color: "var(--primary-color)", fontWeight: "bold" }}>Access Dashboard</a>
-            </p>
-          </>
-        ) : (
-          <div className="animate-fade-in" style={{ textAlign: "center", padding: "1rem" }}>
-            <div style={{ width: "80px", height: "80px", borderRadius: "50%", border: "4px solid var(--success)", padding: "10px", margin: "0 auto 1.5rem" }}>
-              <div style={{ width: "100%", height: "100%", borderRadius: "50%", backgroundColor: "var(--success)", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "30px", fontWeight: "bold" }}>✓</div>
-            </div>
-            <h2 style={{ color: "var(--success)", margin: "0 0 1rem", fontSize: "2rem" }}>Registration Successful</h2>
-            <p style={{ color: "var(--text-main)", marginBottom: "1rem", fontSize: "1.1rem", fontWeight: "bold" }}>Credentials Sent to {email}</p>
-            <p style={{ color: "var(--text-muted)", marginBottom: "2rem", lineHeight: "1.6" }}>
-              Your assessment profile has been created. Please check your email inbox for the official invitation and secure pass-key. 
-              <br/><br/>
-              <strong>To begin the exam:</strong> Close this window, return to the main website, and navigate to the Login Portal.
-            </p>
+              ) : (
+                <div className="text-center py-10">
+                  <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Lock className="w-8 h-8 text-red-500" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">Registration Locked</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">
+                    The public registration window is closed. Access is currently restricted to pre-authorized corporate candidates.
+                  </p>
+                </div>
+              )}
 
-            <div style={{ backgroundColor: "#f1f5f9", padding: "1rem", borderRadius: "8px", marginBottom: "2rem", border: "1px solid #e2e8f0", position: "relative" }}>
-              <p style={{ margin: "0", fontSize: "0.9rem", color: "#475569" }}>Generated Pass-Key (Backup):</p>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginTop: "0.5rem" }}>
-                <code style={{ fontSize: "1.2rem", fontWeight: "bold", color: "#0f172a" }}>{generatedPass}</code>
-                <button 
-                  onClick={() => {
-                    navigator.clipboard.writeText(generatedPass);
-                    alert("Pass-Key copied to clipboard!");
-                  }}
-                  style={{ padding: "0.4rem 0.8rem", fontSize: "0.8rem", borderRadius: "4px", border: "1px solid var(--primary-color)", backgroundColor: "white", cursor: "pointer", color: "var(--primary-color)" }}
-                >
-                  Copy 📋
-                </button>
+              <p className="mt-8 text-center text-slate-600 text-xs">
+                Already registered? <Link href="/auth/login" className="text-[#FF5A1F] font-bold hover:underline">Access Portal</Link>
+              </p>
+            </div>
+          ) : (
+            <div className="bg-[#0D121F] border border-slate-900 rounded-3xl p-12 text-center shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
+              
+              <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-8">
+                <CheckCircle className="w-10 h-10 text-emerald-500" />
+              </div>
+              
+              <h2 className="text-3xl font-black mb-4">Onboarding Initialized</h2>
+              <p className="text-slate-400 mb-8 max-w-sm mx-auto">
+                Secure credentials for <span className="text-white font-bold">{email}</span> have been generated and dispatched.
+              </p>
+
+              <div className="bg-slate-950/50 border border-slate-800 rounded-2xl p-6 mb-8 relative">
+                <p className="text-[10px] text-slate-600 uppercase tracking-widest font-bold mb-2">Secure Pass-Key (Backup)</p>
+                <div className="flex items-center justify-center gap-4">
+                  <code className="text-2xl font-mono text-emerald-400 font-bold">{generatedPass}</code>
+                  <button 
+                    onClick={() => {
+                      navigator.clipboard.writeText(generatedPass);
+                      alert("Copied to clipboard");
+                    }}
+                    className="p-2 hover:bg-slate-800 rounded-lg transition-colors text-slate-400"
+                  >
+                    <Briefcase className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                <Link href="/auth/login" className="w-full bg-white text-black py-4 rounded-xl font-bold hover:bg-slate-200 transition-colors">
+                  Proceed to Secure Login
+                </Link>
+                {successLink && (
+                  <a href={successLink} target="_blank" rel="noopener noreferrer" className="text-slate-500 text-xs hover:text-white transition-colors">
+                    Preview Official Invite Payload
+                  </a>
+                )}
               </div>
             </div>
-
-            {successLink && (
-              <a href={successLink} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ padding: "1rem", marginBottom: "1rem", width: "100%", display: "block" }}>
-                PREVIEW MNC INVITATION
-              </a>
-            )}
-            
-            <a href="/auth/login" className="btn btn-primary" style={{ display: "inline-block", padding: "1.2rem", fontWeight: "bold", width: "100%", boxSizing: "border-box", backgroundColor: "#0f172a", color: "white", textDecoration: "none", borderRadius: "6px" }}>
-              Go to Secure Login Portal
-            </a>
-          </div>
-        )}
-      </div>
-    </div>
+          )}
+        </motion.div>
+      </main>
+      
+      <footer className="p-8 text-center border-t border-slate-900">
+        <p className="text-[10px] text-slate-700 uppercase tracking-[0.2em] font-bold">
+          © 2026 GEONIXA CORP • SYSTEM LEVEL ENCRYPTION : AES-256
+        </p>
+      </footer>
     </div>
   );
 }
