@@ -182,10 +182,13 @@ export default function AdminDashboard() {
     }
   };
 
-  const filteredSubs = submissions.filter(s => 
-    (s.name || "").toLowerCase().includes(searchTerm.toLowerCase()) || 
-    (s.email || "").toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredSubs = submissions.filter(s => {
+    if (!s) return false;
+    const term = (searchTerm || "").toLowerCase();
+    const name = (s.name || "").toLowerCase();
+    const email = (s.email || "").toLowerCase();
+    return name.includes(term) || email.includes(term);
+  });
 
   if (!authorized) {
     return (

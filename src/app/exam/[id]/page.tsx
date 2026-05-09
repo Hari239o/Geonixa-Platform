@@ -90,6 +90,11 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasSelfie, setHasSelfie] = useState(false);
 
+  // Feedback State
+  const [rating, setRating] = useState(0);
+  const [feedbackText, setFeedbackText] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   // --- INITIALIZATION ---
   useEffect(() => {
     // Load User Data
@@ -145,29 +150,64 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         while(domainPool.length < 40) domainPool.push({ ...domainPool[0], q: `${domainPool.length + 1}. ` + domainPool[0].q });
         setDomainQuestions(shuffle(domainPool, seed));
       } else {
-        // Coding Questions (Tech)
+        // Coding Questions (Tech) - Step 3 Compulsory
+        let domainQ3 = {
+          title: `${domain} Architecture Challenge`,
+          difficulty: "Expert",
+          desc: `Write advanced implementation in ${domain}. Must handle high concurrency and optimal space complexity.`,
+          initialCode: `// Use STRICTLY ${domain} language for this implementation\n`,
+          tests: [{ input: "domain_init", output: "success" }]
+        };
+        
+        if (domain.includes("Web")) {
+          domainQ3 = {
+            title: "Web Development: Landing Page",
+            difficulty: "Medium",
+            desc: "Create a modern landing page structure using HTML, CSS, and Javascript. Ensure DOM manipulation handles dynamic updates securely.",
+            initialCode: "<!-- HTML & JS Code Here -->\n<html>\n<body>\n  <div id='app'></div>\n</body>\n</html>",
+            tests: [{ input: "render()", output: "DOM_Attached" }]
+          };
+        } else if (domain.includes("Data")) {
+          domainQ3 = {
+            title: "Data Analytics / Science Modeling",
+            difficulty: "Hard",
+            desc: "Write Python code using Pandas/NumPy paradigms to cleanse the provided dataset matrix and execute linear regression projection.",
+            initialCode: "import pandas as pd\nimport numpy as np\n\ndef analyze_data(matrix):\n    # Implement here",
+            tests: [{ input: "[[1,2],[3,4]]", output: "regression_success" }]
+          };
+        }
+
         const codingPool = [
           { 
-            title: "Median of Two Sorted Arrays", 
+            title: "Q1. Median of Two Sorted Arrays (LeetCode Hard)", 
             difficulty: "Hard",
-            desc: "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).",
-            initialCode: "// Implement O(log(m+n)) solution\nfunction findMedianSortedArrays(nums1, nums2) {\n  \n}",
-            tests: [{ input: "[1,3], [2]", output: "2.0" }, { input: "[1,2], [3,4]", output: "2.5" }]
+            desc: "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)). Use C, C++, Java, Python, C#, or JS.",
+            initialCode: "function findMedianSortedArrays(nums1, nums2) {\n  \n}",
+            tests: [
+              { input: "[1,3], [2]", output: "2.0" }, { input: "[1,2], [3,4]", output: "2.5" },
+              { input: "[0,0], [0,0]", output: "0.0" }, { input: "[], [1]", output: "1.0" },
+              { input: "[2], []", output: "2.0" }, { input: "[1,2,3,4], [5,6,7,8]", output: "4.5" },
+              { input: "[10,20], [30]", output: "20.0" }, { input: "[-5,-3], [-2,-1]", output: "-2.5" },
+              { input: "[1,10], [2,9,3,8]", output: "5.5" }, { input: "[1,5], [2,3,4,6]", output: "3.5" }
+            ]
           },
           { 
-            title: "Merge k Sorted Lists", 
+            title: "Q2. Merge k Sorted Lists (LeetCode Hard)", 
             difficulty: "Hard",
-            desc: "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.",
+            desc: "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it. Write in your preferred language.",
             initialCode: "function mergeKLists(lists) {\n  \n}",
-            tests: [{ input: "[[1,4,5],[1,3,4],[2,6]]", output: "[1,1,2,3,4,4,5,6]" }]
+            tests: [
+              { input: "[[1,4,5],[1,3,4],[2,6]]", output: "[1,1,2,3,4,4,5,6]" },
+              { input: "[]", output: "[]" }, { input: "[[]]", output: "[]" },
+              { input: "[[1]]", output: "[1]" }, { input: "[[1,2],[3,4]]", output: "[1,2,3,4]" },
+              { input: "[[-1,5,11],[-2,10],[0,1]]", output: "[-2,-1,0,1,5,10,11]" },
+              { input: "[[2,6],[1,4],[3,5]]", output: "[1,2,3,4,5,6]" },
+              { input: "[[0],[0],[0]]", output: "[0,0,0]" },
+              { input: "[[1,3,5,7],[2,4,6,8]]", output: "[1,2,3,4,5,6,7,8]" },
+              { input: "[[1,2,3],[4,5,6],[7,8,9]]", output: "[1,2,3,4,5,6,7,8,9]" }
+            ]
           },
-          {
-            title: `${domain} Domain Challenge`,
-            difficulty: "Expert",
-            desc: `Implement a production-grade ${domain} pattern for high-concurrency environments. Ensure thread safety and memory optimization.`,
-            initialCode: `// Domain specific: ${domain}\n`,
-            tests: [{ input: "Case 1", output: "Passed" }]
-          }
+          domainQ3
         ];
         setCodingQuestions(codingPool);
       }
@@ -267,8 +307,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     if (timerRef.current) clearInterval(timerRef.current);
     if (blockTimerRef.current) clearInterval(blockTimerRef.current);
     
-    // Calculate Scores
-    const calculateMCQScore = (questions: Question[], answers: Record<number, string>) => {
+    // Calculate Scores (Round 1: 15, Round 2: 15, Round 3: 10, Round 4: 60)
+    const calculateMCQScore = (questions: Question[], answers: Record<number, string>, marksPerQ: number) => {
       let correct = 0;
       let wrong = 0;
       questions.forEach((q, i) => {
@@ -277,14 +317,18 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
           else wrong++;
         }
       });
-      // Negative marking: 3 wrong = -1
-      const negative = Math.floor(wrong / 3);
-      return { score: Math.max(0, correct - negative), correct, wrong };
+      // Negative marking: 3 wrong = -1 mark (as requested)
+      const negativeMarks = Math.floor(wrong / 3);
+      const rawScore = (correct * marksPerQ) - negativeMarks;
+      return { score: Math.max(0, rawScore), correct, wrong };
     };
 
-    const aptResult = calculateMCQScore(aptQuestions, aptAnswers);
-    const gramResult = calculateMCQScore(gramQuestions, gramAnswers);
-    const domainResult = isTech ? {score:0, correct:0, wrong:0} : calculateMCQScore(domainQuestions, domainAnswers);
+    // Aptitude (30 Qs * 0.5 = 15 marks)
+    const aptResult = calculateMCQScore(aptQuestions, aptAnswers, 0.5);
+    // Grammar (30 Qs * 0.5 = 15 marks)
+    const gramResult = calculateMCQScore(gramQuestions, gramAnswers, 0.5);
+    // Domain MCQ (Non-Tech: 40 Qs * 1.5 = 60 marks)
+    const domainResult = isTech ? {score:0, correct:0, wrong:0} : calculateMCQScore(domainQuestions, domainAnswers, 1.5);
 
     const email = localStorage.getItem("geonixa_current_user") || "anonymous";
     const payload = {
@@ -438,15 +482,11 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   }
 
   if (examState === "SUBMITTED" || examState === "CHEATING_TERMINATED") {
-    const [rating, setRating] = useState(0);
-    const [feedbackText, setFeedbackText] = useState("");
-    const [isSubmitted, setIsSubmitted] = useState(false);
-
     const submitFeedback = async () => {
+      if (rating === 0) return alert("Please select a rating.");
       const email = localStorage.getItem("geonixa_current_user") || "anonymous";
-      await fetch('/api/feedback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      await fetch("/api/feedback", {
+        method: "POST",
         body: JSON.stringify({ email, rating, feedback: feedbackText })
       });
       setIsSubmitted(true);
@@ -723,26 +763,41 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 </div>
 
                 {isTech ? (
-                  <div className="flex-1 overflow-hidden rounded-3xl border border-slate-900 bg-black">
-                     <CodeEditor 
-                        initialCode={codingQuestions[currentQIndex]?.initialCode || ""}
-                        language="javascript"
-                        testCases={codingQuestions[currentQIndex]?.tests.map((t: any, i: number) => ({ id: i, input: t.input, expectedOutput: t.output })) || []}
-                        onRunMode={async (code: string, lang: string) => {
-                          const res = await fetch("/api/execute", {
-                            method: "POST",
-                            body: JSON.stringify({ code, language: lang }),
-                            headers: { "Content-Type": "application/json" }
-                          });
-                          const data = await res.json();
-                          return data.output || data.error || "No Output";
-                        }}
-                        onTestsStatusChange={(passed) => {
-                          setCodingResults(prev => [...prev, { qIndex: currentQIndex, passed }]);
-                          if (currentQIndex < 2) setCurrentQIndex(prev => prev + 1);
-                          else finalizeExam();
-                        }}
-                     />
+                  <div className="flex-1 flex flex-col gap-6">
+                    <div className="bg-[#0D121F] border border-slate-900 rounded-3xl p-6 shadow-xl shrink-0">
+                      <div className="flex items-center justify-between mb-3">
+                         <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                           <span className="text-[#FF5A1F]">Q{currentQIndex + 1}.</span> {codingQuestions[currentQIndex]?.title}
+                         </h3>
+                         <span className="px-3 py-1 bg-red-500/10 text-red-500 rounded-full text-xs font-bold uppercase tracking-widest">
+                           {codingQuestions[currentQIndex]?.difficulty || "Hard"}
+                         </span>
+                      </div>
+                      <p className="text-slate-400 text-sm leading-relaxed">
+                        {codingQuestions[currentQIndex]?.desc}
+                      </p>
+                    </div>
+                    <div className="flex-1 overflow-hidden rounded-3xl border border-slate-900 bg-black min-h-[500px]">
+                       <CodeEditor 
+                          initialCode={codingQuestions[currentQIndex]?.initialCode || ""}
+                          language="javascript"
+                          testCases={codingQuestions[currentQIndex]?.tests.map((t: any, i: number) => ({ id: i, input: t.input, expectedOutput: t.output })) || []}
+                          onRunMode={async (code: string, lang: string) => {
+                            const res = await fetch("/api/execute", {
+                              method: "POST",
+                              body: JSON.stringify({ code, language: lang }),
+                              headers: { "Content-Type": "application/json" }
+                            });
+                            const data = await res.json();
+                            return data.output || data.error || "No Output";
+                          }}
+                          onTestsStatusChange={(passed) => {
+                            setCodingResults(prev => [...prev, { qIndex: currentQIndex, passed }]);
+                            if (currentQIndex < 2) setCurrentQIndex(prev => prev + 1);
+                            else finalizeExam();
+                          }}
+                       />
+                    </div>
                   </div>
                 ) : (
                   <div className="space-y-8">

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, ChevronRight, CheckCircle, Mail, Briefcase, GraduationCap } from 'lucide-react';
+import { Shield, ChevronRight, CheckCircle, Mail, Briefcase, GraduationCap, Lock } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Register() {
