@@ -39,6 +39,9 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
   const [statusText, setStatusText] = useState("Initializing Neural Vision Hub...");
   const cocoModelRef = useRef<any>(null);
   const blazeModelRef = useRef<any>(null);
+  const faceApiModelRef = useRef<any>(null);
+  const faceMeshRef = useRef<any>(null);
+  const faceMeshResultsRef = useRef<any>(null);
 
   // Proctor Engine
   const proctorEngineRef = useRef<AIProctoringSystem | null>(null);
@@ -52,6 +55,8 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
 
   // UI State
   const [isMinimized, setIsMinimized] = useState(false);
+  const [cameraSize, setCameraSize] = useState(320);
+  const [cameraHealthState, setCameraHealthState] = useState<'safe' | 'warning' | 'violation'>('safe');
   const [healthStatus, setHealthStatus] = useState({
     face: "🟢 100% Locked",
     eyeHead: "🟢 Centered",
@@ -77,9 +82,89 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
   const isFullscreenInitialized = useRef(false);
   const hasTerminatedRef = useRef(false);
 
+  const reconnectTimerRef = useRef<number | null>(null);
+  const cameraStreamRef = useRef<MediaStream | null>(null);
+
   useEffect(() => {
     isExamActiveRef.current = isExamActive;
   }, [isExamActive]);
+
+  useEffect(() => {
+    const updateSize = () => {
+      setCameraSize(window.innerWidth <= 480 ? 220 : 320);
+    };
+    if (typeof window !== 'undefined') {
+      updateSize();
+      window.addEventListener('resize', updateSize);
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', updateSize);
+      }
+    };
+  }, []);
+
+  const markCameraState = (state: 'safe' | 'warning' | 'violation') => {
+    setCameraHealthState(state);
+  };
+
+  const loadScript = (src: string) => {
+    return new Promise<void>((resolve, reject) => {
+      if (document.querySelector(`script[src="${src}"]`)) {
+        return resolve();
+      }
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error(`Failed to load script ${src}`));
+      document.body.appendChild(script);
+    });
+  };
+
+  const detectFaceApiLandmarks = async (video: HTMLVideoElement) => {
+    if (!faceApiModelRef.current) return null;
+    try {
+      const options = new faceApiModelRef.current.TinyFaceDetectorOptions({ inputSize: 160, scoreThreshold: 0.55 });
+      return await faceApiModelRef.current.detectSingleFace(video, options).withFaceLandmarks(true);
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const scheduleReconnect = () => {
+    if (reconnectTimerRef.current) return;
+    reconnectTimerRef.current = window.setTimeout(() => {
+      reconnectTimerRef.current = null;
+      initCameraStream().catch(() => {});
+    }, 2500);
+  };
+
+  const initCameraStream = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      cameraStreamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        const track = stream.getVideoTracks()[0];
+        if (track) {
+          track.onended = () => {
+            markCameraState('warning');
+            setStatusText('Camera disconnected, reconnecting...');
+            scheduleReconnect();
+          };
+        }
+      }
+      markCameraState('safe');
+      setStatusText('Camera feed stable. Neural tracking ready.');
+      return stream;
+    } catch (err) {
+      setStatusText('Camera initialization failed. Retrying...');
+      markCameraState('warning');
+      scheduleReconnect();
+      throw err;
+    }
+  };
 
   useEffect(() => {
     if (isExamActive) {
@@ -109,6 +194,7 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
   const handleInstantTermination = (code: string, message: string) => {
     if (!isExamActiveRef.current || hasTerminatedRef.current) return;
     hasTerminatedRef.current = true;
+    setCameraHealthState('violation');
     setHealthStatus(prev => ({ ...prev, integrity: "🔴 Breach Detected" }));
     setStatusText(`CRITICAL BREACH: ${code}`);
     onViolation(code, message);
@@ -158,15 +244,23 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
       }
     };
 
+    const handleDeviceChange = async () => {
+      if (!isExamActiveRef.current) return;
+      setStatusText('Camera devices changed; verifying feed...');
+      markCameraState('warning');
+      await initCameraStream().catch(() => {});
+    };
+
     window.addEventListener('keyup', handleKeys);
     window.addEventListener('blur', handleBlur);
     document.addEventListener('visibilitychange', handleVisibility);
     document.addEventListener('fullscreenchange', handleFullScreenExit);
+    navigator.mediaDevices.addEventListener('devicechange', handleDeviceChange);
     devToolsInterval = setInterval(checkDevToolsAndScreens, 3000);
 
     const initProctoring = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        const stream = await initCameraStream();
         if (videoRef.current) videoRef.current.srcObject = stream;
 
         // Video Recording Service
@@ -197,19 +291,34 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
           if (!isMounted.current || !isExamActiveRef.current) return;
           analyser.getByteFrequencyData(dataArray);
           const avg = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
-
-          // Record audio RMS to proctor engine for multi-frame validation
+          
+          // Normalize to 0-100 scale for better readability
+          const normalizedLevel = (avg / 255) * 100;
+          
+          // Record audio level to proctor engine for multi-frame validation
           const rms = avg / 255;
           if (proctorEngineRef.current) {
-            proctorEngineRef.current.recordDetection({ type: 'loud_noise', confidence: rms, payload: { avg } });
+            proctorEngineRef.current.recordDetection({ 
+              type: 'loud_noise', 
+              confidence: rms, 
+              payload: { avg, normalizedLevel } 
+            });
           }
 
-          if (avg > 75) {
+          // More sensitive threshold: 50 normalized (was 75 raw)
+          // This better detects loud environment noise
+          if (normalizedLevel > 50) {
             noiseSecRef.current += 1;
-            setHealthStatus(prev => ({ ...prev, audio: `🟡 Loud (${Math.round(avg)}dB)` }));
+            setHealthStatus(prev => ({ ...prev, audio: `🔴 LOUD (${Math.round(normalizedLevel)}%)` }));
+            if (noiseSecRef.current % 5 === 0) {
+              console.debug(`[AUDIO] Loud noise detected: ${Math.round(normalizedLevel)}% (avg: ${Math.round(avg)})`);
+            }
+          } else if (normalizedLevel > 35) {
+            noiseSecRef.current += 0.5;
+            setHealthStatus(prev => ({ ...prev, audio: `🟡 Moderate (${Math.round(normalizedLevel)}%)` }));
           } else {
             noiseSecRef.current = Math.max(0, noiseSecRef.current - 2);
-            setHealthStatus(prev => ({ ...prev, audio: "🟢 Quiet (<45dB)" }));
+            setHealthStatus(prev => ({ ...prev, audio: "🟢 Quiet (<35%)" }));
           }
           checkAudioTimer = setTimeout(checkAudioLoop, 1000);
         };
@@ -218,15 +327,81 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
         // Load AI Models
         const loadModels = async () => {
           try {
-            setStatusText("Loading BlazeFace & CocoSSD Neural Nets...");
-            let coco = (window as any).cocoSsd ? await (window as any).cocoSsd.load() : null;
-            let blazeface = (window as any).blazeface ? await (window as any).blazeface.load() : null;
+            setStatusText("Loading BlazeFace, CocoSSD, FaceAPI & FaceMesh...");
+            let coco = null;
+            let blazeface = null;
+            let faceapi = null;
+            let FaceMeshClass = null;
+            
+            // Load CocoSSD
+            try {
+              setStatusText("Loading CocoSSD object detection...");
+              coco = (window as any).cocoSsd ? await (window as any).cocoSsd.load() : null;
+              if (coco) console.debug("[MODELS] CocoSSD loaded successfully");
+            } catch (err) {
+              console.error("[MODELS] CocoSSD load failed:", err);
+            }
+            
+            // Load BlazeFace
+            try {
+              setStatusText("Loading BlazeFace face detection...");
+              blazeface = (window as any).blazeface ? await (window as any).blazeface.load() : null;
+              if (blazeface) console.debug("[MODELS] BlazeFace loaded successfully");
+            } catch (err) {
+              console.error("[MODELS] BlazeFace load failed:", err);
+            }
+            
+            faceapi = (window as any).faceapi || null;
+            FaceMeshClass = (window as any).FaceMesh || null;
 
-            if (!coco || !blazeface) {
+            if (!coco || !blazeface || !faceapi || !FaceMeshClass) {
               // Wait for CDN scripts if not ready
-              await new Promise(resolve => setTimeout(resolve, 2000));
-              if ((window as any).cocoSsd) coco = await (window as any).cocoSsd.load();
-              if ((window as any).blazeface) blazeface = await (window as any).blazeface.load();
+              console.debug("[MODELS] Waiting for scripts to load from CDN...");
+              await new Promise(resolve => setTimeout(resolve, 3000));
+              if ((window as any).cocoSsd && !coco) {
+                coco = await (window as any).cocoSsd.load();
+                console.debug("[MODELS] CocoSSD loaded after CDN wait");
+              }
+              if ((window as any).blazeface && !blazeface) {
+                blazeface = await (window as any).blazeface.load();
+                console.debug("[MODELS] BlazeFace loaded after CDN wait");
+              }
+              faceapi = (window as any).faceapi || faceapi;
+              FaceMeshClass = (window as any).FaceMesh || FaceMeshClass;
+            }
+
+            if (faceapi) {
+              setStatusText("Loading FaceAPI models...");
+              faceApiModelRef.current = faceapi;
+              try {
+                // Try new path structure first (0.22.2+)
+                const weightPath = 'https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/weights';
+                await Promise.all([
+                  faceapi.nets.tinyFaceDetector.loadFromUri(weightPath).catch(() => null),
+                  faceapi.nets.faceLandmark68TinyNet.loadFromUri(weightPath).catch(() => null),
+                  faceapi.nets.faceExpressionNet.loadFromUri(weightPath).catch(() => null)
+                ]);
+                console.debug("[MODELS] FaceAPI weights loaded successfully");
+              } catch (faceErr) {
+                console.warn("FaceAPI model loading failed, continuing with backup detection", faceErr);
+              }
+            }
+
+            if (FaceMeshClass) {
+              setStatusText("Initializing MediaPipe FaceMesh...");
+              const faceMesh = new FaceMeshClass({
+                locateFile: (file: string) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+              });
+              faceMesh.setOptions({
+                maxNumFaces: 1,
+                refineLandmarks: true,
+                minDetectionConfidence: 0.5,  // More lenient
+                minTrackingConfidence: 0.5    // More lenient
+              });
+              faceMesh.onResults((results: any) => {
+                faceMeshResultsRef.current = results;
+              });
+              faceMeshRef.current = faceMesh;
             }
 
             if (coco && blazeface) {
@@ -240,6 +415,7 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
                 onWarning: (level, label) => {
                   warningCountRef.current = level;
                   setProctorLevel(level);
+                  setCameraHealthState(level >= 3 ? 'violation' : 'warning');
                   const msg = label.replace(/_/g, ' ').toUpperCase();
                   if (level === 1) {
                     cooldownUntilRef.current = Date.now() + 2 * 60 * 1000;
@@ -273,17 +449,58 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
 
         const startRealtimeVision = () => {
           let lastFrameUpload = Date.now();
+          let frameCount = 0;
+          let detectionDebugMode = true; // Enable detailed logging for debugging
 
           visualInterval = setInterval(async () => {
             if (!isMounted.current || !isExamActiveRef.current || hasTerminatedRef.current) return;
             const video = videoRef.current;
             const canvas = canvasRef.current;
-            if (!video || video.readyState !== 4 || !cocoModelRef.current || !blazeModelRef.current) return;
+            
+            // Check if video is ready (readyState >= 2 means HAVE_CURRENT_DATA or better)
+            if (!video || video.readyState < 2 || !cocoModelRef.current || !blazeModelRef.current) {
+              if (frameCount % 30 === 0 && detectionDebugMode) {
+                console.debug(`[VISION] Waiting for video ready. State: ${video?.readyState ?? 'no-video'}, Models: ${!!cocoModelRef.current && !!blazeModelRef.current}`);
+              }
+              frameCount++;
+              return;
+            }
+
+            frameCount++;
 
             // 1. CocoSSD Object & Entity Detection
-            const predictions = await cocoModelRef.current.detect(video);
-            const persons = predictions.filter((p: any) => p.class === 'person' && p.score > 0.65);
-            const phone = predictions.find((p: any) => (p.class === 'cell phone' || p.class === 'remote') && p.score > 0.65);
+            let predictions: any[] = [];
+            try {
+              predictions = await cocoModelRef.current.detect(video);
+            } catch (detectionErr) {
+              if (frameCount % 60 === 0) console.error("[VISION] CocoSSD detection error:", detectionErr);
+              return;
+            }
+
+            // More lenient detection: accept 0.4+ confidence
+            const persons = predictions.filter((p: any) => p.class === 'person' && p.score > 0.4);
+            
+            // Check for phones, remotes, laptops, etc.
+            const mobileItems = ['cell phone', 'mobile phone', 'phone', 'remote', 'laptop', 'keyboard'];
+            const phone = predictions.find((p: any) => mobileItems.some(item => p.class.toLowerCase().includes(item)) && p.score > 0.4);
+            
+            // DEBUG LOGGING every 30 frames
+            if (frameCount % 30 === 0 && detectionDebugMode) {
+              const allClasses = predictions.map(p => `${p.class}(${(p.score * 100).toFixed(0)}%)`).join(', ');
+              console.debug(`[FRAME ${frameCount}] Detections: ${allClasses || 'none'}`);
+              console.debug(`[DETECTION] Persons: ${persons.length}, Phone: ${phone ? phone.class : 'none'}`);
+            }
+
+            // 1.5 FaceAPI + MediaPipe FaceMesh detection
+            const faceApiResult = video && await detectFaceApiLandmarks(video);
+            if (faceMeshRef.current && video) {
+              try {
+                await faceMeshRef.current.send({ image: video });
+              } catch {
+                // ignore occasional frame send errors
+              }
+            }
+            const faceMeshResult = faceMeshResultsRef.current?.multiFaceLandmarks?.[0] ?? null;
 
             // 2. BlazeFace Landmark & Orientation Detection
             const faces = await blazeModelRef.current.estimateFaces(video, false);
@@ -345,27 +562,92 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
             }
 
             // D. Head Pose & Eye Diversion Check
-            if (faces.length === 1) {
-              const f = faces[0];
-              const rightEye = f.landmarks[0] as [number, number];
-              const leftEye = f.landmarks[1] as [number, number];
-              const nose = f.landmarks[2] as [number, number];
-              
-              const eyeCenterX = (rightEye[0] + leftEye[0]) / 2;
-              const eyeDist = Math.abs(leftEye[0] - rightEye[0]);
-              const yawRatio = (nose[0] - eyeCenterX) / (eyeDist + 0.0001);
+            let headTurnDetected = false;
+            let orientationConfidence = 0;
+            let gazeWarning = false;
 
-              // map yawRatio magnitude to a confidence between 0 and 1
-              const yawConfidence = Math.min(1, Math.abs(yawRatio) / 1.2);
+            const recordHeadWarning = (confidence: number, payload: any) => {
+              headTurnSecRef.current += 1;
+              setHealthStatus(prev => ({ ...prev, eyeHead: "🟡 Eyes/Head Diverted" }));
+              proctorEngineRef.current?.recordDetection({ type: 'head_turned', confidence, payload });
+            };
 
-              if (Math.abs(yawRatio) > 0.45) {
-                headTurnSecRef.current += 1;
-                setHealthStatus(prev => ({ ...prev, eyeHead: "🟡 Eyes/Head Diverted" }));
-                proctorEngineRef.current?.recordDetection({ type: 'head_turned', confidence: yawConfidence, payload: { yawRatio } });
-              } else {
-                headTurnSecRef.current = Math.max(0, headTurnSecRef.current - 2);
-                setHealthStatus(prev => ({ ...prev, eyeHead: "🟢 Centered" }));
+            if (faceApiResult?.landmarks) {
+              const leftEye = faceApiResult.landmarks.getLeftEye();
+              const rightEye = faceApiResult.landmarks.getRightEye();
+              const nose = faceApiResult.landmarks.getNose()[0];
+              const eyeCenterX = (leftEye[0].x + rightEye[3].x) / 2;
+              const faceWidth = Math.abs(rightEye[3].x - leftEye[0].x);
+              const yawRatio = (nose.x - eyeCenterX) / (faceWidth + 0.0001);
+              orientationConfidence = Math.max(orientationConfidence, Math.min(1, Math.abs(yawRatio) / 1.2));
+
+              if (Math.abs(yawRatio) > 0.28) {
+                headTurnDetected = true;
+                recordHeadWarning(orientationConfidence, { source: 'faceapi', yawRatio });
               }
+
+              const leftIris = leftEye[4];
+              const rightIris = rightEye[4];
+              const leftRatio = (leftIris.x - leftEye[0].x) / Math.max(0.001, leftEye[3].x - leftEye[0].x);
+              const rightRatio = (rightIris.x - rightEye[0].x) / Math.max(0.001, rightEye[3].x - rightEye[0].x);
+              if (leftRatio < 0.22 || leftRatio > 0.78 || rightRatio < 0.22 || rightRatio > 0.78) {
+                gazeWarning = true;
+              }
+            }
+
+            if (faceMeshResult) {
+              const leftEyePoint = faceMeshResult[33];
+              const rightEyePoint = faceMeshResult[263];
+              const noseTip = faceMeshResult[1];
+              const eyeCenterX = (leftEyePoint.x + rightEyePoint.x) / 2;
+              const faceWidth = Math.abs(rightEyePoint.x - leftEyePoint.x);
+              const yawRatio = (noseTip.x - eyeCenterX) / (faceWidth + 0.0001);
+              const pitchRatio = (noseTip.y - (leftEyePoint.y + rightEyePoint.y) / 2) / (faceWidth + 0.0001);
+              orientationConfidence = Math.max(orientationConfidence, Math.min(1, Math.sqrt(yawRatio * yawRatio + pitchRatio * pitchRatio) * 1.3));
+
+              if (Math.abs(yawRatio) > 0.25 || Math.abs(pitchRatio) > 0.28) {
+                headTurnDetected = true;
+                recordHeadWarning(orientationConfidence, { source: 'facemesh', yawRatio, pitchRatio });
+              }
+
+              const leftIris = faceMeshResult[468];
+              const rightIris = faceMeshResult[473];
+              if (leftIris && rightIris) {
+                const leftEyeWidth = Math.abs(faceMeshResult[133].x - faceMeshResult[33].x);
+                const rightEyeWidth = Math.abs(faceMeshResult[362].x - faceMeshResult[263].x);
+                const leftGaze = (leftIris.x - faceMeshResult[33].x) / Math.max(0.01, leftEyeWidth);
+                const rightGaze = (rightIris.x - faceMeshResult[263].x) / Math.max(0.01, rightEyeWidth);
+                if (leftGaze < 0.18 || leftGaze > 0.82 || rightGaze < 0.18 || rightGaze > 0.82) {
+                  gazeWarning = true;
+                }
+              }
+            }
+
+            if (headTurnDetected || gazeWarning) {
+              headTurnSecRef.current += gazeWarning ? 1 : 0;
+              setHealthStatus(prev => ({ ...prev, eyeHead: gazeWarning ? "🟡 Eyes Away" : "🟡 Head Diverted" }));
+              if (!headTurnDetected) {
+                proctorEngineRef.current?.recordDetection({ type: 'eyes_off', confidence: 0.88, payload: { gazeWarning } });
+              }
+            } else {
+              headTurnSecRef.current = Math.max(0, headTurnSecRef.current - 2);
+              setHealthStatus(prev => ({ ...prev, eyeHead: "🟢 Centered" }));
+            }
+
+            if (!headTurnDetected && !gazeWarning) {
+              headTurnSecRef.current = Math.max(0, headTurnSecRef.current - 2);
+            }
+
+            if (headTurnSecRef.current > 0 && !headTurnDetected && !gazeWarning) {
+              headTurnSecRef.current = Math.max(0, headTurnSecRef.current - 2);
+            }
+
+            if (faces.length === 1 && !headTurnDetected && !gazeWarning) {
+              setHealthStatus(prev => ({ ...prev, eyeHead: "🟢 Centered" }));
+            }
+
+            if (headTurnDetected || gazeWarning) {
+              proctorEngineRef.current?.recordDetection({ type: 'head_turned', confidence: orientationConfidence || 0.75, payload: { headTurnDetected, gazeWarning } });
             }
 
             // Live snapshot upload every 30s
@@ -386,31 +668,29 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
                 }, "image/jpeg", 0.5);
               }
             }
-          }, 1000);
+          }, 900);
         };
 
-        // Inject Script Tags if not present
-        if (!(window as any).tf) {
-          const tfScript = document.createElement("script");
-          tfScript.src = "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs";
-          tfScript.async = true;
-          document.body.appendChild(tfScript);
-          tfScript.onload = () => {
-            const cocoScript = document.createElement("script");
-            cocoScript.src = "https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd";
-            cocoScript.async = true;
-            document.body.appendChild(cocoScript);
-            
-            const blazeScript = document.createElement("script");
-            blazeScript.src = "https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface";
-            blazeScript.async = true;
-            document.body.appendChild(blazeScript);
-            
-            blazeScript.onload = loadModels;
-          };
-        } else {
-          loadModels();
-        }
+        const ensureScripts = async () => {
+          setStatusText("Loading AI proctoring libraries...");
+          try {
+            // Suppress TensorFlow backend warnings
+            if (typeof window !== 'undefined' && (window as any).tf) {
+              (window as any).tf.ENV.set('IS_BROWSER', true);
+            }
+            await loadScript("https://cdn.jsdelivr.net/npm/@tensorflow/tfjs");
+            await loadScript("https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd");
+            await loadScript("https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface");
+            await loadScript("https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js");
+            await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js");
+            loadModels();
+          } catch (scriptErr) {
+            console.error("Failed to load AI scripts, attempting graceful fallback", scriptErr);
+            loadModels();
+          }
+        };
+
+        ensureScripts();
 
       } catch (err) {
         setStatusText("Hardware Error: Camera/Mic Access Denied");
@@ -429,6 +709,9 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
       window.removeEventListener('blur', handleBlur);
       document.removeEventListener('visibilitychange', handleVisibility);
       document.removeEventListener('fullscreenchange', handleFullScreenExit);
+      if (navigator.mediaDevices && typeof navigator.mediaDevices.removeEventListener === 'function') {
+        navigator.mediaDevices.removeEventListener('devicechange', handleDeviceChange);
+      }
       if (audioContextRef.current) audioContextRef.current.close().catch(() => {});
       if (mediaRecorderRef.current) mediaRecorderRef.current.stop();
     };
@@ -437,9 +720,23 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
   return (
     <>
       {/* Professional HUD Floating Panel */}
-      <div className={`fixed bottom-6 right-6 z-9999 transition-all duration-500 font-sans ${
-        isMinimized ? "w-16 h-16 rounded-full overflow-hidden shadow-2xl border-2 border-emerald-500 cursor-pointer hover:scale-105" : "w-80 bg-slate-950/90 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden shadow-[0_10px_50px_rgba(0,0,0,0.9)]"
-      }`} onClick={() => isMinimized && setIsMinimized(false)}>
+      <div style={{
+        position: 'fixed',
+        bottom: 24,
+        right: 24,
+        zIndex: 9999,
+        width: isMinimized ? 88 : cameraSize,
+        minWidth: isMinimized ? 88 : cameraSize,
+        height: isMinimized ? 88 : cameraSize,
+        minHeight: isMinimized ? 88 : cameraSize,
+        borderRadius: isMinimized ? 999 : 28,
+        border: `3px solid ${proctorLevel >= 3 ? '#dc2626' : proctorLevel === 2 ? '#f97316' : proctorLevel === 1 ? '#fbbf24' : '#22c55e'}`,
+        backgroundColor: isMinimized ? '#0f172a' : 'rgba(15, 23, 42, 0.92)',
+        boxShadow: '0 35px 80px rgba(0,0,0,0.45)',
+        overflow: 'hidden',
+        cursor: isMinimized ? 'pointer' : 'default',
+        transition: 'all 0.25s ease'
+      }} onClick={() => isMinimized && setIsMinimized(false)}>
         
         {/* Minimized View */}
         {isMinimized ? (
@@ -472,8 +769,18 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
             </div>
 
             {/* Camera & Overlay Canvas Container */}
-            <div className="relative w-full aspect-video bg-black rounded-2xl overflow-hidden border border-slate-800 shadow-inner">
-              <video ref={videoRef} autoPlay muted className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <div style={{
+              position: 'relative',
+              width: '100%',
+              height: '0',
+              paddingBottom: '100%',
+              backgroundColor: '#000',
+              borderRadius: 24,
+              overflow: 'hidden',
+              border: `2px solid ${cameraHealthState === 'violation' ? '#dc2626' : cameraHealthState === 'warning' ? '#f97316' : '#22c55e'}`,
+              boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.04)'
+            }}>
+              <video ref={videoRef} autoPlay muted playsInline className="absolute inset-0 w-full h-full object-cover transition-all duration-700" />
               <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
               
               {/* Cooldown Badge Overlay */}

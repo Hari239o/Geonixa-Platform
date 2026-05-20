@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { SLOT_CONFIG, validateExamSlot, SlotValidationResult } from "@/lib/firebase";
 import AIProctor from "@/components/proctoring/AIProctor";
+import { AIProctorDebugPanel } from "@/components/proctoring/AIProctorDebugPanel";
 import CodeEditor from "@/components/editor/CodeEditor";
 import Logo from "@/components/brand/Logo";
 import Link from 'next/link';
@@ -810,10 +811,21 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       console.error("❌ Final storage failed:", e);
       // Even if storage fails, mark as submitted to prevent re-submission
     }
-    
-    if (examState !== "VIOLATION_TERMINATED") {
+
+    if (typeof window !== "undefined") {
+      const currentUser = localStorage.getItem("geonixa_current_user") || "anonymous";
+      localStorage.setItem(`geonixa_exam_status_${currentUser}`, "true");
+      if (reason !== "TERMINATED") {
+        localStorage.removeItem(`geonixa_terminated_${currentUser}`);
+      }
+    }
+
+    if (reason === "TERMINATED") {
+      setExamState("VIOLATION_TERMINATED");
+    } else {
       setExamState("SUBMITTED");
     }
+
     if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => { });
   }, [r1List, r1Answers, r2List, r2Answers, typingTexts, codingQuestions, codingAnswers, codingSubmissions, codingProgress, warnings, profile, studentDomain, domainConfig, examPattern, isMcqDomain, examState, studentTopics, id, slotData]);
 
@@ -2254,6 +2266,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
           </div>
         </div>
       )}
+      <AIProctorDebugPanel />
       <AnimatePresence>
         {currentWarning && (
           <motion.div 

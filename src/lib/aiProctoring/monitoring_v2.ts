@@ -27,9 +27,9 @@ export class AIProctoringSystem {
   constructor(opts?: ProctorOptions) {
     this.opts = {
       minConfidence: opts?.minConfidence ?? 0.85,
-      minSecondsForViolation: opts?.minSecondsForViolation ?? 20,
-      multipleFaceSeconds: opts?.multipleFaceSeconds ?? 10,
-      evaluateIntervalMs: opts?.evaluateIntervalMs ?? 800,
+      minSecondsForViolation: opts?.minSecondsForViolation ?? 15,
+      multipleFaceSeconds: opts?.multipleFaceSeconds ?? 15,
+      evaluateIntervalMs: opts?.evaluateIntervalMs ?? 900,
       onWarning: opts?.onWarning ?? (() => {}),
       onTerminate: opts?.onTerminate ?? (() => {}),
       devMode: opts?.devMode ?? false,

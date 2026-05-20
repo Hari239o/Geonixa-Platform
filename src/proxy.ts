@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const ADMIN_EMAIL = 'talent@geonixa.com';
 const ADMIN_PASSWORD = 'talent@9908';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Protect admin routes

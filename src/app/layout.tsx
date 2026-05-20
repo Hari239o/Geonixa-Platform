@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Geonixa | Enterprise Assessment Terminal",
   description: "Secure, reliable, and AI-monitored online examination platform by Geonixa Corporate Intelligence.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

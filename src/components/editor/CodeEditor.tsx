@@ -689,8 +689,8 @@ export default function CodeEditor({
         </div>
       </div>
 
-      <div className="flex-1 flex min-h-0">
-        <div className="flex-2 relative border-r border-[#30363d]">
+      <div className="flex-1 flex min-h-0 flex-col">
+        <div className="relative border-b border-[#30363d] flex-1 min-h-0">
           {monacoFailed ? (
             <SimpleCodeEditor
               value={code}
@@ -761,7 +761,7 @@ export default function CodeEditor({
           )}
         </div>
 
-        <div className="flex-1 flex flex-col bg-[#010409]">
+        <div className="flex-1 flex min-h-96 flex-col bg-[#010409]">
           <div className="flex border-b border-[#30363d]">
             {["TESTS", "OUTPUT"].map((tab) => (
               <button

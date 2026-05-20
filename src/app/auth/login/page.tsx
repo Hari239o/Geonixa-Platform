@@ -185,7 +185,7 @@ export default function Login() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="glass-panel p-8 md:p-12 rounded-[40px] relative overflow-hidden"
                 >
-                  <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-50" />
+                  <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-transparent via-orange-500 to-transparent opacity-50" />
                   
                   <div className="text-center mb-10">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 text-[10px] font-black tracking-widest mb-6">
@@ -274,7 +274,7 @@ export default function Login() {
             key="authorization-screen"
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-6"
+            className="fixed inset-0 z-100 flex items-center justify-center p-6"
           >
             <div className="w-full max-w-6xl">
               <div className="grid lg:grid-cols-2 gap-20 items-center">
@@ -342,7 +342,7 @@ export default function Login() {
 
                   <button 
                     onClick={() => window.location.href = "/exam/session-ready"}
-                    className="btn-premium w-full bg-white text-black py-6 rounded-[24px] font-black text-xl tracking-tight transition-all shadow-3xl flex items-center justify-center gap-4 group"
+                    className="btn-premium w-full bg-white text-black py-6 rounded-3xl font-black text-xl tracking-tight transition-all shadow-3xl flex items-center justify-center gap-4 group"
                   >
                     INITIALIZE ASSESSMENT
                     <Terminal className="w-6 h-6 group-hover:scale-110 transition-transform" />
