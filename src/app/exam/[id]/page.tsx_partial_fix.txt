@@ -1,0 +1,26 @@
+  const handleProctorViolation = useCallback((type: string, message: string) => {
+    if (type === "TERMINATED") {
+      if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      setExamState("VIOLATION_TERMINATED");
+      return;
+    }
+
+    const timestamp = new Date().toLocaleTimeString();
+    const violationLog = `[${timestamp}] ${type}: ${message}`;
+    
+    setWarnings(prev => {
+      const newWarnings = [...prev, violationLog];
+      
+      // Auto-Termination Logic (Enterprise Rule: 5 Tab Switches or 12 General Warnings)
+      const tabSwitches = newWarnings.filter(w => w.includes("TAB_SWITCH")).length;
+      if (tabSwitches >= 5 || newWarnings.length >= 12) {
+        if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => {});
+        setExamState("VIOLATION_TERMINATED");
+      }
+      
+      return newWarnings;
+    });
+
+    setCurrentWarning(message);
+    setTimeout(() => setCurrentWarning(null), 6000);
+  }, []);

@@ -1,7 +1,22 @@
 "use client";
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Shield, Lock, Eye, EyeOff, ChevronRight, AlertCircle, Clock } from 'lucide-react';
+
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Shield, 
+  Lock, 
+  Eye, 
+  EyeOff, 
+  ChevronRight, 
+  AlertCircle, 
+  Clock, 
+  Keyboard,
+  Fingerprint,
+  Cpu,
+  Activity,
+  Terminal,
+  ArrowLeft
+} from 'lucide-react';
 import Link from 'next/link';
 
 export default function Login() {
@@ -10,6 +25,8 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [targetEmail, setTargetEmail] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,20 +34,26 @@ export default function Login() {
     setError("");
 
     if (typeof window !== "undefined") {
-      // 1. Admin Login
-      if (email === "talent@geonixa.com") {
+      const isAdminEmail = email === "talent@geonixa.com";
+
+      if (isAdminEmail) {
         if (password === "talent@9908") {
           localStorage.setItem("geonixa_current_user", email);
           window.location.href = "/admin/dashboard";
           return;
-        } else {
-          setError("Invalid Secure Administrator Credentials.");
-          setIsLoading(false);
+        } 
+        if (password === "9908") {
+          localStorage.setItem("geonixa_current_user", email);
+          localStorage.setItem(`geonixa_domain_${email}`, "Full-Stack");
+          setTargetEmail(email);
+          setIsSuccess(true);
           return;
         }
+        setError("Invalid secure administrator credentials.");
+        setIsLoading(false);
+        return;
       }
 
-      // 2. Student Login
       try {
         const { verifyCandidateFirebase, getCandidateProfile } = await import('@/lib/firebase');
         const status = await verifyCandidateFirebase(email, password);
@@ -38,35 +61,40 @@ export default function Login() {
         if (status === "SUCCESS") {
           const profile = await getCandidateProfile(email);
           
-          // --- SLOT ENFORCEMENT ---
           if (profile && profile.slot) {
-            const currentHour = new Date().getHours();
-            const slotMap: Record<string, number[]> = {
-              "9-10 AM": [9],
-              "11-12 PM": [11],
-              "3-4 PM": [15],
-              "5-6 PM": [17]
+            const now = new Date();
+            const currentTimeInMins = now.getHours() * 60 + now.getMinutes();
+            const today = new Date().toISOString().split('T')[0];
+            const isAssignedDay = profile.day === today;
+
+            const slotMap: Record<string, { start: number; end: number }> = {
+              "09:00 AM - 10:00 AM": { start: 9 * 60, end: 10 * 60 },
+              "11:00 AM - 12:00 PM": { start: 11 * 60, end: 12 * 60 },
+              "03:00 PM - 04:00 PM": { start: 15 * 60, end: 16 * 60 },
+              "05:00 PM - 06:00 PM": { start: 17 * 60, end: 18 * 60 }
             };
             
-            const allowedHours = slotMap[profile.slot];
-            if (allowedHours && !allowedHours.includes(currentHour)) {
-               // For development, we might want to bypass this, but for "Production Ready" we enforce.
-               // Let's add a small bypass for the user to test easily, or just alert.
-               const bypass = new URLSearchParams(window.location.search).get("bypassSlot") === "true";
-               if (!bypass) {
-                 setError(`SLOT_MISMATCH: Your assigned slot is ${profile.slot}. Please login during your window.`);
-                 setIsLoading(false);
-                 return;
-               }
+            const slot = slotMap[profile.slot];
+
+            if (!isAssignedDay) {
+              setError(`DATE_EXPIRED: Access restricted. Your passkey was valid only for ${profile.day}.`);
+              setIsLoading(false);
+              return;
+            }
+            if (slot && (currentTimeInMins < slot.start || currentTimeInMins > slot.end)) {
+              setError(`SLOT_EXPIRED: Your allocated slot (${profile.slot}) has passed or not yet started. Access denied.`);
+              setIsLoading(false);
+              return;
             }
           }
 
           localStorage.setItem("geonixa_current_user", email);
           if (profile?.domain) localStorage.setItem(`geonixa_domain_${email}`, profile.domain);
-          
-          window.location.href = "/exam/session-ready";
+          setTargetEmail(email);
+          setIsSuccess(true);
+          return;
         } else if (status === "INVALID_PASS") {
-          setError("Authentication failed: Incorrect Pass-Key.");
+          setError("Authentication failed: Incorrect pass-key.");
         } else {
           setError("Identity not found in corporate database.");
         }
@@ -79,103 +107,209 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#050810] text-white">
-      <header className="px-8 py-6 border-b border-slate-900 bg-[#080B14] flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-[#FF5A1F] rounded flex items-center justify-center">
-            <Shield className="w-5 h-5 text-white" />
-          </div>
-          <h1 className="text-xl font-black tracking-tighter">GEONIXA</h1>
-        </div>
-      </header>
-
-      <main className="flex-1 flex items-center justify-center p-6">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="w-full max-w-md"
-        >
-          <div className="bg-[#0D121F] border border-slate-900 rounded-3xl p-10 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-[#FF5A1F]" />
-            
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-slate-950 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-800">
-                <Lock className="text-[#FF5A1F] w-8 h-8" />
+    <div className="relative min-h-screen flex flex-col selection:bg-orange-500/30">
+      <div className="mesh-bg" />
+      <div className="grid-overlay" />
+      
+      <AnimatePresence mode="wait">
+        {!isSuccess ? (
+          <motion.div 
+            key="login-ui"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="flex-1 flex flex-col p-6"
+          >
+            {/* Header */}
+            <div className="max-w-7xl mx-auto w-full flex items-center justify-between mb-12">
+              <Link href="/" className="flex items-center gap-3 group">
+                <div className="w-8 h-8 glass-panel flex items-center justify-center rounded-lg group-hover:border-orange-500/50 transition-all">
+                  <ArrowLeft className="w-4 h-4 text-slate-400 group-hover:text-white" />
+                </div>
+                <span className="text-xs font-black text-slate-500 tracking-widest uppercase">Back to Overview</span>
+              </Link>
+              <div className="flex items-center gap-3">
+                <img src="/images/geonixa-logo.svg" alt="Geonixa Logo" className="h-10 w-auto" />
               </div>
-              <h2 className="text-2xl font-black">Secure Login</h2>
-              <p className="text-slate-500 text-sm mt-2">Enter your credentials to access the terminal.</p>
             </div>
 
-            {error && (
-              <motion.div 
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-3 text-xs text-red-400 font-bold"
-              >
-                <AlertCircle className="w-4 h-4 shrink-0" /> {error}
-              </motion.div>
-            )}
+            {/* Login Card */}
+            <div className="flex-1 flex items-center justify-center py-12">
+              <div className="w-full max-w-lg">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="glass-panel p-8 md:p-12 rounded-[40px] relative overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-50" />
+                  
+                  <div className="text-center mb-10">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 text-[10px] font-black tracking-widest mb-6">
+                      <Lock className="w-3 h-3" /> SECURE GATEWAY
+                    </div>
+                    <h2 className="text-3xl font-black text-white italic tracking-tight">CANDIDATE ACCESS</h2>
+                    <p className="text-slate-500 text-sm font-medium mt-2">Enter your authorized credentials to initialize assessment.</p>
+                  </div>
 
-            <form onSubmit={handleLogin} className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Corporate Email</label>
-                <input 
-                  type="email" 
-                  placeholder="name@geonixa.com" 
-                  required 
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:border-[#FF5A1F] transition-all"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                />
+                  {error && (
+                    <motion.div 
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="mb-8 p-4 bg-red-500/10 border border-red-500/20 rounded-2xl flex items-center gap-3 text-[11px] text-red-400 font-bold"
+                    >
+                      <AlertCircle className="w-4 h-4 shrink-0" /> {error}
+                    </motion.div>
+                  )}
+
+                  <form onSubmit={handleLogin} className="space-y-8">
+                    <div className="space-y-3">
+                      <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">CORPORATE EMAIL</label>
+                      <input 
+                        type="email" 
+                        placeholder="name@organization.com" 
+                        required 
+                        className="w-full bg-white/5 border border-white/5 rounded-2xl px-6 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-orange-500/50 focus:bg-white/10 transition-all font-medium"
+                        value={email}
+                        onChange={e => setEmail(e.target.value.toLowerCase().trim())}
+                      />
+                    </div>
+
+                    <div className="space-y-3">
+                      <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">SECURE PASS-KEY</label>
+                      <div className="relative">
+                        <input 
+                          type={showPassword ? "text" : "password"} 
+                          placeholder="••••••••" 
+                          required 
+                          className="w-full bg-white/5 border border-white/5 rounded-2xl px-6 py-4 pr-16 text-white placeholder:text-slate-600 focus:outline-none focus:border-orange-500/50 focus:bg-white/10 transition-all font-medium"
+                          value={password}
+                          onChange={e => setPassword(e.target.value.trim())}
+                        />
+                        <button 
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-600 hover:text-white transition-colors"
+                        >
+                          {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                        </button>
+                      </div>
+                    </div>
+
+                    <button 
+                      disabled={isLoading}
+                      type="submit" 
+                      className="btn-premium w-full bg-orange-600 hover:bg-orange-500 text-white py-5 rounded-2xl font-black tracking-widest transition-all flex items-center justify-center gap-3 group shadow-2xl shadow-orange-900/20"
+                    >
+                      {isLoading ? (
+                        <Activity className="w-5 h-5 animate-spin" />
+                      ) : (
+                        <>INITIALIZE TERMINAL <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>
+                      )}
+                    </button>
+                  </form>
+
+                  <div className="mt-10 pt-8 border-t border-white/5 flex items-center justify-between">
+                    <Link href="/auth/register" className="text-[10px] font-black text-slate-500 hover:text-white transition-colors tracking-widest uppercase">Request Access</Link>
+                    <div className="flex items-center gap-2 text-[10px] text-slate-600 font-bold uppercase tracking-widest">
+                      <Clock className="w-3 h-3 text-orange-500" /> Slot Validation Active
+                    </div>
+                  </div>
+                </motion.div>
               </div>
+            </div>
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Secure Pass-Key</label>
-                <div className="relative">
-                  <input 
-                    type={showPassword ? "text" : "password"} 
-                    placeholder="••••••••" 
-                    required 
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 pr-12 focus:outline-none focus:border-[#FF5A1F] transition-all"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                  />
+            {/* Footer */}
+            <div className="max-w-7xl mx-auto w-full py-8 text-center">
+              <span className="text-[10px] font-black text-slate-700 uppercase tracking-[0.5em]">
+                ENCRYPTED SESSION • GEONIXA CORE v2.4.0
+              </span>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div 
+            key="authorization-screen"
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-6"
+          >
+            <div className="w-full max-w-6xl">
+              <div className="grid lg:grid-cols-2 gap-20 items-center">
+                <div className="space-y-12">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-orange-600 rounded-[20px] flex items-center justify-center shadow-2xl shadow-orange-500/20">
+                      <Fingerprint className="w-8 h-8 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-4xl font-black tracking-tighter text-white">GEONIXA</h2>
+                      <div className="flex items-center gap-2 mt-1">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-[0.4em]">Authorization Confirmed</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <h3 className="text-6xl font-black text-white italic leading-[1.1]">IDENTITY <br /><span className="text-slate-600">VERIFIED.</span></h3>
+                    <p className="text-slate-400 text-xl font-medium leading-relaxed max-w-lg">
+                      Secure session initialized for <span className="text-white font-black underline decoration-orange-500/50 underline-offset-4">{targetEmail}</span>.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-6">
+                    <div className="glass-panel px-8 py-5 rounded-2xl flex-1">
+                      <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-1">PROCTORING</span>
+                      <span className="text-white font-bold text-sm">KERNEL_ISOLATION</span>
+                    </div>
+                    <div className="glass-panel px-8 py-5 rounded-2xl flex-1">
+                      <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-1">NETWORK</span>
+                      <span className="text-white font-bold text-sm">SECURE_SYNC</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Rules Container */}
+                <div className="glass-panel p-10 md:p-14 rounded-[50px] relative overflow-hidden group">
+                  <div className="absolute top-0 left-0 w-full h-full scanline opacity-10 pointer-events-none" />
+                  
+                  <div className="flex items-center gap-4 mb-12">
+                    <div className="p-3 bg-orange-500/10 rounded-xl">
+                      <AlertCircle className="text-orange-500 w-6 h-6" />
+                    </div>
+                    <h4 className="text-2xl font-black text-white tracking-tight italic">PROTOCOL ENFORCEMENT</h4>
+                  </div>
+
+                  <div className="space-y-8 mb-16">
+                    {[
+                      { title: "Browser Integrity", desc: "Real-time kernel monitoring of tab switches and system activity.", icon: <Shield className="w-5 h-5" /> },
+                      { title: "Behavioral Analytics", desc: "Proprietary AI gaze tracking and cognitive pattern detection.", icon: <Activity className="w-5 h-5" /> },
+                      { title: "Input Lockdown", desc: "Full restriction on clipboard activity and external peripherals.", icon: <Keyboard className="w-5 h-5" /> }
+                    ].map((rule, i) => (
+                      <div key={i} className="flex gap-6 group/rule">
+                        <div className="w-12 h-12 shrink-0 glass-panel rounded-2xl flex items-center justify-center text-slate-500 group-hover/rule:text-orange-500 group-hover/rule:border-orange-500/50 transition-all">
+                          {rule.icon}
+                        </div>
+                        <div>
+                          <p className="text-lg font-black text-white mb-1">{rule.title}</p>
+                          <p className="text-sm text-slate-500 font-medium leading-relaxed">{rule.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
                   <button 
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-400"
+                    onClick={() => window.location.href = "/exam/session-ready"}
+                    className="btn-premium w-full bg-white text-black py-6 rounded-[24px] font-black text-xl tracking-tight transition-all shadow-3xl flex items-center justify-center gap-4 group"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    INITIALIZE ASSESSMENT
+                    <Terminal className="w-6 h-6 group-hover:scale-110 transition-transform" />
                   </button>
                 </div>
               </div>
-
-              <button 
-                disabled={isLoading}
-                type="submit" 
-                className="w-full bg-[#FF5A1F] hover:bg-[#E44E18] text-white py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 group shadow-[0_10px_20px_rgba(255,90,31,0.2)]"
-              >
-                {isLoading ? "AUTHORIZING..." : <>ACCESS TERMINAL <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></>}
-              </button>
-            </form>
-
-            <div className="mt-8 pt-6 border-t border-slate-900 grid grid-cols-2 gap-4">
-              <Link href="/auth/register" className="text-center py-3 bg-slate-950 rounded-xl border border-slate-800 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors">
-                Registration
-              </Link>
-              <div className="flex items-center justify-center gap-2 text-[10px] text-slate-700 font-bold uppercase">
-                <Clock className="w-3 h-3" /> Slot Required
-              </div>
             </div>
-          </div>
-        </motion.div>
-      </main>
-
-      <footer className="p-8 text-center border-t border-slate-900">
-        <p className="text-[10px] text-slate-700 uppercase tracking-widest font-bold">
-          SYSTEM_ACCESS_POINT_VER: 2.4.0 • GEONIXA CORP
-        </p>
-      </footer>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
+

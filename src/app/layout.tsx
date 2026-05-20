@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
+const inter = Inter({ subsets: ["latin"] });
+
 export const metadata: Metadata = {
-  title: "Geonixa Official Assessment",
+  title: "Geonixa | Enterprise Assessment Terminal",
   description: "Secure, reliable, and AI-monitored online examination platform by Geonixa Corporate Intelligence.",
 };
 
@@ -12,14 +15,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
-        <script src="https://cdn.tailwindcss.com"></script>
-      </head>
-      <body className="animate-fade-in" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-        <main style={{ flex: 1, position: "relative", display: "flex", flexDirection: "column" }}>
-          {children}
-        </main>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${inter.className} bg-[#050810] text-slate-200 antialiased selection:bg-[#FF5A1F] selection:text-white`}>
+        {children}
       </body>
     </html>
   );

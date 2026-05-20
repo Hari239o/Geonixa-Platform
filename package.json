@@ -13,8 +13,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
     "@supabase/supabase-js": "^2.104.0",
+    "@tailwindcss/postcss": "^4.2.4",
     "@types/nodemailer": "^8.0.0",
+    "axios": "^1.16.0",
     "firebase": "^12.12.1",
     "framer-motion": "^12.38.0",
     "jspdf": "^4.2.1",
