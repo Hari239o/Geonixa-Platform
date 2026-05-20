@@ -59,40 +59,84 @@ export default function Login() {
         const status = await verifyCandidateFirebase(email, password);
 
         if (status === "SUCCESS") {
+          // Clear stale session cache on fresh login
+          localStorage.removeItem("geonixa_student_profile");
+          localStorage.removeItem(`geonixa_r1_answers_${email}`);
+          localStorage.removeItem(`geonixa_r2_answers_${email}`);
+          localStorage.removeItem(`geonixa_r3_texts_${email}`);
           const profile = await getCandidateProfile(email);
           
-          if (profile && profile.slot) {
-            const now = new Date();
-            const currentTimeInMins = now.getHours() * 60 + now.getMinutes();
-            const today = new Date().toISOString().split('T')[0];
-            const isAssignedDay = profile.day === today;
-
-            const slotMap: Record<string, { start: number; end: number }> = {
-              "09:00 AM - 10:00 AM": { start: 9 * 60, end: 10 * 60 },
-              "11:00 AM - 12:00 PM": { start: 11 * 60, end: 12 * 60 },
-              "03:00 PM - 04:00 PM": { start: 15 * 60, end: 16 * 60 },
-              "05:00 PM - 06:00 PM": { start: 17 * 60, end: 18 * 60 }
-            };
-            
-            const slot = slotMap[profile.slot];
-
-            if (!isAssignedDay) {
-              setError(`DATE_EXPIRED: Access restricted. Your passkey was valid only for ${profile.day}.`);
-              setIsLoading(false);
-              return;
-            }
-            if (slot && (currentTimeInMins < slot.start || currentTimeInMins > slot.end)) {
-              setError(`SLOT_EXPIRED: Your allocated slot (${profile.slot}) has passed or not yet started. Access denied.`);
+          // ═══════════════════════════════════════════════════════════════════════
+          // ENTERPRISE-GRADE SLOT TIMING ENFORCEMENT
+          // ═══════════════════════════════════════════════════════════════════════
+          if (profile?.day && profile?.slot) {
+            try {
+              const parts = profile.slot.split(' - ');
+              if (parts.length === 2) {
+                // Parse slot start and end times
+                const startPart = parts[0].trim(); // e.g., "10:00 AM"
+                const endPart = parts[1].trim();   // e.g., "11:30 AM"
+                
+                // Parse start time
+                const [startTime, startModifier] = startPart.split(' ');
+                let [startHours, startMinutes] = startTime.split(':').map(Number);
+                if (startModifier === 'PM' && startHours !== 12) startHours += 12;
+                if (startModifier === 'AM' && startHours === 12) startHours = 0;
+                
+                // Parse end time
+                const [endTime, endModifier] = endPart.split(' ');
+                let [endHours, endMinutes] = endTime.split(':').map(Number);
+                if (endModifier === 'PM' && endHours !== 12) endHours += 12;
+                if (endModifier === 'AM' && endHours === 12) endHours = 0;
+                
+                const [year, month, date] = profile.day.split('-').map(Number);
+                const slotStart = new Date(year, month - 1, date, startHours, startMinutes, 0, 0);
+                const slotEnd = new Date(year, month - 1, date, endHours, endMinutes, 0, 0);
+                const now = new Date();
+                
+                // DENY: Slot has already expired
+                if (now > slotEnd) {
+                  setError("SLOT_EXPIRED: Your allocated examination slot has concluded. Pass-keys are PERMANENTLY INVALIDATED beyond slot end time. No re-entry permitted.");
+                  localStorage.setItem(`geonixa_passkey_expired_${email}`, "true");
+                  setIsLoading(false);
+                  return;
+                }
+                
+                // DENY: Attempting to access before slot starts
+                if (now < slotStart) {
+                  const waitMinutes = Math.ceil((slotStart.getTime() - now.getTime()) / 60000);
+                  setError(`SLOT_PENDING: Your examination is scheduled to begin at ${startPart}. Please return in ${waitMinutes} minute(s). Early access is strictly prohibited.`);
+                  setIsLoading(false);
+                  return;
+                }
+                
+                // ALLOW: Current time is within allocated slot window [START, END)
+                localStorage.removeItem(`geonixa_passkey_expired_${email}`);
+                localStorage.setItem(`geonixa_slot_start_${email}`, slotStart.toISOString());
+                localStorage.setItem(`geonixa_slot_end_${email}`, slotEnd.toISOString());
+              }
+            } catch (e) {
+              console.error("Strict slot validation error:", e);
+              setError("SLOT_VALIDATION_ERROR: Unable to validate slot timing. Contact administrator.");
               setIsLoading(false);
               return;
             }
           }
 
           localStorage.setItem("geonixa_current_user", email);
+          localStorage.setItem("geonixa_student_profile", JSON.stringify(profile));
           if (profile?.domain) localStorage.setItem(`geonixa_domain_${email}`, profile.domain);
           setTargetEmail(email);
           setIsSuccess(true);
           return;
+        } else if (status === "COMPLETED") {
+          setError("IDENTITY_LOCKED: Our records indicate you have already completed this assessment. Multiple attempts are strictly prohibited.");
+        } else if (status === "SLOT_EXPIRED") {
+          setError("SLOT_EXPIRED: Your assigned exam slot has already elapsed. The pass-key has been revoked and access is permanently blocked.");
+        } else if (status === "SLOT_PENDING") {
+          setError("SLOT_PENDING: Your exam slot is not yet active. Please return at the scheduled start time.");
+        } else if (status === "SLOT_INVALID") {
+          setError("SLOT_INVALID: Your slot metadata is invalid. Contact administrator immediately.");
         } else if (status === "INVALID_PASS") {
           setError("Authentication failed: Incorrect pass-key.");
         } else {
@@ -209,7 +253,7 @@ export default function Login() {
                   </form>
 
                   <div className="mt-10 pt-8 border-t border-white/5 flex items-center justify-between">
-                    <Link href="/auth/register" className="text-[10px] font-black text-slate-500 hover:text-white transition-colors tracking-widest uppercase">Request Access</Link>
+                    <span className="text-[10px] font-black text-slate-500 tracking-widest uppercase">Invited Candidates Only</span>
                     <div className="flex items-center gap-2 text-[10px] text-slate-600 font-bold uppercase tracking-widest">
                       <Clock className="w-3 h-3 text-orange-500" /> Slot Validation Active
                     </div>

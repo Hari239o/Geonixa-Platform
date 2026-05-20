@@ -1,29 +1,58 @@
 @import "tailwindcss";
 
 :root {
-  /* Geonixa Enterprise Intelligence Design System - v4.0 */
+  /* Geonixa Enterprise Intelligence Design System - v4.0 (Light Theme) */
   --primary: #F97316;
-  --primary-glow: rgba(249, 115, 22, 0.4);
-  --bg-deep: #020408;
-  --bg-surface: #0a0c14;
-  --bg-card: rgba(15, 18, 28, 0.7);
-  --border-dim: rgba(255, 255, 255, 0.05);
-  --border-highlight: rgba(255, 255, 255, 0.1);
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-dim: #475569;
+  --primary-glow: rgba(249, 115, 22, 0.3);
+  --bg-deep: #ffffff;
+  --bg-surface: #f8fafc;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --border-dim: rgba(0, 0, 0, 0.08);
+  --border-highlight: rgba(0, 0, 0, 0.15);
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-dim: #64748b;
+  --success: #10B981;
+  --danger: #EF4444;
   
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
 @layer base {
+  html {
+    font-size: 21px; /* Noticeably increased font size of the total project */
+  }
+  
   body {
-    background-color: var(--bg-deep);
-    color: var(--text-primary);
+    background-color: #ffffff !important;
+    color: #0f172a !important;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+  }
+  
+  /* Override dark mode background classes to white/light */
+  *[class*="bg-[#"], *[class*="bg-slate-950"], *[class*="bg-slate-900"], *[class*="bg-black"], .bg-\[\#020408\], .bg-\[\#0a0c14\], .bg-\[\#080B14\], .bg-\[\#050810\], .bg-\[\#05070a\], .bg-\[\#1a110b\], .bg-\[\#0a121a\], .bg-\[\#0D121F\] {
+    background-color: #ffffff !important;
+    background-image: none !important;
+  }
+  
+  *[class*="border-slate-"], *[class*="border-white"] {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+  }
+
+  body, p, h1, h2, h3, h4, h5, h6, span, div, td, th {
+    color: #0f172a;
+  }
+  
+  .text-white, .text-slate-200, .text-slate-300, .text-slate-400, .text-slate-500 {
+    color: #1e293b !important;
+  }
+  
+  /* Preserve button and active badge text colors */
+  button.text-white, a.text-white, .bg-orange-500.text-white, .bg-\[\#FF5A1F\], .bg-emerald-500, .bg-blue-500, .bg-red-500 {
+    color: #ffffff !important;
   }
 }
 
@@ -31,22 +60,21 @@
 .font-brand {
   font-family: var(--font-sans);
   font-weight: 900;
-  letter-spacing: -0.05em;
   text-transform: uppercase;
 }
 
 /* Glassmorphism Evolution */
 .glass-panel {
-  background: rgba(10, 12, 20, 0.6);
+  background: rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05) !important;
 }
 
 .glass-panel:hover {
-  border-color: rgba(249, 115, 22, 0.3);
-  background: rgba(15, 18, 28, 0.8);
+  border-color: rgba(249, 115, 22, 0.4) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
 }
 
 /* Premium Button Architecture */
@@ -61,7 +89,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transform: translateX(-100%);
   transition: 0.5s;
 }
@@ -88,12 +116,51 @@
   position: fixed;
   inset: 0;
   background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
   z-index: -1;
   pointer-events: none;
+}
+
+.enterprise-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, rgba(249, 115, 22, 0.08), transparent 34%),
+    linear-gradient(240deg, rgba(14, 165, 233, 0.06), transparent 38%),
+    linear-gradient(180deg, #f8fafc 0%, #ffffff 46%, #f1f5f9 100%) !important;
+}
+
+.enterprise-background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03), transparent 1px),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.025), transparent 1px);
+  background-size: 92px 92px;
+  opacity: 0.5;
+  mask-image: linear-gradient(180deg, black 0%, black 70%, transparent 100%);
+}
+
+.enterprise-background::after {
+  display: none !important;
+}
+
+.enterprise-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, transparent 0 48%, rgba(249, 115, 22, 0.08) 48% 49%, transparent 49% 100%),
+    linear-gradient(45deg, transparent 0 51%, rgba(56, 189, 248, 0.05) 51% 52%, transparent 52% 100%);
+  background-size: 280px 280px;
+  opacity: 0.3;
 }
 
 /* Smooth Scanline */

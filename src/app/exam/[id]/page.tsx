@@ -24,25 +24,16 @@ import {
   Check,
   AlertCircle
 } from "lucide-react";
-import { SLOT_CONFIG } from "@/lib/firebase";
+import { SLOT_CONFIG, validateExamSlot, SlotValidationResult } from "@/lib/firebase";
 import AIProctor from "@/components/proctoring/AIProctor";
 import CodeEditor from "@/components/editor/CodeEditor";
 import Logo from "@/components/brand/Logo";
-import { storeExamAnswers, uploadLiveFrame, db } from "@/lib/firebase";
-import { getDoc, doc, collection } from "firebase/firestore";
-import { APTITUDE_POOL, GRAMMAR_POOL, DOMAIN_MCQ_POOL, DSA_HARD_POOL, WEB_DEV_POOL, TYPING_TOPICS_POOL } from "@/data/examQuestions";
-
-const seededShuffle = (array: any[], seed: number) => {
-  let m = array.length, t, i;
-  const copy = [...array];
-  while (m) {
-    i = Math.floor(Math.abs(Math.sin(seed++)) * m--);
-    t = copy[m];
-    copy[m] = copy[i];
-    copy[i] = t;
-  }
-  return copy;
-};
+import Link from 'next/link';
+import { storeExamAnswers, uploadLiveFrame, db, storeCompleteExamResults, StudentProfile, RoundResult, CodingSubmission, MCQResponse, ProctoringLog, ExamResult, TestResult } from "@/lib/firebase";
+import { getDoc, doc, collection, setDoc } from "firebase/firestore";
+import { APTITUDE_POOL, GRAMMAR_POOL, DOMAIN_MCQ_POOL, DSA_HARD_POOL, WEB_DEV_POOL, JAVA_POOL, PYTHON_POOL, DATA_SCIENCE_POOL, TECHNICAL_ROUND_4_POOL, TYPING_TOPICS_POOL } from "@/data/examQuestions";
+import { getDomainConfig, getExamPatternForDomain, isDomainMcqRound, isTechnicalDomain, normalizeDomainLabel } from "@/data/domainConfig";
+import { buildUpscQuestionSet, calculateUpscNegativeScore, seededShuffle } from "@/lib/upscAssessmentEngine";
 
 const allAptitude = APTITUDE_POOL;
 const allGrammar = GRAMMAR_POOL;
@@ -94,12 +85,24 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
   const [warnings, setWarnings] = useState<string[]>([]);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [examState, setExamState] = useState<ExamState>("SYS_CHECK");
+  const [examState, setExamState] = useState<ExamState>("INSTRUCTIONS");
+  const hasSubmittedRef = useRef(false);
+  const submitRef = useRef<any>(null);
 
   const [feedback, setFeedback] = useState({ stars: 0, challenges: "" });
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [currentWarning, setCurrentWarning] = useState<string | null>(null);
+  const [observationTimer, setObservationTimer] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (observationTimer === null || observationTimer <= 0) return;
+    const interval = setInterval(() => {
+      setObservationTimer(prev => (prev && prev > 1 ? prev - 1 : null));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [observationTimer]);
+
 
   const [currentRound, setCurrentRound] = useState(1);
   const totalRounds = 4;
@@ -115,71 +118,95 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     setConfirmModal({ show: true, title, message, onConfirm });
   };
   
-  const studentProfileStr = typeof window !== 'undefined' ? localStorage.getItem("geonixa_student_profile") : null;
-  const profile = studentProfileStr ? JSON.parse(studentProfileStr) : { domain: "Java", slot: "SLOT_1" };
-  const studentDomain = profile.domain || "Java";
-  const studentSlot = profile.slot || "SLOT_1";
-  const slotData = (SLOT_CONFIG as any)[studentSlot] || SLOT_CONFIG.SLOT_1;
+  const [profile, setProfile] = useState<any>(() => {
+    if (typeof window !== "undefined") {
+      const local = localStorage.getItem("geonixa_student_profile");
+      if (local) return JSON.parse(local);
+    }
+    return { day: new Date().toISOString().split('T')[0], slot: "SLOT_1", domain: "Java" };
+  });
+  const [isProfileLoading, setIsProfileLoading] = useState(false);
+
+  // Derived slot data (memoized)
+  const slotData = useMemo(() => {
+    if (!profile) return SLOT_CONFIG.SLOT_1;
+    
+    let slotKey = profile.slot;
+    
+    // Auto-heal legacy slot IDs or labels
+    if (!SLOT_CONFIG[slotKey as keyof typeof SLOT_CONFIG]) {
+       const labelMap: Record<string, string> = {
+         "10:00 AM - 11:30 AM": "SLOT_1",
+         "12:00 PM - 01:30 PM": "SLOT_2",
+         "03:00 PM - 04:30 PM": "SLOT_3",
+         "06:00 PM - 07:30 PM": "SLOT_4",
+         "08:00 PM - 09:30 PM": "SLOT_5",
+         "9-10 AM": "SLOT_1" // Legacy default
+       };
+       slotKey = labelMap[slotKey] || "SLOT_1";
+    }
+
+    return (SLOT_CONFIG as any)[slotKey] || SLOT_CONFIG.SLOT_1;
+  }, [profile]);
+
+  const studentDomain = normalizeDomainLabel(profile?.domain || "Java");
+  const domainConfig = useMemo(() => getDomainConfig(studentDomain), [studentDomain]);
+  const examPattern = useMemo(() => getExamPatternForDomain(studentDomain), [studentDomain]);
+  const studentSlot = profile?.slot || "SLOT_1";
 
   const [slotStatus, setSlotStatus] = useState<"WAITING" | "ACTIVE" | "EXPIRED">("WAITING");
+  const [slotValidation, setSlotValidation] = useState<SlotValidationResult>({ status: "MISSING", message: "Validating slot timing..." });
   const [currentTime, setCurrentTime] = useState(new Date());
+
+  // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  // STRICT SLOT TIMING VALIDATION
+  // Returns whether slot is: EXPIRED, PENDING (not yet started), or ACTIVE
+  // ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  useEffect(() => {
+    if (!profile) return;
+
+    const validation = validateExamSlot(profile);
+    setSlotValidation(validation);
+
+    const currentUser = typeof window !== "undefined" ? localStorage.getItem("geonixa_current_user") || "anonymous" : "anonymous";
+    if (validation.status === "EXPIRED") {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(`geonixa_passkey_expired_${currentUser}`, "true");
+      }
+
+      if (examState === "ACTIVE" && !hasSubmittedRef.current) {
+        if (submitRef.current) submitRef.current("SLOT_EXPIRED");
+        setExamState("VIOLATION_TERMINATED");
+      } else if (examState !== "SUBMITTED" && examState !== "VIOLATION_TERMINATED") {
+        setExamState("VIOLATION_TERMINATED");
+      }
+    }
+  }, [profile, currentTime, examState]);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    const checkSlot = () => {
-      const now = currentTime;
-      const [startH, startM] = slotData.start.split(":").map(Number);
-      const [endH, endM] = slotData.end.split(":").map(Number);
-      
-      const startTime = new Date(profile.day || new Date());
-      startTime.setHours(startH, startM, 0);
-      
-      const endTime = new Date(profile.day || new Date());
-      endTime.setHours(endH, endM, 0);
-
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const examDay = new Date(profile.day || new Date());
-      examDay.setHours(0, 0, 0, 0);
-
-      if (today < examDay) setSlotStatus("WAITING");
-      else if (today > examDay) setSlotStatus("EXPIRED");
-      else {
-        if (now < startTime) setSlotStatus("WAITING");
-        else if (now > endTime) setSlotStatus("EXPIRED");
-        else setSlotStatus("ACTIVE");
-      }
-    };
-    checkSlot();
-  }, [currentTime, slotData, profile.day]);
-
-  // Generate a session-specific seed based on the student's unique ID
+  // Generate a session-specific seed based on the student's unique ID and Email
   const sessionSeed = useMemo(() => {
-    return id.split('').reduce((acc, char) => acc + (char.charCodeAt(0) * 13), 7);
-  }, [id]);
+    if (profile && profile.sessionSeed) {
+      return Number(profile.sessionSeed);
+    }
+    const userEmail = typeof window !== 'undefined' ? localStorage.getItem("geonixa_current_user") || "" : "";
+    const base = id + userEmail;
+    return base.split('').reduce((acc, char) => acc + (char.charCodeAt(0) * 17), 13);
+  }, [id, profile]);
   
-  const techDomains = ["Java", "Python", "Web Development", "Data Analytics", "Data Science", "Machine Learning"];
-  const isTech = techDomains.includes(studentDomain);
-  const isMcqDomain = [
-    "AutoCAD", "VLSI Design", "Embedded Systems", "Electric Vehicles", "Civil Engineering", 
-    "Data Analytics", "Data Science", "AI & Machine Learning", "Cybersecurity", "Cloud Computing"
-  ].includes(studentDomain);
+  const isTech = isTechnicalDomain(studentDomain);
+  const isMcqDomain = isDomainMcqRound(studentDomain);
 
-  const timeLimits: Record<number, number> = isTech ? { 
-    1: 10 * 60, // Aptitude: 10 Min
-    2: 10 * 60, // Grammar: 10 Min
-    3: 10 * 60, // Typing: 10 Min (5+5)
-    4: 50 * 60  // Technical: 50 Min
-  } : {
-    1: 10 * 60, 
-    2: 10 * 60, 
-    3: 10 * 60, 
-    4: 20 * 60  // Non-Tech Technical: 20 Min
-  };
+  const timeLimits: Record<number, number> = useMemo(() => ({
+    1: (examPattern.rounds[0].durationMinutes || 10) * 60,
+    2: (examPattern.rounds[1].durationMinutes || 10) * 60,
+    3: (examPattern.rounds[2].durationMinutes || 10) * 60,
+    4: (examPattern.rounds[3].durationMinutes || (isTech ? 50 : 20)) * 60,
+  }), [examPattern, isTech]);
   
   const [roundTimes, setRoundTimes] = useState(timeLimits);
 
@@ -237,23 +264,56 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       
       const r3Saved = localStorage.getItem(`geonixa_r3_texts_${currentUser}`);
       if (r3Saved) setTypingTexts(JSON.parse(r3Saved));
-    }
-  }, [codingQuestions]);
 
-  // Persist Round 1/2/3 answers on change (Namespaced)
+      const codingSaved = localStorage.getItem(`geonixa_coding_answers_${currentUser}`);
+      if (codingSaved) setCodingAnswers(JSON.parse(codingSaved));
+    }
+  }, [codingQuestions, profile]);
+
+  // ── REAL-TIME PERSISTENCE ENGINE ─────────────────────────────────────────
+  const syncAnswers = useCallback(async (round: number, answers: Record<number, string>) => {
+    if (typeof window === "undefined") return;
+    const email = localStorage.getItem("geonixa_current_user");
+    if (!email || !profile) return;
+
+    try {
+      const questionList = round === 1 ? r1List : r2List;
+      await setDoc(doc(collection(db, "answerDrafts"), `${email}_${id}_round${round}`), {
+        studentId: email,
+        examId: id,
+        round,
+        domain: studentDomain,
+        answers,
+        answeredCount: Object.keys(answers).length,
+        questionSet: questionList.map((question, index) => ({
+          index,
+          questionCode: question.questionCode || `${round}_${index}`,
+          patternKey: question.patternKey || "standard",
+          questionText: question.q,
+        })),
+        lastUpdated: new Date().toISOString(),
+      }, { merge: true });
+    } catch (err) {
+      console.error("Sync Error:", err);
+    }
+  }, [id, profile, r1List, r2List, studentDomain]);
+
+  // Persist Round 1/2/3 answers on change (Namespaced & Synced)
   useEffect(() => {
     if (Object.keys(r1Answers).length > 0 && typeof window !== "undefined") {
       const currentUser = localStorage.getItem("geonixa_current_user") || "anonymous";
       localStorage.setItem(`geonixa_r1_answers_${currentUser}`, JSON.stringify(r1Answers));
+      syncAnswers(1, r1Answers);
     }
-  }, [r1Answers]);
+  }, [r1Answers, syncAnswers]);
 
   useEffect(() => {
     if (Object.keys(r2Answers).length > 0 && typeof window !== "undefined") {
       const currentUser = localStorage.getItem("geonixa_current_user") || "anonymous";
       localStorage.setItem(`geonixa_r2_answers_${currentUser}`, JSON.stringify(r2Answers));
+      syncAnswers(2, r2Answers);
     }
-  }, [r2Answers]);
+  }, [r2Answers, syncAnswers]);
 
   useEffect(() => {
     if (typingTexts.some(t => t.length > 0) && typeof window !== "undefined") {
@@ -276,7 +336,9 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   const sessionHash = useMemo(() => Math.random().toString(36).substring(7).toUpperCase(), []);
 
   const calculateSubstantialLines = (typed: string) => {
-    return typed.split('\n').filter(line => line.trim().length >= 60).length;
+    const manualLines = typed.split('\n').filter(line => line.trim().length > 0).length;
+    const charLines = Math.floor(typed.trim().length / 100);
+    return Math.max(manualLines, charLines);
   };
 
   const calculateTypingProgress = (typed: string, source: string) => {
@@ -291,80 +353,429 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     return matchingWords;
   };
 
-  const handleFinalSubmit = useCallback(async () => {
+  const handleFinalSubmit = useCallback(async (reason: string = "MANUAL_SUBMIT") => {
+    if (hasSubmittedRef.current) return;
+    hasSubmittedRef.current = true;
+    
     try {
       const currentUser = typeof window !== "undefined" ? localStorage.getItem("geonixa_current_user") || "anonymous" : "anonymous";
+      const examId = id;
+      const submissionTimestamp = new Date().toISOString();
       
-      // Round 1: Aptitude Analytics
-      let r1Correct = 0; let r1Wrong = 0;
+      // =============================================================================
+      // 1. STUDENT PROFILE
+      // =============================================================================
+      const studentProfile: StudentProfile = {
+        studentId: currentUser,
+        fullName: profile?.name || currentUser,
+        email: currentUser,
+        college: profile?.college || "Unknown",
+        slot: slotData.label || "Unknown",
+        domain: studentDomain,
+        domainId: domainConfig.id,
+        domainTrack: domainConfig.track,
+        round4Mode: domainConfig.round4Mode,
+        reportGroup: domainConfig.reportGroup,
+        examPattern,
+        questionAllocation: examPattern.rounds,
+        registrationTimestamp: profile?.registrationTimestamp || submissionTimestamp
+      };
+
+      // =============================================================================
+      // 2. ROUND-WISE RESULTS PROCESSING
+      // =============================================================================
+      const roundResults: RoundResult[] = [];
+      const mcqResponses: MCQResponse[] = [];
+      const finalCodingSubmissions: CodingSubmission[] = [];
+      const proctoringLogs: ProctoringLog[] = [];
+
+      const examStartTime = new Date(Date.now() - (45 * 60 * 1000)).toISOString(); // Approximate start time
+
+      // ROUND 1: Aptitude Analytics
+      let r1Correct = 0; let r1Wrong = 0; let r1Unattempted = 0;
       const r1Details = r1List.map((q, i) => {
-        const isCorrect = r1Answers[i] === q.correctAnswer;
-        if (isCorrect) r1Correct++; else if (r1Answers[i]) r1Wrong++;
-        return { qId: i, type: 'mcq', question: q.q, selected: r1Answers[i] || null, correct: q.correctAnswer, isCorrect };
-      });
-      const r1Score = (r1Correct * 1) - (r1Wrong * 0.25); // 1 mark each, -0.25 penalty
+        const selected = r1Answers[i];
+        const isCorrect = selected === q.correctAnswer;
+        const isAttempted = selected !== undefined && selected !== null && selected !== "";
+        
+        if (isAttempted) {
+          if (isCorrect) r1Correct++; else r1Wrong++;
+        } else {
+          r1Unattempted++;
+        }
 
-      // Round 2: Grammar Analytics
-      let r2Correct = 0; let r2Wrong = 0;
+        // Store MCQ Response
+        mcqResponses.push({
+          questionId: `r1_${i}`,
+          roundNumber: 1,
+          domain: studentDomain,
+          course: studentDomain,
+          questionText: q.q,
+          questionCode: q.questionCode,
+          patternKey: q.patternKey,
+          selectedOption: selected || "",
+          correctOption: q.correctAnswer,
+          marksAwarded: isCorrect ? 0.5 : 0,
+          timeSpent: 0, // Not tracked individually
+          questionStatus: isCorrect ? 'CORRECT' : (isAttempted ? 'WRONG' : 'UNATTEMPTED'),
+          submissionTimestamp
+        });
+
+        return { 
+          qId: i, 
+          type: 'mcq', 
+          questionCode: q.questionCode,
+          patternKey: q.patternKey,
+          question: q.q, 
+          selected: selected || null, 
+          correct: q.correctAnswer, 
+          isCorrect,
+          isAttempted
+        };
+      });
+      
+      const r1Scoring = calculateUpscNegativeScore(r1Correct, r1Wrong);
+      const r1Score = Math.max(0, r1Scoring.score * 0.5);
+      roundResults.push({
+        roundNumber: 1,
+        roundName: "Aptitude",
+        roundType: "mcq",
+        domain: studentDomain,
+        course: studentDomain,
+        scoringRule: "Scaled scoring: 0.5 marks per correct, 3 wrong answers = -0.5 mark",
+        negativePenalty: r1Scoring.penalty * 0.5,
+        attemptedQuestions: r1Correct + r1Wrong,
+        correctAnswers: r1Correct,
+        wrongAnswers: r1Wrong,
+        unattemptedQuestions: r1Unattempted,
+        marksObtained: r1Score,
+        totalMarks: 15,
+        percentage: (r1Score / 15) * 100,
+        startTime: examStartTime,
+        endTime: submissionTimestamp,
+        timeSpent: 10 * 60, // 10 minutes
+        submissionTimestamp,
+        details: r1Details
+      });
+
+      // ROUND 2: Grammar Analytics
+      let r2Correct = 0; let r2Wrong = 0; let r2Unattempted = 0;
       const r2Details = r2List.map((q, i) => {
-        const isCorrect = r2Answers[i] === q.correctAnswer;
-        if (isCorrect) r2Correct++; else if (r2Answers[i]) r2Wrong++;
-        return { qId: i, type: 'mcq', question: q.q, selected: r2Answers[i] || null, correct: q.correctAnswer, isCorrect };
-      });
-      const r2Score = (r2Correct * 1) - (r2Wrong * 0.25);
+        const selected = r2Answers[i];
+        const isCorrect = selected === q.correctAnswer;
+        const isAttempted = selected !== undefined && selected !== null && selected !== "";
+        
+        if (isAttempted) {
+          if (isCorrect) r2Correct++; else r2Wrong++;
+        } else {
+          r2Unattempted++;
+        }
 
-      // Round 3: Descriptive Analytics
+        // Store MCQ Response
+        mcqResponses.push({
+          questionId: `r2_${i}`,
+          roundNumber: 2,
+          domain: studentDomain,
+          course: studentDomain,
+          selectedOption: selected || "",
+          correctOption: q.correctAnswer,
+          marksAwarded: isCorrect ? 0.5 : (isAttempted ? -0.1667 : 0),
+          timeSpent: 0,
+          questionStatus: isCorrect ? 'CORRECT' : (isAttempted ? 'WRONG' : 'UNATTEMPTED'),
+          submissionTimestamp
+        });
+
+        return { 
+          qId: i, 
+          type: 'mcq', 
+          questionCode: q.questionCode,
+          patternKey: q.patternKey,
+          question: q.q, 
+          selected: selected || null, 
+          correct: q.correctAnswer, 
+          isCorrect,
+          isAttempted
+        };
+      });
+      
+      const r2Scoring = calculateUpscNegativeScore(r2Correct, r2Wrong);
+      const r2Score = Math.max(0, r2Scoring.score * 0.5);
+      roundResults.push({
+        roundNumber: 2,
+        roundName: "Grammar",
+        roundType: "mcq",
+        domain: studentDomain,
+        course: studentDomain,
+        scoringRule: "Scaled scoring: 0.5 marks per correct, 3 wrong answers = -0.5 mark",
+        negativePenalty: r2Scoring.penalty * 0.5,
+        attemptedQuestions: r2Correct + r2Wrong,
+        correctAnswers: r2Correct,
+        wrongAnswers: r2Wrong,
+        unattemptedQuestions: r2Unattempted,
+        marksObtained: r2Score,
+        totalMarks: 15,
+        percentage: (r2Score / 15) * 100,
+        startTime: examStartTime,
+        endTime: submissionTimestamp,
+        timeSpent: 10 * 60,
+        submissionTimestamp,
+        details: r2Details
+      });
+
+      // ROUND 3: Descriptive Writing Analytics
+      const calcTopicScore = (lines: number, bs: number) => {
+        let base = lines >= 18 ? 5 : Math.floor((lines / 18) * 5);
+        if (bs > 15) base -= Math.floor((bs - 15) * 0.2);
+        return Math.max(0, Math.min(5, base));
+      };
       const r3Lines1 = calculateSubstantialLines(typingTexts[0]);
       const r3Lines2 = calculateSubstantialLines(typingTexts[1]);
-      const r3Score = (r3Lines1 >= 8 ? 5 : (r3Lines1 >= 4 ? 2 : 0)) + (r3Lines2 >= 8 ? 5 : (r3Lines2 >= 4 ? 2 : 0));
+      const r3Score = calcTopicScore(r3Lines1, backspaceCounts[0]) + calcTopicScore(r3Lines2, backspaceCounts[1]);
       
-      // Round 4: Domain Analytics (MCQ or Coding)
+      roundResults.push({
+        roundNumber: 3,
+        roundName: "Typing",
+        roundType: "typing",
+        domain: studentDomain,
+        course: studentDomain,
+        scoringRule: "Maximum 10 marks: 5 per typing prompt, no extra credit beyond 10",
+        attemptedQuestions: 2,
+        correctAnswers: 0,
+        wrongAnswers: 0,
+        unattemptedQuestions: 0,
+        marksObtained: r3Score,
+        totalMarks: 10,
+        percentage: (r3Score / 10) * 100,
+        startTime: examStartTime,
+        endTime: submissionTimestamp,
+        timeSpent: 10 * 60,
+        submissionTimestamp,
+        details: [
+          {
+            topic: studentTopics[0],
+            text: typingTexts[0],
+            lines: r3Lines1,
+            marks: r3Lines1 >= 8 ? 5 : (r3Lines1 >= 4 ? 2 : 0)
+          },
+          {
+            topic: studentTopics[1],
+            text: typingTexts[1],
+            lines: r3Lines2,
+            marks: r3Lines2 >= 8 ? 5 : (r3Lines2 >= 4 ? 2 : 0)
+          }
+        ]
+      });
+
+      // ROUND 4: Domain Analytics (MCQ or Coding)
       let r4Score = 0;
       let r4Details: any[] = [];
+      
       if (isMcqDomain) {
-        let r4Correct = 0; let r4Wrong = 0;
+        // MCQ Domain Round 4
+        let r4Correct = 0; let r4Wrong = 0; let r4Unattempted = 0;
         r4Details = codingQuestions.map((q, i) => {
-          const isCorrect = codingAnswers[i] === q.correctAnswer;
-          if (isCorrect) r4Correct++; else if (codingAnswers[i]) r4Wrong++;
-          return { qId: i, type: 'mcq', question: q.q, selected: codingAnswers[i] || null, correct: q.correctAnswer, isCorrect };
+          const selected = codingAnswers[i];
+          const isCorrect = selected === q.correctAnswer;
+          const isAttempted = selected !== undefined && selected !== null && selected !== "";
+          
+          if (isAttempted) {
+            if (isCorrect) r4Correct++; else r4Wrong++;
+          } else {
+            r4Unattempted++;
+          }
+
+          // Store MCQ Response
+          mcqResponses.push({
+            questionId: `r4_${i}`,
+            roundNumber: 4,
+            domain: studentDomain,
+            course: studentDomain,
+            selectedOption: selected || "",
+            correctOption: q.correctAnswer,
+            marksAwarded: isCorrect ? 1.5 : (isAttempted ? -0.375 : 0),
+            timeSpent: 0,
+            questionStatus: isCorrect ? 'CORRECT' : (isAttempted ? 'WRONG' : 'UNATTEMPTED'),
+            submissionTimestamp
+          });
+
+          return { 
+            qId: i, 
+            type: 'mcq', 
+            question: q.q, 
+            selected: selected || null, 
+            correct: q.correctAnswer, 
+            isCorrect,
+            isAttempted
+          };
         });
-        r4Score = (r4Correct * 2) - (r4Wrong * 0.5);
+        r4Score = ((r4Correct * 1.5) - (r4Wrong * 0.375));
       } else {
-        const passedTasks = Object.values(codingProgress).filter(Boolean).length;
-        r4Score = passedTasks * 10; // 10 marks per passed task
-        r4Details = codingQuestions.map((q, i) => ({ 
-          qId: i,
-          type: 'coding',
-          title: q.title, 
-          passed: codingProgress[i] || false,
-          code: codingSubmissions[i]?.code || "",
-          language: codingSubmissions[i]?.language || "",
-          results: codingSubmissions[i]?.results || []
-        }));
+        // Coding Domain Round 4
+        r4Details = codingQuestions.map((q, i) => {
+          const submission = codingSubmissions[i];
+          const submissionResults = submission?.results || [];
+          const allPassed = submissionResults.length > 0 && submissionResults.every((r: any) => r.passed);
+          
+          // Create detailed coding submission
+          const codingSubmission: CodingSubmission = {
+            questionId: `r4_${i}`,
+            questionTitle: q.title,
+            questionDifficulty: "HARD",
+            domain: studentDomain,
+            course: studentDomain,
+            studentCode: submission?.code || "",
+            selectedLanguage: submission?.language || "",
+            visibleTestcaseResults: submissionResults.filter((r: any) => !r.isHidden).map((r: any) => ({
+              id: r.id || `test_${Math.random()}`,
+              input: r.input || "",
+              expectedOutput: r.expected || "",
+              actualOutput: r.actual || "",
+              passed: r.passed || false,
+              executionTime: r.time || 0,
+              memoryUsed: r.memory || 0,
+              isHidden: false
+            })),
+            hiddenTestcaseResults: submissionResults.filter((r: any) => r.isHidden).map((r: any) => ({
+              id: r.id || `hidden_${Math.random()}`,
+              input: r.input || "",
+              expectedOutput: r.expected || "",
+              actualOutput: r.actual || "",
+              passed: r.passed || false,
+              executionTime: r.time || 0,
+              memoryUsed: r.memory || 0,
+              isHidden: true
+            })),
+            passedTestcaseCount: submissionResults.filter((r: any) => r.passed).length,
+            failedTestcaseCount: submissionResults.filter((r: any) => !r.passed).length,
+            runtime: submission?.results?.[0]?.time || 0,
+            memory: submission?.results?.[0]?.memory || 0,
+            submissionTimestamp,
+            finalVerdict: allPassed ? 'ACCEPTED' : 'WRONG_ANSWER'
+          };
+          
+          finalCodingSubmissions.push(codingSubmission);
+          
+          return { 
+            qId: i,
+            type: 'coding',
+            title: q.title, 
+            passed: allPassed,
+            code: submission?.code || "",
+            language: submission?.language || "",
+            results: submissionResults
+          };
+        });
+        
+        const passedTasks = r4Details.filter((d: any) => d.passed).length;
+        r4Score = passedTasks * 20; // 20 marks per passed task to total 60 for 3 coding questions
       }
 
-      const totalScore = Math.max(0, r1Score) + Math.max(0, r2Score) + r3Score + Math.max(0, r4Score);
-      
+      roundResults.push({
+        roundNumber: 4,
+        roundName: isMcqDomain ? "Domain MCQ" : "Coding",
+        roundType: isMcqDomain ? "domain-mcq" : "coding",
+        domain: studentDomain,
+        course: studentDomain,
+        attemptedQuestions: isMcqDomain ? (r4Details.filter((d: any) => d.isAttempted).length) : codingQuestions.length,
+        correctAnswers: isMcqDomain ? r4Details.filter((d: any) => d.isCorrect).length : r4Details.filter((d: any) => d.passed).length,
+        wrongAnswers: isMcqDomain ? r4Details.filter((d: any) => d.isAttempted && !d.isCorrect).length : 0,
+        unattemptedQuestions: isMcqDomain ? r4Details.filter((d: any) => !d.isAttempted).length : 0,
+        marksObtained: Math.max(0, r4Score),
+        totalMarks: isMcqDomain ? 40 : 60,
+        percentage: (Math.max(0, r4Score) / (isMcqDomain ? 40 : 60)) * 100,
+        startTime: examStartTime,
+        endTime: submissionTimestamp,
+        timeSpent: isMcqDomain ? 20 * 60 : 45 * 60,
+        submissionTimestamp,
+        details: r4Details
+      });
+
+      // =============================================================================
+      // 3. PROCTORING LOGS
+      // =============================================================================
+      warnings.forEach(warning => {
+        proctoringLogs.push({
+          eventType: "VIOLATION",
+          message: warning,
+          timestamp: submissionTimestamp,
+          severity: warning.includes("TERMINATED") ? 'CRITICAL' : (warning.includes("TAB_SWITCH") ? 'HIGH' : 'MEDIUM')
+        });
+      });
+
+      // =============================================================================
+      // 4. EXAM RESULT SUMMARY
+      // =============================================================================
+      const totalScore = r1Score + r2Score + r3Score + Math.max(0, r4Score);
       const totalViolations = warnings.length;
       const tabSwitches = warnings.filter(w => w.includes("TAB_SWITCH")).length;
       const suspicionScore = (totalViolations * 20) + (tabSwitches * 15);
       const aiProbability = Math.min(95, suspicionScore > 50 ? 80 : (suspicionScore > 20 ? 40 : 5));
+      const humanConfidence = Math.max(5, 100 - aiProbability);
 
-      await storeExamAnswers(currentUser, { 
-        name: profile.name || currentUser,
+      const examResult: ExamResult = {
+        examId,
+        studentId: currentUser,
         domain: studentDomain,
-        college: profile.college || "Unknown",
+        domainTrack: domainConfig.track,
+        round4Mode: domainConfig.round4Mode,
+        reportGroup: domainConfig.reportGroup,
+        examPattern,
         totalScore,
+        qualificationStatus: totalScore >= 85 ? 'QUALIFIED' : (reason === "TERMINATED" ? 'TERMINATED' : 'FAILED'),
+        submissionType: reason === "TERMINATED" ? 'TERMINATED' : (reason === "AUTO_TIMEUP" ? 'AUTO_TIMEUP' : 'MANUAL'),
+        completedAt: submissionTimestamp,
         roundScores: {
-          round1: Math.max(0, r1Score),
-          round2: Math.max(0, r2Score),
+          round1: r1Score,
+          round2: r2Score,
           round3: r3Score,
           round4: Math.max(0, r4Score)
         },
+        analytics: {
+          totalQuestionsAttempted: roundResults.reduce((sum, r) => sum + r.attemptedQuestions, 0),
+          codingAccuracy: finalCodingSubmissions.length > 0 ? (finalCodingSubmissions.filter(s => s.finalVerdict === 'ACCEPTED').length / finalCodingSubmissions.length) * 100 : 0,
+          testcasePassPercentage: finalCodingSubmissions.length > 0 ? (finalCodingSubmissions.reduce((sum, s) => sum + s.passedTestcaseCount, 0) / finalCodingSubmissions.reduce((sum, s) => sum + (s.passedTestcaseCount + s.failedTestcaseCount), 0)) * 100 : 0,
+          runtimePerformance: finalCodingSubmissions.length > 0 ? finalCodingSubmissions.reduce((sum, s) => sum + s.runtime, 0) / finalCodingSubmissions.length : 0,
+          memoryPerformance: finalCodingSubmissions.length > 0 ? finalCodingSubmissions.reduce((sum, s) => sum + s.memory, 0) / finalCodingSubmissions.length : 0
+        },
+        securityMeta: {
+          totalViolations,
+          tabSwitches,
+          aiProbability,
+          suspicionScore,
+          humanConfidence
+        }
+      };
+
+      // =============================================================================
+      // 5. STORE COMPLETE RESULTS ATOMICALLY
+      // =============================================================================
+      await storeCompleteExamResults(currentUser, {
+        profile: studentProfile,
+        roundResults,
+        codingSubmissions: finalCodingSubmissions,
+        mcqResponses,
+        proctoringLogs,
+        examResult
+      });
+
+      // =============================================================================
+      // 6. LEGACY COMPATIBILITY (for backward compatibility)
+      // =============================================================================
+      await storeExamAnswers(currentUser, { 
+        name: profile?.name || currentUser,
+        domain: studentDomain,
+        domainTrack: domainConfig.track,
+        round4Mode: domainConfig.round4Mode,
+        reportGroup: domainConfig.reportGroup,
+        examPattern,
+        questionAllocation: examPattern.rounds,
+        college: profile?.college || "Unknown",
+        totalScore,
+        roundScores: examResult.roundScores,
         violations: warnings,
-        isCheating: aiProbability > 70,
-        submissionType: "MANUAL_SUBMIT",
-        completedAt: new Date().toISOString(),
+        isCheating: aiProbability > 70 || reason === "TERMINATED",
+        submissionType: reason,
+        completedAt: submissionTimestamp,
         r1Details,
         r2Details,
         r3Details: { 
@@ -372,74 +783,222 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
           topic2: studentTopics[1], text2: typingTexts[1], lines2: r3Lines2 
         },
         r4Details,
-        securityMeta: {
-          totalViolations,
-          tabSwitches,
-          aiProbability,
-          suspicionScore
-        },
+        securityMeta: examResult.securityMeta,
         timestamp: Date.now()
       });
 
-      // --- AUTOMATED EMAIL: EXAM COMPLETION ---
+      // =============================================================================
+      // 7. PREPARE & ARCHIVE ASSESSMENT REPORT (Admin will dispatch)
+      // NOTE: Do NOT send the report email automatically. Archive the report
+      // so admin can review and dispatch it manually from the Admin Portal.
+      // =============================================================================
       try {
-        await fetch('/api/communication/send', {
+        await fetch('/api/results/generate-report', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            type: "COMPLETION",
             candidateEmail: currentUser,
-            candidateName: profile.name || currentUser
+            candidateName: profile?.name || currentUser
           })
         });
       } catch (e) {
-        console.error("Failed to send completion email:", e);
+        console.error("Failed to archive assessment report:", e);
       }
-    } catch (e) { console.error("Final storage failed:", e); }
+
+      console.log("✅ Exam results stored successfully with enterprise-grade architecture");
+    } catch (e) { 
+      console.error("❌ Final storage failed:", e);
+      // Even if storage fails, mark as submitted to prevent re-submission
+    }
     
     if (examState !== "VIOLATION_TERMINATED") {
       setExamState("SUBMITTED");
     }
     if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => { });
-  }, [r1List, r1Answers, r2List, r2Answers, typingTexts, codingQuestions, codingAnswers, codingProgress, warnings, profile, studentDomain, isMcqDomain, examState, studentTopics]);
+  }, [r1List, r1Answers, r2List, r2Answers, typingTexts, codingQuestions, codingAnswers, codingSubmissions, codingProgress, warnings, profile, studentDomain, domainConfig, examPattern, isMcqDomain, examState, studentTopics, id, slotData]);
+
+  // --- SECURITY SENSORS & SLOT WATCHDOG ---
+  useEffect(() => {
+    const checkPreviousSubmission = async () => {
+      const email = typeof window !== 'undefined' ? localStorage.getItem("geonixa_current_user") : null;
+      if (email && email !== "anonymous") {
+        try {
+          const { isFirebaseConfigured } = await import("@/lib/firebase");
+          
+          if (!isFirebaseConfigured) {
+            // DUMMY MODE: Use localStorage exclusively
+            const submissions = JSON.parse(localStorage.getItem("geonixa_submissions") || "{}");
+            if (submissions[email]) {
+              setExamState("SUBMITTED");
+              setIsProfileLoading(false);
+              return;
+            }
+            const local = localStorage.getItem("geonixa_student_profile");
+            if (local) setProfile(JSON.parse(local));
+            else setProfile({ day: new Date().toISOString().split('T')[0], slot: "SLOT_1", domain: "Java" });
+            setIsProfileLoading(false);
+            return;
+          }
+
+          // 1. Check if already submitted or terminated (Checking both legacy and professional collections)
+          const subRef = doc(collection(db, "exam_submissions"), email);
+          const resultsRef = doc(collection(db, "examResults"), `${email}_${id}`);
+          const [subSnap, resultsSnap] = await Promise.all([
+            getDoc(subRef),
+            getDoc(resultsRef)
+          ]);
+          
+          const localStatus = localStorage.getItem(`geonixa_exam_status_${email}`);
+          const isTerminated = localStorage.getItem(`geonixa_terminated_${email}`);
+
+          if (subSnap.exists() || resultsSnap.exists()) {
+            setExamState(isTerminated === "true" ? "VIOLATION_TERMINATED" : "SUBMITTED");
+            setIsProfileLoading(false);
+            return;
+          } else {
+            // BACKEND RECORD NOT FOUND: Unlock the exam if it was locked locally
+            if (localStatus === "true" || isTerminated === "true") {
+              console.log("Admin has purged previous records. Unlocking exam session...");
+              localStorage.removeItem(`geonixa_exam_status_${email}`);
+              localStorage.removeItem(`geonixa_terminated_${email}`);
+              // Also clear old cached answers to ensure a fresh start
+              localStorage.removeItem(`geonixa_r1_answers_${email}`);
+              localStorage.removeItem(`geonixa_r2_answers_${email}`);
+              localStorage.removeItem(`geonixa_r3_texts_${email}`);
+              localStorage.removeItem(`geonixa_coding_answers_${email}`);
+            }
+          }
+
+          // 2. Hydrate profile from Firestore (Primary Source)
+          const profRef = doc(collection(db, "student_profiles"), email);
+          const profSnap = await getDoc(profRef);
+          if (profSnap.exists()) {
+            const data = profSnap.data();
+            if (!data.sessionSeed) {
+              const newSeed = Math.floor(Math.random() * 1000000) + 1;
+              data.sessionSeed = newSeed;
+              const { updateDoc } = await import("firebase/firestore");
+              await updateDoc(profRef, { sessionSeed: newSeed });
+            }
+            setProfile(data);
+            localStorage.setItem("geonixa_student_profile", JSON.stringify(data));
+          } else {
+            // Fallback to localStorage if Firestore fails but data exists locally
+            const local = localStorage.getItem("geonixa_student_profile");
+            let data = local ? JSON.parse(local) : null;
+            if (!data) {
+              data = { day: new Date().toISOString().split('T')[0], slot: "SLOT_1", domain: "Java" };
+            }
+            if (!data.sessionSeed) {
+              data.sessionSeed = Math.floor(Math.random() * 1000000) + 1;
+            }
+            setProfile(data);
+            localStorage.setItem("geonixa_student_profile", JSON.stringify(data));
+          }
+        } catch (e) {
+          console.error("Security check failure:", e);
+          // Last resort fallback
+          const local = localStorage.getItem("geonixa_student_profile");
+          let data = local ? JSON.parse(local) : null;
+          if (!data) {
+            data = { day: new Date().toISOString().split('T')[0], slot: "SLOT_1", domain: "Java" };
+          }
+          if (!data.sessionSeed) {
+            data.sessionSeed = Math.floor(Math.random() * 1000000) + 1;
+          }
+          setProfile(data);
+          localStorage.setItem("geonixa_student_profile", JSON.stringify(data));
+        } finally {
+          setIsProfileLoading(false);
+        }
+      } else {
+        setIsProfileLoading(false);
+      }
+    };
+    checkPreviousSubmission();
+  }, []);
+
+  useEffect(() => {
+    submitRef.current = handleFinalSubmit;
+  }, [handleFinalSubmit]);
+
+  const hasAutoSubmitted = useRef(false);
+  useEffect(() => {
+    hasAutoSubmitted.current = false;
+  }, [currentRound]);
 
   // ── PROCTORING & INTEGRITY HUB ───────────────────────────────────────────
   const [lastWarningTime, setLastWarningTime] = useState<number | null>(null);
 
+  const lastViolationTimeRef = useRef<number>(0);
+
   const handleProctorViolation = useCallback((type: string, message: string) => {
-    if (type === "TERMINATED") {
+    const now = Date.now();
+    if (now - lastViolationTimeRef.current < 2000 && type !== "TERMINATED" && type !== "TAB_SWITCH" && type !== "SCREENSHOT") {
+      return; 
+    }
+    lastViolationTimeRef.current = now;
+
+    const currentUser = typeof window !== "undefined" ? (localStorage.getItem("geonixa_current_user") || "anonymous") : "anonymous";
+
+    // INSTANT TERMINATION RULES (Severe Violations)
+    if (type === "TERMINATED" || type === "TAB_SWITCH" || type === "FULLSCREEN_EXIT" || type === "WINDOW_MINIMIZE" || type === "SCREENSHOT" || type === "DEVTOOLS" || type === "EXTENSION_CHEAT") {
+      setCurrentWarning(`🚫 INSTANT TERMINATION: ${message || "Critical integrity breach detected."}. Assessment auto-submitting...`);
       if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      if (typeof window !== "undefined") {
+        localStorage.setItem(`geonixa_exam_status_${currentUser}`, "true");
+        localStorage.setItem(`geonixa_terminated_${currentUser}`, "true");
+      }
+      if (submitRef.current) submitRef.current("TERMINATED");
       setExamState("VIOLATION_TERMINATED");
+
+      fetch('/api/communication/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'TERMINATION',
+          candidateEmail: currentUser,
+          candidateName: profile?.name || "Candidate",
+          status: `Instant Termination (${type}): ${message}`
+        })
+      }).catch(err => console.error("Failed to send termination email", err));
       return;
     }
 
+    // FINAL WARNING 3 RULE
+    if (type === "WARNING_3") {
+      setCurrentWarning(`🚫 FINAL WARNING (3/3): ${message}. Assessment auto-submitting...`);
+      if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      if (typeof window !== "undefined") {
+        localStorage.setItem(`geonixa_exam_status_${currentUser}`, "true");
+        localStorage.setItem(`geonixa_terminated_${currentUser}`, "true");
+      }
+      if (submitRef.current) submitRef.current("TERMINATED");
+      setExamState("VIOLATION_TERMINATED");
+
+      fetch('/api/communication/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'TERMINATION',
+          candidateEmail: currentUser,
+          candidateName: profile?.name || "Candidate",
+          status: `Final Warning Exceeded (3/3): ${message}`
+        })
+      }).catch(err => console.error("Failed to send termination email", err));
+      return;
+    }
+
+    // WARNING 1 & 2 PROTOCOL
     const timestamp = new Date().toLocaleTimeString();
     const violationLog = `[${timestamp}] ${type}: ${message}`;
     
-    setWarnings(prev => {
-      const newWarnings = [...prev, violationLog];
-      
-      const tabSwitches = newWarnings.filter(w => w.includes("TAB_SWITCH")).length;
-      const totalViolations = newWarnings.length;
-
-      // Automated Warning Escalation Flow
-      if (totalViolations === 1) {
-        setCurrentWarning("⚠ WARNING 1: Suspicious activity detected. Please follow exam guidelines. Future violations will be reported.");
-      } else if (totalViolations === 2) {
-        setCurrentWarning("🚫 WARNING 2: Repeated suspicious activity detected. Further violations will terminate your assessment IMMEDIATELY.");
-      } else if (totalViolations >= 3 || tabSwitches >= 5) {
-        setCurrentWarning("CRITICAL: Assessment terminated due to repeated policy violations.");
-        if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => {});
-        // Auto-submit logic
-        handleFinalSubmit();
-        setExamState("VIOLATION_TERMINATED");
-      }
-
-      return newWarnings;
-    });
-
-    setTimeout(() => setCurrentWarning(null), 8000);
-  }, [handleFinalSubmit]);
+    setWarnings(prev => [...prev, violationLog]);
+    const wNum = type === 'WARNING_1' ? '1 of 3' : '2 of 3';
+    setCurrentWarning(`⚠ INTEGRITY NOTICE (${wNum}): ${message}`);
+    
+    setTimeout(() => setCurrentWarning(null), 10000);
+  }, [profile]);
 
   const performIntegrityCheck = useCallback((code: string, results: any[]) => {
     const hardcodePatterns = [
@@ -471,6 +1030,14 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   };
 
   const handleRoundExpiry = () => {
+    if (hasAutoSubmitted.current) return;
+    hasAutoSubmitted.current = true;
+
+    if (typeof window !== "undefined") {
+      const currentUser = localStorage.getItem("geonixa_current_user") || "anonymous";
+      localStorage.setItem(`geonixa_round_${currentRound}_auto_submitted_${currentUser}`, new Date().toISOString());
+    }
+
     submitSection(currentRound);
   };
 
@@ -487,8 +1054,10 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
               setTypingWarning("TIME ALERT: Auto-switching to Topic 02 for the final 5 minutes!");
               setTimeout(() => setTypingWarning(""), 5000);
               return 300; // Reset for Topic 2
+            } else {
+              submitSection(3);
+              return 0;
             }
-            return 0;
           }
           return prev - 1;
         });
@@ -511,7 +1080,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       // Admin Bypass for repeat exams
       if (currentUser === "talent@geonixa.com") return;
       
-      if (isSubmitted === "true" && examState === "SYS_CHECK") {
+      if (isSubmitted === "true" && examState === "INSTRUCTIONS") {
         // Backend Validation: Check if Admin deleted the submission
         const verifySubmission = async () => {
           try {
@@ -555,13 +1124,25 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   }, [examState]);
 
   useEffect(() => {
+    if (isProfileLoading || !profile) return;
+    
     // ── UNIQUE QUESTION DISTRIBUTION ENGINE ──────────────────────────────────
     // Every student gets a different set of questions based on their session ID.
     // Shuffling is deterministic per-student but randomized across the cohort.
     
-    // Round 1 & 2: Balanced MCQ Distribution
-    const shuffledApt = seededShuffle(allAptitude, sessionSeed).slice(0, 30);
-    const shuffledGram = seededShuffle(allGrammar, sessionSeed + 12).slice(0, 30);
+    // Helper: Strict hard-question heuristic filter
+    const hardQuestionFilter = (q: any) => {
+      const text = (q.q || q.title || '').toString();
+      const longEnough = text.length > 110; // longer prompts usually indicate complexity
+      const hasHardKeywords = /advanced|complex|probability|proof|derive|design|architecture|optimization|algorithm|entropy|eigen|matrix|integration|regression|inversion|exploit|tuning|stability|asymptotic|amortized|concurrency|deadlock/i.test(text);
+      return longEnough || hasHardKeywords;
+    };
+
+    // Round 1 & 2: Balanced MCQ Distribution (restrict to harder questions only)
+    const hardAptitudePool = allAptitude.filter(hardQuestionFilter);
+    const hardGrammarPool = allGrammar.filter(hardQuestionFilter);
+    const shuffledApt = buildUpscQuestionSet(hardAptitudePool.length > 0 ? hardAptitudePool : allAptitude, sessionSeed, "aptitude", 30);
+    const shuffledGram = buildUpscQuestionSet(hardGrammarPool.length > 0 ? hardGrammarPool : allGrammar, sessionSeed + 12, "grammar", 30);
     setR1List(shuffledApt);
     setR2List(shuffledGram);
 
@@ -571,34 +1152,56 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     setStudentTopics(typingTopics);
 
     // Round 4: Hard DSA / Domain-Specific Distribution
-    let pool: any[] = [];
     if (isMcqDomain) {
-      pool = DOMAIN_MCQ_POOL[studentDomain as keyof typeof DOMAIN_MCQ_POOL] || [];
+      let pool = DOMAIN_MCQ_POOL[domainConfig.questionPoolKey as keyof typeof DOMAIN_MCQ_POOL] || [];
+      // Filter domain MCQs to harder subset when possible
+      const hardDomain = pool.filter(hardQuestionFilter);
+      pool = hardDomain.length > 0 ? hardDomain : pool;
+      const selectedQuestions = seededShuffle(pool, sessionSeed + 99);
+      let finalSelection = [...selectedQuestions];
+      const requiredCount = examPattern.rounds[3].questionCount || 40;
+
+      if (finalSelection.length > 0 && finalSelection.length < requiredCount) {
+        while (finalSelection.length < requiredCount) {
+          finalSelection = [...finalSelection, ...selectedQuestions];
+        }
+      }
+      setCodingQuestions(finalSelection.slice(0, requiredCount));
     } else {
-      // For technical roles, students get a unique mix from the hard pool
-      // With a pool size of 20+, student-to-student collision is nearly impossible
-      pool = (studentDomain === "Web Development" || studentDomain === "Full Stack") ? WEB_DEV_POOL : DSA_HARD_POOL;
+      // Technical Domain: use the shared Round-4 technical coding pool for all domains
+      const selectedPool = TECHNICAL_ROUND_4_POOL;
+      const shuffledDsa = seededShuffle(selectedPool.filter(hardQuestionFilter), sessionSeed + 101);
+      const fallbackDsa = seededShuffle(selectedPool, sessionSeed + 101);
+      const topDsa = (shuffledDsa.length >= 3 ? shuffledDsa : fallbackDsa).slice(0, 3);
+
+      const technicalSelection = topDsa;
+
+      const watermarkedQuestions = technicalSelection.map((q) => {
+        const inferredLanguage = (q as any).language || domainConfig.preferredLanguage || "javascript";
+        const clientTests = (q.tests || []).map((t: any) => {
+          if (t.isHidden) {
+            return {
+              id: t.id,
+              isHidden: true,
+              input: "[HIDDEN]",
+              expectedOutput: "[HIDDEN]",
+              category: t.category,
+              description: t.description
+            };
+          }
+          return t;
+        });
+        return {
+          ...q,
+          language: inferredLanguage,
+          tests: clientTests,
+          desc: (q.desc || '') + (sessionSeed % 2 === 0 ? " " : "")
+        };
+      });
+
+      setCodingQuestions(watermarkedQuestions);
     }
-
-    // Pick a subset of questions (3 for coding, 40 for MCQ domain)
-    // We use a different offset for coding to further differentiate from Round 1/2
-    const selectedQuestions = seededShuffle(pool, sessionSeed + 99);
-    
-    // ANTI-CHEATING: Subtly randomize problem descriptions for watermarking
-    // (In a real system, this could track where a screenshot came from)
-    const watermarkedQuestions = selectedQuestions.slice(0, isMcqDomain ? 40 : 3).map(q => {
-      // Test Case Rotation: Pick 7 out of 10 tests randomly to prevent hardcoding
-      const testSubset = seededShuffle(q.tests || [], sessionSeed + 77).slice(0, 7);
-      
-      return {
-        ...q,
-        tests: testSubset,
-        desc: q.desc + (sessionSeed % 2 === 0 ? " " : "") // Invisible watermark
-      };
-    });
-
-    setCodingQuestions(watermarkedQuestions);
-  }, [sessionSeed, studentDomain, isMcqDomain]);
+  }, [sessionSeed, studentDomain, isMcqDomain, domainConfig, examPattern, profile, id]);
 
 
 
@@ -737,14 +1340,64 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   // handleProctorViolation is intentionally declared earlier in the file
   // (above the useEffects that depend on it) to avoid TDZ reference errors.
 
+  // Removed Neural Link loading screen
 
   // --- RENDERING DIFFERENT STATES --- //
+
+  if (!isProfileLoading && slotValidation.status === "PENDING") {
+    return (
+      <div className="min-h-screen bg-[#050810] text-white flex items-center justify-center p-6">
+        <div className="max-w-3xl w-full rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
+          <h1 className="text-4xl font-black mb-6 text-orange-400">Slot Locked</h1>
+          <p className="text-slate-300 mb-4">Your assigned exam slot is not active yet.</p>
+          <p className="text-slate-400 mb-2">{slotValidation.message}</p>
+          <p className="text-slate-500 text-sm">You must start the assessment during the exact scheduled slot and day assigned to you.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isProfileLoading && slotValidation.status === "EXPIRED") {
+    return (
+      <div className="min-h-screen bg-[#050810] text-white flex items-center justify-center p-6">
+        <div className="max-w-3xl w-full rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
+          <h1 className="text-4xl font-black mb-6 text-red-500">Slot Expired</h1>
+          <p className="text-slate-300 mb-4">{slotValidation.message}</p>
+          <p className="text-slate-400">Access has been revoked. Your passkey is now invalidated for this session.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isProfileLoading && slotValidation.status === "INVALID") {
+    return (
+      <div className="min-h-screen bg-[#050810] text-white flex items-center justify-center p-6">
+        <div className="max-w-3xl w-full rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
+          <h1 className="text-4xl font-black mb-6 text-amber-400">Slot Data Invalid</h1>
+          <p className="text-slate-300 mb-4">{slotValidation.message}</p>
+          <p className="text-slate-400">Please contact the exam administrator before attempting access again.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isProfileLoading && slotValidation.status === "MISSING") {
+    return (
+      <div className="min-h-screen bg-[#050810] text-white flex items-center justify-center p-6">
+        <div className="max-w-3xl w-full rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
+          <h1 className="text-4xl font-black mb-6 text-slate-200">Slot Information Unavailable</h1>
+          <p className="text-slate-300 mb-4">Slot metadata is missing from your profile.</p>
+          <p className="text-slate-400">Contact administration to restore your exam slot assignment.</p>
+        </div>
+      </div>
+    );
+  }
 
   if (examState === "SYS_CHECK") {
     const allChecksPassed = sysChecks.browser && sysChecks.network && sysChecks.camera && sysChecks.mic && hasSelfie;
     return (
       <div className="min-h-screen bg-[#050810] text-white flex flex-col items-center justify-center p-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/5 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-blue-500/5 via-transparent to-transparent" />
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -842,7 +1495,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
             <button 
               className={`w-full max-w-sm py-5 rounded-3xl font-black uppercase tracking-[0.2em] text-[12px] transition-all duration-500 ${
                 allChecksPassed 
-                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-2xl shadow-blue-600/40 hover:scale-[1.02] cursor-pointer' 
+                ? 'bg-linear-to-r from-blue-600 to-blue-500 text-white shadow-2xl shadow-blue-600/40 hover:scale-[1.02] cursor-pointer' 
                 : 'bg-slate-800 text-slate-600 cursor-not-allowed opacity-50'
               }`}
               disabled={!allChecksPassed} 
@@ -857,62 +1510,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     );
   }
 
-  if (slotStatus === "WAITING") {
-    const [startH, startM] = slotData.start.split(":").map(Number);
-    const examDay = new Date(profile.day || new Date());
-    const startTime = new Date(examDay);
-    startTime.setHours(startH, startM, 0);
-    const diff = Math.floor((startTime.getTime() - currentTime.getTime()) / 1000);
-    
-    return (
-      <div className="min-h-screen bg-[#050810] text-white flex flex-col items-center justify-center p-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/5 via-transparent to-transparent" />
-        
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-          className="relative z-10 w-full max-w-lg bg-[#0D121F] border border-slate-800 rounded-[40px] p-12 text-center shadow-2xl"
-        >
-          <div className="flex justify-center mb-10">
-             <Logo size="xl" />
-          </div>
-
-          <h2 className="text-3xl font-black mb-4 tracking-tighter italic">Waiting Room</h2>
-          <p className="text-slate-500 text-sm mb-10 leading-relaxed">
-            Your assigned assessment window on <span className="text-white font-bold">{profile.day}</span> at <span className="text-white font-bold">{slotData.label}</span> is not yet active.
-          </p>
-
-          <div className="bg-slate-950/50 border border-slate-900 rounded-3xl p-8 mb-8">
-            <p className="text-[10px] text-slate-600 font-black uppercase tracking-[0.3em] mb-4">Time Until Activation</p>
-            <div className="text-5xl font-black text-[#FF5A1F] font-mono tracking-widest">
-              {diff > 0 ? (
-                <>
-                  {Math.floor(diff / 3600).toString().padStart(2, '0')}:
-                  {(Math.floor(diff / 60) % 60).toString().padStart(2, '0')}:
-                  {(diff % 60).toString().padStart(2, '0')}
-                </>
-              ) : "00:00:00"}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <p className="text-[10px] text-slate-700 font-bold uppercase tracking-widest">
-              SYSTEM STATUS: <span className="text-emerald-500">POLLING_SERVER_TIME</span>
-            </p>
-            <button 
-              onClick={() => window.location.reload()}
-              className="mt-4 text-slate-500 hover:text-white text-xs font-bold transition-colors flex items-center justify-center gap-2"
-            >
-              <RotateCcw className="w-3 h-3" /> Manual Refresh
-            </button>
-          </div>
-        </motion.div>
-
-        <p className="mt-12 text-[10px] text-slate-700 font-black uppercase tracking-[0.4em] relative z-10">
-          © 2026 GEONIXA • SECURE SESSION PENDING
-        </p>
-      </div>
-    );
-  }
+  // Removed Waiting and Expired rendering branches.
 
   if (examState === "INSTRUCTIONS") {
     return (
@@ -1033,35 +1631,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         }
       `}</style>
       
-      <AnimatePresence>
-        {currentWarning && (
-          <motion.div 
-            initial={{ opacity: 0, y: -50, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="fixed top-10 left-1/2 -translate-x-1/2 z-[2000] w-full max-w-md"
-          >
-            <div className="bg-red-600/90 backdrop-blur-xl border border-red-500/50 p-6 rounded-[30px] shadow-[0_20px_50px_rgba(220,38,38,0.3)] text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-4 opacity-10">
-                <ShieldAlert className="w-16 h-16" />
-              </div>
-              <div className="flex items-center gap-4 relative z-10">
-                <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center">
-                  <ShieldAlert className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h4 className="text-[10px] font-black uppercase tracking-[0.3em] opacity-80 mb-1">Security Protocol Violation</h4>
-                  <p className="text-sm font-bold leading-tight">{currentWarning}</p>
-                </div>
-              </div>
-              <div className="mt-4 pt-4 border-t border-white/10 flex justify-between items-center text-[9px] font-black uppercase tracking-widest relative z-10">
-                <span>Incident Count: {warnings.length} / 12</span>
-                <span className="text-white/60">GeoNixa AI Sentinel</span>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       {/* Sidebar - Progress & Proctoring HUD */}
       <div style={{ width: "320px", backgroundColor: "var(--bg-card)", borderRight: "1px solid var(--border-dim)", padding: "1.5rem", display: "flex", flexDirection: "column" }}>
@@ -1112,6 +1682,47 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
           })}
         </div>
 
+        {/* Admin-requested buttons: Next Task & Finalize Exam placed between Round-4 and Session Performance */}
+        <div style={{ marginTop: "1rem", padding: "0.6rem", display: "flex", gap: "0.6rem", alignItems: "center", justifyContent: "center" }}>
+          <button
+            className="btn"
+            style={{ padding: "0.6rem 1rem", borderRadius: "10px", fontWeight: 800, backgroundColor: "#ef4444", color: "#fff" }}
+            onClick={() => {
+              // Advance coding question if available, otherwise no-op
+              try {
+                if (codingQuestions && codingQuestions.length > 0) {
+                  if (codingQuestionIndex === codingQuestions.length - 1) {
+                    // If last question, ask for finalization
+                    showConfirm(
+                      "Final Assessment Submission",
+                      "This will finalize your scores for ALL rounds, including all coding questions. This action is irreversible. Proceed?",
+                      () => handleFinalSubmit()
+                    );
+                  } else {
+                    setCodingQuestionIndex((p) => Math.min(codingQuestions.length - 1, p + 1));
+                  }
+                }
+              } catch (e) {
+                console.error('Next task button error:', e);
+              }
+            }}
+          >
+            NEXT TASK
+          </button>
+
+          <button
+            className="btn btn-neutral"
+            style={{ padding: "0.6rem 1rem", borderRadius: "10px", fontWeight: 800, backgroundColor: "#0ea5a4", color: "#071723" }}
+            onClick={() => showConfirm(
+              "Finalize Assessment",
+              "This will finalize your exam and submit all rounds. Are you sure you want to finalize now?",
+              () => handleFinalSubmit()
+            )}
+          >
+            FINALIZE EXAM
+          </button>
+        </div>
+
         <div style={{ marginTop: "auto", padding: "1.2rem", backgroundColor: "#0f172a", borderRadius: "16px", border: "1px solid #334155" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.8rem" }}>
             <span style={{ color: "#f97316", fontWeight: "900", fontSize: "0.75rem", letterSpacing: "1px" }}>SESSION PERFORMANCE</span>
@@ -1147,38 +1758,55 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       {/* Main Assessment Engine */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", backgroundColor: "var(--bg-deep)", overflow: "hidden", position: "relative" }}>
         {/* Secure Watermark Overlay */}
-        <div className="absolute inset-0 pointer-events-none z-[100] opacity-[0.03] flex items-center justify-center overflow-hidden rotate-[-30deg]">
+        <div className="absolute inset-0 pointer-events-none z-100 opacity-[0.03] flex items-center justify-center overflow-hidden rotate-[-30deg]">
           <div className="text-[120px] font-black whitespace-nowrap select-none">
             {typeof window !== 'undefined' ? localStorage.getItem("geonixa_current_user") : "SECURE_SESSION"} • {sessionHash} • {new Date().toLocaleDateString()}
           </div>
         </div>
         
         {/* Neural Guard Scanline */}
-        <div className="absolute inset-0 pointer-events-none z-[101] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-[length:100%_4px,3px_100%] opacity-20" />
+        <div className="absolute inset-0 pointer-events-none z-101 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-size-[100%_4px,3px_100%] opacity-20" />
 
         <div style={{ padding: "2rem", flex: 1, overflowY: "auto", position: "relative", zIndex: 1 }}>
           {/* Round 1: Aptitude & Round 2: Grammar */}
           {(currentRound === 1 || currentRound === 2) && (
             <div className="animate-fade-in" style={{ maxWidth: "900px", margin: "0 auto" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
-                <h1 style={{ margin: 0, fontSize: "1.8rem" }}>{currentRound === 1 ? "Aptitude Assessment" : "Grammar Excellence"}</h1>
+                <div>
+                  <h1 style={{ margin: 0, fontSize: "1.8rem" }}>{currentRound === 1 ? "Aptitude Assessment" : "Grammar Assessment"}</h1>
+                  {(currentRound === 1 || currentRound === 2) && (
+                    <p style={{ margin: "0.5rem 0 0 0", color: "#64748b", fontSize: "0.82rem", fontWeight: 700 }}>
+                      30 questions | 10 minutes | Auto-saved
+                    </p>
+                  )}
+                </div>
                 <span style={{ fontWeight: "bold", color: "var(--text-muted)" }}>Question {(currentRound === 1 ? q1Index : q2Index) + 1} of 30</span>
               </div>
 
               <div style={{ padding: "2.5rem", backgroundColor: "white", borderRadius: "20px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)" }}>
+                {(currentRound === 1 || currentRound === 2) && (
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem", gap: "1rem" }}>
+                    <span style={{ backgroundColor: "#fff7ed", color: "#f97316", border: "1px solid #fed7aa", borderRadius: "999px", padding: "0.35rem 0.8rem", fontSize: "0.72rem", fontWeight: 900, letterSpacing: "0.08em" }}>
+                      {((currentRound === 1 ? r1List[q1Index] : r2List[q2Index])?.patternKey || "standard").toUpperCase()}
+                    </span>
+                    <span style={{ color: "#94a3b8", fontSize: "0.72rem", fontFamily: "monospace", fontWeight: 800 }}>
+                      SECURE CODE: {(currentRound === 1 ? r1List[q1Index] : r2List[q2Index])?.questionCode || "SECURE-0000"}
+                    </span>
+                  </div>
+                )}
                 <p style={{ fontSize: "1.25rem", fontWeight: "600", color: "#1e293b", lineHeight: "1.6", marginBottom: "2.5rem" }}>
                   {(currentRound === 1 ? r1List : r2List)[currentRound === 1 ? q1Index : q2Index]?.q}
                 </p>
 
                 <div style={{ display: "grid", gap: "1rem" }}>
-                  {(currentRound === 1 ? r1List : r2List)[currentRound === 1 ? q1Index : q2Index]?.opts.map((opt: string) => {
+                  {(currentRound === 1 ? r1List : r2List)[currentRound === 1 ? q1Index : q2Index]?.opts.map((opt: string, optionIndex: number) => {
                     const ans = currentRound === 1 ? r1Answers : r2Answers;
                     const idx = currentRound === 1 ? q1Index : q2Index;
                     const isSelected = ans[idx] === opt;
                     return (
                       <button
-                        key={opt}
-                        onClick={() => currentRound === 1 ? setR1Answers({...r1Answers, [q1Index]: opt}) : setR2Answers({...r2Answers, [q2Index]: opt})}
+                        key={`${idx}_${optionIndex}_${opt}`}
+                        onClick={() => currentRound === 1 ? setR1Answers(prev => ({...prev, [q1Index]: opt})) : setR2Answers(prev => ({...prev, [q2Index]: opt}))}
                         style={{
                           padding: "1.2rem 1.5rem",
                           textAlign: "left",
@@ -1288,18 +1916,50 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
               <div style={{ padding: "2.5rem", backgroundColor: "#f8fafc", borderRadius: "20px", border: "1px solid #e2e8f0", marginBottom: "2.5rem", boxShadow: "inset 0 2px 4px rgba(0,0,0,0.02)" }}>
                 <h4 style={{ margin: "0 0 1rem 0", color: "#64748b", textTransform: "uppercase", fontSize: "0.8rem", letterSpacing: "2px", fontWeight: "black" }}>Your Assigned Topic {typingTopicIndex + 1}</h4>
                 <p style={{ fontSize: "1.4rem", fontWeight: "700", lineHeight: "1.5", color: "#1e293b", margin: 0 }}>"{studentTopics[typingTopicIndex]}"</p>
-                <div style={{ display: "flex", gap: "2rem", marginTop: "2rem", borderTop: "1px solid #e2e8f0", paddingTop: "1.5rem" }}>
-                    <div style={{ color: "#64748b", fontWeight: "bold" }}>
-                      Writing Progress: {calculateSubstantialLines(typingTexts[typingTopicIndex])} Lines
+                
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6 pt-6 border-t border-slate-200">
+                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                      <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Speed (WPM)</div>
+                      <div className="text-2xl font-black text-slate-800">{Math.round((typingTexts[typingTopicIndex].trim().split(/\s+/).filter(Boolean).length) / Math.max(0.1, (300 - r3SubTimer) / 60))} WPM</div>
                     </div>
-                    <div style={{ color: "#64748b", fontWeight: "bold" }}>
-                      Stats: {typingTexts[typingTopicIndex].trim().split(/\s+/).filter(Boolean).length} Words | {typingTexts[typingTopicIndex].length} Chars
+                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                      <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Accuracy</div>
+                      <div className="text-2xl font-black text-emerald-600">{Math.max(0, Math.min(100, Math.round(100 - (backspaceCounts[typingTopicIndex] * 1.5))))}%</div>
                     </div>
-                    <div style={{ color: "#64748b", fontWeight: "bold" }}>
-                      Correction Depth: {backspaceCounts[typingTopicIndex]}
+                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                      <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Lines Progress</div>
+                      <div className={`text-2xl font-black ${calculateSubstantialLines(typingTexts[typingTopicIndex]) >= 18 ? 'text-emerald-600' : 'text-amber-500'}`}>
+                        {calculateSubstantialLines(typingTexts[typingTopicIndex])} / 18
+                      </div>
+                    </div>
+                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                      <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Corrections Used</div>
+                      <div className={`text-2xl font-black ${backspaceCounts[typingTopicIndex] >= 15 ? 'text-red-600' : 'text-slate-800'}`}>
+                        {backspaceCounts[typingTopicIndex]} / 15
+                      </div>
+                    </div>
+                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                      <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Words / Chars</div>
+                      <div className="text-xl font-bold text-slate-700">{typingTexts[typingTopicIndex].trim().split(/\s+/).filter(Boolean).length}w / {typingTexts[typingTopicIndex].length}c</div>
                     </div>
                 </div>
               </div>
+
+              {backspaceCounts[typingTopicIndex] >= 15 && (
+                <div className="bg-red-50 border-2 border-red-500 text-red-700 p-4 rounded-xl mb-6 font-bold flex items-center gap-3 animate-pulse shadow-lg">
+                  <span className="text-2xl">⚠️</span>
+                  <div>
+                    <div className="uppercase tracking-wider text-xs font-extrabold">Correction Lock Enabled</div>
+                    <div>Maximum allowed backspaces (15/15) consumed for Topic {typingTopicIndex + 1}. All further deletion actions have been electronically locked.</div>
+                  </div>
+                </div>
+              )}
+              {typingWarning && backspaceCounts[typingTopicIndex] < 15 && (
+                <div className="bg-amber-50 border-2 border-amber-500 text-amber-700 p-4 rounded-xl mb-6 font-bold flex items-center gap-3">
+                  <span className="text-2xl">⚠️</span>
+                  <div>{typingWarning}</div>
+                </div>
+              )}
 
               <textarea 
                 style={{ width: "100%", height: "450px", padding: "2.5rem", fontSize: "1.15rem", fontFamily: "'Inter', sans-serif", borderRadius: "24px", border: "2px solid #e2e8f0", resize: "none", backgroundColor: "#fff", lineHeight: "1.8", color: "#334155", outline: "none", transition: "border-color 0.2s" }}
@@ -1311,6 +1971,11 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 }}
                 onKeyDown={e => {
                   if (e.key === "Backspace") {
+                    if (backspaceCounts[typingTopicIndex] >= 15) {
+                      e.preventDefault();
+                      setTypingWarning(`⚠️ CRITICAL WARNING: Maximum backspace limit reached (15/15) for Topic ${typingTopicIndex + 1}. Further backspaces are disabled.`);
+                      return;
+                    }
                     const c = [...backspaceCounts];
                     c[typingTopicIndex]++;
                     setBackspaceCounts(c);
@@ -1348,7 +2013,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
               {isMcqDomain ? (
                 <div style={{ maxWidth: "900px", margin: "0 auto", width: "100%" }}>
                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
-                    <h1 style={{ margin: 0 }}>{studentDomain} Technical Mastery</h1>
+                    <h1 style={{ margin: 0 }}>{studentDomain} {isMcqDomain ? "Domain MCQ" : "Coding"} Mastery</h1>
                     <span style={{ fontWeight: "bold", color: "var(--text-muted)" }}>Question {codingQuestionIndex + 1} of 40</span>
                   </div>
 
@@ -1452,7 +2117,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   <div style={{ flex: 1, display: "flex", gap: "1rem", minHeight: "500px" }}>
                     <div style={{ flex: "1", padding: "2rem", backgroundColor: "#1e293b", color: "#f8fafc", borderRadius: "16px", border: "1px solid var(--border-dim)", overflowY: "auto" }}>
                       <h2 style={{ color: "white", margin: "0 0 1rem 0", fontSize: "1.4rem", fontWeight: "bold" }}>Overview: {codingQuestions[codingQuestionIndex]?.title}</h2>
-                      <div style={{ fontSize: "0.95rem", lineHeight: "1.7", color: "#cbd5e1" }}>
+                      <div style={{ fontSize: "0.95rem", lineHeight: "1.7", color: "#cbd5e1", whiteSpace: "pre-wrap" }}>
                         {codingQuestions[codingQuestionIndex]?.desc}
                       </div>
 
@@ -1523,8 +2188,9 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     <div style={{ flex: "1.5", display: "flex", flexDirection: "column" }}>
                       <MemoizedCodeEditor
                         questionId={`q_${codingQuestionIndex}`}
+                        questionTitle={codingQuestions[codingQuestionIndex]?.title}
                         initialCode={codingSubmissions[codingQuestionIndex]?.code || codingQuestions[codingQuestionIndex]?.initialCode}
-                        language={codingSubmissions[codingQuestionIndex]?.language || (studentDomain.toLowerCase().includes("python") || studentDomain.includes("Data") ? "python" : (studentDomain.includes("Java") ? "java" : (studentDomain.includes("C++") ? "cpp" : (studentDomain.includes("C") ? "c" : "javascript"))))}
+                        language={codingSubmissions[codingQuestionIndex]?.language || codingQuestions[codingQuestionIndex]?.language || domainConfig.preferredLanguage || "javascript"}
                         testCases={codingQuestions[codingQuestionIndex]?.tests || []}
                         initialResults={codingSubmissions[codingQuestionIndex]?.results || []}
                         onUpdate={(data) => {
@@ -1532,7 +2198,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                             ...prev,
                             [codingQuestionIndex]: data
                           }));
-                          const allPassed = data.results.length > 0 && data.results.every((r: any) => r.passed);
+                          const totalTestsCount = codingQuestions[codingQuestionIndex]?.tests?.length || 0;
+                          const allPassed = data.results.length === totalTestsCount && totalTestsCount > 0 && data.results.every((r: any) => r.passed);
                           setCodingProgress(prev => ({ ...prev, [codingQuestionIndex]: allPassed }));
                         }}
                       />
@@ -1540,7 +2207,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   </div>
 
                   {/* Final Round Submission Button */}
-                  <div style={{ marginTop: "2rem", display: "flex", justifyContent: "flex-end" }}>
+                  <div style={{ marginTop: "2rem", display: "flex", justifyContent: "flex-start" }}>
                     <button 
                       className="btn btn-danger animate-pulse" 
                       style={{ backgroundColor: "#dc2626", color: "white", padding: "1.5rem 4rem", borderRadius: "20px", fontWeight: "900", fontSize: "1.2rem", boxShadow: "0 10px 40px rgba(220, 38, 38, 0.4)" }}
@@ -1551,8 +2218,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                           const totalCodingQuestions = codingQuestions.length;
                           
                           if (attemptedCount < totalCodingQuestions) {
-                            alert(`⚠ INCOMPLETE ASSESSMENT: Please attempt all ${totalCodingQuestions} coding questions before final submission. (Current: ${attemptedCount}/${totalCodingQuestions})`);
-                            return;
+                            const proceed = window.confirm(`⚠ INCOMPLETE ASSESSMENT: You have only attempted ${attemptedCount} out of ${totalCodingQuestions} coding questions. Are you sure you want to submit and leave the rest blank?`);
+                            if (!proceed) return;
                           }
 
                           showConfirm(
@@ -1578,15 +2245,70 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       {examState === "ACTIVE" && (
         <div style={{ position: "fixed", bottom: "20px", right: "20px", width: "220px", height: "220px", zIndex: 1000, pointerEvents: "none" }}>
           <div style={{ pointerEvents: "auto", width: "100%", height: "100%" }}>
-            <MemoizedAIProctor onViolation={handleProctorViolation} isExamActive={examState === "ACTIVE"} />
-
+            <MemoizedAIProctor 
+              onViolation={handleProctorViolation} 
+              isExamActive={examState === "ACTIVE"} 
+              observationLevel={warnings.length}
+              observationTimer={observationTimer}
+            />
           </div>
         </div>
       )}
+      <AnimatePresence>
+        {currentWarning && (
+          <motion.div 
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            className="fixed top-8 left-1/2 -translate-x-1/2 z-2000 w-full max-w-2xl px-4"
+          >
+            <div className="bg-[#ef4444] text-white p-6 rounded-3xl shadow-[0_20px_50px_rgba(239,68,68,0.4)] border-2 border-white/20 backdrop-blur-md">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center animate-pulse">
+                  <AlertTriangle size={32} />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-black uppercase tracking-tighter">Integrity Strike Detected</h3>
+                  <p className="text-sm font-medium opacity-90 leading-relaxed">{currentWarning}</p>
+                </div>
+                <button 
+                  onClick={() => setCurrentWarning(null)}
+                  className="px-6 py-2 bg-black/20 hover:bg-black/30 rounded-xl font-bold transition-all text-xs border border-white/10"
+                >
+                  ACKNOWLEDGE
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Observation Status Badge */}
+      {warnings.length > 0 && examState === "ACTIVE" && (
+        <div className="fixed top-24 right-8 z-1000 flex flex-col items-end gap-2 pointer-events-none">
+          <motion.div 
+            animate={{ opacity: [0.6, 1, 0.6] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className={`px-4 py-2 border rounded-full flex items-center gap-2 shadow-lg backdrop-blur-md ${
+              warnings.length === 1 ? 'bg-yellow-500/10 border-yellow-500/30 text-yellow-500' : 'bg-orange-500/10 border-orange-500/30 text-orange-500'
+            }`}
+          >
+            <div className={`w-2 h-2 rounded-full ${warnings.length === 1 ? 'bg-yellow-500 shadow-[0_0_8px_#eab308]' : 'bg-orange-500 shadow-[0_0_8px_#f97316]'}`} />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">
+              {warnings.length === 1 ? "Strict AI Observation" : "Critical AI Observation"} 
+              {observationTimer !== null && ` (${Math.floor(observationTimer/60)}m ${observationTimer%60}s)`}
+            </span>
+          </motion.div>
+          <div className="text-[8px] font-bold text-slate-500 uppercase bg-slate-900/50 px-2 py-1 rounded-md border border-white/5">
+            Strikes: {warnings.length} / 3
+          </div>
+        </div>
+      )}
+
       {/* Custom Confirmation Modal */}
       <AnimatePresence>
         {confirmModal.show && (
-          <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-1000 flex items-center justify-center p-4">
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
@@ -1600,7 +2322,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               className="relative w-full max-w-md bg-[#0f172a] border border-white/10 rounded-3xl p-8 shadow-2xl overflow-hidden"
             >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-cyan-500" />
+              <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-emerald-500 to-cyan-500" />
               
               <div className="flex items-center gap-4 mb-6">
                  <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">

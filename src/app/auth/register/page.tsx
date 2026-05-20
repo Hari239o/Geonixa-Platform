@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, ChevronRight, CheckCircle, Mail, Briefcase, GraduationCap, Lock, Clock } from 'lucide-react';
 import Link from 'next/link';
+import { NON_TECHNICAL_DOMAINS, TECHNICAL_DOMAINS, getExamPatternForDomain } from '@/data/domainConfig';
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [college, setCollege] = useState("");
   const [domain, setDomain] = useState("Java");
-  const [slot, setSlot] = useState("9-10 AM");
+  const [slot, setSlot] = useState("SLOT_1");
   const [day, setDay] = useState(new Date().toISOString().split('T')[0]);
   const [slotAvailability, setSlotAvailability] = useState<Record<string, number>>({});
   
@@ -29,10 +30,9 @@ export default function Register() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [generatedPass, setGeneratedPass] = useState("");
 
-  const IS_REGISTRATION_OPEN = true; // Enabled for testing and candidate onboarding
+  const IS_REGISTRATION_OPEN = false; // Disabled: Admin will send exam links directly from admin portal
 
-  const techDomains = ["Java", "Python", "Web Development", "Data Science", "Data Analytics"];
-  const nonTechDomains = ["VLSI", "AutoCAD", "Embedded", "EV", "Civil"];
+  const examPattern = getExamPatternForDomain(domain);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,9 +42,10 @@ export default function Register() {
     if (typeof window !== "undefined") {
       try {
         const autoPass = "GEONIXA-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+        const { allocateSlotWithTransaction, getSlotAvailability } = await import('@/lib/firebase');
         
         try {
-          await allocateSlotWithTransaction(slot, email, { name, college, domain, day }, autoPass);
+          await allocateSlotWithTransaction(slot, email, { name, email, college, domain, day }, autoPass);
         } catch (e: any) {
           if (e === "SLOT_FULL" || e.message === "SLOT_FULL") {
             alert("SLOT_EXHAUSTED: This slot just reached maximum capacity. Please select another timing.");
@@ -111,163 +112,42 @@ export default function Register() {
               
               <div className="text-center mb-10">
                 <h2 className="text-3xl font-black mb-3">Candidate Enrollment</h2>
-                <p className="text-slate-500 text-sm">Register your profile to receive assessment credentials.</p>
+                <p className="text-slate-500 text-sm">Access is securely restricted to provisioned candidates.</p>
               </div>
 
               {IS_REGISTRATION_OPEN ? (
                 <form onSubmit={handleRegister} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                        <GraduationCap className="w-3 h-3 text-[#FF5A1F]" /> Full Name
-                      </label>
-                      <input 
-                        type="text" 
-                        placeholder="Kishore Reddy" 
-                        required 
-                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-[#FF5A1F] focus:outline-none transition-all placeholder:text-slate-700" 
-                        value={name} 
-                        onChange={e => setName(e.target.value)} 
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                        <GraduationCap className="w-3 h-3 text-[#FF5A1F]" /> College
-                      </label>
-                      <input 
-                        type="text" 
-                        placeholder="NIT Trichy" 
-                        required 
-                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-[#FF5A1F] focus:outline-none transition-all placeholder:text-slate-700" 
-                        value={college} 
-                        onChange={e => setCollege(e.target.value)} 
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                      <Briefcase className="w-3 h-3 text-[#FF5A1F]" /> Assessment Domain
-                    </label>
-                    <select 
-                      className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-[#FF5A1F] focus:outline-none transition-all appearance-none" 
-                      value={domain} 
-                      onChange={e => setDomain(e.target.value)}
-                    >
-                      <optgroup label="Technology" className="bg-slate-900">
-                        {techDomains.map(d => <option key={d} value={d}>{d}</option>)}
-                      </optgroup>
-                      <optgroup label="Non-Technology" className="bg-slate-900">
-                        {nonTechDomains.map(d => <option key={d} value={d}>{d}</option>)}
-                      </optgroup>
-                    </select>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                        <Mail className="w-3 h-3 text-[#FF5A1F]" /> Secure Delivery Email
-                      </label>
-                      <input 
-                        type="email" 
-                        placeholder="kishore@geonixa.com" 
-                        required 
-                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-[#FF5A1F] focus:outline-none transition-all placeholder:text-slate-700" 
-                        value={email} 
-                        onChange={e => setEmail(e.target.value.toLowerCase().trim())} 
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                        <Clock className="w-3 h-3 text-[#FF5A1F]" /> Preferred Date
-                      </label>
-                      <input 
-                        type="date" 
-                        required 
-                        min={new Date().toISOString().split('T')[0]}
-                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-[#FF5A1F] focus:outline-none transition-all" 
-                        value={day} 
-                        onChange={e => setDay(e.target.value)} 
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                      <Lock className="w-3 h-3 text-[#FF5A1F]" /> Select Examination Slot (Max 25/slot)
-                    </label>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {["SLOT_1", "SLOT_2", "SLOT_3", "SLOT_4"].map((id) => {
-                        const { getSlotAvailability, SLOT_CONFIG } = require('@/lib/firebase');
-                        const config = (SLOT_CONFIG as any)[id];
-                        const count = slotAvailability[id] || 0;
-                        const remaining = 25 - count;
-                        const isFull = remaining <= 0;
-                        const isLow = remaining > 0 && remaining <= 5;
-                        
-                        return (
-                          <div
-                            key={id}
-                            onClick={() => !isFull && setSlot(id)}
-                            className={`p-4 rounded-2xl border cursor-pointer transition-all relative overflow-hidden ${
-                              slot === id 
-                                ? "bg-[#FF5A1F]/10 border-[#FF5A1F] shadow-[0_0_20px_rgba(255,90,31,0.1)]" 
-                                : isFull ? "bg-slate-900/50 border-slate-900 opacity-60 grayscale cursor-not-allowed" : "bg-slate-950/30 border-slate-800 hover:border-slate-700"
-                            }`}
-                          >
-                            <div className="flex justify-between items-start mb-2">
-                              <span className={`text-[10px] font-black px-2 py-1 rounded-md ${
-                                isFull ? "bg-red-500/20 text-red-500" : isLow ? "bg-orange-500/20 text-orange-500" : "bg-emerald-500/20 text-emerald-500"
-                              }`}>
-                                {isFull ? "FULL" : isLow ? "FEW LEFT" : "AVAILABLE"}
-                              </span>
-                              <span className="text-slate-500 text-[10px] font-mono">{config.start} - {config.end}</span>
-                            </div>
-                            <div className="font-bold text-sm text-white">{config.label}</div>
-                            <div className="mt-3 flex items-center justify-between">
-                              <div className="h-1.5 flex-1 bg-slate-900 rounded-full overflow-hidden mr-3">
-                                <div 
-                                  className={`h-full transition-all duration-1000 ${isFull ? 'bg-red-500' : isLow ? 'bg-orange-500' : 'bg-emerald-500'}`} 
-                                  style={{ width: `${(count / 25) * 100}%` }} 
-                                />
-                              </div>
-                              <span className="text-[10px] font-bold text-slate-400 whitespace-nowrap">{remaining} Seats Left</span>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  <button 
-                    disabled={isLoading} 
-                    type="submit" 
-                    className="w-full bg-[#FF5A1F] hover:bg-[#E44E18] text-white py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 group shadow-[0_10px_20px_rgba(255,90,31,0.2)] disabled:opacity-50"
-                  >
-                    {isLoading ? (
-                      <span className="flex items-center gap-2">
-                        <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                        Generating Credentials...
-                      </span>
-                    ) : (
-                      <>Generate Secure Access <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></>
-                    )}
-                  </button>
+                  {/* form fields omitted since IS_REGISTRATION_OPEN is false */}
                 </form>
               ) : (
-                <div className="text-center py-10">
-                  <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Lock className="w-8 h-8 text-red-500" />
+                <div className="text-center py-10 space-y-6">
+                  <div className="w-20 h-20 bg-[#FF5A1F]/10 rounded-3xl border border-[#FF5A1F]/20 flex items-center justify-center mx-auto shadow-2xl shadow-[#FF5A1F]/10">
+                    <Lock className="w-10 h-10 text-[#FF5A1F]" />
                   </div>
-                  <h3 className="text-xl font-bold mb-3">Registration Locked</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">
-                    The public registration window is closed. Access is currently restricted to pre-authorized corporate candidates.
-                  </p>
+                  <div>
+                    <h3 className="text-2xl font-black text-white mb-2">Public Sign-Up Disabled</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed max-w-md mx-auto">
+                      Geonixa Assessment Platform is an invite-only corporate screening infrastructure. Free public registration is strictly disabled.
+                    </p>
+                  </div>
+                  <div className="p-4 bg-slate-950/60 border border-slate-800 rounded-2xl text-left space-y-2">
+                    <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-widest">
+                      <Mail className="w-4 h-4" /> Official Dispatch Notice
+                    </div>
+                    <p className="text-[11px] text-slate-500 leading-relaxed">
+                      All assessment exam links, scheduled slot timings, and secure passkeys are dispatched directly to candidates via email exclusively from the enterprise administration portal.
+                    </p>
+                  </div>
+                  <div className="pt-4">
+                    <Link href="/auth/login" className="inline-flex items-center justify-center gap-3 w-full py-4 bg-[#FF5A1F] hover:bg-[#E44E18] text-white font-bold rounded-xl shadow-[0_10px_20px_rgba(255,90,31,0.2)] transition-all">
+                      Proceed to Secure Candidate Portal <ChevronRight className="w-4 h-4" />
+                    </Link>
+                  </div>
                 </div>
               )}
 
               <p className="mt-8 text-center text-slate-600 text-xs">
-                Already registered? <Link href="/auth/login" className="text-[#FF5A1F] font-bold hover:underline">Access Portal</Link>
+                Authorized Personnel? <Link href="/admin/dashboard" className="text-slate-400 font-bold hover:underline">Admin Command Center</Link>
               </p>
             </div>
           ) : (

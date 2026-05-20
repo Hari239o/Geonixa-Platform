@@ -1,0 +1,42 @@
+[2026-05-19T10:41:16.361Z] Cookie set failed: TypeError: cookieStore.set is not a function - token: eyJlbWFpbCI6InRhbGVudEBnZW9uaXhhLmNvbSIsImlzQWRtaW4iOnRydWUsImNyZWF0ZWRBdCI6MTc3OTE4NzI3NDcwMiwiZXhwaXJlc0F0IjoxNzc5MjE2MDc0NzAyfQ==
+[2026-05-19T10:41:19.364Z] Cookie set failed: TypeError: cookieStore.set is not a function - token: eyJlbWFpbCI6InRhbGVudEBnZW9uaXhhLmNvbSIsImlzQWRtaW4iOnRydWUsImNyZWF0ZWRBdCI6MTc3OTE4NzI3Nzk1MywiZXhwaXJlc0F0IjoxNzc5MjE2MDc3OTUzfQ==
+[2026-05-19T10:41:30.259Z] Cookie set failed: TypeError: cookieStore.set is not a function - token: eyJlbWFpbCI6InRhbGVudEBnZW9uaXhhLmNvbSIsImlzQWRtaW4iOnRydWUsImNyZWF0ZWRBdCI6MTc3OTE4NzI4OTExNywiZXhwaXJlc0F0IjoxNzc5MjE2MDg5MTE3fQ==
+[2026-05-19T10:47:43.473Z] Cookie set failed: TypeError: cookieStore.set is not a function - token: eyJlbWFpbCI6InRhbGVudEBnZW9uaXhhLmNvbSIsImlzQWRtaW4iOnRydWUsImNyZWF0ZWRBdCI6MTc3OTE4NzY2MjU4NiwiZXhwaXJlc0F0IjoxNzc5MjE2NDYyNTg2fQ==
+[2026-05-19T10:48:00.317Z] Cookie set failed: TypeError: cookieStore.set is not a function - token: eyJlbWFpbCI6InRhbGVudEBnZW9uaXhhLmNvbSIsImlzQWRtaW4iOnRydWUsImNyZWF0ZWRBdCI6MTc3OTE4NzY3OTkzNCwiZXhwaXJlc0F0IjoxNzc5MjE2NDc5OTM0fQ==
+[2026-05-19T10:50:59.010Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T10:51:00.313Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T10:51:08.098Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T10:51:08.822Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T10:51:21.434Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T10:53:46.002Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T10:53:46.404Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T10:53:58.395Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T10:54:03.270Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T10:54:03.679Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T10:59:32.964Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T10:59:36.725Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:02:45.402Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:04:34.598Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:05:11.124Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:06:18.485Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:07:01.041Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:07:58.913Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:08:15.887Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:08:45.941Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:08:53.837Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:09:02.098Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:09:02.360Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:09:02.689Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:09:02.984Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:09:03.245Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:09:03.580Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:09:58.156Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:10:35.320Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:15:31.851Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:16:48.484Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:18:46.449Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:19:40.808Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:24:34.184Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:24:37.710Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:24:46.888Z] Session verification exception: TypeError: cookieStore.get is not a function
+[2026-05-19T11:24:49.977Z] Session verification exception: TypeError: cookieStore.get is not a function

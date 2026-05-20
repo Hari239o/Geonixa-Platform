@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
+import { getExamPatternForDomain, normalizeDomainLabel } from "@/data/domainConfig";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
     const { email, password, name, college, domain, slot, day } = await req.json();
+    const normalizedDomain = normalizeDomainLabel(domain);
+    const examPattern = getExamPatternForDomain(normalizedDomain);
     
     console.log("[REGISTER API] Incoming request for:", email);
     
@@ -27,7 +30,7 @@ export async function POST(req: Request) {
       username: email,
       passKey: password,
       candidateId,
-      domain
+      domain: normalizedDomain
     });
 
     console.log("[REGISTER API] Sending email to:", email);
@@ -46,7 +49,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ 
         success: true, 
         message: 'Registration credentials dispatched securely.', 
-        previewUrl: result.previewUrl 
+        previewUrl: result.previewUrl,
+        domain: normalizedDomain,
+        examPattern
       });
     } else {
       return NextResponse.json({ success: false, error: result.error }, { status: 500 });

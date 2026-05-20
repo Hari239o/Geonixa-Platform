@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Users, 
@@ -26,11 +26,22 @@ import {
   Globe,
   RotateCcw,
   RefreshCw,
-  AlertTriangle
+  AlertTriangle,
+  Monitor,
+  FileCheck,
+  ExternalLink,
+  Send,
+  LogOut
 } from 'lucide-react';
 import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
+import autoTable, { applyPlugin } from 'jspdf-autotable';
+if (typeof window !== 'undefined') {
+  try { applyPlugin(jsPDF); } catch(e) {}
+}
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { getCompleteStudentResults, getAllStudentsResults } from "@/lib/firebase";
+import { DOMAIN_LABELS, getDomainConfig, getExamPatternForDomain, isTechnicalDomain } from "@/data/domainConfig";
+import { reportGeneratorService } from "@/lib/reportGenerator";
 
 // Types
 interface Submission {
@@ -110,27 +121,25 @@ const LiveFrameView = ({ email }: { email: string }) => {
 
 export default function AdminDashboard() {
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [selectedSub, setSelectedSub] = useState<any>(null);
-  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [selectedStudentDetails, setSelectedStudentDetails] = useState<any>(null);
+  const [loadingDetails, setLoadingDetails] = useState(false);
   const [editingStudent, setEditingStudent] = useState<any>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [authorized, setAuthorized] = useState(false);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [selectedSub, setSelectedSub] = useState<any>(null);
   const [allRegistered, setAllRegistered] = useState<any[]>([]);
+  const [rawExamResults, setRawExamResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState<'submissions' | 'registered' | 'live' | 'audit' | 'communications' | 'merit_list'>('merit_list');
+  const [activeTab, setActiveTab] = useState<'submissions' | 'registered' | 'live' | 'audit' | 'communications' | 'merit_list' | 'slots'>('merit_list');
   const [emailLogs, setEmailLogs] = useState<any[]>([]);
   const [isSendingEmail, setIsSendingEmail] = useState<string | null>(null);
   
   // Configuration
-  const slots = ["10:00 AM - 11:30 AM", "12:00 PM - 01:30 PM", "03:00 PM - 04:30 PM", "06:00 PM - 07:30 PM"];
-  const domains = [
-    "Java", "Python", "Web Development", "Data Science", "Data Analytics",
-    "AI & Machine Learning", "VLSI Design", "AutoCAD", "Electric Vehicles", 
-    "Embedded Systems", "Computer Science", "Electrical & Electronics", 
-    "Electronics & Comm", "Civil Engineering", "Cybersecurity", "Cloud Computing"
-  ];
+  const slots = ["10:00 AM - 11:30 AM", "12:00 PM - 01:30 PM", "03:00 PM - 04:30 PM", "06:00 PM - 07:30 PM", "08:00 PM - 09:30 PM"];
+  const domains = DOMAIN_LABELS;
   
   // Registration Form
   const [newStudent, setNewStudent] = useState({ 
@@ -147,13 +156,278 @@ export default function AdminDashboard() {
   const [slotAvailability, setSlotAvailability] = useState<Record<string, number>>({});
 
   useEffect(() => {
-    const user = typeof window !== 'undefined' ? localStorage.getItem("geonixa_current_user") : null;
-    if (user !== "talent@geonixa.com") {
-      setAuthorized(false);
-      return;
-    }
+    const subs: Submission[] = [];
+    const seenEmails = new Set<string>();
     
-    setAuthorized(true);
+    // Sort raw results by timestamp (newest first) to always get the latest submission
+    const sortedResults = [...rawExamResults].sort((a, b) => 
+      new Date(b.completedAt || 0).getTime() - new Date(a.completedAt || 0).getTime()
+    );
+
+    sortedResults.forEach(examResult => {
+      if (seenEmails.has(examResult.studentId)) return;
+      
+      const profile = allRegistered.find(p => p.email === examResult.studentId);
+      if (profile) {
+        seenEmails.add(examResult.studentId);
+        subs.push({
+          email: examResult.studentId,
+          name: profile.name || examResult.studentId,
+          college: profile.college || "Unknown",
+          domain: profile.domain || "Unknown",
+          isTech: isTechnicalDomain(profile.domain),
+          aptScore: examResult.roundScores?.round1 || 0,
+          gramScore: examResult.roundScores?.round2 || 0,
+          domainScore: examResult.roundScores?.round4 || 0,
+          r3Score: examResult.roundScores?.round3 || 0,
+          totalScore: examResult.totalScore || 0,
+          roundScores: examResult.roundScores,
+          r1Details: [],
+          r2Details: [],
+          r3Details: {
+            topic1: "Topic 1",
+            text1: "Completed",
+            lines1: 10,
+            topic2: "Topic 2", 
+            text2: "Completed",
+            lines2: 10
+          },
+          r4Details: [],
+          typingData: { round1: "Completed", round2: "Completed" },
+          codingResults: [],
+          violations: [],
+          isCheating: examResult.qualificationStatus === 'TERMINATED',
+          securityMeta: examResult.securityMeta,
+          roundDurations: {},
+          timestamp: new Date(examResult.completedAt).getTime(),
+          slot: profile.slot || "Unknown",
+          day: profile.day || new Date().toISOString().split('T')[0]
+        });
+      }
+    });
+    setSubmissions(subs);
+  }, [rawExamResults, allRegistered]);
+
+  // Fetch detailed student results for modal view
+  const fetchStudentDetails = async (studentEmail: string) => {
+    setLoadingDetails(true);
+    try {
+      const details = await getCompleteStudentResults(studentEmail);
+      setSelectedStudentDetails(details);
+      
+      // Fetch legacy data as fallback since early testing data might not have mcqResponses subcollection
+      let legacyData: any = null;
+      try {
+        const { getDoc, doc } = await import("firebase/firestore");
+        const { db } = await import("@/lib/firebase");
+        const legacySnap = await getDoc(doc(db, "exam_submissions", studentEmail));
+        if (legacySnap.exists()) {
+          legacyData = legacySnap.data();
+        }
+      } catch(e) {}
+      
+      setSelectedSub((prev: any) => {
+        if (!prev || prev.email !== studentEmail) return prev;
+        
+        let r1Details = (details?.mcqResponses || [])
+          .filter((m: any) => m.questionId?.startsWith('r1_'))
+          .map((m: any, idx: number) => ({
+            question: m.questionText || `Aptitude Question ${idx + 1}`,
+            selected: m.selectedOption,
+            correct: m.correctOption,
+            isCorrect: m.questionStatus === 'CORRECT'
+          }));
+          
+        if (r1Details.length === 0 && legacyData?.r1Details) {
+          r1Details = legacyData.r1Details;
+        }
+          
+        let r2Details = (details?.mcqResponses || [])
+          .filter((m: any) => m.questionId?.startsWith('r2_'))
+          .map((m: any, idx: number) => ({
+            question: m.questionText || `Grammar Question ${idx + 1}`,
+            selected: m.selectedOption,
+            correct: m.correctOption,
+            isCorrect: m.questionStatus === 'CORRECT'
+          }));
+          
+        if (r2Details.length === 0 && legacyData?.r2Details) {
+          r2Details = legacyData.r2Details;
+        }
+          
+        let r4DetailsMCQ = (details?.mcqResponses || [])
+          .filter((m: any) => m.questionId?.startsWith('r4_'))
+          .map((m: any, idx: number) => ({
+            question: m.questionText || `Domain Question ${idx + 1}`,
+            selected: m.selectedOption,
+            correct: m.correctOption,
+            isCorrect: m.questionStatus === 'CORRECT'
+          }));
+          
+        let r4DetailsCoding = (details?.codingSubmissions || [])
+          .map((c: any, idx: number) => ({
+            type: 'coding',
+            question: `Technical Challenge ${idx + 1}`,
+            selected: c.studentCode ? "Submitted Code" : "Not Submitted",
+            correct: c.finalVerdict || "UNKNOWN",
+            passed: c.finalVerdict === 'ACCEPTED',
+            isCorrect: c.finalVerdict === 'ACCEPTED'
+          }));
+          
+        let finalR4 = r4DetailsCoding.length > 0 ? r4DetailsCoding : r4DetailsMCQ;
+        if (finalR4.length === 0 && legacyData?.r4Details) {
+          finalR4 = legacyData.r4Details;
+        }
+          
+        return {
+          ...prev,
+          r1Details: r1Details.length > 0 ? r1Details : prev.r1Details,
+          r2Details: r2Details.length > 0 ? r2Details : prev.r2Details,
+          r4Details: finalR4.length > 0 ? finalR4 : prev.r4Details
+        };
+      });
+
+    } catch (error) {
+      console.error("Failed to fetch student details:", error);
+      setSelectedStudentDetails(null);
+    } finally {
+      setLoadingDetails(false);
+    }
+  };
+
+  const generatePDFReport = async (sub: any) => {
+    try {
+      const completeResults = await getCompleteStudentResults(sub.email);
+      const reportData = await reportGeneratorService.extractReportData(sub.email, completeResults, sub);
+      const pdfBytes = await reportGeneratorService.generateSecurePDFReport(reportData);
+      const blob = new Blob([pdfBytes.buffer as ArrayBuffer], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const safeName = (sub?.name || sub?.email || "Candidate").replace(/\s+/g, '_');
+      a.download = `Geonixa_Certified_Report_${safeName}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error("Failed to generate enterprise PDF report:", err);
+      alert("Failed to generate secure PDF report.");
+    }
+  };
+
+  const handleResendReportEmail = async (sub: any) => {
+    if (!sub || !sub.email) return;
+    setIsSendingEmail(sub.email);
+    try {
+      const res = await fetch('/api/communication/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: "ASSESSMENT_REPORT",
+          candidateEmail: sub.email,
+          candidateName: sub.name || sub.email
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("Secure assessment report email and frozen PDF re-dispatched successfully!");
+        // Refresh email logs from Firestore
+        try {
+          const { collection, getDocs, orderBy, query } = await import("firebase/firestore");
+          const { db } = await import("@/lib/firebase");
+          const q = query(collection(db, "email_logs"), orderBy("timestamp", "desc"));
+          const snap = await getDocs(q);
+          setEmailLogs(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+        } catch (_) {}
+      } else {
+        alert("Failed to re-send report: " + data.error);
+      }
+    } catch (e: any) {
+      alert("Error re-sending report: " + e.message);
+    } finally {
+      setIsSendingEmail(null);
+    }
+  };
+
+  const exportToCSV = () => {
+    const headers = ["Name", "Email", "College", "Domain", "Track", "Round 4 Mode", "Report Group", "R1", "R2", "R3", "R4", "Total Score", "Status", "Trust Score"];
+    const rows = (submissions || []).map(s => [
+      s.name,
+      s.email,
+      s.college,
+      s.domain,
+      getDomainConfig(s.domain).track,
+      getDomainConfig(s.domain).round4Mode,
+      getDomainConfig(s.domain).reportGroup,
+      s.roundScores?.round1 || 0,
+      s.roundScores?.round2 || 0,
+      s.roundScores?.round3 || 0,
+      s.roundScores?.round4 || 0,
+      s.totalScore || 0,
+      (s.totalScore || 0) >= 85 ? "QUALIFIED" : "FAILED",
+      `${Math.max(0, 100 - ((s.violations?.length || 0) * 10))}%`
+    ]);
+
+    const csvContent = "data:text/csv;charset=utf-8," 
+      + headers.join(",") + "\n"
+      + rows.map(e => e.join(",")).join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `Geonixa_Merit_List_${new Date().toLocaleDateString()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleDeleteRecord = async (email: string) => {
+    if (!confirm(`⚠ PERMANENT ACTION: This will erase ALL data for ${email} including scores, proctoring logs, and login access. This cannot be undone. Proceed?`)) return;
+    
+    try {
+      const { deleteCandidateData } = await import("@/lib/firebase");
+      await deleteCandidateData(email);
+      // Real-time listeners will handle the UI update automatically
+    } catch (e) {
+      console.error("Purge failed:", e);
+      alert("System Error: Failed to purge record. Please check your connection.");
+    }
+  };
+
+  useEffect(() => {
+    // Verify admin session with server
+    const verifyAdminSession = async () => {
+      try {
+        const response = await fetch('/api/auth/admin-session', {
+          method: 'GET',
+          credentials: 'include'
+        });
+
+        if (!response.ok) {
+          // Invalid or missing session
+          setAuthorized(false);
+          // Redirect to admin login
+          window.location.href = '/auth/admin-login';
+          return;
+        }
+
+        const data = await response.json();
+        if (!data.authenticated) {
+          setAuthorized(false);
+          window.location.href = '/auth/admin-login';
+          return;
+        }
+
+        setAuthorized(true);
+      } catch (error) {
+        console.error('Session verification error:', error);
+        setAuthorized(false);
+        window.location.href = '/auth/admin-login';
+      }
+    };
+
+    verifyAdminSession();
     
     let unsubSlots = () => {};
     let unsubSubs = () => {};
@@ -201,15 +475,13 @@ export default function AdminDashboard() {
           setLoading(false); // Can stop loading after main profiles load
         });
 
-        // 3. Submissions Realtime Stream
-        unsubSubs = onSnapshot(collection(db, "exam_submissions"), (snap) => {
-          const subs: Submission[] = [];
+        // 3. Submissions Realtime Stream - NOW USING PROFESSIONAL STORAGE
+        unsubSubs = onSnapshot(collection(db, "examResults"), (snap) => {
+          const rawSubs: any[] = [];
           snap.forEach(d => {
-            if (d.id !== "talent@geonixa.com") {
-              subs.push({ email: d.id, ...d.data() } as Submission);
-            }
+            rawSubs.push(d.data());
           });
-          setSubmissions(subs);
+          setRawExamResults(rawSubs);
         });
 
         // 4. Email Logs Realtime Stream
@@ -237,6 +509,33 @@ export default function AdminDashboard() {
     };
   }, []);
 
+  // Logout handler
+  const handleAdminLogout = async () => {
+    if (!confirm('Are you sure you want to log out from the admin portal?')) {
+      return;
+    }
+
+    try {
+      // Call logout API
+      await fetch('/api/auth/admin-session', {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+
+      // Clear localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('admin_session');
+        localStorage.removeItem('admin_email');
+      }
+
+      // Redirect to login
+      window.location.href = '/auth/admin-login';
+    } catch (error) {
+      console.error('Logout error:', error);
+      alert('Logout failed. Please try again.');
+    }
+  };
+
   // Manual trigger for visual feedback or local mock refresh
   const fetchData = async () => {
     setLoading(true);
@@ -249,6 +548,10 @@ export default function AdminDashboard() {
         setSubmissions(subs);
         const regs = Object.keys(data.profiles || {}).filter(email => email !== "talent@geonixa.com").map(email => ({ email, ...data.profiles[email] }));
         setAllRegistered(regs);
+      } else {
+        // Use new professional data fetching
+        const allResults = await getAllStudentsResults();
+        setSubmissions(allResults as Submission[]);
       }
       setTimeout(() => setLoading(false), 600);
     } catch (e) {
@@ -270,6 +573,7 @@ export default function AdminDashboard() {
   };
 
   const generatePDF = (sub: any) => {
+    try { applyPlugin(jsPDF); } catch(e) {}
     const doc = new jsPDF();
     
     // Header
@@ -461,7 +765,8 @@ export default function AdminDashboard() {
         "10:00 AM - 11:30 AM": "SLOT_1",
         "12:00 PM - 01:30 PM": "SLOT_2",
         "03:00 PM - 04:30 PM": "SLOT_3",
-        "06:00 PM - 07:30 PM": "SLOT_4"
+        "06:00 PM - 07:30 PM": "SLOT_4",
+        "08:00 PM - 09:30 PM": "SLOT_5"
       };
       const internalSlotId = slotMap[newStudent.slot] || "SLOT_1";
       
@@ -565,8 +870,15 @@ export default function AdminDashboard() {
               onChange={e => setSearchTerm(e.target.value)}
             />
           </div>
-          <button onClick={fetchData} className="p-2 hover:bg-slate-900 rounded-full transition-all">
+          <button onClick={fetchData} className="p-2 hover:bg-slate-900 rounded-full transition-all" title="Refresh data">
             <RotateCcw className={`w-5 h-5 text-slate-400 ${loading ? 'animate-spin' : ''}`} />
+          </button>
+          <button 
+            onClick={handleAdminLogout}
+            className="p-2 hover:bg-red-900/20 rounded-full transition-all text-red-400 hover:text-red-300"
+            title="Logout from admin portal"
+          >
+            <LogOut className="w-5 h-5" />
           </button>
         </div>
       </header>
@@ -603,7 +915,7 @@ export default function AdminDashboard() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {["SLOT_1", "SLOT_2", "SLOT_3", "SLOT_4"].map((id) => {
+                {["SLOT_1", "SLOT_2", "SLOT_3", "SLOT_4", "SLOT_5"].map((id) => {
                   const { SLOT_CONFIG } = require('@/lib/firebase');
                   const config = (SLOT_CONFIG as any)[id];
                   const count = slotAvailability[id] || 0;
@@ -631,31 +943,78 @@ export default function AdminDashboard() {
             </div>
           </motion.div>
 
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="bg-[#0D121F] border border-slate-900 rounded-[40px] p-8 relative overflow-hidden flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-sm font-black text-slate-500 uppercase tracking-[0.4em]">Pass vs Fail Analytics</h3>
+                <TrendingUp className="w-4 h-4 text-emerald-500" />
+              </div>
+              <div className="flex items-baseline gap-3 mb-6">
+                <span className="text-5xl font-black text-white">
+                  {submissions.length > 0 ? Math.round((submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / submissions.length) * 100) : 0}%
+                </span>
+                <span className="text-xs font-bold text-emerald-500 uppercase">Qualifying Rate (&gt;=85%)</span>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <div className="flex justify-between text-[10px] font-bold text-slate-400 mb-1">
+                    <span>Qualified ({submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length})</span>
+                    <span className="text-emerald-400 font-mono">
+                      {submissions.length > 0 ? Math.round((submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / submissions.length) * 100) : 0}%
+                    </span>
+                  </div>
+                  <div className="h-2 w-full bg-slate-950 rounded-full overflow-hidden">
+                    <div className="h-full bg-emerald-500" style={{ width: `${submissions.length > 0 ? (submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / submissions.length) * 100 : 0}%` }} />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-[10px] font-bold text-slate-400 mb-1">
+                    <span>Disqualified / Failed ({submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length})</span>
+                    <span className="text-rose-500 font-mono">
+                      {submissions.length > 0 ? Math.round((submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length / submissions.length) * 100) : 0}%
+                    </span>
+                  </div>
+                  <div className="h-2 w-full bg-slate-950 rounded-full overflow-hidden">
+                    <div className="h-full bg-rose-500" style={{ width: `${submissions.length > 0 ? (submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length / submissions.length) * 100 : 0}%` }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="pt-6 border-t border-slate-900/80 mt-6 flex justify-between items-center text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+              <span>Total Assessed</span>
+              <span className="text-white font-mono font-black">{submissions.length} Candidates</span>
+            </div>
+          </motion.div>
         </div>
 
         {/* Operational Intelligence Matrix */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {[
             { label: "Total Registrations", value: allRegistered.length, icon: <Users />, color: "text-blue-500", bg: "bg-blue-500/5" },
-            { label: "Active Sessions", value: allRegistered.filter(r => r.examStatus === "ACTIVE").length, icon: <Globe />, color: "text-emerald-500", bg: "bg-emerald-500/5" },
-            { label: "Suspicious Alerts", value: submissions.filter(s => s.violations?.length > 3).length, icon: <Shield />, color: "text-red-500", bg: "bg-red-500/5" },
-            { label: "Qualified (85%+)", value: submissions.filter(s => {
-              const total = (s.aptScore || 0) + (s.gramScore || 0) + (s.domainScore || 0) + (s.r3Score || 0);
-              return total >= 85 && !s.isCheating;
-            }).length, icon: <TrendingUp />, color: "text-[#FF5A1F]", bg: "bg-orange-500/5" },
+            { label: "Present Candidates", value: allRegistered.filter(r => (r.examStatus && r.examStatus !== 'REGISTERED') || submissions.some(s => s.email === r.email)).length, icon: <UserCheck />, color: "text-emerald-500", bg: "bg-emerald-500/5" },
+            { label: "Absent Candidates", value: allRegistered.filter(r => (!r.examStatus || r.examStatus === 'REGISTERED') && !submissions.some(s => s.email === r.email)).length, icon: <UserX />, color: "text-slate-400", bg: "bg-slate-500/5" },
+            { label: "Active Live Exams", value: allRegistered.filter(r => r.examStatus === "ACTIVE").length, icon: <Globe />, color: "text-[#58a6ff]", bg: "bg-blue-500/5" },
+            { label: "Qualified (85%+)", value: submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length, icon: <TrendingUp />, color: "text-emerald-400", bg: "bg-emerald-500/5" },
+            { label: "Not Qualified (<85%)", value: submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length, icon: <AlertTriangle />, color: "text-rose-500", bg: "bg-rose-500/5" },
+            { label: "AI Violations Flagged", value: submissions.filter(s => (s.violations && s.violations.length > 0) || s.isCheating).length, icon: <Shield />, color: "text-amber-500", bg: "bg-amber-500/5" },
+            { label: "Platform Avg Score", value: submissions.length > 0 ? `${Math.round(submissions.reduce((acc, s) => acc + (s.totalScore || 0), 0) / submissions.length)}/100` : "0/100", icon: <CheckCircle2 />, color: "text-[#FF5A1F]", bg: "bg-orange-500/5" },
           ].map((stat, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className={`bg-[#0D121F] border border-slate-900 p-8 rounded-[35px] relative overflow-hidden group hover:border-slate-700 transition-all cursor-default ${stat.bg}`}
+              transition={{ delay: i * 0.05 }}
+              className={`bg-[#0D121F] border border-slate-900 p-6 lg:p-8 rounded-[35px] relative overflow-hidden group hover:border-slate-700 transition-all cursor-default ${stat.bg}`}
             >
               <div className={`absolute -top-4 -right-4 p-8 opacity-5 group-hover:opacity-10 transition-all ${stat.color} scale-150`}>
                 {stat.icon}
               </div>
-              <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-4">{stat.label}</p>
-              <h3 className={`text-4xl font-black ${stat.color}`}>{stat.value}</h3>
+              <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-3">{stat.label}</p>
+              <h3 className={`text-3xl lg:text-4xl font-black ${stat.color}`}>{stat.value}</h3>
               <div className="mt-4 flex items-center gap-1.5">
                  <div className="flex gap-0.5">
                     {[1,2,3,4,5].map(dot => <div key={dot} className={`w-1 h-1 rounded-full ${stat.color} opacity-20`} />)}
@@ -715,6 +1074,17 @@ export default function AdminDashboard() {
                   >
                     {domains.map(d => <option key={d} value={d}>{d}</option>)}
                   </select>
+                  <div className="mt-2 rounded-xl border border-slate-900 bg-slate-950/60 p-3">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-600">Auto Pattern</span>
+                      <span className="rounded-full bg-[#FF5A1F]/10 px-2 py-1 text-[9px] font-black uppercase text-[#FF5A1F]">
+                        {getExamPatternForDomain(newStudent.domain).round4Mode === "coding" ? "Coding Round" : "Domain MCQ"}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-[10px] font-bold uppercase leading-5 text-slate-500">
+                      Track: {getDomainConfig(newStudent.domain).track} | Report: {getDomainConfig(newStudent.domain).reportGroup}
+                    </p>
+                  </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
@@ -739,8 +1109,8 @@ export default function AdminDashboard() {
                     </select>
                   </div>
                 </div>
-                <button type="submit" className="w-full bg-[#FF5A1F] text-white py-4 rounded-xl font-bold mt-6 shadow-[0_10px_20px_rgba(255,90,31,0.25)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
-                  <Mail className="w-4 h-4" /> ADMIN CREDENTIALS
+                <button type="submit" className="w-full bg-[#FF5A1F] text-white py-4 rounded-xl font-bold mt-6 shadow-[0_10px_20px_rgba(255,90,31,0.25)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 tracking-widest text-xs uppercase">
+                  <Mail className="w-4 h-4" /> DISPATCH SECURE EXAM LINK
                 </button>
               </form>
 
@@ -791,10 +1161,10 @@ export default function AdminDashboard() {
                     Live Monitor ({allRegistered.filter(r => r.examStatus === "ACTIVE").length})
                   </button>
                   <button 
-                    onClick={() => setActiveTab('audit')}
-                    className={`text-sm font-bold pb-2 border-b-2 transition-all ${activeTab === 'audit' ? "border-[#FF5A1F] text-white" : "border-transparent text-slate-500"}`}
+                    onClick={() => setActiveTab('slots')}
+                    className={`text-sm font-bold pb-2 border-b-2 transition-all ${activeTab === 'slots' ? "border-[#FF5A1F] text-white" : "border-transparent text-slate-500"}`}
                   >
-                    Security Audit
+                    Slot Analytics
                   </button>
                   <button 
                     onClick={() => setActiveTab('audit')}
@@ -821,7 +1191,13 @@ export default function AdminDashboard() {
                        {domains.map(d => <option key={d} value={d}>{d}</option>)}
                      </select>
                    </div>
-                   <button className="p-2 hover:bg-slate-900 rounded-lg text-slate-500"><Download className="w-4 h-4" /></button>
+                   <button 
+                     onClick={exportToCSV}
+                     className="p-2 hover:bg-slate-900 rounded-lg text-emerald-500 transition-all"
+                     title="Export to CSV"
+                   >
+                     <Download className="w-4 h-4" />
+                   </button>
                 </div>
               </div>
               
@@ -834,6 +1210,7 @@ export default function AdminDashboard() {
                           <th className="px-8 py-4">Candidate</th>
                           <th className="px-8 py-4 text-center">Score Breakdown (R1|R2|R3|R4)</th>
                           <th className="px-8 py-4 text-center">Total Marks</th>
+                          <th className="px-8 py-4 text-center">Integrity</th>
                           <th className="px-8 py-4">Verdict</th>
                           <th className="px-8 py-4 text-right">Audit</th>
                         </tr>
@@ -866,6 +1243,19 @@ export default function AdminDashboard() {
                                   {sub.isCheating ? "DISQ" : total}
                                 </span>
                               </td>
+                              <td className="px-8 py-6 text-center">
+                                <div className="flex flex-col items-center gap-1">
+                                   <span className={`text-[11px] font-black ${ (sub.violations?.length || 0) > 2 ? 'text-red-400' : 'text-emerald-400'}`}>
+                                     {Math.max(0, 100 - ((sub.violations?.length || 0) * 10))}%
+                                   </span>
+                                   <div className="w-12 h-1 bg-slate-900 rounded-full overflow-hidden">
+                                      <div 
+                                        className={`h-full ${(sub.violations?.length || 0) > 2 ? 'bg-red-500' : 'bg-emerald-500'}`} 
+                                        style={{ width: `${Math.max(0, 100 - ((sub.violations?.length || 0) * 10))}%` }} 
+                                      />
+                                   </div>
+                                </div>
+                              </td>
                               <td className="px-8 py-6">
                                 <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter ${
                                   sub.isCheating ? "bg-red-500/10 text-red-500" : (isPass ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500")
@@ -874,12 +1264,24 @@ export default function AdminDashboard() {
                                 </div>
                               </td>
                               <td className="px-8 py-6 text-right">
-                                <button 
-                                  onClick={() => { setSelectedSub(sub); setIsDetailModalOpen(true); }}
-                                  className="px-4 py-2 bg-slate-900 hover:bg-[#FF5A1F] text-slate-500 hover:text-white rounded-xl transition-all text-[10px] font-black uppercase flex items-center gap-2 ml-auto"
-                                >
-                                  <Eye className="w-3 h-3" /> View Audit
-                                </button>
+                                 <div className="flex justify-end gap-2">
+                                   <button 
+                                     onClick={() => { 
+                                       setSelectedSub(sub); 
+                                       setIsDetailModalOpen(true); 
+                                       fetchStudentDetails(sub.email);
+                                     }}
+                                     className="px-4 py-2 bg-slate-900 hover:bg-[#FF5A1F] text-slate-500 hover:text-white rounded-xl transition-all text-[10px] font-black uppercase flex items-center gap-2"
+                                   >
+                                     <Eye className="w-3 h-3" /> View Audit
+                                   </button>
+                                   <button 
+                                     onClick={() => handleDeleteRecord(sub.email)}
+                                     className="p-2 bg-slate-900 hover:bg-red-500/20 text-slate-700 hover:text-red-500 rounded-xl transition-all"
+                                   >
+                                     <Trash2 className="w-4 h-4" />
+                                   </button>
+                                 </div>
                               </td>
                             </tr>
                           );
@@ -911,7 +1313,7 @@ export default function AdminDashboard() {
                                   <div className="relative group/camera">
                                      <div className="w-16 h-12 bg-slate-950 rounded-lg overflow-hidden border border-slate-800 relative">
                                         <LiveFrameView email={reg.email} />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-1">
+                                        <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent flex items-end p-1">
                                            <div className={`w-1.5 h-1.5 rounded-full ${isDisconnected ? 'bg-red-500' : isIdle ? 'bg-amber-500' : 'bg-emerald-500 animate-pulse'}`} />
                                         </div>
                                      </div>
@@ -945,7 +1347,7 @@ export default function AdminDashboard() {
                                   <span className={`text-[10px] font-black uppercase ${suspicionScore > 40 ? 'text-red-500' : suspicionScore > 10 ? 'text-orange-500' : 'text-slate-500'}`}>
                                     Risk: {suspicionScore}%
                                   </span>
-                                  <span className="text-[9px] text-slate-600 truncate max-w-[150px]" title={reg.lastViolation}>
+                                  <span className="text-[9px] text-slate-600 truncate max-w-37.5" title={reg.lastViolation}>
                                     {reg.lastViolation || 'Clean Session'}
                                   </span>
                                 </div>
@@ -996,7 +1398,7 @@ export default function AdminDashboard() {
                             </td>
                             <td className="px-8 py-4">
                                <div className="text-xs font-bold text-white">{log.candidateEmail}</div>
-                               <div className="text-[9px] text-slate-600 truncate max-w-[150px]">{log.subject}</div>
+                               <div className="text-[9px] text-slate-600 truncate max-w-37.5">{log.subject}</div>
                             </td>
                             <td className="px-8 py-4">
                                <span className="px-2 py-0.5 bg-slate-950 border border-slate-800 rounded text-[9px] font-black text-slate-400 uppercase">
@@ -1029,7 +1431,7 @@ export default function AdminDashboard() {
                                  {log.status === 'FAILED' && (
                                    <div className="flex flex-col items-end">
                                       <span className="text-[9px] text-red-400 font-bold uppercase">Critical Failure</span>
-                                      <span className="text-[8px] text-red-400/50 italic max-w-[120px] truncate">{log.error}</span>
+                                      <span className="text-[8px] text-red-400/50 italic max-w-30 truncate">{log.error}</span>
                                    </div>
                                  )}
                                  {log.status === 'RETRYING' && (
@@ -1082,6 +1484,67 @@ export default function AdminDashboard() {
                         )}
                       </tbody>
                     </>
+                  ) : activeTab === 'slots' ? (
+                    <>
+                      <thead>
+                        <tr className="text-[10px] text-slate-600 uppercase tracking-widest border-b border-slate-900 bg-slate-950/30">
+                          <th className="px-8 py-4">Assigned Slot</th>
+                          <th className="px-8 py-4 text-center">Total Registered</th>
+                          <th className="px-8 py-4 text-center">Present / Attended</th>
+                          <th className="px-8 py-4 text-center">Absent</th>
+                          <th className="px-8 py-4 text-center">Avg Platform Score</th>
+                          <th className="px-8 py-4 text-center">Pass Rate (85%+)</th>
+                          <th className="px-8 py-4 text-right">Capacity Utilization</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-900/50">
+                        {slots.map((slotName, idx) => {
+                          const slotRegs = allRegistered.filter(r => r.slot === slotName);
+                          const slotSubs = submissions.filter(s => s.slot === slotName || slotRegs.some(r => r.email === s.email));
+                          const presentCountSlot = slotRegs.filter(r => (r.examStatus && r.examStatus !== 'REGISTERED') || slotSubs.some(s => s.email === r.email)).length;
+                          const absentCountSlot = slotRegs.length - presentCountSlot;
+                          const avgScoreSlot = slotSubs.length > 0 ? Math.round(slotSubs.reduce((acc, s) => acc + (s.totalScore || 0), 0) / slotSubs.length) : 0;
+                          const passedCountSlot = slotSubs.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length;
+                          const passRateSlot = slotSubs.length > 0 ? Math.round((passedCountSlot / slotSubs.length) * 100) : 0;
+                          
+                          const slotIdMap: Record<string, string> = {
+                            "10:00 AM - 11:30 AM": "SLOT_1",
+                            "12:00 PM - 01:30 PM": "SLOT_2",
+                            "03:00 PM - 04:30 PM": "SLOT_3",
+                            "06:00 PM - 07:30 PM": "SLOT_4",
+                            "08:00 PM - 09:30 PM": "SLOT_5"
+                          };
+                          const internalSlotId = slotIdMap[slotName] || "SLOT_1";
+                          const usedCapacity = slotAvailability[internalSlotId] || 0;
+                          
+                          return (
+                            <tr key={idx} className="hover:bg-slate-900/30 transition-colors">
+                              <td className="px-8 py-6">
+                                <div className="font-bold text-white text-sm">{slotName}</div>
+                                <div className="text-[10px] text-slate-500 font-mono mt-0.5">{internalSlotId}</div>
+                              </td>
+                              <td className="px-8 py-6 text-center font-mono font-bold text-white text-lg">{slotRegs.length}</td>
+                              <td className="px-8 py-6 text-center font-mono font-bold text-emerald-400 text-lg">{presentCountSlot}</td>
+                              <td className="px-8 py-6 text-center font-mono font-bold text-slate-500 text-lg">{absentCountSlot}</td>
+                              <td className="px-8 py-6 text-center">
+                                <span className="font-mono font-black text-white px-3 py-1 bg-slate-950 rounded-lg border border-slate-800">
+                                  {avgScoreSlot} / 100
+                                </span>
+                              </td>
+                              <td className="px-8 py-6 text-center font-mono font-bold text-blue-400 text-lg">{passRateSlot}%</td>
+                              <td className="px-8 py-6 text-right">
+                                <div className="flex flex-col items-end gap-1">
+                                  <span className="text-xs font-bold text-slate-400">{usedCapacity} / 25 Enrolled</span>
+                                  <div className="w-24 h-1.5 bg-slate-900 rounded-full overflow-hidden">
+                                    <div className="h-full bg-[#FF5A1F]" style={{ width: `${(usedCapacity / 25) * 100}%` }} />
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </>
                   ) : (
                     <>
                       <thead>
@@ -1117,18 +1580,18 @@ export default function AdminDashboard() {
                                 </span>
                               </td>
                               <td className="px-8 py-6 text-right">
-                                <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                                <div className="flex justify-end gap-2">
                                   <button 
                                     onClick={() => { setEditingStudent(reg); setIsEditModalOpen(true); }}
-                                    className="p-2 hover:bg-blue-500 hover:text-white rounded-lg transition-colors text-slate-500"
-                                    title="Edit Details"
+                                    className="p-2 hover:bg-slate-800 rounded-lg text-slate-500 transition-colors"
+                                    title="Edit Candidate"
                                   >
                                     <Settings className="w-4 h-4" />
                                   </button>
                                   <button 
-                                    onClick={() => handleDeleteStudent(reg.email)}
-                                    className="p-2 hover:bg-red-500 hover:text-white rounded-lg transition-colors text-slate-500"
-                                    title="Purge Identity"
+                                    onClick={() => handleDeleteRecord(reg.email)}
+                                    className="p-2 hover:bg-red-500/10 rounded-lg text-slate-700 hover:text-red-500 transition-colors"
+                                    title="Purge Record"
                                   >
                                     <Trash2 className="w-4 h-4" />
                                   </button>
@@ -1167,7 +1630,7 @@ export default function AdminDashboard() {
       {/* DETAILS MODAL */}
       <AnimatePresence>
         {isDetailModalOpen && selectedSub && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+          <div className="fixed inset-0 z-100 flex items-center justify-center p-6">
             <motion.div 
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setIsDetailModalOpen(false)}
@@ -1194,28 +1657,37 @@ export default function AdminDashboard() {
               </div>
               
               <div className="p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
-                <div className="grid md:grid-cols-3 gap-6 mb-8">
-                  <div className="bg-slate-950 p-6 rounded-2xl border border-slate-900">
-                    <p className="text-[10px] font-bold text-slate-600 uppercase mb-2">Aptitude Score</p>
-                    <p className="text-3xl font-black text-white">{selectedSub.aptScore} <span className="text-sm text-slate-600">/ 15</span></p>
-                  </div>
-                  <div className="bg-slate-950 p-6 rounded-2xl border border-slate-900">
-                    <p className="text-[10px] font-bold text-slate-600 uppercase mb-2">Grammar Score</p>
-                    <p className="text-3xl font-black text-white">{selectedSub.gramScore} <span className="text-sm text-slate-600">/ 15</span></p>
-                  </div>
-                  <div className="bg-slate-950 p-6 rounded-2xl border border-slate-900 bg-gradient-to-br from-slate-950 to-slate-900/50">
-                    <p className="text-[10px] font-bold text-slate-600 uppercase mb-2">Aggregate Score</p>
-                    <p className="text-3xl font-black text-[#FF5A1F]">{selectedSub.totalScore} <span className="text-sm text-slate-600">/ 100</span></p>
-                    <div className="mt-3 flex gap-2">
-                       <span className="text-[8px] font-bold px-2 py-0.5 bg-slate-900 rounded text-slate-400">R1: {selectedSub.roundScores?.round1 || 0}</span>
-                       <span className="text-[8px] font-bold px-2 py-0.5 bg-slate-900 rounded text-slate-400">R2: {selectedSub.roundScores?.round2 || 0}</span>
-                       <span className="text-[8px] font-bold px-2 py-0.5 bg-slate-900 rounded text-slate-400">R3: {selectedSub.roundScores?.round3 || 0}</span>
-                       <span className="text-[8px] font-bold px-2 py-0.5 bg-slate-900 rounded text-slate-400">R4: {selectedSub.roundScores?.round4 || 0}</span>
+                {loadingDetails ? (
+                  <div className="flex items-center justify-center py-20">
+                    <div className="text-center">
+                      <div className="animate-spin w-8 h-8 border-2 border-[#FF5A1F] border-t-transparent rounded-full mx-auto mb-4"></div>
+                      <p className="text-sm text-slate-500">Loading comprehensive results...</p>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <React.Fragment>
+                    <div className="grid md:grid-cols-3 gap-6 mb-8">
+                      <div className="bg-slate-950 p-6 rounded-2xl border border-slate-900">
+                        <p className="text-[10px] font-bold text-slate-600 uppercase mb-2">Aptitude Score</p>
+                        <p className="text-3xl font-black text-white">{selectedSub.aptScore} <span className="text-sm text-slate-600">/ 15</span></p>
+                      </div>
+                      <div className="bg-slate-950 p-6 rounded-2xl border border-slate-900">
+                        <p className="text-[10px] font-bold text-slate-600 uppercase mb-2">Grammar Score</p>
+                        <p className="text-3xl font-black text-white">{selectedSub.gramScore} <span className="text-sm text-slate-600">/ 15</span></p>
+                      </div>
+                      <div className="bg-slate-950 p-6 rounded-2xl border border-slate-900 bg-linear-to-br from-slate-950 to-slate-900/50">
+                        <p className="text-[10px] font-bold text-slate-600 uppercase mb-2">Aggregate Score</p>
+                        <p className="text-3xl font-black text-[#FF5A1F]">{selectedSub.totalScore} <span className="text-sm text-slate-600">/ 100</span></p>
+                        <div className="mt-3 flex gap-2">
+                           <span className="text-[8px] font-bold px-2 py-0.5 bg-slate-900 rounded text-slate-400">R1: {selectedSub.roundScores?.round1 || 0}</span>
+                           <span className="text-[8px] font-bold px-2 py-0.5 bg-slate-900 rounded text-slate-400">R2: {selectedSub.roundScores?.round2 || 0}</span>
+                           <span className="text-[8px] font-bold px-2 py-0.5 bg-slate-900 rounded text-slate-400">R3: {selectedSub.roundScores?.round3 || 0}</span>
+                           <span className="text-[8px] font-bold px-2 py-0.5 bg-slate-900 rounded text-slate-400">R4: {selectedSub.roundScores?.round4 || 0}</span>
+                        </div>
+                      </div>
+                    </div>
 
-                <div className="grid md:grid-cols-2 gap-8">
+                    <div className="grid md:grid-cols-2 gap-8">
                   <div className="space-y-6">
                     <h3 className="text-sm font-black text-slate-500 uppercase flex items-center gap-2"><Keyboard className="w-4 h-4" /> Descriptive Round (R3)</h3>
                     <div className="bg-slate-950 p-6 rounded-2xl border border-slate-900 space-y-4">
@@ -1224,13 +1696,13 @@ export default function AdminDashboard() {
                           <div className="p-4 bg-slate-900/50 rounded-xl border border-slate-800">
                             <p className="text-[9px] font-black text-blue-500 uppercase mb-1">Topic 01: {selectedSub.r3Details.topic1}</p>
                             <p className="text-[10px] text-slate-400 font-mono leading-relaxed italic">
-                              "{selectedSub.r3Details.text1 || "No content submitted"}"
+                              "{selectedSub.r3Details.text1 || 'No content submitted'}"
                             </p>
                           </div>
                           <div className="p-4 bg-slate-900/50 rounded-xl border border-slate-800">
                             <p className="text-[9px] font-black text-blue-500 uppercase mb-1">Topic 02: {selectedSub.r3Details.topic2}</p>
                             <p className="text-[10px] text-slate-400 font-mono leading-relaxed italic">
-                              "{selectedSub.r3Details.text2 || "No content submitted"}"
+                              "{selectedSub.r3Details.text2 || 'No content submitted'}"
                             </p>
                           </div>
                         </>
@@ -1238,6 +1710,64 @@ export default function AdminDashboard() {
                         <p className="text-[10px] text-slate-700 italic">Historical typing data unavailable</p>
                       )}
                     </div>
+
+                    {/* CODING SUBMISSIONS - NEW ENTERPRISE FEATURE */}
+                    {selectedStudentDetails?.codingSubmissions && selectedStudentDetails.codingSubmissions.length > 0 && (
+                      <div className="space-y-4">
+                        <h3 className="text-sm font-black text-slate-500 uppercase flex items-center gap-2"><Monitor className="w-4 h-4 text-[#FF5A1F]" /> Coding Submissions (R4)</h3>
+                        <div className="space-y-4">
+                          {selectedStudentDetails.codingSubmissions.map((submission: any, idx: number) => (
+                            <div key={idx} className="bg-slate-950 p-6 rounded-2xl border border-slate-900">
+                              <div className="flex justify-between items-start mb-4">
+                                <div>
+                                  <h4 className="text-sm font-bold text-white">{submission.questionTitle}</h4>
+                                  <p className="text-[10px] text-slate-500 uppercase">{submission.questionDifficulty} • {submission.selectedLanguage}</p>
+                                </div>
+                                <div className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${
+                                  submission.finalVerdict === 'ACCEPTED' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'
+                                }`}>
+                                  {submission.finalVerdict}
+                                </div>
+                              </div>
+
+                              <div className="grid grid-cols-3 gap-4 mb-4">
+                                <div className="p-3 bg-slate-900/50 rounded-lg">
+                                  <p className="text-[8px] font-bold text-slate-500 uppercase mb-1">Testcases</p>
+                                  <p className="text-sm font-black text-white">
+                                    {submission.passedTestcaseCount}/{submission.passedTestcaseCount + submission.failedTestcaseCount}
+                                  </p>
+                                </div>
+                                <div className="p-3 bg-slate-900/50 rounded-lg">
+                                  <p className="text-[8px] font-bold text-slate-500 uppercase mb-1">Runtime</p>
+                                  <p className="text-sm font-black text-blue-400">{submission.runtime}ms</p>
+                                </div>
+                                <div className="p-3 bg-slate-900/50 rounded-lg">
+                                  <p className="text-[8px] font-bold text-slate-500 uppercase mb-1">Memory</p>
+                                  <p className="text-sm font-black text-purple-400">{submission.memory}KB</p>
+                                </div>
+                              </div>
+
+                              <div className="space-y-2">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase">Hidden Testcase Results</p>
+                                <div className="space-y-1 max-h-32 overflow-y-auto">
+                                  {submission.hiddenTestcaseResults?.map((test: any, tIdx: number) => (
+                                    <div key={tIdx} className="flex justify-between items-center p-2 bg-slate-900/30 rounded text-[9px]">
+                                      <span className="font-mono text-slate-400">Test {tIdx + 1}</span>
+                                      <div className="flex items-center gap-2">
+                                        <span className={`font-bold ${test.passed ? 'text-emerald-500' : 'text-red-500'}`}>
+                                          {test.passed ? 'PASS' : 'FAIL'}
+                                        </span>
+                                        <span className="text-slate-600">{test.executionTime}ms</span>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <div className="space-y-6">
@@ -1361,6 +1891,38 @@ export default function AdminDashboard() {
                    </div>
                 </div>
 
+                <div className="mt-8 p-8 bg-slate-950/50 border border-slate-900 rounded-[35px]">
+                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-2">
+                      <div>
+                        <h3 className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
+                          <FileCheck className="w-4 h-4 text-emerald-400" /> Enterprise Assessment Report Management
+                        </h3>
+                        <p className="text-[10px] text-slate-600 font-bold uppercase tracking-tighter mt-1">Cryptographically Signed Certified Dossier & Verification Portal</p>
+                      </div>
+                      <div className="flex flex-wrap gap-3">
+                         <button 
+                           onClick={() => generatePDFReport(selectedSub)}
+                           className="px-5 py-2.5 bg-linear-to-r from-emerald-500 to-[#FF5A1F] text-black font-black text-[10px] uppercase rounded-xl hover:opacity-90 transition-all shadow-lg flex items-center gap-1.5 cursor-pointer"
+                         >
+                           <Download className="w-3.5 h-3.5" /> Download Certified PDF
+                         </button>
+                         <button 
+                           disabled={isSendingEmail === selectedSub.email}
+                           onClick={() => handleResendReportEmail(selectedSub)}
+                           className="px-5 py-2.5 bg-blue-600 text-white text-[10px] font-black uppercase rounded-xl hover:bg-blue-500 transition-all flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
+                         >
+                           <Send className="w-3.5 h-3.5" /> {isSendingEmail === selectedSub.email ? "Sending..." : "Re-send Report Email"}
+                         </button>
+                         <button 
+                           onClick={() => window.open(`/verify/${reportGeneratorService.generateReportId(selectedSub.email)}`, '_blank')}
+                           className="px-5 py-2.5 bg-slate-800 text-slate-300 text-[10px] font-black uppercase rounded-xl hover:bg-slate-700 transition-all flex items-center gap-1.5 border border-slate-700 cursor-pointer"
+                         >
+                           <ExternalLink className="w-3.5 h-3.5 text-amber-400" /> Verify Ledger Portal
+                         </button>
+                      </div>
+                   </div>
+                </div>
+
                 {/* DETAILED QUESTION BREAKDOWN */}
                 <div className="mt-12 space-y-8">
                    <h3 className="text-sm font-black text-slate-500 uppercase flex items-center gap-2 px-2">
@@ -1393,19 +1955,19 @@ export default function AdminDashboard() {
                             <div className="divide-y divide-slate-900/50">
                                {details.map((item: any, i: number) => (
                                  <div key={i} className="p-6 flex gap-4 hover:bg-slate-900/30 transition-all">
-                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${item.isCorrect ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"}`}>
-                                       {item.isCorrect ? <CheckCircle2 className="w-4 h-4" /> : <X className="w-4 h-4" />}
+                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${(item.type === 'coding' ? item.passed : item.isCorrect) ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"}`}>
+                                       {(item.type === 'coding' ? item.passed : item.isCorrect) ? <CheckCircle2 className="w-4 h-4" /> : <X className="w-4 h-4" />}
                                     </div>
                                     <div className="flex-1">
                                        <p className="text-xs font-bold text-white mb-2">{item.question || item.title || `Task ${i+1}`}</p>
                                        <div className="grid grid-cols-2 gap-4">
                                           <div className="p-2 bg-slate-900/50 rounded-lg">
                                              <p className="text-[8px] font-bold text-slate-500 uppercase mb-1">Candidate Input</p>
-                                             <p className={`text-[10px] font-bold ${item.isCorrect ? "text-emerald-500" : "text-red-400"}`}>{item.selected || "OMITTED"}</p>
+                                             <p className={`text-[10px] font-bold ${(item.type === 'coding' ? item.passed : item.isCorrect) ? "text-emerald-500" : "text-red-400"}`}>{item.selected || "OMITTED"}</p>
                                           </div>
-                                          {!item.isCorrect && (
+                                          {!(item.type === 'coding' ? item.passed : item.isCorrect) && (
                                             <div className="p-2 bg-emerald-500/5 rounded-lg">
-                                              <p className="text-[8px] font-bold text-emerald-500/50 uppercase mb-1">Correct Identity</p>
+                                              <p className="text-[8px] font-bold text-emerald-500/50 uppercase mb-1">Correct Identity / Verdict</p>
                                               <p className="text-[10px] font-bold text-emerald-500">{item.correct}</p>
                                             </div>
                                           )}
@@ -1417,11 +1979,19 @@ export default function AdminDashboard() {
                           </div>
                         );
                       })}
-                   </div>
-                </div>
+                 </div>
+                 </div>
+                 </React.Fragment>
+               )}
               </div>
               
-              <div className="p-8 bg-slate-950/50 border-t border-slate-800 flex justify-end">
+              <div className="p-8 bg-slate-950/50 border-t border-slate-800 flex justify-end gap-4">
+                <button 
+                  onClick={() => generatePDFReport(selectedSub)} 
+                  className="px-6 py-3 bg-slate-900 hover:bg-emerald-500 text-slate-300 hover:text-black font-bold rounded-xl flex items-center gap-2 transition-all"
+                >
+                  <Download className="w-4 h-4" /> Export MNC Report
+                </button>
                 <button onClick={() => setIsDetailModalOpen(false)} className="px-8 py-3 bg-[#FF5A1F] text-white font-bold rounded-xl">Close Review</button>
               </div>
             </motion.div>
@@ -1432,7 +2002,7 @@ export default function AdminDashboard() {
       {/* EDIT MODAL */}
       <AnimatePresence>
         {isEditModalOpen && editingStudent && (
-          <div className="fixed inset-0 z-[110] flex items-center justify-center p-6">
+          <div className="fixed inset-0 z-110 flex items-center justify-center p-6">
             <motion.div 
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setIsEditModalOpen(false)}
@@ -1485,7 +2055,7 @@ export default function AdminDashboard() {
                       className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-3 text-xs"
                       value={editingStudent.domain} onChange={e => setEditingStudent({...editingStudent, domain: e.target.value})}
                     >
-                      {["Java", "Python", "Web Development", "Data Science", "Data Analytics", "Civil", "Mechanical", "Electrical"].map(d => (
+                      {domains.map(d => (
                         <option key={d} value={d}>{d}</option>
                       ))}
                     </select>
