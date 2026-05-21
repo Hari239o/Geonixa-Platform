@@ -820,10 +820,11 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       }
     }
 
-    if (reason === "TERMINATED") {
-      setExamState("VIOLATION_TERMINATED");
-    } else {
+    if (reason !== "TERMINATED") {
+      setCurrentWarning(null);
       setExamState("SUBMITTED");
+    } else {
+      setExamState("VIOLATION_TERMINATED");
     }
 
     if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => { });
@@ -864,7 +865,17 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
           const isTerminated = localStorage.getItem(`geonixa_terminated_${email}`);
 
           if (subSnap.exists() || resultsSnap.exists()) {
-            setExamState(isTerminated === "true" ? "VIOLATION_TERMINATED" : "SUBMITTED");
+            let nextState: ExamState = "SUBMITTED";
+            if (resultsSnap.exists()) {
+              const resultData = resultsSnap.data();
+              if (resultData?.submissionType === "TERMINATED") {
+                nextState = "VIOLATION_TERMINATED";
+              }
+            }
+            if (nextState === "SUBMITTED" && isTerminated === "true") {
+              localStorage.removeItem(`geonixa_terminated_${email}`);
+            }
+            setExamState(nextState);
             setIsProfileLoading(false);
             return;
           } else {

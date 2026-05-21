@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { uploadVideoRecording } from "@/lib/firebase";
 import { AIProctoringSystem } from "@/lib/aiProctoring/monitoring_v2";
 import { useProctorStore } from "@/lib/aiProctoring/proctorStore";
+import { EnhancedDetectionEngine } from "@/lib/aiProctoring/enhanced_detection";
 import { 
   Shield, 
   Eye, 
@@ -45,6 +46,7 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
 
   // Proctor Engine
   const proctorEngineRef = useRef<AIProctoringSystem | null>(null);
+  const detectionEngineRef = useRef<EnhancedDetectionEngine | null>(null);
 
   // Warning & Cooldown State (mirrored for UI)
   const warningCountRef = useRef(0);
@@ -305,20 +307,20 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
             });
           }
 
-          // More sensitive threshold: 50 normalized (was 75 raw)
-          // This better detects loud environment noise
-          if (normalizedLevel > 50) {
-            noiseSecRef.current += 1;
+          // ENHANCED: Much more sensitive thresholds
+          // 45% = suspicious/loud, 30% = moderate
+          if (normalizedLevel > 45) {
+            noiseSecRef.current += 1.5; // Faster accumulation
             setHealthStatus(prev => ({ ...prev, audio: `🔴 LOUD (${Math.round(normalizedLevel)}%)` }));
-            if (noiseSecRef.current % 5 === 0) {
+            if (noiseSecRef.current % 3 === 0) {
               console.debug(`[AUDIO] Loud noise detected: ${Math.round(normalizedLevel)}% (avg: ${Math.round(avg)})`);
             }
-          } else if (normalizedLevel > 35) {
-            noiseSecRef.current += 0.5;
+          } else if (normalizedLevel > 30) {
+            noiseSecRef.current += 0.8;
             setHealthStatus(prev => ({ ...prev, audio: `🟡 Moderate (${Math.round(normalizedLevel)}%)` }));
           } else {
-            noiseSecRef.current = Math.max(0, noiseSecRef.current - 2);
-            setHealthStatus(prev => ({ ...prev, audio: "🟢 Quiet (<35%)" }));
+            noiseSecRef.current = Math.max(0, noiseSecRef.current - 1.5);
+            setHealthStatus(prev => ({ ...prev, audio: "🟢 Quiet (<30%)" }));
           }
           checkAudioTimer = setTimeout(checkAudioLoop, 1000);
         };
@@ -407,11 +409,15 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
             if (coco && blazeface) {
               cocoModelRef.current = coco;
               blazeModelRef.current = blazeface;
+              detectionEngineRef.current = new EnhancedDetectionEngine();
               setIsModelsLoaded(true);
 
               // instantiate proctor engine once models loaded
               proctorEngineRef.current = new AIProctoringSystem({
                 devMode: true,
+                minSecondsForViolation: 12, // ENHANCED: Reduced from 15 to 12 seconds
+                multipleFaceSeconds: 10, // ENHANCED: Reduced from 15 to 10 seconds
+                evaluateIntervalMs: 800, // ENHANCED: Faster evaluation (was 900ms)
                 onWarning: (level, label) => {
                   warningCountRef.current = level;
                   setProctorLevel(level);
@@ -477,12 +483,13 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
               return;
             }
 
-            // More lenient detection: accept 0.4+ confidence
-            const persons = predictions.filter((p: any) => p.class === 'person' && p.score > 0.4);
+            // ENHANCED: More lenient detection thresholds
+            // Accept 0.30+ confidence for better multi-person detection
+            const persons = predictions.filter((p: any) => p.class === 'person' && p.score > 0.30);
             
-            // Check for phones, remotes, laptops, etc.
-            const mobileItems = ['cell phone', 'mobile phone', 'phone', 'remote', 'laptop', 'keyboard'];
-            const phone = predictions.find((p: any) => mobileItems.some(item => p.class.toLowerCase().includes(item)) && p.score > 0.4);
+            // Check for phones, remotes, laptops, etc. - ENHANCED with lower threshold
+            const mobileItems = ['cell phone', 'mobile phone', 'phone', 'remote', 'laptop', 'keyboard', 'monitor', 'screen'];
+            const phone = predictions.find((p: any) => mobileItems.some(item => p.class.toLowerCase().includes(item)) && p.score > 0.30);
             
             // DEBUG LOGGING every 30 frames
             if (frameCount % 30 === 0 && detectionDebugMode) {
@@ -535,29 +542,72 @@ export default function AIProctor({ onViolation, isExamActive }: ProctorProps) {
               setHealthStatus(prev => ({ ...prev, face: "🟡 Face Missing" }));
               proctorEngineRef.current?.recordDetection({ type: 'face_missing', confidence: 0.95 });
             } else {
-              missingFaceSecRef.current = Math.max(0, missingFaceSecRef.current - 2);
-              setHealthStatus(prev => ({ ...prev, face: "🟢 100% Locked" }));
+              missingFaceSecRef.current = Math.max(0, missingFaceSecRef.current - 1);
+              
+              // ENHANCED: Use face positioning analysis
+              const faceData = detectionEngineRef.current?.analyzeFacePosition(faces, video.videoWidth, video.videoHeight);
+              if (faceData) {
+                if (faceData.isCentered) {
+                  setHealthStatus(prev => ({ ...prev, face: "✅ CENTERED - 100% Locked" }));
+                } else {
+                  // Face is not centered - provide guidance
+                  const guidance = detectionEngineRef.current?.getFaceCenteringGuidance(faceData) || "🟡 Recenter face";
+                  setHealthStatus(prev => ({ ...prev, face: guidance }));
+                  
+                  // Record off-center issue if significant
+                  if (faceData.offsetX > 0.20 || faceData.offsetY > 0.20) {
+                    proctorEngineRef.current?.recordDetection({ 
+                      type: 'face_missing', 
+                      confidence: 0.50, 
+                      payload: { reason: 'poor_positioning', offsetX: faceData.offsetX, offsetY: faceData.offsetY } 
+                    });
+                  }
+                }
+              } else {
+                setHealthStatus(prev => ({ ...prev, face: "🟢 Face Detected" }));
+              }
             }
 
-            // B. Multiple Persons Check
+            // B. Multiple Persons Check - ENHANCED
             if (persons.length > 1) {
-              multiPersonSecRef.current += 1;
-              setHealthStatus(prev => ({ ...prev, multiPerson: "🔴 Multi-Entity Detected" }));
+              multiPersonSecRef.current += 1.5; // ENHANCED: Faster accumulation
+              setHealthStatus(prev => ({ ...prev, multiPerson: `🔴 ${persons.length} People Detected` }));
               // confidence: average person score
               const avgScore = persons.reduce((s: number, p: any) => s + p.score, 0) / persons.length;
-              proctorEngineRef.current?.recordDetection({ type: 'multiple_faces', confidence: Math.min(1, Math.max(0, avgScore)) });
+              proctorEngineRef.current?.recordDetection({ 
+                type: 'multiple_faces', 
+                confidence: Math.min(1, Math.max(0.90, avgScore)), // Higher confidence when multiple detected
+                payload: { personCount: persons.length, avgScore, scores: persons.map(p => p.score) }
+              });
             } else {
-              multiPersonSecRef.current = Math.max(0, multiPersonSecRef.current - 2);
+              multiPersonSecRef.current = Math.max(0, multiPersonSecRef.current - 1);
               setHealthStatus(prev => ({ ...prev, multiPerson: "🟢 Single Entity" }));
             }
 
-            // C. Phone Detection Check
-            if (phone) {
-              phoneSecRef.current += 1;
-              setHealthStatus(prev => ({ ...prev, phone: "🔴 Mobile Device Visible" }));
-              proctorEngineRef.current?.recordDetection({ type: 'phone', confidence: phone.score || 0.9, payload: phone });
+            // C. Phone Detection Check - ENHANCED
+            let phoneAnalysis = null;
+            if (detectionEngineRef.current) {
+              phoneAnalysis = detectionEngineRef.current.analyzePhonePresence(predictions, 0.30);
+            }
+            
+            const phoneDetected = phone || phoneAnalysis?.detected;
+            if (phoneDetected) {
+              phoneSecRef.current += 1.5; // ENHANCED: Faster accumulation
+              const phoneType = phoneAnalysis?.type || phone?.class || 'Mobile Device';
+              const confidence = Math.max(phone?.score || 0, phoneAnalysis?.confidence || 0.80);
+              setHealthStatus(prev => ({ ...prev, phone: `🔴 ${phoneType} Detected (${Math.round(confidence * 100)}%)` }));
+              proctorEngineRef.current?.recordDetection({ 
+                type: 'phone', 
+                confidence: Math.min(0.99, Math.max(0.85, confidence)), // Boost to ensure detection
+                payload: { 
+                  type: phoneType,
+                  analysis: phoneAnalysis, 
+                  directDetection: phone?.class,
+                  confidence: confidence
+                } 
+              });
             } else {
-              phoneSecRef.current = Math.max(0, phoneSecRef.current - 2);
+              phoneSecRef.current = Math.max(0, phoneSecRef.current - 1);
               setHealthStatus(prev => ({ ...prev, phone: "🟢 Clear" }));
             }
 
