@@ -1,43 +1,59 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
+import { getAuthPayload, getAdminSessionPayload } from '@/lib/auth';
 
-const ADMIN_EMAIL = 'talent@geonixa.com';
-const ADMIN_PASSWORD = 'talent@9908';
+const PUBLIC_PATHS = [
+  '/auth/login',
+  '/auth/admin-login',
+  '/api/auth/login',
+  '/api/auth/signup',
+  '/api/auth/me',
+  '/api/auth/logout',
+  '/api/auth/verify-firebase',
+  '/api/auth/admin-session',
+];
 
-export function proxy(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
+function unauthorizedResponse() {
+  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+}
 
-  // Protect admin routes
+export function middleware(req: NextRequest) {
+  const pathname = req.nextUrl.pathname;
+  if (PUBLIC_PATHS.some(path => pathname.startsWith(path))) {
+    return NextResponse.next();
+  }
+
+  const authPayload = getAuthPayload(req);
+  const adminSessionPayload = getAdminSessionPayload(req);
+  const isAdmin = authPayload?.role === 'admin' || Boolean(adminSessionPayload);
+  const isAuthenticated = Boolean(authPayload);
+  const isApiRequest = pathname.startsWith('/api/');
+
   if (pathname.startsWith('/admin')) {
-    // Check for admin session token
-    const adminToken = request.cookies.get('admin_session');
-    
-    if (!adminToken || !adminToken.value) {
-      // Redirect to admin login
-      return NextResponse.redirect(new URL('/auth/admin-login', request.url));
+    if (!isAdmin) {
+      return isApiRequest ? unauthorizedResponse() : NextResponse.redirect(new URL('/auth/login', req.url));
     }
+    return NextResponse.next();
+  }
 
-    // Verify token validity (basic check - in production use JWT or session store)
-    try {
-      const decodedToken = JSON.parse(
-        Buffer.from(adminToken.value, 'base64').toString('utf-8')
-      );
-      
-      if (
-        decodedToken.email !== ADMIN_EMAIL ||
-        Date.now() > decodedToken.expiresAt
-      ) {
-        // Invalid or expired token
-        return NextResponse.redirect(new URL('/auth/admin-login', request.url));
-      }
-    } catch (e) {
-      // Invalid token format
-      return NextResponse.redirect(new URL('/auth/admin-login', request.url));
+  if (pathname.startsWith('/student') || pathname.startsWith('/exam') || pathname.startsWith('/api/questions') || pathname.startsWith('/api/results')) {
+    if (!isAuthenticated) {
+      return isApiRequest ? unauthorizedResponse() : NextResponse.redirect(new URL('/auth/login', req.url));
     }
+    return NextResponse.next();
   }
 
   return NextResponse.next();
 }
 
+// Export both to satisfy any Next.js proxy/middleware internal resolution checks
+export const proxy = middleware;
+
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: [
+    '/admin/:path*',
+    '/student/:path*',
+    '/exam/:path*',
+    '/api/questions/:path*',
+    '/api/results/:path*',
+  ],
 };
