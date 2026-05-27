@@ -75,11 +75,11 @@ export class AIProctoringSystem {
 
   private evaluate() {
     const now = Date.now();
-    this.evaluatePersistentViolation('face_missing', (r) => r.type === 'face_missing', this.consecutiveWindowMs, 0.75, now);
-    this.evaluatePersistentViolation('head_turned', (r) => r.type === 'head_turned', this.consecutiveWindowMs, 0.75, now);
-    this.evaluatePersistentViolation('eyes_off', (r) => r.type === 'eyes_off', this.consecutiveWindowMs, 0.75, now);
-    this.evaluatePersistentViolation('multiple_faces', (r) => r.type === 'multiple_faces', this.opts.multipleFaceSeconds * 1000, 0.80, now);
-    this.evaluatePersistentViolation('phone', (r) => r.type === 'phone', this.opts.phoneSeconds, 0.75, now);
+    this.evaluatePersistentViolation('face_missing', (r) => r.type === 'face_missing', 10000, 0.75, now);
+    this.evaluatePersistentViolation('head_turned', (r) => r.type === 'head_turned', 5000, 0.75, now);
+    this.evaluatePersistentViolation('eyes_off', (r) => r.type === 'eyes_off', 8000, 0.75, now);
+    this.evaluatePersistentViolation('multiple_faces', (r) => r.type === 'multiple_faces', this.opts.multipleFaceSeconds * 1000, 0.75, now);
+    this.evaluatePersistentViolation('phone', (r) => r.type === 'phone', this.opts.phoneSeconds, 0.70, now);
     this.evaluatePersistentViolation('loud_noise', (r) => r.type === 'loud_noise', this.opts.noiseSeconds, 0.75, now);
   }
 
@@ -90,9 +90,8 @@ export class AIProctoringSystem {
     confidenceThreshold: number,
     now: number
   ) {
-    const threshold = Math.max(confidenceThreshold, this.opts.minConfidence);
-    const relevant = this.frameBuffer.filter((r) => predicate(r) && (r.confidence ?? 0) >= threshold);
-    if (this.opts.devMode) this.devLog('evaluate', { label, count: relevant.length, requiredMs, threshold });
+    const relevant = this.frameBuffer.filter((r) => predicate(r) && (r.confidence ?? 0) >= confidenceThreshold);
+    if (this.opts.devMode) this.devLog('evaluate', { label, count: relevant.length, requiredMs, threshold: confidenceThreshold });
     if (relevant.length === 0) return;
     const streak = this.computeLongestStreak(relevant);
     if (streak >= requiredMs) {
@@ -146,11 +145,23 @@ export class AIProctoringSystem {
     }
   }
 
-  private issueWarning(label: string) {
+  public forceWarning(label: string) {
+    this.issueWarning(label, true);
+  }
+
+  private issueWarning(label: string, isInstant: boolean = false) {
+    console.log("Warning triggered");
+    if (label === 'tab_switch') console.log("Tab switched");
+
     const store = useProctorStore.getState();
-    const count = (store.warnings[label] || 0) + 1;
-    useProctorStore.getState().setWarning(label);
-    const level = count;
+    store.setWarning(label);
+    
+    // Calculate total warnings across all labels for escalation level
+    const updatedStore = useProctorStore.getState();
+    const totalWarnings = Object.values(updatedStore.warnings).reduce((sum, count) => sum + count, 0);
+    const level = totalWarnings;
+    console.log("Violation count:", level);
+
     try {
       this.opts.onWarning(level, label);
     } catch (e) {
@@ -168,6 +179,10 @@ export class AIProctoringSystem {
       } catch (e) {
         this.devLog('onTerminate-error', { e });
       }
+    }
+    
+    if (isInstant) {
+      this.lastWarningAt[label] = Date.now();
     }
   }
 

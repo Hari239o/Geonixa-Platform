@@ -804,8 +804,19 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
             candidateName: profile?.name || currentUser
           })
         });
+        
+        // Send Completion Email
+        await fetch('/api/communication/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'COMPLETION',
+            candidateEmail: currentUser,
+            candidateName: profile?.name || currentUser
+          })
+        });
       } catch (e) {
-        console.error("Failed to archive assessment report:", e);
+        console.error("Failed to archive assessment report or send completion email:", e);
       }
 
       console.log("✅ Exam results stored successfully with enterprise-grade architecture");

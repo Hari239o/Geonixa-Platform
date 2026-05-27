@@ -116,8 +116,8 @@ class EmailService {
     const { to, subject, html, candidateEmail, type } = options;
     const MAX_RETRIES = 3;
     
-    // As requested: Only use SMTP for sending login credentials (REGISTRATION type) and ASSESSMENT_REPORT.
-    if (type !== "REGISTRATION" && type !== "ASSESSMENT_REPORT") {
+    // As requested: Only use SMTP for sending login credentials (REGISTRATION type), COMPLETION, and ASSESSMENT_REPORT.
+    if (type !== "REGISTRATION" && type !== "ASSESSMENT_REPORT" && type !== "COMPLETION") {
       console.log(`[EmailService] Skipped sending email of type ${type} as per SMTP restrictions.`);
       return { success: true, messageId: "skipped_non_registration" };
     }
@@ -439,7 +439,7 @@ class EmailService {
             <div class="info-box">
               <p style="margin-top: 0;"><strong>ℹ Important Information:</strong></p>
               <p>Our evaluation team will review your responses and run all code submissions through plagiarism detection. Any candidate found using unfair means will be instantly disqualified.</p>
-              <p>You will receive your assessment result via email within <strong>5-7 business days</strong> along with detailed feedback.</p>
+              <p>You will receive your assessment result via email within <strong>2 to 3 days</strong>. Our team will contact you with detailed feedback.</p>
             </div>
 
             <!-- What Happens Next -->

@@ -190,44 +190,50 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
     analyser.fftSize = 256;
     const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-    const checkAudioLoop = () => {
-      if (!isMounted.current || !isExamActiveRef.current) return;
-      analyser.getByteFrequencyData(dataArray);
-      const avg = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
-      const normalizedLevel = Math.min(100, (avg / 255) * 100);
-      const rms = avg / 255;
-      const audioAnalysis = detectionEngineRef.current?.analyzeAudioLevel(dataArray, rms);
-
-      const isLoudNoise = audioAnalysis?.isLoudNoise ?? normalizedLevel > 60;
-      const isSpeech = audioAnalysis?.isSpeech ?? false;
-
-      if (isLoudNoise) {
-        // increment by 0.5 per 500ms -> ~1 per second
-        noiseSecRef.current += 0.5;
-        setHealthStatus(prev => ({ ...prev, audio: `🔴 Loud noise detected (${Math.round(normalizedLevel)}%)` }));
-        if (proctorEngineRef.current) {
-          proctorEngineRef.current.recordDetection({
-            type: 'loud_noise',
-            confidence: Math.min(1, 0.7 + normalizedLevel / 150),
-            payload: { avg, normalizedLevel, isSpeech }
-          });
-        }
-        if (Math.floor(noiseSecRef.current) % 3 === 0) {
-          console.debug(`[AUDIO] Loud noise detected: ${Math.round(normalizedLevel)}% (speech:${isSpeech})`);
-        }
-      } else if (normalizedLevel > 40 && isSpeech) {
-        // moderate speech increment slower
-        noiseSecRef.current += 0.25;
-        setHealthStatus(prev => ({ ...prev, audio: `🟡 Moderate speech (${Math.round(normalizedLevel)}%)` }));
-      } else {
-        // decay more gently per 500ms
-        noiseSecRef.current = Math.max(0, noiseSecRef.current - 0.75);
-        setHealthStatus(prev => ({ ...prev, audio: "🟢 Quiet (<40%)" }));
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(() => {});
       }
 
-      checkAudioTimerRef.current = window.setTimeout(checkAudioLoop, 500);
-    };
-    checkAudioLoop();
+      const checkAudioLoop = () => {
+        if (!isMounted.current) return;
+        if (!isExamActiveRef.current || hasTerminatedRef.current) {
+          checkAudioTimerRef.current = window.setTimeout(checkAudioLoop, 500);
+          return;
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(() => {});
+        }
+        
+        analyser.getByteFrequencyData(dataArray);
+        const avg = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
+        const normalizedLevel = Math.min(100, (avg / 255) * 100);
+        const rms = avg / 255;
+        const audioAnalysis = detectionEngineRef.current?.analyzeAudioLevel(dataArray, rms);
+
+        const isLoudNoise = audioAnalysis?.isLoudNoise ?? normalizedLevel > 60;
+        const isSpeech = audioAnalysis?.isSpeech ?? false;
+
+        if (isLoudNoise) {
+          noiseSecRef.current += 0.5;
+          setHealthStatus(prev => ({ ...prev, audio: `🔴 Loud noise detected (${Math.round(normalizedLevel)}%)` }));
+          if (proctorEngineRef.current) {
+            proctorEngineRef.current.recordDetection({
+              type: 'loud_noise',
+              confidence: Math.min(1, 0.7 + normalizedLevel / 150),
+              payload: { avg, normalizedLevel, isSpeech }
+            });
+          }
+        } else if (normalizedLevel > 40 && isSpeech) {
+          noiseSecRef.current += 0.25;
+          setHealthStatus(prev => ({ ...prev, audio: `🟡 Moderate speech (${Math.round(normalizedLevel)}%)` }));
+        } else {
+          noiseSecRef.current = Math.max(0, noiseSecRef.current - 0.75);
+          setHealthStatus(prev => ({ ...prev, audio: "🟢 Quiet (<40%)" }));
+        }
+
+        checkAudioTimerRef.current = window.setTimeout(checkAudioLoop, 500);
+      };
+      checkAudioLoop();
   };
 
   const scheduleReconnect = () => {
@@ -348,27 +354,42 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
 
     // Window & Environment Security Listeners
     const handleVisibility = () => {
-      if (document.hidden && isExamActiveRef.current) {
-        handleInstantTermination("TAB_SWITCH", "Unauthorized tab switching or backgrounding detected.");
+      if (document.hidden && isExamActiveRef.current && !hasTerminatedRef.current) {
+        if (proctorEngineRef.current) {
+          proctorEngineRef.current.forceWarning('tab_switch');
+        } else {
+          onViolation("TAB_SWITCH_WARNING", "Unauthorized tab switching or backgrounding detected.");
+        }
       }
     };
 
     const handleBlur = () => {
-      if (isExamActiveRef.current) {
-        handleInstantTermination("TAB_SWITCH", "Window focus lost. Unauthorized switching detected.");
+      if (isExamActiveRef.current && !hasTerminatedRef.current) {
+        if (proctorEngineRef.current) {
+          proctorEngineRef.current.forceWarning('tab_switch');
+        } else {
+          onViolation("TAB_SWITCH_WARNING", "Window focus lost. Unauthorized switching detected.");
+        }
       }
     };
 
     const handleFullScreenExit = () => {
-      if (!document.fullscreenElement && isExamActiveRef.current && isFullscreenInitialized.current) {
-        handleInstantTermination("FULLSCREEN_EXIT", "Exit from full-screen mode prohibited during assessment.");
+      if (isExamActiveRef.current && !document.fullscreenElement && isFullscreenInitialized.current && !hasTerminatedRef.current) {
+        if (proctorEngineRef.current) {
+          proctorEngineRef.current.forceWarning('tab_switch');
+        } else {
+          onViolation("FULLSCREEN_EXIT_WARNING", "Fullscreen mode exited.");
+        }
       }
     };
 
     const handleKeys = (e: KeyboardEvent) => {
-      if (!isExamActiveRef.current) return;
-      if (e.key === 'PrintScreen' || (e.metaKey && e.shiftKey && (e.key === 's' || e.key === 'S')) || (e.ctrlKey && (e.key === 'p' || e.key === 'P'))) {
-        handleInstantTermination("SCREENSHOT", "Unauthorized screenshot or printing attempt detected.");
+      if (isExamActiveRef.current && (e.key === "PrintScreen" || e.key === "F12" || (e.metaKey && e.shiftKey && (e.key === 's' || e.key === 'S')) || (e.ctrlKey && (e.key === 'p' || e.key === 'P'))) && !hasTerminatedRef.current) {
+        if (proctorEngineRef.current) {
+          proctorEngineRef.current.forceWarning('devtools_screenshot');
+        } else {
+          onViolation("SCREENSHOT_WARNING", "PrintScreen, F12, or screenshot attempt detected.");
+        }
       }
     };
 
@@ -489,26 +510,54 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
           // instantiate proctor engine once models loaded
           proctorEngineRef.current = new AIProctoringSystem({
             devMode: true,
-            minSecondsForViolation: 15,
-            multipleFaceSeconds: 15,
+            minSecondsForViolation: 10,
+            multipleFaceSeconds: 5,
             phoneSeconds: 5000,
             noiseSeconds: 5000,
-            evaluateIntervalMs: 800,
+            evaluateIntervalMs: 500,
             onWarning: (level, label) => {
               warningCountRef.current = level;
               setProctorLevel(level);
               setCameraHealthState(level >= 3 ? 'violation' : 'warning');
               const msg = label.replace(/_/g, ' ').toUpperCase();
+              
+              // Audio Beep
+              try {
+                const audioCtx = audioContextRef.current || new (window.AudioContext || (window as any).webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                oscillator.type = 'square';
+                oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.3);
+                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.3);
+              } catch(e) {}
+
+              let uiMsg = "Please stay focused on the screen.";
+              if (label === 'face_missing') uiMsg = "Face not detected. Please stay visible.";
+              else if (label === 'eyes_off') uiMsg = "Please focus on the examination screen.";
+              else if (label === 'head_turned') uiMsg = "Suspicious head movement detected.";
+              else if (label === 'multiple_faces') uiMsg = "Multiple persons detected.";
+              else if (label === 'phone') uiMsg = "Mobile device detected.";
+              else if (label === 'loud_noise') uiMsg = "Background noise detected.";
+              else if (label === 'tab_switch') uiMsg = "Tab switching is prohibited.";
+              else if (label === 'devtools_screenshot') uiMsg = "Unauthorized key combination detected.";
+              
               if (level === 1) {
                 cooldownUntilRef.current = Date.now() + 2 * 60 * 1000;
-                setActiveWarningModal({ number: 1, message: `Observed: ${msg}` });
+                setActiveWarningModal({ number: 1, message: uiMsg });
                 onViolation("WARNING_1", `Observed: ${msg}`);
               } else if (level === 2) {
                 cooldownUntilRef.current = Date.now() + 5 * 60 * 1000;
-                setActiveWarningModal({ number: 2, message: `Repeated: ${msg}` });
+                setActiveWarningModal({ number: 2, message: `Suspicious activity detected. ${uiMsg}` });
                 onViolation("WARNING_2", `Repeated: ${msg}`);
               } else if (level >= 3) {
-                setActiveWarningModal({ number: 3, message: `Final: ${msg}` });
+                setActiveWarningModal({ number: 3, message: `Exam auto-submitted due to repeated violations.` });
                 onViolation("WARNING_3", `Final: ${msg}`);
                 handleInstantTermination('FINAL_VIOLATION', `Repeated violations: ${msg}`);
               }
@@ -534,12 +583,17 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
       const snapshotIntervalMs = 60000;
 
       const processFrame = async (timestamp: number) => {
-        if (!shouldContinueProctoring()) return;
+        if (!isMounted.current) return;
+        if (!isExamActiveRef.current || hasTerminatedRef.current) {
+          visualFrameRef.current = window.requestAnimationFrame(processFrame);
+          return;
+        }
+        
         if (isProcessingFrame) {
           visualFrameRef.current = window.requestAnimationFrame(processFrame);
           return;
         }
-        if (timestamp - lastProcessTime < 1200) {
+        if (timestamp - lastProcessTime < 500) {
           visualFrameRef.current = window.requestAnimationFrame(processFrame);
           return;
         }
@@ -623,13 +677,12 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
           }
 
           if (faces.length === 0) {
-            // Increment missing face counter (seconds approximated by frame cadence)
+            console.log("No face detected");
             missingFaceSecRef.current += 1;
-            // clearer status and avoid broken glyph
             setHealthStatus(prev => ({ ...prev, face: "🔴 Face Missing" }));
-            // record detection for proctoring evaluation
             proctorEngineRef.current?.recordDetection({ type: 'face_missing', confidence: 0.95 });
           } else {
+            if (frameCount % 60 === 0) console.log("Face detected");
             missingFaceSecRef.current = Math.max(0, missingFaceSecRef.current - 1);
             const faceData = detectionEngineRef.current?.analyzeFacePosition(faces, video.videoWidth, video.videoHeight);
             if (faceData) {
@@ -675,6 +728,7 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
             phoneAnalysis?.detected && phoneAnalysis.confidence >= 0.78 && phoneAnalysis.type !== 'none'
           ) || secondaryScreenCandidates.length > 0;
           if (phoneDetected) {
+            console.log("Phone detected");
             phoneSecRef.current += 0.5;
             const phoneType = phoneAnalysis?.type || secondaryScreenCandidates[0]?.class || 'Handheld Device';
             const confidence = Math.max(phoneAnalysis?.confidence || 0, secondaryScreenCandidates[0]?.score || 0.72);
@@ -998,41 +1052,65 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
 
       {/* Professional Warning Modal Overlay */}
       <AnimatePresence>
-        {activeWarningModal && activeWarningModal.number < 3 && (
-          <div className="fixed inset-0 z-99999 bg-black/85 backdrop-blur-md flex items-center justify-center p-6 font-sans">
+        {activeWarningModal && (
+          <div className="fixed inset-0 z-[999999] bg-black/85 backdrop-blur-md flex items-start justify-center pt-24 p-6 font-sans">
+            <div className="absolute top-0 left-0 w-full p-4 flex justify-center">
+              <div className="bg-red-600 text-white px-6 py-2 rounded-b-xl font-bold uppercase tracking-widest text-sm shadow-lg animate-pulse">
+                Proctoring Alert
+              </div>
+            </div>
             <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="bg-slate-950 border border-orange-500/50 rounded-3xl p-8 max-w-xl w-full shadow-[0_0_80px_rgba(249,115,22,0.3)] text-center space-y-6"
+              initial={{ opacity: 0, scale: 0.9, y: -20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className={`border rounded-3xl p-8 max-w-xl w-full text-center space-y-6 shadow-2xl relative ${
+                activeWarningModal.number >= 3 ? 'bg-red-950 border-red-500 shadow-[0_0_80px_rgba(220,38,38,0.5)]' :
+                activeWarningModal.number === 2 ? 'bg-orange-950 border-orange-500 shadow-[0_0_80px_rgba(249,115,22,0.4)]' :
+                'bg-yellow-950 border-yellow-500 shadow-[0_0_80px_rgba(234,179,8,0.3)]'
+              }`}
             >
-              <div className="w-16 h-16 bg-orange-500/20 text-orange-500 rounded-full flex items-center justify-center mx-auto text-2xl font-black shadow-[0_0_30px_#F97316]">
-                <AlertTriangle className="w-8 h-8 animate-bounce" />
+              <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-black ${
+                activeWarningModal.number >= 3 ? 'bg-red-500/20 text-red-500 shadow-[0_0_30px_#ef4444]' :
+                activeWarningModal.number === 2 ? 'bg-orange-500/20 text-orange-500 shadow-[0_0_30px_#f97316]' :
+                'bg-yellow-500/20 text-yellow-500 shadow-[0_0_30px_#eab308]'
+              }`}>
+                <AlertTriangle className="w-8 h-8 animate-ping" />
               </div>
               <div>
-                <h2 className="text-xl font-black text-white uppercase tracking-widest mb-2">
+                <h2 className={`text-xl font-black uppercase tracking-widest mb-2 ${
+                  activeWarningModal.number >= 3 ? 'text-red-400' :
+                  activeWarningModal.number === 2 ? 'text-orange-400' :
+                  'text-yellow-400'
+                }`}>
                   AI Proctoring Integrity Notice (Warning {activeWarningModal.number} of 3)
                 </h2>
-                <p className="text-sm font-bold text-slate-300">
+                <p className="text-lg font-bold text-white">
                   {activeWarningModal.message}
                 </p>
               </div>
               <div className="p-4 bg-slate-900/80 rounded-2xl text-left space-y-2 border border-slate-800">
-                <div className="text-xs font-black text-orange-400 uppercase tracking-wider flex items-center gap-2">
+                <div className="text-xs font-black text-slate-300 uppercase tracking-wider flex items-center gap-2">
                   <Shield className="w-3.5 h-3.5" /> Neural Observation Protocol Engaged
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed">
                   {activeWarningModal.number === 1 
                     ? "Our neural vision engine will conduct quiet observation for the next 2 minutes. Please keep your eyes centered on the test interface and maintain a professional posture."
-                    : "Strict critical observation protocol is active for the next 5 minutes. Any further focus loss, device detection, or acoustic abnormality will initiate an automatic final session termination."}
+                    : activeWarningModal.number === 2
+                    ? "Strict critical observation protocol is active. Any further focus loss, device detection, or acoustic abnormality will initiate an automatic final session termination."
+                    : "The exam is being auto-submitted as you have reached the maximum number of allowed violations."}
                 </p>
               </div>
-              <button 
-                onClick={() => setActiveWarningModal(null)}
-                className="px-8 py-3.5 bg-linear-to-r from-orange-500 to-[#FF5A1F] text-black font-black uppercase text-xs tracking-widest rounded-xl hover:opacity-90 transition-all shadow-lg cursor-pointer w-full"
-              >
-                I Acknowledge and Will Focus on Exam Screen
-              </button>
+              {activeWarningModal.number < 3 && (
+                <button 
+                  onClick={() => setActiveWarningModal(null)}
+                  className={`px-8 py-3.5 font-black uppercase text-xs tracking-widest rounded-xl hover:opacity-90 transition-all shadow-lg cursor-pointer w-full text-black ${
+                    activeWarningModal.number === 2 ? 'bg-linear-to-r from-orange-500 to-[#FF5A1F]' :
+                    'bg-linear-to-r from-yellow-400 to-yellow-500'
+                  }`}
+                >
+                  I Acknowledge and Will Focus on Exam Screen
+                </button>
+              )}
             </motion.div>
           </div>
         )}

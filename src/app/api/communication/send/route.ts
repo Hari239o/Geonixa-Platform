@@ -13,7 +13,14 @@ export async function POST(req: Request) {
     let attachments: any[] = [];
     let dispatchType: any = "COMPLETION";
 
-    if (type === "COMPLETION" || type === "ASSESSMENT_REPORT") {
+    if (type === "COMPLETION") {
+      dispatchType = "COMPLETION";
+      subject = "Assessment Successfully Completed";
+      html = emailService.getCompletionTemplate({
+        name: candidateName || candidateEmail.split('@')[0],
+        timestamp: new Date().toLocaleString()
+      });
+    } else if (type === "ASSESSMENT_REPORT") {
       dispatchType = "ASSESSMENT_REPORT";
       subject = "Official Assessment Report: Geonixa Technical Evaluation";
 
