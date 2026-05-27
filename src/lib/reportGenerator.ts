@@ -259,12 +259,11 @@ export class ReportGeneratorService {
     doc.setFont("helvetica", "bold");
     doc.setTextColor(100, 116, 139); // Slate 500
     doc.text("Candidate Name:", 23, 67);
-    doc.text("Email Reference:", 23, 75);
+    doc.text("Registered Email:", 23, 75);
     doc.text("Institution:", 23, 83);
 
     doc.text("Evaluation Track:", 115, 67);
-    doc.text("Session Window:", 115, 75);
-    doc.text("Exam Duration:", 115, 83);
+    doc.text("Exam Duration:", 115, 75);
 
     doc.setFont("helvetica", "normal");
     doc.setTextColor(15, 23, 42);
@@ -273,8 +272,7 @@ export class ReportGeneratorService {
     doc.text(data.college.length > 25 ? data.college.substring(0, 25) + "..." : data.college, 58, 83);
 
     doc.text(data.domain, 148, 67);
-    doc.text(data.slot.split(" - ")[0] || "Active Slot", 148, 75);
-    doc.text(data.totalDuration, 148, 83);
+    doc.text(data.totalDuration, 148, 75);
 
     // =========================================================================
     // 3. ASSESSMENT SCORECARD
@@ -324,165 +322,6 @@ export class ReportGeneratorService {
     doc.text(`OVERALL GRADE: ${data.totalScore} / ${data.maxTotalScore} (${data.percentage}%)  •  STATUS: ${data.qualificationStatus}`, 24, currentY + 11.5);
 
     currentY += 28;
-
-    // =========================================================================
-    // 5. TECHNICAL EXECUTION TELEMETRY (IF CODING)
-    // =========================================================================
-    if (data.codingRoundDetails && data.codingRoundDetails.length > 0) {
-      doc.setTextColor(15, 23, 42);
-      doc.setFontSize(14);
-      doc.setFont("helvetica", "bold");
-      doc.text("CODING SECTION TELEMETRY", 18, currentY);
-
-      const codingBody = data.codingRoundDetails.map(c => [
-        c.title,
-        `${c.passedTestcases} / ${c.totalTestcases}`,
-        `${c.runtime} ms`,
-        `${(c.memory / 1024).toFixed(1)} MB`,
-        c.language.toUpperCase(),
-        c.verdict === 'ACCEPTED' ? 'ACCEPTED (100%)' : c.verdict
-      ]);
-
-      autoTable(doc, {
-        startY: currentY + 4,
-        head: [["Problem Title", "Testcases", "Runtime", "Peak Memory", "Language", "Verdict"]],
-        body: codingBody,
-        theme: 'grid',
-        headStyles: { fillColor: [51, 65, 85], textColor: [255, 255, 255] },
-        styles: { fontSize: 9, cellPadding: 5 },
-        columnStyles: {
-          0: { fontStyle: 'bold' },
-          1: { halign: 'center' },
-          2: { halign: 'center' },
-          3: { halign: 'center' },
-          4: { halign: 'center' },
-          5: { fontStyle: 'bold', halign: 'center' }
-        }
-      });
-
-      currentY = (doc as any).lastAutoTable.finalY + 14;
-    }
-
-    // Check page split
-    if (currentY > pageHeight - 90) {
-      doc.addPage();
-      currentY = 25;
-    }
-
-    // =========================================================================
-    // 6. AI PROCTORING & INTEGRITY AUDIT
-    // =========================================================================
-    doc.setTextColor(15, 23, 42);
-    doc.setFontSize(14);
-    doc.setFont("helvetica", "bold");
-    doc.text("AI PROCTORING & INTEGRITY AUDIT", 18, currentY);
-
-    doc.setFillColor(248, 250, 252);
-    doc.setDrawColor(226, 232, 240);
-    doc.rect(18, currentY + 4, pageWidth - 36, 26, 'FD');
-
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "bold");
-    doc.setTextColor(100, 116, 139);
-    doc.text("AI Trust Index:", 23, currentY + 12);
-    doc.text("Plagiarism Similarity:", 23, currentY + 20);
-    doc.text("Proctoring Violations:", 115, currentY + 12);
-    doc.text("Integrity Verdict:", 115, currentY + 20);
-
-    doc.setFont("helvetica", "bold");
-    doc.setTextColor(data.aiTrustScore >= 90 ? 5 : 220, data.aiTrustScore >= 90 ? 150 : 38, data.aiTrustScore >= 90 ? 105 : 38);
-    doc.text(`${data.aiTrustScore}%`, 62, currentY + 12);
-
-    doc.setTextColor(5, 150, 105);
-    doc.text(`${data.plagiarismScore}% (Authentic Submissions)`, 62, currentY + 20);
-
-    doc.setTextColor(data.proctoringViolationsCount === 0 ? 5 : 220, data.proctoringViolationsCount === 0 ? 150 : 38, data.proctoringViolationsCount === 0 ? 105 : 38);
-    doc.text(`${data.proctoringViolationsCount} Logged Events`, 158, currentY + 12);
-
-    doc.setTextColor(data.proctoringVerdict === 'CLEAN' ? 5 : 220, data.proctoringVerdict === 'CLEAN' ? 150 : 38, data.proctoringVerdict === 'CLEAN' ? 105 : 38);
-    doc.text(data.proctoringVerdict, 158, currentY + 20);
-
-    currentY += 38;
-
-    // =========================================================================
-    // 7. EVALUATION LEAD REMARKS & SIGN-OFF
-    // =========================================================================
-    doc.setTextColor(15, 23, 42);
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("TECHNICAL COMMITTEE EVALUATION", 18, currentY);
-
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "italic");
-    doc.setTextColor(71, 85, 105);
-    const splitRemarks = doc.splitTextToSize(`"${data.evaluationRemarks}"`, pageWidth - 36);
-    doc.text(splitRemarks, 18, currentY + 7);
-
-    currentY += 28;
-
-    // QR Verification & Signatures
-    try {
-      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(data.verificationUrl)}`;
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
-      const qrRes = await fetch(qrUrl, { signal: controller.signal });
-      clearTimeout(timeoutId);
-      if (qrRes.ok) {
-        const qrBuffer = await qrRes.arrayBuffer();
-        doc.addImage(new Uint8Array(qrBuffer), 'PNG', 18, currentY, 32, 32);
-      } else {
-        throw new Error("QR API failed");
-      }
-    } catch (e) {
-      doc.setDrawColor(0, 0, 0);
-      doc.rect(18, currentY, 32, 32);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(8);
-      doc.text("VERIFIED", 24, currentY + 15);
-      doc.text("SECURE QR", 23, currentY + 20);
-    }
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.setTextColor(15, 23, 42);
-    doc.text("SCAN TO VERIFY AUTHENTICITY", 54, currentY + 8);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9);
-    doc.setTextColor(100, 116, 139);
-    doc.text(`Verification ID: ${data.reportId}`, 54, currentY + 14);
-    doc.text(`Official Hash: ${data.verificationHash}`, 54, currentY + 19);
-    doc.setTextColor(37, 99, 235);
-    doc.text(data.verificationUrl, 54, currentY + 25);
-
-    // Official Committee Signature Block (Right aligned)
-    doc.setDrawColor(15, 23, 42);
-    doc.setLineWidth(0.5);
-    doc.line(pageWidth - 75, currentY + 22, pageWidth - 18, currentY + 22);
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.setTextColor(15, 23, 42);
-    doc.text("Geonixa Evaluation Committee", pageWidth - 46.5, currentY + 27, { align: 'center' });
-    doc.setFont("helvetica", "italic");
-    doc.setFontSize(8);
-    doc.setTextColor(100, 116, 139);
-    doc.text("Authorized Digital Sign-off", pageWidth - 46.5, currentY + 31, { align: 'center' });
-
-    // =========================================================================
-    // 8. FOOTER ACROSS ALL PAGES
-    // =========================================================================
-    const pageCount = (doc as any).internal.getNumberOfPages();
-    for (let i = 1; i <= pageCount; i++) {
-      doc.setPage(i);
-      doc.setDrawColor(226, 232, 240);
-      doc.line(18, pageHeight - 16, pageWidth - 18, pageHeight - 16);
-
-      doc.setFont("helvetica", "italic");
-      doc.setFontSize(8);
-      doc.setTextColor(148, 163, 184);
-      doc.text("Confidential & Tamper-Proof Document • Issued by Geonixa Assessment Core", 18, pageHeight - 11);
-      doc.text(`Page ${i} of ${pageCount}`, pageWidth - 18, pageHeight - 11, { align: 'right' });
-    }
 
     // Return Uint8Array
     const arrayBuffer = doc.output('arraybuffer');

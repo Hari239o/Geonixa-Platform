@@ -33,120 +33,113 @@ export default function Login() {
     setIsLoading(true);
     setError("");
 
-    if (typeof window !== "undefined") {
-      const isAdminEmail = email === "talent@geonixa.com";
+    if (email === "talent@geonixa.com") {
+      window.location.href = "/auth/admin-login";
+      return;
+    }
 
-      if (isAdminEmail) {
-        if (password === "talent@9908") {
-          localStorage.setItem("geonixa_current_user", email);
-          window.location.href = "/admin/dashboard";
-          return;
-        } 
-        if (password === "9908") {
-          localStorage.setItem("geonixa_current_user", email);
-          localStorage.setItem(`geonixa_domain_${email}`, "Full-Stack");
-          setTargetEmail(email);
-          setIsSuccess(true);
+    try {
+      const { verifyCandidateFirebase, getCandidateProfile } = await import('@/lib/firebase');
+      const status = await verifyCandidateFirebase(email, password);
+
+      if (status === "SUCCESS") {
+        // Clear stale session cache on fresh login
+        localStorage.removeItem("geonixa_student_profile");
+        localStorage.removeItem(`geonixa_r1_answers_${email}`);
+        localStorage.removeItem(`geonixa_r2_answers_${email}`);
+        localStorage.removeItem(`geonixa_r3_texts_${email}`);
+        const profile = await getCandidateProfile(email);
+
+        if (profile?.day && profile?.slot) {
+          try {
+            const parts = profile.slot.split(' - ');
+            if (parts.length === 2) {
+              const startPart = parts[0].trim();
+              const endPart = parts[1].trim();
+
+              const [startTime, startModifier] = startPart.split(' ');
+              let [startHours, startMinutes] = startTime.split(':').map(Number);
+              if (startModifier === 'PM' && startHours !== 12) startHours += 12;
+              if (startModifier === 'AM' && startHours === 12) startHours = 0;
+
+              const [endTime, endModifier] = endPart.split(' ');
+              let [endHours, endMinutes] = endTime.split(':').map(Number);
+              if (endModifier === 'PM' && endHours !== 12) endHours += 12;
+              if (endModifier === 'AM' && endHours === 12) endHours = 0;
+
+              const [year, month, date] = profile.day.split('-').map(Number);
+              const slotStart = new Date(year, month - 1, date, startHours, startMinutes, 0, 0);
+              const slotEnd = new Date(year, month - 1, date, endHours, endMinutes, 0, 0);
+              const now = new Date();
+
+              if (now > slotEnd) {
+                setError("SLOT_EXPIRED: Your allocated examination slot has concluded. Pass-keys are PERMANENTLY INVALIDATED beyond slot end time. No re-entry permitted.");
+                localStorage.setItem(`geonixa_passkey_expired_${email}`, "true");
+                setIsLoading(false);
+                return;
+              }
+
+              if (now < slotStart) {
+                const waitMinutes = Math.ceil((slotStart.getTime() - now.getTime()) / 60000);
+                setError(`SLOT_PENDING: Your examination is scheduled to begin at ${startPart}. Please return in ${waitMinutes} minute(s). Early access is strictly prohibited.`);
+                setIsLoading(false);
+                return;
+              }
+
+              localStorage.removeItem(`geonixa_passkey_expired_${email}`);
+              localStorage.setItem(`geonixa_slot_start_${email}`, slotStart.toISOString());
+              localStorage.setItem(`geonixa_slot_end_${email}`, slotEnd.toISOString());
+            }
+          } catch (e) {
+            console.error("Strict slot validation error:", e);
+            setError("SLOT_VALIDATION_ERROR: Unable to validate slot timing. Contact administrator.");
+            setIsLoading(false);
+            return;
+          }
+        }
+
+        const authResponse = await fetch('/api/auth/firebase-login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, passKey: password }),
+          credentials: 'include',
+        });
+
+        const authData = await authResponse.json();
+        if (!authResponse.ok || !authData.ok) {
+          setError(authData.error || 'Unable to establish secure session');
+          setIsLoading(false);
           return;
         }
-        setError("Invalid secure administrator credentials.");
+
+        localStorage.setItem("geonixa_current_user", email);
+        localStorage.setItem("geonixa_student_profile", JSON.stringify(profile));
+        if (profile?.domain) localStorage.setItem(`geonixa_domain_${email}`, profile.domain);
+        if (profile?.name) localStorage.setItem('geonixa_current_user_name', profile.name);
+        localStorage.setItem('geonixa_current_user_role', 'student');
+        setTargetEmail(email);
+        setIsSuccess(true);
         setIsLoading(false);
         return;
+      } else if (status === "COMPLETED") {
+        setError("IDENTITY_LOCKED: Our records indicate you have already completed this assessment. Multiple attempts are strictly prohibited.");
+      } else if (status === "SLOT_EXPIRED") {
+        setError("SLOT_EXPIRED: Your assigned exam slot has already elapsed. The pass-key has been revoked and access is permanently blocked.");
+      } else if (status === "SLOT_PENDING") {
+        setError("SLOT_PENDING: Your exam slot is not yet active. Please return at the scheduled start time.");
+      } else if (status === "SLOT_INVALID") {
+        setError("SLOT_INVALID: Your slot metadata is invalid. Contact administrator immediately.");
+      } else if (status === "INVALID_PASS") {
+        setError("Authentication failed: Incorrect pass-key.");
+      } else {
+        setError("Identity not found in corporate database.");
       }
-
-      try {
-        const { verifyCandidateFirebase, getCandidateProfile } = await import('@/lib/firebase');
-        const status = await verifyCandidateFirebase(email, password);
-
-        if (status === "SUCCESS") {
-          // Clear stale session cache on fresh login
-          localStorage.removeItem("geonixa_student_profile");
-          localStorage.removeItem(`geonixa_r1_answers_${email}`);
-          localStorage.removeItem(`geonixa_r2_answers_${email}`);
-          localStorage.removeItem(`geonixa_r3_texts_${email}`);
-          const profile = await getCandidateProfile(email);
-          
-          // ═══════════════════════════════════════════════════════════════════════
-          // ENTERPRISE-GRADE SLOT TIMING ENFORCEMENT
-          // ═══════════════════════════════════════════════════════════════════════
-          if (profile?.day && profile?.slot) {
-            try {
-              const parts = profile.slot.split(' - ');
-              if (parts.length === 2) {
-                // Parse slot start and end times
-                const startPart = parts[0].trim(); // e.g., "10:00 AM"
-                const endPart = parts[1].trim();   // e.g., "11:30 AM"
-                
-                // Parse start time
-                const [startTime, startModifier] = startPart.split(' ');
-                let [startHours, startMinutes] = startTime.split(':').map(Number);
-                if (startModifier === 'PM' && startHours !== 12) startHours += 12;
-                if (startModifier === 'AM' && startHours === 12) startHours = 0;
-                
-                // Parse end time
-                const [endTime, endModifier] = endPart.split(' ');
-                let [endHours, endMinutes] = endTime.split(':').map(Number);
-                if (endModifier === 'PM' && endHours !== 12) endHours += 12;
-                if (endModifier === 'AM' && endHours === 12) endHours = 0;
-                
-                const [year, month, date] = profile.day.split('-').map(Number);
-                const slotStart = new Date(year, month - 1, date, startHours, startMinutes, 0, 0);
-                const slotEnd = new Date(year, month - 1, date, endHours, endMinutes, 0, 0);
-                const now = new Date();
-                
-                // DENY: Slot has already expired
-                if (now > slotEnd) {
-                  setError("SLOT_EXPIRED: Your allocated examination slot has concluded. Pass-keys are PERMANENTLY INVALIDATED beyond slot end time. No re-entry permitted.");
-                  localStorage.setItem(`geonixa_passkey_expired_${email}`, "true");
-                  setIsLoading(false);
-                  return;
-                }
-                
-                // DENY: Attempting to access before slot starts
-                if (now < slotStart) {
-                  const waitMinutes = Math.ceil((slotStart.getTime() - now.getTime()) / 60000);
-                  setError(`SLOT_PENDING: Your examination is scheduled to begin at ${startPart}. Please return in ${waitMinutes} minute(s). Early access is strictly prohibited.`);
-                  setIsLoading(false);
-                  return;
-                }
-                
-                // ALLOW: Current time is within allocated slot window [START, END)
-                localStorage.removeItem(`geonixa_passkey_expired_${email}`);
-                localStorage.setItem(`geonixa_slot_start_${email}`, slotStart.toISOString());
-                localStorage.setItem(`geonixa_slot_end_${email}`, slotEnd.toISOString());
-              }
-            } catch (e) {
-              console.error("Strict slot validation error:", e);
-              setError("SLOT_VALIDATION_ERROR: Unable to validate slot timing. Contact administrator.");
-              setIsLoading(false);
-              return;
-            }
-          }
-
-          localStorage.setItem("geonixa_current_user", email);
-          localStorage.setItem("geonixa_student_profile", JSON.stringify(profile));
-          if (profile?.domain) localStorage.setItem(`geonixa_domain_${email}`, profile.domain);
-          setTargetEmail(email);
-          setIsSuccess(true);
-          return;
-        } else if (status === "COMPLETED") {
-          setError("IDENTITY_LOCKED: Our records indicate you have already completed this assessment. Multiple attempts are strictly prohibited.");
-        } else if (status === "SLOT_EXPIRED") {
-          setError("SLOT_EXPIRED: Your assigned exam slot has already elapsed. The pass-key has been revoked and access is permanently blocked.");
-        } else if (status === "SLOT_PENDING") {
-          setError("SLOT_PENDING: Your exam slot is not yet active. Please return at the scheduled start time.");
-        } else if (status === "SLOT_INVALID") {
-          setError("SLOT_INVALID: Your slot metadata is invalid. Contact administrator immediately.");
-        } else if (status === "INVALID_PASS") {
-          setError("Authentication failed: Incorrect pass-key.");
-        } else {
-          setError("Identity not found in corporate database.");
-        }
-      } catch (err) {
-        setError("Secure Pipeline Error. Check connectivity.");
-      } finally {
-        setIsLoading(false);
-      }
+    } catch (err) {
+      setError("Secure Pipeline Error. Check connectivity.");
+    } finally {
+      setIsLoading(false);
     }
   };
 

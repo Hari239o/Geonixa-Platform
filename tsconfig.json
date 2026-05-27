@@ -42,5 +42,7 @@
     "IMPLEMENTATION_SUMMARY.ts",
     "INTEGRATION_EXAMPLE_CODEEDITOR.tsx",
     "REPORT_DISTRIBUTION_SAMPLE_INTEGRATION.ts",
+    "Exam Platform",
+    "Exam Platform/**"
   ]
 }

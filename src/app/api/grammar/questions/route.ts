@@ -1,13 +1,9 @@
 import { NextResponse } from 'next/server';
-import GrammarQuestion from '@/lib/models/GrammarQuestion';
-import dbConnect from '@/lib/db';
+import { getFirestoreDb } from '@/lib/firestore';
 
 // GET: Fetch randomized grammar questions for a student
 export async function GET(req: Request) {
   try {
-    await dbConnect();
-
-    // Parse query params
     const url = new URL(req.url);
     const studentId = url.searchParams.get('studentId');
 
@@ -15,20 +11,18 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'Student ID is required' }, { status: 400 });
     }
 
-    // Fetch 30 randomized questions
-    const questions = await GrammarQuestion.aggregate([
-      { $match: { difficulty: 'very-hard' } },
-      { $sample: { size: 30 } },
-    ]);
+    const db = getFirestoreDb();
+    const questionsSnapshot = await db.collection('grammarQuestions').where('difficulty', '==', 'very-hard').get();
+    const questions = questionsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const shuffled = questions.sort(() => Math.random() - 0.5).slice(0, 30);
 
-    // Shuffle options for each question
-    const randomizedQuestions = questions.map((question) => {
-      const shuffledOptions = question.options.sort(() => Math.random() - 0.5);
-      return { ...question, options: shuffledOptions };
-    });
+    const randomizedQuestions = shuffled.map((question: any) => ({
+      ...question,
+      options: Array.isArray(question.options) ? [...question.options].sort(() => Math.random() - 0.5) : question.options,
+    }));
 
     return NextResponse.json(randomizedQuestions);
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch questions' }, { status: 500 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message || 'Failed to fetch questions' }, { status: 500 });
   }
 }

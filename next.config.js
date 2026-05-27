@@ -1,15 +1,13 @@
 /** @type {import('next').NextConfig} */
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000';
-
 const nextConfig = {
   reactStrictMode: true,
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: `${API_BASE}/api/:path*`,
-      },
-    ];
+  // Vercel deployment uses built-in API routing, no rewrites needed
+  // The /src/app/api routes are automatically exposed as /api/* endpoints
+  poweredByHeader: false,
+  compress: true,
+  productionBrowserSourceMaps: false,
+  images: {
+    formats: ['image/avif', 'image/webp'],
   },
 };
 

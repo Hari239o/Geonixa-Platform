@@ -11,6 +11,8 @@ export type ProctorOptions = {
   minConfidence?: number;
   minSecondsForViolation?: number;
   multipleFaceSeconds?: number;
+  phoneSeconds?: number;
+  noiseSeconds?: number;
   evaluateIntervalMs?: number;
   onWarning?: (level: number, type: string) => void;
   onTerminate?: (reason: string) => void;
@@ -29,7 +31,9 @@ export class AIProctoringSystem {
       minConfidence: opts?.minConfidence ?? 0.85,
       minSecondsForViolation: opts?.minSecondsForViolation ?? 15,
       multipleFaceSeconds: opts?.multipleFaceSeconds ?? 15,
-      evaluateIntervalMs: opts?.evaluateIntervalMs ?? 900,
+      phoneSeconds: opts?.phoneSeconds ?? 5000,
+      noiseSeconds: opts?.noiseSeconds ?? 5000,
+      evaluateIntervalMs: opts?.evaluateIntervalMs ?? 800,
       onWarning: opts?.onWarning ?? (() => {}),
       onTerminate: opts?.onTerminate ?? (() => {}),
       devMode: opts?.devMode ?? false,
@@ -71,12 +75,12 @@ export class AIProctoringSystem {
 
   private evaluate() {
     const now = Date.now();
-    this.evaluatePersistentViolation('face_missing', (r) => r.type === 'face_missing', this.consecutiveWindowMs, this.opts.minConfidence, now);
-    this.evaluatePersistentViolation('head_turned', (r) => r.type === 'head_turned', this.consecutiveWindowMs, this.opts.minConfidence, now);
-    this.evaluatePersistentViolation('eyes_off', (r) => r.type === 'eyes_off', this.consecutiveWindowMs, this.opts.minConfidence, now);
-    this.evaluatePersistentViolation('multiple_faces', (r) => r.type === 'multiple_faces', this.opts.multipleFaceSeconds * 1000, this.opts.minConfidence, now);
-    this.evaluatePersistentViolation('phone', (r) => r.type === 'phone', this.consecutiveWindowMs, 0.90, now);
-    this.evaluatePersistentViolation('loud_noise', (r) => r.type === 'loud_noise', this.consecutiveWindowMs, this.opts.minConfidence, now);
+    this.evaluatePersistentViolation('face_missing', (r) => r.type === 'face_missing', this.consecutiveWindowMs, 0.75, now);
+    this.evaluatePersistentViolation('head_turned', (r) => r.type === 'head_turned', this.consecutiveWindowMs, 0.75, now);
+    this.evaluatePersistentViolation('eyes_off', (r) => r.type === 'eyes_off', this.consecutiveWindowMs, 0.75, now);
+    this.evaluatePersistentViolation('multiple_faces', (r) => r.type === 'multiple_faces', this.opts.multipleFaceSeconds * 1000, 0.80, now);
+    this.evaluatePersistentViolation('phone', (r) => r.type === 'phone', this.opts.phoneSeconds, 0.75, now);
+    this.evaluatePersistentViolation('loud_noise', (r) => r.type === 'loud_noise', this.opts.noiseSeconds, 0.75, now);
   }
 
   private evaluatePersistentViolation(
@@ -86,8 +90,9 @@ export class AIProctoringSystem {
     confidenceThreshold: number,
     now: number
   ) {
-    const relevant = this.frameBuffer.filter((r) => predicate(r) && (r.confidence ?? 0) >= confidenceThreshold);
-    if (this.opts.devMode) this.devLog('evaluate', { label, count: relevant.length, requiredMs, confidenceThreshold });
+    const threshold = Math.max(confidenceThreshold, this.opts.minConfidence);
+    const relevant = this.frameBuffer.filter((r) => predicate(r) && (r.confidence ?? 0) >= threshold);
+    if (this.opts.devMode) this.devLog('evaluate', { label, count: relevant.length, requiredMs, threshold });
     if (relevant.length === 0) return;
     const streak = this.computeLongestStreak(relevant);
     if (streak >= requiredMs) {
@@ -108,7 +113,7 @@ export class AIProctoringSystem {
     let longest = 0;
     let seqStart = times[0];
     let last = times[0];
-    const gapThreshold = 1200;
+    const gapThreshold = Math.max(4000, this.opts.evaluateIntervalMs * 3);
     for (let i = 1; i < times.length; i++) {
       const t = times[i];
       if (t - last <= gapThreshold) {

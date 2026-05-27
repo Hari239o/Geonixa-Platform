@@ -1,12 +1,10 @@
-import React from 'react';
-import AdminDashboard from '@/components/admin/AdminDashboard';
+import ProtectedLayout from '@/components/dashboard/ProtectedLayout';
+import AdminDashboardComponent from '@/components/dashboard/AdminDashboard';
 
-const AdminPage = () => {
+export default function AdminPage() {
   return (
-    <div className="admin-page">
-      <AdminDashboard />
-    </div>
+    <ProtectedLayout requiredRole="admin" title="Admin Dashboard">
+      <AdminDashboardComponent />
+    </ProtectedLayout>
   );
-};
-
-export default AdminPage;
+}

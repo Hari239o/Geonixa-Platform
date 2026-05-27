@@ -16,6 +16,7 @@ interface EmailOptions {
 
 class EmailService {
   private transporter: nodemailer.Transporter | null = null;
+  private isEtherealFallback = false;
 
   constructor() {}
 
@@ -38,6 +39,11 @@ class EmailService {
     let smtpUser = process.env.SMTP_USER;
     let smtpPass = process.env.SMTP_PASS;
 
+    const normalizeEnvValue = (value: string) => {
+      const trimmed = value.trim();
+      return trimmed.replace(/^"(.*)"$/s, "$1").replace(/^\'(.*)\'$/s, "$1");
+    };
+
     try {
       const envPath = path.resolve(process.cwd(), '.env.local');
       if (fs.existsSync(envPath)) {
@@ -45,16 +51,16 @@ class EmailService {
         const envConfig: Record<string, string> = {};
         envContent.split('\n').forEach(line => {
           const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
-          if (match && match[2]) envConfig[match[1]] = match[2].trim();
+          if (match && match[2]) envConfig[match[1]] = normalizeEnvValue(match[2]);
         });
         if (envConfig.SMTP_USER) smtpUser = envConfig.SMTP_USER;
-        if (envConfig.SMTP_PASS) smtpPass = envConfig.SMTP_PASS.trim(); // Only trim, don't remove internal spaces
+        if (envConfig.SMTP_PASS) smtpPass = envConfig.SMTP_PASS;
       }
     } catch (err) {
       console.warn("Could not read .env.local dynamically", err);
     }
 
-    const config = smtpUser && smtpPass 
+    const config = smtpUser && smtpPass
       ? {
           host: "smtp.gmail.com",
           port: 465,
@@ -69,9 +75,16 @@ class EmailService {
         }
       : null;
 
+    console.log(`EmailService SMTP config loaded: user=${Boolean(smtpUser)}, pass=${Boolean(smtpPass)} (${smtpPass ? 'present' : 'missing'})`);
+
     if (config) {
       this.transporter = nodemailer.createTransport(config);
+      this.isEtherealFallback = false;
     } else {
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error('SMTP_USER and SMTP_PASS are required in production for email delivery. Set these values in .env.local or the hosting environment.');
+      }
+
       // Ethereal Fallback for development/testing
       const testAccount = await nodemailer.createTestAccount();
       this.transporter = nodemailer.createTransport({
@@ -80,6 +93,8 @@ class EmailService {
         secure: false,
         auth: { user: testAccount.user, pass: testAccount.pass },
       });
+      this.isEtherealFallback = true;
+      console.warn("EmailService is using Ethereal fallback because SMTP_USER/SMTP_PASS are not configured. Emails will not be delivered to real recipients.");
     }
 
     // MANDATORY VERIFICATION
@@ -101,6 +116,12 @@ class EmailService {
     const { to, subject, html, candidateEmail, type } = options;
     const MAX_RETRIES = 3;
     
+    // As requested: Only use SMTP for sending login credentials (REGISTRATION type) and ASSESSMENT_REPORT.
+    if (type !== "REGISTRATION" && type !== "ASSESSMENT_REPORT") {
+      console.log(`[EmailService] Skipped sending email of type ${type} as per SMTP restrictions.`);
+      return { success: true, messageId: "skipped_non_registration" };
+    }
+
     // Initial Logging to Firestore (Status: PENDING)
     let logId = "";
     try {
@@ -129,7 +150,10 @@ class EmailService {
           const envConfig: Record<string, string> = {};
           envContent.split('\n').forEach(line => {
             const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
-            if (match && match[2]) envConfig[match[1]] = match[2].trim();
+            if (match && match[2]) {
+              const rawValue = match[2].trim();
+              envConfig[match[1]] = rawValue.replace(/^"(.*)"$/s, "$1").replace(/^\'(.*)\'$/s, "$1");
+            }
           });
           if (envConfig.SMTP_USER) fromAddress = envConfig.SMTP_USER;
         }
@@ -156,7 +180,7 @@ class EmailService {
       return { 
         success: true, 
         messageId: info.messageId, 
-        previewUrl: !fromAddress.includes("gmail") ? (nodemailer.getTestMessageUrl(info) || null) : null 
+        previewUrl: this.isEtherealFallback ? (nodemailer.getTestMessageUrl(info) || null) : (!fromAddress.includes("gmail") ? (nodemailer.getTestMessageUrl(info) || null) : null)
       };
 
     } catch (error: any) {
@@ -686,10 +710,6 @@ class EmailService {
             </div>
 
             <p style="font-size: 15px; color: #475569;">Attached to this email is your **Secure, Non-Editable Assessment PDF Report**. This document contains your detailed round-wise breakdown, coding challenge analytics, memory/runtime metrics, and official AI Proctoring integrity certification.</p>
-            
-            <div style="text-align: center; margin: 30px 0;">
-              <a href="${data.verificationUrl}" target="_blank" class="btn">Verify Report Authenticity</a>
-            </div>
             
             <p style="margin-top: 40px; font-size: 15px; color: #0f172a;">Thank you for your dedication to technical excellence.</p>
             <p style="font-weight: 800; color: #ff5a1f; margin-bottom: 5px;">Geonixa Talent Evaluation Core</p>

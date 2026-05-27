@@ -120,29 +120,47 @@ export default function AdminLogin() {
         } else {
           // Try to extract error details from server and include response URL
           let serverMsg = `Session creation failed (status ${response.status})`;
+          let detailedError = '';
           try {
             const body = await response.json();
             if (body && (body.error || body.message)) {
               serverMsg = String(body.error || body.message);
+              if (body.details) {
+                detailedError = String(body.details);
+              }
             } else {
-              serverMsg = JSON.stringify(body);
+              serverMsg = JSON.stringify(body || {});
             }
           } catch (err) {
             const text = await response.text().catch(() => null);
-            if (text) serverMsg = text;
+            if (text) {
+              serverMsg = text;
+            } else {
+              serverMsg = `Unable to parse server response (HTTP ${response.status})`;
+            }
           }
 
-          console.error('Admin session creation failed:', {
+          const errorDetails = {
             message: serverMsg,
+            details: detailedError,
             status: response.status,
-            url: response.url
-          });
-          setError(`Session error: ${serverMsg}`);
+            url: response.url,
+            timestamp: new Date().toISOString()
+          };
+          
+          console.error('Admin session creation failed:', errorDetails);
+          setError(`Session error: ${serverMsg}${detailedError ? ` - ${detailedError}` : ''}`);
           setIsLoading(false);
         }
       }
     } catch (e) {
-      setError('Authentication error. Please try again.');
+      const errorMsg = e instanceof Error ? e.message : String(e);
+      console.error('Authentication error during session creation:', {
+        error: errorMsg,
+        stack: e instanceof Error ? e.stack : 'N/A',
+        timestamp: new Date().toISOString()
+      });
+      setError(`Authentication error: ${errorMsg}`);
       setIsLoading(false);
     }
   };

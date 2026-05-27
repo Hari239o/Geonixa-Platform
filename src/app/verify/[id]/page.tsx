@@ -82,7 +82,7 @@ export default function ReportVerificationPage() {
           </div>
         ) : error || !report ? (
           <div className="bg-red-950/40 border border-red-500/50 rounded-3xl p-8 sm:p-12 text-center shadow-2xl backdrop-blur-md relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-600 via-rose-500 to-red-600"></div>
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-red-600 via-rose-500 to-red-600"></div>
             <div className="w-20 h-20 bg-red-500/10 border border-red-500/30 rounded-full flex items-center justify-center mx-auto mb-6 text-red-500 shadow-lg shadow-red-500/10">
               <AlertOctagon className="w-10 h-10 animate-pulse" />
             </div>
@@ -99,10 +99,10 @@ export default function ReportVerificationPage() {
         ) : (
           <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md relative overflow-hidden transition-all">
             {/* Glowing Accent */}
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-500 via-[#ff5a1f] to-emerald-500 shadow-lg shadow-emerald-500/20"></div>
+            <div className="absolute top-0 left-0 w-full h-2 bg-linear-to-r from-emerald-500 via-[#ff5a1f] to-emerald-500 shadow-lg shadow-emerald-500/20"></div>
 
             {/* Verification Banner */}
-            <div className="bg-gradient-to-r from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/30 rounded-2xl p-6 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-inner">
+            <div className="bg-linear-to-r from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/30 rounded-2xl p-6 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-inner">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-emerald-500/20 border border-emerald-500 text-emerald-400 rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/10">
                   <CheckCircle2 className="w-8 h-8" />
@@ -120,7 +120,7 @@ export default function ReportVerificationPage() {
               <button
                 onClick={handleDownloadCertifiedPDF}
                 disabled={downloading}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#ff5a1f] to-amber-600 hover:from-[#ff5a1f]/90 hover:to-amber-600/90 text-white font-bold text-sm shadow-xl shadow-[#ff5a1f]/20 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-50"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-linear-to-r from-[#ff5a1f] to-amber-600 hover:from-[#ff5a1f]/90 hover:to-amber-600/90 text-white font-bold text-sm shadow-xl shadow-[#ff5a1f]/20 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-50"
               >
                 {downloading ? (
                   <>
@@ -177,7 +177,7 @@ export default function ReportVerificationPage() {
               <h3 className="text-sm font-extrabold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
                 <FileCheck className="w-4 h-4 text-[#ff5a1f]" /> Round-Wise Performance Matrix
               </h3>
-              <table className="w-full text-left border-collapse min-w-[600px]">
+              <table className="w-full text-left border-collapse min-w-150">
                 <thead>
                   <tr className="border-b border-slate-800 text-xs font-bold text-slate-400 uppercase tracking-wider bg-slate-900/50">
                     <th className="py-3 px-4 rounded-l-lg">Assessment Module</th>
@@ -226,7 +226,7 @@ export default function ReportVerificationPage() {
                 <h3 className="text-sm font-extrabold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
                   <Award className="w-4 h-4 text-blue-400" /> Coding Challenge Execution Telemetry
                 </h3>
-                <table className="w-full text-left border-collapse min-w-[650px]">
+                <table className="w-full text-left border-collapse min-w-162.5">
                   <thead>
                     <tr className="border-b border-slate-800 text-xs font-bold text-slate-400 uppercase tracking-wider bg-slate-900/50">
                       <th className="py-3 px-4 rounded-l-lg">Problem Title</th>

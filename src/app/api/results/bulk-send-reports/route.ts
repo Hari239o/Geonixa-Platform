@@ -1,10 +1,7 @@
 import { NextResponse } from 'next/server';
-import { db, isFirebaseConfigured } from '@/lib/firebase';
-import { collection, getDocs, query, where, updateDoc, doc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { isFirebaseConfigured } from '@/lib/firebase';
 import { emailService } from '@/lib/emailService';
-import StudentResponse from '@/lib/models/StudentResponse';
-import Student from '@/lib/models/Student';
-import dbConnect from '@/lib/db';
+import { getFirestoreDb } from '@/lib/firestore';
 
 interface BulkReportRequest {
   examId: string;
@@ -45,12 +42,9 @@ export async function POST(req: Request) {
       );
     }
 
-    await dbConnect();
-
-    // Fetch all student responses for this exam
-    let query_obj: any = { examId: body.examId };
-
-    const studentResponses = await StudentResponse.find(query_obj);
+    const adminDb = getFirestoreDb();
+    const querySnapshot = await adminDb.collection('studentResults').where('examId', '==', body.examId).get();
+    const studentResponses = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
     if (!studentResponses.length) {
       return NextResponse.json(
@@ -66,13 +60,12 @@ export async function POST(req: Request) {
     // Send reports to each student
     for (const response of studentResponses) {
       try {
-        const studentId = response.studentId;
+        const studentId = (response as any).userId;
 
         // Fetch student profile
-        const studentDocRef = doc(db, 'students', studentId);
-        const studentDoc = await getDoc(studentDocRef);
+        const studentDoc = await adminDb.collection('students').doc(studentId).get();
 
-        if (!studentDoc.exists()) {
+        if (!studentDoc.exists) {
           failureCount++;
           results.push({
             email: studentId,
@@ -82,18 +75,13 @@ export async function POST(req: Request) {
           continue;
         }
 
-        // Calculate qualification status
-        const totalScore = (response.round1Score || 0) +
-          (response.round2Score || 0) +
-          (response.round3Score || 0) +
-          (response.round4Score || 0);
+        // Determine qualification status
+        const totalScore = (response as any).score || 0;
+        const totalMarks = (response as any).totalMarks || 100;
+        const percentage = (totalScore / totalMarks) * 100;
 
-        const qualificationThreshold = 200;
-        let qualificationStatus: 'QUALIFIED' | 'NOT QUALIFIED' | 'DISQUALIFIED' = 'NOT QUALIFIED';
-
-        if (response.proctoringViolationsCount >= 5) {
-          qualificationStatus = 'DISQUALIFIED';
-        } else if (totalScore >= qualificationThreshold && (response.plagiarismScore || 0) < 30) {
+        let qualificationStatus: 'QUALIFIED' | 'NOT QUALIFIED' = 'NOT QUALIFIED';
+        if (percentage >= 50) {
           qualificationStatus = 'QUALIFIED';
         }
 
@@ -103,12 +91,10 @@ export async function POST(req: Request) {
         }
 
         // Determine report type
-        let reportType: 'RESULT_QUALIFIED' | 'RESULT_REJECTED' | 'FULL_REPORT' = 'FULL_REPORT';
+        let reportType: 'RESULT_QUALIFIED' | 'RESULT_REJECTED' = 'RESULT_REJECTED';
 
         if (qualificationStatus === 'QUALIFIED') {
           reportType = 'RESULT_QUALIFIED';
-        } else if (qualificationStatus === 'NOT QUALIFIED' || qualificationStatus === 'DISQUALIFIED') {
-          reportType = 'RESULT_REJECTED';
         }
 
         // Send report via API call
@@ -133,8 +119,8 @@ export async function POST(req: Request) {
           });
 
           // Update student's report sent status
-          await updateDoc(doc(db, 'students', studentId), {
-            reportSentAt: serverTimestamp(),
+          await adminDb.collection('students').doc(studentId).update({
+            reportSentAt: new Date(),
             reportSentStatus: 'SENT',
             qualificationStatus,
           });
@@ -150,7 +136,7 @@ export async function POST(req: Request) {
       } catch (error: any) {
         failureCount++;
         results.push({
-          email: response.studentId,
+          email: (response as any).userId,
           status: 'FAILED',
           error: error.message,
         });
@@ -205,22 +191,21 @@ export async function GET(req: Request) {
     }
 
     // Count reports sent
-    const studentsCollection = collection(db, 'students');
-    const q = query(studentsCollection, where('reportSentAt', '!=', null));
-    const querySnapshot = await getDocs(q);
-
-    const reportsSent = querySnapshot.size;
+    const adminDb = getFirestoreDb();
+    const reportsSentSnapshot = await adminDb.collection('students').where('reportSentAt', '!=', null).get();
+    const reportsSent = reportsSentSnapshot.size;
 
     // Count total students for exam
-    await dbConnect();
-    const totalStudents = await StudentResponse.countDocuments({ examId });
+    const examSnapshot = await adminDb.collection('studentResults').where('examId', '==', examId).get();
+
+    const totalStudents = examSnapshot.size;
 
     return NextResponse.json({
       examId,
       totalStudents,
       reportsSent,
       pendingReports: totalStudents - reportsSent,
-      distributionPercentage: ((reportsSent / totalStudents) * 100).toFixed(1),
+      distributionPercentage: totalStudents > 0 ? ((reportsSent / totalStudents) * 100).toFixed(1) : '0',
     });
   } catch (error: any) {
     console.error('Error checking report status:', error);

@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
-import StudentTypingResponse from '@/lib/models/StudentTypingResponse';
-import dbConnect from '@/lib/db';
+import { getFirestoreDb } from '@/lib/firestore';
 
 // POST: Save student responses and calculate typing metrics
 export async function POST(req: Request) {
   try {
-    await dbConnect();
+    const db = getFirestoreDb();
     const body = await req.json();
 
     const { studentId, responses } = body;
@@ -30,7 +29,7 @@ export async function POST(req: Request) {
         }, 0);
         const accuracy = ((originalText.length - mistakes) / originalText.length) * 100;
 
-        return StudentTypingResponse.create({
+        const docRef = await db.collection('studentTypingResponses').add({
           studentId,
           topicId,
           typedText,
@@ -38,12 +37,15 @@ export async function POST(req: Request) {
           accuracy,
           mistakes,
           backspaceCount,
+          createdAt: new Date(),
         });
+
+        return { id: docRef.id, studentId, topicId, typingSpeed, accuracy };
       })
     );
 
     return NextResponse.json({ message: 'Responses saved successfully', savedResponses });
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({ error: 'Failed to submit responses' }, { status: 500 });
   }
 }

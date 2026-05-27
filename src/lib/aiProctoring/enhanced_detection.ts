@@ -90,30 +90,25 @@ export class EnhancedDetectionEngine {
   }
 
   /**
-   * Enhanced multi-person detection with confidence scoring
+   * Enhanced multi-person detection with high sensitivity
    */
   analyzeMultiPersonPresence(
     predictions: any[],
-    confidenceThreshold: number = 0.35 // More lenient threshold
+    confidenceThreshold: number = 0.20
   ): { count: number; confidence: number; details: any[] } {
     const persons = predictions.filter(
       (p: any) => p.class === "person" && p.score >= confidenceThreshold
     );
 
-    // Even partial detections count
-    const partialPersons = predictions.filter(
-      (p: any) => p.class === "person" && p.score >= 0.25
-    );
-
-    const details = partialPersons.map((p: any) => ({
+    const details = persons.map((p: any) => ({
       class: p.class,
       score: p.score,
       bbox: p.bbox,
     }));
 
     return {
-      count: Math.max(persons.length, partialPersons.length > 0 ? 2 : 1),
-      confidence: persons.length > 1 ? 0.95 : 0.7,
+      count: persons.length,
+      confidence: persons.length > 1 ? 0.95 : persons.length === 1 ? 0.75 : 0,
       details,
     };
   }
@@ -124,92 +119,59 @@ export class EnhancedDetectionEngine {
    */
   analyzePhonePresence(
     predictions: any[],
-    confidenceThreshold: number = 0.35
+    confidenceThreshold: number = 0.20
   ): {
     detected: boolean;
     confidence: number;
     type: string;
     details: any;
   } {
-    // Extended keyword list with variations and related objects
-    const mobileKeywords = [
+    const phoneClasses = [
       "cell phone",
       "mobile phone",
       "phone",
       "smartphone",
       "iphone",
-      "android",
-      "remote",
-      "laptop",
-      "keyboard",
-      "monitor",
-      "tv",
-      "screen",
       "tablet",
       "ipad",
-      "book",
-      "paper",
-      "document",
-      "notepad"
+      "laptop",
+      "monitor",
+      "tv",
+      "screen"
     ];
 
-    // Primary detection: direct object detection
-    const phone = predictions.find(
-      (p: any) => {
-        const className = p.class.toLowerCase();
-        const isMatch = mobileKeywords.some((keyword) =>
-          className.includes(keyword)
-        );
-        return isMatch && p.score >= confidenceThreshold;
-      }
-    );
+    const phone = predictions.find((p: any) => {
+      const className = p.class.toLowerCase();
+      return phoneClasses.some((keyword) => className === keyword || className.includes(keyword)) && p.score >= confidenceThreshold;
+    });
 
     if (phone) {
       return {
         detected: true,
-        confidence: Math.min(1, phone.score + 0.15), // Significant confidence boost
+        confidence: Math.min(1, phone.score + 0.22),
         type: phone.class,
         details: { bbox: phone.bbox, score: phone.score },
       };
     }
 
-    // Secondary detection: look for multiple objects or hands with objects
-    const handsWithObjects = predictions.filter(
-      (p: any) =>
-        (p.class.toLowerCase().includes("hand") ||
-          p.class.toLowerCase().includes("laptop") ||
-          p.class.toLowerCase().includes("keyboard") ||
-          p.class.toLowerCase().includes("mouse")) &&
-        p.score >= 0.45
-    );
+    const nearDevice = predictions.filter((p: any) => {
+      const className = p.class.toLowerCase();
+      return (
+        className === "laptop" ||
+        className === "monitor" ||
+        className === "tv" ||
+        className === "screen" ||
+        className === "tablet"
+      ) && p.score >= 0.45;
+    });
 
-    if (handsWithObjects.length > 0) {
+    if (nearDevice.length > 0) {
+      const primary = nearDevice[0];
       return {
         detected: true,
-        confidence: 0.70,
-        type: "object_with_hand",
-        details: { itemCount: handsWithObjects.length, items: handsWithObjects.map(p => p.class) },
-      };
-    }
-
-    // Tertiary detection: suspicious objects that might be phones
-    const suspiciousObjects = predictions.filter(
-      (p: any) => {
-        const className = p.class.toLowerCase();
-        return (
-          (className.includes("person") && className.includes("object")) ||
-          className.includes("thing") ||
-          className.includes("object")
-        ) && p.score >= 0.50
-      }
-    );
-
-    if (suspiciousObjects.length > 0) {
-      return {
-        detected: true,
-        confidence: 0.60,
-        type: "suspicious_object",
-        details: { itemCount: suspiciousObjects.length },
+        confidence: Math.min(1, primary.score + 0.15),
+        type: primary.class,
+        details: { bbox: primary.bbox, score: primary.score, items: nearDevice.map((p) => p.class) },
       };
     }
 
@@ -255,18 +217,18 @@ export class EnhancedDetectionEngine {
       this.audioLevelHistory.shift();
     }
 
-    // Detect speech: moderate frequency (300-3500Hz), variable amplitude
+    // Detect speech: moderate frequency range and some variance
     const isSpeech =
-      dominantFrequency > 300 &&
+      dominantFrequency > 250 &&
       dominantFrequency < 3500 &&
-      variance > 0.02 &&
-      normalizedLevel > 15;
+      variance > 0.015 &&
+      normalizedLevel > 18;
 
-    // Detect loud noise: sudden spike or sustained high level
-    // SYNCED WITH AIProctor thresholds: 45% = loud, 30% = moderate
-    const recentAvg =
-      this.audioLevelHistory.slice(-5).reduce((a, b) => a + b, 0) / 5;
-    const isLoudNoise = normalizedLevel > 45 || recentAvg > 40;
+    // Detect loud noise: favor speech-driven loud segments (sustained talking)
+    const recentWindow = this.audioLevelHistory.slice(-6);
+    const recentAvg = recentWindow.length ? recentWindow.reduce((a, b) => a + b, 0) / recentWindow.length : normalizedLevel;
+    // Immediate loud spike + speech OR sustained recent average above threshold
+    const isLoudNoise = (normalizedLevel > 60 && isSpeech) || recentAvg > 50;
 
     return {
       level: normalizedLevel,

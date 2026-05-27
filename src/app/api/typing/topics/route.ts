@@ -1,13 +1,9 @@
 import { NextResponse } from 'next/server';
-import TypingTopic from '@/lib/models/TypingTopic';
-import dbConnect from '@/lib/db';
+import { getFirestoreDb } from '@/lib/firestore';
 
 // GET: Fetch two randomized typing topics for a student
 export async function GET(req: Request) {
   try {
-    await dbConnect();
-
-    // Parse query params
     const url = new URL(req.url);
     const studentId = url.searchParams.get('studentId');
 
@@ -15,11 +11,14 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'Student ID is required' }, { status: 400 });
     }
 
-    // Fetch 2 randomized topics
-    const topics = await TypingTopic.aggregate([{ $sample: { size: 2 } }]);
+    const db = getFirestoreDb();
+    const topicsCollection = db.collection('typingTopics');
+    const snapshot = await topicsCollection.limit(100).get();
+    const allTopics = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const shuffled = allTopics.sort(() => Math.random() - 0.5).slice(0, 2);
 
-    return NextResponse.json(topics);
-  } catch (error) {
+    return NextResponse.json(shuffled);
+  } catch (error: any) {
     return NextResponse.json({ error: 'Failed to fetch topics' }, { status: 500 });
   }
 }

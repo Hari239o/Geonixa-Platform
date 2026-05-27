@@ -2,8 +2,9 @@ node_modules
 .next
 out
 build
-.env.local
 .env
+.env.local
+.env.*.local
 .DS_Store
 
 # Logs
@@ -23,3 +24,10 @@ lerna-debug.log*
 # Temporary files
 *.tmp
 *.cache/
+
+# Build outputs
+dist/
+.vercel/
+
+# IDE settings
+.eslintcache

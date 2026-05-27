@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
-import StudentGrammarResponse from '@/lib/models/StudentGrammarResponse';
-import dbConnect from '@/lib/db';
+import { getFirestoreDb } from '@/lib/firestore';
 
 // POST: Save student responses and calculate scores
 export async function POST(req: Request) {
   try {
-    await dbConnect();
+    const db = getFirestoreDb();
     const body = await req.json();
 
     const { studentId, responses } = body;
@@ -18,12 +17,14 @@ export async function POST(req: Request) {
     const savedResponses = await Promise.all(
       responses.map(async (response: any) => {
         const isCorrect = response.selectedOption === response.correctAnswer;
-        return StudentGrammarResponse.create({
+        const docRef = await db.collection('studentGrammarResponses').add({
           studentId,
           questionId: response.questionId,
           selectedOption: response.selectedOption,
           isCorrect,
+          createdAt: new Date(),
         });
+        return { id: docRef.id, isCorrect };
       })
     );
 

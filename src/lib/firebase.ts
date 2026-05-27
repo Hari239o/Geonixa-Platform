@@ -1,6 +1,7 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, initializeFirestore, collection, setDoc, doc, runTransaction, getDoc, getDocs, deleteDoc, updateDoc, writeBatch, onSnapshot, query, orderBy, limit, where } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 import { enrichProfileWithDomainPlan } from "@/data/domainConfig";
 
 const firebaseConfig = {
@@ -17,14 +18,15 @@ export const isFirebaseConfigured = firebaseConfig.projectId !== "dummy";
 // Start safely
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-export const db = initializeFirestore(app, {
-  experimentalForceLongPolling: true,
-});
+export const db = getFirestore(app);
 export const storage = getStorage(app);
 
+// Initialize Firebase Auth for client-side auth flows
+export const auth = getAuth(app);
+
 // Set realistic timeout/retry limits to ensure reliability on varying network conditions
-storage.maxOperationRetryTime = 60000; // 60 seconds
-storage.maxUploadRetryTime = 60000;
+storage.maxOperationRetryTime = 5000; // 5 seconds
+storage.maxUploadRetryTime = 5000; // 5 seconds
 
 // =============================================================================
 // ENTERPRISE RESULT STORAGE ARCHITECTURE
@@ -276,6 +278,22 @@ export const expireCandidatePassKey = async (email: string, reason = "SLOT_EXPIR
   }
 };
 
+const retryAsyncOperation = async <T>(operation: () => Promise<T>, retries = 2, initialBackoff = 250): Promise<T> => {
+  let attempt = 0;
+  while (true) {
+    try {
+      return await operation();
+    } catch (error) {
+      attempt += 1;
+      if (attempt > retries) {
+        throw error;
+      }
+      const backoff = initialBackoff * attempt;
+      await new Promise((resolve) => setTimeout(resolve, backoff));
+    }
+  }
+};
+
 // =============================================================================
 // ENTERPRISE RESULT STORAGE FUNCTIONS
 // =============================================================================
@@ -301,44 +319,43 @@ export const storeCompleteExamResults = async (
   }
 
   try {
-    await runTransaction(db, async (transaction) => {
-      const batch = writeBatch(db);
+    const batch = writeBatch(db);
 
-      // 1. Store/Update Student Profile
-      const studentRef = doc(collection(db, "students"), studentEmail);
-      batch.set(studentRef, examData.profile, { merge: true });
+    // 1. Store/Update Student Profile
+    const studentRef = doc(collection(db, "students"), studentEmail);
+    batch.set(studentRef, examData.profile, { merge: true });
 
-      // 2. Store Overall Exam Result
-      const examResultRef = doc(collection(db, "examResults"), `${studentEmail}_${examData.examResult.examId}`);
-      batch.set(examResultRef, examData.examResult);
+    // 2. Store Overall Exam Result
+    const examResultRef = doc(collection(db, "examResults"), `${studentEmail}_${examData.examResult.examId}`);
+    batch.set(examResultRef, examData.examResult);
 
-      // 3. Store Round-wise Results
-      examData.roundResults.forEach(roundResult => {
-        const roundRef = doc(collection(db, "roundResults"), `${studentEmail}_${examData.examResult.examId}_round${roundResult.roundNumber}`);
-        batch.set(roundRef, roundResult);
-      });
-
-      // 4. Store Coding Submissions
-      examData.codingSubmissions.forEach(submission => {
-        const codingRef = doc(collection(db, "codingSubmissions"), `${studentEmail}_${examData.examResult.examId}_${submission.questionId}`);
-        batch.set(codingRef, submission);
-      });
-
-      // 5. Store MCQ Responses
-      examData.mcqResponses.forEach(response => {
-        const mcqRef = doc(collection(db, "mcqResponses"), `${studentEmail}_${examData.examResult.examId}_${response.questionId}`);
-        batch.set(mcqRef, response);
-      });
-
-      // 6. Store Proctoring Logs
-      examData.proctoringLogs.forEach(log => {
-        const logRef = doc(collection(db, "proctoringLogs"), `${studentEmail}_${examData.examResult.examId}_${Date.now()}_${Math.random()}`);
-        batch.set(logRef, log);
-      });
-
-      // Commit all operations atomically
-      await batch.commit();
+    // 3. Store Round-wise Results
+    examData.roundResults.forEach(roundResult => {
+      const roundRef = doc(collection(db, "roundResults"), `${studentEmail}_${examData.examResult.examId}_round${roundResult.roundNumber}`);
+      batch.set(roundRef, roundResult);
     });
+
+    // 4. Store Coding Submissions
+    examData.codingSubmissions.forEach(submission => {
+      const codingRef = doc(collection(db, "codingSubmissions"), `${studentEmail}_${examData.examResult.examId}_${submission.questionId}`);
+      batch.set(codingRef, submission);
+    });
+
+    // 5. Store MCQ Responses
+    examData.mcqResponses.forEach(response => {
+      const mcqRef = doc(collection(db, "mcqResponses"), `${studentEmail}_${examData.examResult.examId}_${response.questionId}`);
+      batch.set(mcqRef, response);
+    });
+
+    // 6. Store Proctoring Logs
+    examData.proctoringLogs.forEach(log => {
+      const logRef = doc(collection(db, "proctoringLogs"), `${studentEmail}_${examData.examResult.examId}_${Date.now()}_${Math.random()}`);
+      batch.set(logRef, log);
+    });
+
+    await retryAsyncOperation(async () => {
+      await batch.commit();
+    }, 3, 300);
 
     console.log("✅ Complete exam results stored successfully");
   } catch (error) {
@@ -767,45 +784,13 @@ export const uploadLiveFrame = async (email: string, blob: Blob) => {
   isUploadingFrame = true;
   try {
     const storageRef = ref(storage, `live_frames/${email}.jpg`);
-    // Use a shorter timeout specifically for the background snapshot
-    await uploadBytes(storageRef, blob);
+    await retryAsyncOperation(async () => {
+      await uploadBytes(storageRef, blob);
+    }, 1, 200);
   } catch (error: any) {
-    // Silent fail for background tasks to prevent UI interruption
-    // CORS errors in development are expected - configure Firebase Storage CORS if needed
-    if (error?.message?.includes('404') || error?.message?.includes('fail to fetch')) {
-      // Ignore CDN model loading errors and continue with backup detection
-    }
+    console.warn("Firebase Storage live frame upload failed gracefully:", error?.message || error);
   } finally {
     isUploadingFrame = false;
-  }
-};
-
-export const uploadVideoRecording = async (email: string, blob: Blob) => {
-  if (firebaseConfig.projectId === "dummy") {
-    console.warn("No Firebase Config! Mock processing the video upload instead.");
-    return;
-  }
-  try {
-    const storageRef = ref(storage, `recordings/${email}_${Date.now()}.webm`);
-    await uploadBytes(storageRef, blob);
-  } catch (error: any) {
-    // Handle CORS and network errors gracefully
-    // CORS errors are expected in development - configure Firebase Storage CORS:
-    // gsutil cors set cors.json gs://geonixa-exam.appspot.com
-    // Where cors.json contains:
-    // [{
-    //   "origin": ["http://localhost:3000", "https://yourdomain.com"],
-    //   "method": ["GET", "HEAD", "PUT", "POST", "DELETE"],
-    //   "responseHeader": ["Content-Type", "x-goog-acl"],
-    //   "maxAgeSeconds": 3600
-    // }]
-    if (error?.message?.includes('CORS') || error?.code?.includes('cors')) {
-      console.warn("Firebase Storage CORS issue (expected in dev). Fix with gsutil cors command.");
-    } else if (error?.code?.includes('network') || error?.message?.includes('ERR_FAILED')) {
-      console.warn("Network error uploading video, will retry on next upload", error?.code);
-    } else {
-      console.error("Firebase video upload failed:", error);
-    }
   }
 };
 
@@ -1010,11 +995,12 @@ export const deleteCandidateFirebase = async (email: string) => {
     if (profileDoc.exists()) {
       const slotLabel = profileDoc.data().slot;
       const slotMap: Record<string, string> = {
-        "10:00 AM - 11:30 AM": "SLOT_1",
-        "12:00 PM - 01:30 PM": "SLOT_2",
-        "03:00 PM - 04:30 PM": "SLOT_3",
-        "06:00 PM - 07:30 PM": "SLOT_4",
-        "08:00 PM - 09:30 PM": "SLOT_5"
+        "10:00 AM - 11:15 AM": "SLOT_1",
+        "11:45 AM - 01:00 PM": "SLOT_2",
+        "02:45 PM - 04:00 PM": "SLOT_3",
+        "05:30 PM - 06:45 PM": "SLOT_4",
+        "07:00 PM - 08:15 PM": "SLOT_5",
+        "08:30 PM - 10:00 PM": "SLOT_6"
       };
       
       const internalSlotId = slotMap[slotLabel] || "SLOT_1";
@@ -1046,25 +1032,26 @@ export const deleteCandidateFirebase = async (email: string) => {
   }
 };
 export const SLOT_CONFIG = {
-  "SLOT_1": { id: "SLOT_1", label: "10:00 AM - 11:30 AM", start: "10:00", end: "11:30" },
-  "SLOT_2": { id: "SLOT_2", label: "12:00 PM - 01:30 PM", start: "12:00", end: "13:30" },
-  "SLOT_3": { id: "SLOT_3", label: "03:00 PM - 04:30 PM", start: "15:00", end: "16:30" },
-  "SLOT_4": { id: "SLOT_4", label: "06:00 PM - 07:30 PM", start: "18:00", end: "19:30" },
-  "SLOT_5": { id: "SLOT_5", label: "08:00 PM - 09:30 PM", start: "20:00", end: "21:30" },
+  "SLOT_1": { id: "SLOT_1", label: "10:00 AM - 11:15 AM", start: "10:00", end: "11:15" },
+  "SLOT_2": { id: "SLOT_2", label: "11:45 AM - 01:00 PM", start: "11:45", end: "13:00" },
+  "SLOT_3": { id: "SLOT_3", label: "02:45 PM - 04:00 PM", start: "14:45", end: "16:00" },
+  "SLOT_4": { id: "SLOT_4", label: "05:30 PM - 06:45 PM", start: "17:30", end: "18:45" },
+  "SLOT_5": { id: "SLOT_5", label: "07:00 PM - 08:15 PM", start: "19:00", end: "20:15" },
+  "SLOT_6": { id: "SLOT_6", label: "08:30 PM - 10:00 PM", start: "20:30", end: "22:00" },
 };
 
 export const getSlotAvailability = async () => {
   if (firebaseConfig.projectId === "dummy" && typeof window !== "undefined") {
     return JSON.parse(localStorage.getItem("geonixa_slots") || JSON.stringify({
-      "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0
+      "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0
     }));
   }
   try {
     const d = await getDoc(doc(db, "meta", "slots"));
-    if (!d.exists()) return { "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0 };
+    if (!d.exists()) return { "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0 };
     return d.data();
   } catch (e) {
-    return { "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0 };
+    return { "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0 };
   }
 };
 
@@ -1076,7 +1063,7 @@ export const allocateSlotWithTransaction = async (
 ) => {
   if (firebaseConfig.projectId === "dummy" && typeof window !== "undefined") {
     const slots = JSON.parse(localStorage.getItem("geonixa_slots") || JSON.stringify({
-      "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0
+      "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0
     }));
     if (slots[slotId] >= 25) throw new Error("SLOT_FULL");
     slots[slotId]++;
@@ -1121,11 +1108,12 @@ export const updateSlotTransferTransaction = async (oldSlotLabel: string, newSlo
   if (firebaseConfig.projectId === "dummy") return;
   
   const slotMap: Record<string, string> = {
-    "10:00 AM - 11:30 AM": "SLOT_1",
-    "12:00 PM - 01:30 PM": "SLOT_2",
-    "03:00 PM - 04:30 PM": "SLOT_3",
-    "06:00 PM - 07:30 PM": "SLOT_4",
-    "08:00 PM - 09:30 PM": "SLOT_5"
+    "10:00 AM - 11:15 AM": "SLOT_1",
+    "11:45 AM - 01:00 PM": "SLOT_2",
+    "02:45 PM - 04:00 PM": "SLOT_3",
+    "05:30 PM - 06:45 PM": "SLOT_4",
+    "07:00 PM - 08:15 PM": "SLOT_5",
+    "08:30 PM - 10:00 PM": "SLOT_6"
   };
   
   const oldId = slotMap[oldSlotLabel];
@@ -1161,14 +1149,15 @@ export const recalibrateSlotCapacities = async () => {
   console.log("[SYSTEM] Starting Deep Data Recalibration...");
   
   const profilesSnap = await getDocs(collection(db, "student_profiles"));
-  const counts: Record<string, number> = { "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0 };
+  const counts: Record<string, number> = { "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0 };
   
   const slotMap: Record<string, string> = {
-    "10:00 AM - 11:30 AM": "SLOT_1",
-    "12:00 PM - 01:30 PM": "SLOT_2",
-    "03:00 PM - 04:30 PM": "SLOT_3",
-    "06:00 PM - 07:30 PM": "SLOT_4",
-    "08:00 PM - 09:30 PM": "SLOT_5"
+    "10:00 AM - 11:15 AM": "SLOT_1",
+    "11:45 AM - 01:00 PM": "SLOT_2",
+    "02:45 PM - 04:00 PM": "SLOT_3",
+    "05:30 PM - 06:45 PM": "SLOT_4",
+    "07:00 PM - 08:15 PM": "SLOT_5",
+    "08:30 PM - 10:00 PM": "SLOT_6"
   };
 
   profilesSnap.forEach(docSnap => {

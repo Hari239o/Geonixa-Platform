@@ -137,11 +137,12 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     // Auto-heal legacy slot IDs or labels
     if (!SLOT_CONFIG[slotKey as keyof typeof SLOT_CONFIG]) {
        const labelMap: Record<string, string> = {
-         "10:00 AM - 11:30 AM": "SLOT_1",
-         "12:00 PM - 01:30 PM": "SLOT_2",
-         "03:00 PM - 04:30 PM": "SLOT_3",
-         "06:00 PM - 07:30 PM": "SLOT_4",
-         "08:00 PM - 09:30 PM": "SLOT_5",
+         "10:00 AM - 11:15 AM": "SLOT_1",
+         "11:45 AM - 01:00 PM": "SLOT_2",
+         "02:45 PM - 04:00 PM": "SLOT_3",
+         "05:30 PM - 06:45 PM": "SLOT_4",
+         "07:00 PM - 08:15 PM": "SLOT_5",
+         "08:30 PM - 10:00 PM": "SLOT_6",
          "9-10 AM": "SLOT_1" // Legacy default
        };
        slotKey = labelMap[slotKey] || "SLOT_1";
@@ -171,11 +172,12 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
     const currentUser = typeof window !== "undefined" ? localStorage.getItem("geonixa_current_user") || "anonymous" : "anonymous";
     if (validation.status === "EXPIRED") {
+      if (hasSubmittedRef.current) return;
       if (typeof window !== "undefined") {
         localStorage.setItem(`geonixa_passkey_expired_${currentUser}`, "true");
       }
 
-      if (examState === "ACTIVE" && !hasSubmittedRef.current) {
+      if (examState === "ACTIVE") {
         if (submitRef.current) submitRef.current("SLOT_EXPIRED");
         setExamState("VIOLATION_TERMINATED");
       } else if (examState !== "SUBMITTED" && examState !== "VIOLATION_TERMINATED") {
@@ -956,6 +958,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   const lastViolationTimeRef = useRef<number>(0);
 
   const handleProctorViolation = useCallback((type: string, message: string) => {
+    if (hasSubmittedRef.current) return;
     const now = Date.now();
     if (now - lastViolationTimeRef.current < 2000 && type !== "TERMINATED" && type !== "TAB_SWITCH" && type !== "SCREENSHOT") {
       return; 
@@ -998,17 +1001,9 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       }
       if (submitRef.current) submitRef.current("TERMINATED");
       setExamState("VIOLATION_TERMINATED");
-
-      fetch('/api/communication/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'TERMINATION',
-          candidateEmail: currentUser,
-          candidateName: profile?.name || "Candidate",
-          status: `Final Warning Exceeded (3/3): ${message}`
-        })
-      }).catch(err => console.error("Failed to send termination email", err));
+      // WARNING_3 triggers an auto-termination flow locally; external termination
+      // notification/email should only be dispatched for explicit/official terminations.
+      // Do not send an automated termination email here to avoid false positives.
       return;
     }
 
@@ -1656,8 +1651,9 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       
 
 
-      {/* Sidebar - Progress & Proctoring HUD */}
-      <div style={{ width: "320px", backgroundColor: "var(--bg-card)", borderRight: "1px solid var(--border-dim)", padding: "1.5rem", display: "flex", flexDirection: "column" }}>
+      {/* Sidebar - Progress & Proctoring HUD - Hidden in Round 4 for maximum IDE space */}
+      {currentRound !== 4 && (
+        <div style={{ width: "320px", backgroundColor: "var(--bg-card)", borderRight: "1px solid var(--border-dim)", padding: "1.5rem", display: "flex", flexDirection: "column", transition: "width 0.3s", overflowY: "auto" }}>
         <div style={{ borderBottom: "1px solid var(--border-dim)", paddingBottom: "1.5rem", marginBottom: "1.5rem" }}>
           <Logo size="sm" />
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.5rem" }}>
@@ -1667,7 +1663,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         </div>
 
         <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "1rem" }}>
-          {[1, 2, 3, 4].map(r => {
+          {[1, 2, 3, 4].filter(r => currentRound === 4 ? r === 4 : true).map(r => {
             const isActive = currentRound === r;
             const isCompleted = currentRound > r;
             return (
@@ -1705,80 +1701,48 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
           })}
         </div>
 
-        {/* Admin-requested buttons: Next Task & Finalize Exam placed between Round-4 and Session Performance */}
-        <div style={{ marginTop: "1rem", padding: "0.6rem", display: "flex", gap: "0.6rem", alignItems: "center", justifyContent: "center" }}>
-          <button
-            className="btn"
-            style={{ padding: "0.6rem 1rem", borderRadius: "10px", fontWeight: 800, backgroundColor: "#ef4444", color: "#fff" }}
-            onClick={() => {
-              // Advance coding question if available, otherwise no-op
-              try {
-                if (codingQuestions && codingQuestions.length > 0) {
-                  if (codingQuestionIndex === codingQuestions.length - 1) {
-                    // If last question, ask for finalization
-                    showConfirm(
-                      "Final Assessment Submission",
-                      "This will finalize your scores for ALL rounds, including all coding questions. This action is irreversible. Proceed?",
-                      () => handleFinalSubmit()
-                    );
-                  } else {
-                    setCodingQuestionIndex((p) => Math.min(codingQuestions.length - 1, p + 1));
-                  }
-                }
-              } catch (e) {
-                console.error('Next task button error:', e);
-              }
-            }}
-          >
-            NEXT TASK
-          </button>
 
-          <button
-            className="btn btn-neutral"
-            style={{ padding: "0.6rem 1rem", borderRadius: "10px", fontWeight: 800, backgroundColor: "#0ea5a4", color: "#071723" }}
-            onClick={() => showConfirm(
-              "Finalize Assessment",
-              "This will finalize your exam and submit all rounds. Are you sure you want to finalize now?",
-              () => handleFinalSubmit()
-            )}
-          >
-            FINALIZE EXAM
-          </button>
-        </div>
+        {/* Sidebar buttons hidden - main CTA in Round-4 content area */}
+        {currentRound !== 4 && (
+          <div style={{ marginTop: "1rem", padding: "0.6rem", display: "flex", gap: "0.6rem", alignItems: "center", justifyContent: "center" }}>
+            {/* Non-Round-4 navigation handled in main content */}
+          </div>
+        )}
 
-        <div style={{ marginTop: "auto", padding: "1.2rem", backgroundColor: "#0f172a", borderRadius: "16px", border: "1px solid #334155" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.8rem" }}>
-            <span style={{ color: "#f97316", fontWeight: "900", fontSize: "0.75rem", letterSpacing: "1px" }}>SESSION PERFORMANCE</span>
-            <span style={{ color: "var(--success)", fontWeight: "bold", fontSize: "0.7rem" }}>LIVE UPDATE</span>
+        {currentRound !== 4 && (
+          <div style={{ marginTop: "auto", padding: "1.2rem", backgroundColor: "#0f172a", borderRadius: "16px", border: "1px solid #334155" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.8rem" }}>
+              <span style={{ color: "#f97316", fontWeight: "900", fontSize: "0.75rem", letterSpacing: "1px" }}>SESSION PERFORMANCE</span>
+              <span style={{ color: "var(--success)", fontWeight: "bold", fontSize: "0.7rem" }}>LIVE UPDATE</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "#94a3b8" }}>
+                  <span>Integrity Rank:</span>
+                  <span style={{ color: warnings.length > 0 ? "#ef4444" : "var(--success)" }}>{warnings.length > 0 ? "STRICT" : "EXCELLENT"}</span>
+               </div>
+               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "#94a3b8" }}>
+                  <span>Biometric Pulse:</span>
+                  <span className="flex items-center gap-2 text-white">
+                    NOMINAL <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]" />
+                  </span>
+               </div>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "#94a3b8" }}>
+                   <span>Accuracy Focus:</span>
+                   <span style={{ color: "#fff" }}>HIGH</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "#94a3b8" }}>
+                   <span>Network Latency:</span>
+                   <span style={{ color: latency > 40 ? "#fb923c" : "var(--success)", fontFamily: "monospace" }}>{latency}ms</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "#94a3b8" }}>
+                   <span>Session ID:</span>
+                   <span style={{ color: "#fff", fontSize: "0.6rem", fontFamily: "monospace" }}>{sessionHash}</span>
+                </div>
+            </div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-             <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "#94a3b8" }}>
-                <span>Integrity Rank:</span>
-                <span style={{ color: warnings.length > 0 ? "#ef4444" : "var(--success)" }}>{warnings.length > 0 ? "STRICT" : "EXCELLENT"}</span>
-             </div>
-             <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "#94a3b8" }}>
-                <span>Biometric Pulse:</span>
-                <span className="flex items-center gap-2 text-white">
-                  NOMINAL <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]" />
-                </span>
-             </div>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "#94a3b8" }}>
-                 <span>Accuracy Focus:</span>
-                 <span style={{ color: "#fff" }}>HIGH</span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "#94a3b8" }}>
-                 <span>Network Latency:</span>
-                 <span style={{ color: latency > 40 ? "#fb923c" : "var(--success)", fontFamily: "monospace" }}>{latency}ms</span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "#94a3b8" }}>
-                 <span>Session ID:</span>
-                 <span style={{ color: "#fff", fontSize: "0.6rem", fontFamily: "monospace" }}>{sessionHash}</span>
-              </div>
-          </div>
-        </div>
+        )}
       </div>
-
-      {/* Main Assessment Engine */}
+      )}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", backgroundColor: "var(--bg-deep)", overflow: "hidden", position: "relative" }}>
         {/* Secure Watermark Overlay */}
         <div className="absolute inset-0 pointer-events-none z-100 opacity-[0.03] flex items-center justify-center overflow-hidden rotate-[-30deg]">
@@ -2124,21 +2088,64 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 </div>
               ) : (
                 <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                  <div style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}>
-                    {codingQuestions.map((q: any, idx: number) => (
+                  <div style={{ display: "flex", gap: "2rem", marginBottom: "1rem", alignItems: "center" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "180px", flexShrink: 0 }}>
+                      <Logo size="sm" />
+                      <div className="timer-active" style={{ fontSize: "0.9rem", fontWeight: "900", color: "#f97316", fontFamily: "monospace", backgroundColor: "#fff7ed", padding: "0.2rem 0.5rem", borderRadius: "6px", display: "flex", alignItems: "center", gap: "0.5rem", width: "fit-content" }}>
+                        <span style={{ fontSize: "0.8rem", color: "#fb923c" }}>⏳</span>
+                        <Timer initialTime={timeLimits[4]} isActive={examState === "ACTIVE"} onExpiry={handleRoundExpiry} />
+                      </div>
+                    </div>
+
+                    <div style={{ display: "flex", gap: "1rem", flex: 1 }}>
+                      {codingQuestions.map((q: any, idx: number) => (
+                        <button 
+                          key={idx} 
+                          onClick={() => setCodingQuestionIndex(idx)} 
+                          className={`btn ${codingQuestionIndex === idx ? 'btn-primary' : 'btn-outline'}`}
+                          style={{ flex: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+                        >
+                          TASK {idx + 1}: {q.title?.substring(0, 20)}... {codingProgress[idx] ? "✅" : ""}
+                        </button>
+                      ))}
+                    </div>
+                    {codingQuestionIndex === codingQuestions.length - 1 && (
                       <button 
-                        key={idx} 
-                        onClick={() => setCodingQuestionIndex(idx)} 
-                        className={`btn ${codingQuestionIndex === idx ? 'btn-primary' : 'btn-outline'}`}
-                        style={{ flex: 1 }}
+                        className="btn btn-danger animate-pulse" 
+                        style={{ backgroundColor: "#dc2626", color: "white", padding: "0.8rem 2rem", borderRadius: "12px", fontWeight: "900", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)", flexShrink: 0 }}
+                        onClick={() => {
+                          const attemptedCount = Object.keys(codingSubmissions).length;
+                          const totalCodingQuestions = codingQuestions.length;
+                          
+                          if (attemptedCount < totalCodingQuestions) {
+                            showConfirm(
+                              "Incomplete Assessment",
+                              `⚠ You have only attempted ${attemptedCount} out of ${totalCodingQuestions} coding questions. Do you want to proceed and leave the rest blank?`,
+                              () => {
+                                showConfirm(
+                                  "Final Assessment Submission",
+                                  "This will finalize your scores for ALL rounds, including all 3 coding questions. This action is irreversible. Proceed?",
+                                  () => handleFinalSubmit()
+                                );
+                              }
+                            );
+                            return;
+                          }
+
+                          showConfirm(
+                            "Final Assessment Submission",
+                            "This will finalize your scores for ALL rounds, including all 3 coding questions. This action is irreversible. Proceed?",
+                            () => handleFinalSubmit()
+                          );
+                        }}
                       >
-                        TASK {idx + 1}: {q.title?.substring(0, 20)}... {codingProgress[idx] ? "✅" : ""}
+                        FINALIZE EXAM
                       </button>
-                    ))}
+                    )}
                   </div>
                   
-                  <div style={{ flex: 1, display: "flex", gap: "1rem", minHeight: "500px" }}>
-                    <div style={{ flex: "1", padding: "2rem", backgroundColor: "#1e293b", color: "#f8fafc", borderRadius: "16px", border: "1px solid var(--border-dim)", overflowY: "auto" }}>
+                  <div style={{ flex: 1, display: "flex", gap: "1rem", overflow: "hidden" }}>
+                    <div style={{ flex: "0 0 40%", padding: "1.5rem", backgroundColor: "#1e293b", color: "#f8fafc", borderRadius: "16px", border: "1px solid var(--border-dim)", overflowY: "auto", height: "100%" }}>
                       <h2 style={{ color: "white", margin: "0 0 1rem 0", fontSize: "1.4rem", fontWeight: "bold" }}>Overview: {codingQuestions[codingQuestionIndex]?.title}</h2>
                       <div style={{ fontSize: "0.95rem", lineHeight: "1.7", color: "#cbd5e1", whiteSpace: "pre-wrap" }}>
                         {codingQuestions[codingQuestionIndex]?.desc}
@@ -2182,33 +2189,13 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                          </div>
                       )}
 
-                      {codingQuestions[codingQuestionIndex]?.sampleInput && (
-                        <div style={{ marginTop: "2rem" }}>
-                          <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem", color: "white", fontWeight: "bold" }}>Sample Input 0</h4>
-                          <div style={{ backgroundColor: "#0f172a", padding: "1rem", borderRadius: "8px", border: "1px solid #334155", fontFamily: "monospace", color: "#e2e8f0" }}>
-                            {codingQuestions[codingQuestionIndex].sampleInput}
-                          </div>
-                        </div>
-                      )}
-
-                      {codingQuestions[codingQuestionIndex]?.sampleOutput && (
-                        <div style={{ marginTop: "1rem" }}>
-                          <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem", color: "white", fontWeight: "bold" }}>Sample Output 0</h4>
-                          <div style={{ backgroundColor: "#0f172a", padding: "1rem", borderRadius: "8px", border: "1px solid #334155", fontFamily: "monospace", color: "#e2e8f0" }}>
-                            {codingQuestions[codingQuestionIndex].sampleOutput}
-                          </div>
-                        </div>
-                      )}
-
-                      {codingQuestions[codingQuestionIndex]?.explanation && (
-                        <div style={{ marginTop: "1.5rem" }}>
-                          <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem", color: "white", fontWeight: "bold" }}>Explanation 0</h4>
-                          <p style={{ color: "#cbd5e1", fontSize: "0.95rem", lineHeight: "1.6" }}>{codingQuestions[codingQuestionIndex].explanation}</p>
-                        </div>
-                      )}
+                      {/* Sample Input/Output and Explanation hidden during exam - answers revealed only after submission */}
+                      <div style={{ marginTop: "2rem", padding: "1rem", backgroundColor: "#1e3a5f", border: "1px solid #3b82f6", borderRadius: "8px" }}>
+                        <p style={{ color: "#93c5fd", fontSize: "0.85rem", margin: 0 }}>📝 Sample test cases and explanations are hidden during the exam. You will receive detailed feedback after submission.</p>
+                      </div>
                     </div>
                     
-                    <div style={{ flex: "1.5", display: "flex", flexDirection: "column" }}>
+                    <div style={{ flex: "0 0 calc(60% - 1rem)", display: "flex", flexDirection: "column", height: "100%" }}>
                       <MemoizedCodeEditor
                         questionId={`q_${codingQuestionIndex}`}
                         questionTitle={codingQuestions[codingQuestionIndex]?.title}
@@ -2216,6 +2203,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                         language={codingSubmissions[codingQuestionIndex]?.language || codingQuestions[codingQuestionIndex]?.language || domainConfig.preferredLanguage || "javascript"}
                         testCases={codingQuestions[codingQuestionIndex]?.tests || []}
                         initialResults={codingSubmissions[codingQuestionIndex]?.results || []}
+                        isExamMode={true}
                         onUpdate={(data) => {
                           setCodingSubmissions(prev => ({
                             ...prev,
@@ -2229,35 +2217,16 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  {/* Final Round Submission Button */}
-                  <div style={{ marginTop: "2rem", display: "flex", justifyContent: "flex-start" }}>
-                    <button 
-                      className="btn btn-danger animate-pulse" 
-                      style={{ backgroundColor: "#dc2626", color: "white", padding: "1.5rem 4rem", borderRadius: "20px", fontWeight: "900", fontSize: "1.2rem", boxShadow: "0 10px 40px rgba(220, 38, 38, 0.4)" }}
-                      onClick={() => {
-                        // Only show Finalize button if it's the last question
-                        if (codingQuestionIndex === codingQuestions.length - 1) {
-                          const attemptedCount = Object.keys(codingSubmissions).length;
-                          const totalCodingQuestions = codingQuestions.length;
-                          
-                          if (attemptedCount < totalCodingQuestions) {
-                            const proceed = window.confirm(`⚠ INCOMPLETE ASSESSMENT: You have only attempted ${attemptedCount} out of ${totalCodingQuestions} coding questions. Are you sure you want to submit and leave the rest blank?`);
-                            if (!proceed) return;
-                          }
-
-                          showConfirm(
-                            "Final Assessment Submission",
-                            "This will finalize your scores for ALL rounds, including all 3 coding questions. This action is irreversible. Proceed?",
-                            () => handleFinalSubmit()
-                          );
-                        } else {
-                          // If not last question, just move to next
-                          setCodingQuestionIndex(p => p + 1);
-                        }
-                      }}
-                    >
-                      {codingQuestionIndex === codingQuestions.length - 1 ? "FINALIZE & SUBMIT" : "NEXT TASK"}
-                    </button>
+                  <div style={{ marginTop: "1.5rem", display: "flex", justifyContent: "flex-end" }}>
+                    {codingQuestionIndex < codingQuestions.length - 1 && (
+                      <button 
+                        className="btn" 
+                        style={{ backgroundColor: "#64748b", color: "white", padding: "0.8rem 2.5rem", borderRadius: "12px", fontWeight: "800", fontSize: "0.9rem", transition: "all 0.2s" }}
+                        onClick={() => setCodingQuestionIndex(p => p + 1)}
+                      >
+                        NEXT TASK
+                      </button>
+                    )}
                   </div>
                 </div>
               )}
@@ -2266,18 +2235,48 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         </div>
       </div>
       {examState === "ACTIVE" && (
-        <div style={{ position: "fixed", bottom: "20px", right: "20px", width: "220px", height: "220px", zIndex: 1000, pointerEvents: "none" }}>
+        <div className={`ai-camera-container ${currentRound === 4 ? "round-4-camera" : "default-camera"}`} style={{ 
+          position: "fixed", 
+          bottom: "30px", 
+          ...(currentRound === 4 ? { left: "30px" } : { right: "30px" }),
+          borderRadius: currentRound === 4 ? "50%" : "12px",
+          overflow: "hidden",
+          border: "none",
+          boxShadow: currentRound === 4 ? "none" : "0 10px 25px rgba(0,0,0,0.5)",
+          zIndex: 1000, 
+          pointerEvents: "none",
+          transition: "all 0.3s ease"
+        }}>
+          <style>{`
+            .ai-camera-container.default-camera {
+              width: 220px;
+              height: auto;
+            }
+            .ai-camera-container.round-4-camera {
+              width: 170px;
+              height: 170px;
+            }
+            @media (max-width: 1024px) {
+               .ai-camera-container.round-4-camera { width: 150px; height: 150px; }
+            }
+            @media (max-width: 768px) {
+               .ai-camera-container.round-4-camera { width: 130px; height: 130px; }
+            }
+            @media (max-width: 640px) {
+               .ai-camera-container.round-4-camera { width: 100px; height: 100px; }
+            }
+          `}</style>
           <div style={{ pointerEvents: "auto", width: "100%", height: "100%" }}>
             <MemoizedAIProctor 
               onViolation={handleProctorViolation} 
               isExamActive={examState === "ACTIVE"} 
               observationLevel={warnings.length}
               observationTimer={observationTimer}
+              isRound4={currentRound === 4}
             />
           </div>
         </div>
       )}
-      <AIProctorDebugPanel />
       <AnimatePresence>
         {currentWarning && (
           <motion.div 

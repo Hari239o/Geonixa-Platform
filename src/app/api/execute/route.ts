@@ -5,17 +5,19 @@ import { promises as fs, existsSync } from 'fs';
 import os from 'os';
 import path from 'path';
 import { promisify } from 'util';
-import { 
-  DSA_HARD_POOL, 
-  JAVA_POOL, 
-  PYTHON_POOL, 
-  WEB_DEV_POOL, 
-  DATA_SCIENCE_POOL 
+import {
+  DSA_HARD_POOL,
+  JAVA_POOL,
+  PYTHON_POOL,
+  WEB_DEV_POOL,
+  DATA_SCIENCE_POOL
 } from '@/data/questions_data';
+import { TECHNICAL_ROUND_4_POOL } from '@/data/examQuestions';
 
 function getRealTestCases(questionTitle: string): TestCase[] {
   const titleLower = questionTitle.toLowerCase().trim();
   const allPools = [
+    ...TECHNICAL_ROUND_4_POOL,
     ...DSA_HARD_POOL,
     ...JAVA_POOL,
     ...PYTHON_POOL,
@@ -27,6 +29,7 @@ function getRealTestCases(questionTitle: string): TestCase[] {
 }
 
 export const runtime = 'nodejs';
+export const maxDuration = 300;
 
 const execFileAsync = promisify(execFile);
 
@@ -45,6 +48,40 @@ const LANG_MAP: Record<string, string> = {
   "csharp": "csharp"
 };
 
+const USE_LOCAL_FIRST = process.env.LOCAL_JUDGE_EXECUTION_FIRST === "true";
+const REMOTE_MIRROR_TIMEOUT_MS = 14000;
+
+async function executeRemoteTest(mirror: string, pistonLang: string, executableCode: string, test: TestCase, timeoutMs: number) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const response = await fetch(mirror, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        language: pistonLang,
+        version: "*",
+        files: [{ content: executableCode }],
+        stdin: test.input,
+        compile_timeout: 10000,
+        run_timeout: test.timeLimit || 5000,
+        memory_limit: (test.memoryLimit || 256) * 1024 * 1024
+      }),
+      signal: controller.signal,
+    });
+
+    if (!response.ok) {
+      const serverBody = await response.text().catch(() => "");
+      throw new Error(`HTTP_${response.status}:${serverBody}`);
+    }
+
+    return await response.json();
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 const parseCppVector = `
 vector<int> parseVector(const string& line) {
   vector<int> values;
@@ -59,6 +96,37 @@ function hasMainFunction(code: string): boolean {
   return /\bint\s+main\s*\(/.test(code) || /\bvoid\s+main\s*\(/.test(code) || /\bpublic\s+static\s+void\s+main\s*\(/i.test(code);
 }
 
+function normalizeJavaSource(code: string): string {
+  const imports = new Set<string>();
+  const bodyLines: string[] = [];
+
+  code.split(/\r?\n/).forEach((line) => {
+    if (/^\s*import\s+[\w.*]+;\s*$/.test(line)) {
+      imports.add(line.trim());
+    } else {
+      bodyLines.push(line);
+    }
+  });
+
+  return `${Array.from(imports).join("\n")}${imports.size ? "\n\n" : ""}${bodyLines.join("\n").trimStart()}`;
+}
+
+function finalizeExecutableCode(code: string, language: string): string {
+  if (language === "java") {
+    return normalizeJavaSource(code);
+  }
+
+  if (language === "c" && !hasMainFunction(code)) {
+    return `#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n${code}\n`;
+  }
+
+  return code;
+}
+
+function isInterpretedSyntaxError(stderr: string): boolean {
+  return /\bSyntaxError\b|IndentationError|TabError|ParseError/i.test(stderr);
+}
+
 function prepareExecutableCode(code: string, language: string, questionTitle?: string): string {
   if (hasMainFunction(code)) return code;
 
@@ -68,7 +136,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
   if (language === "cpp") {
     const header = `#include <bits/stdc++.h>\nusing namespace std;\n\n`;
     const listNodeDef = `struct ListNode {\n    int val;\n    ListNode *next;\n    ListNode() : val(0), next(nullptr) {}\n    ListNode(int x) : val(x), next(nullptr) {}\n    ListNode(int x, ListNode *next) : val(x), next(next) {}\n};\n\n`;
-    
+    if (title.includes("stickers") || title.includes("spell word")) {
+      return `${header}${code}\n\nint main() {\n  string stickersLine, target;\n  getline(cin, stickersLine);\n  getline(cin, target);\n  stringstream ss(stickersLine);\n  vector<string> stickers;\n  string sticker;\n  while (ss >> sticker) stickers.push_back(sticker);\n  ${useSolution ? "Solution solver;\n  cout << solver.minStickers(stickers, target);" : "cout << minStickers(stickers, target);"}\n  return 0;\n}\n`;
+    }
     if (title.includes("n-queens") || title.includes("queens")) {
       return `${header}${code}\n\nint main() {\n  int n;\n  if (!(cin >> n)) return 0;\n  ${useSolution ? "Solution solver;\n  cout << solver.totalNQueens(n);" : "cout << totalNQueens(n);"}\n  return 0;\n}\n`;
     }
@@ -135,7 +205,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
   if (language === "java") {
     const cleanedCode = code.replace(/public\s+class\s+Solution/g, "class Solution");
     const listNodeDef = `class ListNode {\n    int val;\n    ListNode next;\n    ListNode() {}\n    ListNode(int val) { this.val = val; }\n    ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n}\n\n`;
-    
+    if (title.includes("stickers") || title.includes("spell word")) {
+      return `${cleanedCode}\n\nimport java.util.*;\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    if (!sc.hasNextLine()) return;\n    String[] stickers = sc.nextLine().trim().split("\\s+");\n    String target = sc.hasNextLine() ? sc.nextLine().trim() : "";\n    Solution solver = new Solution();\n    System.out.print(solver.minStickers(stickers, target));\n  }\n}\n`;
+    }
     if (title.includes("n-queens") || title.includes("queens")) {
       return `${cleanedCode}\n\nimport java.util.*;\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    if (sc.hasNextInt()) {\n      int n = sc.nextInt();\n      Solution solver = new Solution();\n      System.out.print(solver.totalNQueens(n));\n    }\n  }\n}\n`;
     }
@@ -202,7 +274,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
   if (language === "python") {
     const helperImports = `from typing import List, Optional, Dict, Tuple\n\n`;
     const listNodeDef = `class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\n`;
-    
+    if (title.includes("stickers") || title.includes("spell word")) {
+      return `${helperImports}${code}\n\nimport sys\nif __name__ == '__main__':\n    lines = sys.stdin.read().splitlines()\n    if len(lines) >= 2:\n        stickers = lines[0].split()\n        target = lines[1].strip()\n        solver = Solution()\n        print(solver.minStickers(stickers, target), end="")\n`;
+    }
     if (title.includes("n-queens") || title.includes("queens")) {
       return `${helperImports}${code}\n\nimport sys\nif __name__ == '__main__':\n    lines = sys.stdin.read().split()\n    if lines:\n        n = int(lines[0])\n        solver = Solution()\n        print(solver.totalNQueens(n), end="")\n`;
     }
@@ -268,7 +342,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
 
   if (language === "javascript") {
     const listNodeDef = `function ListNode(val, next) {\n    this.val = (val===undefined ? 0 : val)\n    this.next = (next===undefined ? null : next)\n}\n\n`;
-    
+    if (title.includes("stickers") || title.includes("spell word")) {
+      return `${code}\n\nconst fs = require('fs');\nconst lines = fs.readFileSync(0, 'utf-8').split(/\\r?\\n/);\nif (lines.length >= 2) {\n    const stickers = lines[0].trim().split(/\\s+/).filter(Boolean);\n    const target = lines[1].trim();\n    const solver = typeof minStickers === 'function' ? minStickers : (s, t) => new Solution().minStickers(s, t);\n    console.log(solver(stickers, target));\n}\n`;
+    }
     if (title.includes("n-queens") || title.includes("queens")) {
       return `${code}\n\nconst fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nif (input) {\n    const n = parseInt(input, 10);\n    const solver = typeof totalNQueens === 'function' ? totalNQueens : (nVal) => new Solution().totalNQueens(nVal);\n    console.log(solver(n));\n}\n`;
     }
@@ -335,6 +411,13 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
     return code;
   }
 
+  if (language === "csharp") {
+    if (title.includes("stickers") || title.includes("spell word")) {
+      return `using System;\nusing System.Linq;\n\n${code}\n\npublic class Program {\n  public static void Main(string[] args) {\n    string stickersLine = Console.ReadLine() ?? "";\n    string target = Console.ReadLine() ?? "";\n    string[] stickers = stickersLine.Split(new[] { ' ', '\\t' }, StringSplitOptions.RemoveEmptyEntries);\n    var solver = new Solution();\n    Console.Write(solver.MinStickers(stickers, target));\n  }\n}\n`;
+    }
+    return code;
+  }
+
   return code;
 }
 
@@ -346,6 +429,7 @@ async function runLocalCode(code: string, language: string, stdin: string, timeo
     code: number | null;
     signal: NodeJS.Signals | null;
     time: number;
+    spawnErrorCode?: string;
   }>((resolve) => {
     const child = spawn(command, args, { windowsHide: true });
     let stdout = "";
@@ -353,7 +437,13 @@ async function runLocalCode(code: string, language: string, stdin: string, timeo
     let settled = false;
     const timeoutId = setTimeout(() => {
       settled = true;
-      child.kill("SIGKILL");
+      if (process.platform === "win32" && child.pid) {
+        execFile("taskkill", ["/pid", String(child.pid), "/T", "/F"], { windowsHide: true }, () => {
+          child.kill();
+        });
+      } else {
+        child.kill("SIGKILL");
+      }
     }, timeout);
 
     child.stdout.on("data", (chunk) => {
@@ -366,14 +456,24 @@ async function runLocalCode(code: string, language: string, stdin: string, timeo
     });
     child.on("error", (error) => {
       clearTimeout(timeoutId);
-      resolve({ stdout, stderr: error.message, code: 1, signal: null, time: Date.now() - started });
+      resolve({ stdout, stderr: error.message, code: 1, signal: null, time: Date.now() - started, spawnErrorCode: (error as any).code });
     });
     child.on("close", (code, signal) => {
       clearTimeout(timeoutId);
       resolve({ stdout, stderr, code, signal: settled ? "SIGKILL" : signal, time: Date.now() - started });
     });
-    child.stdin.end(stdin);
-  });
+    // Ensure stdin is written reliably into the child process stream
+    try {
+      if (typeof stdin === 'string' && stdin.length > 0) {
+        // Some programs on windows expect \r\n
+        const normalizedStdin = process.platform === "win32" ? stdin.replace(/\r?\n/g, "\r\n") : stdin;
+        child.stdin.write(normalizedStdin, 'utf8');
+      }
+      child.stdin.end();
+    } catch (e) {
+      // ignore write errors; we'll still attempt to end the stream
+    }
+  }).then(res => res.spawnErrorCode === "ENOENT" ? null : res);
 
   try {
     if (language === "javascript") {
@@ -392,6 +492,7 @@ async function runLocalCode(code: string, language: string, stdin: string, timeo
         try {
           await execFileAsync("javac", [sourcePath], { timeout, maxBuffer: 1024 * 1024, windowsHide: true });
         } catch (compileError: any) {
+          if (compileError.code === "ENOENT") return null;
           return {
             stdout: "",
             stderr: (compileError.stderr || compileError.stdout || compileError.message || "Compilation failed").trim(),
@@ -416,6 +517,32 @@ async function runLocalCode(code: string, language: string, stdin: string, timeo
         try {
           await execFileAsync("g++", ["-O3", "-std=c++17", sourcePath, "-o", exePath], { timeout, maxBuffer: 1024 * 1024, windowsHide: true });
         } catch (compileError: any) {
+          if (compileError.code === "ENOENT") return null;
+          return {
+            stdout: "",
+            stderr: (compileError.stderr || compileError.stdout || compileError.message || "Compilation failed").trim(),
+            code: 1,
+            signal: null,
+            time: 0,
+            isCompilationError: true
+          } as any;
+        }
+        return await runWithStdin(exePath, []);
+      } finally {
+        await fs.rm(tempDir, { recursive: true, force: true });
+      }
+    }
+
+    if (language === "c") {
+      const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "geonixa-c-"));
+      try {
+        const sourcePath = path.join(tempDir, "solution.c");
+        const exePath = path.join(tempDir, "solution.exe");
+        await fs.writeFile(sourcePath, code, "utf8");
+        try {
+          await execFileAsync("gcc", ["-O2", sourcePath, "-o", exePath], { timeout, maxBuffer: 1024 * 1024, windowsHide: true });
+        } catch (compileError: any) {
+          if (compileError.code === "ENOENT") return null;
           return {
             stdout: "",
             stderr: (compileError.stderr || compileError.stdout || compileError.message || "Compilation failed").trim(),
@@ -446,6 +573,7 @@ async function runLocalCode(code: string, language: string, stdin: string, timeo
             await execFileAsync("dotnet", ["build", "-c", "Release", "-o", path.join(tempDir, "bin")], { timeout, windowsHide: true });
           }
         } catch (compileError: any) {
+          if (compileError.code === "ENOENT") return null;
           return {
             stdout: "",
             stderr: (compileError.stderr || compileError.stdout || compileError.message || "Compilation failed").trim(),
@@ -455,7 +583,7 @@ async function runLocalCode(code: string, language: string, stdin: string, timeo
             isCompilationError: true
           } as any;
         }
-        
+
         if (existsSync(exePath)) {
           return await runWithStdin(exePath, []);
         } else {
@@ -480,7 +608,7 @@ async function runLocalCode(code: string, language: string, stdin: string, timeo
 
 /**
  * Enterprise Execution Handler v2.0
- * 
+ *
  * Enhanced with:
  * - Testcase categorization
  * - Hardcode detection
@@ -492,17 +620,17 @@ export async function POST(req: Request) {
   try {
     const { code, language, questionTitle, testCases, mode } = await req.json();
 
-    if (!code || !language) {
+    if (!code || !language || !Array.isArray(testCases)) {
       return NextResponse.json({ error: "Invalid request parameters" }, { status: 400 });
     }
 
     const pistonLang = LANG_MAP[language] || language;
-    const executableCode = prepareExecutableCode(code, language, questionTitle);
+    const executableCode = finalizeExecutableCode(prepareExecutableCode(code, language, questionTitle), language);
     const results: JudgeResult[] = [];
     const randomizedResults: JudgeResult[] = [];
 
-    let realTests: TestCase[] = testCases || [];
-    
+    let realTests: TestCase[] = testCases;
+
     // Retrieve server-side truth for test cases to prevent client leakage & cheating
     if (questionTitle) {
       const serverTests = getRealTestCases(questionTitle);
@@ -523,7 +651,7 @@ export async function POST(req: Request) {
         }
       }
     }
-    
+
     for (const test of realTests) {
       const category = test.category || JudgeEngine.categorizeTestCase(test, realTests);
       let testResult: JudgeResult = {
@@ -545,36 +673,60 @@ export async function POST(req: Request) {
 
       let mirrorAttempt = 0;
       let executedSuccessfully = false;
+      let remoteMirrorsAvailable = true;
+      const timeLimit = test.timeLimit || 5000;
 
-      while (mirrorAttempt < MIRRORS.length && !executedSuccessfully) {
+      const applyLocalResult = (localRun: any) => {
+        const stdout = (localRun.stdout || "").trim();
+        const stderr = (localRun.stderr || "").trim();
+
+        if (localRun.isCompilationError) {
+          testResult = {
+            ...testResult,
+            status: "COMPILATION_ERROR",
+            actual: "",
+            expected: test.isHidden ? "[HIDDEN]" : test.expectedOutput,
+            passed: false,
+            stderr: stderr || "Compilation failed",
+            time: 0,
+            memory: 0
+          };
+        } else {
+          const isOutputCorrect = JudgeEngine.compare(stdout, test.expectedOutput);
+          const isCorrect = isOutputCorrect && localRun.code === 0;
+
+          testResult = {
+            ...testResult,
+            status: localRun.signal === "SIGKILL"
+              ? "TIME_LIMIT_EXCEEDED"
+              : (isCorrect ? "ACCEPTED" : (localRun.code !== 0 ? (isInterpretedSyntaxError(stderr) ? "COMPILATION_ERROR" : "RUNTIME_ERROR") : "WRONG_ANSWER")),
+            actual: test.isHidden ? "[HIDDEN]" : stdout,
+            expected: test.isHidden ? "[HIDDEN]" : test.expectedOutput,
+            passed: isCorrect,
+            time: localRun.time || 0,
+            memory: 0,
+            stderr: test.isHidden ? (stderr ? "Execution completed with errors." : "") : stderr,
+          };
+        }
+
+        executedSuccessfully = true;
+      };
+
+      const tryLocalExecution = async () => {
+        const localRun = await runLocalCode(executableCode, language, test.input, timeLimit);
+        if (!localRun) return false;
+        applyLocalResult(localRun);
+        return true;
+      };
+
+      if (USE_LOCAL_FIRST) {
+        await tryLocalExecution();
+      }
+
+      while (mirrorAttempt < MIRRORS.length && !executedSuccessfully && remoteMirrorsAvailable) {
         const mirror = MIRRORS[mirrorAttempt];
-        const controller = new AbortController();
-        
-        // Apply per-testcase time limit if available
-        const timeLimit = test.timeLimit || 5000;
-        const timeoutId = setTimeout(() => controller.abort(), Math.max(10000, timeLimit + 5000));
-
         try {
-          const response = await fetch(mirror, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              language: pistonLang,
-              version: "*",
-              files: [{ content: executableCode }],
-              stdin: test.input,
-              compile_timeout: 10000,
-              run_timeout: timeLimit,
-              memory_limit: (test.memoryLimit || 256) * 1024 * 1024
-            }),
-            signal: controller.signal,
-          });
-
-          clearTimeout(timeoutId);
-
-          if (!response.ok) throw new Error(`HTTP_${response.status}`);
-
-          const data = await response.json();
+          const data = await executeRemoteTest(mirror, pistonLang, executableCode, test, Math.max(REMOTE_MIRROR_TIMEOUT_MS, timeLimit + 5000));
           const run = data.run || {};
           const compile = data.compile || { code: 0 };
 
@@ -597,10 +749,10 @@ export async function POST(req: Request) {
           const stderr = (run.stderr || "").trim();
           const isOutputCorrect = JudgeEngine.compare(stdout, test.expectedOutput);
           const isCorrect = isOutputCorrect && run.code === 0;
-          
+
           testResult = {
             ...testResult,
-            status: isCorrect ? "ACCEPTED" : (run.code !== 0 ? "RUNTIME_ERROR" : "WRONG_ANSWER"),
+            status: isCorrect ? "ACCEPTED" : (run.code !== 0 ? (isInterpretedSyntaxError(stderr) ? "COMPILATION_ERROR" : "RUNTIME_ERROR") : "WRONG_ANSWER"),
             actual: test.isHidden ? "[HIDDEN]" : stdout,
             expected: test.isHidden ? "[HIDDEN]" : test.expectedOutput,
             passed: isCorrect,
@@ -615,65 +767,46 @@ export async function POST(req: Request) {
           }
 
           executedSuccessfully = true;
-
         } catch (err) {
-          clearTimeout(timeoutId);
+          console.warn(`[EXECUTE] Remote judge mirror failed (${mirror}):`, err);
           mirrorAttempt++;
           if (mirrorAttempt >= MIRRORS.length) {
-            testResult.status = "INTERNAL_ERROR";
+            remoteMirrorsAvailable = false;
+            if (!executedSuccessfully) {
+              testResult.status = "INTERNAL_ERROR";
+              testResult.stderr = "Remote execution mirrors unavailable. Falling back to local runner.";
+            }
           }
         }
       }
 
-      if (!executedSuccessfully) {
-        const localRun = await runLocalCode(executableCode, language, test.input, test.timeLimit || 5000);
-        if (localRun) {
-          const stdout = (localRun.stdout || "").trim();
-          const stderr = (localRun.stderr || "").trim();
-
-          if ((localRun as any).isCompilationError) {
-            testResult = {
-              ...testResult,
-              status: "COMPILATION_ERROR",
-              actual: "",
-              expected: test.isHidden ? "[HIDDEN]" : test.expectedOutput,
-              passed: false,
-              stderr: stderr || "Compilation failed",
-              time: 0,
-              memory: 0
-            };
-            executedSuccessfully = true;
-          } else {
-            const isOutputCorrect = JudgeEngine.compare(stdout, test.expectedOutput);
-            const isCorrect = isOutputCorrect && localRun.code === 0;
-
-            testResult = {
-              ...testResult,
-              status: localRun.signal === "SIGKILL" ? "TIME_LIMIT_EXCEEDED" : (isCorrect ? "ACCEPTED" : (localRun.code !== 0 ? "RUNTIME_ERROR" : "WRONG_ANSWER")),
-              actual: test.isHidden ? "[HIDDEN]" : stdout,
-              expected: test.isHidden ? "[HIDDEN]" : test.expectedOutput,
-              passed: isCorrect,
-              time: localRun.time || 0,
-              memory: 0,
-              stderr: test.isHidden ? (stderr ? "Execution completed with errors." : "") : stderr,
-            };
-            executedSuccessfully = true;
-          }
-        } else {
+      if (!executedSuccessfully && !USE_LOCAL_FIRST) {
+        const localSuccess = await tryLocalExecution();
+        if (!localSuccess) {
           testResult = {
             ...testResult,
             status: "INTERNAL_ERROR",
-            stderr: "Execution service is unreachable and no local runner is available for this language.",
+            stderr: remoteMirrorsAvailable
+              ? "Execution service is unreachable and no local runner is available for this language."
+              : "Execution service is unreachable and no local runner is available."
           };
         }
       }
 
+      if (!executedSuccessfully && USE_LOCAL_FIRST && !remoteMirrorsAvailable) {
+        testResult = {
+          ...testResult,
+          status: "INTERNAL_ERROR",
+          stderr: "Execution mirrors are currently unavailable and local execution could not be completed."
+        };
+      }
+
       results.push(testResult);
-      
+
       if (testResult.category === "RANDOMIZED_VALIDATION") {
         randomizedResults.push(testResult);
       }
-      
+
       if (testResult.status === "COMPILATION_ERROR") break;
     }
 

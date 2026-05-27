@@ -2,18 +2,16 @@
 
 import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import Editor, { OnMount, loader } from "@monaco-editor/react";
-import SimpleCodeEditor from "react-simple-code-editor";
 import {
   Play, RotateCcw, Terminal, ShieldCheck, Loader2, CheckCircle2, Check,
   XCircle, Code2, Cpu, Copy, Download, Maximize2, Palette, AlertCircle, Clock, Zap
 } from "lucide-react";
 import axios from "axios";
+import SimpleCodeEditor from "react-simple-code-editor";
 import ProfessionalTestcasePanel from "./ProfessionalTestcasePanel";
-import { JudgeEngine } from "@/lib/JudgeEngine";
 
-// Use the installed Monaco package when available. The simple editor fallback below
-// keeps Round 4 usable if the package/CDN cannot be loaded on the client machine.
-loader.config({});
+// Configure Monaco Loader to use CDN for stability and speed
+loader.config({ paths: { vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs" } });
 
 interface TestCase {
   id: number;
@@ -32,8 +30,10 @@ interface CodeEditorProps {
   onTestsStatusChange?: (passed: boolean) => void;
   onIntegrityCheck?: (code: string, results: TestResult[]) => void;
   onFinalSubmit?: (code: string, results: any[]) => void;
+  onSubmitSolution?: (code: string, language: string) => void;
   onUpdate?: (data: { code: string, language: string, results: TestResult[] }) => void;
   onRunMode?: (mode: "RUN" | "SUBMIT") => void; // Added to fix ghost TS error
+  isExamMode?: boolean;
 }
 
 const PISTON_API = "https://emkc.org/api/v2/piston/execute";
@@ -81,6 +81,7 @@ interface TestResult {
   memory?: number;
   status?: string;
   input?: string;
+  questionTitle?: string;
   expected?: string;
   stderr?: string;
   category?: string;
@@ -91,139 +92,153 @@ interface TestResult {
   };
 }
 
-function getQuestionTemplate(title: string, language: string, cppCode: string): string {
-  const t = (title || "").toLowerCase();
+function getQuestionTemplate(questionTitle: string, language: string, initialCode: string) {
+  const t = questionTitle?.toLowerCase() || "";
   
-  if (language === "cpp") {
-    return cppCode || LANGUAGE_MAP.cpp?.boilerplate || "";
+  // Only use default initialCode (which is C++) if language is cpp or c
+  if ((language === "cpp" || language === "c") && initialCode?.trim()) {
+    return initialCode;
   }
-  
+
+  const cppCode = LANGUAGE_MAP.cpp?.boilerplate || "";
+
+  if (language === "cpp") {
+    return cppCode;
+  }
+
+  if (t.includes("stickers") || t.includes("spell word")) {
+    if (language === "python") return `from typing import List\n\nclass Solution:\n    def minStickers(self, stickers: List[str], target: str) -> int:\n        # Complete your solution here\n        pass\n`;
+    if (language === "java") return `class Solution {\n    public int minStickers(String[] stickers, String target) {\n        // Complete your solution here\n        return 0;\n    }\n}`;
+    if (language === "javascript") return `function minStickers(stickers, target) {\n    // Complete your solution here\n    \n}`;
+    if (language === "csharp") return `public class Solution {\n    public int MinStickers(string[] stickers, string target) {\n        // Complete your solution here\n        return 0;\n    }\n}`;
+  }
+
   if (t.includes("n-queens") || t.includes("queens")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def totalNQueens(self, n: int) -> int:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public int totalNQueens(int n) {\n        // Write your code here\n        return 0;\n    }\n}`;
     if (language === "javascript") return `function totalNQueens(n) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("word ladder")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `import java.util.*;\n\nclass Solution {\n    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {\n        // Write your code here\n        return new ArrayList<>();\n    }\n}`;
     if (language === "javascript") return `function findLadders(beginWord, endWord, wordList) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("sliding window")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `import java.util.*;\n\nclass Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        // Write your code here\n        return new int[0];\n    }\n}`;
     if (language === "javascript") return `function maxSlidingWindow(nums, k) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("median of two")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        // Write your code here\n        return 0.0;\n    }\n}`;
     if (language === "javascript") return `function findMedianSortedArrays(nums1, nums2) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("regular expression") || t.includes("regex")) {
     if (language === "python") return `class Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public boolean isMatch(String s, String p) {\n        // Write your code here\n        return false;\n    }\n}`;
     if (language === "javascript") return `function isMatch(s, p) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("merge k")) {
     if (language === "python") return `from typing import List, Optional\n\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\n\nclass Solution:\n    def mergeKLists(self, lists: List[ListNode]) -> Optional[ListNode]:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `// class ListNode {\n//     int val;\n//     ListNode next;\n// }\n\nclass Solution {\n    public ListNode mergeKLists(ListNode[] lists) {\n        // Write your code here\n        return null;\n    }\n}`;
     if (language === "javascript") return `/*\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\nfunction mergeKLists(lists) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("trapping rain")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def trap(self, height: List[int]) -> int:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public int trap(int[] height) {\n        // Write your code here\n        return 0;\n    }\n}`;
     if (language === "javascript") return `function trap(height) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("edit distance")) {
     if (language === "python") return `class Solution:\n    def minDistance(self, word1: str, word2: str) -> int:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public int minDistance(String word1, String word2) {\n        // Write your code here\n        return 0;\n    }\n}`;
     if (language === "javascript") return `function minDistance(word1, word2) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("largest rectangle")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def largestRectangleArea(self, heights: List[int]) -> int:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public int largestRectangleArea(int[] heights) {\n        // Write your code here\n        return 0;\n    }\n}`;
     if (language === "javascript") return `function largestRectangleArea(heights) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("sudoku solver")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def solveSudoku(self, board: List[List[str]]) -> None:\n        # Write your code here, modify board in-place\n        pass\n`;
     if (language === "java") return `class Solution {\n    public void solveSudoku(char[][] board) {\n        // Write your code here, modify board in-place\n    }\n}`;
     if (language === "javascript") return `function solveSudoku(board) {\n    // Write your code here, modify board in-place\n    \n}`;
   }
-  
+
   if (t.includes("longest valid parentheses")) {
     if (language === "python") return `class Solution:\n    def longestValidParentheses(self, s: str) -> int:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public int longestValidParentheses(String s) {\n        // Write your code here\n        return 0;\n    }\n}`;
     if (language === "javascript") return `function longestValidParentheses(s) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("palindrome partitioning")) {
     if (language === "python") return `class Solution:\n    def minCut(self, s: str) -> int:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public int minCut(String s) {\n        // Write your code here\n        return 0;\n    }\n}`;
     if (language === "javascript") return `function minCut(s) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("maximal rectangle")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def maximalRectangle(self, matrix: List[List[str]]) -> int:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public int maximalRectangle(char[][] matrix) {\n        // Write your code here\n        return 0;\n    }\n}`;
     if (language === "javascript") return `function maximalRectangle(matrix) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("distinct subsequences")) {
     if (language === "python") return `class Solution:\n    def numDistinct(self, s: str, t: str) -> int:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public int numDistinct(String s, String t) {\n        // Write your code here\n        return 0;\n    }\n}`;
     if (language === "javascript") return `function numDistinct(s, t) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("first missing positive")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def firstMissingPositive(self, nums: List[int]) -> int:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public int firstMissingPositive(int[] nums) {\n        // Write your code here\n        return 0;\n    }\n}`;
     if (language === "javascript") return `function firstMissingPositive(nums) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("minimum window substring")) {
     if (language === "python") return `class Solution:\n    def minWindow(self, s: str, t: str) -> str:\n        # Write your code here\n        pass\n`;
-    if (language === "java") return `class Solution {\n    public String minWindow(String s, String t) {\n        // Write your code here\n        return "";\n    }\n}`;
+    if (language === "java") return `class Solution {\n    public String minWindow(String s, String t) {\n        // Write your code here\n        return \"\";\n    }\n}`;
     if (language === "javascript") return `function minWindow(s, t) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("wildcard matching")) {
     if (language === "python") return `class Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public boolean isMatch(String s, String p) {\n        // Write your code here\n        return false;\n    }\n}`;
     if (language === "javascript") return `function isMatch(s, p) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("shortest palindrome")) {
     if (language === "python") return `class Solution:\n    def shortestPalindrome(self, s: str) -> str:\n        # Write your code here\n        pass\n`;
-    if (language === "java") return `class Solution {\n    public String shortestPalindrome(String s) {\n        // Write your code here\n        return "";\n    }\n}`;
+    if (language === "java") return `class Solution {\n    public String shortestPalindrome(String s) {\n        // Write your code here\n        return \"\";\n    }\n}`;
     if (language === "javascript") return `function shortestPalindrome(s) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("word break ii")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `import java.util.*;\n\nclass Solution {\n    public List<String> wordBreak(String s, List<String> wordDict) {\n        // Write your code here\n        return new ArrayList<>();\n    }\n}`;
     if (language === "javascript") return `function wordBreak(s, wordDict) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("kth smallest element")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public int kthSmallest(int[][] matrix, int k) {\n        // Write your code here\n        return 0;\n    }\n}`;
     if (language === "javascript") return `function kthSmallest(matrix, k) {\n    // Write your code here\n    \n}`;
   }
-  
+
   if (t.includes("split array largest sum")) {
     if (language === "python") return `from typing import List\n\nclass Solution:\n    def splitArray(self, nums: List[int], k: int) -> int:\n        # Write your code here\n        pass\n`;
     if (language === "java") return `class Solution {\n    public int splitArray(int[] nums, int k) {\n        // Write your code here\n        return 0;\n    }\n}`;
     if (language === "javascript") return `function splitArray(nums, k) {\n    // Write your code here\n    \n}`;
   }
-  
+
   // Generated coding questions/fallback:
   if (language === "python") {
     return `import sys\n\ndef process():\n    # Read input from sys.stdin and implement solution\n    pass\n\nif __name__ == '__main__':\n    process()\n`;
@@ -240,7 +255,7 @@ function getQuestionTemplate(title: string, language: string, cppCode: string): 
   if (language === "csharp") {
     return `using System;\n\npublic class Program {\n    public static void Main(string[] args) {\n        // Implement solution logic here\n    }\n}`;
   }
-  
+
   return LANGUAGE_MAP[language]?.boilerplate || "";
 }
 
@@ -254,13 +269,15 @@ export default function CodeEditor({
   onTestsStatusChange, 
   onIntegrityCheck, 
   onFinalSubmit,
+  onSubmitSolution,
   onUpdate,
-  onRunMode
+  onRunMode,
+  isExamMode = false
 }: CodeEditorProps) {
   const [code, setCode] = useState(initialCode);
   const [selectedLanguage, setSelectedLanguage] = useState(initialLanguage);
   const [theme, setTheme] = useState("vs-dark");
-  const [activeTab, setActiveTab] = useState<"OUTPUT" | "TESTS" | "DEBUG">("TESTS");
+  const [activeTab, setActiveTab] = useState<"OUTPUT" | "TESTS">("TESTS");
   const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
   const [isFinalSubmitting, setIsFinalSubmitting] = useState(false);
@@ -272,6 +289,22 @@ export default function CodeEditor({
   const [runMode, setRunMode] = useState<"RUN" | "SUBMIT">("RUN");
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [monacoFailed, setMonacoFailed] = useState(false);
+  const [submitConfirmationOpen, setSubmitConfirmationOpen] = useState(false);
+
+  const visibleTests = testCases.filter((t) => !t.isHidden);
+  const displayTestCases = runMode === "SUBMIT" ? testCases : visibleTests;
+  const executedTestCount = runMode === "SUBMIT"
+    ? testCases.length
+    : Math.max(testResults.length || visibleTests.length, visibleTests.length);
+  const hiddenExecutionCount = runMode === "RUN" && testResults.length > displayTestCases.length
+    ? testResults.length - displayTestCases.length
+    : 0;
+
+  useEffect(() => {
+    if (activeTestIndex >= displayTestCases.length) {
+      setActiveTestIndex(0);
+    }
+  }, [displayTestCases.length, activeTestIndex]);
 
   const editorRef = useRef<any>(null);
   const monacoRef = useRef<any>(null);
@@ -431,40 +464,79 @@ export default function CodeEditor({
     return () => window.removeEventListener("keydown", handleShortcuts);
   }, [questionId, selectedLanguage, code]);
 
-  const handleSubmitSolution = async () => {
+  const executeSubmitSolution = async () => {
     if (isRunning || isFinalSubmitting) return;
-    
-    // Custom Professional Confirmation
-    const confirmed = window.confirm("Ready to submit this task? All test cases (including hidden ones) will be evaluated.");
-    if (!confirmed) return;
 
     setIsFinalSubmitting(true);
+    setRunMode("SUBMIT");
+    setExecutionSummary(null);
     setActiveTab("TESTS");
     setTestResults([]);
 
     try {
       const data = await runBatchTests(code, selectedLanguage, testCases, true);
       const results = data.results || [];
-      setTestResults(results);
+      const typedResults = results as Array<TestResult & { isHidden?: boolean }>;
+      setTestResults(typedResults);
+      setExecutionSummary(data.summary || null);
+      setExecTime(typedResults[0]?.time ?? null);
+      setMemoryUsage(typedResults[0]?.memory ?? null);
 
-      const allPassed = results.every((r: any) => r.passed);
-      const passedCount = results.filter((r: any) => r.passed).length;
+      const allPassed = typedResults.length > 0 && typedResults.every((r: any) => r.passed);
+      const passedCount = typedResults.filter((r: any) => r.passed).length;
       
-      setOutput(allPassed 
-        ? "✅ ALL TESTCASES PASSED\n\nYour solution is highly optimized and correct. Progress has been synced to the assessment server." 
-        : `❌ SUBMISSION FAILED\n\nScore: ${passedCount}/${results.length} cases passed.\nReview the diagnostics below to identify logic gaps.`);
-      setActiveTab("OUTPUT");
+      const compileError = typedResults.find((r: TestResult) => r.status === "COMPILATION_ERROR");
+      const runtimeError = typedResults.find((r: TestResult) => r.status === "RUNTIME_ERROR");
+      const firstFailure = typedResults.find((r: TestResult) => !r.passed);
+
+      const totalCount = data.summary?.total ?? typedResults.length ?? testCases.length;
+
+      let lines = [
+        "Final Submission Result",
+        `Passed: ${passedCount}/${totalCount}`,
+        `Failed: ${Math.max(0, totalCount - passedCount)}/${totalCount}`,
+      ];
+
+      const hiddenCount = typedResults.filter((r) => r.isHidden).length;
+      if (hiddenCount > 0) lines.push(`Hidden testcases executed: ${hiddenCount}`);
+
+      let mainOutput = lines.join("\n");
+
+      if (compileError) {
+        setOutput(`⚠ COMPILATION ERROR:\n\n${compileError.stderr || "Compilation failed"}\n\n---\n${mainOutput}`);
+        setActiveTab("OUTPUT");
+      } else if (runtimeError) {
+        setOutput(`⚠ RUNTIME ERROR:\n\n${runtimeError.stderr || "Runtime failure occurred"}\n\n---\n${mainOutput}`);
+        setActiveTab("OUTPUT");
+      } else {
+        if (!allPassed && firstFailure) {
+          mainOutput += `\n\nFirst failed testcase: ${firstFailure.id}\nExpected output: ${firstFailure.isHidden ? "[HIDDEN]" : (firstFailure.expected || "")}\nActual output: ${firstFailure.isHidden ? "[HIDDEN]" : (firstFailure.actual || "No output")}`;
+        }
+        setOutput(allPassed 
+          ? `✅ ALL TESTCASES PASSED\n\nYour solution is highly optimized and correct. Progress has been synced to the assessment server.\n\n---\n${mainOutput}`
+          : `❌ SUBMISSION FAILED\n\nScore: ${passedCount}/${totalCount} cases passed.\nReview the diagnostics below to identify logic gaps.\n\n---\n${mainOutput}`);
+        setActiveTab("TESTS");
+      }
 
       if (onUpdate) {
         onUpdate({ code, language: selectedLanguage, results });
       }
       
       if (onTestsStatusChange) onTestsStatusChange(allPassed);
+
+      if (onSubmitSolution) {
+        onSubmitSolution(code, selectedLanguage);
+      }
     } catch (err) {
        alert("Network timeout. Progress saved locally.");
     } finally {
       setIsFinalSubmitting(false);
     }
+  };
+
+  const handleSubmitSolution = async () => {
+    if (isRunning || isFinalSubmitting) return;
+    setSubmitConfirmationOpen(true);
   };
 
   useEffect(() => {
@@ -488,31 +560,35 @@ export default function CodeEditor({
         testCases: tests,
         mode: isFinal ? "SUBMIT" : "RUN"
       }, {
-        timeout: 60000
+        timeout: 90000
       });
       
+      console.log("✅ API Response received:", response.data);
+      
       const { results, summary } = response.data;
-      if (results) {
+      if (results && results.length > 0) {
         setEditorMarkers(results);
       }
-      if (summary) {
-        setExecutionSummary(summary);
-      }
+      setExecutionSummary(summary || null);
       setRunMode(isFinal ? "SUBMIT" : "RUN");
       return response.data;
     } catch (err: any) {
-      console.error("Batch execution failed:", err);
+      console.error("❌ Batch execution failed:", err?.message || err);
+      console.error("Error details:", err?.response?.data || err?.config);
       setEditorMarkers([]);
       return {
-        error: "Execution engine unreachable. Retrying...",
-        status: "SYSTEM_FAILURE"
+        error: err?.response?.data?.error || "Execution engine unreachable",
+        results: [],
+        summary: { passed: 0, total: tests.length, passPercentage: 0, status: "INTERNAL_ERROR", possibleHardcode: false, detectedComplexity: "UNKNOWN", byCategory: {}, passedByCategory: {} },
+        status: "NETWORK_ERROR"
       };
     }
   };
-
   const handleRunCode = async () => {
     if (isRunning) return;
     setIsRunning(true);
+    setRunMode("RUN");
+    setExecutionSummary(null);
     setActiveTab("TESTS");
     setOutput("Initializing sandboxed execution environment...");
     setTestResults([]);
@@ -521,38 +597,78 @@ export default function CodeEditor({
       const visibleTests = testCases.filter(t => !t.isHidden);
       const data = await runBatchTests(code, selectedLanguage, visibleTests, false);
       
+      console.log("handleRunCode - data received:", data);
+      
+      if (data.error && (!data.results || data.results.length === 0)) {
+        setOutput(`⚠ EXECUTION ERROR:\n\n${data.error}`);
+        setActiveTab("OUTPUT");
+        setIsRunning(false);
+        return;
+      }
+      
       const results = data.results || [];
-      setTestResults(results);
+      const typedResults = results as Array<TestResult & { isHidden?: boolean }>;
+      
+      if (typedResults.length === 0) {
+        setOutput(data.error ? `⚠ EXECUTION ERROR:\n\n${data.error}` : "⚠ No test results returned. The execution may have timed out or encountered an issue.");
+        setActiveTab("OUTPUT");
+        setIsRunning(false);
+        return;
+      }
+      
+      console.log("Setting test results:", typedResults);
+      setTestResults(typedResults);
+      setExecTime(typedResults[0]?.time ?? null);
+      setMemoryUsage(typedResults[0]?.memory ?? null);
       setActiveTestIndex(0);
       
-      const compileError = results.find((r: TestResult) => r.status === "COMPILATION_ERROR");
-      const runtimeError = results.find((r: TestResult) => r.status === "RUNTIME_ERROR");
-      const wrongAnswer = results.find((r: TestResult) => r.status === "WRONG_ANSWER");
-      const allPassed = results.length > 0 && results.every((r: TestResult) => r.passed);
+      const compileError = typedResults.find((r: TestResult) => r.status === "COMPILATION_ERROR");
+      const runtimeError = typedResults.find((r: TestResult) => r.status === "RUNTIME_ERROR");
+      const wrongAnswer = typedResults.find((r: TestResult) => r.status === "WRONG_ANSWER");
+      const firstFailure = typedResults.find((r: TestResult) => !r.passed);
+      const allPassed = typedResults.length > 0 && typedResults.every((r: TestResult) => r.passed);
+      const passedCount = typedResults.filter((r: TestResult) => r.passed).length;
+      
+      const totalCount = data.summary?.total ?? typedResults.length ?? visibleTests.length;
+
+      let lines = [
+        "Run Code Result",
+        `Passed: ${passedCount}/${totalCount}`,
+        `Failed: ${Math.max(0, totalCount - passedCount)}/${totalCount}`,
+      ];
+
+      const hiddenCount = typedResults.filter((r) => r.isHidden).length;
+      if (hiddenCount > 0) lines.push(`Hidden testcases executed: ${hiddenCount}`);
+
+      let mainOutput = lines.join("\n");
 
       if (compileError) {
-        setOutput(`⚠ COMPILATION ERROR:\n\n${compileError.stderr || "Compilation failed"}`);
+        setOutput(`⚠ COMPILATION ERROR:\n\n${compileError.stderr || "Compilation failed"}\n\n---\n${mainOutput}`);
         setActiveTab("OUTPUT");
       } else if (runtimeError) {
-        setOutput(`⚠ RUNTIME ERROR:\n\n${runtimeError.stderr || "Runtime failure occurred"}`);
+        setOutput(`⚠ RUNTIME ERROR:\n\n${runtimeError.stderr || "Runtime failure occurred"}\n\n---\n${mainOutput}`);
         setActiveTab("OUTPUT");
-      } else if (wrongAnswer) {
-        setOutput(`❌ Wrong Answer\n\nFirst failed testcase: ${wrongAnswer.id}. Review expected vs actual output.`);
+      } else if (wrongAnswer || firstFailure) {
+        const failedTest = wrongAnswer || firstFailure;
+        mainOutput += `\n\nFirst failed testcase: ${failedTest?.id}\nExpected output: ${failedTest?.isHidden ? "[HIDDEN]" : (failedTest?.expected || "")}\nActual output: ${failedTest?.isHidden ? "[HIDDEN]" : (failedTest?.actual || "No output")}`;
+        setOutput(`❌ Wrong Answer\n\nReview expected vs actual output.\n\n---\n${mainOutput}`);
         setActiveTab("TESTS");
       } else if (allPassed) {
-        setOutput("✅ Sample Testcases Passed\n\nProceed to submit your code to validate against hidden enterprise testcases.");
-        setActiveTab("TESTS");
+        setOutput(`✅ Sample Testcases Passed\n\nProceed to submit your code to validate against hidden enterprise testcases.\n\n---\n${mainOutput}`);
+        setActiveTab("OUTPUT");
       } else {
-        setOutput("⚠ Execution completed with unexpected status. Inspect diagnostics below.");
+        setOutput(`⚠ Execution completed with unexpected status. Inspect diagnostics below.\n\n---\n${mainOutput}`);
         setActiveTab("TESTS");
       }
       
       if (data.results?.[0]) {
-        setExecTime(data.results[0].time);
-        setMemoryUsage(data.results[0].memory);
+        setExecTime(data.results[0].time ?? null);
+        setMemoryUsage(data.results[0].memory ?? null);
       }
-    } catch (err) {
+    } catch (err: any) {
+      console.error("handleRunCode error:", err);
       setOutput("⚠ Execution System Offline. Progress is saved locally.");
+      setActiveTab("OUTPUT");
     } finally {
       setIsRunning(false);
     }
@@ -561,6 +677,8 @@ export default function CodeEditor({
   const handleRunTests = async () => {
     if (isRunning) return;
     setIsRunning(true);
+    setRunMode("RUN");
+    setExecutionSummary(null);
     setActiveTab("TESTS");
 
     try {
@@ -572,30 +690,52 @@ export default function CodeEditor({
       }
 
       if (!results || results.length === 0) {
-        setOutput("Execution returned no results. Check your code logic.");
+        setOutput(error ? `⚠ EXECUTION FAILED:\n\n${error}` : "Execution returned no results. Check your code logic.");
         setActiveTab("OUTPUT");
         return;
       }
 
-      setTestResults(results);
+      const typedResults = results as Array<TestResult & { isHidden?: boolean }>;
+      setTestResults(typedResults);
       setActiveTestIndex(0);
+      setExecutionSummary(summary || null);
 
-      const compileError = results.find((r: TestResult) => r.status === "COMPILATION_ERROR");
-      const runtimeError = results.find((r: TestResult) => r.status === "RUNTIME_ERROR");
-      const wrongAnswer = results.find((r: TestResult) => r.status === "WRONG_ANSWER");
-      const allPassed = results.every((r: TestResult) => r.passed);
+      const compileError = typedResults.find((r: TestResult) => r.status === "COMPILATION_ERROR");
+      const runtimeError = typedResults.find((r: TestResult) => r.status === "RUNTIME_ERROR");
+      const wrongAnswer = typedResults.find((r: TestResult) => r.status === "WRONG_ANSWER");
+      const firstFailure = typedResults.find((r: TestResult) => !r.passed);
+      const allPassed = typedResults.length > 0 && typedResults.every((r: TestResult) => r.passed);
+      const passedCount = typedResults.filter((r: TestResult) => r.passed).length;
+
+      const totalCount = summary?.total ?? typedResults.length ?? testCases.length;
+
+      let lines = [
+        "Run Tests Result",
+        `Passed: ${passedCount}/${totalCount}`,
+        `Failed: ${Math.max(0, totalCount - passedCount)}/${totalCount}`,
+      ];
+
+      const hiddenCount = typedResults.filter((r) => r.isHidden).length;
+      if (hiddenCount > 0) lines.push(`Hidden testcases executed: ${hiddenCount}`);
+
+      let mainOutput = lines.join("\n");
 
       if (compileError) {
-        setOutput(`⚠ COMPILATION ERROR:\n\n${compileError.stderr || "Compilation failed"}`);
+        setOutput(`⚠ COMPILATION ERROR:\n\n${compileError.stderr || "Compilation failed"}\n\n---\n${mainOutput}`);
         setActiveTab("OUTPUT");
       } else if (runtimeError) {
-        setOutput(`⚠ RUNTIME ERROR:\n\n${runtimeError.stderr || "Runtime failure occurred"}`);
+        setOutput(`⚠ RUNTIME ERROR:\n\n${runtimeError.stderr || "Runtime failure occurred"}\n\n---\n${mainOutput}`);
         setActiveTab("OUTPUT");
-      } else if (wrongAnswer) {
-        setOutput(`❌ Wrong Answer\n\nFirst failed testcase: ${wrongAnswer.id}. Review expected vs actual output.`);
+      } else if (wrongAnswer || firstFailure) {
+        const failedTest = wrongAnswer || firstFailure;
+        mainOutput += `\n\nFirst failed testcase: ${failedTest?.id}\nExpected output: ${failedTest?.isHidden ? "[HIDDEN]" : (failedTest?.expected || "")}\nActual output: ${failedTest?.isHidden ? "[HIDDEN]" : (failedTest?.actual || "No output")}`;
+        setOutput(`❌ Wrong Answer\n\nReview expected vs actual output.\n\n---\n${mainOutput}`);
         setActiveTab("TESTS");
       } else if (allPassed) {
-        setOutput("✅ All testcases passed. Submit to validate hidden enterprise cases.");
+        setOutput(`✅ All testcases passed. Submit to validate hidden enterprise cases.\n\n---\n${mainOutput}`);
+        setActiveTab("OUTPUT");
+      } else {
+        setOutput(`⚠ Execution completed with unexpected status. Inspect diagnostics below.\n\n---\n${mainOutput}`);
         setActiveTab("TESTS");
       }
 
@@ -626,14 +766,14 @@ export default function CodeEditor({
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
       `}</style>
 
-      <div className="h-14 bg-[#161b22] border-b border-[#30363d] flex items-center justify-between px-6">
-        <div className="flex items-center gap-6">
+      <div className="h-16 bg-[#161b22] border-b border-[#30363d] flex items-center justify-between px-4 sm:px-6 shrink-0">
+        <div className="flex items-center gap-4 sm:gap-6 shrink-0">
           <div className="flex items-center gap-2 text-[#58a6ff]">
             <Cpu size={18} fill="currentColor" />
-            <span className="text-[10px] font-black tracking-[0.2em] uppercase">ASSESSMENT CORE v4.0</span>
+            <span className="text-[10px] font-black tracking-[0.2em] uppercase hidden sm:inline">ASSESSMENT CORE v4.0</span>
           </div>
 
-          <div className="h-6 w-px bg-[#30363d]" />
+          <div className="h-6 w-px bg-[#30363d] hidden sm:block" />
 
           <div className="flex items-center gap-3">
             <Code2 size={14} className="text-slate-500" />
@@ -649,48 +789,69 @@ export default function CodeEditor({
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <button onClick={() => navigator.clipboard.writeText(code)} className="p-2 text-slate-500 hover:text-white hover:bg-slate-800 rounded-lg transition-all" title="Copy Code"><Copy size={16} /></button>
-          <button onClick={handleReset} className="p-2 text-slate-500 hover:text-orange-500 hover:bg-orange-500/10 rounded-lg transition-all" title="Reset Boilerplate"><RotateCcw size={16} /></button>
-          <button onClick={toggleFullscreen} className="p-2 text-slate-500 hover:text-white hover:bg-slate-800 rounded-lg transition-all" title="Toggle Fullscreen"><Maximize2 size={16} /></button>
-          <button onClick={() => setTheme((prev) => (prev === "vs-dark" ? "light" : "vs-dark"))} className="p-2 text-slate-500 hover:text-white hover:bg-slate-800 rounded-lg transition-all" title="Toggle Theme">
-            <Palette size={16} />
-          </button>
-          <div className="h-6 w-px bg-[#30363d] mx-2" />
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <button onClick={() => navigator.clipboard.writeText(code)} className="p-2 text-slate-500 hover:text-white hover:bg-slate-800 rounded-lg transition-all" title="Copy Code"><Copy size={16} /></button>
+            <button onClick={handleReset} className="p-2 text-slate-500 hover:text-orange-500 hover:bg-orange-500/10 rounded-lg transition-all" title="Reset Boilerplate"><RotateCcw size={16} /></button>
+            <button onClick={toggleFullscreen} className="p-2 text-slate-500 hover:text-white hover:bg-slate-800 rounded-lg transition-all" title="Toggle Fullscreen"><Maximize2 size={16} /></button>
+            <button onClick={() => setTheme((prev) => (prev === "vs-dark" ? "light" : "vs-dark"))} className="p-2 text-slate-500 hover:text-white hover:bg-slate-800 rounded-lg transition-all" title="Toggle Theme">
+              <Palette size={16} />
+            </button>
+          </div>
 
-          <button
-            onClick={handleRunCode}
-            disabled={isRunning || isFinalSubmitting}
-            className="flex items-center gap-2 px-5 py-2 bg-[#161b22] hover:bg-[#1c2128] text-[#58a6ff] rounded-xl text-[10px] font-black uppercase tracking-widest border border-[#30363d] disabled:opacity-50 transition-all active:scale-95"
-          >
-            {isRunning ? <Loader2 size={14} className="animate-spin" /> : <Play size={14} fill="currentColor" />}
-            Run Code
-          </button>
+          <div className="h-6 w-px bg-[#30363d] hidden sm:block mx-1" />
 
-          <button
-            onClick={handleRunTests}
-            disabled={isRunning || isFinalSubmitting}
-            className="flex items-center gap-2 px-6 py-2 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-xl text-[10px] font-black uppercase tracking-widest disabled:opacity-50 transition-all border border-slate-700 active:scale-95 shadow-lg"
-          >
-            {isRunning ? <Loader2 size={14} className="animate-spin" /> : <Zap size={14} fill="currentColor" />}
-            Test Suite
-          </button>
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <button
+              onClick={handleRunCode}
+              disabled={isRunning || isFinalSubmitting}
+              className="flex items-center justify-center gap-2 px-4 sm:px-5 py-2 bg-[#161b22] hover:bg-[#1c2128] text-[#58a6ff] rounded-xl text-[10px] font-black uppercase tracking-widest border border-[#30363d] disabled:opacity-50 transition-all active:scale-95 whitespace-nowrap min-w-[120px]"
+            >
+              {isRunning ? <Loader2 size={14} className="animate-spin" /> : <Play size={14} fill="currentColor" />}
+              Run Code
+            </button>
 
-          <div className="w-px h-6 bg-[#30363d] mx-2" />
-
-          <button
-            onClick={handleSubmitSolution}
-            disabled={isRunning || isFinalSubmitting}
-            className="flex items-center gap-2 px-6 py-2 bg-emerald-500 hover:bg-emerald-400 text-black rounded-xl text-[10px] font-black uppercase tracking-widest shadow-[0_0_20px_rgba(16,185,129,0.3)] disabled:opacity-50 transition-all border border-emerald-400/50 active:scale-95"
-          >
-            {isFinalSubmitting ? <Loader2 size={14} className="animate-spin" /> : <ShieldCheck size={14} />}
-            Submit Solution
-          </button>
+            <button
+              onClick={handleSubmitSolution}
+              disabled={isRunning || isFinalSubmitting}
+              className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2 bg-emerald-600/20 hover:bg-emerald-500/30 text-emerald-500 rounded-xl text-[10px] font-black uppercase tracking-widest disabled:opacity-50 transition-all border border-emerald-500/20 active:scale-95 shadow-lg whitespace-nowrap min-w-[150px]"
+            >
+              {isFinalSubmitting ? <Loader2 size={14} className="animate-spin" /> : <ShieldCheck size={14} fill="currentColor" />}
+              Submit Solution
+            </button>
+          </div>
         </div>
       </div>
+      {submitConfirmationOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4">
+          <div className="w-full max-w-xl rounded-3xl bg-slate-950 border border-slate-700 p-6 shadow-2xl">
+            <h3 className="text-xl font-black text-white mb-3">Confirm Submission</h3>
+            <p className="text-sm leading-6 text-slate-300 mb-6">
+              Ready to submit this task? All test cases (including hidden ones) will be evaluated.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-end">
+              <button
+                onClick={() => setSubmitConfirmationOpen(false)}
+                className="px-5 py-2 text-sm font-black uppercase tracking-[0.2em] rounded-full bg-slate-800 text-slate-200 hover:bg-slate-700 transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={async () => {
+                  setSubmitConfirmationOpen(false);
+                  await executeSubmitSolution();
+                }}
+                className="px-5 py-2 text-sm font-black uppercase tracking-[0.2em] rounded-full bg-emerald-500 text-black hover:bg-emerald-400 transition-all"
+              >
+                Confirm & Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex-1 flex min-h-0 flex-col">
-        <div className="relative border-b border-[#30363d] flex-1 min-h-0">
+        <div className="relative border-b border-[#30363d] shrink-0" style={{ height: "55vh" }}>
           {monacoFailed ? (
             <SimpleCodeEditor
               value={code}
@@ -778,7 +939,7 @@ export default function CodeEditor({
             {activeTab === "TESTS" && (
               <div className="p-0 h-full flex flex-col bg-[#0d1117]">
                 <div className="flex items-center gap-1 p-2 bg-[#161b22] border-b border-[#30363d] overflow-x-auto custom-scrollbar">
-                  {(runMode === "SUBMIT" ? testCases : testCases.filter(t => !t.isHidden)).map((test, idx) => (
+                  {displayTestCases.map((test, idx) => (
                     <button
                       key={test.id}
                       onClick={() => setActiveTestIndex(idx)}
@@ -803,19 +964,24 @@ export default function CodeEditor({
                         <Play size={24} />
                       </div>
                       <h4 className="text-sm font-bold text-slate-300">Run your code to see results</h4>
-                      <p className="text-xs text-slate-500 mt-1 max-w-50">We'll validate your solution against {testCases.filter(t => !t.isHidden).length} sample testcases.</p>
+                      <p className="text-xs text-slate-500 mt-1 max-w-50">We'll validate your solution against {visibleTests.length} sample testcases{hiddenExecutionCount > 0 ? ` and ${hiddenExecutionCount} hidden cases` : ''}.</p>
                     </div>
                   :
                     <div className="space-y-6 animate-fade-in">
                       <ProfessionalTestcasePanel
                         results={testResults as any}
-                        totalTestcases={runMode === "RUN" ? testCases.filter(t => !t.isHidden).length : testCases.length}
+                        totalTestcases={executedTestCount}
                         mode={runMode}
                         possibleHardcode={executionSummary?.possibleHardcode}
                         detectedComplexity={executionSummary?.detectedComplexity}
                         categoryBreakdown={executionSummary?.byCategory}
                         categoryPassed={executionSummary?.passedByCategory}
                       />
+                      {hiddenExecutionCount > 0 && (
+                        <div className="text-xs text-slate-400 mt-2 px-1">
+                          ⚡ Hidden enterprise validation included: {hiddenExecutionCount} locked case{hiddenExecutionCount > 1 ? 's' : ''} were executed.
+                        </div>
+                      )}
 
                       {/* Detailed View */}
                       <div className="space-y-4">
@@ -892,6 +1058,22 @@ export default function CodeEditor({
                 <div className="space-y-6">
                   {output ? (
                     <div className="animate-fade-in">
+                      <div className="grid gap-3 sm:grid-cols-3 mb-4">
+                        <div className="rounded-2xl bg-[#161b22] border border-[#30363d] p-3 text-[11px]">
+                          <div className="text-slate-400 uppercase tracking-widest mb-1">Status</div>
+                          <div className="font-black text-white">
+                            {executionSummary?.status || (output.includes("COMPILATION ERROR") ? "COMPILATION_ERROR" : output.includes("RUNTIME ERROR") ? "RUNTIME_ERROR" : "READY")}
+                          </div>
+                        </div>
+                        <div className="rounded-2xl bg-[#161b22] border border-[#30363d] p-3 text-[11px]">
+                          <div className="text-slate-400 uppercase tracking-widest mb-1">Passed</div>
+                          <div className="font-black text-emerald-400">{executionSummary ? `${executionSummary.passed}/${executionSummary.total}` : "-/-"}</div>
+                        </div>
+                        <div className="rounded-2xl bg-[#161b22] border border-[#30363d] p-3 text-[11px]">
+                          <div className="text-slate-400 uppercase tracking-widest mb-1">Runtime</div>
+                          <div className="font-black text-slate-300">{execTime != null ? `${execTime}ms` : "—"}</div>
+                        </div>
+                      </div>
                       <div className="flex items-center gap-2 text-emerald-500/40 mb-3 select-none">
                          <span className="text-xs">➜</span>
                          <span className="text-[9px] font-black uppercase tracking-widest">process.stdout</span>
@@ -899,12 +1081,15 @@ export default function CodeEditor({
                       <pre className="font-mono text-[12px] text-slate-300 leading-relaxed whitespace-pre-wrap bg-black/40 p-5 rounded-2xl border border-white/5 shadow-2xl">
                         {output}
                       </pre>
-                      <div className="mt-6 flex justify-between items-center opacity-50">
-                        <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
-                           <div className="w-1.5 h-1.5 bg-emerald-500/40 rounded-full" />
-                           {output.includes("Retrying") ? "Execution in progress..." : "Process exited successfully"}
-                        </span>
-                        {execTime && <span className="text-[10px] font-bold text-slate-500 italic tracking-tighter">Wall Time: {execTime}ms</span>}
+                      <div className="mt-6 grid gap-3 sm:grid-cols-2 opacity-80 text-[10px] text-slate-500">
+                        <div className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 bg-emerald-500/40 rounded-full" />
+                          {output.includes("Retrying") ? "Execution in progress..." : "Process exited successfully"}
+                        </div>
+                        <div className="flex justify-start sm:justify-end gap-4">
+                          {execTime != null && <span className="font-bold">Wall Time: {execTime}ms</span>}
+                          {memoryUsage != null && <span className="font-bold">Memory: {Math.round(memoryUsage / 1024)}KB</span>}
+                        </div>
                       </div>
                     </div>
                   ) : (
@@ -918,27 +1103,24 @@ export default function CodeEditor({
             )}
           </div>
 
-          <div className="h-10 bg-[#0d1117] border-t border-[#30363d] flex items-center justify-between px-6">
-            <div className="flex gap-4 items-center">
+          <div className="h-10 bg-[#0d1117] border-t border-[#30363d] flex flex-wrap items-center justify-between gap-3 px-6">
+            <div className="flex flex-wrap gap-4 items-center">
               <div className="flex items-center gap-2 text-[9px] font-bold text-slate-500">
                 <ShieldCheck size={12} className="text-emerald-500" /> Secure Environment
               </div>
-              {execTime && (
+              {execTime != null && (
                 <div className="flex items-center gap-2 text-[9px] font-bold text-slate-500">
                   <Clock size={12} /> {execTime}ms
+                </div>
+              )}
+              {memoryUsage != null && (
+                <div className="flex items-center gap-2 text-[9px] font-bold text-slate-500">
+                  <Cpu size={12} /> {Math.round(memoryUsage / 1024)}KB
                 </div>
               )}
             </div>
             <div className="flex items-center gap-6">
                <div className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Geonixa Core Engine</div>
-               <button
-                 onClick={handleSubmitSolution}
-                 disabled={isRunning || isFinalSubmitting}
-                 className="h-7 px-4 bg-emerald-500 hover:bg-emerald-400 text-black rounded-md flex items-center gap-2 transition-all active:scale-95 disabled:opacity-50 shadow-[0_0_15px_rgba(16,185,129,0.3)]"
-               >
-                 {isFinalSubmitting ? <Loader2 size={12} className="animate-spin" /> : <ShieldCheck size={12} />}
-                 <span className="text-[9px] font-black uppercase tracking-widest">Submit Solution</span>
-               </button>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from 'zustand';
+import { persist, PersistStorage, StorageValue } from 'zustand/middleware';
 
 export type WarningRecord = {
   type: string;
@@ -41,7 +41,30 @@ export const useProctorStore = create<ProctorState>()(
     }),
     {
       name: 'proctor-store',
-      getStorage: () => (typeof window !== 'undefined' ? window.localStorage : undefined) as any,
+      storage: typeof window !== 'undefined' ? ({ 
+        getItem: (key: string): StorageValue<ProctorState> | null => {
+          try {
+            const item = localStorage.getItem(key);
+            return item ? JSON.parse(item) : null;
+          } catch {
+            return null;
+          }
+        },
+        setItem: (key: string, value: StorageValue<ProctorState>) => {
+          try {
+            localStorage.setItem(key, JSON.stringify(value));
+          } catch {
+            // Silently fail in privacy mode
+          }
+        },
+        removeItem: (key: string) => {
+          try {
+            localStorage.removeItem(key);
+          } catch {
+            // Silently fail in privacy mode
+          }
+        }
+      } as PersistStorage<ProctorState>) : undefined,
     }
   )
 );

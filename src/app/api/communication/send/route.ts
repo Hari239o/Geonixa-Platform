@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { emailService } from "@/lib/emailService";
 import { reportGeneratorService } from "@/lib/reportGenerator";
-import { getCompleteStudentResults, db, isFirebaseConfigured } from "@/lib/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { getCompleteStudentResults, isFirebaseConfigured } from "@/lib/firebase";
+import { getFirestoreDb } from "@/lib/firestore";
 
 export async function POST(req: Request) {
   try {
@@ -24,8 +24,9 @@ export async function POST(req: Request) {
       if (isFirebaseConfigured) {
         try {
           completeResults = await getCompleteStudentResults(candidateEmail);
-          const legacySnap = await getDoc(doc(db, "exam_submissions", candidateEmail));
-          if (legacySnap.exists()) {
+          const adminDb = getFirestoreDb();
+          const legacySnap = await adminDb.collection('exam_submissions').doc(candidateEmail).get();
+          if (legacySnap.exists) {
             legacyData = legacySnap.data();
           }
         } catch (e) {

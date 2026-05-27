@@ -138,7 +138,7 @@ export default function AdminDashboard() {
   const [isSendingEmail, setIsSendingEmail] = useState<string | null>(null);
   
   // Configuration
-  const slots = ["10:00 AM - 11:30 AM", "12:00 PM - 01:30 PM", "03:00 PM - 04:30 PM", "06:00 PM - 07:30 PM", "08:00 PM - 09:30 PM"];
+  const slots = ["10:00 AM - 11:15 AM", "11:45 AM - 01:00 PM", "02:45 PM - 04:00 PM", "05:30 PM - 06:45 PM", "07:00 PM - 08:15 PM", "08:30 PM - 10:00 PM"];
   const domains = DOMAIN_LABELS;
   
   // Registration Form
@@ -147,7 +147,7 @@ export default function AdminDashboard() {
     email: "", 
     college: "", 
     domain: "Java", 
-    slot: "10:00 AM - 11:30 AM", 
+    slot: "10:00 AM - 11:15 AM", 
     day: new Date().toISOString().split('T')[0] 
   });
 
@@ -460,8 +460,10 @@ export default function AdminDashboard() {
           }
         });
 
-        // Run a one-time repair on mount to fix any \"zombie\" slots
-        import('@/lib/firebase').then(m => m.recalibrateSlotCapacities());
+        // Run a one-time repair on mount to fix any "zombie" slots
+        import('@/lib/firebase')
+          .then((m) => m.recalibrateSlotCapacities())
+          .catch((error) => console.error('[SYSTEM] Slot recalibration failed:', error));
 
         // 2. Profiles Realtime Stream
         unsubProfs = onSnapshot(collection(db, "student_profiles"), (snap) => {
@@ -762,13 +764,16 @@ export default function AdminDashboard() {
       
       // Map label to internal SLOT ID for correct transaction tracking
       const slotMap: Record<string, string> = {
-        "10:00 AM - 11:30 AM": "SLOT_1",
-        "12:00 PM - 01:30 PM": "SLOT_2",
-        "03:00 PM - 04:30 PM": "SLOT_3",
-        "06:00 PM - 07:30 PM": "SLOT_4",
-        "08:00 PM - 09:30 PM": "SLOT_5"
+        "10:00 AM - 11:15 AM": "SLOT_1",
+        "11:45 AM - 01:00 PM": "SLOT_2",
+        "02:45 PM - 04:00 PM": "SLOT_3",
+        "05:30 PM - 06:45 PM": "SLOT_4",
+        "07:00 PM - 08:15 PM": "SLOT_5",
+        "08:30 PM - 10:00 PM": "SLOT_6"
       };
       const internalSlotId = slotMap[newStudent.slot] || "SLOT_1";
+      
+      console.log("[Admin Dashboard] Starting slot allocation for:", studentEmail);
       
       // Use Transaction to decrement slot capacity and register the candidate safely
       await allocateSlotWithTransaction(
@@ -782,6 +787,8 @@ export default function AdminDashboard() {
         }, 
         autoPass
       );
+      
+      console.log("[Admin Dashboard] Slot allocated. Sending credentials email...");
       
       // Call Email API
       const res = await fetch('/api/auth/register', {
@@ -799,19 +806,33 @@ export default function AdminDashboard() {
       });
 
       const emailData = await res.json();
+      console.log("[Admin Dashboard] Register API response:", emailData);
       
-      if (!emailData.success) {
-        alert(emailData.error);
+      if (!res.ok || !emailData.success) {
+        console.error("[Admin Dashboard] Email API Error:", emailData);
+        alert(`Registration failed: ${emailData.error || 'Unknown email delivery error'}`);
         return;
       }
 
-      alert(`Candidate Registered Successfully!\nEmail: ${newStudent.email}\nPassKey: ${autoPass}\nSlot: ${newStudent.slot}\nDay: ${newStudent.day}\n\nOfficial email dispatched.`);
+      alert(`✅ Candidate Registered Successfully!\n\nEmail: ${newStudent.email}\nPassKey: ${autoPass}\nSlot: ${newStudent.slot}\nDay: ${newStudent.day}\n\nCredentials email dispatched to student.`);
       
       fetchData();
       setActiveTab('registered');
-      setNewStudent({ name: "", email: "", college: "", domain: "Java", slot: "10:00 AM - 11:30 AM", day: new Date().toISOString().split('T')[0] });
-    } catch (err) {
-      alert("Error adding student");
+      setNewStudent({ name: "", email: "", college: "", domain: "Java", slot: "10:00 AM - 11:15 AM", day: new Date().toISOString().split('T')[0] });
+    } catch (err: any) {
+      console.error("[Admin Dashboard] Student Registration Error:", err);
+      const errorMsg = err?.message || JSON.stringify(err);
+      
+      // Parse specific error messages
+      if (errorMsg.includes("SLOT_FULL")) {
+        alert("❌ Selected slot is full. Please choose a different time slot.");
+      } else if (errorMsg.includes("DUPLICATE")) {
+        alert("❌ Student with this email already exists in the system.");
+      } else if (errorMsg.includes("FIREBASE")) {
+        alert(`❌ Database error: ${errorMsg}`);
+      } else {
+        alert(`❌ Error adding student: ${errorMsg}`);
+      }
     }
   };
 
@@ -901,9 +922,14 @@ export default function AdminDashboard() {
                   <button 
                     onClick={async () => {
                       if (!confirm("System Audit: Recalibrate live slot counters based on actual student profiles?")) return;
-                      const { recalibrateSlotCapacities } = await import('@/lib/firebase');
-                      await recalibrateSlotCapacities();
-                      alert("Slot capacities successfully recalibrated with database state.");
+                      try {
+                        const { recalibrateSlotCapacities } = await import('@/lib/firebase');
+                        await recalibrateSlotCapacities();
+                        alert("Slot capacities successfully recalibrated with database state.");
+                      } catch (error) {
+                        console.error('[SYSTEM] Manual slot recalibration failed:', error);
+                        alert("Slot recalibration failed. Check the console for details.");
+                      }
                     }}
                     className="p-1.5 hover:bg-slate-900 rounded-lg text-slate-500 transition-colors"
                     title="Recalibrate Counters"
@@ -1508,11 +1534,12 @@ export default function AdminDashboard() {
                           const passRateSlot = slotSubs.length > 0 ? Math.round((passedCountSlot / slotSubs.length) * 100) : 0;
                           
                           const slotIdMap: Record<string, string> = {
-                            "10:00 AM - 11:30 AM": "SLOT_1",
-                            "12:00 PM - 01:30 PM": "SLOT_2",
-                            "03:00 PM - 04:30 PM": "SLOT_3",
-                            "06:00 PM - 07:30 PM": "SLOT_4",
-                            "08:00 PM - 09:30 PM": "SLOT_5"
+                            "10:00 AM - 11:15 AM": "SLOT_1",
+                            "11:45 AM - 01:00 PM": "SLOT_2",
+                            "02:45 PM - 04:00 PM": "SLOT_3",
+                            "05:30 PM - 06:45 PM": "SLOT_4",
+                            "07:00 PM - 08:15 PM": "SLOT_5",
+                            "08:30 PM - 10:00 PM": "SLOT_6"
                           };
                           const internalSlotId = slotIdMap[slotName] || "SLOT_1";
                           const usedCapacity = slotAvailability[internalSlotId] || 0;

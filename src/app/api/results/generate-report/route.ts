@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { getCompleteStudentResults, db, isFirebaseConfigured } from '@/lib/firebase';
+import { getCompleteStudentResults, isFirebaseConfigured } from '@/lib/firebase';
 import { reportGeneratorService } from '@/lib/reportGenerator';
-import { doc, getDoc } from 'firebase/firestore';
+import { getFirestoreDb } from '@/lib/firestore';
 
 export async function POST(req: Request) {
   try {
@@ -20,8 +20,9 @@ export async function POST(req: Request) {
 
     try {
       completeResults = await getCompleteStudentResults(candidateEmail);
-      const legacySnap = await getDoc(doc(db, 'exam_submissions', candidateEmail));
-      if (legacySnap.exists()) legacyData = legacySnap.data();
+      const adminDb = getFirestoreDb();
+      const legacySnap = await adminDb.collection('exam_submissions').doc(candidateEmail).get();
+      if (legacySnap.exists) legacyData = legacySnap.data();
     } catch (e) {
       console.error('Failed to fetch student results for generate-report:', e);
     }
