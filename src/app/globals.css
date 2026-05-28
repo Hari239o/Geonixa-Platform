@@ -22,6 +22,7 @@
 @layer base {
   html {
     font-size: 21px; /* Noticeably increased font size of the total project */
+    touch-action: pan-x pan-y;
   }
   
   body {
