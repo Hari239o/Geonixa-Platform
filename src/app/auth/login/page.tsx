@@ -67,9 +67,11 @@ export default function Login() {
               if (endModifier === 'PM' && endHours !== 12) endHours += 12;
               if (endModifier === 'AM' && endHours === 12) endHours = 0;
 
-              const [year, month, date] = profile.day.split('-').map(Number);
-              const slotStart = new Date(year, month - 1, date, startHours, startMinutes, 0, 0);
-              const slotEnd = new Date(year, month - 1, date, endHours, endMinutes, 0, 0);
+              const isoStart = `${profile.day}T${String(startHours).padStart(2, '0')}:${String(startMinutes).padStart(2, '0')}:00+05:30`;
+              const isoEnd = `${profile.day}T${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}:00+05:30`;
+
+              const slotStart = new Date(isoStart);
+              const slotEnd = new Date(isoEnd);
               const now = new Date();
 
               if (now > slotEnd) {

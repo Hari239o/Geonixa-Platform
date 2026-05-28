@@ -207,8 +207,11 @@ export const parseSlotWindow = (day: string, slotLabel: string) => {
   const [year, month, date] = day.split("-").map(Number);
   if ([year, month, date].some(Number.isNaN)) throw new Error("INVALID_DAY_FORMAT");
 
-  const slotStart = new Date(year, month - 1, date, startTime.hours, startTime.minutes, 0, 0);
-  const slotEnd = new Date(year, month - 1, date, endTime.hours, endTime.minutes, 0, 0);
+  const isoStart = `${day}T${String(startTime.hours).padStart(2, '0')}:${String(startTime.minutes).padStart(2, '0')}:00+05:30`;
+  const isoEnd = `${day}T${String(endTime.hours).padStart(2, '0')}:${String(endTime.minutes).padStart(2, '0')}:00+05:30`;
+
+  const slotStart = new Date(isoStart);
+  const slotEnd = new Date(isoEnd);
 
   return { slotStart, slotEnd };
 };

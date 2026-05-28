@@ -35,14 +35,20 @@ class EmailService {
       }
     }
 
-    // DYNAMICALLY READ .env.local to avoid needing a server restart
-    let smtpUser = process.env.SMTP_USER;
-    let smtpPass = process.env.SMTP_PASS;
-
-    const normalizeEnvValue = (value: string) => {
+    const normalizeEnvValue = (value: string | undefined) => {
+      if (!value) return undefined;
       const trimmed = value.trim();
       return trimmed.replace(/^"(.*)"$/s, "$1").replace(/^\'(.*)\'$/s, "$1");
     };
+
+    // Strip quotes from process.env if the user accidentally added them in Vercel
+    let smtpUser = normalizeEnvValue(process.env.SMTP_USER);
+    let smtpPass = normalizeEnvValue(process.env.SMTP_PASS);
+    
+    // Google App Passwords often shouldn't have spaces
+    if (smtpPass) {
+      smtpPass = smtpPass.replace(/\s+/g, '');
+    }
 
     try {
       const envPath = path.resolve(process.cwd(), '.env.local');
@@ -51,10 +57,10 @@ class EmailService {
         const envConfig: Record<string, string> = {};
         envContent.split('\n').forEach(line => {
           const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
-          if (match && match[2]) envConfig[match[1]] = normalizeEnvValue(match[2]);
+          if (match && match[2]) envConfig[match[1]] = normalizeEnvValue(match[2]) || '';
         });
         if (envConfig.SMTP_USER) smtpUser = envConfig.SMTP_USER;
-        if (envConfig.SMTP_PASS) smtpPass = envConfig.SMTP_PASS;
+        if (envConfig.SMTP_PASS) smtpPass = envConfig.SMTP_PASS.replace(/\s+/g, '');
       }
     } catch (err) {
       console.warn("Could not read .env.local dynamically", err);
@@ -142,7 +148,7 @@ class EmailService {
       const transporter = await this.getTransporter();
       
       // Dynamically get user again for the FROM address
-      let fromAddress = process.env.SMTP_USER || "noreply@geonixa.com";
+      let fromAddress = process.env.SMTP_USER ? process.env.SMTP_USER.replace(/^"(.*)"$/s, "$1").replace(/^\'(.*)\'$/s, "$1").trim() : "noreply@geonixa.com";
       try {
         const envPath = path.resolve(process.cwd(), '.env.local');
         if (fs.existsSync(envPath)) {
