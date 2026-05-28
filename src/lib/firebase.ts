@@ -1165,8 +1165,12 @@ export const recalibrateSlotCapacities = async () => {
 
   profilesSnap.forEach(docSnap => {
     const data = docSnap.data();
-    if (data.slot && slotMap[data.slot]) {
-      counts[slotMap[data.slot]]++;
+    if (data.slot) {
+      if (counts[data.slot] !== undefined) {
+        counts[data.slot]++;
+      } else if (slotMap[data.slot]) {
+        counts[slotMap[data.slot]]++;
+      }
     }
   });
 
