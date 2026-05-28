@@ -2021,7 +2021,13 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 <div style={{ maxWidth: "900px", margin: "0 auto", width: "100%" }}>
                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
                     <h1 style={{ margin: 0 }}>{studentDomain} {isMcqDomain ? "Domain MCQ" : "Coding"} Mastery</h1>
-                    <span style={{ fontWeight: "bold", color: "var(--text-muted)" }}>Question {codingQuestionIndex + 1} of 40</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                      <div className="timer-active" style={{ fontSize: "0.9rem", fontWeight: "900", color: "#f97316", fontFamily: "monospace", backgroundColor: "#fff7ed", padding: "0.2rem 0.5rem", borderRadius: "6px", display: "flex", alignItems: "center", gap: "0.5rem", width: "fit-content" }}>
+                        <span style={{ fontSize: "0.8rem", color: "#fb923c" }}>⏱</span>
+                        <Timer initialTime={timeLimits[4]} isActive={examState === "ACTIVE"} onExpiry={handleRoundExpiry} />
+                      </div>
+                      <span style={{ fontWeight: "bold", color: "var(--text-muted)" }}>Question {codingQuestionIndex + 1} of 40</span>
+                    </div>
                   </div>
 
                   <div style={{ padding: "2.5rem", backgroundColor: "white", borderRadius: "20px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)" }}>
