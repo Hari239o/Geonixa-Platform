@@ -510,10 +510,10 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
           // instantiate proctor engine once models loaded
           proctorEngineRef.current = new AIProctoringSystem({
             devMode: true,
-            minSecondsForViolation: 10,
-            multipleFaceSeconds: 5,
-            phoneSeconds: 5000,
-            noiseSeconds: 5000,
+            minSecondsForViolation: 5,
+            multipleFaceSeconds: 2,
+            phoneSeconds: 1500,
+            noiseSeconds: 1500,
             evaluateIntervalMs: 500,
             onWarning: (level, label) => {
               warningCountRef.current = level;
