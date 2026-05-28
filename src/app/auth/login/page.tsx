@@ -336,7 +336,12 @@ export default function Login() {
                   </div>
 
                   <button 
-                    onClick={() => window.location.href = "/exam/session-ready"}
+                    onClick={() => {
+                      const features = `width=${window.screen.availWidth},height=${window.screen.availHeight},top=0,left=0,fullscreen=yes,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes`;
+                      window.open("/exam/session-ready", "SecureExamEnvironment", features);
+                      // Change current tab to indicate the exam is running elsewhere
+                      document.body.innerHTML = '<div style="display:flex;height:100vh;align-items:center;justify-content:center;background:#050810;color:white;font-family:sans-serif;text-align:center;"><div><h1 style="font-size:2rem;margin-bottom:1rem;color:#f97316;">Exam Running</h1><p style="color:#94a3b8;">Your secure assessment is running in a new window.</p></div></div>';
+                    }}
                     className="btn-premium w-full bg-white text-black py-6 rounded-3xl font-black text-xl tracking-tight transition-all shadow-3xl flex items-center justify-center gap-4 group"
                   >
                     INITIALIZE ASSESSMENT

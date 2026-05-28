@@ -1554,7 +1554,16 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
              <li><strong>NO SECOND CHANCES:</strong> Attempting bypass by refreshing instances triggers instant blockade mechanisms.</li>
            </ul>
         </div>
-        <button className="btn btn-primary" onClick={async () => { await document.documentElement.requestFullscreen(); setIsFullscreen(true); setExamState("ACTIVE"); }} style={{ marginTop: '3rem', padding: "1.2rem 4rem", borderRadius: "20px", fontSize: "1.1rem", fontWeight: "900", letterSpacing: "1px" }}>
+        <button className="btn btn-primary" onClick={async () => { 
+          try {
+            const elem = document.documentElement as any;
+            if (elem.requestFullscreen) await elem.requestFullscreen();
+            else if (elem.webkitRequestFullscreen) await elem.webkitRequestFullscreen();
+            else if (elem.msRequestFullscreen) await elem.msRequestFullscreen();
+          } catch(e) { console.warn("Fullscreen request failed", e); }
+          setIsFullscreen(true); 
+          setExamState("ACTIVE"); 
+        }} style={{ marginTop: '3rem', padding: "1.2rem 4rem", borderRadius: "20px", fontSize: "1.1rem", fontWeight: "900", letterSpacing: "1px" }}>
           I ACKNOWLEDGE & INITIALIZE SESSION
         </button>
       </div>
