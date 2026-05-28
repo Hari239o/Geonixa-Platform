@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   },
 };
 
+import Script from "next/script";
+
 export default function RootLayout({
   children,
 }: {
@@ -29,6 +31,20 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} bg-white text-slate-900 antialiased selection:bg-[#FF5A1F] selection:text-white`}>
         {children}
+        <Script id="prevent-zoom" strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: `
+            document.addEventListener('keydown', function(e) {
+              if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '0' || e.key === '+')) {
+                e.preventDefault();
+              }
+            });
+            document.addEventListener('wheel', function(e) {
+              if (e.ctrlKey) {
+                e.preventDefault();
+              }
+            }, { passive: false });
+          `
+        }} />
       </body>
     </html>
   );
