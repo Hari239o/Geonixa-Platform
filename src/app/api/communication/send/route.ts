@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       subject = "Assessment Successfully Completed";
       html = emailService.getCompletionTemplate({
         name: candidateName || candidateEmail.split('@')[0],
-        timestamp: new Date().toLocaleString()
+        timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true })
       });
     } else if (type === "ASSESSMENT_REPORT") {
       dispatchType = "ASSESSMENT_REPORT";
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
       html = emailService.getAssessmentReportTemplate({
         name: candidateName || reportData.studentName,
         reportId: reportData.reportId,
-        date: new Date().toLocaleDateString(),
+        date: new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' }),
         domain: reportData.domain,
         score: reportData.totalScore,
         maxScore: reportData.maxTotalScore,
@@ -90,7 +90,7 @@ export async function POST(req: Request) {
       html = emailService.getTerminationTemplate({
         name: candidateName,
         examId: "GEONIXA-EX-" + Math.random().toString(36).substring(7).toUpperCase(),
-        timestamp: new Date().toLocaleString(),
+        timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true }),
         reason: status || "Integrity Violation"
       });
     } else {
