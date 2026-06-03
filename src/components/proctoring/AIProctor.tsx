@@ -41,6 +41,7 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
   const [isModelsLoaded, setIsModelsLoaded] = useState(false);
   const [statusText, setStatusText] = useState("Initializing Neural Vision Hub...");
   const [cameraError, setCameraError] = useState<string | null>(null);
+  const [modelError, setModelError] = useState<string | null>(null);
   const [cameraRetryCount, setCameraRetryCount] = useState(0);
   const cocoModelRef = useRef<any>(null);
   const blazeModelRef = useRef<any>(null);
@@ -434,6 +435,7 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
           console.debug("[MODELS] CocoSSD loaded successfully");
         } catch (err) {
           console.error("[MODELS] CocoSSD load failed:", err);
+          setModelError("Failed to load object detection AI model.");
         }
         
         // Load BlazeFace
@@ -443,6 +445,7 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
           if (blazeface) console.debug("[MODELS] BlazeFace loaded successfully");
         } catch (err) {
           console.error("[MODELS] BlazeFace load failed:", err);
+          setModelError("Failed to load face detection AI model.");
         }
         
         faceapi = (window as any).faceapi || null;
@@ -510,10 +513,10 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
           // instantiate proctor engine once models loaded
           proctorEngineRef.current = new AIProctoringSystem({
             devMode: true,
-            minSecondsForViolation: 5,
-            multipleFaceSeconds: 2,
-            phoneSeconds: 1500,
-            noiseSeconds: 1500,
+            minSecondsForViolation: 15,
+            multipleFaceSeconds: 5,
+            phoneSeconds: 5,
+            noiseSeconds: 5,
             evaluateIntervalMs: 500,
             onWarning: (level, label) => {
               warningCountRef.current = level;
@@ -570,7 +573,8 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
           setStatusText("AI PROCTOR: TRACKING ACTIVE");
           startRealtimeVision();
         } else {
-          setStatusText("AI Initialization Deferred. Retrying...");
+          setStatusText("AI Initialization Failed. Please reload.");
+          if (!modelError) setModelError("Essential AI models failed to load correctly.");
         }
     };
 
@@ -980,6 +984,33 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
           </div>
         </div>
       )}
+      {modelError && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/90 backdrop-blur-sm">
+          <div className="bg-red-950 border border-red-500 text-white p-6 rounded-xl shadow-[0_0_50px_rgba(220,38,38,0.3)] max-w-md w-full text-center">
+            <h3 className="text-xl font-bold mb-3 uppercase tracking-wider text-red-400">System Failure</h3>
+            <p className="mb-6 text-sm text-slate-200">{modelError}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-6 py-2.5 bg-red-600 hover:bg-red-500 text-white font-bold rounded-lg shadow-lg uppercase tracking-wider text-sm transition-colors"
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      )}
+      
+      {/* Real-time AI Debug Panel (Temporary) */}
+      <div className="fixed bottom-4 right-4 z-[99999] bg-black/80 backdrop-blur border border-green-500/30 p-4 rounded-xl text-green-400 font-mono text-xs shadow-2xl pointer-events-none min-w-[200px]">
+        <h4 className="text-white font-bold mb-2 uppercase tracking-widest text-[10px] border-b border-green-500/30 pb-1">AI Debug Panel</h4>
+        <div className="space-y-1">
+          <div className="flex justify-between"><span>Face Detected:</span> <span className={healthStatus.face === "🟢 Centered" ? "text-green-400" : "text-red-400"}>{healthStatus.face === "🟢 Centered" ? "TRUE" : "FALSE"}</span></div>
+          <div className="flex justify-between"><span>Eye Tracking:</span> <span className={healthStatus.eyeHead === "🟢 Centered" ? "text-green-400" : "text-yellow-400"}>{healthStatus.eyeHead === "🟢 Centered" ? "TRUE" : "FALSE"}</span></div>
+          <div className="flex justify-between"><span>Phone Detected:</span> <span className={healthStatus.object === "🟢 Desk Clear" ? "text-green-400" : "text-red-400"}>{healthStatus.object !== "🟢 Desk Clear" ? "TRUE" : "FALSE"}</span></div>
+          <div className="flex justify-between"><span>Multiple Persons:</span> <span className={healthStatus.face === "🔴 Multiple Faces" ? "text-red-400" : "text-green-400"}>{healthStatus.face === "🔴 Multiple Faces" ? "TRUE" : "FALSE"}</span></div>
+          <div className="flex justify-between"><span>Noise Level:</span> <span>{healthStatus.audio.match(/\d+/) ? healthStatus.audio.match(/\d+/)?.[0] : "0"}</span></div>
+          <div className="flex justify-between mt-2 pt-1 border-t border-green-500/30"><span>Warning Count:</span> <span className="text-white font-bold">{warningCountRef.current}</span></div>
+        </div>
+      </div>
       {/* Professional HUD Circular Panel */}
       <div style={{
         position: 'relative',
@@ -1053,7 +1084,7 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
       {/* Professional Warning Modal Overlay */}
       <AnimatePresence>
         {activeWarningModal && (
-          <div className="fixed inset-0 z-[999999] bg-black/85 backdrop-blur-md flex items-start justify-center pt-24 p-6 font-sans">
+          <div className="fixed inset-0 z-[999999] bg-black/85 backdrop-blur-md flex items-center justify-center p-6 font-sans">
             <div className="absolute top-0 left-0 w-full p-4 flex justify-center">
               <div className="bg-red-600 text-white px-6 py-2 rounded-b-xl font-bold uppercase tracking-widest text-sm shadow-lg animate-pulse">
                 Proctoring Alert

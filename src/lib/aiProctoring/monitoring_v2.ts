@@ -24,6 +24,7 @@ export class AIProctoringSystem {
   private opts: Required<ProctorOptions>;
   private evalTimer?: number | null = null;
   private lastWarningAt: Record<string, number> = {};
+  private globalCooldownUntil: number = 0;
   private consecutiveWindowMs: number;
 
   constructor(opts?: ProctorOptions) {
@@ -75,12 +76,14 @@ export class AIProctoringSystem {
 
   private evaluate() {
     const now = Date.now();
-    this.evaluatePersistentViolation('face_missing', (r) => r.type === 'face_missing', 10000, 0.75, now);
+    if (now < this.globalCooldownUntil) return; // Enforce global cooldown observation period
+
+    this.evaluatePersistentViolation('face_missing', (r) => r.type === 'face_missing', this.opts.minSecondsForViolation * 1000, 0.75, now);
     this.evaluatePersistentViolation('head_turned', (r) => r.type === 'head_turned', 5000, 0.75, now);
-    this.evaluatePersistentViolation('eyes_off', (r) => r.type === 'eyes_off', 8000, 0.75, now);
+    this.evaluatePersistentViolation('eyes_off', (r) => r.type === 'eyes_off', 5000, 0.75, now);
     this.evaluatePersistentViolation('multiple_faces', (r) => r.type === 'multiple_faces', this.opts.multipleFaceSeconds * 1000, 0.75, now);
-    this.evaluatePersistentViolation('phone', (r) => r.type === 'phone', this.opts.phoneSeconds, 0.70, now);
-    this.evaluatePersistentViolation('loud_noise', (r) => r.type === 'loud_noise', this.opts.noiseSeconds, 0.75, now);
+    this.evaluatePersistentViolation('phone', (r) => r.type === 'phone', this.opts.phoneSeconds * 1000, 0.70, now);
+    this.evaluatePersistentViolation('loud_noise', (r) => r.type === 'loud_noise', this.opts.noiseSeconds * 1000, 0.75, now);
   }
 
   private evaluatePersistentViolation(
@@ -179,6 +182,12 @@ export class AIProctoringSystem {
       } catch (e) {
         this.devLog('onTerminate-error', { e });
       }
+    }
+
+    if (level === 1) {
+      this.globalCooldownUntil = Date.now() + 2 * 60 * 1000;
+    } else if (level === 2) {
+      this.globalCooldownUntil = Date.now() + 5 * 60 * 1000;
     }
     
     if (isInstant) {
