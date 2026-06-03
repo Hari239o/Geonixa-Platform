@@ -338,10 +338,28 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   const [latency, setLatency] = useState(24);
   const sessionHash = useMemo(() => Math.random().toString(36).substring(7).toUpperCase(), []);
 
-  const calculateSubstantialLines = (typed: string) => {
-    const manualLines = typed.split('\n').filter(line => line.trim().length > 0).length;
-    const charLines = Math.floor(typed.trim().length / 100);
-    return Math.max(manualLines, charLines);
+  const calculateSubstantialLines = (typed: string, topic?: string) => {
+    if (!typed || typed.trim().length < 20) return 0;
+
+    if (topic) {
+      const stopWords = new Set(["the", "is", "in", "at", "of", "on", "and", "a", "to", "for", "with", "as", "by", "an", "be", "it", "are", "you", "that", "this", "they", "have", "from", "which", "what", "how", "why"]);
+      const topicWords = topic.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(w => w.length > 3 && !stopWords.has(w));
+      const typedWordsStr = typed.toLowerCase();
+      
+      let matchCount = 0;
+      topicWords.forEach(tw => {
+        if (typedWordsStr.includes(tw)) matchCount++;
+      });
+      
+      // If the topic has significant words, require at least one to be present
+      if (topicWords.length > 0 && matchCount === 0) {
+        return 0; // Completely irrelevant
+      }
+    }
+
+    // 1 line = 15 words
+    const words = typed.trim().split(/\s+/).filter(w => w.length > 0);
+    return Math.floor(words.length / 15);
   };
 
   const calculateTypingProgress = (typed: string, source: string) => {
@@ -531,8 +549,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         if (bs > 15) base -= Math.floor((bs - 15) * 0.2);
         return Math.max(0, Math.min(5, base));
       };
-      const r3Lines1 = calculateSubstantialLines(typingTexts[0]);
-      const r3Lines2 = calculateSubstantialLines(typingTexts[1]);
+      const r3Lines1 = calculateSubstantialLines(typingTexts[0], studentTopics[0]);
+      const r3Lines2 = calculateSubstantialLines(typingTexts[1], studentTopics[1]);
       const r3Score = calcTopicScore(r3Lines1, backspaceCounts[0]) + calcTopicScore(r3Lines2, backspaceCounts[1]);
       
       roundResults.push({
@@ -1916,8 +1934,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
               </div>
 
               <div style={{ display: "flex", gap: "1rem", marginBottom: "2rem" }}>
-                <button onClick={() => setTypingTopicIndex(0)} className={`btn ${typingTopicIndex === 0 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1 }}>TOPIC 01 {calculateSubstantialLines(typingTexts[0]) >= 8 ? "✅" : ""}</button>
-                <button onClick={() => setTypingTopicIndex(1)} className={`btn ${typingTopicIndex === 1 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1 }}>TOPIC 02 {calculateSubstantialLines(typingTexts[1]) >= 8 ? "✅" : ""}</button>
+                <button onClick={() => setTypingTopicIndex(0)} className={`btn ${typingTopicIndex === 0 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1 }}>TOPIC 01 {calculateSubstantialLines(typingTexts[0], studentTopics[0]) >= 8 ? "✅" : ""}</button>
+                <button onClick={() => setTypingTopicIndex(1)} className={`btn ${typingTopicIndex === 1 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1 }}>TOPIC 02 {calculateSubstantialLines(typingTexts[1], studentTopics[1]) >= 8 ? "✅" : ""}</button>
               </div>
 
               <div style={{ padding: "2.5rem", backgroundColor: "#f8fafc", borderRadius: "20px", border: "1px solid #e2e8f0", marginBottom: "2.5rem", boxShadow: "inset 0 2px 4px rgba(0,0,0,0.02)" }}>
@@ -1935,8 +1953,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                     <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
                       <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Lines Progress</div>
-                      <div className={`text-2xl font-black ${calculateSubstantialLines(typingTexts[typingTopicIndex]) >= 18 ? 'text-emerald-600' : 'text-amber-500'}`}>
-                        {calculateSubstantialLines(typingTexts[typingTopicIndex])} / 18
+                      <div className={`text-2xl font-black ${calculateSubstantialLines(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex]) >= 18 ? 'text-emerald-600' : 'text-amber-500'}`}>
+                        {calculateSubstantialLines(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex])} / 18
                       </div>
                     </div>
                     <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
