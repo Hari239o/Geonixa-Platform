@@ -1,73 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 200" fill="none" role="img" aria-label="Geonixa Logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 200" fill="none" role="img" aria-label="Geonixa Logo">
   <title>Geonixa</title>
-  <desc>Geonixa — enterprise assessment platform</desc>
-
-  <!-- 4 DIAGONAL CONVERGING ARROWS  (centre 100,100) -->
+  
+  <!-- 4 DIAGONAL CONVERGING ARROWS -->
   <g transform="translate(100,100)" stroke-linecap="round" stroke-linejoin="round">
     <!-- TL gray -->
-    <line x1="-60" y1="-60" x2="-18" y2="-18" stroke="#6B7280" stroke-width="12"/>
-    <polyline points="-18,-36 -18,-18 -36,-18" stroke="#6B7280" stroke-width="12" fill="none"/>
+    <line x1="-50" y1="-50" x2="-20" y2="-20" stroke="#5A5C5E" stroke-width="16"/>
+    <polyline points="-20,-45 -20,-20 -45,-20" stroke="#5A5C5E" stroke-width="16" fill="none"/>
     <!-- TR gray -->
-    <line x1="60" y1="-60" x2="18" y2="-18" stroke="#6B7280" stroke-width="12"/>
-    <polyline points="36,-18 18,-18 18,-36" stroke="#6B7280" stroke-width="12" fill="none"/>
+    <line x1="50" y1="-50" x2="20" y2="-20" stroke="#5A5C5E" stroke-width="16"/>
+    <polyline points="45,-20 20,-20 20,-45" stroke="#5A5C5E" stroke-width="16" fill="none"/>
     <!-- BR gray -->
-    <line x1="60" y1="60" x2="18" y2="18" stroke="#6B7280" stroke-width="12"/>
-    <polyline points="36,18 18,18 18,36" stroke="#6B7280" stroke-width="12" fill="none"/>
-    <!-- BL ORANGE signature -->
-    <line x1="-60" y1="60" x2="-18" y2="18" stroke="#FF6B00" stroke-width="14"/>
-    <polyline points="-18,36 -18,18 -36,18" stroke="#FF6B00" stroke-width="14" fill="none"/>
+    <line x1="50" y1="50" x2="20" y2="20" stroke="#5A5C5E" stroke-width="16"/>
+    <polyline points="45,20 20,20 20,45" stroke="#5A5C5E" stroke-width="16" fill="none"/>
+    <!-- BL ORANGE -->
+    <line x1="-50" y1="50" x2="-20" y2="20" stroke="#FF5A1F" stroke-width="16"/>
+    <polyline points="-20,45 -20,20 -45,20" stroke="#FF5A1F" stroke-width="16" fill="none"/>
   </g>
 
   <!-- DIVIDER -->
-  <rect x="210" y="46" width="3" height="108" rx="1.5" fill="#9CA3AF" opacity="0.4"/>
+  <rect x="200" y="55" width="4" height="90" rx="2" fill="#C5C7CB" />
 
-  <!-- WORDMARK  G E O N I X A
-       Group origin: translate(240,100)
-       Letter offsets: Adjusted for premium spacing
-  -->
-  <g transform="translate(240,100)" stroke="#FF6B00" stroke-width="13.5"
-     stroke-linecap="round" stroke-linejoin="round" fill="none">
-
-    <!-- G: Pro MNC Letterform with proper stem and crossbar -->
-    <path d="M 38,-15 C 38,-38 22,-48 0,-48 C -22,-48 -40,-30 -40,0 C -40,30 -22,48 0,48 C 22,48 38,38 38,15 L 38,0 L 12,0"/>
+  <!-- WORDMARK G E O N I X A -->
+  <g transform="translate(250,100)" stroke="#FF5A1F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- G -->
+    <path d="M 40,-15 C 40,-45 20,-52 0,-52 C -25,-52 -45,-32 -45,0 C -45,32 -25,52 0,52 C 25,52 45,35 45,15 L 45,0 L 15,0"/>
 
     <!-- E -->
-    <g transform="translate(98,0)">
-      <line x1="-28" y1="-46" x2="-28" y2="46"/>
-      <line x1="-28" y1="-46" x2="28"  y2="-46"/>
-      <line x1="-28" y1="0"   x2="22"  y2="0"/>
-      <line x1="-28" y1="46"  x2="28"  y2="46"/>
+    <g transform="translate(105,0)">
+      <line x1="-28" y1="-52" x2="-28" y2="52"/>
+      <line x1="-28" y1="-52" x2="28"  y2="-52"/>
+      <line x1="-28" y1="0"   x2="15"  y2="0"/>
+      <line x1="-28" y1="52"  x2="28"  y2="52"/>
     </g>
 
     <!-- O -->
-    <g transform="translate(196,0)">
-      <ellipse cx="0" cy="0" rx="38" ry="48"/>
+    <g transform="translate(210,0)">
+      <circle cx="0" cy="0" r="52"/>
     </g>
 
     <!-- N -->
-    <g transform="translate(296,0)">
-      <line x1="-25" y1="46"  x2="-25" y2="-46"/>
-      <line x1="-25" y1="-46" x2="25"  y2="46"/>
-      <line x1="25"  y1="46"  x2="25"  y2="-46"/>
+    <g transform="translate(320,0)">
+      <line x1="-28" y1="52"  x2="-28" y2="-52"/>
+      <line x1="-28" y1="-52" x2="28"  y2="52"/>
+      <line x1="28"  y1="52"  x2="28"  y2="-52"/>
     </g>
 
     <!-- I -->
-    <g transform="translate(378,0)">
-      <line x1="0" y1="-46" x2="0" y2="46"/>
+    <g transform="translate(400,0)">
+      <line x1="0" y1="-52" x2="0" y2="52"/>
     </g>
 
     <!-- X -->
-    <g transform="translate(450,0)">
-      <line x1="-25" y1="-46" x2="25" y2="46"/>
-      <line x1="25"  y1="-46" x2="-25" y2="46"/>
+    <g transform="translate(470,0)">
+      <line x1="-28" y1="-52" x2="-8" y2="-15"/>
+      <line x1="28" y1="52" x2="8" y2="15"/>
+      <line x1="28" y1="-52" x2="8" y2="-15"/>
+      <line x1="-28" y1="52" x2="-8" y2="15"/>
     </g>
 
-    <!-- A: Clean & Symmetrical -->
-    <g transform="translate(534,0)">
-      <line x1="-28" y1="46"  x2="0"  y2="-48"/>
-      <line x1="0"   y1="-48" x2="28" y2="46"/>
-      <line x1="-16" y1="12"  x2="16" y2="12"/>
+    <!-- A -->
+    <g transform="translate(560,0)">
+      <line x1="-30" y1="52"  x2="0"  y2="-52"/>
+      <line x1="0"   y1="-52" x2="30" y2="52"/>
     </g>
-
   </g>
 </svg>
