@@ -1005,7 +1005,7 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
         <div className="space-y-1">
           <div className="flex justify-between"><span>Face Detected:</span> <span className={healthStatus.face === "🟢 Centered" ? "text-green-400" : "text-red-400"}>{healthStatus.face === "🟢 Centered" ? "TRUE" : "FALSE"}</span></div>
           <div className="flex justify-between"><span>Eye Tracking:</span> <span className={healthStatus.eyeHead === "🟢 Centered" ? "text-green-400" : "text-yellow-400"}>{healthStatus.eyeHead === "🟢 Centered" ? "TRUE" : "FALSE"}</span></div>
-          <div className="flex justify-between"><span>Phone Detected:</span> <span className={healthStatus.object === "🟢 Desk Clear" ? "text-green-400" : "text-red-400"}>{healthStatus.object !== "🟢 Desk Clear" ? "TRUE" : "FALSE"}</span></div>
+          <div className="flex justify-between"><span>Phone Detected:</span> <span className={healthStatus.phone === "🟢 Clear" ? "text-green-400" : "text-red-400"}>{healthStatus.phone !== "🟢 Clear" ? "TRUE" : "FALSE"}</span></div>
           <div className="flex justify-between"><span>Multiple Persons:</span> <span className={healthStatus.face === "🔴 Multiple Faces" ? "text-red-400" : "text-green-400"}>{healthStatus.face === "🔴 Multiple Faces" ? "TRUE" : "FALSE"}</span></div>
           <div className="flex justify-between"><span>Noise Level:</span> <span>{healthStatus.audio.match(/\d+/) ? healthStatus.audio.match(/\d+/)?.[0] : "0"}</span></div>
           <div className="flex justify-between mt-2 pt-1 border-t border-green-500/30"><span>Warning Count:</span> <span className="text-white font-bold">{warningCountRef.current}</span></div>
