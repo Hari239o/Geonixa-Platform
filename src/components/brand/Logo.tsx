@@ -18,7 +18,7 @@ export default function Logo({
   variant = "light",
   animated = true,
 }: LogoProps) {
-  const h = { sm: 28, md: 44, lg: 72, xl: 110 }[size];
+  const h = { sm: 70, md: 110, lg: 180, xl: 275 }[size];
 
   return (
     <div className={`flex items-center ${center ? "justify-center w-full" : ""} ${className}`} style={{ height: h }}>
