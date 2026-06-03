@@ -188,7 +188,7 @@ export default function AdminLogin() {
                 <span className="text-xs font-black text-slate-500 tracking-widest uppercase">Back to Home</span>
               </Link>
               <div className="flex items-center gap-3">
-                <img src="/images/geonixa-logo.svg" alt="Geonixa Logo" className="h-10 w-auto" />
+                <img src="/images/geonixa-logo.png" alt="Geonixa Logo" className="h-10 w-auto" />
               </div>
             </div>
 

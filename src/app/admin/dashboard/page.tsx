@@ -874,7 +874,7 @@ export default function AdminDashboard() {
       {/* Sidebar Navigation (Horizontal for dashboard) */}
       <header className="px-6 md:px-10 py-4 md:py-6 border-b border-slate-900 bg-[#080B14] flex items-center justify-between sticky top-0 z-50">
         <div className="flex items-center gap-3">
-          <img src="/images/geonixa-logo.svg" alt="Geonixa Logo" className="h-10 w-auto" />
+          <img src="/images/geonixa-logo.png" alt="Geonixa Logo" className="h-10 w-auto" />
         </div>
         <div className="flex items-center gap-3 md:gap-6">
           <div className="hidden lg:flex items-center gap-3 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
