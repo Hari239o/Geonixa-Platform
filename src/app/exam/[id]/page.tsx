@@ -1797,7 +1797,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         <div style={{ padding: "2rem", flex: 1, overflowY: "auto", position: "relative", zIndex: 1 }}>
           {/* Round 1: Aptitude & Round 2: Grammar */}
           {(currentRound === 1 || currentRound === 2) && (
-            <div className="animate-fade-in" style={{ maxWidth: "900px", margin: "0 auto" }}>
+            <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
                 <div>
                   <h1 style={{ margin: 0, fontSize: "1.8rem" }}>{currentRound === 1 ? "Aptitude Assessment" : "Grammar Assessment"}</h1>
@@ -1923,7 +1923,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
           {/* Round 3: Descriptive Writing */}
           {currentRound === 3 && (
-            <div className="animate-fade-in" style={{ maxWidth: "1000px", margin: "0 auto" }}>
+            <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto" }}>
               <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div>
                   <h1 style={{ margin: 0 }}>Round 3: Descriptive Writing Assessment</h1>
@@ -2038,7 +2038,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
           {currentRound === 4 && (
             <div className="animate-fade-in" style={{ height: "calc(100vh - 100px)", display: "flex", flexDirection: "column" }}>
               {isMcqDomain ? (
-                <div style={{ maxWidth: "900px", margin: "0 auto", width: "100%" }}>
+                <div style={{ maxWidth: "1500px", margin: "0 auto", width: "100%" }}>
                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
                     <h1 style={{ margin: 0 }}>{studentDomain} {isMcqDomain ? "Domain MCQ" : "Coding"} Mastery</h1>
                     <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
