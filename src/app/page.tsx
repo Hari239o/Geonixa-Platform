@@ -128,12 +128,6 @@ export default function Home() {
 
           <div className="hidden lg:flex items-center gap-4">
             <Link
-              href="/auth/admin-login"
-              className="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors"
-            >
-              Admin Portal
-            </Link>
-            <Link
               href="/auth/login"
               className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-orange-500 px-6 py-2.5 text-xs font-black uppercase tracking-wider text-white transition-all hover:bg-orange-600 hover:shadow-[0_0_20px_rgba(249,115,22,0.4)]"
             >
@@ -171,12 +165,6 @@ export default function Home() {
               </Link>
             ))}
             <div className="flex flex-col gap-3 mt-4">
-              <Link
-                href="/auth/admin-login"
-                className="w-full rounded-full border border-white/10 bg-white/5 py-3 text-center text-xs font-bold uppercase text-white"
-              >
-                Admin Portal
-              </Link>
               <Link
                 href="/auth/login"
                 className="w-full rounded-full bg-orange-500 py-3 text-center text-xs font-bold uppercase text-white"
@@ -218,13 +206,6 @@ export default function Home() {
               >
                 Access Secure Portal
                 <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                href="/auth/admin-login"
-                className="group flex w-full sm:w-auto items-center justify-center gap-3 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10"
-              >
-                <LockKeyhole className="h-4 w-4 text-slate-300 group-hover:text-white" />
-                Admin Command Center
               </Link>
             </motion.div>
           </motion.div>
@@ -449,7 +430,7 @@ export default function Home() {
             <div>
               <Logo className="h-8 mb-6" size="sm" variant="dark" animated={false} />
               <p className="text-sm text-slate-400 max-w-xs font-medium leading-relaxed">
-                Enterprise assessment platform for secure, AI-monitored hiring. Build better teams faster.
+                Enterprise assessment platform for secure, AI-monitored hiring. Build better teams faster. <Link href="/auth/admin-login" className="text-transparent selection:text-transparent hover:text-slate-600 transition-colors duration-300">exam portal</Link>
               </p>
             </div>
             
