@@ -910,15 +910,15 @@ export default function AdminDashboard() {
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="bg-[#0D121F] border border-slate-900 rounded-[40px] p-8 lg:col-span-2 relative overflow-hidden"
+            className="bg-[#0D121F] border border-slate-900 rounded-[2.5rem] p-10 lg:col-span-2 relative overflow-hidden shadow-2xl"
           >
             <div className="relative z-10">
-              <div className="flex items-center justify-between mb-8">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
                 <div>
-                  <h3 className="text-sm font-black text-slate-500 uppercase tracking-[0.4em] mb-1">Live Slot Capacity</h3>
-                  <p className="text-[10px] text-slate-700 font-bold uppercase tracking-widest">Real-time Seat Monitoring</p>
+                  <h3 className="text-xl md:text-2xl font-black text-white tracking-tight mb-2">Live Slot Capacity</h3>
+                  <p className="text-xs md:text-sm text-slate-400 font-bold uppercase tracking-[0.2em]">Real-time Seat Monitoring</p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <button 
                     onClick={async () => {
                       if (!confirm("System Audit: Recalibrate live slot counters based on actual student profiles?")) return;
@@ -931,12 +931,15 @@ export default function AdminDashboard() {
                         alert("Slot recalibration failed. Check the console for details.");
                       }
                     }}
-                    className="p-1.5 hover:bg-slate-900 rounded-lg text-slate-500 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 hover:bg-slate-900 rounded-xl text-slate-400 hover:text-white transition-colors border border-slate-800 hover:border-slate-700"
                     title="Recalibrate Counters"
                   >
-                    <RefreshCw className="w-3.5 h-3.5" />
+                    <RefreshCw className="w-4 h-4" />
+                    <span className="text-xs font-bold uppercase tracking-wider hidden sm:block">Sync</span>
                   </button>
-                  <Globe className="w-4 h-4 text-[#FF5A1F] animate-pulse" />
+                  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20">
+                    <Globe className="w-5 h-5 text-[#FF5A1F] animate-pulse" />
+                  </div>
                 </div>
               </div>
               
@@ -947,20 +950,23 @@ export default function AdminDashboard() {
                   const count = slotAvailability[id] || 0;
                   const remaining = 25 - count;
                   const isFull = remaining <= 0;
+                  const percentage = Math.min(100, Math.max(0, (count / 25) * 100));
                   
                   return (
-                    <div key={id} className="p-4 bg-slate-950/50 rounded-2xl border border-slate-900/50">
-                      <div className="flex justify-between items-center mb-3">
-                         <span className="text-[10px] font-black text-white">{config.label}</span>
-                         <span className={`text-[9px] font-bold px-2 py-0.5 rounded ${isFull ? 'bg-red-500/10 text-red-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
+                    <div key={id} className="p-5 bg-slate-950/60 rounded-2xl border border-slate-900/60 hover:border-slate-700 transition-colors group">
+                      <div className="flex justify-between items-center mb-4">
+                         <span className="text-sm font-bold text-slate-200 group-hover:text-white transition-colors">{config.label}</span>
+                         <span className={`text-xs font-black px-3 py-1 rounded-full ${isFull ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}`}>
                            {remaining} / 25 LEFT
                          </span>
                       </div>
-                      <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden">
+                      <div className="h-2.5 w-full bg-slate-900 rounded-full overflow-hidden shadow-inner">
                         <div 
-                          className={`h-full transition-all duration-1000 ${isFull ? 'bg-red-500' : 'bg-[#FF5A1F]'}`} 
-                          style={{ width: `${(count / 25) * 100}%` }} 
-                        />
+                          className={`h-full transition-all duration-1000 relative ${isFull ? 'bg-red-500' : 'bg-linear-to-r from-orange-600 to-[#FF5A1F]'}`} 
+                          style={{ width: `${percentage}%` }}
+                        >
+                          <div className="absolute inset-0 bg-white/20 w-full animate-[shimmer_2s_infinite]" />
+                        </div>
                       </div>
                     </div>
                   );
@@ -972,47 +978,49 @@ export default function AdminDashboard() {
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="bg-[#0D121F] border border-slate-900 rounded-[40px] p-8 relative overflow-hidden flex flex-col justify-between"
+            className="bg-[#0D121F] border border-slate-900 rounded-[2.5rem] p-10 relative overflow-hidden flex flex-col justify-between shadow-2xl"
           >
             <div>
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-sm font-black text-slate-500 uppercase tracking-[0.4em]">Pass vs Fail Analytics</h3>
-                <TrendingUp className="w-4 h-4 text-emerald-500" />
+              <div className="flex items-center justify-between mb-8">
+                <h3 className="text-xl font-black text-white tracking-tight">Analytics Overview</h3>
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-emerald-500" />
+                </div>
               </div>
-              <div className="flex items-baseline gap-3 mb-6">
-                <span className="text-5xl font-black text-white">
+              <div className="flex items-end gap-3 mb-10">
+                <span className="text-6xl font-black text-white leading-none">
                   {submissions.length > 0 ? Math.round((submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / submissions.length) * 100) : 0}%
                 </span>
-                <span className="text-xs font-bold text-emerald-500 uppercase">Qualifying Rate (&gt;=85%)</span>
+                <span className="text-sm font-bold text-emerald-500 uppercase tracking-widest pb-1">Qualifying Rate</span>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-6">
                 <div>
-                  <div className="flex justify-between text-[10px] font-bold text-slate-400 mb-1">
-                    <span>Qualified ({submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length})</span>
-                    <span className="text-emerald-400 font-mono">
+                  <div className="flex justify-between text-xs font-bold text-slate-400 mb-2">
+                    <span className="uppercase tracking-wider">Qualified ({submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length})</span>
+                    <span className="text-emerald-400 font-mono text-sm">
                       {submissions.length > 0 ? Math.round((submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / submissions.length) * 100) : 0}%
                     </span>
                   </div>
-                  <div className="h-2 w-full bg-slate-950 rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-500" style={{ width: `${submissions.length > 0 ? (submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / submissions.length) * 100 : 0}%` }} />
+                  <div className="h-3 w-full bg-slate-950 rounded-full overflow-hidden border border-slate-900/50">
+                    <div className="h-full bg-emerald-500 transition-all duration-1000 shadow-[0_0_10px_rgba(16,185,129,0.5)]" style={{ width: `${submissions.length > 0 ? (submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / submissions.length) * 100 : 0}%` }} />
                   </div>
                 </div>
                 <div>
-                  <div className="flex justify-between text-[10px] font-bold text-slate-400 mb-1">
-                    <span>Disqualified / Failed ({submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length})</span>
-                    <span className="text-rose-500 font-mono">
+                  <div className="flex justify-between text-xs font-bold text-slate-400 mb-2">
+                    <span className="uppercase tracking-wider">Failed / Disqualified ({submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length})</span>
+                    <span className="text-rose-500 font-mono text-sm">
                       {submissions.length > 0 ? Math.round((submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length / submissions.length) * 100) : 0}%
                     </span>
                   </div>
-                  <div className="h-2 w-full bg-slate-950 rounded-full overflow-hidden">
-                    <div className="h-full bg-rose-500" style={{ width: `${submissions.length > 0 ? (submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length / submissions.length) * 100 : 0}%` }} />
+                  <div className="h-3 w-full bg-slate-950 rounded-full overflow-hidden border border-slate-900/50">
+                    <div className="h-full bg-rose-500 transition-all duration-1000 shadow-[0_0_10px_rgba(244,63,94,0.5)]" style={{ width: `${submissions.length > 0 ? (submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length / submissions.length) * 100 : 0}%` }} />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="pt-6 border-t border-slate-900/80 mt-6 flex justify-between items-center text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+            <div className="pt-8 border-t border-slate-800 mt-8 flex justify-between items-center text-xs text-slate-400 font-bold uppercase tracking-[0.2em]">
               <span>Total Assessed</span>
-              <span className="text-white font-mono font-black">{submissions.length} Candidates</span>
+              <span className="text-white font-mono text-lg">{submissions.length} Candidates</span>
             </div>
           </motion.div>
         </div>
