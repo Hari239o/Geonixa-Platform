@@ -178,10 +178,10 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       }
 
       if (examState === "ACTIVE") {
-        if (submitRef.current) submitRef.current("SLOT_EXPIRED");
-        setExamState("VIOLATION_TERMINATED");
+        if (submitRef.current) submitRef.current("AUTO_TIMEUP");
+        setExamState("SUBMITTED");
       } else if (examState !== "SUBMITTED" && examState !== "VIOLATION_TERMINATED") {
-        setExamState("VIOLATION_TERMINATED");
+        setExamState("SUBMITTED");
       }
     }
   }, [profile, currentTime, examState]);
