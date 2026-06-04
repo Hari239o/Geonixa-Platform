@@ -122,10 +122,10 @@ class EmailService {
     const { to, subject, html, candidateEmail, type } = options;
     const MAX_RETRIES = 3;
     
-    // As requested: Only use SMTP for sending login credentials (REGISTRATION type), COMPLETION, and ASSESSMENT_REPORT.
-    if (type !== "REGISTRATION" && type !== "ASSESSMENT_REPORT" && type !== "COMPLETION") {
+    // Allow sending all configured email types including results
+    if (type !== "REGISTRATION" && type !== "ASSESSMENT_REPORT" && type !== "COMPLETION" && type !== "RESULT_SELECTED" && type !== "RESULT_REJECTED" && type !== "INTERVIEW_INVITATION" && type !== "TERMINATION") {
       console.log(`[EmailService] Skipped sending email of type ${type} as per SMTP restrictions.`);
-      return { success: true, messageId: "skipped_non_registration" };
+      return { success: true, messageId: "skipped_unsupported_type" };
     }
 
     // Initial Logging to Firestore (Status: PENDING)
