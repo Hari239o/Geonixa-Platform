@@ -342,11 +342,10 @@ export default function Login() {
                       // Change current tab to indicate the exam is running elsewhere
                       document.body.innerHTML = '<div style="display:flex;height:100vh;align-items:center;justify-content:center;background:#050810;color:white;font-family:sans-serif;text-align:center;"><div><h1 style="font-size:2rem;margin-bottom:1rem;color:#f97316;">Exam Running</h1><p style="color:#94a3b8;">Your secure assessment is running in a new window.</p></div></div>';
                     }}
-                    className="btn-premium w-full bg-white py-6 rounded-3xl font-black text-xl tracking-tight transition-all shadow-3xl flex items-center justify-center gap-4 group"
-                    style={{ color: "#000000" }}
+                    style={{ width: "100%", backgroundColor: "#0f172a", color: "#ffffff", padding: "1.5rem 2rem", borderRadius: "1.5rem", fontWeight: 900, fontSize: "1.25rem", letterSpacing: "-0.025em", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
                   >
                     INITIALIZE ASSESSMENT
-                    <Terminal className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                    <Terminal className="w-6 h-6" style={{ color: "#f97316" }} />
                   </button>
                 </div>
               </div>
