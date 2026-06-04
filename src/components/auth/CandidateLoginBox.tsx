@@ -240,7 +240,8 @@ export default function CandidateLoginBox() {
                       window.open("/exam/session-ready", "SecureExamEnvironment", features);
                       document.body.innerHTML = '<div style="display:flex;height:100vh;align-items:center;justify-content:center;background:#050810;color:white;font-family:sans-serif;text-align:center;"><div><h1 style="font-size:2rem;margin-bottom:1rem;color:#f97316;">Exam Running</h1><p style="color:#94a3b8;">Your secure assessment is running in a new window.</p></div></div>';
                     }}
-                    className="w-full bg-slate-900 hover:bg-black text-white py-5 rounded-2xl font-black text-sm tracking-tight transition-all flex items-center justify-center gap-3 group shadow-2xl"
+                    className="w-full bg-slate-900 hover:bg-black py-5 rounded-2xl font-black text-sm tracking-tight transition-all flex items-center justify-center gap-3 group shadow-2xl"
+                    style={{ color: "#ffffff", backgroundColor: "#0f172a" }}
                   >
                     START ASSESSMENT
                     <Terminal className="w-5 h-5 group-hover:scale-110 transition-transform text-orange-500" />

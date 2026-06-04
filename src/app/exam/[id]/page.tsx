@@ -1585,7 +1585,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
           } catch(e) { console.warn("Fullscreen request failed", e); }
           setIsFullscreen(true); 
           setExamState("ACTIVE"); 
-        }} style={{ marginTop: '3rem', padding: "1.2rem 4rem", borderRadius: "20px", fontSize: "1.1rem", fontWeight: "900", letterSpacing: "1px" }}>
+        }} style={{ marginTop: '3rem', padding: "1.2rem 4rem", borderRadius: "20px", fontSize: "1.1rem", fontWeight: "900", letterSpacing: "1px", backgroundColor: "#0284c7", color: "#ffffff", border: "none", cursor: "pointer", boxShadow: "0 4px 15px rgba(2, 132, 199, 0.4)" }}>
           I ACKNOWLEDGE & INITIALIZE SESSION
         </button>
       </div>
@@ -2209,44 +2209,44 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   </div>
                   
                   <div style={{ flex: 1, display: "flex", gap: "1rem", overflow: "hidden" }}>
-                    <div style={{ flex: "0 0 40%", padding: "1.5rem", backgroundColor: "#1e293b", color: "#f8fafc", borderRadius: "16px", border: "1px solid var(--border-dim)", overflowY: "auto", height: "100%" }}>
-                      <h2 style={{ color: "white", margin: "0 0 1rem 0", fontSize: "1.4rem", fontWeight: "bold" }}>Overview: {codingQuestions[codingQuestionIndex]?.title}</h2>
-                      <div style={{ fontSize: "0.95rem", lineHeight: "1.7", color: "#cbd5e1", whiteSpace: "pre-wrap" }}>
+                    <div style={{ flex: "0 0 40%", padding: "1.5rem", backgroundColor: "#ffffff", color: "#0f172a", borderRadius: "16px", border: "1px solid var(--border-dim)", overflowY: "auto", height: "100%", boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.05)" }}>
+                      <h2 style={{ color: "#0f172a", margin: "0 0 1rem 0", fontSize: "1.4rem", fontWeight: "bold" }}>Overview: {codingQuestions[codingQuestionIndex]?.title}</h2>
+                      <div style={{ fontSize: "0.95rem", lineHeight: "1.7", color: "#334155", whiteSpace: "pre-wrap" }}>
                         {codingQuestions[codingQuestionIndex]?.desc}
                       </div>
 
                       {codingQuestions[codingQuestionIndex]?.objective && (
                         <div style={{ marginTop: "1.5rem" }}>
-                          <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem", color: "white", fontWeight: "bold" }}>Objective</h4>
-                          <p style={{ color: "#cbd5e1", fontSize: "0.95rem", lineHeight: "1.6" }}>{codingQuestions[codingQuestionIndex].objective}</p>
+                          <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem", color: "#0f172a", fontWeight: "bold" }}>Objective</h4>
+                          <p style={{ color: "#334155", fontSize: "0.95rem", lineHeight: "1.6" }}>{codingQuestions[codingQuestionIndex].objective}</p>
                         </div>
                       )}
 
                       {codingQuestions[codingQuestionIndex]?.task && (
                         <div style={{ marginTop: "1.5rem" }}>
-                          <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem", color: "white", fontWeight: "bold" }}>Task</h4>
-                          <p style={{ color: "#cbd5e1", fontSize: "0.95rem", lineHeight: "1.6" }}>{codingQuestions[codingQuestionIndex].task}</p>
+                          <h4 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem", color: "#0f172a", fontWeight: "bold" }}>Task</h4>
+                          <p style={{ color: "#334155", fontSize: "0.95rem", lineHeight: "1.6" }}>{codingQuestions[codingQuestionIndex].task}</p>
                         </div>
                       )}
 
                       {(codingQuestions[codingQuestionIndex]?.inputFormat || codingQuestions[codingQuestionIndex]?.outputFormat) && (
                          <div style={{ marginTop: "2rem" }}>
-                           <h4 style={{ margin: "0 0 1rem 0", fontSize: "1.1rem", color: "white", fontWeight: "bold" }}>I/O Format</h4>
-                           <div style={{ border: "1px solid #334155", borderRadius: "8px", overflow: "hidden" }}>
-                             <div style={{ display: "flex", borderBottom: "1px solid #334155", backgroundColor: "#0f172a", padding: "1rem" }}>
-                                <div style={{ flex: 1, fontWeight: "bold", color: "white" }}>Parameter</div>
-                                <div style={{ flex: 2, fontWeight: "bold", color: "white" }}>Description</div>
+                           <h4 style={{ margin: "0 0 1rem 0", fontSize: "1.1rem", color: "#0f172a", fontWeight: "bold" }}>I/O Format</h4>
+                           <div style={{ border: "1px solid #cbd5e1", borderRadius: "8px", overflow: "hidden" }}>
+                             <div style={{ display: "flex", borderBottom: "1px solid #cbd5e1", backgroundColor: "#f1f5f9", padding: "1rem" }}>
+                                <div style={{ flex: 1, fontWeight: "bold", color: "#334155" }}>Parameter</div>
+                                <div style={{ flex: 2, fontWeight: "bold", color: "#334155" }}>Description</div>
                              </div>
                              {codingQuestions[codingQuestionIndex]?.inputFormat && (
-                               <div style={{ display: "flex", borderBottom: "1px solid #334155", padding: "1rem" }}>
-                                  <div style={{ flex: 1, color: "#94a3b8" }}>Input</div>
-                                  <div style={{ flex: 2, color: "#cbd5e1" }}>{codingQuestions[codingQuestionIndex].inputFormat}</div>
+                               <div style={{ display: "flex", borderBottom: "1px solid #cbd5e1", padding: "1rem" }}>
+                                  <div style={{ flex: 1, color: "#475569", fontWeight: "500" }}>Input</div>
+                                  <div style={{ flex: 2, color: "#1e293b" }}>{codingQuestions[codingQuestionIndex].inputFormat}</div>
                                </div>
                              )}
                              {codingQuestions[codingQuestionIndex]?.outputFormat && (
                                <div style={{ display: "flex", padding: "1rem" }}>
-                                  <div style={{ flex: 1, color: "#94a3b8" }}>Output</div>
-                                  <div style={{ flex: 2, color: "#cbd5e1" }}>{codingQuestions[codingQuestionIndex].outputFormat}</div>
+                                  <div style={{ flex: 1, color: "#475569", fontWeight: "500" }}>Output</div>
+                                  <div style={{ flex: 2, color: "#1e293b" }}>{codingQuestions[codingQuestionIndex].outputFormat}</div>
                                </div>
                              )}
                            </div>
@@ -2254,8 +2254,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       )}
 
                       {/* Sample Input/Output and Explanation hidden during exam - answers revealed only after submission */}
-                      <div style={{ marginTop: "2rem", padding: "1rem", backgroundColor: "#1e3a5f", border: "1px solid #3b82f6", borderRadius: "8px" }}>
-                        <p style={{ color: "#93c5fd", fontSize: "0.85rem", margin: 0 }}>📝 Sample test cases and explanations are hidden during the exam. You will receive detailed feedback after submission.</p>
+                      <div style={{ marginTop: "2rem", padding: "1rem", backgroundColor: "#f0fdf4", border: "1px solid #86efac", borderRadius: "8px" }}>
+                        <p style={{ color: "#166534", fontSize: "0.85rem", margin: 0, fontWeight: "600" }}>📝 Sample test cases and explanations are hidden during the exam. You will receive detailed feedback after submission.</p>
                       </div>
                     </div>
                     
