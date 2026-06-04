@@ -27,6 +27,8 @@ import {
 import Logo from "@/components/brand/Logo";
 import { useState, useEffect, useRef } from "react";
 
+import CandidateLoginBox from "@/components/auth/CandidateLoginBox";
+
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
@@ -127,15 +129,15 @@ export default function Home() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-4">
-            <Link
-              href="/auth/login"
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-orange-500 px-6 py-2.5 text-xs font-black uppercase tracking-wider text-white transition-all hover:bg-orange-600 hover:shadow-[0_0_20px_rgba(249,115,22,0.4)]"
             >
               <span className="relative flex items-center gap-2 z-10">
                 Candidate Portal
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>
-            </Link>
+            </button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -165,12 +167,12 @@ export default function Home() {
               </Link>
             ))}
             <div className="flex flex-col gap-3 mt-4">
-              <Link
-                href="/auth/login"
+              <button
+                onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className="w-full rounded-full bg-orange-500 py-3 text-center text-xs font-bold uppercase text-white"
               >
                 Candidate Portal
-              </Link>
+              </button>
             </div>
           </div>
         </motion.div>
@@ -179,36 +181,37 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative z-10 pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-32 px-5 sm:px-8 lg:px-10 min-h-screen flex items-center">
         <div className="mx-auto max-w-7xl w-full">
-          <motion.div 
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="max-w-4xl"
-          >
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-orange-400 backdrop-blur-sm mb-8">
-              <Sparkles className="h-4 w-4" />
-              <span>The New Standard in Tech Hiring</span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div 
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+              className="max-w-2xl"
+            >
+              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-orange-400 backdrop-blur-sm mb-8">
+                <Sparkles className="h-4 w-4" />
+                <span>The New Standard in Tech Hiring</span>
+              </motion.div>
+
+              <motion.h1 variants={fadeInUp} className="text-5xl sm:text-7xl font-black tracking-tight leading-[1.1] text-white">
+                Evaluate talent with <br />
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 via-orange-500 to-amber-500">absolute precision.</span>
+              </motion.h1>
+
+              <motion.p variants={fadeInUp} className="mt-8 text-lg sm:text-xl leading-relaxed text-slate-400 font-medium pr-10">
+                Geonixa is the enterprise assessment infrastructure for modern teams. We unify AI proctoring, coding environments, and behavioral analytics into one seamless, secure platform.
+              </motion.p>
             </motion.div>
 
-            <motion.h1 variants={fadeInUp} className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[1.1] text-white">
-              Evaluate talent with <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 via-orange-500 to-amber-500">absolute precision.</span>
-            </motion.h1>
-
-            <motion.p variants={fadeInUp} className="mt-8 max-w-2xl text-lg sm:text-xl leading-relaxed text-slate-400 font-medium">
-              Geonixa is the enterprise assessment infrastructure for modern teams. We unify AI proctoring, coding environments, and behavioral analytics into one seamless, secure platform.
-            </motion.p>
-
-            <motion.div variants={fadeInUp} className="mt-10 flex flex-col sm:flex-row gap-4 items-start">
-              <Link
-                href="/auth/login"
-                className="group relative flex w-full sm:w-auto items-center justify-center gap-3 rounded-full bg-orange-500 px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-orange-400 hover:shadow-[0_0_30px_rgba(249,115,22,0.3)]"
-              >
-                Access Secure Portal
-                <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4 }}
+              className="w-full relative z-50"
+            >
+              <CandidateLoginBox />
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

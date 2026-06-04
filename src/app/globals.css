@@ -21,7 +21,7 @@
 
 @layer base {
   html {
-    font-size: 21px; /* Noticeably increased font size of the total project */
+    font-size: 16px; /* Restored to default size */
   }
   
   body {
