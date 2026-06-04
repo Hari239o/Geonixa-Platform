@@ -339,7 +339,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   const sessionHash = useMemo(() => Math.random().toString(36).substring(7).toUpperCase(), []);
 
   const calculateSubstantialLines = (typed: string, topic?: string) => {
-    if (!typed || typed.trim().length < 20) return 0;
+    if (!typed || typed.trim().length < 10) return 0;
 
     if (topic) {
       const stopWords = new Set(["the", "is", "in", "at", "of", "on", "and", "a", "to", "for", "with", "as", "by", "an", "be", "it", "are", "you", "that", "this", "they", "have", "from", "which", "what", "how", "why"]);
@@ -348,18 +348,20 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       
       let matchCount = 0;
       topicWords.forEach(tw => {
-        if (typedWordsStr.includes(tw)) matchCount++;
+        // Use a more forgiving match by checking prefixes or substrings safely
+        if (typedWordsStr.includes(tw.substring(0, 4))) matchCount++;
       });
       
-      // If the topic has significant words, require at least one to be present
-      if (topicWords.length > 0 && matchCount === 0) {
+      // If the topic has significant words, require at least one partial match
+      if (topicWords.length > 0 && matchCount === 0 && typed.split(/\s+/).length > 20) {
+        // Only start penalizing for zero relevance if they have typed a good chunk of text
         return 0; // Completely irrelevant
       }
     }
 
-    // 1 line = 15 words
+    // 1 line = 10 words
     const words = typed.trim().split(/\s+/).filter(w => w.length > 0);
-    return Math.floor(words.length / 15);
+    return Math.floor(words.length / 10);
   };
 
   const calculateTypingProgress = (typed: string, source: string) => {
