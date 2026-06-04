@@ -1292,14 +1292,16 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     };
 
     const handleVisibilityChange = () => {
+      // Logged for analytics only. No longer triggers violation/termination.
       if (document.hidden && examState === "ACTIVE") {
-        handleProctorViolation("TAB_SWITCH", "Unauthorized focus switch detected.");
+        console.debug('[ExamPage] Tab hidden detected (logged only)');
       }
     };
 
     const handleBlur = () => {
+      // Logged for analytics only. No longer triggers violation/termination.
       if (examState === "ACTIVE") {
-        handleProctorViolation("BROWSER_FOCUS_LOST", "Window focus lost. Stay within the exam environment.");
+        console.debug('[ExamPage] Window blur detected (logged only)');
       }
     };
 

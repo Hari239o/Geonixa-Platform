@@ -78,12 +78,14 @@ export class AIProctoringSystem {
     const now = Date.now();
     if (now < this.globalCooldownUntil) return; // Enforce global cooldown observation period
 
-    this.evaluatePersistentViolation('face_missing', (r) => r.type === 'face_missing', this.opts.minSecondsForViolation * 1000, 0.75, now);
-    this.evaluatePersistentViolation('head_turned', (r) => r.type === 'head_turned', 5000, 0.75, now);
-    this.evaluatePersistentViolation('eyes_off', (r) => r.type === 'eyes_off', 5000, 0.75, now);
-    this.evaluatePersistentViolation('multiple_faces', (r) => r.type === 'multiple_faces', this.opts.multipleFaceSeconds * 1000, 0.75, now);
-    this.evaluatePersistentViolation('phone', (r) => r.type === 'phone', this.opts.phoneSeconds * 1000, 0.70, now);
-    this.evaluatePersistentViolation('loud_noise', (r) => r.type === 'loud_noise', this.opts.noiseSeconds * 1000, 0.75, now);
+    // Thresholds are intentionally lenient to prevent false positives.
+    // Students naturally look at keyboards, stretch, adjust seating, etc.
+    this.evaluatePersistentViolation('face_missing', (r) => r.type === 'face_missing', this.opts.minSecondsForViolation * 1000, 0.85, now);
+    this.evaluatePersistentViolation('head_turned', (r) => r.type === 'head_turned', 30000, 0.90, now);
+    this.evaluatePersistentViolation('eyes_off', (r) => r.type === 'eyes_off', 30000, 0.90, now);
+    this.evaluatePersistentViolation('multiple_faces', (r) => r.type === 'multiple_faces', this.opts.multipleFaceSeconds * 1000, 0.85, now);
+    this.evaluatePersistentViolation('phone', (r) => r.type === 'phone', this.opts.phoneSeconds * 1000, 0.85, now);
+    this.evaluatePersistentViolation('loud_noise', (r) => r.type === 'loud_noise', this.opts.noiseSeconds * 1000, 0.85, now);
   }
 
   private evaluatePersistentViolation(
@@ -133,18 +135,18 @@ export class AIProctoringSystem {
   private getCooldownMsForLabel(label: string) {
     switch (label) {
       case 'face_missing':
-        return 2 * 60 * 1000;
+        return 5 * 60 * 1000;   // 5 minutes
       case 'head_turned':
       case 'eyes_off':
-        return 5 * 60 * 1000;
+        return 10 * 60 * 1000;  // 10 minutes
       case 'multiple_faces':
-        return 2 * 60 * 1000;
+        return 5 * 60 * 1000;   // 5 minutes
       case 'phone':
-        return 5 * 60 * 1000;
+        return 10 * 60 * 1000;  // 10 minutes
       case 'loud_noise':
-        return 2 * 60 * 1000;
+        return 5 * 60 * 1000;   // 5 minutes
       default:
-        return 2 * 60 * 1000;
+        return 5 * 60 * 1000;   // 5 minutes
     }
   }
 

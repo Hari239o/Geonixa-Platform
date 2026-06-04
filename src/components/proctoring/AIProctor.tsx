@@ -344,34 +344,33 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
     let checkAudioTimer: NodeJS.Timeout;
     let devToolsInterval: NodeJS.Timeout;
 
+    // CRITICAL: Clear persisted warnings from previous sessions to prevent
+    // stale data from causing instant termination on a fresh exam start.
+    try {
+      useProctorStore.getState().clearWarnings();
+      useProctorStore.getState().clearTermination();
+    } catch (e) {
+      console.debug('[AIProctor] Failed to clear proctor store:', e);
+    }
+
     // Window & Environment Security Listeners
+    // These are logged for analytics but do NOT escalate warnings or trigger termination.
+    // False positives from system notifications, accidental clicks, etc. were causing unfair terminations.
     const handleVisibility = () => {
       if (document.hidden && isExamActiveRef.current && !hasTerminatedRef.current) {
-        if (proctorEngineRef.current) {
-          proctorEngineRef.current.forceWarning('tab_switch');
-        } else {
-          onViolation("TAB_SWITCH_WARNING", "Unauthorized tab switching or backgrounding detected.");
-        }
+        console.debug('[AIProctor] Tab hidden detected (logged only, no escalation)');
       }
     };
 
     const handleBlur = () => {
       if (isExamActiveRef.current && !hasTerminatedRef.current) {
-        if (proctorEngineRef.current) {
-          proctorEngineRef.current.forceWarning('tab_switch');
-        } else {
-          onViolation("TAB_SWITCH_WARNING", "Window focus lost. Unauthorized switching detected.");
-        }
+        console.debug('[AIProctor] Window blur detected (logged only, no escalation)');
       }
     };
 
     const handleFullScreenExit = () => {
       if (isExamActiveRef.current && !document.fullscreenElement && isFullscreenInitialized.current && !hasTerminatedRef.current) {
-        if (proctorEngineRef.current) {
-          proctorEngineRef.current.forceWarning('tab_switch');
-        } else {
-          onViolation("FULLSCREEN_EXIT_WARNING", "Fullscreen mode exited.");
-        }
+        console.debug('[AIProctor] Fullscreen exited (logged only, no escalation)');
       }
     };
 
@@ -533,13 +532,14 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
                 setActiveWarningModal({ number: 2, message: `Suspicious activity detected. ${uiMsg}` });
                 onViolation("WARNING_2", `Repeated: ${msg}`);
               } else if (level >= 3) {
-                setActiveWarningModal({ number: 3, message: `Exam auto-submitted due to repeated violations.` });
+                setActiveWarningModal({ number: 3, message: `This is your final warning. Please stay focused on the exam.` });
                 onViolation("WARNING_3", `Final: ${msg}`);
-                handleInstantTermination('FINAL_VIOLATION', `Repeated violations: ${msg}`);
+                // Do NOT auto-terminate here — let the page.tsx handler decide
               }
             },
             onTerminate: (reason) => {
-              handleInstantTermination('TERMINATED', `Auto-termination: ${reason}`);
+              // Disabled: do NOT auto-terminate from proctor engine
+              console.debug('[AIProctor] onTerminate suppressed:', reason);
             }
           });
 
