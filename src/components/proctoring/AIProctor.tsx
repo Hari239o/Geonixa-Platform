@@ -128,15 +128,6 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
     });
   };
 
-  const detectFaceApiLandmarks = async (video: HTMLVideoElement) => {
-    if (!faceApiModelRef.current) return null;
-    try {
-      const options = new faceApiModelRef.current.TinyFaceDetectorOptions({ inputSize: 160, scoreThreshold: 0.55 });
-      return await faceApiModelRef.current.detectSingleFace(video, options).withFaceLandmarks(true);
-    } catch (e) {
-      return null;
-    }
-  };
 
   const attachStreamToVideo = async (video: HTMLVideoElement, stream: MediaStream) => {
     if (video.srcObject) {
@@ -425,7 +416,6 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
         setStatusText("TensorFlow.js ready via ES module import");
         let coco = null;
         let blazeface = null;
-        let faceapi = null;
         let FaceMeshClass = null;
         
         // Load CocoSSD
@@ -448,10 +438,9 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
           setModelError("Failed to load face detection AI model.");
         }
         
-        faceapi = (window as any).faceapi || null;
         FaceMeshClass = (window as any).FaceMesh || null;
 
-        if (!coco || !blazeface || !faceapi || !FaceMeshClass) {
+        if (!coco || (!blazeface && !FaceMeshClass)) {
           // Wait for CDN scripts if not ready
           console.debug("[MODELS] Waiting for scripts to load from CDN...");
           await new Promise(resolve => setTimeout(resolve, 3000));
@@ -463,26 +452,7 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
             blazeface = await (window as any).blazeface.load();
             console.debug("[MODELS] BlazeFace loaded after CDN wait");
           }
-          faceapi = (window as any).faceapi || faceapi;
           FaceMeshClass = (window as any).FaceMesh || FaceMeshClass;
-        }
-
-        // Load FaceAPI models with fallback CDN path
-        if (faceapi) {
-          setStatusText("Loading FaceAPI models...");
-          faceApiModelRef.current = faceapi;
-          try {
-            // Use official jsdelivr path for face-api.js 0.22.2
-            const weightPath = 'https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/weights';
-            await Promise.all([
-              faceapi.nets.tinyFaceDetector.loadFromUri(weightPath).catch(() => null),
-              faceapi.nets.faceLandmark68TinyNet.loadFromUri(weightPath).catch(() => null),
-              faceapi.nets.faceExpressionNet.loadFromUri(weightPath).catch(() => null)
-            ]);
-            console.debug("[MODELS] FaceAPI weights loaded successfully");
-          } catch (faceErr) {
-            console.warn("FaceAPI model loading failed, continuing with backup detection", faceErr);
-          }
         }
 
         if (FaceMeshClass) {
@@ -637,7 +607,6 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
             console.debug(`[DETECTION] Persons: ${persons.length}, Phone: ${phone ? phone.class : 'none'}`);
           }
 
-          const faceApiResult = await detectFaceApiLandmarks(video);
           if (faceMeshRef.current) {
             try {
               await faceMeshRef.current.send({ image: video });
@@ -764,31 +733,6 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
             proctorEngineRef.current?.recordDetection({ type: 'head_turned', confidence, payload });
           };
 
-          if (faceApiResult?.landmarks) {
-            const leftEye = faceApiResult.landmarks.getLeftEye();
-            const rightEye = faceApiResult.landmarks.getRightEye();
-            const nose = faceApiResult.landmarks.getNose()[0];
-            const eyeCenterX = (leftEye[0].x + rightEye[3].x) / 2;
-            const faceWidth = Math.abs(rightEye[3].x - leftEye[0].x);
-            const yawRatio = (nose.x - eyeCenterX) / (faceWidth + 0.0001);
-            orientationConfidence = Math.max(orientationConfidence, Math.min(1, Math.abs(yawRatio) / 1.4));
-
-            if (Math.abs(yawRatio) > 0.45) {
-              headTurnDetected = true;
-              recordHeadWarning(orientationConfidence, { source: 'faceapi', yawRatio });
-            }
-
-            const leftIris = leftEye[4];
-            const rightIris = rightEye[4];
-            if (leftIris && rightIris) {
-              const leftRatio = (leftIris.x - leftEye[0].x) / Math.max(0.001, leftEye[3].x - leftEye[0].x);
-              const rightRatio = (rightIris.x - rightEye[0].x) / Math.max(0.001, rightEye[3].x - rightEye[0].x);
-              if ((leftRatio < 0.12 || leftRatio > 0.88) && (rightRatio < 0.12 || rightRatio > 0.88)) {
-                gazeWarning = true;
-              }
-            }
-          }
-
           if (faceMeshResult) {
             const leftEyePoint = faceMeshResult[33];
             const rightEyePoint = faceMeshResult[263];
@@ -913,7 +857,6 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
         console.log(`[TFJS] Backend ready: ${tf.getBackend()}`);
 
         await loadScript("https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface");
-        await loadScript("https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js");
         await loadScript("https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js");
         loadModels();
       } catch (scriptErr) {
