@@ -1857,11 +1857,12 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
               <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <button 
-                  className="btn btn-outline" 
+                  className="btn" 
                   disabled={(currentRound === 1 ? q1Index : q2Index) === 0}
                   onClick={() => currentRound === 1 ? setQ1Index(p => p - 1) : setQ2Index(p => p - 1)}
+                  style={{ padding: "1rem 2.5rem", borderRadius: "14px", backgroundColor: "#e2e8f0", border: "1px solid #cbd5e1", color: "#1e293b", fontWeight: "900", cursor: ((currentRound === 1 ? q1Index : q2Index) === 0) ? "not-allowed" : "pointer", opacity: ((currentRound === 1 ? q1Index : q2Index) === 0) ? 0.5 : 1 }}
                 >
-                  Previous
+                  PREVIOUS
                 </button>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(10, 1fr)", gap: "0.5rem", padding: "1rem", backgroundColor: "#f8fafc", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
                   {Array.from({ length: 30 }, (_, i) => {
@@ -1896,7 +1897,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
                       <button 
                         className="btn btn-primary"
-                        style={{ padding: "1rem 3rem", borderRadius: "14px" }}
+                        style={{ padding: "1rem 3rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }}
                         onClick={() => {
                           currentRound === 1 ? setQ1Index(p => p + 1) : setQ2Index(p => p + 1);
                         }}
@@ -2014,13 +2015,19 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 placeholder="Start writing your essay here. Focus on clarity, structure, and technical relevance..."
               />
 
-              <div style={{ marginTop: "2.5rem", display: "flex", justifyContent: "flex-end" }}>
+              <div style={{ marginTop: "2.5rem", display: "flex", justifyContent: "flex-start", marginLeft: "20px" }}>
                   {typingTopicIndex === 0 ? (
-                    <button className="btn btn-primary" onClick={() => { setTypingTopicIndex(1); setR3SubTimer(300); }}>Switch to Topic 2</button>
+                    <button 
+                      className="btn btn-primary" 
+                      style={{ padding: "1.2rem 4rem", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900", borderRadius: "14px" }}
+                      onClick={() => { setTypingTopicIndex(1); setR3SubTimer(300); }}
+                    >
+                      SWITCH TO TOPIC 2
+                    </button>
                   ) : (
                       <button 
-                        className="btn btn-primary" 
-                        style={{ padding: "1.2rem 4rem" }}
+                        className="btn btn-danger" 
+                        style={{ padding: "1.2rem 4rem", backgroundColor: "#dc2626", color: "#ffffff", fontWeight: "900", borderRadius: "14px", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)" }}
                         onClick={() => {
                           showConfirm(
                             "Submit Round 3",
@@ -2029,7 +2036,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                           );
                         }}
                       >
-                        Finalize Round 3 & Start Technical
+                        FINALIZE ROUND 3 & START TECHNICAL
                       </button>
                   )}
               </div>
@@ -2082,7 +2089,14 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   </div>
 
                   <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "2rem" }}>
-                    <button className="btn btn-outline" disabled={codingQuestionIndex === 0} onClick={() => setCodingQuestionIndex(p => p - 1)}>Previous</button>
+                    <button 
+                      className="btn" 
+                      disabled={codingQuestionIndex === 0} 
+                      onClick={() => setCodingQuestionIndex(p => p - 1)}
+                      style={{ padding: "1rem 2.5rem", borderRadius: "14px", backgroundColor: "#e2e8f0", border: "1px solid #cbd5e1", color: "#1e293b", fontWeight: "900", cursor: (codingQuestionIndex === 0) ? "not-allowed" : "pointer", opacity: (codingQuestionIndex === 0) ? 0.5 : 1 }}
+                    >
+                      PREVIOUS
+                    </button>
                     
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(10, 1fr)", gap: "0.4rem", padding: "0.8rem", backgroundColor: "#f8fafc", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
                       {Array.from({ length: 40 }, (_, i) => {
@@ -2402,19 +2416,20 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     <ShieldCheck size={28} />
                  </div>
                  <div>
-                    <h3 className="text-xl font-black text-white uppercase tracking-tight">{confirmModal.title}</h3>
-                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Security Verified</p>
+                    <h3 className="text-xl font-black uppercase tracking-tight" style={{ color: "#ffffff" }}>{confirmModal.title}</h3>
+                    <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Security Verified</p>
                  </div>
               </div>
 
-              <p className="text-slate-300 leading-relaxed mb-8">
+              <p className="leading-relaxed mb-8" style={{ color: "#e2e8f0", fontSize: "1.1rem", fontWeight: "500" }}>
                 {confirmModal.message}
               </p>
 
               <div className="flex gap-3">
                 <button 
                   onClick={() => setConfirmModal(prev => ({ ...prev, show: false }))}
-                  className="flex-1 px-6 py-4 rounded-2xl bg-white/5 text-slate-400 font-bold hover:bg-white/10 transition-all border border-white/5"
+                  className="flex-1 px-6 py-4 rounded-2xl bg-white/5 font-bold hover:bg-white/10 transition-all border border-white/5"
+                  style={{ color: "#94a3b8" }}
                 >
                   CANCEL
                 </button>
@@ -2423,7 +2438,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     confirmModal.onConfirm();
                     setConfirmModal(prev => ({ ...prev, show: false }));
                   }}
-                  className="flex-1 px-6 py-4 rounded-2xl bg-emerald-500 text-black font-black hover:bg-emerald-400 transition-all shadow-[0_10px_30px_rgba(16,185,129,0.3)]"
+                  className="flex-1 px-6 py-4 rounded-2xl bg-emerald-500 font-black hover:bg-emerald-400 transition-all shadow-[0_10px_30px_rgba(16,185,129,0.3)]"
+                  style={{ color: "#000000" }}
                 >
                   CONFIRM
                 </button>

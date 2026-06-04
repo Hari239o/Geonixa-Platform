@@ -822,26 +822,29 @@ export default function CodeEditor({
           </div>
         </div>
       </div>
+      {/* Submit Confirmation Modal */}
       {submitConfirmationOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4">
-          <div className="w-full max-w-xl rounded-3xl bg-slate-950 border border-slate-700 p-6 shadow-2xl">
-            <h3 className="text-xl font-black text-white mb-3">Confirm Submission</h3>
-            <p className="text-sm leading-6 text-slate-300 mb-6">
-              Ready to submit this task? All test cases (including hidden ones) will be evaluated.
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-[#0f172a] border border-white/10 rounded-2xl p-6 max-w-sm w-full shadow-2xl">
+            <h3 className="text-xl font-black mb-3" style={{ color: "#ffffff" }}>Confirm Submission</h3>
+            <p className="mb-6 leading-relaxed font-medium" style={{ color: "#e2e8f0" }}>
+              Are you sure you want to submit your solution? This action cannot be undone.
             </p>
-            <div className="flex flex-wrap gap-3 justify-end">
-              <button
+            <div className="flex gap-3">
+              <button 
                 onClick={() => setSubmitConfirmationOpen(false)}
-                className="px-5 py-2 text-sm font-black uppercase tracking-[0.2em] rounded-full bg-slate-800 text-slate-200 hover:bg-slate-700 transition-all"
+                className="flex-1 py-3 px-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors font-bold"
+                style={{ color: "#94a3b8" }}
               >
                 Cancel
               </button>
-              <button
+              <button 
                 onClick={async () => {
                   setSubmitConfirmationOpen(false);
                   await executeSubmitSolution();
                 }}
-                className="px-5 py-2 text-sm font-black uppercase tracking-[0.2em] rounded-full bg-emerald-500 text-black hover:bg-emerald-400 transition-all"
+                className="flex-1 py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 transition-colors font-black shadow-[0_4px_15px_rgba(16,185,129,0.3)]"
+                style={{ color: "#000000" }}
               >
                 Confirm & Submit
               </button>
