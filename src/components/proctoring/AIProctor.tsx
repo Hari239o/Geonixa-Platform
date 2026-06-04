@@ -627,27 +627,7 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
             faces = [{ topLeft: [0, 0], bottomRight: [video.videoWidth, video.videoHeight], landmarks: [] }];
           }
 
-          if (canvas && faces.length > 0) {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const ctx = canvas.getContext("2d");
-            if (ctx) {
-              ctx.clearRect(0, 0, canvas.width, canvas.height);
-              faces.forEach((f: any) => {
-                const [startPt, endPt] = [f.topLeft as [number, number], f.bottomRight as [number, number]];
-                ctx.strokeStyle = "#F97316";
-                ctx.lineWidth = 1;
-                ctx.strokeRect(startPt[0], startPt[1], endPt[0] - startPt[0], endPt[1] - startPt[1]);
 
-                ctx.fillStyle = "#10B981";
-                (f.landmarks as [number, number][]).forEach(pt => {
-                  ctx.beginPath();
-                  ctx.arc(pt[0], pt[1], 2, 0, 2 * Math.PI);
-                  ctx.fill();
-                });
-              });
-            }
-          }
 
           if (faces.length === 0) {
             console.log("No face detected");
