@@ -155,8 +155,7 @@ Note: In all test cases, all words were chosen randomly from the 1000 most commo
   ]
 };
 
-import { NEW_HARDCORE_DSA_POOL } from './hardcore_dsa_pool';
-
+// Removed NEW_HARDCORE_DSA_POOL import due to syntax errors and it being unused
 export const DSA_HARD_POOL: any[] = [stickersQuestion, ...DATA_DSA_HARD];
 export const TYPING_TOPICS_POOL = DATA_TYPING_POOL;
 export const WEB_DEV_POOL: any[] = DATA_WEB_DEV;
