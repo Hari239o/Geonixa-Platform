@@ -999,7 +999,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     const currentUser = typeof window !== "undefined" ? (localStorage.getItem("geonixa_current_user") || "anonymous") : "anonymous";
 
     // INSTANT TERMINATION RULES (Severe Violations)
-    if (type === "TERMINATED" || type === "TAB_SWITCH" || type === "FULLSCREEN_EXIT" || type === "WINDOW_MINIMIZE" || type === "SCREENSHOT" || type === "DEVTOOLS" || type === "EXTENSION_CHEAT") {
+    if (type === "TERMINATED" || type === "DEVTOOLS" || type === "EXTENSION_CHEAT") {
       setCurrentWarning(`🚫 INSTANT TERMINATION: ${message || "Critical integrity breach detected."}. Assessment auto-submitting...`);
       if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => {});
       if (typeof window !== "undefined") {

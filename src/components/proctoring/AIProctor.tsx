@@ -387,14 +387,17 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
 
     const checkDevToolsAndScreens = () => {
       if (!isMounted.current || !isExamActiveRef.current) return;
-      const wDiff = window.outerWidth - window.innerWidth;
-      const hDiff = window.outerHeight - window.innerHeight;
-      if (wDiff > 180 || hDiff > 180) {
-        handleInstantTermination("DEVTOOLS", "Unauthorized Developer Tools inspection detected.");
-      }
-      if (window.screen && (window.screen as any).isExtended) {
-        handleInstantTermination("EXTENSION_CHEAT", "Unauthorized external display detected.");
-      }
+      // DEVTOOLS size check is too brittle and triggers false positives with sidebars/bookmarks
+      // const wDiff = window.outerWidth - window.innerWidth;
+      // const hDiff = window.outerHeight - window.innerHeight;
+      // if (wDiff > 300 || hDiff > 300) {
+      //   handleInstantTermination("DEVTOOLS", "Unauthorized Developer Tools inspection detected.");
+      // }
+      
+      // External display check triggers on standard dual monitor setups
+      // if (window.screen && (window.screen as any).isExtended) {
+      //   handleInstantTermination("EXTENSION_CHEAT", "Unauthorized external display detected.");
+      // }
     };
 
     const handleDeviceChange = async () => {

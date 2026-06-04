@@ -46,7 +46,7 @@ export class AIProctoringSystem {
       (window as any).__PROCTOR_LOGS__ = (window as any).__PROCTOR_LOGS__ || [];
     }
 
-    this.attachVisibilityHandlers();
+    // this.attachVisibilityHandlers(); // Removed to prevent false positive instant terminations
     this.startEvaluationLoop();
   }
 
