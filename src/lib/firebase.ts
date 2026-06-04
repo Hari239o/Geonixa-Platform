@@ -1007,7 +1007,8 @@ export const deleteCandidateFirebase = async (email: string) => {
       };
       
       const internalSlotId = slotMap[slotLabel] || "SLOT_1";
-      const slotDocRef = doc(db, "meta", "slots");
+      const profileDay = profileDoc.data().day || new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+      const slotDocRef = doc(db, "meta", `slots_${profileDay}`);
       
       // Use Transaction to safely restore slot capacity
       await runTransaction(db, async (transaction) => {
@@ -1043,14 +1044,14 @@ export const SLOT_CONFIG = {
   "SLOT_6": { id: "SLOT_6", label: "08:30 PM - 10:00 PM", start: "20:30", end: "22:00" },
 };
 
-export const getSlotAvailability = async () => {
+export const getSlotAvailability = async (date: string = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' })) => {
   if (firebaseConfig.projectId === "dummy" && typeof window !== "undefined") {
-    return JSON.parse(localStorage.getItem("geonixa_slots") || JSON.stringify({
+    return JSON.parse(localStorage.getItem(`geonixa_slots_${date}`) || JSON.stringify({
       "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0
     }));
   }
   try {
-    const d = await getDoc(doc(db, "meta", "slots"));
+    const d = await getDoc(doc(db, "meta", `slots_${date}`));
     if (!d.exists()) return { "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0 };
     return d.data();
   } catch (e) {
@@ -1064,18 +1065,20 @@ export const allocateSlotWithTransaction = async (
   profileData: any, 
   passKey: string
 ) => {
+  const profileDay = profileData.day || new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+
   if (firebaseConfig.projectId === "dummy" && typeof window !== "undefined") {
-    const slots = JSON.parse(localStorage.getItem("geonixa_slots") || JSON.stringify({
+    const slots = JSON.parse(localStorage.getItem(`geonixa_slots_${profileDay}`) || JSON.stringify({
       "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0
     }));
     if (slots[slotId] >= 25) throw new Error("SLOT_FULL");
     slots[slotId]++;
-    localStorage.setItem("geonixa_slots", JSON.stringify(slots));
+    localStorage.setItem(`geonixa_slots_${profileDay}`, JSON.stringify(slots));
     await registerCandidateFirebase(email, passKey, { ...profileData, slot: slotId });
     return true;
   }
 
-  const slotRef = doc(db, "meta", "slots");
+  const slotRef = doc(db, "meta", `slots_${profileDay}`);
   const validLoginsRef = doc(db, "valid_logins", email);
   const profileRef = doc(db, "student_profiles", email);
   const plannedProfileData = enrichProfileWithDomainPlan({ ...profileData, slot: slotId });
@@ -1107,7 +1110,7 @@ export const allocateSlotWithTransaction = async (
   });
 };
 
-export const updateSlotTransferTransaction = async (oldSlotLabel: string, newSlotLabel: string) => {
+export const updateSlotTransferTransaction = async (oldSlotLabel: string, newSlotLabel: string, date: string = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' })) => {
   if (firebaseConfig.projectId === "dummy") return;
   
   const slotMap: Record<string, string> = {
@@ -1124,7 +1127,7 @@ export const updateSlotTransferTransaction = async (oldSlotLabel: string, newSlo
   
   if (!oldId || !newId || oldId === newId) return;
 
-  const slotRef = doc(db, "meta", "slots");
+  const slotRef = doc(db, "meta", `slots_${date}`);
   
   await runTransaction(db, async (transaction) => {
     const slotDoc = await transaction.get(slotRef);
@@ -1146,12 +1149,12 @@ export const updateSlotTransferTransaction = async (oldSlotLabel: string, newSlo
   });
 };
 
-export const recalibrateSlotCapacities = async () => {
+export const recalibrateSlotCapacities = async (date: string = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' })) => {
   if (firebaseConfig.projectId === "dummy") return;
   
-  console.log("[SYSTEM] Starting Deep Data Recalibration...");
+  console.log(`[SYSTEM] Starting Deep Data Recalibration for ${date}...`);
   
-  const profilesSnap = await getDocs(collection(db, "student_profiles"));
+  const profilesSnap = await getDocs(query(collection(db, "student_profiles"), where("day", "==", date)));
   const counts: Record<string, number> = { "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0 };
   
   const slotMap: Record<string, string> = {
@@ -1174,8 +1177,8 @@ export const recalibrateSlotCapacities = async () => {
     }
   });
 
-  // Update the master slot document
-  await setDoc(doc(db, "meta", "slots"), counts);
+  // Update the master slot document for the specific date
+  await setDoc(doc(db, "meta", `slots_${date}`), counts);
   
   console.log("[SYSTEM] Recalibration complete. New counts:", counts);
   return counts;

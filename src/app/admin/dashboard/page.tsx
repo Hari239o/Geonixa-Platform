@@ -136,6 +136,7 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<'submissions' | 'registered' | 'live' | 'audit' | 'communications' | 'merit_list' | 'slots'>('merit_list');
   const [emailLogs, setEmailLogs] = useState<any[]>([]);
   const [isSendingEmail, setIsSendingEmail] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState(new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' }));
   
   // Configuration
   const slots = ["10:00 AM - 11:15 AM", "11:45 AM - 01:00 PM", "02:45 PM - 04:00 PM", "05:30 PM - 06:45 PM", "07:00 PM - 08:15 PM", "08:30 PM - 10:00 PM"];
@@ -352,7 +353,7 @@ export default function AdminDashboard() {
 
   const exportToCSV = () => {
     const headers = ["Name", "Email", "College", "Domain", "Track", "Round 4 Mode", "Report Group", "R1", "R2", "R3", "R4", "Total Score", "Status", "Trust Score"];
-    const rows = (submissions || []).map(s => [
+    const rows = (filteredSubmissions || []).map(s => [
       s.name,
       s.email,
       s.college,
@@ -365,7 +366,7 @@ export default function AdminDashboard() {
       s.roundScores?.round3 || 0,
       s.roundScores?.round4 || 0,
       s.totalScore || 0,
-      (s.totalScore || 0) >= 85 ? "QUALIFIED" : "FAILED",
+      (s.totalScore || 0) >= 90 ? "QUALIFIED" : "FAILED",
       `${Math.max(0, 100 - ((s.violations?.length || 0) * 10))}%`
     ]);
 
@@ -429,7 +430,6 @@ export default function AdminDashboard() {
 
     verifyAdminSession();
     
-    let unsubSlots = () => {};
     let unsubSubs = () => {};
     let unsubProfs = () => {};
     let unsubEmail = () => {};
@@ -453,12 +453,7 @@ export default function AdminDashboard() {
 
         const { collection, onSnapshot, doc, query, orderBy, limit } = await import("firebase/firestore");
 
-        // 1. Slots Realtime Stream
-        unsubSlots = onSnapshot(doc(db, "meta", "slots"), (docSnap) => {
-          if (docSnap.exists()) {
-            setSlotAvailability(docSnap.data() as Record<string, number>);
-          }
-        });
+        // 1. Slots Realtime Stream (moved to separate effect)
 
         // Run a one-time repair on mount to fix any "zombie" slots
         import('@/lib/firebase')
@@ -504,12 +499,37 @@ export default function AdminDashboard() {
 
     // Cleanup listeners on unmount
     return () => {
-      unsubSlots();
       unsubSubs();
       unsubProfs();
       unsubEmail();
     };
   }, []);
+
+  // Separate effect for slots to listen to selectedDate
+  useEffect(() => {
+    let unsub = () => {};
+    const setupSlotListener = async () => {
+      try {
+        const { db } = await import("@/lib/firebase");
+        const { doc, onSnapshot } = await import("firebase/firestore");
+        unsub = onSnapshot(doc(db, "meta", `slots_${selectedDate}`), (docSnap) => {
+          if (docSnap.exists()) {
+            setSlotAvailability(docSnap.data() as Record<string, number>);
+          } else {
+            setSlotAvailability({ "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0 });
+          }
+        });
+      } catch (e) {
+        console.error("Slot listener setup failed", e);
+      }
+    };
+    setupSlotListener();
+    return () => unsub();
+  }, [selectedDate]);
+
+  // Derived state for filtering by selectedDate
+  const filteredSubmissions = submissions.filter(s => s.day === selectedDate);
+  const filteredRegistered = allRegistered.filter(r => r.day === selectedDate);
 
   // Logout handler
   const handleAdminLogout = async () => {
@@ -545,7 +565,7 @@ export default function AdminDashboard() {
       const { isFirebaseConfigured, fetchAllDashboardData, getSlotAvailability } = await import('@/lib/firebase');
       if (!isFirebaseConfigured) {
         const data = await fetchAllDashboardData();
-        setSlotAvailability(await getSlotAvailability());
+        setSlotAvailability(await getSlotAvailability(selectedDate));
         const subs = (Object.values(data.submissions || {}) as Submission[]).filter(s => s.email !== "talent@geonixa.com");
         setSubmissions(subs);
         const regs = Object.keys(data.profiles || {}).filter(email => email !== "talent@geonixa.com").map(email => ({ email, ...data.profiles[email] }));
@@ -905,6 +925,28 @@ export default function AdminDashboard() {
       </header>
 
       <main className="flex-1 p-6 md:p-10 overflow-y-auto">
+        {/* Date Selection Header */}
+        <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between bg-[#0D121F] border border-slate-900 rounded-3xl p-6 md:p-8 shadow-2xl">
+          <div className="flex items-center gap-4 mb-4 md:mb-0">
+            <div className="w-14 h-14 rounded-2xl bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 flex items-center justify-center shadow-[0_0_15px_rgba(255,90,31,0.2)]">
+              <Calendar className="w-7 h-7 text-[#FF5A1F]" />
+            </div>
+            <div>
+              <h2 className="text-xl md:text-2xl font-black text-white tracking-tight">Dashboard Analytics</h2>
+              <p className="text-xs md:text-sm text-slate-400 font-bold uppercase tracking-widest mt-1">Select date to view day-wise records</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 bg-slate-950/80 px-5 py-3.5 rounded-2xl border border-slate-800 shadow-inner">
+            <span className="text-xs font-black text-slate-500 uppercase tracking-widest">Select Date:</span>
+            <input 
+              type="date" 
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="bg-transparent text-white font-mono font-bold focus:outline-none focus:text-[#FF5A1F] transition-colors [&::-webkit-calendar-picker-indicator]:filter-invert text-sm md:text-base cursor-pointer"
+            />
+          </div>
+        </div>
+
         {/* Operational Intelligence Header */}
         <div className="mb-12 grid lg:grid-cols-3 gap-8">
           <motion.div 
@@ -924,8 +966,8 @@ export default function AdminDashboard() {
                       if (!confirm("System Audit: Recalibrate live slot counters based on actual student profiles?")) return;
                       try {
                         const { recalibrateSlotCapacities } = await import('@/lib/firebase');
-                        await recalibrateSlotCapacities();
-                        alert("Slot capacities successfully recalibrated with database state.");
+                        await recalibrateSlotCapacities(selectedDate);
+                        alert(`Slot capacities successfully recalibrated for ${selectedDate}.`);
                       } catch (error) {
                         console.error('[SYSTEM] Manual slot recalibration failed:', error);
                         alert("Slot recalibration failed. Check the console for details.");
@@ -989,38 +1031,38 @@ export default function AdminDashboard() {
               </div>
               <div className="flex items-end gap-3 mb-10">
                 <span className="text-6xl font-black text-white leading-none">
-                  {submissions.length > 0 ? Math.round((submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / submissions.length) * 100) : 0}%
+                  {filteredSubmissions.length > 0 ? Math.round((filteredSubmissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / filteredSubmissions.length) * 100) : 0}%
                 </span>
                 <span className="text-sm font-bold text-emerald-500 uppercase tracking-widest pb-1">Qualifying Rate</span>
               </div>
               <div className="space-y-6">
                 <div>
                   <div className="flex justify-between text-xs font-bold text-slate-400 mb-2">
-                    <span className="uppercase tracking-wider">Qualified ({submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length})</span>
+                    <span className="uppercase tracking-wider">Qualified ({filteredSubmissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length})</span>
                     <span className="text-emerald-400 font-mono text-sm">
-                      {submissions.length > 0 ? Math.round((submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / submissions.length) * 100) : 0}%
+                      {filteredSubmissions.length > 0 ? Math.round((filteredSubmissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / filteredSubmissions.length) * 100) : 0}%
                     </span>
                   </div>
                   <div className="h-3 w-full bg-slate-950 rounded-full overflow-hidden border border-slate-900/50">
-                    <div className="h-full bg-emerald-500 transition-all duration-1000 shadow-[0_0_10px_rgba(16,185,129,0.5)]" style={{ width: `${submissions.length > 0 ? (submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / submissions.length) * 100 : 0}%` }} />
+                    <div className="h-full bg-emerald-500 transition-all duration-1000 shadow-[0_0_10px_rgba(16,185,129,0.5)]" style={{ width: `${filteredSubmissions.length > 0 ? (filteredSubmissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length / filteredSubmissions.length) * 100 : 0}%` }} />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between text-xs font-bold text-slate-400 mb-2">
-                    <span className="uppercase tracking-wider">Failed / Disqualified ({submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length})</span>
+                    <span className="uppercase tracking-wider">Failed / Disqualified ({filteredSubmissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length})</span>
                     <span className="text-rose-500 font-mono text-sm">
-                      {submissions.length > 0 ? Math.round((submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length / submissions.length) * 100) : 0}%
+                      {filteredSubmissions.length > 0 ? Math.round((filteredSubmissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length / filteredSubmissions.length) * 100) : 0}%
                     </span>
                   </div>
                   <div className="h-3 w-full bg-slate-950 rounded-full overflow-hidden border border-slate-900/50">
-                    <div className="h-full bg-rose-500 transition-all duration-1000 shadow-[0_0_10px_rgba(244,63,94,0.5)]" style={{ width: `${submissions.length > 0 ? (submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length / submissions.length) * 100 : 0}%` }} />
+                    <div className="h-full bg-rose-500 transition-all duration-1000 shadow-[0_0_10px_rgba(244,63,94,0.5)]" style={{ width: `${filteredSubmissions.length > 0 ? (filteredSubmissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length / filteredSubmissions.length) * 100 : 0}%` }} />
                   </div>
                 </div>
               </div>
             </div>
             <div className="pt-8 border-t border-slate-800 mt-8 flex justify-between items-center text-xs text-slate-400 font-bold uppercase tracking-[0.2em]">
               <span>Total Assessed</span>
-              <span className="text-white font-mono text-lg">{submissions.length} Candidates</span>
+              <span className="text-white font-mono text-lg">{filteredSubmissions.length} Candidates</span>
             </div>
           </motion.div>
         </div>
@@ -1028,14 +1070,14 @@ export default function AdminDashboard() {
         {/* Operational Intelligence Matrix */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {[
-            { label: "Total Registrations", value: allRegistered.length, icon: <Users />, color: "text-blue-500", bg: "bg-blue-500/5" },
-            { label: "Present Candidates", value: allRegistered.filter(r => (r.examStatus && r.examStatus !== 'REGISTERED') || submissions.some(s => s.email === r.email)).length, icon: <UserCheck />, color: "text-emerald-500", bg: "bg-emerald-500/5" },
-            { label: "Absent Candidates", value: allRegistered.filter(r => (!r.examStatus || r.examStatus === 'REGISTERED') && !submissions.some(s => s.email === r.email)).length, icon: <UserX />, color: "text-slate-400", bg: "bg-slate-500/5" },
-            { label: "Active Live Exams", value: allRegistered.filter(r => r.examStatus === "ACTIVE").length, icon: <Globe />, color: "text-[#58a6ff]", bg: "bg-blue-500/5" },
-            { label: "Qualified (85%+)", value: submissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length, icon: <TrendingUp />, color: "text-emerald-400", bg: "bg-emerald-500/5" },
-            { label: "Not Qualified (<85%)", value: submissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length, icon: <AlertTriangle />, color: "text-rose-500", bg: "bg-rose-500/5" },
-            { label: "AI Violations Flagged", value: submissions.filter(s => (s.violations && s.violations.length > 0) || s.isCheating).length, icon: <Shield />, color: "text-amber-500", bg: "bg-amber-500/5" },
-            { label: "Platform Avg Score", value: submissions.length > 0 ? `${Math.round(submissions.reduce((acc, s) => acc + (s.totalScore || 0), 0) / submissions.length)}/100` : "0/100", icon: <CheckCircle2 />, color: "text-[#FF5A1F]", bg: "bg-orange-500/5" },
+            { label: "Total Registrations", value: filteredRegistered.length, icon: <Users />, color: "text-blue-500", bg: "bg-blue-500/5" },
+            { label: "Present Candidates", value: filteredRegistered.filter(r => (r.examStatus && r.examStatus !== 'REGISTERED') || filteredSubmissions.some(s => s.email === r.email)).length, icon: <UserCheck />, color: "text-emerald-500", bg: "bg-emerald-500/5" },
+            { label: "Absent Candidates", value: filteredRegistered.filter(r => (!r.examStatus || r.examStatus === 'REGISTERED') && !filteredSubmissions.some(s => s.email === r.email)).length, icon: <UserX />, color: "text-slate-400", bg: "bg-slate-500/5" },
+            { label: "Active Live Exams", value: filteredRegistered.filter(r => r.examStatus === "ACTIVE").length, icon: <Globe />, color: "text-[#58a6ff]", bg: "bg-blue-500/5" },
+            { label: "Qualified (85%+)", value: filteredSubmissions.filter(s => (s.totalScore || 0) >= 85 && !s.isCheating).length, icon: <TrendingUp />, color: "text-emerald-400", bg: "bg-emerald-500/5" },
+            { label: "Not Qualified (<85%)", value: filteredSubmissions.filter(s => (s.totalScore || 0) < 85 || s.isCheating).length, icon: <AlertTriangle />, color: "text-rose-500", bg: "bg-rose-500/5" },
+            { label: "AI Violations Flagged", value: filteredSubmissions.filter(s => (s.violations && s.violations.length > 0) || s.isCheating).length, icon: <Shield />, color: "text-amber-500", bg: "bg-amber-500/5" },
+            { label: "Platform Avg Score", value: filteredSubmissions.length > 0 ? `${Math.round(filteredSubmissions.reduce((acc, s) => acc + (s.totalScore || 0), 0) / filteredSubmissions.length)}/100` : "0/100", icon: <CheckCircle2 />, color: "text-[#FF5A1F]", bg: "bg-orange-500/5" },
           ].map((stat, i) => (
             <motion.div 
               key={i}
@@ -1152,7 +1194,7 @@ export default function AdminDashboard() {
               <div className="mt-10 pt-8 border-t border-slate-900/50">
                 <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Recently Authorized</h4>
                 <div className="space-y-3">
-                  {allRegistered.slice(-5).reverse().map((reg, i) => (
+                  {filteredRegistered.slice(-5).reverse().map((reg, i) => (
                     <div key={i} className="flex items-center justify-between p-3 bg-slate-950/50 rounded-xl border border-slate-900/50 group">
                       <div className="overflow-hidden">
                         <p className="text-xs font-bold text-white truncate">{reg.name}</p>
@@ -1163,7 +1205,7 @@ export default function AdminDashboard() {
                       </div>
                     </div>
                   ))}
-                  {allRegistered.length === 0 && (
+                  {filteredRegistered.length === 0 && (
                     <p className="text-[10px] text-slate-700 italic">No recent registrations</p>
                   )}
                 </div>
@@ -1186,13 +1228,13 @@ export default function AdminDashboard() {
                     onClick={() => setActiveTab('registered')}
                     className={`text-sm font-bold pb-2 border-b-2 transition-all ${activeTab === 'registered' ? "border-[#FF5A1F] text-white" : "border-transparent text-slate-500"}`}
                   >
-                    Candidates Data ({allRegistered.length})
+                    Candidates Data ({filteredRegistered.length})
                   </button>
                   <button 
                     onClick={() => setActiveTab('live')}
                     className={`text-sm font-bold pb-2 border-b-2 transition-all ${activeTab === 'live' ? "border-[#FF5A1F] text-white" : "border-transparent text-slate-500"}`}
                   >
-                    Live Monitor ({allRegistered.filter(r => r.examStatus === "ACTIVE").length})
+                    Live Monitor ({filteredRegistered.filter(r => r.examStatus === "ACTIVE").length})
                   </button>
                   <button 
                     onClick={() => setActiveTab('slots')}
@@ -1334,7 +1376,7 @@ export default function AdminDashboard() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-900/50">
-                        {allRegistered.filter(r => r.examStatus === "ACTIVE").map((reg, idx) => {
+                        {filteredRegistered.filter(r => r.examStatus === "ACTIVE").map((reg, idx) => {
                           const lastActive = reg.lastActive ? new Date(reg.lastActive) : null;
                           const isIdle = lastActive && (Date.now() - lastActive.getTime() > 60000);
                           const isDisconnected = lastActive && (Date.now() - lastActive.getTime() > 300000);
@@ -1397,7 +1439,7 @@ export default function AdminDashboard() {
                             </tr>
                           );
                         })}
-                        {allRegistered.filter(r => r.examStatus === "ACTIVE").length === 0 && (
+                        {filteredRegistered.filter(r => r.examStatus === "ACTIVE").length === 0 && (
                            <tr>
                              <td colSpan={5} className="py-20 text-center text-slate-700 text-xs font-bold uppercase tracking-widest italic">
                                No active sessions detected at this time
@@ -1495,7 +1537,7 @@ export default function AdminDashboard() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-900/50">
-                        {submissions.filter(s => s.violations && s.violations.length > 0).map((sub, sIdx) => (
+                        {filteredSubmissions.filter(s => s.violations && s.violations.length > 0).map((sub, sIdx) => (
                            sub.violations.map((v: string, vIdx: number) => (
                              <tr key={`${sIdx}-${vIdx}`} className="hover:bg-slate-900/30 transition-colors">
                                <td className="px-8 py-4 text-[10px] font-mono text-slate-500">{v.match(/\[(.*?)\]/)?.[1] || 'N/A'}</td>
@@ -1509,7 +1551,7 @@ export default function AdminDashboard() {
                              </tr>
                            ))
                         ))}
-                        {submissions.filter(s => s.violations && s.violations.length > 0).length === 0 && (
+                        {filteredSubmissions.filter(s => s.violations && s.violations.length > 0).length === 0 && (
                            <tr>
                              <td colSpan={4} className="py-20 text-center text-slate-700 text-xs font-bold uppercase tracking-widest italic">
                                Security clean: No integrity violations logged
@@ -1533,8 +1575,8 @@ export default function AdminDashboard() {
                       </thead>
                       <tbody className="divide-y divide-slate-900/50">
                         {slots.map((slotName, idx) => {
-                          const slotRegs = allRegistered.filter(r => r.slot === slotName);
-                          const slotSubs = submissions.filter(s => s.slot === slotName || slotRegs.some(r => r.email === s.email));
+                          const slotRegs = filteredRegistered.filter(r => r.slot === slotName);
+                          const slotSubs = filteredSubmissions.filter(s => s.slot === slotName || slotRegs.some(r => r.email === s.email));
                           const presentCountSlot = slotRegs.filter(r => (r.examStatus && r.examStatus !== 'REGISTERED') || slotSubs.some(s => s.email === r.email)).length;
                           const absentCountSlot = slotRegs.length - presentCountSlot;
                           const avgScoreSlot = slotSubs.length > 0 ? Math.round(slotSubs.reduce((acc, s) => acc + (s.totalScore || 0), 0) / slotSubs.length) : 0;
@@ -1594,7 +1636,7 @@ export default function AdminDashboard() {
                       </thead>
                       <tbody className="divide-y divide-slate-900/50">
                         {filteredRegs.map((reg, idx) => {
-                          const hasSubmitted = submissions.find(s => s.email === reg.email);
+                          const hasSubmitted = filteredSubmissions.find(s => s.email === reg.email);
                           return (
                             <tr key={idx} className="hover:bg-slate-900/30 transition-colors group">
                               <td className="px-8 py-6">
@@ -1639,13 +1681,13 @@ export default function AdminDashboard() {
                     </>
                   )}
                 </table>
-                {activeTab === 'submissions' && filteredSubs.length === 0 && (
+                {activeTab === 'filteredSubmissions' && filteredSubs.length === 0 && (
                   <div className="py-20 text-center">
                     <p className="text-slate-600 italic mb-2">No assessment records found.</p>
                     <p className="text-[10px] text-slate-700 uppercase font-bold tracking-widest">Check "Students Data" for authorized personnel who haven't started yet.</p>
                   </div>
                 )}
-                {activeTab === 'registered' && allRegistered.length === 0 && (
+                {activeTab === 'registered' && filteredRegistered.length === 0 && (
                   <div className="py-20 text-center">
                     <p className="text-slate-600 italic">No candidates authorized yet.</p>
                   </div>
