@@ -96,37 +96,23 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#020408] text-white selection:bg-orange-500/30 font-sans">
+    <main className="relative min-h-screen overflow-hidden bg-white text-slate-900 selection:bg-orange-500/30 font-sans">
       {/* Dynamic Background Elements */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-orange-600/10 blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/10 blur-[120px]" />
-        <div className="enterprise-background" aria-hidden="true" />
-        <div className="enterprise-grid" aria-hidden="true" />
       </div>
 
       {/* Navbar */}
-      <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${isScrolled ? "bg-[#020408]/80 backdrop-blur-xl border-b border-white/5 py-3" : "bg-transparent py-5"}`}>
+      <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/90 backdrop-blur-xl border-b border-slate-200 py-3 shadow-sm" : "bg-transparent py-5"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
           <Link href="/" className="flex items-center gap-4 group z-50" aria-label="Geonixa home">
             <Logo className="h-10 sm:h-12 transition-transform duration-500 group-hover:scale-105" size="md" animated />
             <div className="hidden md:block">
-              <p className="text-[0.65rem] tracking-widest font-black uppercase text-orange-400">Enterprise</p>
-              <p className="text-[0.60rem] tracking-wider font-bold uppercase text-slate-400 mt-0.5">Assessment Intelligence</p>
+              <p className="text-[0.65rem] tracking-widest font-black uppercase text-orange-500">Enterprise</p>
+              <p className="text-[0.60rem] tracking-wider font-bold uppercase text-slate-500 mt-0.5">Assessment Intelligence</p>
             </div>
           </Link>
-
-          <nav className="hidden items-center gap-8 lg:flex">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-xs font-bold uppercase tracking-wider text-slate-300 transition-colors hover:text-orange-400"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
 
           <div className="hidden lg:flex items-center gap-4">
             <button
@@ -142,7 +128,7 @@ export default function Home() {
 
           {/* Mobile Menu Toggle */}
           <button 
-            className="lg:hidden relative z-50 p-2 text-slate-300 hover:text-white"
+            className="lg:hidden relative z-50 p-2 text-slate-600 hover:text-orange-500"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -153,20 +139,10 @@ export default function Home() {
         <motion.div 
           initial={false}
           animate={mobileMenuOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-          className="lg:hidden overflow-hidden bg-[#020408]/95 backdrop-blur-3xl border-b border-white/5"
+          className="lg:hidden overflow-hidden bg-white/95 backdrop-blur-3xl border-b border-slate-200 shadow-lg"
         >
           <div className="flex flex-col px-5 py-6 gap-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-bold uppercase tracking-wider text-slate-300 py-2 border-b border-white/5"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <div className="flex flex-col gap-3 mt-4">
+            <div className="flex flex-col gap-3 mt-2">
               <button
                 onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className="w-full rounded-full bg-orange-500 py-3 text-center text-xs font-bold uppercase text-white"
@@ -216,9 +192,9 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="relative z-10 border-y border-white/5 bg-[#0a0c14]/50 backdrop-blur-xl">
+      <section className="relative z-10 border-y border-slate-200 bg-slate-50/50 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:px-10">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4 divide-x divide-white/5">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4 divide-x divide-slate-200">
             {metrics.map((metric, i) => (
               <motion.div 
                 key={metric.label}
@@ -228,8 +204,8 @@ export default function Home() {
                 transition={{ delay: i * 0.1, duration: 0.6 }}
                 className={`flex flex-col ${i === 0 ? "pl-0" : "pl-8"} items-start`}
               >
-                <p className="text-3xl sm:text-4xl font-black text-white">{metric.value}</p>
-                <p className="mt-2 text-xs font-bold uppercase tracking-wider text-slate-400">{metric.label}</p>
+                <p className="text-3xl sm:text-4xl font-black text-slate-900">{metric.value}</p>
+                <p className="mt-2 text-xs font-bold uppercase tracking-wider text-slate-500">{metric.label}</p>
               </motion.div>
             ))}
           </div>
@@ -244,10 +220,10 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-3xl sm:text-5xl font-black text-white tracking-tight"
+              className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight"
             >
               Engineered for Scale. <br/>
-              <span className="text-slate-400">Designed for Experience.</span>
+              <span className="text-slate-500">Designed for Experience.</span>
             </motion.h2>
           </div>
 
@@ -260,14 +236,14 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                className="group relative rounded-3xl border border-white/10 bg-[#0a0c14]/80 p-8 backdrop-blur-xl overflow-hidden"
+                className="group relative rounded-3xl border border-slate-200 bg-white p-8 shadow-sm overflow-hidden"
               >
-                <div className="absolute inset-0 bg-linear-to-b from-orange-500/0 via-orange-500/0 to-orange-500/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-500/10 text-orange-400 mb-6 border border-orange-500/20 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300">
+                <div className="absolute inset-0 bg-linear-to-b from-orange-50/0 via-orange-50/0 to-orange-50 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 mb-6 border border-orange-200 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300">
                   <cap.icon className="h-7 w-7" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{cap.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed font-medium">{cap.detail}</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">{cap.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed font-medium">{cap.detail}</p>
               </motion.div>
             ))}
           </div>
@@ -275,33 +251,33 @@ export default function Home() {
       </section>
 
       {/* Dashboard Preview Section */}
-      <section className="relative z-10 py-24 px-5 sm:px-8 lg:px-10 overflow-hidden">
+      <section className="relative z-10 py-24 px-5 sm:px-8 lg:px-10 overflow-hidden bg-slate-50">
         <div className="mx-auto max-w-7xl">
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative rounded-[2.5rem] border border-white/10 bg-[#0a0c14] p-2 sm:p-4 shadow-2xl"
+            className="relative rounded-[2.5rem] border border-slate-200 bg-white p-2 sm:p-4 shadow-xl"
           >
-            <div className="absolute inset-x-0 -top-px h-px bg-linear-to-r from-transparent via-orange-500/50 to-transparent" />
+            <div className="absolute inset-x-0 -top-px h-px bg-linear-to-r from-transparent via-orange-300 to-transparent" />
             
-            <div className="rounded-4xl border border-white/5 bg-[#05070a] overflow-hidden">
+            <div className="rounded-4xl border border-slate-100 bg-slate-50 overflow-hidden">
               {/* Mock Dashboard Header */}
-              <div className="flex items-center justify-between border-b border-white/5 px-6 py-4 bg-white/2">
+              <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 bg-white">
                 <div className="flex items-center gap-3">
                   <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-rose-400" />
+                    <div className="w-3 h-3 rounded-full bg-amber-400" />
+                    <div className="w-3 h-3 rounded-full bg-emerald-400" />
                   </div>
-                  <div className="h-4 w-px bg-white/10 mx-2" />
-                  <span className="text-xs font-bold tracking-wider text-slate-400 uppercase">Geonixa Command Center</span>
+                  <div className="h-4 w-px bg-slate-200 mx-2" />
+                  <span className="text-xs font-bold tracking-wider text-slate-500 uppercase">Geonixa Command Center</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-xs font-bold text-emerald-500 uppercase tracking-wider">System Operational</span>
+                    <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">System Operational</span>
                   </div>
                 </div>
               </div>
@@ -310,42 +286,42 @@ export default function Home() {
               <div className="grid lg:grid-cols-[1fr_300px] gap-6 p-6 sm:p-10">
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-2xl font-black text-white">Live Operations</h3>
-                    <p className="text-sm text-slate-400 mt-1">Real-time telemetry and proctoring events.</p>
+                    <h3 className="text-2xl font-black text-slate-900">Live Operations</h3>
+                    <p className="text-sm text-slate-500 mt-1">Real-time telemetry and proctoring events.</p>
                   </div>
                   
                   <div className="grid sm:grid-cols-3 gap-4">
                     {[
-                      { label: "Active Sessions", value: "1,248", trend: "+12%", color: "text-emerald-400" },
-                      { label: "Flagged Events", value: "24", trend: "-5%", color: "text-amber-400" },
-                      { label: "Avg Score", value: "76.4", trend: "+2.1%", color: "text-blue-400" }
+                      { label: "Active Sessions", value: "1,248", trend: "+12%", color: "text-emerald-600" },
+                      { label: "Flagged Events", value: "24", trend: "-5%", color: "text-amber-600" },
+                      { label: "Avg Score", value: "76.4", trend: "+2.1%", color: "text-blue-600" }
                     ].map((stat) => (
-                      <div key={stat.label} className="rounded-2xl border border-white/5 bg-white/2 p-5">
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{stat.label}</p>
+                      <div key={stat.label} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                        <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">{stat.label}</p>
                         <div className="flex items-end justify-between">
                           <p className={`text-3xl font-black ${stat.color}`}>{stat.value}</p>
-                          <span className="text-xs font-bold text-slate-500">{stat.trend}</span>
+                          <span className="text-xs font-bold text-slate-400">{stat.trend}</span>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="rounded-2xl border border-white/5 bg-white/2 p-6">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                     <div className="flex items-center justify-between mb-6">
-                      <p className="text-sm font-bold text-white uppercase tracking-wider">Recent Activity</p>
-                      <button className="text-xs text-orange-400 font-bold uppercase hover:text-orange-300">View All</button>
+                      <p className="text-sm font-bold text-slate-900 uppercase tracking-wider">Recent Activity</p>
+                      <button className="text-xs text-orange-600 font-bold uppercase hover:text-orange-500">View All</button>
                     </div>
                     <div className="space-y-4">
                       {[1, 2, 3].map((i) => (
                         <div key={i} className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                          <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
                             <Activity className="w-4 h-4 text-slate-400" />
                           </div>
                           <div className="flex-1">
-                            <div className="h-2 w-1/3 bg-white/10 rounded-full mb-2" />
-                            <div className="h-1.5 w-1/4 bg-white/5 rounded-full" />
+                            <div className="h-2 w-1/3 bg-slate-200 rounded-full mb-2" />
+                            <div className="h-1.5 w-1/4 bg-slate-100 rounded-full" />
                           </div>
-                          <div className="text-xs text-slate-500 font-mono">Just now</div>
+                          <div className="text-xs text-slate-400 font-mono">Just now</div>
                         </div>
                       ))}
                     </div>
@@ -353,31 +329,31 @@ export default function Home() {
                 </div>
 
                 <div className="space-y-6">
-                  <div className="rounded-2xl border border-white/5 bg-white/2 p-6 h-full">
-                    <p className="text-sm font-bold text-white uppercase tracking-wider mb-6">Security Posture</p>
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 h-full shadow-sm">
+                    <p className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-6">Security Posture</p>
                     <div className="flex flex-col gap-6">
                       <div className="relative w-32 h-32 mx-auto">
                         <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                          <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.05)" strokeWidth="8" fill="none" />
+                          <circle cx="50" cy="50" r="40" stroke="#f1f5f9" strokeWidth="8" fill="none" />
                           <circle cx="50" cy="50" r="40" stroke="#F97316" strokeWidth="8" fill="none" strokeDasharray="251.2" strokeDashoffset="40" className="transition-all duration-1000" />
                         </svg>
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
-                          <span className="text-2xl font-black text-white">94%</span>
+                          <span className="text-2xl font-black text-slate-900">94%</span>
                           <span className="text-[0.6rem] font-bold text-slate-400 uppercase tracking-wider">Score</span>
                         </div>
                       </div>
                       <div className="space-y-3 mt-4">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-slate-400">Identity Verification</span>
-                          <span className="text-emerald-400 font-bold">Passed</span>
+                          <span className="text-slate-500">Identity Verification</span>
+                          <span className="text-emerald-600 font-bold">Passed</span>
                         </div>
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-slate-400">Environment Check</span>
-                          <span className="text-emerald-400 font-bold">Secure</span>
+                          <span className="text-slate-500">Environment Check</span>
+                          <span className="text-emerald-600 font-bold">Secure</span>
                         </div>
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-slate-400">Network Integrity</span>
-                          <span className="text-emerald-400 font-bold">Stable</span>
+                          <span className="text-slate-500">Network Integrity</span>
+                          <span className="text-emerald-600 font-bold">Stable</span>
                         </div>
                       </div>
                     </div>
@@ -396,27 +372,27 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-[2.5rem] border border-orange-500/20 bg-linear-to-br from-[#1a110b] via-[#0a0c14] to-[#0a121a] p-10 sm:p-16 text-center shadow-2xl shadow-orange-500/10"
+            className="relative overflow-hidden rounded-[2.5rem] border border-orange-200 bg-linear-to-br from-orange-50 via-white to-slate-50 p-10 sm:p-16 text-center shadow-xl shadow-orange-500/10"
           >
-            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
+            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] mix-blend-overlay" />
             <div className="relative z-10 flex flex-col items-center">
-              <Logo className="h-12 mb-8 opacity-80" size="lg" center animated />
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight max-w-2xl">
+              <Logo className="h-12 mb-8 opacity-90" size="lg" center animated variant="dark" />
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight max-w-2xl">
                 Ready to transform your technical hiring?
               </h2>
-              <p className="mt-6 text-lg text-slate-400 max-w-xl font-medium">
+              <p className="mt-6 text-lg text-slate-600 max-w-xl font-medium">
                 Join industry leaders using Geonixa to scale their assessment operations with unparalleled security and candidate experience.
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/auth/register"
-                  className="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-black uppercase tracking-wider text-[#020408] transition-transform hover:scale-105"
+                  className="inline-flex items-center justify-center rounded-full bg-slate-900 px-8 py-4 text-sm font-black uppercase tracking-wider text-white transition-transform hover:scale-105"
                 >
                   Start Building Free
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-white/10"
+                  className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-8 py-4 text-sm font-bold uppercase tracking-wider text-slate-700 transition-colors hover:bg-slate-50"
                 >
                   Contact Sales
                 </Link>
@@ -427,51 +403,51 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/5 bg-[#020408] pt-16 pb-8 px-5 sm:px-8 lg:px-10">
+      <footer className="relative z-10 border-t border-slate-200 bg-white pt-16 pb-8 px-5 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 mb-16">
             <div>
               <Logo className="h-8 mb-6" size="sm" variant="dark" animated={false} />
-              <p className="text-sm text-slate-400 max-w-xs font-medium leading-relaxed">
-                Enterprise assessment platform for secure, AI-monitored hiring. Build better teams faster. <Link href="/auth/admin-login" className="text-transparent selection:text-transparent hover:text-slate-600 transition-colors duration-300">exam portal</Link>
+              <p className="text-sm text-slate-500 max-w-xs font-medium leading-relaxed">
+                Enterprise assessment platform for secure, AI-monitored hiring. Build better teams faster. <Link href="/auth/admin-login" className="text-transparent selection:text-transparent hover:text-slate-300 transition-colors duration-300">exam portal</Link>
               </p>
             </div>
             
             <div>
-              <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-6">Platform</h4>
+              <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-6">Platform</h4>
               <ul className="space-y-3">
                 {["AI Proctoring", "Coding Environment", "Analytics Dashboard", "API Access"].map(link => (
                   <li key={link}>
-                    <Link href="#" className="text-sm text-slate-400 hover:text-orange-400 transition-colors">{link}</Link>
+                    <Link href="#" className="text-sm text-slate-500 hover:text-orange-600 transition-colors">{link}</Link>
                   </li>
                 ))}
               </ul>
             </div>
 
             <div>
-              <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-6">Resources</h4>
+              <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-6">Resources</h4>
               <ul className="space-y-3">
                 {["Documentation", "Security whitepaper", "Customer stories", "Help center"].map(link => (
                   <li key={link}>
-                    <Link href="#" className="text-sm text-slate-400 hover:text-orange-400 transition-colors">{link}</Link>
+                    <Link href="#" className="text-sm text-slate-500 hover:text-orange-600 transition-colors">{link}</Link>
                   </li>
                 ))}
               </ul>
             </div>
 
             <div>
-              <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-6">Legal</h4>
+              <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-6">Legal</h4>
               <ul className="space-y-3">
                 {["Privacy Policy", "Terms of Service", "Cookie Policy", "SOC 2 Report"].map(link => (
                   <li key={link}>
-                    <Link href="#" className="text-sm text-slate-400 hover:text-orange-400 transition-colors">{link}</Link>
+                    <Link href="#" className="text-sm text-slate-500 hover:text-orange-600 transition-colors">{link}</Link>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
 
-          <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-xs text-slate-500 font-medium">
               &copy; {new Date().getFullYear()} Geonixa Corporation. All rights reserved.
             </p>
