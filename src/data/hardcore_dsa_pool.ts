@@ -11,6 +11,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -18,7 +57,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -34,6 +139,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -41,7 +185,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -57,6 +267,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -64,7 +313,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -80,6 +395,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -87,7 +441,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -103,6 +523,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -110,7 +569,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -126,6 +651,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -133,7 +697,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -149,6 +779,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -156,7 +825,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -172,6 +907,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -179,7 +953,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -195,6 +1035,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -202,7 +1081,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -218,6 +1163,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -225,7 +1209,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -241,6 +1291,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -248,7 +1337,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -264,6 +1419,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -271,7 +1465,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -287,6 +1547,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -294,7 +1593,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -310,6 +1675,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -317,7 +1721,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -333,6 +1803,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -340,7 +1849,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -356,6 +1931,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -363,7 +1977,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -379,6 +2059,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -386,7 +2105,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -402,6 +2187,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -409,7 +2233,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -425,6 +2315,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -432,7 +2361,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   },
@@ -448,6 +2443,45 @@ export const NEW_HARDCORE_DSA_POOL = [
     "tests": [
       {
         "id": 1,
+        "input": "Sample Input 1
+...",
+        "expectedOutput": "Sample Output 1
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 1."
+      },
+      {
+        "id": 2,
+        "input": "Sample Input 2
+...",
+        "expectedOutput": "Sample Output 2
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 2."
+      },
+      {
+        "id": 3,
+        "input": "Sample Input 3
+...",
+        "expectedOutput": "Sample Output 3
+...",
+        "isHidden": false,
+        "category": "SAMPLE",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Sample testcase 3."
+      },
+      {
+        "id": 4,
         "input": "Hidden",
         "expectedOutput": "Hidden",
         "isHidden": true,
@@ -455,7 +2489,73 @@ export const NEW_HARDCORE_DSA_POOL = [
         "difficulty": "HARD",
         "timeLimit": 2000,
         "memoryLimit": 256,
-        "description": "Standard hidden testcase."
+        "description": "Evaluation testcase 4."
+      },
+      {
+        "id": 5,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 5."
+      },
+      {
+        "id": 6,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 6."
+      },
+      {
+        "id": 7,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 7."
+      },
+      {
+        "id": 8,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 8."
+      },
+      {
+        "id": 9,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 9."
+      },
+      {
+        "id": 10,
+        "input": "Hidden",
+        "expectedOutput": "Hidden",
+        "isHidden": true,
+        "category": "EVALUATION",
+        "difficulty": "HARD",
+        "timeLimit": 2000,
+        "memoryLimit": 256,
+        "description": "Evaluation testcase 10."
       }
     ]
   }
