@@ -34,7 +34,7 @@
   }
   
   /* Override dark mode background classes to white/light */
-  *[class*="bg-[#"], *[class*="bg-slate-950"], *[class*="bg-slate-900"], *[class*="bg-black"], .bg-\[\#020408\], .bg-\[\#0a0c14\], .bg-\[\#080B14\], .bg-\[\#050810\], .bg-\[\#05070a\], .bg-\[\#1a110b\], .bg-\[\#0a121a\], .bg-\[\#0D121F\] {
+  *[class*="bg-slate-950"], *[class*="bg-slate-900"], *[class*="bg-black"], .bg-\[\#020408\], .bg-\[\#0a0c14\], .bg-\[\#080B14\], .bg-\[\#050810\], .bg-\[\#05070a\], .bg-\[\#1a110b\], .bg-\[\#0a121a\], .bg-\[\#0D121F\] {
     background-color: #ffffff !important;
     background-image: none !important;
   }
