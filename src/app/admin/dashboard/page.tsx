@@ -1681,7 +1681,7 @@ export default function AdminDashboard() {
                     </>
                   )}
                 </table>
-                {activeTab === 'filteredSubmissions' && filteredSubs.length === 0 && (
+                {activeTab === 'submissions' && filteredSubs.length === 0 && (
                   <div className="py-20 text-center">
                     <p className="text-slate-600 italic mb-2">No assessment records found.</p>
                     <p className="text-[10px] text-slate-700 uppercase font-bold tracking-widest">Check "Students Data" for authorized personnel who haven't started yet.</p>
