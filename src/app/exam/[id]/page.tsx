@@ -1892,7 +1892,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     );
                   })}
                 </div>
-                <div style={{ display: "flex", gap: "1rem" }}>
+                <div style={{ display: "flex", gap: "1rem", marginRight: "350px" }}>
                     {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
                       <button 
                         className="btn btn-primary"
@@ -2113,6 +2113,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       })}
                     </div>
 
+                    <div style={{ display: "flex", gap: "1rem", marginRight: "350px" }}>
                     {codingQuestionIndex < 39 ? (
                       <button className="btn btn-primary" onClick={() => setCodingQuestionIndex(p => p + 1)}>
                         NEXT QUESTION
@@ -2132,6 +2133,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                         SUBMIT TECHNICAL ROUND
                       </button>
                     )}
+                    </div>
                 </div>
                 </div>
               ) : (
@@ -2265,7 +2267,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  <div style={{ marginTop: "1.5rem", display: "flex", justifyContent: "flex-end" }}>
+                  <div style={{ marginTop: "1.5rem", display: "flex", justifyContent: "flex-end", marginRight: "350px" }}>
                     {codingQuestionIndex < codingQuestions.length - 1 && (
                       <button 
                         className="btn" 
