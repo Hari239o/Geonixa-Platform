@@ -155,7 +155,9 @@ Note: In all test cases, all words were chosen randomly from the 1000 most commo
   ]
 };
 
-export const DSA_HARD_POOL: any[] = [stickersQuestion, ...DATA_DSA_HARD];
+import { NEW_HARDCORE_DSA_POOL } from './hardcore_dsa_pool';
+
+export const DSA_HARD_POOL: any[] = [stickersQuestion, ...DATA_DSA_HARD, ...NEW_HARDCORE_DSA_POOL];
 export const TYPING_TOPICS_POOL = DATA_TYPING_POOL;
 export const WEB_DEV_POOL: any[] = DATA_WEB_DEV;
 export const JAVA_POOL: any[] = DATA_JAVA;
@@ -165,8 +167,9 @@ export const DATA_SCIENCE_POOL: any[] = DATA_SCIENCE;
 // Industry Standard Hard DSA Coding Questions (LeetCode Style)
 export const CODING_DSA_POOL: any[] = [
   { ...stickersQuestion, difficulty: "Hard" },
-  ...DATA_DSA_HARD
+  ...DATA_DSA_HARD,
+  ...NEW_HARDCORE_DSA_POOL.map(q => ({ ...q, difficulty: "Hard" }))
 ];
 
 // Technical Round 4 - Corporate Assessment Challenges
-export const TECHNICAL_ROUND_4_POOL: any[] = [stickersQuestion, ...DATA_DSA_HARD];
+export const TECHNICAL_ROUND_4_POOL: any[] = [stickersQuestion, ...DATA_DSA_HARD, ...NEW_HARDCORE_DSA_POOL];
