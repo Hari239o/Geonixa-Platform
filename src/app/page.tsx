@@ -115,6 +115,7 @@ export default function Home() {
           </Link>
 
           <div className="hidden lg:flex items-center gap-4">
+            {/* 
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-orange-500 px-6 py-2.5 text-xs font-black uppercase tracking-wider text-white transition-all hover:bg-orange-600 hover:shadow-[0_0_20px_rgba(249,115,22,0.4)]"
@@ -124,6 +125,7 @@ export default function Home() {
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>
             </button>
+            */}
           </div>
 
           {/* Mobile Menu Toggle */}
