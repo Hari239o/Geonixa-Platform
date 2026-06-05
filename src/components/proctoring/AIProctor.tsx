@@ -354,33 +354,28 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
     }
 
     // Window & Environment Security Listeners
-    // These are logged for analytics but do NOT escalate warnings or trigger termination.
-    // False positives from system notifications, accidental clicks, etc. were causing unfair terminations.
+    // Instantly terminate on violation.
     const handleVisibility = () => {
       if (document.hidden && isExamActiveRef.current && !hasTerminatedRef.current) {
-        console.debug('[AIProctor] Tab hidden detected (logged only, no escalation)');
+        handleInstantTermination("TAB_SWITCH", "Tab switching is strictly prohibited.");
       }
     };
 
     const handleBlur = () => {
       if (isExamActiveRef.current && !hasTerminatedRef.current) {
-        console.debug('[AIProctor] Window blur detected (logged only, no escalation)');
+        handleInstantTermination("WINDOW_BLUR", "Leaving the exam window is strictly prohibited.");
       }
     };
 
     const handleFullScreenExit = () => {
       if (isExamActiveRef.current && !document.fullscreenElement && isFullscreenInitialized.current && !hasTerminatedRef.current) {
-        console.debug('[AIProctor] Fullscreen exited (logged only, no escalation)');
+        handleInstantTermination("FULLSCREEN_EXIT", "Exiting fullscreen is strictly prohibited.");
       }
     };
 
     const handleKeys = (e: KeyboardEvent) => {
-      if (isExamActiveRef.current && (e.key === "PrintScreen" || e.key === "F12" || (e.metaKey && e.shiftKey && (e.key === 's' || e.key === 'S')) || (e.ctrlKey && (e.key === 'p' || e.key === 'P'))) && !hasTerminatedRef.current) {
-        if (proctorEngineRef.current) {
-          proctorEngineRef.current.forceWarning('devtools_screenshot');
-        } else {
-          onViolation("SCREENSHOT_WARNING", "PrintScreen, F12, or screenshot attempt detected.");
-        }
+      if (isExamActiveRef.current && (e.key === "PrintScreen" || e.key === "Escape" || e.key === "F12" || (e.metaKey && e.shiftKey && (e.key === 's' || e.key === 'S')) || (e.ctrlKey && (e.key === 'p' || e.key === 'P'))) && !hasTerminatedRef.current) {
+        handleInstantTermination("UNAUTHORIZED_KEY", "PrintScreen, Escape, F12, or screenshot attempt detected.");
       }
     };
 
