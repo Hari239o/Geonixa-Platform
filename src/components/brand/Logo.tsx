@@ -16,22 +16,17 @@ export default function Logo({
   size = "md",
   center = false,
   variant = "light",
-  animated = true,
 }: LogoProps) {
   const sizeClasses = {
-    sm: "h-16",
-    md: "h-24",
-    lg: "h-32",
-    xl: "h-48"
+    sm: "text-2xl sm:text-3xl",
+    md: "text-3xl sm:text-4xl",
+    lg: "text-4xl sm:text-5xl",
+    xl: "text-5xl sm:text-6xl"
   }[size];
 
   return (
-    <div className={`flex items-center ${center ? "justify-center w-full" : ""} ${className}`}>
-      <img 
-        src="/images/geonixa-logo.png" 
-        alt="Geonixa" 
-        className={`object-contain ${sizeClasses} w-auto`}
-      />
+    <div className={`flex flex-col items-start ${center ? "items-center text-center w-full" : ""} ${className}`}>
+      <span className={`${sizeClasses} font-black tracking-[0.25em] text-slate-900 uppercase`}>Geonixa</span>
     </div>
   );
 }

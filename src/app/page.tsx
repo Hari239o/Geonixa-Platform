@@ -106,11 +106,10 @@ export default function Home() {
       {/* Navbar */}
       <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/90 backdrop-blur-xl border-b border-slate-200 py-4 shadow-sm" : "bg-transparent py-6"}`}>
         <div className="mx-auto flex max-w-screen-2xl w-full items-center justify-between px-5 sm:px-8 lg:px-12">
-          <Link href="/" className="flex items-center gap-4 group z-50" aria-label="Geonixa home">
-            <Logo className="h-16 sm:h-20 transition-transform duration-500 group-hover:scale-105" size="lg" animated />
-            <div className="hidden md:block">
-              <p className="text-sm tracking-widest font-black uppercase text-orange-500">Enterprise</p>
-              <p className="text-xs tracking-wider font-bold uppercase text-slate-500 mt-0.5">Assessment Intelligence</p>
+          <Link href="/" className="flex flex-col items-start group z-50" aria-label="Geonixa home">
+            <Logo className="transition-transform duration-500 group-hover:translate-x-1" size="lg" />
+            <div className="hidden md:block mt-1">
+              <p className="text-[10px] sm:text-xs tracking-widest font-black uppercase text-orange-500">Enterprise Assessment Intelligence</p>
             </div>
           </Link>
 
