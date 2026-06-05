@@ -276,7 +276,7 @@ export default function CodeEditor({
 }: CodeEditorProps) {
   const [code, setCode] = useState(initialCode);
   const [selectedLanguage, setSelectedLanguage] = useState(initialLanguage);
-  const [theme, setTheme] = useState("vs-dark");
+  const [theme, setTheme] = useState("light");
   const [activeTab, setActiveTab] = useState<"OUTPUT" | "TESTS">("TESTS");
   const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
@@ -389,7 +389,8 @@ export default function CodeEditor({
       }
     });
 
-    monaco.editor.setTheme("geonixa-premium");
+    // We use the theme prop directly so it respects "light" theme.
+    // The "geonixa-premium" theme is defined but not forcefully set here anymore.
   };
 
   const setEditorMarkers = useCallback((results: TestResult[]) => {
@@ -757,16 +758,16 @@ export default function CodeEditor({
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#0d1117] rounded-2xl overflow-hidden border border-[#30363d] shadow-2xl transition-all">
+    <div className="flex flex-col h-full bg-[whitesmoke] rounded-2xl overflow-hidden border border-[#30363d] shadow-2xl transition-all">
       <style>{`
-        .monaco-editor .margin { background-color: #0d1117 !important; }
+        .monaco-editor .margin { background-color: whitesmoke !important; }
         .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #010409; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
       `}</style>
 
-      <div className="h-16 bg-[#161b22] border-b border-[#30363d] flex items-center justify-between px-4 sm:px-6 shrink-0">
+      <div className="h-16 bg-[whitesmoke] border-b border-[#cbd5e1] flex items-center justify-between px-4 sm:px-6 shrink-0">
         <div className="flex items-center gap-4 sm:gap-6 shrink-0">
           <div className="flex items-center gap-2 text-[#58a6ff]">
             <Cpu size={18} fill="currentColor" />
@@ -864,7 +865,7 @@ export default function CodeEditor({
               padding={20}
               textareaClassName="focus:outline-none disabled:opacity-50"
               preClassName="custom-scrollbar"
-              className="h-full min-h-full overflow-auto custom-scrollbar bg-[#0d1117] text-[#c9d1d9]"
+              className="h-full min-h-full overflow-auto custom-scrollbar bg-[whitesmoke] text-[#0f172a]"
               style={{
                 fontFamily: "'JetBrains Mono', 'Fira Code', Consolas, monospace",
                 fontSize: 14,
