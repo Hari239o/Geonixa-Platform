@@ -338,30 +338,71 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   const [latency, setLatency] = useState(24);
   const sessionHash = useMemo(() => Math.random().toString(36).substring(7).toUpperCase(), []);
 
-  const calculateSubstantialLines = (typed: string, topic?: string) => {
-    if (!typed || typed.trim().length < 10) return 0;
+  const getTypingFeedback = (typed: string, topic?: string) => {
+    if (!typed || typed.trim().length < 10) return null;
 
-    if (topic) {
+    const isValidWord = (w: string) => {
+      if (w.length > 20) return false;
+      if (!/[a-zA-Z]/.test(w)) return false;
+      if (w.length > 3 && !/[aeiouy]/i.test(w)) return false;
+      if (/[bcdfghjklmnpqrstvwxz]{5,}/i.test(w)) return false; // 5 consecutive consonants
+      if ((w.match(/[^a-zA-Z0-9]/g) || []).length > 3) return false;
+      if ((w.match(/[0-9]/g) || []).length > 4) return false;
+      return true;
+    };
+
+    const words = typed.trim().split(/\s+/).filter(w => w.length > 0);
+    const validWords = words.filter(isValidWord);
+
+    if (words.length > 10 && validWords.length < words.length * 0.5) {
+      return "⚠️ Irrelevant or gibberish text detected. Please type valid English sentences.";
+    }
+
+    if (validWords.length > 30) {
+      const uniqueWords = new Set(validWords.map(w => w.toLowerCase()));
+      if (uniqueWords.size < validWords.length * 0.25) {
+        return "⚠️ Excessive word repetition detected. Please provide a meaningful response.";
+      }
+    }
+
+    if (topic && validWords.length > 15) {
       const stopWords = new Set(["the", "is", "in", "at", "of", "on", "and", "a", "to", "for", "with", "as", "by", "an", "be", "it", "are", "you", "that", "this", "they", "have", "from", "which", "what", "how", "why"]);
       const topicWords = topic.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(w => w.length > 3 && !stopWords.has(w));
       const typedWordsStr = typed.toLowerCase();
       
       let matchCount = 0;
       topicWords.forEach(tw => {
-        // Use a more forgiving match by checking prefixes or substrings safely
         if (typedWordsStr.includes(tw.substring(0, 4))) matchCount++;
       });
       
-      // If the topic has significant words, require at least one partial match
-      if (topicWords.length > 0 && matchCount === 0 && typed.split(/\s+/).length > 20) {
-        // Only start penalizing for zero relevance if they have typed a good chunk of text
-        return 0; // Completely irrelevant
+      if (topicWords.length > 0 && matchCount === 0) {
+        return "⚠️ Your text does not seem relevant to the assigned topic.";
       }
     }
 
-    // 1 line = 10 words
+    return null;
+  };
+
+  const calculateSubstantialLines = (typed: string, topic?: string) => {
+    if (!typed || typed.trim().length < 10) return 0;
+    
+    // If feedback indicates failure, zero lines progress
+    if (getTypingFeedback(typed, topic) !== null) {
+      return 0;
+    }
+
+    const isValidWord = (w: string) => {
+      if (w.length > 20) return false;
+      if (!/[a-zA-Z]/.test(w)) return false;
+      if (w.length > 3 && !/[aeiouy]/i.test(w)) return false;
+      if (/[bcdfghjklmnpqrstvwxz]{5,}/i.test(w)) return false;
+      return true;
+    };
+
+    // 1 line = 10 valid words
     const words = typed.trim().split(/\s+/).filter(w => w.length > 0);
-    return Math.floor(words.length / 10);
+    const validWords = words.filter(isValidWord);
+    return Math.floor(validWords.length / 10);
   };
 
   const calculateTypingProgress = (typed: string, source: string) => {
@@ -1992,6 +2033,22 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   <div>{typingWarning}</div>
                 </div>
               )}
+
+              {(() => {
+                const feedback = getTypingFeedback(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex]);
+                if (feedback) {
+                  return (
+                    <div className="bg-red-50 border-2 border-red-500 text-red-700 p-4 rounded-xl mb-6 font-bold flex items-center gap-3 animate-pulse shadow-lg">
+                      <span className="text-2xl">🛑</span>
+                      <div>
+                        <div className="uppercase tracking-wider text-xs font-extrabold">Invalid Content Detected</div>
+                        <div>{feedback} Lines progress will remain 0 until relevant content is provided.</div>
+                      </div>
+                    </div>
+                  );
+                }
+                return null;
+              })()}
 
               <textarea 
                 style={{ width: "100%", height: "450px", padding: "2.5rem", fontSize: "1.15rem", fontFamily: "'Inter', sans-serif", borderRadius: "24px", border: "2px solid #e2e8f0", resize: "none", backgroundColor: "#fff", lineHeight: "1.8", color: "#334155", outline: "none", transition: "border-color 0.2s" }}
