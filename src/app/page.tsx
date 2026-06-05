@@ -106,10 +106,11 @@ export default function Home() {
       {/* Navbar */}
       <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/90 backdrop-blur-xl border-b border-slate-200 py-4 shadow-sm" : "bg-transparent py-6"}`}>
         <div className="mx-auto flex max-w-screen-2xl w-full items-center justify-between px-5 sm:px-8 lg:px-12">
-          <Link href="/" className="flex flex-col items-start group z-50" aria-label="Geonixa home">
-            <Logo className="transition-transform duration-500 group-hover:translate-x-1" size="lg" />
-            <div className="hidden md:block mt-1">
-              <p className="text-[10px] sm:text-xs tracking-widest font-black uppercase text-orange-500">Enterprise Assessment Intelligence</p>
+          <Link href="/" className="flex items-center gap-5 group z-50" aria-label="Geonixa home">
+            <Logo className="transition-transform duration-500 group-hover:scale-105" size="xl" animated />
+            <div className="hidden md:block">
+              <p className="text-base tracking-widest font-black uppercase text-orange-500">Enterprise</p>
+              <p className="text-sm tracking-wider font-bold uppercase text-slate-500 mt-1">Assessment Intelligence</p>
             </div>
           </Link>
 
@@ -371,11 +372,11 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-[2.5rem] border border-orange-200 bg-linear-to-br from-orange-50 via-white to-slate-50 p-10 sm:p-16 text-left shadow-xl shadow-orange-500/10"
+            className="relative overflow-hidden rounded-[2.5rem] border border-orange-200 bg-linear-to-br from-orange-50 via-white to-slate-50 p-10 sm:p-16 text-center shadow-xl shadow-orange-500/10"
           >
             <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] mix-blend-overlay" />
-            <div className="relative z-10 flex flex-col items-start">
-              <Logo className="mb-8 opacity-90" size="lg" animated variant="dark" />
+            <div className="relative z-10 flex flex-col items-center">
+              <Logo className="mb-8 opacity-90" size="xl" center animated variant="dark" />
               <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight max-w-2xl">
                 Ready to transform your technical hiring?
               </h2>
@@ -406,7 +407,7 @@ export default function Home() {
         <div className="mx-auto max-w-screen-2xl w-full">
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 mb-16">
             <div>
-              <Logo className="mb-6" size="lg" variant="dark" animated={false} />
+              <Logo className="mb-6" size="xl" variant="dark" animated={false} />
               <p className="text-sm text-slate-500 max-w-xs font-medium leading-relaxed mt-4">
                 Enterprise assessment platform for secure, AI-monitored hiring. Build better teams faster. <Link href="/auth/admin-login" className="text-transparent selection:text-transparent hover:text-slate-300 transition-colors duration-300">exam portal</Link>
               </p>
