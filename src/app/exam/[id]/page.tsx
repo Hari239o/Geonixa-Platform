@@ -999,7 +999,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     const currentUser = typeof window !== "undefined" ? (localStorage.getItem("geonixa_current_user") || "anonymous") : "anonymous";
 
     // INSTANT TERMINATION RULES (Severe Violations)
-    if (type === "TERMINATED" || type === "DEVTOOLS" || type === "EXTENSION_CHEAT") {
+    if (type === "TERMINATED" || type === "DEVTOOLS" || type === "EXTENSION_CHEAT" || type === "TAB_SWITCH" || type === "WINDOW_BLUR" || type === "FULLSCREEN_EXIT" || type === "UNAUTHORIZED_KEY" || type === "COPY_PASTE_ATTEMPT" || type === "UNAUTHORIZED_SHORTCUT") {
       setCurrentWarning(`🚫 INSTANT TERMINATION: ${message || "Critical integrity breach detected."}. Assessment auto-submitting...`);
       if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => {});
       if (typeof window !== "undefined") {
@@ -1292,16 +1292,14 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     };
 
     const handleVisibilityChange = () => {
-      // Logged for analytics only. No longer triggers violation/termination.
       if (document.hidden && examState === "ACTIVE") {
-        console.debug('[ExamPage] Tab hidden detected (logged only)');
+        handleProctorViolation("TAB_SWITCH", "Tab switching or minimizing the window is strictly prohibited.");
       }
     };
 
     const handleBlur = () => {
-      // Logged for analytics only. No longer triggers violation/termination.
       if (examState === "ACTIVE") {
-        console.debug('[ExamPage] Window blur detected (logged only)');
+        handleProctorViolation("WINDOW_BLUR", "Leaving the exam window is strictly prohibited.");
       }
     };
 
