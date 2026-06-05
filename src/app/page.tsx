@@ -105,7 +105,7 @@ export default function Home() {
 
       {/* Navbar */}
       <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/90 backdrop-blur-xl border-b border-slate-200 py-4 shadow-sm" : "bg-transparent py-6"}`}>
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
+        <div className="mx-auto flex max-w-screen-2xl w-full items-center justify-between px-5 sm:px-8 lg:px-12">
           <Link href="/" className="flex items-center gap-4 group z-50" aria-label="Geonixa home">
             <Logo className="h-16 sm:h-20 transition-transform duration-500 group-hover:scale-105" size="lg" animated />
             <div className="hidden md:block">
@@ -155,8 +155,8 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 px-5 sm:px-8 lg:px-10 min-h-[90vh] flex items-center">
-        <div className="mx-auto max-w-7xl w-full">
+      <section className="relative z-10 pt-28 pb-10 sm:pt-32 sm:pb-12 lg:pt-36 lg:pb-16 px-5 sm:px-8 lg:px-12 min-h-[85vh] flex items-center">
+        <div className="mx-auto max-w-screen-2xl w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div 
               variants={staggerContainer}
@@ -193,7 +193,7 @@ export default function Home() {
 
       {/* Stats Section */}
       <section className="relative z-10 border-y border-slate-200 bg-slate-50/50 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-screen-2xl w-full px-5 py-10 sm:px-8 lg:px-12">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4 divide-x divide-slate-200">
             {metrics.map((metric, i) => (
               <motion.div 
@@ -213,8 +213,8 @@ export default function Home() {
       </section>
 
       {/* Platform Features Section */}
-      <section id="platform" className="relative z-10 py-24 sm:py-32 px-5 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-7xl">
+      <section id="platform" className="relative z-10 py-16 sm:py-24 px-5 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-screen-2xl w-full">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -251,8 +251,8 @@ export default function Home() {
       </section>
 
       {/* Dashboard Preview Section */}
-      <section className="relative z-10 py-24 px-5 sm:px-8 lg:px-10 overflow-hidden bg-slate-50">
-        <div className="mx-auto max-w-7xl">
+      <section className="relative z-10 py-16 px-5 sm:px-8 lg:px-12 overflow-hidden bg-slate-50">
+        <div className="mx-auto max-w-screen-2xl w-full">
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -366,17 +366,17 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative z-10 py-24 sm:py-32 px-5 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-5xl">
+      <section className="relative z-10 py-16 sm:py-24 px-5 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-screen-2xl w-full">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-[2.5rem] border border-orange-200 bg-linear-to-br from-orange-50 via-white to-slate-50 p-10 sm:p-16 text-center shadow-xl shadow-orange-500/10"
+            className="relative overflow-hidden rounded-[2.5rem] border border-orange-200 bg-linear-to-br from-orange-50 via-white to-slate-50 p-10 sm:p-16 text-left shadow-xl shadow-orange-500/10"
           >
             <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] mix-blend-overlay" />
-            <div className="relative z-10 flex flex-col items-center">
-              <Logo className="h-12 mb-8 opacity-90" size="lg" center animated variant="dark" />
+            <div className="relative z-10 flex flex-col items-start">
+              <Logo className="mb-8 opacity-90" size="lg" animated variant="dark" />
               <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight max-w-2xl">
                 Ready to transform your technical hiring?
               </h2>
@@ -403,12 +403,12 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-slate-200 bg-white pt-16 pb-8 px-5 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-7xl">
+      <footer className="relative z-10 border-t border-slate-200 bg-white pt-16 pb-8 px-5 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-screen-2xl w-full">
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 mb-16">
             <div>
-              <Logo className="h-8 mb-6" size="sm" variant="dark" animated={false} />
-              <p className="text-sm text-slate-500 max-w-xs font-medium leading-relaxed">
+              <Logo className="mb-6" size="lg" variant="dark" animated={false} />
+              <p className="text-sm text-slate-500 max-w-xs font-medium leading-relaxed mt-4">
                 Enterprise assessment platform for secure, AI-monitored hiring. Build better teams faster. <Link href="/auth/admin-login" className="text-transparent selection:text-transparent hover:text-slate-300 transition-colors duration-300">exam portal</Link>
               </p>
             </div>
