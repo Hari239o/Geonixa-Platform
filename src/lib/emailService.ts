@@ -342,9 +342,8 @@ class EmailService {
             <!-- Instructions -->
             <div class="section-title">How To Access The Test</div>
             <ol style="font-size: 13px; color: #475569; line-height: 1.8; padding-left: 20px;">
-              <li>Visit the official Geonixa Exam Portal website</li>
-              <li>Click on the "Student Login" option on the portal</li>
-              <li>Enter your <strong>Username</strong> and <strong>Security Pass-Key</strong> provided above</li>
+              <li>Visit the official Geonixa Exam Portal at: <a href="https://talent.geonixa.com/" style="color: #3b82f6; font-weight: 600;">https://talent.geonixa.com/</a></li>
+              <li>Click on the "Student Login" option and sign in using your <strong>Username</strong> and <strong>Security Pass-Key</strong> provided above to start the exam.</li>
               <li>You will be able to access the test <strong>only on your registered date and time slot</strong></li>
               <li>Any attempt to login outside the scheduled date and time will be rejected</li>
             </ol>
