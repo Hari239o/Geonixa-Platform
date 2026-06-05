@@ -142,12 +142,12 @@ export default function CandidateLoginBox() {
             {/* Top Border Highlight */}
             <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-orange-400 via-orange-500 to-amber-500" />
             
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 border border-orange-100 text-orange-600 text-xs font-semibold mb-6">
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 border border-orange-100 text-orange-600 text-xs font-semibold mb-4">
                 <Lock className="w-4 h-4" /> Secure Gateway
               </div>
-              <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Candidate Access</h2>
-              <p className="text-slate-500 text-sm font-medium mt-2">Enter your authorized credentials to initialize assessment.</p>
+              <h2 className="text-xl font-bold text-slate-900 tracking-tight">Candidate Access</h2>
+              <p className="text-slate-500 text-xs font-medium mt-1">Enter your authorized credentials to initialize assessment.</p>
             </div>
 
             {error && (
@@ -197,7 +197,7 @@ export default function CandidateLoginBox() {
               <button 
                 disabled={isLoading}
                 type="submit" 
-                className="w-full bg-[#ff5a1f] hover:bg-[#e04a15] text-white py-4 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 group shadow-[0_10px_20px_rgba(255,90,31,0.2)] mt-8"
+                className="w-full bg-[#ff5a1f] hover:bg-[#e04a15] text-white py-3.5 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-2 group shadow-[0_8px_16px_rgba(255,90,31,0.2)] mt-6"
               >
                 {isLoading ? (
                   <Activity className="w-5 h-5 animate-spin" />
