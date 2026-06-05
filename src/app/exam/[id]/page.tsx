@@ -991,7 +991,11 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   const handleProctorViolation = useCallback((type: string, message: string) => {
     if (hasSubmittedRef.current) return;
     const now = Date.now();
-    if (now - lastViolationTimeRef.current < 2000 && type !== "TERMINATED" && type !== "TAB_SWITCH" && type !== "SCREENSHOT") {
+    
+    const terminationTypes = ["TERMINATED", "DEVTOOLS", "EXTENSION_CHEAT", "TAB_SWITCH", "WINDOW_BLUR", "FULLSCREEN_EXIT", "UNAUTHORIZED_KEY", "COPY_PASTE_ATTEMPT", "UNAUTHORIZED_SHORTCUT"];
+    const isTerminationEvent = terminationTypes.includes(type);
+
+    if (now - lastViolationTimeRef.current < 2000 && !isTerminationEvent && type !== "SCREENSHOT") {
       return; 
     }
     lastViolationTimeRef.current = now;
