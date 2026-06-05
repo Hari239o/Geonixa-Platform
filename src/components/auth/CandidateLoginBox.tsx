@@ -143,10 +143,10 @@ export default function CandidateLoginBox() {
             <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-orange-400 via-orange-500 to-amber-500" />
             
             <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black tracking-widest mb-6">
-                <Lock className="w-3 h-3" /> SECURE GATEWAY
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 border border-orange-100 text-orange-600 text-xs font-semibold mb-6">
+                <Lock className="w-4 h-4" /> Secure Gateway
               </div>
-              <h2 className="text-3xl font-black text-slate-900 italic tracking-tight uppercase">CANDIDATE ACCESS</h2>
+              <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Candidate Access</h2>
               <p className="text-slate-500 text-sm font-medium mt-2">Enter your authorized credentials to initialize assessment.</p>
             </div>
 
@@ -162,7 +162,7 @@ export default function CandidateLoginBox() {
 
             <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-700 uppercase tracking-[0.2em] ml-1">CORPORATE EMAIL</label>
+                <label className="text-sm font-semibold text-slate-700 ml-1">Corporate Email</label>
                 <input 
                   type="email" 
                   placeholder="talent@geonixa.com" 
@@ -174,7 +174,7 @@ export default function CandidateLoginBox() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-700 uppercase tracking-[0.2em] ml-1">SECURE PASS-KEY</label>
+                <label className="text-sm font-semibold text-slate-700 ml-1">Secure Pass-Key</label>
                 <div className="relative">
                   <input 
                     type={showPassword ? "text" : "password"} 
@@ -197,20 +197,20 @@ export default function CandidateLoginBox() {
               <button 
                 disabled={isLoading}
                 type="submit" 
-                className="w-full bg-[#ff5a1f] hover:bg-[#e04a15] text-white py-5 rounded-2xl font-black tracking-widest transition-all flex items-center justify-center gap-3 group shadow-[0_10px_30px_rgba(255,90,31,0.3)] mt-8"
+                className="w-full bg-[#ff5a1f] hover:bg-[#e04a15] text-white py-4 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 group shadow-[0_10px_20px_rgba(255,90,31,0.2)] mt-8"
               >
                 {isLoading ? (
                   <Activity className="w-5 h-5 animate-spin" />
                 ) : (
-                  <>INITIALIZE TERMINAL <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>
+                  <>Initialize Terminal <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>
                 )}
               </button>
             </form>
 
             <div className="mt-10 pt-8 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-[10px] font-black text-slate-800 tracking-widest uppercase">Invited Candidates Only</span>
-              <div className="flex items-center gap-2 text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                <Clock className="w-3 h-3 text-orange-500" /> Slot Validation Active
+              <span className="text-xs font-semibold text-slate-600">Invited Candidates Only</span>
+              <div className="flex items-center gap-2 text-xs text-slate-500 font-semibold">
+                <Clock className="w-4 h-4 text-orange-500" /> Slot Validation Active
               </div>
             </div>
           </motion.div>
@@ -228,9 +228,9 @@ export default function CandidateLoginBox() {
                   <Fingerprint className="w-10 h-10" />
                 </div>
                 
-                <h3 className="text-3xl font-black text-slate-900 italic leading-tight uppercase">IDENTITY <br /><span className="text-emerald-500">VERIFIED.</span></h3>
+                <h3 className="text-3xl font-bold text-slate-900 leading-tight">Identity <br /><span className="text-emerald-500">Verified</span></h3>
                 <p className="text-slate-500 text-sm font-medium">
-                  Secure session initialized for <br/><span className="text-slate-900 font-black">{targetEmail}</span>.
+                  Secure session initialized for <br/><span className="text-slate-900 font-bold">{targetEmail}</span>.
                 </p>
                 
                 <div className="pt-6">

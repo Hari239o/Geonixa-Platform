@@ -155,9 +155,9 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-32 px-5 sm:px-8 lg:px-10 min-h-screen flex items-center">
+      <section className="relative z-10 pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 px-5 sm:px-8 lg:px-10 min-h-[90vh] flex items-center">
         <div className="mx-auto max-w-7xl w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div 
               variants={staggerContainer}
               initial="hidden"
