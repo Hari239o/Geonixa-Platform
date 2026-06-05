@@ -128,14 +128,14 @@ export const ProfessionalTestcasePanel: React.FC<ProfessionalTestcasePanelProps>
           </div>
 
           <div className="text-right">
-            <div className="text-3xl font-black text-white">
+            <div className="text-3xl font-black text-[#0f172a]">
               {metrics.passed}/{totalTestcases}
             </div>
             <div className="text-xs text-slate-400 uppercase tracking-widest mt-1">
               Testcases Passed
             </div>
-            <div className="mt-3 bg-white/5 px-3 py-1 rounded-lg border border-white/10">
-              <span className="text-sm font-bold text-emerald-400">
+            <div className="mt-3 bg-black/5 px-3 py-1 rounded-lg border border-black/10">
+              <span className="text-sm font-bold text-emerald-500">
                 {metrics.passPercentage}%
               </span>
             </div>
@@ -145,24 +145,24 @@ export const ProfessionalTestcasePanel: React.FC<ProfessionalTestcasePanelProps>
 
       {/* PERFORMANCE METRICS */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+        <div className="p-4 rounded-xl bg-white border border-[#cbd5e1] shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <Clock size={16} className="text-blue-400" />
-            <span className="text-xs font-bold text-slate-400 uppercase">
+            <Clock size={16} className="text-blue-500" />
+            <span className="text-xs font-bold text-slate-500 uppercase">
               Avg Time
             </span>
           </div>
-          <div className="text-xl font-black text-white">{metrics.avgTime}ms</div>
+          <div className="text-xl font-black text-[#0f172a]">{metrics.avgTime}ms</div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+        <div className="p-4 rounded-xl bg-white border border-[#cbd5e1] shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <Zap size={16} className="text-yellow-400" />
-            <span className="text-xs font-bold text-slate-400 uppercase">
+            <Zap size={16} className="text-yellow-500" />
+            <span className="text-xs font-bold text-slate-500 uppercase">
               Peak Memory
             </span>
           </div>
-          <div className="text-xl font-black text-white">
+          <div className="text-xl font-black text-[#0f172a]">
             {Math.round(metrics.maxMemory / 1024)}KB
           </div>
         </div>
@@ -266,10 +266,10 @@ export const ProfessionalTestcasePanel: React.FC<ProfessionalTestcasePanelProps>
 
       {/* TESTCASE CATEGORY BREAKDOWN */}
       {Object.keys(categoryBreakdown).length > 0 && (
-        <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+        <div className="p-4 rounded-xl bg-white border border-[#cbd5e1] shadow-sm">
           <div className="flex items-center gap-2 mb-4">
-            <Layers size={16} className="text-blue-400" />
-            <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wide">
+            <Layers size={16} className="text-blue-500" />
+            <h4 className="text-xs font-bold text-slate-600 uppercase tracking-wide">
               Testcase Categories
             </h4>
           </div>
@@ -284,17 +284,17 @@ export const ProfessionalTestcasePanel: React.FC<ProfessionalTestcasePanelProps>
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
                       <span className="text-sm">{getCategoryEmoji(category as TestCaseCategory)}</span>
-                      <span className="font-semibold text-slate-300 capitalize">
+                      <span className="font-semibold text-slate-700 capitalize">
                         {category.replace(/_/g, " ").toLowerCase()}
                       </span>
                     </div>
                     <span className={`font-bold ${
-                      percentage === 100 ? "text-emerald-400" : "text-slate-400"
+                      percentage === 100 ? "text-emerald-500" : "text-slate-500"
                     }`}>
                       {passed}/{total}
                     </span>
                   </div>
-                  <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                  <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
                     <div
                       className={`h-full transition-all ${
                         percentage === 100 ? "bg-emerald-500" : "bg-orange-500"

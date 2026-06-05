@@ -926,13 +926,13 @@ export default function CodeEditor({
           )}
         </div>
 
-        <div className="flex-1 flex min-h-96 flex-col bg-[#010409]">
-          <div className="flex border-b border-[#30363d]">
+        <div className="flex-1 flex min-h-96 flex-col bg-[whitesmoke]">
+          <div className="flex border-b border-[#cbd5e1]">
             {["TESTS", "OUTPUT"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab as any)}
-                className={`flex-1 py-4 text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === tab ? 'text-[#58a6ff] bg-[#161b22] border-b-2 border-[#58a6ff]' : 'text-slate-500 hover:text-slate-300'}`}
+                className={`flex-1 py-4 text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === tab ? 'text-[#2563eb] bg-[whitesmoke] border-b-2 border-[#2563eb]' : 'text-slate-500 hover:text-slate-700'}`}
               >
                 {tab}
               </button>
@@ -941,16 +941,16 @@ export default function CodeEditor({
 
           <div className="flex-1 overflow-y-auto custom-scrollbar">
             {activeTab === "TESTS" && (
-              <div className="p-0 h-full flex flex-col bg-[#0d1117]">
-                <div className="flex items-center gap-1 p-2 bg-[#161b22] border-b border-[#30363d] overflow-x-auto custom-scrollbar">
+              <div className="p-0 h-full flex flex-col bg-[whitesmoke]">
+                <div className="flex items-center gap-1 p-2 bg-[#e2e8f0] border-b border-[#cbd5e1] overflow-x-auto custom-scrollbar">
                   {displayTestCases.map((test, idx) => (
                     <button
                       key={test.id}
                       onClick={() => setActiveTestIndex(idx)}
                       className={`px-3 py-1.5 rounded-md text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shrink-0 ${
                         activeTestIndex === idx 
-                          ? "bg-[#21262d] text-white shadow-lg border border-[#58a6ff]/30" 
-                          : "text-slate-500 hover:text-slate-300"
+                          ? "bg-white text-[#0f172a] shadow-md border border-[#2563eb]/30" 
+                          : "text-slate-500 hover:text-slate-700"
                       }`}
                     >
                       {test.isHidden ? `🔒 Case ${idx + 1}` : `📝 Sample ${idx + 1}`}
@@ -967,7 +967,7 @@ export default function CodeEditor({
                       <div className="w-16 h-16 bg-blue-500/10 rounded-3xl flex items-center justify-center mb-4 text-blue-500">
                         <Play size={24} />
                       </div>
-                      <h4 className="text-sm font-bold text-slate-300">Run your code to see results</h4>
+                      <h4 className="text-sm font-bold text-slate-700">Run your code to see results</h4>
                       <p className="text-xs text-slate-500 mt-1 max-w-50">We'll validate your solution against {visibleTests.length} sample testcases{hiddenExecutionCount > 0 ? ` and ${hiddenExecutionCount} hidden cases` : ''}.</p>
                     </div>
                   :
@@ -1010,7 +1010,7 @@ export default function CodeEditor({
                         <div className="space-y-4">
                           <div className="space-y-2">
                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-600">Input</label>
-                            <pre className="p-3 bg-[#161b22] rounded-xl text-[11px] font-mono text-slate-300 border border-[#30363d] overflow-x-auto">
+                            <pre className="p-3 bg-white rounded-xl text-[11px] font-mono text-slate-700 border border-[#cbd5e1] overflow-x-auto">
                               {(((runMode as string) === "SUBMIT" ? testCases : testCases.filter(t => !t.isHidden))[activeTestIndex]?.isHidden || (runMode as string) === "SUBMIT") ? "[HIDDEN]" : (testResults[activeTestIndex]?.input || ((runMode as string) === "SUBMIT" ? testCases : testCases.filter(t => !t.isHidden))[activeTestIndex]?.input)}
                             </pre>
                           </div>
@@ -1051,7 +1051,7 @@ export default function CodeEditor({
             )}
 
             {activeTab === "OUTPUT" && (
-              <div className="p-6 h-full overflow-auto custom-scrollbar bg-[#0d1117]">
+              <div className="p-6 h-full overflow-auto custom-scrollbar bg-[whitesmoke]">
                 <div className="flex justify-between items-center mb-6">
                    <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
                      <Terminal size={14} /> System Diagnostics
@@ -1063,29 +1063,29 @@ export default function CodeEditor({
                   {output ? (
                     <div className="animate-fade-in">
                       <div className="grid gap-3 sm:grid-cols-3 mb-4">
-                        <div className="rounded-2xl bg-[#161b22] border border-[#30363d] p-3 text-[11px]">
+                        <div className="rounded-2xl bg-white border border-[#cbd5e1] p-3 text-[11px]">
                           <div className="text-slate-400 uppercase tracking-widest mb-1">Status</div>
-                          <div className="font-black text-white">
+                          <div className="font-black text-[#0f172a]">
                             {executionSummary?.status || (output.includes("COMPILATION ERROR") ? "COMPILATION_ERROR" : output.includes("RUNTIME ERROR") ? "RUNTIME_ERROR" : "READY")}
                           </div>
                         </div>
-                        <div className="rounded-2xl bg-[#161b22] border border-[#30363d] p-3 text-[11px]">
+                        <div className="rounded-2xl bg-white border border-[#cbd5e1] p-3 text-[11px]">
                           <div className="text-slate-400 uppercase tracking-widest mb-1">Passed</div>
-                          <div className="font-black text-emerald-400">{executionSummary ? `${executionSummary.passed}/${executionSummary.total}` : "-/-"}</div>
+                          <div className="font-black text-emerald-500">{executionSummary ? `${executionSummary.passed}/${executionSummary.total}` : "-/-"}</div>
                         </div>
-                        <div className="rounded-2xl bg-[#161b22] border border-[#30363d] p-3 text-[11px]">
+                        <div className="rounded-2xl bg-white border border-[#cbd5e1] p-3 text-[11px]">
                           <div className="text-slate-400 uppercase tracking-widest mb-1">Runtime</div>
-                          <div className="font-black text-slate-300">{execTime != null ? `${execTime}ms` : "—"}</div>
+                          <div className="font-black text-slate-700">{execTime != null ? `${execTime}ms` : "—"}</div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 text-emerald-500/40 mb-3 select-none">
+                      <div className="flex items-center gap-2 text-emerald-500/60 mb-3 select-none">
                          <span className="text-xs">➜</span>
                          <span className="text-[9px] font-black uppercase tracking-widest">process.stdout</span>
                       </div>
-                      <pre className="font-mono text-[12px] text-slate-300 leading-relaxed whitespace-pre-wrap bg-black/40 p-5 rounded-2xl border border-white/5 shadow-2xl">
+                      <pre className="font-mono text-[12px] text-slate-800 leading-relaxed whitespace-pre-wrap bg-white p-5 rounded-2xl border border-[#cbd5e1] shadow-md">
                         {output}
                       </pre>
-                      <div className="mt-6 grid gap-3 sm:grid-cols-2 opacity-80 text-[10px] text-slate-500">
+                      <div className="mt-6 grid gap-3 sm:grid-cols-2 opacity-80 text-[10px] text-slate-600">
                         <div className="flex items-center gap-2">
                           <div className="w-1.5 h-1.5 bg-emerald-500/40 rounded-full" />
                           {output.includes("Retrying") ? "Execution in progress..." : "Process exited successfully"}
@@ -1107,7 +1107,7 @@ export default function CodeEditor({
             )}
           </div>
 
-          <div className="h-10 bg-[#0d1117] border-t border-[#30363d] flex flex-wrap items-center justify-between gap-3 px-6">
+          <div className="h-10 bg-[#e2e8f0] border-t border-[#cbd5e1] flex flex-wrap items-center justify-between gap-3 px-6">
             <div className="flex flex-wrap gap-4 items-center">
               <div className="flex items-center gap-2 text-[9px] font-bold text-slate-500">
                 <ShieldCheck size={12} className="text-emerald-500" /> Secure Environment
