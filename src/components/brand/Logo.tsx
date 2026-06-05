@@ -18,15 +18,19 @@ export default function Logo({
   variant = "light",
   animated = true,
 }: LogoProps) {
-  const h = { sm: 70, md: 110, lg: 180, xl: 275 }[size];
+  const sizeClasses = {
+    sm: "h-16",
+    md: "h-24",
+    lg: "h-32",
+    xl: "h-48"
+  }[size];
 
   return (
-    <div className={`flex items-center ${center ? "justify-center w-full" : ""} ${className}`} style={{ height: h }}>
+    <div className={`flex items-center ${center ? "justify-center w-full" : ""} ${className}`}>
       <img 
         src="/images/geonixa-logo.png" 
         alt="Geonixa" 
-        style={{ height: h, width: "auto" }} 
-        className="object-contain" 
+        className={`object-contain ${sizeClasses} w-auto`}
       />
     </div>
   );

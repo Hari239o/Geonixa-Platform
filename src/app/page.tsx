@@ -104,13 +104,13 @@ export default function Home() {
       </div>
 
       {/* Navbar */}
-      <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/90 backdrop-blur-xl border-b border-slate-200 py-3 shadow-sm" : "bg-transparent py-5"}`}>
+      <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/90 backdrop-blur-xl border-b border-slate-200 py-4 shadow-sm" : "bg-transparent py-6"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
           <Link href="/" className="flex items-center gap-4 group z-50" aria-label="Geonixa home">
-            <Logo className="h-10 sm:h-12 transition-transform duration-500 group-hover:scale-105" size="md" animated />
+            <Logo className="h-16 sm:h-20 transition-transform duration-500 group-hover:scale-105" size="lg" animated />
             <div className="hidden md:block">
-              <p className="text-[0.65rem] tracking-widest font-black uppercase text-orange-500">Enterprise</p>
-              <p className="text-[0.60rem] tracking-wider font-bold uppercase text-slate-500 mt-0.5">Assessment Intelligence</p>
+              <p className="text-sm tracking-widest font-black uppercase text-orange-500">Enterprise</p>
+              <p className="text-xs tracking-wider font-bold uppercase text-slate-500 mt-0.5">Assessment Intelligence</p>
             </div>
           </Link>
 
@@ -169,12 +169,12 @@ export default function Home() {
                 <span>The New Standard in Tech Hiring</span>
               </motion.div>
 
-              <motion.h1 variants={fadeInUp} className="text-5xl sm:text-7xl font-black tracking-tight leading-[1.1] text-white">
+              <motion.h1 variants={fadeInUp} className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-slate-900">
                 Evaluate talent with <br />
                 <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 via-orange-500 to-amber-500">absolute precision.</span>
               </motion.h1>
 
-              <motion.p variants={fadeInUp} className="mt-8 text-lg sm:text-xl leading-relaxed text-slate-400 font-medium pr-10">
+              <motion.p variants={fadeInUp} className="mt-6 text-base sm:text-lg leading-relaxed text-slate-600 font-medium pr-10">
                 Geonixa is the enterprise assessment infrastructure for modern teams. We unify AI proctoring, coding environments, and behavioral analytics into one seamless, secure platform.
               </motion.p>
             </motion.div>
@@ -204,8 +204,8 @@ export default function Home() {
                 transition={{ delay: i * 0.1, duration: 0.6 }}
                 className={`flex flex-col ${i === 0 ? "pl-0" : "pl-8"} items-start`}
               >
-                <p className="text-3xl sm:text-4xl font-black text-slate-900">{metric.value}</p>
-                <p className="mt-2 text-xs font-bold uppercase tracking-wider text-slate-500">{metric.label}</p>
+                <p className="text-2xl sm:text-3xl font-black text-slate-900">{metric.value}</p>
+                <p className="mt-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">{metric.label}</p>
               </motion.div>
             ))}
           </div>
@@ -220,7 +220,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight"
+              className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight"
             >
               Engineered for Scale. <br/>
               <span className="text-slate-500">Designed for Experience.</span>
@@ -239,11 +239,11 @@ export default function Home() {
                 className="group relative rounded-3xl border border-slate-200 bg-white p-8 shadow-sm overflow-hidden"
               >
                 <div className="absolute inset-0 bg-linear-to-b from-orange-50/0 via-orange-50/0 to-orange-50 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 mb-6 border border-orange-200 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300">
-                  <cap.icon className="h-7 w-7" />
+                <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 mb-6 border border-orange-200 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300">
+                  <cap.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{cap.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed font-medium">{cap.detail}</p>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{cap.title}</h3>
+                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">{cap.detail}</p>
               </motion.div>
             ))}
           </div>
@@ -377,10 +377,10 @@ export default function Home() {
             <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] mix-blend-overlay" />
             <div className="relative z-10 flex flex-col items-center">
               <Logo className="h-12 mb-8 opacity-90" size="lg" center animated variant="dark" />
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight max-w-2xl">
+              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight max-w-2xl">
                 Ready to transform your technical hiring?
               </h2>
-              <p className="mt-6 text-lg text-slate-600 max-w-xl font-medium">
+              <p className="mt-4 text-base text-slate-600 max-w-xl font-medium">
                 Join industry leaders using Geonixa to scale their assessment operations with unparalleled security and candidate experience.
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-4">

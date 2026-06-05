@@ -137,7 +137,7 @@ export default function CandidateLoginBox() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-white rounded-[40px] p-8 md:p-10 shadow-2xl shadow-orange-500/10 border border-slate-100 relative overflow-hidden"
+            className="bg-white rounded-[50px] p-8 md:p-10 shadow-[0_25px_60px_-15px_rgba(249,115,22,0.3)] border border-slate-100 relative overflow-hidden"
           >
             {/* Top Border Highlight */}
             <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-orange-400 via-orange-500 to-amber-500" />
