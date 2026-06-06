@@ -1102,7 +1102,7 @@ export default function AdminDashboard() {
                 {stat.icon}
               </div>
               <div className={`w-10 h-10 rounded-xl mb-5 flex items-center justify-center ${stat.bg} ${stat.border} border`}>
-                {React.cloneElement(stat.icon as React.ReactElement, { className: `w-5 h-5 ${stat.color}` })}
+                {React.cloneElement(stat.icon as React.ReactElement<any>, { className: `w-5 h-5 ${stat.color}` })}
               </div>
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 drop-shadow-sm">{stat.label}</p>
               <h3 className={`text-3xl lg:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-slate-400`}>{stat.value}</h3>

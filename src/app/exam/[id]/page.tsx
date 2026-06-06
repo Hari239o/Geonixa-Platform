@@ -1714,7 +1714,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   }
 
   return (
-    <div style={{ display: "flex", height: "100vh", backgroundColor: "var(--bg-deep)", position: "relative" }}>
+    <div style={{ display: "flex", height: "100dvh", backgroundColor: "var(--bg-deep)", position: "relative" }}>
       <style>{`
         @keyframes timerGlow {
           0% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.2); }
@@ -1929,7 +1929,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     );
                   })}
                 </div>
-                <div style={{ display: "flex", gap: "1rem" }}>
+                <div style={{ display: "flex", gap: "1rem", marginRight: "350px" }}>
                     {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
                       <button 
                         className="btn btn-primary"
@@ -2179,7 +2179,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       })}
                     </div>
 
-                    <div style={{ display: "flex", gap: "1rem" }}>
+                    <div style={{ display: "flex", gap: "1rem", marginRight: "350px" }}>
                     {codingQuestionIndex < 39 ? (
                       <button className="btn btn-primary" onClick={() => setCodingQuestionIndex(p => p + 1)}>
                         NEXT QUESTION
@@ -2351,37 +2351,20 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         </div>
       </div>
       {examState === "ACTIVE" && (
-        <div className={`ai-camera-container ${currentRound === 4 ? "round-4-camera" : "default-camera"}`} style={{ 
+        <div className={`ai-camera-container`} style={{ 
           position: "fixed", 
-          bottom: "30px", 
-          ...(currentRound === 4 ? { left: "30px" } : { right: "30px" }),
-          borderRadius: currentRound === 4 ? "50%" : "12px",
+          bottom: "20px", 
+          right: "20px",
+          width: "200px",
+          height: "200px",
+          borderRadius: "12px",
           overflow: "hidden",
-          border: "none",
-          boxShadow: currentRound === 4 ? "none" : "0 10px 25px rgba(0,0,0,0.5)",
+          border: "2px solid #334155",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
           zIndex: 1000, 
-          pointerEvents: "none",
-          transition: "all 0.3s ease"
+          transition: "all 0.3s ease",
+          pointerEvents: "none"
         }}>
-          <style>{`
-            .ai-camera-container.default-camera {
-              width: 220px;
-              height: auto;
-            }
-            .ai-camera-container.round-4-camera {
-              width: 170px;
-              height: 170px;
-            }
-            @media (max-width: 1024px) {
-               .ai-camera-container.round-4-camera { width: 150px; height: 150px; }
-            }
-            @media (max-width: 768px) {
-               .ai-camera-container.round-4-camera { width: 130px; height: 130px; }
-            }
-            @media (max-width: 640px) {
-               .ai-camera-container.round-4-camera { width: 100px; height: 100px; }
-            }
-          `}</style>
           <div style={{ pointerEvents: "auto", width: "100%", height: "100%" }}>
             <MemoizedAIProctor 
               onViolation={handleProctorViolation} 
