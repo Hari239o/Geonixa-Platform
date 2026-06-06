@@ -108,10 +108,6 @@ export default function Home() {
         <div className="mx-auto flex max-w-screen-2xl w-full items-center justify-between px-5 sm:px-8 lg:px-12">
           <Link href="/" className="flex items-center gap-5 group z-50" aria-label="Geonixa home">
             <Logo className="transition-transform duration-500 group-hover:scale-105" size="xl" animated />
-            <div className="hidden md:block">
-              <p className="text-base tracking-widest font-black uppercase text-orange-500">Enterprise</p>
-              <p className="text-sm tracking-wider font-bold uppercase text-slate-500 mt-1">Assessment Intelligence</p>
-            </div>
           </Link>
 
           <div className="hidden lg:flex items-center gap-4">
@@ -367,85 +363,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative z-10 py-16 sm:py-24 px-5 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-screen-2xl w-full">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative overflow-hidden rounded-[2.5rem] border border-orange-200 bg-linear-to-br from-orange-50 via-white to-slate-50 p-10 sm:p-16 text-center shadow-xl shadow-orange-500/10"
-          >
-            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] mix-blend-overlay" />
-            <div className="relative z-10 flex flex-col items-center">
-              <Logo className="mb-8 opacity-90" size="xl" center animated variant="dark" />
-              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight max-w-2xl">
-                Ready to transform your technical hiring?
-              </h2>
-              <p className="mt-4 text-base text-slate-600 max-w-xl font-medium">
-                Join industry leaders using Geonixa to scale their assessment operations with unparalleled security and candidate experience.
-              </p>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/auth/register"
-                  className="inline-flex items-center justify-center rounded-full bg-slate-900 px-8 py-4 text-sm font-black uppercase tracking-wider text-white transition-transform hover:scale-105"
-                >
-                  Start Building Free
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-8 py-4 text-sm font-bold uppercase tracking-wider text-slate-700 transition-colors hover:bg-slate-50"
-                >
-                  Contact Sales
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="relative z-10 border-t border-slate-200 bg-white pt-16 pb-8 px-5 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-screen-2xl w-full">
-          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 mb-16">
+          <div className="flex flex-col mb-16">
             <div>
               <Logo className="mb-6" size="xl" variant="dark" animated={false} />
               <p className="text-sm text-slate-500 max-w-xs font-medium leading-relaxed mt-4">
                 Enterprise assessment platform for secure, AI-monitored hiring. Build better teams faster. <Link href="/auth/admin-login" className="text-transparent selection:text-transparent hover:text-slate-300 transition-colors duration-300">exam portal</Link>
               </p>
-            </div>
-            
-            <div>
-              <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-6">Platform</h4>
-              <ul className="space-y-3">
-                {["AI Proctoring", "Coding Environment", "Analytics Dashboard", "API Access"].map(link => (
-                  <li key={link}>
-                    <Link href="#" className="text-sm text-slate-500 hover:text-orange-600 transition-colors">{link}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-6">Resources</h4>
-              <ul className="space-y-3">
-                {["Documentation", "Security whitepaper", "Customer stories", "Help center"].map(link => (
-                  <li key={link}>
-                    <Link href="#" className="text-sm text-slate-500 hover:text-orange-600 transition-colors">{link}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-6">Legal</h4>
-              <ul className="space-y-3">
-                {["Privacy Policy", "Terms of Service", "Cookie Policy", "SOC 2 Report"].map(link => (
-                  <li key={link}>
-                    <Link href="#" className="text-sm text-slate-500 hover:text-orange-600 transition-colors">{link}</Link>
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
 
