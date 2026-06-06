@@ -107,7 +107,7 @@ export default function Home() {
       <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/90 backdrop-blur-xl border-b border-slate-200 py-4 shadow-sm" : "bg-transparent py-6"}`}>
         <div className="mx-auto flex max-w-screen-2xl w-full items-center justify-between px-5 sm:px-8 lg:px-12">
           <Link href="/" className="flex items-center gap-5 group z-50" aria-label="Geonixa home">
-            <Logo className="transition-transform duration-500 group-hover:scale-105" size="xl" animated />
+            <Logo className="transition-transform duration-500 group-hover:scale-105" size="md" animated />
           </Link>
 
           <div className="hidden lg:flex items-center gap-4">
@@ -366,10 +366,10 @@ export default function Home() {
       {/* Footer */}
       <footer className="relative z-10 border-t border-slate-200 bg-white pt-16 pb-8 px-5 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-screen-2xl w-full">
-          <div className="flex flex-col mb-16">
-            <div>
-              <Logo className="mb-6" size="xl" variant="dark" animated={false} />
-              <p className="text-sm text-slate-500 max-w-xs font-medium leading-relaxed mt-4">
+          <div className="flex flex-col items-center text-center mb-16">
+            <div className="flex flex-col items-center">
+              <Logo className="mb-6" size="md" variant="dark" animated={false} />
+              <p className="text-sm text-slate-500 max-w-md font-medium leading-relaxed mt-4">
                 Enterprise assessment platform for secure, AI-monitored hiring. Build better teams faster. <Link href="/auth/admin-login" className="text-transparent selection:text-transparent hover:text-slate-300 transition-colors duration-300">exam portal</Link>
               </p>
             </div>
