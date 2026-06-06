@@ -21,7 +21,19 @@
 
 @layer base {
   html {
-    font-size: 16px; /* Restored to default size */
+    font-size: 16px; /* Base 100% scale for large screens */
+  }
+
+  @media (max-width: 1440px) {
+    html {
+      font-size: 14px; /* ~87.5% scale for typical laptops */
+    }
+  }
+
+  @media (max-width: 1024px) {
+    html {
+      font-size: 12px; /* 75% scale for smaller laptops and tablets */
+    }
   }
   
   body {
