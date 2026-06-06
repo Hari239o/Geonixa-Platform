@@ -1832,15 +1832,15 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         {/* Neural Guard Scanline */}
         <div className="absolute inset-0 pointer-events-none z-101 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-size-[100%_4px,3px_100%] opacity-20" />
 
-        <div style={{ padding: "2rem", paddingBottom: "240px", flex: 1, overflowY: "auto", position: "relative", zIndex: 1 }}>
+        <div style={{ padding: "1.5rem", paddingBottom: "1.5rem", flex: 1, overflowY: "auto", position: "relative", zIndex: 1 }}>
           {/* Round 1: Aptitude & Round 2: Grammar */}
           {(currentRound === 1 || currentRound === 2) && (
-            <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
+            <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto", height: "100%", display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
                 <div>
-                  <h1 style={{ margin: 0, fontSize: "1.8rem" }}>{currentRound === 1 ? "Aptitude Assessment" : "Grammar Assessment"}</h1>
+                  <h1 style={{ margin: 0, fontSize: "1.5rem" }}>{currentRound === 1 ? "Aptitude Assessment" : "Grammar Assessment"}</h1>
                   {(currentRound === 1 || currentRound === 2) && (
-                    <p style={{ margin: "0.5rem 0 0 0", color: "#64748b", fontSize: "0.82rem", fontWeight: 700 }}>
+                    <p style={{ margin: "0.2rem 0 0 0", color: "#64748b", fontSize: "0.75rem", fontWeight: 700 }}>
                       30 questions | 10 minutes | Auto-saved
                     </p>
                   )}
@@ -1848,22 +1848,22 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 <span style={{ fontWeight: "bold", color: "var(--text-muted)" }}>Question {(currentRound === 1 ? q1Index : q2Index) + 1} of 30</span>
               </div>
 
-              <div style={{ padding: "2.5rem", backgroundColor: "white", borderRadius: "20px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)" }}>
+              <div style={{ padding: "1.5rem", backgroundColor: "white", borderRadius: "16px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)", flex: 1, display: "flex", flexDirection: "column" }}>
                 {(currentRound === 1 || currentRound === 2) && (
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem", gap: "1rem" }}>
-                    <span style={{ backgroundColor: "#fff7ed", color: "#f97316", border: "1px solid #fed7aa", borderRadius: "999px", padding: "0.35rem 0.8rem", fontSize: "0.72rem", fontWeight: 900, letterSpacing: "0.08em" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", gap: "1rem" }}>
+                    <span style={{ backgroundColor: "#fff7ed", color: "#f97316", border: "1px solid #fed7aa", borderRadius: "999px", padding: "0.25rem 0.6rem", fontSize: "0.65rem", fontWeight: 900, letterSpacing: "0.08em" }}>
                       {((currentRound === 1 ? r1List[q1Index] : r2List[q2Index])?.patternKey || "standard").toUpperCase()}
                     </span>
-                    <span style={{ color: "#94a3b8", fontSize: "0.72rem", fontFamily: "monospace", fontWeight: 800 }}>
+                    <span style={{ color: "#94a3b8", fontSize: "0.65rem", fontFamily: "monospace", fontWeight: 800 }}>
                       SECURE CODE: {(currentRound === 1 ? r1List[q1Index] : r2List[q2Index])?.questionCode || "SECURE-0000"}
                     </span>
                   </div>
                 )}
-                <p style={{ fontSize: "1.25rem", fontWeight: "600", color: "#1e293b", lineHeight: "1.6", marginBottom: "2.5rem" }}>
+                <p style={{ fontSize: "1.1rem", fontWeight: "600", color: "#1e293b", lineHeight: "1.5", marginBottom: "1.5rem" }}>
                   {(currentRound === 1 ? r1List : r2List)[currentRound === 1 ? q1Index : q2Index]?.q}
                 </p>
 
-                <div style={{ display: "grid", gap: "1rem" }}>
+                <div style={{ display: "grid", gap: "0.6rem" }}>
                   {(currentRound === 1 ? r1List : r2List)[currentRound === 1 ? q1Index : q2Index]?.opts.map((opt: string, optionIndex: number) => {
                     const ans = currentRound === 1 ? r1Answers : r2Answers;
                     const idx = currentRound === 1 ? q1Index : q2Index;
@@ -1873,9 +1873,9 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                         key={`${idx}_${optionIndex}_${opt}`}
                         onClick={() => currentRound === 1 ? setR1Answers(prev => ({...prev, [q1Index]: opt})) : setR2Answers(prev => ({...prev, [q2Index]: opt}))}
                         style={{
-                          padding: "1.2rem 1.5rem",
+                          padding: "0.8rem 1.2rem",
                           textAlign: "left",
-                          borderRadius: "12px",
+                          borderRadius: "8px",
                           border: isSelected ? "2px solid var(--primary)" : "1px solid #e2e8f0",
                           backgroundColor: isSelected ? "#fff7ed" : "white",
                           color: isSelected ? "var(--primary)" : "#475569",
@@ -1891,7 +1891,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 </div>
               </div>
 
-              <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div style={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <button 
                   className="btn" 
                   disabled={(currentRound === 1 ? q1Index : q2Index) === 0}
@@ -1933,7 +1933,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
                       <button 
                         className="btn btn-primary"
-                        style={{ padding: "1rem 3rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }}
+                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900", marginRight: "220px" }}
                         onClick={() => {
                           currentRound === 1 ? setQ1Index(p => p + 1) : setQ2Index(p => p + 1);
                         }}
@@ -1943,7 +1943,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     ) : (
                       <button 
                         className="btn btn-danger"
-                        style={{ padding: "1rem 3rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
+                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white", marginRight: "220px" }}
                         onClick={() => {
                           showConfirm(
                             `Submit Round ${currentRound}`,
@@ -2044,7 +2044,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
               })()}
 
               <textarea 
-                style={{ width: "100%", height: "450px", padding: "2.5rem", fontSize: "1.15rem", fontFamily: "'Inter', sans-serif", borderRadius: "24px", border: "2px solid #e2e8f0", resize: "none", backgroundColor: "#fff", lineHeight: "1.8", color: "#334155", outline: "none", transition: "border-color 0.2s" }}
+                style={{ width: "100%", height: "250px", padding: "1.5rem", fontSize: "1.05rem", fontFamily: "'Inter', sans-serif", borderRadius: "16px", border: "2px solid #e2e8f0", resize: "none", backgroundColor: "#fff", lineHeight: "1.6", color: "#334155", outline: "none", transition: "border-color 0.2s" }}
                 value={typingTexts[typingTopicIndex]}
                 onChange={e => {
                   const t = [...typingTexts];
@@ -2097,10 +2097,10 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
           {/* Round 4: Technical (MCQ or Coding) */}
           {currentRound === 4 && (
-            <div className="animate-fade-in" style={{ height: "calc(100vh - 100px)", display: "flex", flexDirection: "column" }}>
+            <div className="animate-fade-in" style={{ height: "100%", display: "flex", flexDirection: "column" }}>
               {isMcqDomain ? (
-                <div style={{ maxWidth: "1500px", margin: "0 auto", width: "100%" }}>
-                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
+                <div style={{ maxWidth: "1500px", margin: "0 auto", width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
+                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
                     <h1 style={{ margin: 0 }}>{studentDomain} {isMcqDomain ? "Domain MCQ" : "Coding"} Mastery</h1>
                     <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
                       <div className="timer-active" style={{ fontSize: "0.9rem", fontWeight: "900", color: "#f97316", fontFamily: "monospace", backgroundColor: "#fff7ed", padding: "0.2rem 0.5rem", borderRadius: "6px", display: "flex", alignItems: "center", gap: "0.5rem", width: "fit-content" }}>
@@ -2111,11 +2111,11 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  <div style={{ padding: "2.5rem", backgroundColor: "white", borderRadius: "20px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)" }}>
-                    <p style={{ fontSize: "1.3rem", fontWeight: "600", color: "#1e293b", lineHeight: "1.6", marginBottom: "2.5rem" }}>
+                  <div style={{ padding: "1.5rem", backgroundColor: "white", borderRadius: "16px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)", flex: 1, display: "flex", flexDirection: "column" }}>
+                    <p style={{ fontSize: "1.1rem", fontWeight: "600", color: "#1e293b", lineHeight: "1.5", marginBottom: "1.5rem" }}>
                       {codingQuestions[codingQuestionIndex]?.q}
                     </p>
-                    <div style={{ display: "grid", gap: "1rem" }}>
+                    <div style={{ display: "grid", gap: "0.6rem" }}>
                       {codingQuestions[codingQuestionIndex]?.opts.map((opt: string) => {
                         const isSelected = codingAnswers[codingQuestionIndex] === opt;
                         return (
@@ -2123,9 +2123,9 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                             key={opt}
                             onClick={() => setCodingAnswers({...codingAnswers, [codingQuestionIndex]: opt})}
                             style={{
-                              padding: "1.2rem 1.5rem",
+                              padding: "0.8rem 1.2rem",
                               textAlign: "left",
-                              borderRadius: "12px",
+                              borderRadius: "8px",
                               border: isSelected ? "2px solid var(--primary)" : "1px solid #e2e8f0",
                               backgroundColor: isSelected ? "#fff7ed" : "white",
                               color: isSelected ? "var(--primary)" : "#475569",
@@ -2140,7 +2140,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  <div style={{ marginTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "2rem" }}>
+                  <div style={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
                     <button 
                       className="btn" 
                       disabled={codingQuestionIndex === 0} 
@@ -2179,7 +2179,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       })}
                     </div>
 
-                    <div style={{ display: "flex", gap: "1rem" }}>
+                    <div style={{ display: "flex", gap: "1rem", marginRight: "220px" }}>
                     {codingQuestionIndex < 39 ? (
                       <button className="btn btn-primary" onClick={() => setCodingQuestionIndex(p => p + 1)}>
                         NEXT QUESTION
