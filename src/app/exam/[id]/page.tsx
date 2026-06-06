@@ -1033,7 +1033,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     if (hasSubmittedRef.current) return;
     const now = Date.now();
     
-    const terminationTypes = ["TERMINATED", "DEVTOOLS", "EXTENSION_CHEAT", "TAB_SWITCH", "WINDOW_BLUR", "FULLSCREEN_EXIT", "UNAUTHORIZED_KEY", "COPY_PASTE_ATTEMPT", "UNAUTHORIZED_SHORTCUT"];
+    // Only these severe intentional cheats trigger immediate termination
+    const terminationTypes = ["TERMINATED", "DEVTOOLS", "EXTENSION_CHEAT"];
     const isTerminationEvent = terminationTypes.includes(type);
 
     if (now - lastViolationTimeRef.current < 2000 && !isTerminationEvent && type !== "SCREENSHOT") {
@@ -1043,9 +1044,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
     const currentUser = typeof window !== "undefined" ? (localStorage.getItem("geonixa_current_user") || "anonymous") : "anonymous";
 
-    // INSTANT TERMINATION RULES (Severe Violations)
-    if (type === "TERMINATED" || type === "DEVTOOLS" || type === "EXTENSION_CHEAT" || type === "TAB_SWITCH" || type === "WINDOW_BLUR" || type === "FULLSCREEN_EXIT" || type === "UNAUTHORIZED_KEY" || type === "COPY_PASTE_ATTEMPT" || type === "UNAUTHORIZED_SHORTCUT") {
-      setCurrentWarning(`🚫 INSTANT TERMINATION: ${message || "Critical integrity breach detected."}. Assessment auto-submitting...`);
+    if (isTerminationEvent || type === "WARNING_3") {
+      setCurrentWarning(`🚫 FINAL ACTION: ${message || "Critical integrity breach detected."}. Assessment auto-submitting...`);
       if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => {});
       if (typeof window !== "undefined") {
         localStorage.setItem(`geonixa_exam_status_${currentUser}`, "true");
@@ -1053,44 +1053,37 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       }
       if (submitRef.current) submitRef.current("TERMINATED");
       setExamState("VIOLATION_TERMINATED");
-
-      fetch('/api/communication/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'TERMINATION',
-          candidateEmail: currentUser,
-          candidateName: profile?.name || "Candidate",
-          status: `Instant Termination (${type}): ${message}`
-        })
-      }).catch(err => console.error("Failed to send termination email", err));
-      return;
-    }
-
-    // FINAL WARNING 3 RULE
-    if (type === "WARNING_3") {
-      setCurrentWarning(`🚫 FINAL WARNING (3/3): ${message}. Assessment auto-submitting...`);
-      if (typeof document !== "undefined" && document.fullscreenElement) document.exitFullscreen().catch(() => {});
-      if (typeof window !== "undefined") {
-        localStorage.setItem(`geonixa_exam_status_${currentUser}`, "true");
-        localStorage.setItem(`geonixa_terminated_${currentUser}`, "true");
+      
+      if (isTerminationEvent) {
+        fetch('/api/communication/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'TERMINATION',
+            candidateEmail: currentUser,
+            candidateName: profile?.name || "Candidate",
+            status: `Instant Termination (${type}): ${message}`
+          })
+        }).catch(err => console.error("Failed to send termination email", err));
       }
-      if (submitRef.current) submitRef.current("TERMINATED");
-      setExamState("VIOLATION_TERMINATED");
-      // WARNING_3 triggers an auto-termination flow locally; external termination
-      // notification/email should only be dispatched for explicit/official terminations.
-      // Do not send an automated termination email here to avoid false positives.
       return;
     }
 
-    // WARNING 1 & 2 PROTOCOL
+    // Accumulate normal warnings
     const timestamp = new Date().toLocaleTimeString();
     const violationLog = `[${timestamp}] ${type}: ${message}`;
     
-    setWarnings(prev => [...prev, violationLog]);
-    const wNum = type === 'WARNING_1' ? '1 of 3' : '2 of 3';
-    setCurrentWarning(`⚠ INTEGRITY NOTICE (${wNum}): ${message}`);
-    
+    setWarnings(prev => {
+      const newWarnings = [...prev, violationLog];
+      if (newWarnings.length >= 8) {
+         setTimeout(() => {
+           handleProctorViolation("WARNING_3", "Exceeded maximum allowed warnings limit.");
+         }, 100);
+      }
+      return newWarnings;
+    });
+
+    setCurrentWarning(`⚠ INTEGRITY NOTICE: ${message}`);
     setTimeout(() => setCurrentWarning(null), 10000);
   }, [profile]);
 

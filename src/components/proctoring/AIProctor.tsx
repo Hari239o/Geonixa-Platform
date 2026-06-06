@@ -329,13 +329,21 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
     return () => clearInterval(timer);
   }, []);
 
-  // INSTANT TERMINATION HANDLER
-  const handleInstantTermination = (code: string, message: string) => {
+  // ENVIRONMENT VIOLATION HANDLER
+  const handleEnvironmentViolation = (code: string, message: string) => {
     if (!isExamActiveRef.current || hasTerminatedRef.current) return;
-    hasTerminatedRef.current = true;
-    setCameraHealthState('violation');
-    setHealthStatus(prev => ({ ...prev, integrity: "🔴 Breach Detected" }));
-    setStatusText(`CRITICAL BREACH: ${code}`);
+    
+    const severeCodes = ["TERMINATED", "DEVTOOLS", "EXTENSION_CHEAT"];
+    if (severeCodes.includes(code)) {
+      hasTerminatedRef.current = true;
+      setCameraHealthState('violation');
+      setHealthStatus(prev => ({ ...prev, integrity: "🔴 Breach Detected" }));
+      setStatusText(`CRITICAL BREACH: ${code}`);
+    } else {
+      setCameraHealthState('warning');
+      setHealthStatus(prev => ({ ...prev, integrity: "🟡 Warning: " + code }));
+    }
+    
     onViolation(code, message);
   };
 
@@ -357,25 +365,25 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
     // Instantly terminate on violation.
     const handleVisibility = () => {
       if (document.hidden && isExamActiveRef.current && !hasTerminatedRef.current) {
-        handleInstantTermination("TAB_SWITCH", "Tab switching is strictly prohibited.");
+        handleEnvironmentViolation("TAB_SWITCH", "Tab switching is strictly prohibited.");
       }
     };
 
     const handleBlur = () => {
       if (isExamActiveRef.current && !hasTerminatedRef.current) {
-        handleInstantTermination("WINDOW_BLUR", "Leaving the exam window is strictly prohibited.");
+        handleEnvironmentViolation("WINDOW_BLUR", "Leaving the exam window is strictly prohibited.");
       }
     };
 
     const handleFullScreenExit = () => {
       if (isExamActiveRef.current && !document.fullscreenElement && isFullscreenInitialized.current && !hasTerminatedRef.current) {
-        handleInstantTermination("FULLSCREEN_EXIT", "Exiting fullscreen is strictly prohibited.");
+        handleEnvironmentViolation("FULLSCREEN_EXIT", "Exiting fullscreen is strictly prohibited.");
       }
     };
 
     const handleKeys = (e: KeyboardEvent) => {
       if (isExamActiveRef.current && (e.key === "PrintScreen" || e.key === "Escape" || e.key === "F12" || (e.metaKey && e.shiftKey && (e.key === 's' || e.key === 'S')) || (e.ctrlKey && (e.key === 'p' || e.key === 'P'))) && !hasTerminatedRef.current) {
-        handleInstantTermination("UNAUTHORIZED_KEY", "PrintScreen, Escape, F12, or screenshot attempt detected.");
+        handleEnvironmentViolation("UNAUTHORIZED_KEY", "PrintScreen, Escape, F12, or screenshot attempt detected.");
       }
     };
 
