@@ -1832,7 +1832,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         {/* Neural Guard Scanline */}
         <div className="absolute inset-0 pointer-events-none z-101 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-size-[100%_4px,3px_100%] opacity-20" />
 
-        <div style={{ padding: "2rem", flex: 1, overflowY: "auto", position: "relative", zIndex: 1 }}>
+        <div style={{ padding: "2rem", paddingBottom: "240px", flex: 1, overflowY: "auto", position: "relative", zIndex: 1 }}>
           {/* Round 1: Aptitude & Round 2: Grammar */}
           {(currentRound === 1 || currentRound === 2) && (
             <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto" }}>
@@ -1929,7 +1929,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     );
                   })}
                 </div>
-                <div style={{ display: "flex", gap: "1rem", marginRight: "350px" }}>
+                <div style={{ display: "flex", gap: "1rem" }}>
                     {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
                       <button 
                         className="btn btn-primary"
@@ -2179,7 +2179,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       })}
                     </div>
 
-                    <div style={{ display: "flex", gap: "1rem", marginRight: "350px" }}>
+                    <div style={{ display: "flex", gap: "1rem" }}>
                     {codingQuestionIndex < 39 ? (
                       <button className="btn btn-primary" onClick={() => setCodingQuestionIndex(p => p + 1)}>
                         NEXT QUESTION
@@ -2333,7 +2333,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  <div style={{ marginTop: "1.5rem", display: "flex", justifyContent: "flex-end", marginRight: "350px" }}>
+                  <div style={{ marginTop: "1.5rem", display: "flex", justifyContent: "flex-end" }}>
                     {codingQuestionIndex < codingQuestions.length - 1 && (
                       <button 
                         className="btn" 
