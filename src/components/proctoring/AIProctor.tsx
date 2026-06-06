@@ -333,7 +333,7 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
   const handleEnvironmentViolation = (code: string, message: string) => {
     if (!isExamActiveRef.current || hasTerminatedRef.current) return;
     
-    const severeCodes = ["TERMINATED", "DEVTOOLS", "EXTENSION_CHEAT"];
+    const severeCodes = ["TERMINATED", "DEVTOOLS", "EXTENSION_CHEAT", "TAB_SWITCH"];
     if (severeCodes.includes(code)) {
       hasTerminatedRef.current = true;
       setCameraHealthState('violation');

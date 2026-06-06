@@ -1034,7 +1034,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
     const now = Date.now();
     
     // Only these severe intentional cheats trigger immediate termination
-    const terminationTypes = ["TERMINATED", "DEVTOOLS", "EXTENSION_CHEAT"];
+    const terminationTypes = ["TERMINATED", "DEVTOOLS", "EXTENSION_CHEAT", "TAB_SWITCH"];
     const isTerminationEvent = terminationTypes.includes(type);
 
     if (now - lastViolationTimeRef.current < 2000 && !isTerminationEvent && type !== "SCREENSHOT") {
@@ -1929,7 +1929,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     );
                   })}
                 </div>
-                <div style={{ display: "flex", gap: "1rem", marginRight: "350px" }}>
+                <div style={{ display: "flex", gap: "1rem" }}>
                     {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
                       <button 
                         className="btn btn-primary"
@@ -2179,7 +2179,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       })}
                     </div>
 
-                    <div style={{ display: "flex", gap: "1rem", marginRight: "350px" }}>
+                    <div style={{ display: "flex", gap: "1rem" }}>
                     {codingQuestionIndex < 39 ? (
                       <button className="btn btn-primary" onClick={() => setCodingQuestionIndex(p => p + 1)}>
                         NEXT QUESTION
