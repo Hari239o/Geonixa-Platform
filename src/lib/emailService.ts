@@ -170,6 +170,10 @@ class EmailService {
         replyTo: fromAddress,
         to,
         subject,
+        headers: {
+          'X-Entity-Ref-ID': logId || Date.now().toString(),
+          'List-Unsubscribe': `<mailto:${fromAddress}?subject=unsubscribe>`,
+        },
         text: html.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '').replace(/<[^>]*>?/gm, '\n').replace(/\n\s*\n/g, '\n\n').trim(),
         html,
         attachments: options.attachments,
@@ -303,7 +307,7 @@ class EmailService {
             <div class="credential-box">
               <div class="credential-row">
                 <div class="credential-item">
-                  <div class="credential-label">Username</div>
+                  <div class="credential-label">Registered Email</div>
                   <div class="credential-value">${data.username}</div>
                 </div>
                 <div class="credential-item">
@@ -313,7 +317,7 @@ class EmailService {
               </div>
               <div class="credential-row">
                 <div class="credential-item">
-                  <div class="credential-label">Security Pass-Key</div>
+                  <div class="credential-label">Access Code</div>
                   <div class="credential-value" style="font-family: 'JetBrains Mono', monospace; background: #0f172a; color: #22c55e; padding: 8px 12px; border-radius: 6px; display: inline-block; font-size: 14px;">${data.passKey}</div>
                 </div>
               </div>
@@ -345,7 +349,7 @@ class EmailService {
             <div class="section-title">How To Access The Test</div>
             <ol style="font-size: 13px; color: #475569; line-height: 1.8; padding-left: 20px;">
               <li>Visit the official Geonixa Exam Portal at: <a href="https://talent.geonixa.com/" style="color: #3b82f6; font-weight: 600;">https://talent.geonixa.com/</a></li>
-              <li>Click on the "Student Login" option and sign in using your <strong>Username</strong> and <strong>Security Pass-Key</strong> provided above to start the exam.</li>
+              <li>Click on the "Student Login" option and sign in using your <strong>Registered Email</strong> and <strong>Access Code</strong> provided above to start the exam.</li>
               <li>You will be able to access the test <strong>only on your registered date and time slot</strong></li>
               <li>Any attempt to login outside the scheduled date and time will be rejected</li>
             </ol>
@@ -353,17 +357,17 @@ class EmailService {
             <!-- Guidelines Section -->
             <div class="section-title">Important Guidelines</div>
             <div class="guidelines">
-              <div class="guideline-item"><strong>✓ Internet Connection:</strong> Ensure you are connected to a stable Internet connection throughout the test. Recommended internet speed: 2 Mbps - 5 Mbps. Kindly check your system compatibility in advance.</div>
+              <div class="guideline-item"><strong>✓ Internet Connection:</strong> Ensure you are connected to a stable Internet connection throughout the test. Recommended internet speed: 2 Mbps - 5 Mbps.</div>
               
-              <div class="guideline-item"><strong>✓ Webcam Requirement:</strong> It is mandatory to have a working webcam on your system. Your face must be completely and constantly visible throughout the test.</div>
+              <div class="guideline-item"><strong>✓ Webcam Requirement:</strong> It is mandatory to have a working webcam on your system. Your face must be visible throughout the assessment.</div>
               
-              <div class="guideline-item"><strong>✓ Browser Requirements:</strong> Use Google Chrome or Microsoft Edge browser version 91 or above with pop-up blocker disabled. Taking the test on any other web browser is not recommended.</div>
+              <div class="guideline-item"><strong>✓ Browser Requirements:</strong> Use Google Chrome or Microsoft Edge browser version 91 or above with pop-up blocker disabled.</div>
               
-              <div class="guideline-item"><strong>✓ Test Environment:</strong> You must not exit the test screen while taking the test. Any attempt to do so will be recorded and may result in disqualification.</div>
+              <div class="guideline-item"><strong>✓ Test Environment:</strong> Please remain on the assessment screen while taking the test. System activity is securely monitored.</div>
               
-              <div class="guideline-item"><strong>✓ Prohibited Items:</strong> Use of mobile, smart watch, headphones, and other electronic gadgets during the test is strictly prohibited.</div>
+              <div class="guideline-item"><strong>✓ Device Usage:</strong> The use of mobile phones or additional electronic devices during the assessment is not permitted.</div>
               
-              <div class="guideline-item"><strong>✓ Academic Integrity:</strong> All code submissions are run through a plagiarism detector. Any candidate found using unfair means at any stage will be instantly disqualified.</div>
+              <div class="guideline-item"><strong>✓ Academic Integrity:</strong> All code submissions are evaluated for originality. Maintaining academic integrity is essential.</div>
             </div>
 
             <!-- Important Notice -->
