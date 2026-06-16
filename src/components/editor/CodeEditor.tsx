@@ -767,57 +767,57 @@ export default function CodeEditor({
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
       `}</style>
 
-      <div className="min-h-[64px] py-2 bg-[whitesmoke] border-b border-[#cbd5e1] flex flex-wrap items-center justify-between gap-3 px-3 sm:px-6 shrink-0">
-        <div className="flex items-center gap-2 sm:gap-6">
-          <div className="flex items-center gap-2 text-[#58a6ff]">
-            <Cpu size={18} fill="currentColor" />
-            <span className="text-[10px] font-black tracking-[0.2em] uppercase hidden lg:inline">ASSESSMENT CORE</span>
+      <div className="min-h-[52px] py-1.5 bg-[whitesmoke] border-b border-[#cbd5e1] flex items-center justify-between gap-2 px-3 sm:px-4 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-1.5 text-slate-800">
+            <Cpu size={16} className="text-[#2563eb]" fill="currentColor" />
+            <span className="text-[10px] font-black tracking-[0.2em] uppercase hidden xl:inline-block">ASSESSMENT</span>
           </div>
 
-          <div className="h-6 w-px bg-[#30363d] hidden sm:block" />
+          <div className="h-5 w-px bg-slate-300" />
 
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Code2 size={14} className="text-slate-500" />
+          <div className="flex items-center gap-1.5">
+            <Code2 size={13} className="text-slate-500" />
             <select
               value={selectedLanguage}
               onChange={(e) => setSelectedLanguage(e.target.value)}
-              className="bg-transparent text-[#c9d1d9] text-[11px] font-black outline-none cursor-pointer uppercase tracking-wider"
+              className="bg-transparent text-slate-700 text-[11px] font-black outline-none cursor-pointer uppercase tracking-wider"
             >
               {Object.keys(LANGUAGE_MAP).map(lang => (
-                <option key={lang} value={lang} className="bg-[#0d1117]">{lang.toUpperCase()}</option>
+                <option key={lang} value={lang} className="bg-white text-slate-800">{lang.toUpperCase()}</option>
               ))}
             </select>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto mt-2 sm:mt-0 justify-end">
-          <div className="flex items-center gap-1 sm:gap-2">
-            <button onClick={() => navigator.clipboard.writeText(code)} className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-lg transition-all" title="Copy Code"><Copy size={16} /></button>
-            <button onClick={handleReset} className="p-2 text-slate-500 hover:text-orange-600 hover:bg-orange-500/10 rounded-lg transition-all" title="Reset Boilerplate"><RotateCcw size={16} /></button>
-            <button onClick={toggleFullscreen} className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-lg transition-all" title="Toggle Fullscreen"><Maximize2 size={16} /></button>
-            <button onClick={() => setTheme((prev) => (prev === "vs-dark" ? "light" : "vs-dark"))} className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-lg transition-all" title="Toggle Theme">
-              <Palette size={16} />
+        <div className="flex items-center gap-1.5 sm:gap-2 justify-end">
+          <div className="flex items-center gap-0.5">
+            <button onClick={() => navigator.clipboard.writeText(code)} className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-lg transition-all" title="Copy Code"><Copy size={15} /></button>
+            <button onClick={handleReset} className="p-1.5 text-slate-500 hover:text-orange-600 hover:bg-orange-500/10 rounded-lg transition-all" title="Reset Boilerplate"><RotateCcw size={15} /></button>
+            <button onClick={toggleFullscreen} className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-lg transition-all" title="Toggle Fullscreen"><Maximize2 size={15} /></button>
+            <button onClick={() => setTheme((prev) => (prev === "vs-dark" ? "light" : "vs-dark"))} className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-lg transition-all" title="Toggle Theme">
+              <Palette size={15} />
             </button>
           </div>
 
-          <div className="h-6 w-px bg-[#30363d] hidden sm:block mx-1" />
+          <div className="h-5 w-px bg-slate-300 mx-1" />
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5">
             <button
               onClick={handleRunCode}
               disabled={isRunning || isFinalSubmitting}
-              className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-[#161b22] hover:bg-[#1c2128] text-[#58a6ff] rounded-xl text-[10px] font-black uppercase tracking-widest border border-[#30363d] disabled:opacity-50 transition-all active:scale-95 whitespace-nowrap"
+              className="flex items-center justify-center gap-1.5 px-3 py-1.5 bg-[#161b22] hover:bg-[#1c2128] text-[#58a6ff] rounded-lg text-[10px] font-black uppercase tracking-wider border border-[#30363d] disabled:opacity-50 transition-all active:scale-95 whitespace-nowrap"
             >
-              {isRunning ? <Loader2 size={14} className="animate-spin" /> : <Play size={14} fill="currentColor" />}
+              {isRunning ? <Loader2 size={12} className="animate-spin" /> : <Play size={12} fill="currentColor" />}
               Run
             </button>
 
             <button
               onClick={handleSubmitSolution}
               disabled={isRunning || isFinalSubmitting}
-              className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-emerald-600/20 hover:bg-emerald-500/30 text-emerald-600 rounded-xl text-[10px] font-black uppercase tracking-widest disabled:opacity-50 transition-all border border-emerald-500/20 active:scale-95 shadow-lg whitespace-nowrap"
+              className="flex items-center justify-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[10px] font-black uppercase tracking-wider disabled:opacity-50 transition-all active:scale-95 shadow-md whitespace-nowrap"
             >
-              {isFinalSubmitting ? <Loader2 size={14} className="animate-spin" /> : <ShieldCheck size={14} fill="currentColor" />}
+              {isFinalSubmitting ? <Loader2 size={12} className="animate-spin" /> : <ShieldCheck size={12} fill="currentColor" />}
               Submit
             </button>
           </div>
