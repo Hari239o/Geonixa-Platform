@@ -44,7 +44,7 @@ export async function POST(req: Request) {
 
     const result = await emailService.sendEmail({
       to: email,
-      subject: `Geonixa Assessment Portal – Login Credentials for ${name}`,
+      subject: `Geonixa Technical Assessment - Invitation & Access Details for ${name}`,
       html,
       candidateEmail: email,
       type: "REGISTRATION"

@@ -167,8 +167,10 @@ class EmailService {
       
       const info = await transporter.sendMail({
         from: `"${process.env.SMTP_FROM_NAME || 'Geonixa Talent Acquisition'}" <${fromAddress}>`,
+        replyTo: fromAddress,
         to,
         subject,
+        text: html.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '').replace(/<[^>]*>?/gm, '\n').replace(/\n\s*\n/g, '\n\n').trim(),
         html,
         attachments: options.attachments,
       });
