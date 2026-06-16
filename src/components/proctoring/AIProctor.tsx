@@ -22,7 +22,8 @@ import {
   Terminal,
   Minimize2,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Settings
 } from "lucide-react";
 
 interface ProctorProps {
@@ -62,6 +63,7 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
 
   // UI State
   const [cameraSize, setCameraSize] = useState(320);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [cameraHealthState, setCameraHealthState] = useState<'safe' | 'warning' | 'violation'>('safe');
   const [healthStatus, setHealthStatus] = useState({
     face: "🟢 100% Locked",
@@ -929,74 +931,142 @@ export default function AIProctor({ onViolation, isExamActive, isRound4 = false 
       )}
       
 
-      {/* Professional HUD Circular Panel */}
-      <div style={{
-        position: 'relative',
-        width: isRound4 ? '100%' : cameraSize,
-        height: isRound4 ? '100%' : cameraSize,
-        maxWidth: '100%',
-        borderRadius: isRound4 ? '50%' : '28px',
-        border: `4px solid ${proctorLevel >= 3 ? '#dc2626' : proctorLevel === 2 ? '#f59e0b' : proctorLevel === 1 ? '#facc15' : '#22c55e'}`,
-        backgroundColor: '#020617',
-        boxShadow: `0 24px 60px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04)`,
-        overflow: 'hidden',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'all 0.3s ease',
-        flexShrink: 0
-      }} key="proctor-camera-wrapper">
-        <video ref={videoRef} autoPlay muted playsInline style={{
+      {/* New Compact Floating Widget */}
+      <div 
+        className="fixed z-[999] transition-all duration-300 ease-in-out"
+        style={{
+          bottom: "16px",
+          right: "16px",
+          width: "clamp(120px, 10vw, 160px)",
+          height: "clamp(120px, 10vw, 160px)"
+        }}
+      >
+        <div style={{
+          position: 'relative',
           width: '100%',
           height: '100%',
-          objectFit: 'cover'
-        }} />
-        {!isRound4 && (
-          <div style={{
+          borderRadius: '50%',
+          border: `4px solid ${proctorLevel >= 3 ? '#ef4444' : proctorLevel === 2 ? '#f97316' : proctorLevel === 1 ? '#eab308' : '#22c55e'}`,
+          backgroundColor: '#020617',
+          boxShadow: `0 8px 32px rgba(0,0,0,0.3)`,
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'all 0.3s ease',
+        }} className={proctorLevel >= 3 ? "animate-pulse" : ""}>
+          <video ref={videoRef} autoPlay muted playsInline style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }} />
+          <canvas ref={canvasRef} style={{
             position: 'absolute',
-            top: 12,
-            left: 12,
-            padding: '0.35rem 0.75rem',
-            borderRadius: '999px',
-            backgroundColor: proctorLevel >= 3 ? 'rgba(220,38,38,0.92)' : proctorLevel === 2 ? 'rgba(245,158,11,0.92)' : proctorLevel === 1 ? 'rgba(250,204,21,0.92)' : 'rgba(34,197,94,0.92)',
-            color: proctorLevel >= 3 ? '#fff' : '#020617',
-            fontSize: '0.72rem',
-            fontWeight: 900,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            boxShadow: '0 8px 20px rgba(0,0,0,0.24)'
-          }}>
-            {proctorLevel === 0 ? 'SAFE' : proctorLevel === 1 ? 'WARNING 1' : proctorLevel === 2 ? 'WARNING 2' : 'VIOLATION'}
-          </div>
-        )}
-        <canvas ref={canvasRef} style={{
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none'
+          }} />
+        </div>
+
+        {/* Status Badge */}
+        <div style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          pointerEvents: 'none'
-        }} />
-        
-        {/* Secure/Warning Overlay Badge */}
-        {!isRound4 && (
-          <div style={{
+          top: '-8px',
+          left: '-8px',
+          padding: '4px 10px',
+          borderRadius: '12px',
+          backgroundColor: proctorLevel >= 3 ? '#ef4444' : proctorLevel === 2 ? '#f97316' : proctorLevel === 1 ? '#eab308' : '#22c55e',
+          color: proctorLevel >= 3 ? '#fff' : '#020617',
+          fontSize: '10px',
+          fontWeight: 900,
+          textTransform: 'uppercase',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+          zIndex: 10
+        }}>
+          {proctorLevel === 0 ? 'SAFE' : proctorLevel === 1 ? 'WARN' : proctorLevel === 2 ? 'WARNING' : 'ALERT'}
+        </div>
+
+        {/* Expand Button */}
+        <button 
+          onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+          style={{
             position: 'absolute',
-            bottom: 6,
-            backgroundColor: 'rgba(15, 23, 42, 0.85)',
-            color: proctorLevel >= 3 ? '#ef4444' : proctorLevel === 2 ? '#fb923c' : proctorLevel === 1 ? '#facc15' : '#4ade80',
-            fontSize: '8px',
-            fontWeight: '900',
-            padding: '2px 8px',
-            borderRadius: '12px',
-            border: `1px solid ${proctorLevel >= 3 ? '#dc2626' : proctorLevel === 2 ? '#f97316' : proctorLevel === 1 ? '#fbbf24' : '#22c55e'}`,
-            letterSpacing: '0.5px',
-            pointerEvents: 'none',
-            fontFamily: 'monospace'
-          }}>
-            {proctorLevel === 0 ? "SECURE" : `WARN ${proctorLevel}`}
-          </div>
-        )}
+            bottom: '-4px',
+            right: '-4px',
+            width: '32px',
+            height: '32px',
+            borderRadius: '50%',
+            backgroundColor: '#1e293b',
+            color: '#fff',
+            border: '2px solid #334155',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            zIndex: 10,
+            boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+          }}
+        >
+          {isDrawerOpen ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
+        </button>
+
+        {/* Expandable Diagnostics Drawer */}
+        <AnimatePresence>
+          {isDrawerOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              style={{
+                position: 'absolute',
+                bottom: 'calc(100% + 16px)',
+                right: 0,
+                width: '280px',
+                backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                backdropFilter: 'blur(8px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '16px',
+                padding: '16px',
+                boxShadow: '0 24px 60px rgba(0,0,0,0.4)',
+                zIndex: -1
+              }}
+            >
+              <h4 className="text-white text-sm font-bold mb-4 uppercase tracking-wider flex items-center gap-2">
+                <Settings size={14} /> Diagnostics
+              </h4>
+              
+              <div className="space-y-4">
+                <div className="space-y-1">
+                  <label className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Camera Source</label>
+                  <select className="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded p-2 outline-none focus:outline-none">
+                    <option>Integrated Webcam (Auto)</option>
+                  </select>
+                </div>
+                
+                <div className="space-y-1">
+                  <label className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Microphone Source</label>
+                  <select className="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded p-2 outline-none focus:outline-none">
+                    <option>Default Microphone (Auto)</option>
+                  </select>
+                </div>
+
+                <div className="pt-2 border-t border-slate-700/50 space-y-2">
+                  <label className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">AI Logs & Telemetry</label>
+                  <div className="bg-slate-950 rounded-lg p-3 space-y-2 border border-slate-800">
+                    {Object.entries(healthStatus).map(([key, value]) => (
+                      <div key={key} className="flex items-center justify-between text-xs">
+                        <span className="text-slate-500 capitalize font-medium">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+                        <span className="text-slate-300 font-mono text-[10px] truncate max-w-[140px]" title={value}>{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Professional Warning Modal Overlay */}

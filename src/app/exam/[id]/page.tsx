@@ -1714,7 +1714,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   }
 
   return (
-    <div style={{ display: "flex", height: "100dvh", backgroundColor: "var(--bg-deep)", position: "relative", overflow: "hidden" }}>
+    <div style={{ display: "flex", height: "100dvh", backgroundColor: "var(--bg-deep)", position: "relative" }}>
       <style>{`
         @keyframes timerGlow {
           0% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.2); }
@@ -1731,64 +1731,68 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
       {/* Sidebar - Progress & Proctoring HUD - Hidden in Round 4 for maximum IDE space */}
       {currentRound !== 4 && (
-        <div style={{ width: "320px", backgroundColor: "var(--bg-card)", borderRight: "1px solid var(--border-dim)", padding: "1.5rem", display: "flex", flexDirection: "column", transition: "width 0.3s", overflowY: "auto" }}>
-        <div style={{ borderBottom: "1px solid var(--border-dim)", paddingBottom: "1.5rem", marginBottom: "1.5rem" }}>
-          <Logo size="sm" />
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.5rem" }}>
-            <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "var(--success)", boxShadow: "0 0 10px var(--success)" }} />
-            <span style={{ fontSize: "0.8rem", color: "var(--text-muted)", fontWeight: "bold" }}>SECURE SESSION ACTIVE</span>
-          </div>
-        </div>
-
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "1rem" }}>
-          {[1, 2, 3, 4].filter(r => currentRound === 4 ? r === 4 : true).map(r => {
-            const isActive = currentRound === r;
-            const isCompleted = currentRound > r;
-            return (
-              <div 
-                key={r} 
-                style={{ 
-                  padding: "1rem", 
-                  borderRadius: "12px", 
-                  border: isActive ? "1.5px solid var(--primary)" : "1.5px solid transparent",
-                  backgroundColor: isActive ? "#fff7ed" : (isCompleted ? "#f8fafc" : "transparent"),
-                  opacity: isActive || isCompleted ? 1 : 0.4,
-                  transition: "all 0.3s ease"
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                  <span style={{ fontSize: "0.75rem", fontWeight: "900", color: isActive ? "var(--primary)" : "var(--text-muted)" }}>ROUND 0{r}</span>
-                  {isActive && (
-                    <div className="timer-active" style={{ fontSize: "1.4rem", fontWeight: "900", color: "#f97316", fontFamily: "monospace", backgroundColor: "#fff7ed", padding: "0.4rem 0.8rem", borderRadius: "10px", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      <span style={{ fontSize: "0.8rem", color: "#fb923c" }}>⏳</span>
-                      <Timer 
-                        initialTime={timeLimits[r]} 
-                        isActive={isActive && examState === "ACTIVE"} 
-                        onExpiry={handleRoundExpiry} 
-                      />
-                    </div>
-
-                  )}
-                </div>
-                <div style={{ fontWeight: "bold", fontSize: "0.95rem", marginTop: "0.2rem", color: isActive ? "#1e293b" : "var(--text-primary)" }}>
-                  {r === 1 ? "Aptitude Intelligence" : r === 2 ? "Grammar & Logic" : r === 3 ? "Typing Velocity" : (isMcqDomain ? "Technical MCQ" : "Domain Coding")}
-                </div>
-                {isActive && <div style={{ height: "3px", backgroundColor: "var(--primary)", width: "40%", marginTop: "0.8rem", borderRadius: "2px" }} />}
+        <div style={{ 
+          width: "320px", 
+          height: "100dvh", 
+          backgroundColor: "var(--bg-card)", 
+          borderRight: "1px solid var(--border-dim)", 
+          padding: "1.5rem", 
+          display: "flex", 
+          flexDirection: "column", 
+          justifyContent: "space-between", 
+          gap: "1.5rem",
+          boxSizing: "border-box",
+          flexShrink: 0
+        }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+            <div style={{ borderBottom: "1px solid var(--border-dim)", paddingBottom: "1.5rem" }}>
+              <Logo size="sm" />
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.5rem" }}>
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "var(--success)", boxShadow: "0 0 10px var(--success)" }} />
+                <span style={{ fontSize: "0.8rem", color: "var(--text-muted)", fontWeight: "bold" }}>SECURE SESSION ACTIVE</span>
               </div>
-            );
-          })}
-        </div>
+            </div>
 
-
-        {/* Sidebar buttons hidden - main CTA in Round-4 content area */}
-        {currentRound !== 4 && (
-          <div style={{ marginTop: "1rem", padding: "0.6rem", display: "flex", gap: "0.6rem", alignItems: "center", justifyContent: "center" }}>
-            {/* Non-Round-4 navigation handled in main content */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              {[1, 2, 3, 4].filter(r => currentRound === 4 ? r === 4 : true).map(r => {
+                const isActive = currentRound === r;
+                const isCompleted = currentRound > r;
+                return (
+                  <div 
+                    key={r} 
+                    style={{ 
+                      padding: "1rem", 
+                      borderRadius: "12px", 
+                      border: isActive ? "1.5px solid var(--primary)" : "1.5px solid transparent",
+                      backgroundColor: isActive ? "#fff7ed" : (isCompleted ? "#f8fafc" : "transparent"),
+                      opacity: isActive || isCompleted ? 1 : 0.4,
+                      transition: "all 0.3s ease"
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                      <span style={{ fontSize: "0.75rem", fontWeight: "900", color: isActive ? "var(--primary)" : "var(--text-muted)" }}>ROUND 0{r}</span>
+                      {isActive && (
+                        <div className="timer-active" style={{ fontSize: "1.4rem", fontWeight: "900", color: "#f97316", fontFamily: "monospace", backgroundColor: "#fff7ed", padding: "0.4rem 0.8rem", borderRadius: "10px", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                          <span style={{ fontSize: "0.8rem", color: "#fb923c" }}>⏳</span>
+                          <Timer 
+                            initialTime={timeLimits[r]} 
+                            isActive={isActive && examState === "ACTIVE"} 
+                            onExpiry={handleRoundExpiry} 
+                          />
+                        </div>
+                      )}
+                    </div>
+                    <div style={{ fontWeight: "bold", fontSize: "0.95rem", marginTop: "0.2rem", color: isActive ? "#1e293b" : "var(--text-primary)" }}>
+                      {r === 1 ? "Aptitude Intelligence" : r === 2 ? "Grammar & Logic" : r === 3 ? "Typing Velocity" : (isMcqDomain ? "Technical MCQ" : "Domain Coding")}
+                    </div>
+                    {isActive && <div style={{ height: "3px", backgroundColor: "var(--primary)", width: "40%", marginTop: "0.8rem", borderRadius: "2px" }} />}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        )}
 
-        {currentRound !== 4 && (
-          <div style={{ marginTop: "auto", padding: "1.2rem", backgroundColor: "#0f172a", borderRadius: "16px", border: "1px solid #334155" }}>
+          <div style={{ padding: "1.2rem", backgroundColor: "#0f172a", borderRadius: "16px", border: "1px solid #334155", flexShrink: 0 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.8rem" }}>
               <span style={{ color: "#f97316", fontWeight: "900", fontSize: "0.75rem", letterSpacing: "1px" }}>SESSION PERFORMANCE</span>
               <span style={{ color: "var(--success)", fontWeight: "bold", fontSize: "0.7rem" }}>LIVE UPDATE</span>
@@ -1818,8 +1822,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
       )}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", backgroundColor: "var(--bg-deep)", overflow: "hidden", position: "relative" }}>
         {/* Secure Watermark Overlay */}
@@ -1832,7 +1835,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         {/* Neural Guard Scanline */}
         <div className="absolute inset-0 pointer-events-none z-101 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-size-[100%_4px,3px_100%] opacity-20" />
 
-        <div style={{ padding: "1rem", flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", position: "relative", zIndex: 1 }}>
+        <div style={{ padding: "1rem", paddingRight: "180px", paddingBottom: "180px", flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", position: "relative", zIndex: 1 }}>
           {/* Round 1: Aptitude & Round 2: Grammar */}
           {(currentRound === 1 || currentRound === 2) && (
             <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto", height: "100%", display: "flex", flexDirection: "column" }}>
@@ -1848,7 +1851,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 <span style={{ fontWeight: "bold", color: "var(--text-muted)" }}>Question {(currentRound === 1 ? q1Index : q2Index) + 1} of 30</span>
               </div>
 
-              <div style={{ padding: "1.5rem", backgroundColor: "white", borderRadius: "16px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)", flex: 1, display: "flex", flexDirection: "column" }}>
+              <div style={{ padding: "1.5rem", backgroundColor: "white", borderRadius: "16px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)", flex: 1, display: "flex", flexDirection: "column", overflowY: "auto" }}>
                 {(currentRound === 1 || currentRound === 2) && (
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", gap: "1rem" }}>
                     <span style={{ backgroundColor: "#fff7ed", color: "#f97316", border: "1px solid #fed7aa", borderRadius: "999px", padding: "0.25rem 0.6rem", fontSize: "0.65rem", fontWeight: 900, letterSpacing: "0.08em" }}>
@@ -1891,16 +1894,47 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 </div>
               </div>
 
-              <div style={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center", paddingRight: "240px" }}>
-                <button 
-                  className="btn" 
-                  disabled={(currentRound === 1 ? q1Index : q2Index) === 0}
-                  onClick={() => currentRound === 1 ? setQ1Index(p => p - 1) : setQ2Index(p => p - 1)}
-                  style={{ padding: "1rem 2.5rem", borderRadius: "14px", backgroundColor: "#e2e8f0", border: "1px solid #cbd5e1", color: "#1e293b", fontWeight: "900", cursor: ((currentRound === 1 ? q1Index : q2Index) === 0) ? "not-allowed" : "pointer", opacity: ((currentRound === 1 ? q1Index : q2Index) === 0) ? 0.5 : 1 }}
-                >
-                  PREVIOUS
-                </button>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(10, 1fr)", gap: "0.5rem", padding: "1rem", backgroundColor: "#f8fafc", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
+              <div className="flex flex-col xl:flex-row justify-between items-center gap-4 mt-4 w-full">
+                <div className="order-2 xl:order-none flex w-full xl:w-auto justify-between gap-4">
+                  <button 
+                    className="btn" 
+                    disabled={(currentRound === 1 ? q1Index : q2Index) === 0}
+                    onClick={() => currentRound === 1 ? setQ1Index(p => p - 1) : setQ2Index(p => p - 1)}
+                    style={{ padding: "1rem 2.5rem", borderRadius: "14px", backgroundColor: "#e2e8f0", border: "1px solid #cbd5e1", color: "#1e293b", fontWeight: "900", cursor: ((currentRound === 1 ? q1Index : q2Index) === 0) ? "not-allowed" : "pointer", opacity: ((currentRound === 1 ? q1Index : q2Index) === 0) ? 0.5 : 1 }}
+                  >
+                    PREVIOUS
+                  </button>
+
+                  <div className="xl:hidden">
+                    {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
+                      <button 
+                        className="btn btn-primary"
+                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }}
+                        onClick={() => {
+                          currentRound === 1 ? setQ1Index(p => p + 1) : setQ2Index(p => p + 1);
+                        }}
+                      >
+                        SAVE & NEXT
+                      </button>
+                    ) : (
+                      <button 
+                        className="btn btn-danger"
+                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
+                        onClick={() => {
+                          showConfirm(
+                            `Submit Round ${currentRound}`,
+                            `Are you ready to submit Round ${currentRound} and proceed to the next section? You cannot return to this section once submitted.`,
+                            () => submitSection(currentRound)
+                          );
+                        }}
+                      >
+                        SUBMIT ROUND 0{currentRound}
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="order-1 xl:order-none" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(30px, 1fr))", gap: "0.5rem", padding: "1rem", backgroundColor: "#f8fafc", borderRadius: "12px", border: "1px solid #e2e8f0", width: "100%", maxWidth: "380px", justifyContent: "center" }}>
                   {Array.from({ length: 30 }, (_, i) => {
                     const isAnswered = (currentRound === 1 ? r1Answers : r2Answers)[i];
                     const isCurrent = (currentRound === 1 ? q1Index : q2Index) === i;
@@ -1929,170 +1963,171 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     );
                   })}
                 </div>
-                <div style={{ display: "flex", gap: "1rem" }}>
-                    {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
-                      <button 
-                        className="btn btn-primary"
-                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }}
-                        onClick={() => {
-                          currentRound === 1 ? setQ1Index(p => p + 1) : setQ2Index(p => p + 1);
-                        }}
-                      >
-                        SAVE & NEXT
-                      </button>
-                    ) : (
-                      <button 
-                        className="btn btn-danger"
-                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
-                        onClick={() => {
-                          showConfirm(
-                            `Submit Round ${currentRound}`,
-                            `Are you ready to submit Round ${currentRound} and proceed to the next section? You cannot return to this section once submitted.`,
-                            () => submitSection(currentRound)
-                          );
-                        }}
-                      >
-                        SUBMIT ROUND 0{currentRound} & PROCEED
-                      </button>
-                    )}
+
+                <div className="hidden xl:flex order-3 xl:order-none gap-4">
+                  {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
+                    <button 
+                      className="btn btn-primary"
+                      style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }}
+                      onClick={() => {
+                        currentRound === 1 ? setQ1Index(p => p + 1) : setQ2Index(p => p + 1);
+                      }}
+                    >
+                      SAVE & NEXT
+                    </button>
+                  ) : (
+                    <button 
+                      className="btn btn-danger"
+                      style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
+                      onClick={() => {
+                        showConfirm(
+                          `Submit Round ${currentRound}`,
+                          `Are you ready to submit Round ${currentRound} and proceed to the next section? You cannot return to this section once submitted.`,
+                          () => submitSection(currentRound)
+                        );
+                      }}
+                    >
+                      SUBMIT ROUND 0{currentRound} & PROCEED
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           )}
 
           {/* Round 3: Descriptive Writing */}
-          {currentRound === 3 && (
-            <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-              <div style={{ marginBottom: "0.75rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <div>
-                  <h1 style={{ margin: 0, fontSize: "1.3rem" }}>Round 3: Descriptive Writing Assessment</h1>
-                  <p style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>Write a detailed essay for each topic. Switch occurs auto at 5:00.</p>
-                </div>
-                <div style={{ backgroundColor: "#0f172a", color: "white", padding: "0.6rem 1.25rem", borderRadius: "12px", fontWeight: "900", fontFamily: "monospace", fontSize: "1.25rem", boxShadow: "0 4px 12px rgba(0,0,0,0.2)", border: "2px solid #334155" }}>
-                   {Math.floor(r3SubTimer / 60)}:{(r3SubTimer % 60).toString().padStart(2, '0')}
-                   <span style={{ fontSize: "0.6rem", display: "block", color: "#94a3b8", fontWeight: "bold", textAlign: "center" }}>TOPIC {typingTopicIndex + 1} TIME</span>
-                </div>
-              </div>
-
-              <div style={{ display: "flex", gap: "1rem", marginBottom: "0.75rem" }}>
-                <button onClick={() => setTypingTopicIndex(0)} className={`btn ${typingTopicIndex === 0 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1, py: "0.5rem" }}>TOPIC 01 {calculateSubstantialLines(typingTexts[0], studentTopics[0]) >= 8 ? "✅" : ""}</button>
-                <button onClick={() => setTypingTopicIndex(1)} className={`btn ${typingTopicIndex === 1 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1, py: "0.5rem" }}>TOPIC 02 {calculateSubstantialLines(typingTexts[1], studentTopics[1]) >= 8 ? "✅" : ""}</button>
-              </div>
-
-              <div style={{ padding: "1.25rem", backgroundColor: "#f8fafc", borderRadius: "20px", border: "1px solid #e2e8f0", marginBottom: "0.75rem", boxShadow: "inset 0 2px 4px rgba(0,0,0,0.02)" }}>
-                <h4 style={{ margin: "0 0 0.5rem 0", color: "#64748b", textTransform: "uppercase", fontSize: "0.75rem", letterSpacing: "2px", fontWeight: "black" }}>Your Assigned Topic {typingTopicIndex + 1}</h4>
-                <p style={{ fontSize: "1.15rem", fontWeight: "700", lineHeight: "1.4", color: "#1e293b", margin: 0 }}>"{studentTopics[typingTopicIndex]}"</p>
-                
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mt-3 pt-3 border-t border-slate-200">
-                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
-                      <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">Speed (WPM)</div>
-                      <div className="text-xl font-black text-slate-800">{Math.round((typingTexts[typingTopicIndex].trim().split(/\s+/).filter(Boolean).length) / Math.max(0.1, (300 - r3SubTimer) / 60))} WPM</div>
-                    </div>
-                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
-                      <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">Accuracy</div>
-                      <div className="text-xl font-black text-emerald-600">{Math.max(0, Math.min(100, Math.round(100 - (backspaceCounts[typingTopicIndex] * 1.5))))}%</div>
-                    </div>
-                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
-                      <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">Lines Progress</div>
-                      <div className={`text-xl font-black ${calculateSubstantialLines(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex]) >= 18 ? 'text-emerald-600' : 'text-amber-500'}`}>
-                        {calculateSubstantialLines(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex])} / 18
-                      </div>
-                    </div>
-                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
-                      <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">Corrections Used</div>
-                      <div className={`text-xl font-black ${backspaceCounts[typingTopicIndex] >= 15 ? 'text-red-600' : 'text-slate-800'}`}>
-                        {backspaceCounts[typingTopicIndex]} / 15
-                      </div>
-                    </div>
-                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
-                      <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">Words / Chars</div>
-                      <div className="text-lg font-bold text-slate-700">{typingTexts[typingTopicIndex].trim().split(/\s+/).filter(Boolean).length}w / {typingTexts[typingTopicIndex].length}c</div>
-                    </div>
-                </div>
-              </div>
-
-              {backspaceCounts[typingTopicIndex] >= 15 && (
-                <div className="bg-red-50 border-2 border-red-500 text-red-700 p-3 rounded-xl mb-3 font-bold flex items-center gap-3 animate-pulse shadow-lg text-xs">
-                  <span className="text-xl">⚠️</span>
+            {currentRound === 3 && (
+              <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto", height: "100%", display: "flex", flexDirection: "column" }}>
+                <div style={{ marginBottom: "0.75rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0 }}>
                   <div>
-                    <div className="uppercase tracking-wider text-[10px] font-extrabold">Correction Lock Enabled</div>
-                    <div>Maximum allowed backspaces (15/15) consumed for Topic {typingTopicIndex + 1}. All further deletion actions have been electronically locked.</div>
+                    <h1 style={{ margin: 0, fontSize: "1.4rem" }}>Round 3: Descriptive Writing</h1>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.75rem" }}>Write a detailed essay for each topic. Switch occurs auto at 5:00.</p>
+                  </div>
+                  <div style={{ backgroundColor: "#0f172a", color: "white", padding: "0.5rem 1.25rem", borderRadius: "12px", fontWeight: "900", fontFamily: "monospace", fontSize: "1.25rem", boxShadow: "0 4px 12px rgba(0,0,0,0.2)", border: "2px solid #334155" }}>
+                     {Math.floor(r3SubTimer / 60)}:{(r3SubTimer % 60).toString().padStart(2, '0')}
+                     <span style={{ fontSize: "0.6rem", display: "block", color: "#94a3b8", fontWeight: "bold", textAlign: "center" }}>TOPIC {typingTopicIndex + 1} TIME</span>
                   </div>
                 </div>
-              )}
-              {typingWarning && backspaceCounts[typingTopicIndex] < 15 && (
-                <div className="bg-amber-50 border-2 border-amber-500 text-amber-700 p-3 rounded-xl mb-3 font-bold flex items-center gap-3 text-xs">
-                  <span className="text-xl">⚠️</span>
-                  <div>{typingWarning}</div>
+
+                <div style={{ display: "flex", gap: "1rem", marginBottom: "0.75rem", flexShrink: 0 }}>
+                  <button onClick={() => setTypingTopicIndex(0)} className={`btn ${typingTopicIndex === 0 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1, padding: "0.5rem" }}>TOPIC 01 {calculateSubstantialLines(typingTexts[0], studentTopics[0]) >= 8 ? "✅" : ""}</button>
+                  <button onClick={() => setTypingTopicIndex(1)} className={`btn ${typingTopicIndex === 1 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1, padding: "0.5rem" }}>TOPIC 02 {calculateSubstantialLines(typingTexts[1], studentTopics[1]) >= 8 ? "✅" : ""}</button>
                 </div>
-              )}
 
-              {(() => {
-                const feedback = getTypingFeedback(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex]);
-                if (feedback) {
-                  return (
-                    <div className="bg-red-50 border-2 border-red-500 text-red-700 p-3 rounded-xl mb-3 font-bold flex items-center gap-3 animate-pulse shadow-lg text-xs">
-                      <span className="text-xl">🛑</span>
-                      <div>
-                        <div className="uppercase tracking-wider text-[10px] font-extrabold">Invalid Content Detected</div>
-                        <div>{feedback} Lines progress will remain 0 until relevant content is provided.</div>
+                <div style={{ padding: "1rem 1.5rem", backgroundColor: "#f8fafc", borderRadius: "16px", border: "1px solid #e2e8f0", marginBottom: "0.75rem", boxShadow: "inset 0 2px 4px rgba(0,0,0,0.02)", flexShrink: 0 }}>
+                  <h4 style={{ margin: "0 0 0.5rem 0", color: "#64748b", textTransform: "uppercase", fontSize: "0.75rem", letterSpacing: "1.5px", fontWeight: "black" }}>Your Assigned Topic {typingTopicIndex + 1}</h4>
+                  <p style={{ fontSize: "1.1rem", fontWeight: "700", lineHeight: "1.4", color: "#1e293b", margin: 0 }}>"{studentTopics[typingTopicIndex]}"</p>
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mt-4 pt-4 border-t border-slate-200">
+                      <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
+                        <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Speed (WPM)</div>
+                        <div className="text-lg font-black text-slate-800">{Math.round((typingTexts[typingTopicIndex].trim().split(/\s+/).filter(Boolean).length) / Math.max(0.1, (300 - r3SubTimer) / 60))} WPM</div>
                       </div>
+                      <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
+                        <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Accuracy</div>
+                        <div className="text-lg font-black text-emerald-600">{Math.max(0, Math.min(100, Math.round(100 - (backspaceCounts[typingTopicIndex] * 1.5))))}%</div>
+                      </div>
+                      <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
+                        <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Lines Progress</div>
+                        <div className={`text-lg font-black ${calculateSubstantialLines(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex]) >= 18 ? 'text-emerald-600' : 'text-amber-500'}`}>
+                          {calculateSubstantialLines(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex])} / 18
+                        </div>
+                      </div>
+                      <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
+                        <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Corrections</div>
+                        <div className={`text-lg font-black ${backspaceCounts[typingTopicIndex] >= 15 ? 'text-red-600' : 'text-slate-800'}`}>
+                          {backspaceCounts[typingTopicIndex]} / 15
+                        </div>
+                      </div>
+                      <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
+                        <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Words / Chars</div>
+                        <div className="text-lg font-bold text-slate-700">{typingTexts[typingTopicIndex].trim().split(/\s+/).filter(Boolean).length}w / {typingTexts[typingTopicIndex].length}c</div>
+                      </div>
+                  </div>
+                </div>
+
+                {backspaceCounts[typingTopicIndex] >= 15 && (
+                  <div className="bg-red-50 border-2 border-red-500 text-red-700 p-3 rounded-xl mb-3 font-bold flex items-center gap-3 animate-pulse shadow-md flex-shrink-0">
+                    <span className="text-xl">⚠️</span>
+                    <div>
+                      <div className="uppercase tracking-wider text-[10px] font-extrabold">Correction Lock Enabled</div>
+                      <div className="text-xs">Maximum allowed backspaces (15/15) consumed for Topic {typingTopicIndex + 1}. All further deletion actions have been electronically locked.</div>
                     </div>
-                  );
-                }
-                return null;
-              })()}
+                  </div>
+                )}
+                {typingWarning && backspaceCounts[typingTopicIndex] < 15 && (
+                  <div className="bg-amber-50 border-2 border-amber-500 text-amber-700 p-3 rounded-xl mb-3 font-bold flex items-center gap-3 flex-shrink-0">
+                    <span className="text-xl">⚠️</span>
+                    <div className="text-xs">{typingWarning}</div>
+                  </div>
+                )}
 
-              <textarea 
-                style={{ width: "100%", flex: 1, minHeight: "150px", padding: "1rem", fontSize: "1rem", fontFamily: "'Inter', sans-serif", borderRadius: "16px", border: "2px solid #e2e8f0", resize: "none", backgroundColor: "#fff", lineHeight: "1.5", color: "#334155", outline: "none", transition: "border-color 0.2s" }}
-                value={typingTexts[typingTopicIndex]}
-                onChange={e => {
-                  const t = [...typingTexts];
-                  t[typingTopicIndex] = e.target.value;
-                  setTypingTexts(t);
-                }}
-                onKeyDown={e => {
-                  if (e.key === "Backspace") {
-                    if (backspaceCounts[typingTopicIndex] >= 15) {
-                      e.preventDefault();
-                      setTypingWarning(`⚠️ CRITICAL WARNING: Maximum backspace limit reached (15/15) for Topic ${typingTopicIndex + 1}. Further backspaces are disabled.`);
-                      return;
-                    }
-                    const c = [...backspaceCounts];
-                    c[typingTopicIndex]++;
-                    setBackspaceCounts(c);
+                {(() => {
+                  const feedback = getTypingFeedback(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex]);
+                  if (feedback) {
+                    return (
+                      <div className="bg-red-50 border-2 border-red-500 text-red-700 p-3 rounded-xl mb-3 font-bold flex items-center gap-3 animate-pulse shadow-md flex-shrink-0">
+                        <span className="text-xl">🛑</span>
+                        <div>
+                          <div className="uppercase tracking-wider text-[10px] font-extrabold">Invalid Content Detected</div>
+                          <div className="text-xs">{feedback} Lines progress will remain 0 until relevant content is provided.</div>
+                        </div>
+                      </div>
+                    );
                   }
-                }}
-                className="focus:border-[#FF5A1F]"
-                placeholder="Start writing your essay here. Focus on clarity, structure, and technical relevance..."
-              />
+                  return null;
+                })()}
 
-              <div style={{ marginTop: "0.75rem", display: "flex", justifyContent: "flex-start" }}>
-                  {typingTopicIndex === 0 ? (
-                    <button 
-                      className="btn btn-primary" 
-                      style={{ padding: "0.8rem 3rem", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900", borderRadius: "14px" }}
-                      onClick={() => { setTypingTopicIndex(1); setR3SubTimer(300); }}
-                    >
-                      SWITCH TO TOPIC 2
-                    </button>
-                  ) : (
+                <textarea 
+                  style={{ width: "100%", flex: 1, minHeight: "150px", padding: "1rem", fontSize: "1rem", fontFamily: "'Inter', sans-serif", borderRadius: "16px", border: "2px solid #e2e8f0", resize: "none", backgroundColor: "#fff", lineHeight: "1.5", color: "#334155", outline: "none", transition: "border-color 0.2s" }}
+                  value={typingTexts[typingTopicIndex]}
+                  onChange={e => {
+                    const t = [...typingTexts];
+                    t[typingTopicIndex] = e.target.value;
+                    setTypingTexts(t);
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === "Backspace") {
+                      if (backspaceCounts[typingTopicIndex] >= 15) {
+                        e.preventDefault();
+                        setTypingWarning(`⚠️ CRITICAL WARNING: Maximum backspace limit reached (15/15) for Topic ${typingTopicIndex + 1}. Further backspaces are disabled.`);
+                        return;
+                      }
+                      const c = [...backspaceCounts];
+                      c[typingTopicIndex]++;
+                      setBackspaceCounts(c);
+                    }
+                  }}
+                  className="focus:border-[#FF5A1F]"
+                  placeholder="Start writing your essay here. Focus on clarity, structure, and technical relevance..."
+                />
+
+                <div style={{ marginTop: "0.75rem", display: "flex", justifyContent: "flex-start" }}>
+                    {typingTopicIndex === 0 ? (
                       <button 
-                        className="btn btn-danger" 
-                        style={{ padding: "0.8rem 3rem", backgroundColor: "#dc2626", color: "#ffffff", fontWeight: "900", borderRadius: "14px", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)" }}
-                        onClick={() => {
-                          showConfirm(
-                            "Submit Round 3",
-                            "Are you ready to submit your Descriptive Writing responses and proceed to the Technical Round?",
-                            () => submitSection(3)
-                          );
-                        }}
+                        className="btn btn-primary" 
+                        style={{ padding: "0.8rem 3rem", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900", borderRadius: "14px" }}
+                        onClick={() => { setTypingTopicIndex(1); setR3SubTimer(300); }}
                       >
-                        FINALIZE ROUND 3 & START TECHNICAL
+                        SWITCH TO TOPIC 2
                       </button>
-                  )}
+                    ) : (
+                        <button 
+                          className="btn btn-danger" 
+                          style={{ padding: "1.2rem 4rem", backgroundColor: "#dc2626", color: "#ffffff", fontWeight: "900", borderRadius: "14px", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)" }}
+                          onClick={() => {
+                            showConfirm(
+                              "Submit Round 3",
+                              "Are you ready to submit your Descriptive Writing responses and proceed to the Technical Round?",
+                              () => submitSection(3)
+                            );
+                          }}
+                        >
+                          FINALIZE ROUND 3 & START TECHNICAL
+                        </button>
+                    )}
+                </div>
               </div>
-            </div>
           )}
 
           {/* Round 4: Technical (MCQ or Coding) */}
@@ -2100,10 +2135,10 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
             <div className="animate-fade-in" style={{ height: "100%", display: "flex", flexDirection: "column" }}>
               {isMcqDomain ? (
                 <div style={{ maxWidth: "1500px", margin: "0 auto", width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
-                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-                    <h1 style={{ margin: 0 }}>{studentDomain} {isMcqDomain ? "Domain MCQ" : "Coding"} Mastery</h1>
+                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem", flexShrink: 0 }}>
+                    <h1 style={{ margin: 0, fontSize: "1.4rem" }}>{studentDomain} {isMcqDomain ? "Domain MCQ" : "Coding"} Mastery</h1>
                     <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                      <div className="timer-active" style={{ fontSize: "0.9rem", fontWeight: "900", color: "#f97316", fontFamily: "monospace", backgroundColor: "#fff7ed", padding: "0.2rem 0.5rem", borderRadius: "6px", display: "flex", alignItems: "center", gap: "0.5rem", width: "fit-content" }}>
+                      <div className="timer-active" style={{ fontSize: "0.9rem", fontStyle: "normal", fontWeight: "900", color: "#f97316", fontFamily: "monospace", backgroundColor: "#fff7ed", padding: "0.2rem 0.5rem", borderRadius: "6px", display: "flex", alignItems: "center", gap: "0.5rem", width: "fit-content" }}>
                         <span style={{ fontSize: "0.8rem", color: "#fb923c" }}>⏱</span>
                         <Timer initialTime={timeLimits[4]} isActive={examState === "ACTIVE"} onExpiry={handleRoundExpiry} />
                       </div>
@@ -2111,7 +2146,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  <div style={{ padding: "1.5rem", backgroundColor: "white", borderRadius: "16px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)", flex: 1, display: "flex", flexDirection: "column" }}>
+                  <div style={{ padding: "1.5rem", backgroundColor: "white", borderRadius: "16px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)", flex: 1, display: "flex", flexDirection: "column", overflowY: "auto" }}>
                     <p style={{ fontSize: "1.1rem", fontWeight: "600", color: "#1e293b", lineHeight: "1.5", marginBottom: "1.5rem" }}>
                       {codingQuestions[codingQuestionIndex]?.q}
                     </p>
@@ -2140,17 +2175,41 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  <div style={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem", paddingRight: "240px" }}>
-                    <button 
-                      className="btn" 
-                      disabled={codingQuestionIndex === 0} 
-                      onClick={() => setCodingQuestionIndex(p => p - 1)}
-                      style={{ padding: "1rem 2.5rem", borderRadius: "14px", backgroundColor: "#e2e8f0", border: "1px solid #cbd5e1", color: "#1e293b", fontWeight: "900", cursor: (codingQuestionIndex === 0) ? "not-allowed" : "pointer", opacity: (codingQuestionIndex === 0) ? 0.5 : 1 }}
-                    >
-                      PREVIOUS
-                    </button>
+                  <div className="flex flex-col xl:flex-row justify-between items-center gap-4 mt-4 w-full" style={{ paddingRight: "calc(clamp(140px, 12vw, 200px) + 2rem)" }}>
+                    <div className="order-2 xl:order-none flex w-full xl:w-auto justify-between gap-4">
+                      <button 
+                        className="btn" 
+                        disabled={codingQuestionIndex === 0} 
+                        onClick={() => setCodingQuestionIndex(p => p - 1)}
+                        style={{ padding: "1rem 2.5rem", borderRadius: "14px", backgroundColor: "#e2e8f0", border: "1px solid #cbd5e1", color: "#1e293b", fontWeight: "900", cursor: (codingQuestionIndex === 0) ? "not-allowed" : "pointer", opacity: (codingQuestionIndex === 0) ? 0.5 : 1 }}
+                      >
+                        PREVIOUS
+                      </button>
+
+                      <div className="xl:hidden">
+                        {codingQuestionIndex < 39 ? (
+                          <button className="btn btn-primary" style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }} onClick={() => setCodingQuestionIndex(p => p + 1)}>
+                            NEXT QUESTION
+                          </button>
+                        ) : (
+                          <button 
+                            className="btn btn-danger" 
+                            style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
+                            onClick={() => {
+                              showConfirm(
+                                "Final Submission",
+                                "Are you sure you want to end the entire assessment? This will lock all sections and calculate your final score.",
+                                () => handleFinalSubmit()
+                              );
+                            }}
+                          >
+                            SUBMIT ROUND 04
+                          </button>
+                        )}
+                      </div>
+                    </div>
                     
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(10, 1fr)", gap: "0.4rem", padding: "0.8rem", backgroundColor: "#f8fafc", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
+                    <div className="order-1 xl:order-none" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(24px, 1fr))", gap: "0.4rem", padding: "0.8rem", backgroundColor: "#f8fafc", borderRadius: "12px", border: "1px solid #e2e8f0", width: "100%", maxWidth: "380px", justifyContent: "center" }}>
                       {Array.from({ length: 40 }, (_, i) => {
                         const isAnswered = codingAnswers[i];
                         const isCurrent = codingQuestionIndex === i;
@@ -2179,33 +2238,33 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       })}
                     </div>
 
-                    <div style={{ display: "flex", gap: "1rem" }}>
-                    {codingQuestionIndex < 39 ? (
-                      <button className="btn btn-primary" onClick={() => setCodingQuestionIndex(p => p + 1)}>
-                        NEXT QUESTION
-                      </button>
-                    ) : (
-                      <button 
-                        className="btn btn-danger" 
-                        style={{ backgroundColor: "#dc2626", color: "white" }}
-                        onClick={() => {
-                          showConfirm(
-                            "Final Submission",
-                            "Are you sure you want to end the entire assessment? This will lock all sections and calculate your final score.",
-                            () => handleFinalSubmit()
-                          );
-                        }}
-                      >
-                        SUBMIT TECHNICAL ROUND
-                      </button>
-                    )}
+                    <div className="hidden xl:flex order-3 xl:order-none gap-4">
+                      {codingQuestionIndex < 39 ? (
+                        <button className="btn btn-primary" style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }} onClick={() => setCodingQuestionIndex(p => p + 1)}>
+                          NEXT QUESTION
+                        </button>
+                      ) : (
+                        <button 
+                          className="btn btn-danger" 
+                          style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
+                          onClick={() => {
+                            showConfirm(
+                              "Final Submission",
+                              "Are you sure you want to end the entire assessment? This will lock all sections and calculate your final score.",
+                              () => handleFinalSubmit()
+                            );
+                          }}
+                        >
+                          SUBMIT TECHNICAL ROUND
+                        </button>
+                      )}
                     </div>
-                </div>
+                  </div>
                 </div>
               ) : (
-                <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                  <div style={{ display: "flex", gap: "2rem", marginBottom: "1rem", alignItems: "center" }}>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "180px", flexShrink: 0 }}>
+                <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+                  <div style={{ display: "flex", gap: "2rem", marginBottom: "0.75rem", alignItems: "center", flexShrink: 0 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", width: "180px", flexShrink: 0 }}>
                       <Logo size="sm" />
                       <div className="timer-active" style={{ fontSize: "0.9rem", fontWeight: "900", color: "#f97316", fontFamily: "monospace", backgroundColor: "#fff7ed", padding: "0.2rem 0.5rem", borderRadius: "6px", display: "flex", alignItems: "center", gap: "0.5rem", width: "fit-content" }}>
                         <span style={{ fontSize: "0.8rem", color: "#fb923c" }}>⏳</span>
@@ -2228,7 +2287,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     {codingQuestionIndex === codingQuestions.length - 1 && (
                       <button 
                         className="btn btn-danger animate-pulse" 
-                        style={{ backgroundColor: "#dc2626", color: "white", padding: "0.8rem 2rem", borderRadius: "12px", fontWeight: "900", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)", flexShrink: 0 }}
+                        style={{ backgroundColor: "#dc2626", color: "white", padding: "0.8rem 2rem", borderRadius: "12px", fontWeight: "900", display: "flex", alignItems: "center", justifyItems: "center", justifyContent: "center", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)", flexShrink: 0 }}
                         onClick={() => {
                           const attemptedCount = Object.keys(codingSubmissions).length;
                           const totalCodingQuestions = codingQuestions.length;
@@ -2311,7 +2370,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       </div>
                     </div>
                     
-                    <div style={{ flex: "0 0 calc(60% - 1rem)", display: "flex", flexDirection: "column", height: "100%" }}>
+                    <div style={{ flex: "0 0 calc(60% - 1rem)", display: "flex", flexDirection: "column", height: "100%", overflow: "hidden", position: "relative" }}>
                       <MemoizedCodeEditor
                         questionId={`q_${codingQuestionIndex}`}
                         questionTitle={codingQuestions[codingQuestionIndex]?.title}
@@ -2333,11 +2392,11 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  <div style={{ marginTop: "1.5rem", display: "flex", justifyContent: "flex-end" }}>
+                  <div style={{ marginTop: "0.75rem", display: "flex", justifyContent: "flex-end", flexShrink: 0 }}>
                     {codingQuestionIndex < codingQuestions.length - 1 && (
                       <button 
                         className="btn" 
-                        style={{ backgroundColor: "#64748b", color: "white", padding: "0.8rem 2.5rem", borderRadius: "12px", fontWeight: "800", fontSize: "0.9rem", transition: "all 0.2s" }}
+                        style={{ backgroundColor: "#64748b", color: "white", padding: "0.6rem 2rem", borderRadius: "12px", fontWeight: "800", fontSize: "0.85rem", transition: "all 0.2s" }}
                         onClick={() => setCodingQuestionIndex(p => p + 1)}
                       >
                         NEXT TASK
@@ -2351,30 +2410,13 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         </div>
       </div>
       {examState === "ACTIVE" && (
-        <div className={`ai-camera-container`} style={{ 
-          position: "fixed", 
-          bottom: "20px", 
-          right: "20px",
-          width: "200px",
-          height: "200px",
-          borderRadius: "12px",
-          overflow: "hidden",
-          border: "2px solid #334155",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-          zIndex: 1000, 
-          transition: "all 0.3s ease",
-          pointerEvents: "none"
-        }}>
-          <div style={{ pointerEvents: "auto", width: "100%", height: "100%" }}>
-            <MemoizedAIProctor 
-              onViolation={handleProctorViolation} 
-              isExamActive={examState === "ACTIVE"} 
-              observationLevel={warnings.length}
-              observationTimer={observationTimer}
-              isRound4={currentRound === 4}
-            />
-          </div>
-        </div>
+        <MemoizedAIProctor 
+          onViolation={handleProctorViolation} 
+          isExamActive={examState === "ACTIVE"} 
+          observationLevel={warnings.length}
+          observationTimer={observationTimer}
+          isRound4={currentRound === 4}
+        />
       )}
       <AnimatePresence>
         {currentWarning && (
@@ -2418,7 +2460,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
             <div className={`w-2 h-2 rounded-full ${warnings.length === 1 ? 'bg-yellow-500 shadow-[0_0_8px_#eab308]' : 'bg-orange-500 shadow-[0_0_8px_#f97316]'}`} />
             <span className="text-[10px] font-black uppercase tracking-[0.2em]">
               {warnings.length === 1 ? "Strict AI Observation" : "Critical AI Observation"} 
-              {observationTimer !== null && ` (${Math.floor(observationTimer/60)}m ${observationTimer%60}s)`}
+              {observationTimer !== null && ` (${Math.floor(observationTimer!/60)}m ${observationTimer!%60}s)`}
             </span>
           </motion.div>
           <div className="text-[8px] font-bold text-slate-500 uppercase bg-slate-900/50 px-2 py-1 rounded-md border border-white/5">
