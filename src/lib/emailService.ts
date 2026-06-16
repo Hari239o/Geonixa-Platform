@@ -173,6 +173,10 @@ class EmailService {
         headers: {
           'X-Entity-Ref-ID': logId || Date.now().toString(),
           'List-Unsubscribe': `<mailto:${fromAddress}?subject=unsubscribe>`,
+          'X-Priority': '3 (Normal)',
+          'X-Mailer': 'Nodemailer/GeonixaPlatform',
+          'Precedence': 'transactional',
+          'Message-ID': `<${Date.now()}.${Math.random().toString(36).substring(2)}@geonixa.com>`,
         },
         text: html.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '').replace(/<[^>]*>?/gm, '\n').replace(/\n\s*\n/g, '\n\n').trim(),
         html,

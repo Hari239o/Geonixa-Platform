@@ -79,7 +79,12 @@ const withAntiCopyMarkers = (
   sequenceFingerprint: string,
 ): AssessmentQuestion => {
   const optionSeed = seed + ((index + 1) * 193) + (kind === "grammar" ? 1709 : 3101);
-  const opts = seededShuffle(question.opts || [], optionSeed);
+  const rawOpts = question.opts?.length ? question.opts 
+    : (question as any).options?.length ? (question as any).options 
+    : (question as any).choices?.length ? (question as any).choices 
+    : (question as any).mcqOptions?.length ? (question as any).mcqOptions 
+    : [];
+  const opts = seededShuffle(rawOpts, optionSeed);
   const patternKey = getPattern(kind, question);
   const prefix = kind === "aptitude" ? "APT" : "GRM";
   const optionSetHash = hashString(`${question.q}|${opts.join("|")}|${optionSeed}`).toString(36).toUpperCase();
