@@ -1891,7 +1891,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 </div>
               </div>
 
-              <div style={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div style={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center", paddingRight: "240px" }}>
                 <button 
                   className="btn" 
                   disabled={(currentRound === 1 ? q1Index : q2Index) === 0}
@@ -1933,7 +1933,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
                       <button 
                         className="btn btn-primary"
-                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900", marginRight: "220px" }}
+                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }}
                         onClick={() => {
                           currentRound === 1 ? setQ1Index(p => p + 1) : setQ2Index(p => p + 1);
                         }}
@@ -1943,7 +1943,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     ) : (
                       <button 
                         className="btn btn-danger"
-                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white", marginRight: "220px" }}
+                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
                         onClick={() => {
                           showConfirm(
                             `Submit Round ${currentRound}`,
@@ -2140,7 +2140,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  <div style={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
+                  <div style={{ marginTop: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem", paddingRight: "240px" }}>
                     <button 
                       className="btn" 
                       disabled={codingQuestionIndex === 0} 
@@ -2179,7 +2179,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       })}
                     </div>
 
-                    <div style={{ display: "flex", gap: "1rem", marginRight: "220px" }}>
+                    <div style={{ display: "flex", gap: "1rem" }}>
                     {codingQuestionIndex < 39 ? (
                       <button className="btn btn-primary" onClick={() => setCodingQuestionIndex(p => p + 1)}>
                         NEXT QUESTION
