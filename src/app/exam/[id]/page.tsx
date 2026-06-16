@@ -1714,7 +1714,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   }
 
   return (
-    <div style={{ display: "flex", height: "100dvh", backgroundColor: "var(--bg-deep)", position: "relative" }}>
+    <div style={{ display: "flex", height: "100dvh", backgroundColor: "var(--bg-deep)", position: "relative", overflow: "hidden" }}>
       <style>{`
         @keyframes timerGlow {
           0% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.2); }
@@ -1832,7 +1832,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         {/* Neural Guard Scanline */}
         <div className="absolute inset-0 pointer-events-none z-101 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-size-[100%_4px,3px_100%] opacity-20" />
 
-        <div style={{ padding: "1.5rem", paddingBottom: "1.5rem", flex: 1, overflowY: "auto", position: "relative", zIndex: 1 }}>
+        <div style={{ padding: "1rem", flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", position: "relative", zIndex: 1 }}>
           {/* Round 1: Aptitude & Round 2: Grammar */}
           {(currentRound === 1 || currentRound === 2) && (
             <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto", height: "100%", display: "flex", flexDirection: "column" }}>
@@ -1962,67 +1962,67 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
           {/* Round 3: Descriptive Writing */}
           {currentRound === 3 && (
-            <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto" }}>
-              <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div style={{ marginBottom: "0.75rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div>
-                  <h1 style={{ margin: 0 }}>Round 3: Descriptive Writing Assessment</h1>
-                  <p style={{ color: "var(--text-muted)" }}>Write a detailed essay for each topic. Switch occurs auto at 5:00.</p>
+                  <h1 style={{ margin: 0, fontSize: "1.3rem" }}>Round 3: Descriptive Writing Assessment</h1>
+                  <p style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>Write a detailed essay for each topic. Switch occurs auto at 5:00.</p>
                 </div>
-                <div style={{ backgroundColor: "#0f172a", color: "white", padding: "0.8rem 1.5rem", borderRadius: "12px", fontWeight: "900", fontFamily: "monospace", fontSize: "1.5rem", boxShadow: "0 4px 12px rgba(0,0,0,0.2)", border: "2px solid #334155" }}>
+                <div style={{ backgroundColor: "#0f172a", color: "white", padding: "0.6rem 1.25rem", borderRadius: "12px", fontWeight: "900", fontFamily: "monospace", fontSize: "1.25rem", boxShadow: "0 4px 12px rgba(0,0,0,0.2)", border: "2px solid #334155" }}>
                    {Math.floor(r3SubTimer / 60)}:{(r3SubTimer % 60).toString().padStart(2, '0')}
-                   <span style={{ fontSize: "0.7rem", display: "block", color: "#94a3b8", fontWeight: "bold", textAlign: "center" }}>TOPIC {typingTopicIndex + 1} TIME</span>
+                   <span style={{ fontSize: "0.6rem", display: "block", color: "#94a3b8", fontWeight: "bold", textAlign: "center" }}>TOPIC {typingTopicIndex + 1} TIME</span>
                 </div>
               </div>
 
-              <div style={{ display: "flex", gap: "1rem", marginBottom: "2rem" }}>
-                <button onClick={() => setTypingTopicIndex(0)} className={`btn ${typingTopicIndex === 0 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1 }}>TOPIC 01 {calculateSubstantialLines(typingTexts[0], studentTopics[0]) >= 8 ? "✅" : ""}</button>
-                <button onClick={() => setTypingTopicIndex(1)} className={`btn ${typingTopicIndex === 1 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1 }}>TOPIC 02 {calculateSubstantialLines(typingTexts[1], studentTopics[1]) >= 8 ? "✅" : ""}</button>
+              <div style={{ display: "flex", gap: "1rem", marginBottom: "0.75rem" }}>
+                <button onClick={() => setTypingTopicIndex(0)} className={`btn ${typingTopicIndex === 0 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1, py: "0.5rem" }}>TOPIC 01 {calculateSubstantialLines(typingTexts[0], studentTopics[0]) >= 8 ? "✅" : ""}</button>
+                <button onClick={() => setTypingTopicIndex(1)} className={`btn ${typingTopicIndex === 1 ? "btn-primary" : "btn-outline"}`} style={{ flex: 1, py: "0.5rem" }}>TOPIC 02 {calculateSubstantialLines(typingTexts[1], studentTopics[1]) >= 8 ? "✅" : ""}</button>
               </div>
 
-              <div style={{ padding: "2.5rem", backgroundColor: "#f8fafc", borderRadius: "20px", border: "1px solid #e2e8f0", marginBottom: "2.5rem", boxShadow: "inset 0 2px 4px rgba(0,0,0,0.02)" }}>
-                <h4 style={{ margin: "0 0 1rem 0", color: "#64748b", textTransform: "uppercase", fontSize: "0.8rem", letterSpacing: "2px", fontWeight: "black" }}>Your Assigned Topic {typingTopicIndex + 1}</h4>
-                <p style={{ fontSize: "1.4rem", fontWeight: "700", lineHeight: "1.5", color: "#1e293b", margin: 0 }}>"{studentTopics[typingTopicIndex]}"</p>
+              <div style={{ padding: "1.25rem", backgroundColor: "#f8fafc", borderRadius: "20px", border: "1px solid #e2e8f0", marginBottom: "0.75rem", boxShadow: "inset 0 2px 4px rgba(0,0,0,0.02)" }}>
+                <h4 style={{ margin: "0 0 0.5rem 0", color: "#64748b", textTransform: "uppercase", fontSize: "0.75rem", letterSpacing: "2px", fontWeight: "black" }}>Your Assigned Topic {typingTopicIndex + 1}</h4>
+                <p style={{ fontSize: "1.15rem", fontWeight: "700", lineHeight: "1.4", color: "#1e293b", margin: 0 }}>"{studentTopics[typingTopicIndex]}"</p>
                 
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6 pt-6 border-t border-slate-200">
-                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-                      <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Speed (WPM)</div>
-                      <div className="text-2xl font-black text-slate-800">{Math.round((typingTexts[typingTopicIndex].trim().split(/\s+/).filter(Boolean).length) / Math.max(0.1, (300 - r3SubTimer) / 60))} WPM</div>
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mt-3 pt-3 border-t border-slate-200">
+                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
+                      <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">Speed (WPM)</div>
+                      <div className="text-xl font-black text-slate-800">{Math.round((typingTexts[typingTopicIndex].trim().split(/\s+/).filter(Boolean).length) / Math.max(0.1, (300 - r3SubTimer) / 60))} WPM</div>
                     </div>
-                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-                      <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Accuracy</div>
-                      <div className="text-2xl font-black text-emerald-600">{Math.max(0, Math.min(100, Math.round(100 - (backspaceCounts[typingTopicIndex] * 1.5))))}%</div>
+                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
+                      <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">Accuracy</div>
+                      <div className="text-xl font-black text-emerald-600">{Math.max(0, Math.min(100, Math.round(100 - (backspaceCounts[typingTopicIndex] * 1.5))))}%</div>
                     </div>
-                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-                      <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Lines Progress</div>
-                      <div className={`text-2xl font-black ${calculateSubstantialLines(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex]) >= 18 ? 'text-emerald-600' : 'text-amber-500'}`}>
+                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
+                      <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">Lines Progress</div>
+                      <div className={`text-xl font-black ${calculateSubstantialLines(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex]) >= 18 ? 'text-emerald-600' : 'text-amber-500'}`}>
                         {calculateSubstantialLines(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex])} / 18
                       </div>
                     </div>
-                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-                      <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Corrections Used</div>
-                      <div className={`text-2xl font-black ${backspaceCounts[typingTopicIndex] >= 15 ? 'text-red-600' : 'text-slate-800'}`}>
+                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
+                      <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">Corrections Used</div>
+                      <div className={`text-xl font-black ${backspaceCounts[typingTopicIndex] >= 15 ? 'text-red-600' : 'text-slate-800'}`}>
                         {backspaceCounts[typingTopicIndex]} / 15
                       </div>
                     </div>
-                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-                      <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Words / Chars</div>
-                      <div className="text-xl font-bold text-slate-700">{typingTexts[typingTopicIndex].trim().split(/\s+/).filter(Boolean).length}w / {typingTexts[typingTopicIndex].length}c</div>
+                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
+                      <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">Words / Chars</div>
+                      <div className="text-lg font-bold text-slate-700">{typingTexts[typingTopicIndex].trim().split(/\s+/).filter(Boolean).length}w / {typingTexts[typingTopicIndex].length}c</div>
                     </div>
                 </div>
               </div>
 
               {backspaceCounts[typingTopicIndex] >= 15 && (
-                <div className="bg-red-50 border-2 border-red-500 text-red-700 p-4 rounded-xl mb-6 font-bold flex items-center gap-3 animate-pulse shadow-lg">
-                  <span className="text-2xl">⚠️</span>
+                <div className="bg-red-50 border-2 border-red-500 text-red-700 p-3 rounded-xl mb-3 font-bold flex items-center gap-3 animate-pulse shadow-lg text-xs">
+                  <span className="text-xl">⚠️</span>
                   <div>
-                    <div className="uppercase tracking-wider text-xs font-extrabold">Correction Lock Enabled</div>
+                    <div className="uppercase tracking-wider text-[10px] font-extrabold">Correction Lock Enabled</div>
                     <div>Maximum allowed backspaces (15/15) consumed for Topic {typingTopicIndex + 1}. All further deletion actions have been electronically locked.</div>
                   </div>
                 </div>
               )}
               {typingWarning && backspaceCounts[typingTopicIndex] < 15 && (
-                <div className="bg-amber-50 border-2 border-amber-500 text-amber-700 p-4 rounded-xl mb-6 font-bold flex items-center gap-3">
-                  <span className="text-2xl">⚠️</span>
+                <div className="bg-amber-50 border-2 border-amber-500 text-amber-700 p-3 rounded-xl mb-3 font-bold flex items-center gap-3 text-xs">
+                  <span className="text-xl">⚠️</span>
                   <div>{typingWarning}</div>
                 </div>
               )}
@@ -2031,10 +2031,10 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 const feedback = getTypingFeedback(typingTexts[typingTopicIndex], studentTopics[typingTopicIndex]);
                 if (feedback) {
                   return (
-                    <div className="bg-red-50 border-2 border-red-500 text-red-700 p-4 rounded-xl mb-6 font-bold flex items-center gap-3 animate-pulse shadow-lg">
-                      <span className="text-2xl">🛑</span>
+                    <div className="bg-red-50 border-2 border-red-500 text-red-700 p-3 rounded-xl mb-3 font-bold flex items-center gap-3 animate-pulse shadow-lg text-xs">
+                      <span className="text-xl">🛑</span>
                       <div>
-                        <div className="uppercase tracking-wider text-xs font-extrabold">Invalid Content Detected</div>
+                        <div className="uppercase tracking-wider text-[10px] font-extrabold">Invalid Content Detected</div>
                         <div>{feedback} Lines progress will remain 0 until relevant content is provided.</div>
                       </div>
                     </div>
@@ -2044,7 +2044,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
               })()}
 
               <textarea 
-                style={{ width: "100%", height: "250px", padding: "1.5rem", fontSize: "1.05rem", fontFamily: "'Inter', sans-serif", borderRadius: "16px", border: "2px solid #e2e8f0", resize: "none", backgroundColor: "#fff", lineHeight: "1.6", color: "#334155", outline: "none", transition: "border-color 0.2s" }}
+                style={{ width: "100%", flex: 1, minHeight: "150px", padding: "1rem", fontSize: "1rem", fontFamily: "'Inter', sans-serif", borderRadius: "16px", border: "2px solid #e2e8f0", resize: "none", backgroundColor: "#fff", lineHeight: "1.5", color: "#334155", outline: "none", transition: "border-color 0.2s" }}
                 value={typingTexts[typingTopicIndex]}
                 onChange={e => {
                   const t = [...typingTexts];
@@ -2067,11 +2067,11 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 placeholder="Start writing your essay here. Focus on clarity, structure, and technical relevance..."
               />
 
-              <div style={{ marginTop: "2.5rem", display: "flex", justifyContent: "flex-start", marginLeft: "20px" }}>
+              <div style={{ marginTop: "0.75rem", display: "flex", justifyContent: "flex-start" }}>
                   {typingTopicIndex === 0 ? (
                     <button 
                       className="btn btn-primary" 
-                      style={{ padding: "1.2rem 4rem", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900", borderRadius: "14px" }}
+                      style={{ padding: "0.8rem 3rem", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900", borderRadius: "14px" }}
                       onClick={() => { setTypingTopicIndex(1); setR3SubTimer(300); }}
                     >
                       SWITCH TO TOPIC 2
@@ -2079,7 +2079,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   ) : (
                       <button 
                         className="btn btn-danger" 
-                        style={{ padding: "1.2rem 4rem", backgroundColor: "#dc2626", color: "#ffffff", fontWeight: "900", borderRadius: "14px", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)" }}
+                        style={{ padding: "0.8rem 3rem", backgroundColor: "#dc2626", color: "#ffffff", fontWeight: "900", borderRadius: "14px", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)" }}
                         onClick={() => {
                           showConfirm(
                             "Submit Round 3",
