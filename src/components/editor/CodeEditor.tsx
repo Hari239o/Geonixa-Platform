@@ -931,21 +931,21 @@ export default function CodeEditor({
 
         {/* Resizable Result Drawer */}
         <div 
-          className={`absolute bottom-0 left-0 right-0 bg-[#0f172a] border-t-2 border-[#1e293b] flex flex-col transition-all duration-300 ease-in-out z-50 ${
-            isResultPanelOpen ? 'h-[40vh] min-h-[250px] max-h-[60vh] opacity-100 translate-y-0' : 'h-0 min-h-0 opacity-0 translate-y-full pointer-events-none'
+          className={`absolute bottom-0 left-0 right-0 bg-white border-t border-slate-300 flex flex-col transition-all duration-300 ease-in-out z-50 ${
+            isResultPanelOpen ? 'h-[35vh] min-h-[250px] opacity-100 translate-y-0' : 'h-0 min-h-0 opacity-0 translate-y-full pointer-events-none'
           }`}
-          style={{ boxShadow: isResultPanelOpen ? '0 -20px 40px rgba(0,0,0,0.4)' : 'none' }}
+          style={{ boxShadow: isResultPanelOpen ? '0 -10px 30px rgba(0,0,0,0.1)' : 'none' }}
         >
-          <div className="flex justify-between items-center bg-[#020617] border-b border-[#1e293b] px-2 shrink-0">
+          <div className="flex justify-between items-center bg-slate-50 border-b border-slate-200 px-2 shrink-0">
             <div className="flex overflow-x-auto custom-scrollbar">
               {["TESTS", "OUTPUT", "COMPILATION", "RUNTIME"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab as any)}
-                  className={`px-5 py-3.5 text-[10px] font-black uppercase tracking-[0.15em] transition-all whitespace-nowrap ${
+                  className={`px-5 py-3.5 text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
                     activeTab === tab 
-                      ? 'text-[#38bdf8] border-b-2 border-[#38bdf8] bg-[#0f172a]' 
-                      : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/50'
+                      ? 'text-blue-600 border-b-2 border-blue-600 bg-white' 
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                   }`}
                 >
                   {tab}
@@ -956,62 +956,92 @@ export default function CodeEditor({
               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest hidden sm:inline-block mr-2">Execution Results</span>
               <button 
                 onClick={() => setIsResultPanelOpen(false)}
-                className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors mr-2 cursor-pointer"
+                className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-lg transition-colors mr-2 cursor-pointer"
               >
                 <ChevronDown size={18} />
               </button>
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto custom-scrollbar p-0 bg-[#0f172a]">
+          <div className="flex-1 overflow-y-auto custom-scrollbar p-0 bg-white">
             {activeTab === "TESTS" && (
-               <div className="p-0 h-full flex flex-col bg-[#0f172a]">
+               <div className="p-0 h-full flex flex-col bg-white">
                  {/* Test Results Summary Card */}
-                 <div className="p-5 grid grid-cols-2 md:grid-cols-4 gap-4 border-b border-[#1e293b] shrink-0 bg-[#020617]/50">
-                   <div className="bg-[#0f172a] p-4 rounded-xl border border-[#1e293b] shadow-sm">
-                     <div className="text-[10px] font-black uppercase text-slate-500 mb-1 tracking-widest">Passed</div>
-                     <div className="text-2xl font-black text-emerald-400">{testResults.filter(r => r.passed).length}</div>
+                 <div className="p-4 grid grid-cols-2 md:grid-cols-4 gap-4 border-b border-slate-200 shrink-0 bg-slate-50/50">
+                   <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                     <div className="text-[10px] font-bold uppercase text-slate-500 mb-1 tracking-widest">Passed</div>
+                     <div className="text-2xl font-black text-emerald-600">{testResults.filter(r => r.passed).length}</div>
                    </div>
-                   <div className="bg-[#0f172a] p-4 rounded-xl border border-[#1e293b] shadow-sm">
-                     <div className="text-[10px] font-black uppercase text-slate-500 mb-1 tracking-widest">Failed</div>
-                     <div className="text-2xl font-black text-rose-500">{testResults.filter(r => r.passed === false).length}</div>
+                   <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                     <div className="text-[10px] font-bold uppercase text-slate-500 mb-1 tracking-widest">Failed</div>
+                     <div className="text-2xl font-black text-rose-600">{testResults.filter(r => r.passed === false).length}</div>
                    </div>
-                   <div className="bg-[#0f172a] p-4 rounded-xl border border-[#1e293b] shadow-sm">
-                     <div className="text-[10px] font-black uppercase text-slate-500 mb-1 tracking-widest">Time</div>
-                     <div className="text-2xl font-black text-blue-400">{execTime ? `${execTime}ms` : '-'}</div>
+                   <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                     <div className="text-[10px] font-bold uppercase text-slate-500 mb-1 tracking-widest">Time</div>
+                     <div className="text-2xl font-black text-blue-600">{execTime ? `${execTime}ms` : '-'}</div>
                    </div>
-                   <div className="bg-[#0f172a] p-4 rounded-xl border border-[#1e293b] shadow-sm">
-                     <div className="text-[10px] font-black uppercase text-slate-500 mb-1 tracking-widest">Memory</div>
-                     <div className="text-2xl font-black text-purple-400">{memoryUsage ? `${(memoryUsage / 1024 / 1024).toFixed(1)}MB` : '-'}</div>
+                   <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                     <div className="text-[10px] font-bold uppercase text-slate-500 mb-1 tracking-widest">Memory</div>
+                     <div className="text-2xl font-black text-purple-600">{memoryUsage ? `${(memoryUsage / 1024 / 1024).toFixed(1)}MB` : '-'}</div>
                    </div>
                  </div>
                  
                  {/* Detailed Test Cases */}
-                 <div className="flex-1 overflow-auto p-5 space-y-4">
+                 <div className="flex-1 overflow-auto p-4 space-y-4">
                    {testResults.length === 0 ? (
-                      <div className="h-full flex flex-col items-center justify-center text-slate-500 space-y-3 py-12">
-                        <ListChecks size={32} className="opacity-20" />
-                        <div className="text-xs font-bold uppercase tracking-widest opacity-50">Run code to evaluate tests</div>
+                      <div className="h-full flex flex-col items-center justify-center text-slate-400 space-y-3 py-8">
+                        <ListChecks size={32} className="opacity-20 text-slate-400" />
+                        <div className="text-xs font-bold uppercase tracking-widest opacity-60">Run code to evaluate tests</div>
                       </div>
                    ) : (
                       testResults.map((result, idx) => (
-                        <div key={idx} className="bg-[#0f172a] border border-[#1e293b] rounded-xl overflow-hidden shadow-md">
-                          <div className={`px-5 py-3 border-b text-xs font-black uppercase tracking-wider flex items-center gap-2 ${result.passed ? 'bg-emerald-950/30 border-emerald-900/30 text-emerald-400' : 'bg-rose-950/30 border-rose-900/30 text-rose-400'}`}>
-                            {result.passed ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
-                            Case #{idx + 1}
-                          </div>
-                          {!result.passed && (
-                            <div className="p-5 bg-[#020617]/50 space-y-4">
-                              <div>
-                                <div className="text-[10px] font-black text-slate-500 uppercase mb-2 tracking-widest">Expected Output</div>
-                                <div className="font-mono text-sm bg-[#0f172a] text-slate-300 p-4 rounded-lg border border-[#1e293b] whitespace-pre-wrap">{result.isHidden ? "[ HIDDEN CASE ]" : result.expected}</div>
-                              </div>
-                              <div>
-                                <div className="text-[10px] font-black text-slate-500 uppercase mb-2 tracking-widest">Received Output</div>
-                                <div className="font-mono text-sm bg-rose-950/20 text-rose-400 p-4 rounded-lg border border-rose-900/30 whitespace-pre-wrap">{result.isHidden ? "[ HIDDEN CASE ]" : result.actual}</div>
-                              </div>
+                        <div key={idx} className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                          <div className={`px-4 py-3 border-b text-sm font-bold flex items-center justify-between ${result.passed ? 'bg-emerald-50 border-emerald-100 text-emerald-800' : 'bg-rose-50 border-rose-100 text-rose-800'}`}>
+                            <div className="flex items-center gap-2">
+                              {result.passed ? <CheckCircle2 size={18} className="text-emerald-600" /> : <XCircle size={18} className="text-rose-600" />}
+                              <span>Test Case #{idx + 1}</span>
                             </div>
-                          )}
+                            <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-md ${result.passed ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
+                              {result.passed ? 'Accepted' : 'Rejected'}
+                            </span>
+                          </div>
+                          
+                          <div className="p-4 bg-slate-50 space-y-4">
+                            {!result.isHidden ? (
+                              <>
+                                <div>
+                                  <div className="text-xs font-bold text-slate-600 uppercase mb-1.5 tracking-wider">Input</div>
+                                  <div className="font-mono text-sm bg-white text-slate-800 p-3 rounded-lg border border-slate-200 whitespace-pre-wrap">{result.input || "No input"}</div>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                  <div>
+                                    <div className="text-xs font-bold text-slate-600 uppercase mb-1.5 tracking-wider">Expected Output</div>
+                                    <div className="font-mono text-sm bg-white text-slate-800 p-3 rounded-lg border border-slate-200 whitespace-pre-wrap">{result.expected || "N/A"}</div>
+                                  </div>
+                                  <div>
+                                    <div className="text-xs font-bold text-slate-600 uppercase mb-1.5 tracking-wider">Actual Output</div>
+                                    <div className={`font-mono text-sm bg-white p-3 rounded-lg border whitespace-pre-wrap ${!result.passed ? 'border-rose-300 text-rose-800 bg-rose-50' : 'border-slate-200 text-slate-800'}`}>
+                                      {result.actual || result.output || "No output"}
+                                    </div>
+                                  </div>
+                                </div>
+                                {(result.stdout || result.stderr) && (
+                                  <div>
+                                    <div className="text-xs font-bold text-slate-600 uppercase mb-1.5 tracking-wider">Console Output</div>
+                                    <div className="font-mono text-xs bg-slate-900 text-slate-300 p-3 rounded-lg overflow-x-auto whitespace-pre-wrap">
+                                      {result.stdout && <div>{result.stdout}</div>}
+                                      {result.stderr && <div className="text-rose-400">{result.stderr}</div>}
+                                    </div>
+                                  </div>
+                                )}
+                              </>
+                            ) : (
+                              <div className="py-6 flex flex-col items-center justify-center text-slate-500">
+                                <span className="text-sm font-bold bg-slate-200 px-3 py-1 rounded-full uppercase tracking-widest text-slate-600">Hidden Test Case</span>
+                                <p className="text-xs mt-2 max-w-sm text-center">Input and output details are hidden to prevent hardcoding. Ensure your logic covers edge cases.</p>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       ))
                    )}
@@ -1020,36 +1050,36 @@ export default function CodeEditor({
             )}
 
             {activeTab === "OUTPUT" && (
-              <div className="p-6 h-full font-mono text-sm text-slate-300 whitespace-pre-wrap overflow-auto">
+              <div className="p-6 h-full font-mono text-sm text-slate-800 whitespace-pre-wrap overflow-auto">
                 {output || "Waiting for execution stream..."}
               </div>
             )}
 
             {activeTab === "COMPILATION" && (
-              <div className="p-6 h-full font-mono text-sm text-rose-400 whitespace-pre-wrap overflow-auto">
+              <div className="p-6 h-full font-mono text-sm text-rose-600 whitespace-pre-wrap overflow-auto">
                 {testResults.find(r => r.status === "COMPILATION_ERROR")?.stderr || "No compilation errors detected."}
               </div>
             )}
 
             {activeTab === "RUNTIME" && (
-              <div className="p-6 h-full text-slate-400">
-                 <h3 className="text-sm font-black mb-6 text-white uppercase tracking-widest border-b border-[#1e293b] pb-4">Runtime Diagnostics</h3>
-                 <div className="bg-[#020617] rounded-xl p-6 border border-[#1e293b] shadow-lg space-y-4 max-w-2xl">
-                   <div className="flex justify-between border-b border-[#1e293b] pb-3">
-                     <span className="font-semibold text-slate-300">Average Execution Time</span>
-                     <span className="font-mono font-bold text-blue-400">{execTime != null ? `${execTime}ms` : 'N/A'}</span>
+              <div className="p-6 h-full text-slate-700">
+                 <h3 className="text-sm font-black mb-6 text-slate-800 uppercase tracking-widest border-b border-slate-200 pb-4">Runtime Diagnostics</h3>
+                 <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4 max-w-2xl">
+                   <div className="flex justify-between border-b border-slate-100 pb-3">
+                     <span className="font-semibold text-slate-600">Average Execution Time</span>
+                     <span className="font-mono font-bold text-blue-600">{execTime != null ? `${execTime}ms` : 'N/A'}</span>
                    </div>
-                   <div className="flex justify-between border-b border-[#1e293b] pb-3">
-                     <span className="font-semibold text-slate-300">Peak Memory Usage</span>
-                     <span className="font-mono font-bold text-purple-400">{memoryUsage != null ? `${(memoryUsage / 1024 / 1024).toFixed(1)}MB` : 'N/A'}</span>
+                   <div className="flex justify-between border-b border-slate-100 pb-3">
+                     <span className="font-semibold text-slate-600">Peak Memory Usage</span>
+                     <span className="font-mono font-bold text-purple-600">{memoryUsage != null ? `${(memoryUsage / 1024 / 1024).toFixed(1)}MB` : 'N/A'}</span>
                    </div>
-                   <div className="flex justify-between border-b border-[#1e293b] pb-3">
-                     <span className="font-semibold text-slate-300">Test Cases Evaluated</span>
-                     <span className="font-mono font-bold text-slate-300">{testResults.length}</span>
+                   <div className="flex justify-between border-b border-slate-100 pb-3">
+                     <span className="font-semibold text-slate-600">Test Cases Evaluated</span>
+                     <span className="font-mono font-bold text-slate-800">{testResults.length}</span>
                    </div>
                    <div className="flex justify-between pb-3">
-                     <span className="font-semibold text-slate-300">Engine Environment</span>
-                     <span className="font-mono font-bold text-slate-300 uppercase">{selectedLanguage} Sandboxed Container</span>
+                     <span className="font-semibold text-slate-600">Engine Environment</span>
+                     <span className="font-mono font-bold text-slate-800 uppercase">{selectedLanguage} Sandboxed Container</span>
                    </div>
                  </div>
               </div>
