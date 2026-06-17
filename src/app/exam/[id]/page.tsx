@@ -1601,10 +1601,10 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
   if (examState === "INSTRUCTIONS") {
     return (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh", padding: "2rem", backgroundColor: "var(--bg-deep)" }}>
-        <Logo size="xl" center className="mb-12" />
-        <h1 style={{ color: "var(--primary)", fontSize: "2.5rem", marginBottom: "1rem", fontWeight: "900", letterSpacing: "-1px" }}>Secure Assessment Protocol</h1>
-        <div style={{ maxWidth: '800px', backgroundColor: 'var(--bg-card)', padding: '2.5rem', borderRadius: '12px', border: '1px solid var(--border-dim)', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: "2rem", backgroundColor: "var(--bg-deep)", overflowY: "auto" }}>
+        <Logo size="xl" center className="mb-6" />
+        <h1 style={{ color: "var(--primary)", fontSize: "2.5rem", marginBottom: "1rem", fontWeight: "900", letterSpacing: "-1px", textAlign: "center" }}>Secure Assessment Protocol</h1>
+        <div style={{ maxWidth: '800px', backgroundColor: 'var(--bg-card)', padding: '2rem', borderRadius: '12px', border: '1px solid var(--border-dim)', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', width: '100%' }}>
            <h3 style={{ color: "var(--text-primary)", borderBottom: "2px solid #e2e8f0", paddingBottom: "0.5rem", marginBottom: "1rem" }}>Strict Examination Compliance Framework:</h3>
            <ul style={{ marginLeft: '1.5rem', color: "#b91c1c", marginTop: "1rem", lineHeight: "1.8", fontWeight: "500" }}>
              <li><strong>MANDATORY:</strong> A highly synchronized neural AI feed is monitoring visual metrics constantly.</li>
@@ -1612,7 +1612,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
              <li><strong>NO SECOND CHANCES:</strong> Attempting bypass by refreshing instances triggers instant blockade mechanisms.</li>
            </ul>
         </div>
-        <button className="btn btn-primary" onClick={async () => { 
+        <button className="btn btn-primary flex-shrink-0" onClick={async () => { 
           try {
             const elem = document.documentElement as any;
             if (elem.requestFullscreen) await elem.requestFullscreen();
@@ -1621,7 +1621,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
           } catch(e) { console.warn("Fullscreen request failed", e); }
           setIsFullscreen(true); 
           setExamState("ACTIVE"); 
-        }} style={{ marginTop: '3rem', padding: "1.2rem 4rem", borderRadius: "20px", fontSize: "1.1rem", fontWeight: "900", letterSpacing: "1px", backgroundColor: "#0284c7", color: "#ffffff", border: "none", cursor: "pointer", boxShadow: "0 4px 15px rgba(2, 132, 199, 0.4)" }}>
+        }} style={{ marginTop: '2rem', marginBottom: '2rem', padding: "1.2rem 4rem", borderRadius: "20px", fontSize: "1.1rem", fontWeight: "900", letterSpacing: "1px", backgroundColor: "#0284c7", color: "#ffffff", border: "none", cursor: "pointer", boxShadow: "0 4px 15px rgba(2, 132, 199, 0.4)" }}>
           I ACKNOWLEDGE & INITIALIZE SESSION
         </button>
       </div>
