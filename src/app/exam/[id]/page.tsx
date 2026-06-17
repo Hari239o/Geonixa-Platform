@@ -1835,10 +1835,10 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         {/* Neural Guard Scanline */}
         <div className="absolute inset-0 pointer-events-none z-101 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-size-[100%_4px,3px_100%] opacity-20" />
 
-        <div style={{ padding: "1rem", paddingRight: "180px", paddingBottom: "180px", flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", position: "relative", zIndex: 1 }}>
+        <div style={{ padding: "1rem", paddingBottom: "6rem", flex: 1, display: "flex", flexDirection: "column", overflowY: "auto", position: "relative", zIndex: 1 }}>
           {/* Round 1: Aptitude & Round 2: Grammar */}
           {(currentRound === 1 || currentRound === 2) && (
-            <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto", height: "100%", display: "flex", flexDirection: "column" }}>
+            <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto", display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
                 <div>
                   <h1 style={{ margin: 0, fontSize: "1.5rem" }}>{currentRound === 1 ? "Aptitude Assessment" : "Grammar Assessment"}</h1>
@@ -1851,7 +1851,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 <span style={{ fontWeight: "bold", color: "var(--text-muted)" }}>Question {(currentRound === 1 ? q1Index : q2Index) + 1} of 30</span>
               </div>
 
-              <div style={{ padding: "1.5rem", backgroundColor: "white", borderRadius: "16px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)", flex: 1, display: "flex", flexDirection: "column", overflowY: "auto" }}>
+              <div style={{ padding: "1.5rem", backgroundColor: "white", borderRadius: "16px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)", flex: 1, display: "flex", flexDirection: "column" }}>
                 {(currentRound === 1 || currentRound === 2) && (
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", gap: "1rem" }}>
                     <span style={{ backgroundColor: "#fff7ed", color: "#f97316", border: "1px solid #fed7aa", borderRadius: "999px", padding: "0.25rem 0.6rem", fontSize: "0.65rem", fontWeight: 900, letterSpacing: "0.08em" }}>
@@ -2149,7 +2149,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
           {currentRound === 4 && (
             <div className="animate-fade-in" style={{ height: "100%", display: "flex", flexDirection: "column" }}>
               {isMcqDomain ? (
-                <div style={{ maxWidth: "1500px", margin: "0 auto", width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
+                <div style={{ maxWidth: "1500px", margin: "0 auto", width: "100%", display: "flex", flexDirection: "column" }}>
                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem", flexShrink: 0 }}>
                     <h1 style={{ margin: 0, fontSize: "1.4rem" }}>{studentDomain} {isMcqDomain ? "Domain MCQ" : "Coding"} Mastery</h1>
                     <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
@@ -2161,7 +2161,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  <div style={{ padding: "1.5rem", backgroundColor: "white", borderRadius: "16px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)", flex: 1, display: "flex", flexDirection: "column", overflowY: "auto" }}>
+                  <div style={{ padding: "1.5rem", backgroundColor: "white", borderRadius: "16px", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)", border: "1px solid var(--border-dim)", flex: 1, display: "flex", flexDirection: "column" }}>
                     <p style={{ fontSize: "1.1rem", fontWeight: "600", color: "#1e293b", lineHeight: "1.5", marginBottom: "1.5rem" }}>
                       {codingQuestions[codingQuestionIndex]?.q}
                     </p>
