@@ -84,6 +84,8 @@ interface TestResult {
   questionTitle?: string;
   expected?: string;
   stderr?: string;
+  stdout?: string;
+  output?: string;
   category?: string;
   possibleHardcode?: boolean;
   complexity?: {
