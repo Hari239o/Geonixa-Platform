@@ -1849,7 +1849,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
         {/* Neural Guard Scanline */}
         <div className="absolute inset-0 pointer-events-none z-101 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-size-[100%_4px,3px_100%] opacity-20" />
 
-        <div style={{ padding: "1rem", paddingBottom: "6rem", flex: 1, display: "flex", flexDirection: "column", overflowY: "auto", position: "relative", zIndex: 1 }}>
+        <div style={{ padding: "1rem", paddingBottom: (currentRound === 4 && !isMcqDomain) ? "1rem" : "6rem", flex: 1, display: "flex", flexDirection: "column", overflowY: "auto", position: "relative", zIndex: 1 }}>
           {/* Round 1: Aptitude & Round 2: Grammar */}
           {(currentRound === 1 || currentRound === 2) && (
             <div className="animate-fade-in" style={{ maxWidth: "1500px", width: "100%", margin: "0 auto", display: "flex", flexDirection: "column" }}>

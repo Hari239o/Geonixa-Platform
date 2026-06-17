@@ -936,7 +936,7 @@ export default function CodeEditor({
         {/* Resizable Result Drawer - Shrinks editor when open */}
         <div 
           className={`bg-white border-t border-slate-300 flex flex-col transition-all duration-300 ease-in-out z-40 shrink-0 ${
-            isResultPanelOpen ? 'h-[40%] min-h-[150px] opacity-100' : 'h-0 min-h-0 opacity-0 pointer-events-none'
+            isResultPanelOpen ? 'h-[50%] min-h-[200px] opacity-100' : 'h-0 min-h-0 opacity-0 pointer-events-none'
           }`}
           style={{ boxShadow: isResultPanelOpen ? '0 -10px 30px rgba(0,0,0,0.1)' : 'none' }}
         >
