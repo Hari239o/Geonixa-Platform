@@ -1090,7 +1090,6 @@ export default function CodeEditor({
             )}
           </div>
         </div>
-        </div>
       </div>
     </div>
   );
