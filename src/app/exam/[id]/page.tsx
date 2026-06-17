@@ -2292,7 +2292,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   </div>
                 </div>
               ) : (
-                <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: "calc(100vh - 4rem)" }}>
+                <div style={{ flex: 1, display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
                   <div style={{ display: "flex", gap: "2rem", marginBottom: "0.75rem", alignItems: "center", flexShrink: 0 }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", width: "180px", flexShrink: 0 }}>
                       <Logo size="sm" />
@@ -2400,7 +2400,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       </div>
                     </div>
                     
-                    <div style={{ flex: "0 0 calc(60% - 1rem)", display: "flex", flexDirection: "column", position: "relative", minHeight: "600px" }}>
+                    <div style={{ flex: "0 0 calc(60% - 1rem)", display: "flex", flexDirection: "column", position: "relative", height: "100%", overflow: "hidden" }}>
                       <MemoizedCodeEditor
                         questionId={`q_${codingQuestionIndex}`}
                         questionTitle={codingQuestions[codingQuestionIndex]?.title}
