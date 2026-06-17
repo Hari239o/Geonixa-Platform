@@ -2420,14 +2420,37 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  <div style={{ marginTop: "0.75rem", display: "flex", justifyContent: "flex-end", flexShrink: 0 }}>
-                    {codingQuestionIndex < codingQuestions.length - 1 && (
+                  <div style={{ marginTop: "0.75rem", display: "flex", justifyContent: "space-between", flexShrink: 0 }}>
+                    <button 
+                      className="btn" 
+                      disabled={codingQuestionIndex === 0}
+                      style={{ backgroundColor: "#e2e8f0", color: "#1e293b", padding: "0.6rem 2rem", borderRadius: "12px", fontWeight: "800", fontSize: "0.85rem", transition: "all 0.2s", opacity: codingQuestionIndex === 0 ? 0.5 : 1, cursor: codingQuestionIndex === 0 ? "not-allowed" : "pointer" }}
+                      onClick={() => setCodingQuestionIndex(p => p - 1)}
+                    >
+                      PREVIOUS TASK
+                    </button>
+                    
+                    {codingQuestionIndex < codingQuestions.length - 1 ? (
                       <button 
                         className="btn" 
                         style={{ backgroundColor: "#64748b", color: "white", padding: "0.6rem 2rem", borderRadius: "12px", fontWeight: "800", fontSize: "0.85rem", transition: "all 0.2s" }}
                         onClick={() => setCodingQuestionIndex(p => p + 1)}
                       >
                         NEXT TASK
+                      </button>
+                    ) : (
+                      <button 
+                        className="btn btn-danger" 
+                        style={{ padding: "0.8rem 2.5rem", borderRadius: "12px", backgroundColor: "#dc2626", color: "white", fontWeight: "900", transition: "all 0.2s", boxShadow: "0 4px 14px 0 rgba(220, 38, 38, 0.39)" }}
+                        onClick={() => {
+                          showConfirm(
+                            "Final Submission",
+                            "Are you sure you want to end the entire assessment? This will lock all sections and calculate your final score.",
+                            () => handleFinalSubmit()
+                          );
+                        }}
+                      >
+                        SUBMIT FINAL ASSESSMENT
                       </button>
                     )}
                   </div>

@@ -165,9 +165,14 @@ class EmailService {
         }
       } catch (e) {}
       
+      // Dynamically extract domain from the sender address to forge a 100% compliant Message-ID
+      const senderDomain = fromAddress.split('@')[1] || 'geonixa.com';
+      const compliantMessageId = `<${Date.now()}.${Math.random().toString(36).substring(2, 10)}@${senderDomain}>`;
+
       const info = await transporter.sendMail({
         from: `"${process.env.SMTP_FROM_NAME || 'Geonixa Talent Acquisition'}" <${fromAddress}>`,
         replyTo: fromAddress,
+        messageId: compliantMessageId,
         to,
         subject,
         headers: {
