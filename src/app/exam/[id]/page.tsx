@@ -1892,18 +1892,29 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                           style={{
                             padding: "1rem 1.5rem",
                             textAlign: "left",
-                            borderRadius: "8px",
+                            borderRadius: "12px",
                             border: isSelected ? "2px solid var(--primary)" : "1px solid #e2e8f0",
-                            backgroundColor: isSelected ? "#fff7ed" : "white",
+                            backgroundColor: isSelected ? "#f0f9ff" : "white",
                             color: isSelected ? "var(--primary)" : "#475569",
                             fontWeight: isSelected ? "bold" : "500",
                             transition: "all 0.2s",
                             cursor: "pointer",
                             width: "100%",
-                            display: "block"
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "1rem"
                           }}
                         >
-                          {optText}
+                          <div style={{
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "50%",
+                            border: isSelected ? "6px solid var(--primary)" : "2px solid #cbd5e1",
+                            backgroundColor: "white",
+                            flexShrink: 0,
+                            transition: "all 0.2s"
+                          }} />
+                          <span style={{ flex: 1 }}>{optText}</span>
                         </button>
                       );
                     });
@@ -1912,7 +1923,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
               </div>
 
               <div className="flex flex-col xl:flex-row justify-between items-center gap-4 mt-4 w-full">
-                <div className="order-2 xl:order-none flex w-full xl:w-auto justify-between gap-4">
+                <div className="order-2 xl:order-none flex w-full xl:w-auto justify-between items-center gap-4">
                   <button 
                     className="btn" 
                     disabled={(currentRound === 1 ? q1Index : q2Index) === 0}
@@ -1981,7 +1992,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   })}
                 </div>
 
-                <div className="hidden xl:flex order-3 xl:order-none gap-4">
+                <div className="hidden xl:flex order-3 xl:order-none items-center gap-4">
                   {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
                     <button 
                       className="btn btn-primary"
@@ -2187,17 +2198,31 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                               key={`${codingQuestionIndex}_${optionIndex}_${optText.substring(0, 10)}`}
                               onClick={() => setCodingAnswers({...codingAnswers, [codingQuestionIndex]: optText})}
                               style={{
-                                padding: "0.8rem 1.2rem",
+                                padding: "1rem 1.5rem",
                                 textAlign: "left",
-                                borderRadius: "8px",
+                                borderRadius: "12px",
                                 border: isSelected ? "2px solid var(--primary)" : "1px solid #e2e8f0",
-                                backgroundColor: isSelected ? "#fff7ed" : "white",
+                                backgroundColor: isSelected ? "#f0f9ff" : "white",
                                 color: isSelected ? "var(--primary)" : "#475569",
                                 fontWeight: isSelected ? "bold" : "500",
-                                cursor: "pointer"
+                                transition: "all 0.2s",
+                                cursor: "pointer",
+                                width: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "1rem"
                               }}
                             >
-                              {optText}
+                              <div style={{
+                                width: "20px",
+                                height: "20px",
+                                borderRadius: "50%",
+                                border: isSelected ? "6px solid var(--primary)" : "2px solid #cbd5e1",
+                                backgroundColor: "white",
+                                flexShrink: 0,
+                                transition: "all 0.2s"
+                              }} />
+                              <span style={{ flex: 1 }}>{optText}</span>
                             </button>
                           );
                         });
@@ -2206,7 +2231,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   </div>
 
                   <div className="flex flex-col xl:flex-row justify-between items-center gap-4 mt-4 w-full" style={{ paddingRight: "calc(clamp(140px, 12vw, 200px) + 2rem)" }}>
-                    <div className="order-2 xl:order-none flex w-full xl:w-auto justify-between gap-4">
+                    <div className="order-2 xl:order-none flex w-full xl:w-auto justify-between items-center gap-4">
                       <button 
                         className="btn" 
                         disabled={codingQuestionIndex === 0} 
@@ -2268,7 +2293,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       })}
                     </div>
 
-                    <div className="hidden xl:flex order-3 xl:order-none gap-4">
+                    <div className="hidden xl:flex order-3 xl:order-none items-center gap-4">
                       {codingQuestionIndex < 39 ? (
                         <button className="btn btn-primary" style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }} onClick={() => setCodingQuestionIndex(p => p + 1)}>
                           NEXT QUESTION
