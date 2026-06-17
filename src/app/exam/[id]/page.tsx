@@ -1732,7 +1732,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
       {/* Sidebar - Progress & Proctoring HUD - Hidden in Round 4 for maximum IDE space */}
       {currentRound !== 4 && (
         <div style={{ 
-          width: "320px", 
+          width: "clamp(220px, 18vw, 320px)", 
           height: "100dvh", 
           backgroundColor: "var(--bg-card)", 
           borderRight: "1px solid var(--border-dim)", 
@@ -1824,7 +1824,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
           </div>
         </div>
       )}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", backgroundColor: "var(--bg-deep)", overflow: "hidden", position: "relative" }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", backgroundColor: "var(--bg-deep)", overflow: "hidden", position: "relative", minWidth: 0 }}>
         {/* Secure Watermark Overlay */}
         <div className="absolute inset-0 pointer-events-none z-100 opacity-[0.03] flex items-center justify-center overflow-hidden rotate-[-30deg]">
           <div className="text-[120px] font-black whitespace-nowrap select-none">

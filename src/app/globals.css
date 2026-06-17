@@ -21,19 +21,7 @@
 
 @layer base {
   html {
-    font-size: 16px; /* Base 100% scale for large screens */
-  }
-
-  @media (max-width: 1440px) {
-    html {
-      font-size: 14px; /* ~87.5% scale for typical laptops */
-    }
-  }
-
-  @media (max-width: 1024px) {
-    html {
-      font-size: 12px; /* 75% scale for smaller laptops and tablets */
-    }
+    font-size: clamp(14px, 1vw + 10px, 18px); /* Fluid base scale */
   }
   
   body {
@@ -66,6 +54,12 @@
   /* Preserve button and active badge text colors */
   button.text-white, a.text-white, .bg-orange-500.text-white, .bg-\[\#FF5A1F\], .bg-emerald-500, .bg-blue-500, .bg-red-500 {
     color: #ffffff !important;
+  }
+  
+  /* Global Button Fluid Scaling */
+  button, .btn {
+    height: clamp(40px, 4vh, 52px) !important;
+    font-size: clamp(12px, 1vw, 16px) !important;
   }
 }
 
