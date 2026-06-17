@@ -105,6 +105,9 @@ export interface TestResult {
   executionTime: number;
   memoryUsed: number;
   isHidden: boolean;
+  output?: string;
+  stdout?: string;
+  stderr?: string;
 }
 
 export interface MCQResponse {
