@@ -536,6 +536,7 @@ export default function CodeEditor({
        alert("Network timeout. Progress saved locally.");
     } finally {
       setIsFinalSubmitting(false);
+      setIsResultPanelOpen(true);
     }
   };
 
@@ -764,7 +765,7 @@ export default function CodeEditor({
   };
 
   return (
-    <div className="flex flex-col h-full bg-[whitesmoke] rounded-2xl overflow-hidden border border-[#30363d] shadow-2xl transition-all relative">
+    <div className="flex flex-col min-h-full bg-[whitesmoke] rounded-2xl overflow-hidden border border-[#30363d] shadow-2xl transition-all relative">
       <style>{`
         .monaco-editor .margin { background-color: whitesmoke !important; }
         .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -930,11 +931,12 @@ export default function CodeEditor({
               }}
             />
           )}
+        </div>
 
-        {/* Resizable Result Drawer */}
+        {/* Resizable Result Drawer - Moved OUTSIDE of the editor wrapper so it stacks below */}
         <div 
-          className={`absolute bottom-0 left-0 right-0 bg-white border-t border-slate-300 flex flex-col transition-all duration-300 ease-in-out z-50 ${
-            isResultPanelOpen ? 'h-[35vh] min-h-[250px] opacity-100 translate-y-0' : 'h-0 min-h-0 opacity-0 translate-y-full pointer-events-none'
+          className={`bg-white border-t border-slate-300 flex flex-col transition-all duration-300 ease-in-out z-40 shrink-0 ${
+            isResultPanelOpen ? 'h-[35vh] min-h-[250px] opacity-100' : 'h-0 min-h-0 opacity-0 pointer-events-none'
           }`}
           style={{ boxShadow: isResultPanelOpen ? '0 -10px 30px rgba(0,0,0,0.1)' : 'none' }}
         >

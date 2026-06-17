@@ -2290,7 +2290,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   </div>
                 </div>
               ) : (
-                <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+                <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: "calc(100vh - 4rem)" }}>
                   <div style={{ display: "flex", gap: "2rem", marginBottom: "0.75rem", alignItems: "center", flexShrink: 0 }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", width: "180px", flexShrink: 0 }}>
                       <Logo size="sm" />
@@ -2347,8 +2347,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     )}
                   </div>
                   
-                  <div style={{ flex: 1, display: "flex", gap: "1rem", overflow: "hidden" }}>
-                    <div style={{ flex: "0 0 40%", padding: "1.5rem", backgroundColor: "whitesmoke", color: "#0f172a", borderRadius: "16px", border: "1px solid var(--border-dim)", overflowY: "auto", height: "100%", boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.05)" }}>
+                  <div style={{ flex: 1, display: "flex", gap: "1rem" }}>
+                    <div style={{ flex: "0 0 40%", padding: "1.5rem", backgroundColor: "whitesmoke", color: "#0f172a", borderRadius: "16px", border: "1px solid var(--border-dim)", overflowY: "auto", boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.05)" }}>
                       <h2 style={{ color: "#0f172a", margin: "0 0 1rem 0", fontSize: "1.4rem", fontWeight: "bold" }}>Overview: {codingQuestions[codingQuestionIndex]?.title}</h2>
                       <div style={{ fontSize: "0.95rem", lineHeight: "1.7", color: "#334155", whiteSpace: "pre-wrap" }}>
                         {codingQuestions[codingQuestionIndex]?.desc}
@@ -2398,7 +2398,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       </div>
                     </div>
                     
-                    <div style={{ flex: "0 0 calc(60% - 1rem)", display: "flex", flexDirection: "column", height: "100%", overflow: "hidden", position: "relative" }}>
+                    <div style={{ flex: "0 0 calc(60% - 1rem)", display: "flex", flexDirection: "column", position: "relative", minHeight: "600px" }}>
                       <MemoizedCodeEditor
                         questionId={`q_${codingQuestionIndex}`}
                         questionTitle={codingQuestions[codingQuestionIndex]?.title}
