@@ -2134,7 +2134,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     {typingTopicIndex === 0 ? (
                       <button 
                         className="btn btn-primary" 
-                        style={{ padding: "0.8rem 3rem", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900", borderRadius: "14px" }}
+                        style={{ padding: "0.8rem 3rem", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900", borderRadius: "14px", display: "flex", alignItems: "center", justifyContent: "center" }}
                         onClick={() => { setTypingTopicIndex(1); setR3SubTimer(300); }}
                       >
                         SWITCH TO TOPIC 2
@@ -2142,7 +2142,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     ) : (
                         <button 
                           className="btn btn-danger" 
-                          style={{ padding: "1.2rem 4rem", backgroundColor: "#dc2626", color: "#ffffff", fontWeight: "900", borderRadius: "14px", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)" }}
+                          style={{ padding: "1.2rem 4rem", backgroundColor: "#dc2626", color: "#ffffff", fontWeight: "900", borderRadius: "14px", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)", display: "flex", alignItems: "center", justifyContent: "center" }}
                           onClick={() => {
                             showConfirm(
                               "Submit Round 3",
