@@ -2166,27 +2166,40 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                       {codingQuestions[codingQuestionIndex]?.q}
                     </p>
                     <div style={{ display: "grid", gap: "0.6rem" }}>
-                      {codingQuestions[codingQuestionIndex]?.opts.map((opt: string) => {
-                        const isSelected = codingAnswers[codingQuestionIndex] === opt;
-                        return (
-                          <button
-                            key={opt}
-                            onClick={() => setCodingAnswers({...codingAnswers, [codingQuestionIndex]: opt})}
-                            style={{
-                              padding: "0.8rem 1.2rem",
-                              textAlign: "left",
-                              borderRadius: "8px",
-                              border: isSelected ? "2px solid var(--primary)" : "1px solid #e2e8f0",
-                              backgroundColor: isSelected ? "#fff7ed" : "white",
-                              color: isSelected ? "var(--primary)" : "#475569",
-                              fontWeight: isSelected ? "bold" : "500",
-                              cursor: "pointer"
-                            }}
-                          >
-                            {opt}
-                          </button>
-                        );
-                      })}
+                      {(() => {
+                        const currentQ = codingQuestions[codingQuestionIndex];
+                        if (!currentQ) return null;
+                        
+                        const optionsArray = (currentQ.opts?.length > 0 ? currentQ.opts : null) || 
+                                             (currentQ.options?.length > 0 ? currentQ.options : null) || 
+                                             (currentQ.choices?.length > 0 ? currentQ.choices : null) || 
+                                             (currentQ.mcqOptions?.length > 0 ? currentQ.mcqOptions : null) || 
+                                             ["Option A", "Option B", "Option C", "Option D"];
+                                             
+                        return optionsArray.map((opt: any, optionIndex: number) => {
+                          const optText = typeof opt === 'object' && opt !== null ? (opt.text || opt.value || opt.label || JSON.stringify(opt)) : String(opt);
+                          const isSelected = codingAnswers[codingQuestionIndex] === optText || codingAnswers[codingQuestionIndex] === opt;
+                          
+                          return (
+                            <button
+                              key={`${codingQuestionIndex}_${optionIndex}_${optText.substring(0, 10)}`}
+                              onClick={() => setCodingAnswers({...codingAnswers, [codingQuestionIndex]: optText})}
+                              style={{
+                                padding: "0.8rem 1.2rem",
+                                textAlign: "left",
+                                borderRadius: "8px",
+                                border: isSelected ? "2px solid var(--primary)" : "1px solid #e2e8f0",
+                                backgroundColor: isSelected ? "#fff7ed" : "white",
+                                color: isSelected ? "var(--primary)" : "#475569",
+                                fontWeight: isSelected ? "bold" : "500",
+                                cursor: "pointer"
+                              }}
+                            >
+                              {optText}
+                            </button>
+                          );
+                        });
+                      })()}
                     </div>
                   </div>
 
