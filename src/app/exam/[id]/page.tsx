@@ -1934,7 +1934,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                 </div>
               </div>
 
-              <div className="flex flex-col xl:flex-row justify-between items-center gap-4 mt-4 w-full">
+              <div className="flex flex-col xl:flex-row justify-between items-center gap-4 mt-4 w-full" style={{ paddingRight: "calc(clamp(140px, 12vw, 200px) + 2rem)" }}>
                 <div className="order-2 xl:order-none flex w-full xl:w-auto justify-between items-center gap-4">
                   <button 
                     className="btn" 
@@ -2459,7 +2459,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     </div>
                   </div>
 
-                  <div style={{ marginTop: "0.75rem", display: "flex", justifyContent: "space-between", flexShrink: 0 }}>
+                  <div style={{ marginTop: "0.75rem", display: "flex", justifyContent: "space-between", flexShrink: 0, paddingRight: "calc(clamp(140px, 12vw, 200px) + 2rem)" }}>
                     <button 
                       className="btn" 
                       disabled={codingQuestionIndex === 0}
