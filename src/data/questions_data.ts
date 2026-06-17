@@ -4,119 +4,8009 @@
  */
 
 export const APTITUDE_POOL = [
-  { q: "A man completes a journey in 10 hours. He travels first half of the journey at the rate of 21 km/hr and second half at the rate of 24 km/hr. Find the total journey in km.", opts: ["220 km", "224 km", "230 km", "234 km"], correctAnswer: "224 km" },
-  { q: "A complex gear system has three gears A, B, and C with 24, 36, and 48 teeth respectively. If Gear A makes 120 revolutions per minute, how many revolutions per minute does Gear C make?", opts: ["60", "80", "90", "180"], correctAnswer: "60" },
-  { q: "The ratio of the volume of two spheres is 8:27. What is the ratio of their surface areas?", opts: ["4:9", "2:3", "16:81", "9:4"], correctAnswer: "4:9" },
-  { q: "An investment grows by 10% in the first year, 20% in the second year, and 30% in the third year. What is the overall percentage increase after three years?", opts: ["60%", "71.6%", "72.8%", "65.4%"], correctAnswer: "71.6%" },
-  { q: "If 'LOGIC' is coded as 'BHNKM', how is 'STRATEGY' coded in that same complex cipher?", opts: ["XFSUBUFZ", "RSZSDGZ", "QRZSDFH", "XFSUVUHG"], correctAnswer: "XFSUBUFZ" },
-  { q: "A train 150m long is running at 72km/h. It crosses another train 100m long running at 54km/h in the same direction. How long does it take to cross completely?", opts: ["50 sec", "40 sec", "60 sec", "30 sec"], correctAnswer: "50 sec" },
-  { q: "Find the missing number in the series: 2, 6, 12, 20, 30, 42, ?", opts: ["52", "54", "56", "60"], correctAnswer: "56" },
-  { q: "A cistern has two pipes. One can fill it with water in 8 hours and other can empty it in 5 hours. In how many hours will the cistern be emptied if both pipes are opened together when 3/4 of the cistern is already full of water?", opts: ["10 hours", "13.33 hours", "15 hours", "12 hours"], correctAnswer: "10 hours" },
-  { q: "If the product of two numbers is 320 and their HCF is 4, then their LCM is:", opts: ["40", "60", "80", "120"], correctAnswer: "80" },
-  { q: "What is the probability of getting a sum of 9 from two throws of a dice?", opts: ["1/6", "1/8", "1/9", "1/12"], correctAnswer: "1/9" },
-  { q: "A sum of money at compound interest amounts to thrice itself in 3 years. In how many years will it be 27 times itself?", opts: ["9 years", "6 years", "12 years", "15 years"], correctAnswer: "9 years" },
-  { q: "A and B can complete a task in 12 and 15 days respectively. They started together but A left 3 days before the completion. How many days did it take to complete the task?", opts: ["7", "8", "9", "10"], correctAnswer: "8" },
-  { q: "A sum of money doubles itself in 10 years at compound interest. In how many years will it become 8 times itself?", opts: ["20", "30", "40", "50"], correctAnswer: "30" },
-  { q: "Two pipes A and B can fill a tank in 20 and 30 minutes respectively. If both are opened together, but pipe B is turned off after 5 minutes, how much longer will it take for the tank to fill?", opts: ["10 min", "11.66 min", "15 min", "12 min"], correctAnswer: "11.66 min" },
-  { q: "The probability that a man can hit a target is 3/4. He tries 5 times. What is the probability that he will hit the target at least 3 times?", opts: ["459/512", "371/512", "291/512", "401/512"], correctAnswer: "459/512" },
-  { q: "In a group of 60 people, 27 like cold drinks and 42 like hot drinks and each person likes at least one of the two drinks. How many like both hot and cold drinks?", opts: ["7", "9", "11", "13"], correctAnswer: "9" },
-  { q: "A sum was put at simple interest at a certain rate for 3 years. Had it been put at 2% higher rate, it would have fetched Rs. 360 more. Find the sum.", opts: ["Rs. 4000", "Rs. 5000", "Rs. 6000", "Rs. 8000"], correctAnswer: "Rs. 6000" },
-  { q: "Find the unit digit in (264)^102 + (264)^103.", opts: ["0", "2", "4", "6"], correctAnswer: "0" },
-  { q: "A, B and C start at the same time in the same direction to run around a circular stadium. A completes a round in 252 seconds, B in 308 seconds and C in 198 seconds, all starting at the same point. After what time will they next meet at the starting point?", opts: ["26 min 18 sec", "42 min 36 sec", "45 min", "46 min 12 sec"], correctAnswer: "46 min 12 sec" },
-  { q: "If x = 1/(2+√3), then the value of x^3 - x^2 - 11x + 3 is:", opts: ["0", "1", "2", "4"], correctAnswer: "0" },
-  { q: "The ratio between the perimeter and the breadth of a rectangle is 5:1. If the area of the rectangle is 216 sq. cm, what is the length of the rectangle?", opts: ["16 cm", "18 cm", "20 cm", "24 cm"], correctAnswer: "18 cm" },
-  { q: "A man can row 6 km/h in still water. If the speed of the current is 2 km/h, it takes 3 hours more in upstream than in the downstream for the same distance. The distance is:", opts: ["30 km", "24 km", "20 km", "32 km"], correctAnswer: "24 km" },
-  { q: "The speed of three cars are in the ratio 2:3:4. The ratio between the time taken by these cars to travel the same distance is:", opts: ["2:3:4", "4:3:2", "4:3:6", "6:4:3"], correctAnswer: "6:4:3" },
-  { q: "A container contains 40 litres of milk. From this container 4 litres of milk was taken out and replaced by water. This process was repeated further two times. How much milk is now contained by the container?", opts: ["26.34 litres", "27.36 litres", "28 litres", "29.16 litres"], correctAnswer: "29.16 litres" },
-  { q: "At what time between 4 and 5 o'clock will the hands of a watch point in opposite directions?", opts: ["45 min past 4", "40 min past 4", "50 4/11 min past 4", "54 6/11 min past 4"], correctAnswer: "54 6/11 min past 4" },
-  { q: "If 'P @ Q' means P is the mother of Q; 'P # Q' means P is the father of Q; 'P $ Q' means P is the husband of Q; 'P % Q' means P is the daughter of Q. How is G related to M in the expression 'M $ K @ G'?", opts: ["Son", "Daughter", "Grandson", "Granddaughter"], correctAnswer: "Son" },
-  { q: "A vendor bought toffees at 6 for a rupee. How many for a rupee must he sell to gain 20%?", opts: ["3", "4", "5", "6"], correctAnswer: "5" },
-  { q: "A, B and C can do a piece of work in 20, 30 and 60 days respectively. In how many days can A do the work if he is assisted by B and C on every third day?", opts: ["12 days", "15 days", "16 days", "18 days"], correctAnswer: "15 days" },
-  { q: "Three numbers are in the ratio of 3 : 4 : 5 and their L.C.M. is 2400. Their H.C.F. is:", opts: ["40", "80", "120", "200"], correctAnswer: "40" },
-  { q: "A sum of money invested at compound interest amounts to Rs. 4624 in 2 years and to Rs. 4913 in 3 years. The sum of money is:", opts: ["Rs. 4096", "Rs. 4260", "Rs. 4335", "Rs. 4420"], correctAnswer: "Rs. 4096" },
-  { q: "A man can row 9 1/3 kmph in still water and finds that it takes him thrice as much time to row up than as to row down the same distance in the river. The speed of the current is:", opts: ["3 1/3 kmph", "4 2/3 kmph", "5 1/3 kmph", "6 kmph"], correctAnswer: "4 2/3 kmph" },
-  { q: "A can do a certain work in the same time in which B and C together can do it. If A and B together could do it in 10 days and C alone in 50 days, then B alone could do it in:", opts: ["15 days", "20 days", "25 days", "30 days"], correctAnswer: "25 days" },
-  { q: "A bag contains 6 white and 4 black balls. Two balls are drawn at random. Find the probability that they are of the same colour.", opts: ["7/15", "8/15", "9/15", "1/3"], correctAnswer: "7/15" },
-  { q: "The difference between simple interest and compound interest on Rs. 1200 for one year at 10% per annum reckoned half-yearly is:", opts: ["Rs. 3.00", "Rs. 3.50", "Rs. 4.00", "Rs. 4.50"], correctAnswer: "Rs. 3.00" },
-  { q: "A and B walk around a circular track. A and B walk at a speed of 2 rounds per hour and 3 rounds per hour respectively. If they start at the same time from the same point and walk in the same direction, when will they first meet again?", opts: ["20 min", "30 min", "45 min", "60 min"], correctAnswer: "60 min" },
-  { q: "How many 4-digit numbers can be formed with the digits 1, 2, 3, 4, 5, 6 when repetition of digits is not allowed?", opts: ["360", "420", "480", "520"], correctAnswer: "360" },
-  { q: "In what ratio must tea at Rs. 62 per kg be mixed with tea at Rs. 72 per kg so that the mixture must be worth Rs. 64.50 per kg?", opts: ["3:1", "3:2", "4:3", "5:3"], correctAnswer: "3:1" },
-  { q: "A clock is set right at 5 a.m. The clock loses 16 minutes in 24 hours. What will be the true time when the clock indicates 10 p.m. on 4th day?", opts: ["11 p.m.", "10:45 p.m.", "12 p.m.", "11:15 p.m."], correctAnswer: "11 p.m." },
-  { q: "A sum of money at simple interest amounts to Rs. 815 in 3 years and to Rs. 854 in 4 years. The sum is:", opts: ["Rs. 650", "Rs. 690", "Rs. 698", "Rs. 700"], correctAnswer: "698" },
-  { q: "Find the odd man out: 3, 5, 11, 14, 17, 21", opts: ["14", "17", "21", "11"], correctAnswer: "14" },
-  { q: "A committee has 8 officers. In how many ways can a chairperson, deputy chairperson, and rapporteur be selected if one person cannot hold two posts and two named officers refuse to work together in any selection?", opts: ["252", "264", "300", "336"], correctAnswer: "252" },
-  { q: "In a district survey, 72% households have electricity, 58% have piped water, and 41% have both. If 870 households have neither facility, how many households were surveyed?", opts: ["3000", "3250", "3500", "3750"], correctAnswer: "3000" },
-  { q: "A file moves through four departments. Each department rejects 10%, 20%, 25%, and 40% of the files reaching it respectively. If 324 files are finally approved, how many entered the first department?", opts: ["900", "960", "1000", "1080"], correctAnswer: "1000" },
-  { q: "A policy index is computed as 40% of literacy growth, 35% of health growth, and 25% of income growth. If the three growth rates are 12%, 8%, and 16%, what is the index?", opts: ["11.2%", "11.6%", "12.0%", "12.4%"], correctAnswer: "11.6%" },
-  { q: "Six villages A, B, C, D, E, F are on a road. A is west of C, D is east of F, B is between C and D, and E is west of A. Which village is certainly not the easternmost?", opts: ["B", "D", "E", "F"], correctAnswer: "E" },
-  { q: "A coded register writes CIVIL as DJXMP and AUDIT as BVGLY. Using the same alternating operation, how is PANEL written?", opts: ["QDQFP", "QBPFO", "QBQFP", "QDQFO"], correctAnswer: "QDQFP" },
-  { q: "Three clerks can process a record in 12, 18, and 24 minutes respectively. Working together for 36 minutes, how many complete records can they process?", opts: ["6", "7", "8", "9"], correctAnswer: "8" },
-  { q: "The average age of 11 members of a panel is 48 years. If the chairperson aged 60 leaves and two new members aged 36 and 42 join, what is the new average age?", opts: ["46 years", "46.5 years", "47 years", "47.5 years"], correctAnswer: "46.5 years" },
-  { q: "A tank is filled by pipe A in 15 hours and pipe B in 20 hours. Pipe C empties it in 30 hours. If all are opened together, how long will it take to fill 7/10 of the tank?", opts: ["6 hours", "7 hours", "8 hours", "9 hours"], correctAnswer: "6 hours" },
-  { q: "In an election, 12% of votes were invalid. The winner got 55% of valid votes and won by 792 votes. What was the total number of votes polled?", opts: ["7200", "8000", "9000", "10000"], correctAnswer: "9000" },
-  { q: "A person walks 30 m north, turns right and walks 40 m, turns right and walks 30 m, then turns left and walks 10 m. How far and in which direction is he from the start?", opts: ["40 m east", "50 m east", "50 m west", "70 m east"], correctAnswer: "50 m east" },
-  { q: "If the price of rice rises by 25%, by what percent must consumption be reduced so that expenditure rises by only 10%?", opts: ["10%", "12%", "15%", "18%"], correctAnswer: "12%" },
-  { q: "A number leaves remainders 2, 3, and 4 when divided by 5, 6, and 7 respectively. What is the smallest such number greater than 200?", opts: ["207", "214", "242", "249"], correctAnswer: "214" },
-  { q: "Two trains of equal length running in opposite directions cross in 18 seconds. If their speeds are 54 km/h and 66 km/h, what is the length of each train?", opts: ["270 m", "300 m", "330 m", "360 m"], correctAnswer: "300 m" },
-  { q: "A box contains 5 red, 4 blue, and 3 green balls. If two balls are drawn without replacement, what is the probability that they are of different colours?", opts: ["47/66", "19/33", "13/22", "29/66"], correctAnswer: "47/66" },
-  { q: "A budget allocation to three schemes is in the ratio 5:7:8. If the second scheme receives Rs. 42 crore more than the first, what is the total allocation?", opts: ["Rs. 380 crore", "Rs. 400 crore", "Rs. 420 crore", "Rs. 450 crore"], correctAnswer: "Rs. 420 crore" },
-  { q: "A, B, and C invested in a project in the ratio 3:5:7. A withdrew after 8 months, B after 10 months, and C stayed for a year. If profit is Rs. 1,37,000, what is B's share?", opts: ["Rs. 45,000", "Rs. 50,000", "Rs. 52,000", "Rs. 55,000"], correctAnswer: "Rs. 50,000" },
-  { q: "In a sequence, each term after the second is the sum of the previous two terms minus 3. If the first two terms are 8 and 13, what is the sixth term?", opts: ["34", "37", "41", "45"], correctAnswer: "37" },
-  { q: "A map uses a scale of 1 cm to 7.5 km. The area of a rectangular forest on the map is 16 sq. cm. What is the actual area?", opts: ["800 sq. km", "900 sq. km", "960 sq. km", "1024 sq. km"], correctAnswer: "900 sq. km" },
-  { q: "Four statements are given: All auditors are analysts. Some analysts are planners. No planner is a clerk. Which conclusion definitely follows?", opts: ["Some auditors are planners", "No auditor is a clerk", "Some analysts are not clerks", "All planners are analysts"], correctAnswer: "Some analysts are not clerks" },
-  { q: "The compound interest on a sum for 2 years at 10% per annum is Rs. 420. What is the simple interest on the same sum for 3 years at the same rate?", opts: ["Rs. 540", "Rs. 600", "Rs. 630", "Rs. 660"], correctAnswer: "Rs. 600" },
-  { q: "A contractor planned to finish work in 24 days with 18 workers. After 8 days, only one-third of the work was done. How many additional workers are needed to finish on time?", opts: ["3", "6", "9", "12"], correctAnswer: "9" },
-  { q: "If 3x + 2y = 47 and 2x + 3y = 48, what is the value of x + y?", opts: ["18", "19", "20", "21"], correctAnswer: "19" },
-  { q: "A cube is painted on all faces and cut into 216 equal smaller cubes. How many smaller cubes have exactly two painted faces?", opts: ["36", "48", "60", "72"], correctAnswer: "48" },
-  { q: "A survey shows that 65% read newspaper A, 45% read newspaper B, and 30% read both. If 220 people read neither, how many people were surveyed?", opts: ["1800", "2000", "2200", "2400"], correctAnswer: "2000" },
-  { q: "The digits of a two-digit number differ by 3. The number exceeds the number formed by reversing its digits by 27. What is the number?", opts: ["41", "52", "63", "74"], correctAnswer: "63" },
-  { q: "A boat covers 48 km downstream in 3 hours and the same distance upstream in 6 hours. What is the speed of the current?", opts: ["3 km/h", "4 km/h", "5 km/h", "6 km/h"], correctAnswer: "4 km/h" },
-  { q: "In a row of 40 candidates, R is 12th from the left and S is 17th from the right. If T is exactly between R and S, what is T's position from the left?", opts: ["17th", "18th", "19th", "20th"], correctAnswer: "18th" },
-  { q: "A rectangular field has perimeter 156 m. If its length is increased by 20% and breadth decreased by 10%, the area increases by 48 sq. m. What is the original area?", opts: ["1296 sq. m", "1344 sq. m", "1404 sq. m", "1440 sq. m"], correctAnswer: "1440 sq. m" },
-  { q: "A statement is followed by two assumptions. Statement: The city will impose congestion pricing from Monday. Which assumption is implicit?", opts: ["All citizens own cars", "Traffic congestion is a concern", "Public transport is free", "Fuel prices will fall"], correctAnswer: "Traffic congestion is a concern" },
+  {
+    "q": "[ID: A-1] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 31, and 41 teeth respectively. If Gear A rotates at exactly 110 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "66.34",
+      "84.51",
+      "56.34",
+      "51.34"
+    ],
+    "correctAnswer": "56.34"
+  },
+  {
+    "q": "[ID: A-2] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "633.60",
+      "696.96",
+      "683.60",
+      "613.60"
+    ],
+    "correctAnswer": "633.60"
+  },
+  {
+    "q": "[ID: A-3] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "67.21%",
+      "61.01%",
+      "69.01%",
+      "64.01%"
+    ],
+    "correctAnswer": "64.01%"
+  },
+  {
+    "q": "[ID: A-4] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "18.49",
+      "15.41",
+      "17.41",
+      "14.41"
+    ],
+    "correctAnswer": "15.41"
+  },
+  {
+    "q": "[ID: A-5] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 12 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1560",
+      "1570",
+      "120",
+      "780"
+    ],
+    "correctAnswer": "1560"
+  },
+  {
+    "q": "[ID: A-6] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 36, and 46 teeth respectively. If Gear A rotates at exactly 160 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "90.43",
+      "135.65",
+      "100.43",
+      "85.43"
+    ],
+    "correctAnswer": "90.43"
+  },
+  {
+    "q": "[ID: A-7] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1101.60",
+      "1151.60",
+      "1081.60",
+      "1211.76"
+    ],
+    "correctAnswer": "1101.60"
+  },
+  {
+    "q": "[ID: A-8] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "85.78%",
+      "90.07%",
+      "82.78%",
+      "90.78%"
+    ],
+    "correctAnswer": "85.78%"
+  },
+  {
+    "q": "[ID: A-9] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.80",
+      "23.76",
+      "21.80",
+      "18.80"
+    ],
+    "correctAnswer": "19.80"
+  },
+  {
+    "q": "[ID: A-10] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 17 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "2448",
+      "1224",
+      "2458",
+      "136"
+    ],
+    "correctAnswer": "2448"
+  },
+  {
+    "q": "[ID: A-11] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 41, and 51 teeth respectively. If Gear A rotates at exactly 210 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "122.65",
+      "127.65",
+      "191.47",
+      "137.65"
+    ],
+    "correctAnswer": "127.65"
+  },
+  {
+    "q": "[ID: A-12] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1689.60",
+      "1858.56",
+      "1739.60",
+      "1669.60"
+    ],
+    "correctAnswer": "1689.60"
+  },
+  {
+    "q": "[ID: A-13] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "109.40%",
+      "114.40%",
+      "114.86%",
+      "106.40%"
+    ],
+    "correctAnswer": "109.40%"
+  },
+  {
+    "q": "[ID: A-14] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "16.86",
+      "20.23",
+      "18.86",
+      "15.86"
+    ],
+    "correctAnswer": "16.86"
+  },
+  {
+    "q": "[ID: A-15] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 11 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "670",
+      "66",
+      "660",
+      "330"
+    ],
+    "correctAnswer": "660"
+  },
+  {
+    "q": "[ID: A-16] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 46, and 56 teeth respectively. If Gear A rotates at exactly 260 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "167.14",
+      "250.71",
+      "177.14",
+      "162.14"
+    ],
+    "correctAnswer": "167.14"
+  },
+  {
+    "q": "[ID: A-17] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2637.36",
+      "2377.60",
+      "2447.60",
+      "2397.60"
+    ],
+    "correctAnswer": "2397.60"
+  },
+  {
+    "q": "[ID: A-18] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "112.40%",
+      "104.40%",
+      "112.77%",
+      "107.40%"
+    ],
+    "correctAnswer": "107.40%"
+  },
+  {
+    "q": "[ID: A-19] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.07",
+      "15.89",
+      "17.89",
+      "14.89"
+    ],
+    "correctAnswer": "15.89"
+  },
+  {
+    "q": "[ID: A-20] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 16 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "176",
+      "2650",
+      "1320",
+      "2640"
+    ],
+    "correctAnswer": "2640"
+  },
+  {
+    "q": "[ID: A-21] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 51, and 61 teeth respectively. If Gear A rotates at exactly 310 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "218.36",
+      "312.54",
+      "208.36",
+      "203.36"
+    ],
+    "correctAnswer": "208.36"
+  },
+  {
+    "q": "[ID: A-22] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1259.60",
+      "1209.60",
+      "1189.60",
+      "1330.56"
+    ],
+    "correctAnswer": "1209.60"
+  },
+  {
+    "q": "[ID: A-23] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "139.50%",
+      "129.86%",
+      "137.86%",
+      "132.86%"
+    ],
+    "correctAnswer": "132.86%"
+  },
+  {
+    "q": "[ID: A-24] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "17.33",
+      "19.33",
+      "16.33",
+      "20.80"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-25] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 10 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "90",
+      "1800",
+      "900",
+      "1810"
+    ],
+    "correctAnswer": "1800"
+  },
+  {
+    "q": "[ID: A-26] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 56, and 66 teeth respectively. If Gear A rotates at exactly 360 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "250.91",
+      "245.91",
+      "376.36",
+      "260.91"
+    ],
+    "correctAnswer": "250.91"
+  },
+  {
+    "q": "[ID: A-27] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1897.60",
+      "1967.60",
+      "1917.60",
+      "2109.36"
+    ],
+    "correctAnswer": "1917.60"
+  },
+  {
+    "q": "[ID: A-28] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 18% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "120.55%",
+      "111.81%",
+      "114.81%",
+      "119.81%"
+    ],
+    "correctAnswer": "114.81%"
+  },
+  {
+    "q": "[ID: A-29] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "21.01",
+      "22.01",
+      "26.41",
+      "24.01"
+    ],
+    "correctAnswer": "22.01"
+  },
+  {
+    "q": "[ID: A-30] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 15 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1260",
+      "630",
+      "1270",
+      "105"
+    ],
+    "correctAnswer": "1260"
+  },
+  {
+    "q": "[ID: A-31] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 61, and 41 teeth respectively. If Gear A rotates at exactly 410 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "765.00",
+      "505.00",
+      "520.00",
+      "510.00"
+    ],
+    "correctAnswer": "510.00"
+  },
+  {
+    "q": "[ID: A-32] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2745.60",
+      "2795.60",
+      "2725.60",
+      "3020.16"
+    ],
+    "correctAnswer": "2745.60"
+  },
+  {
+    "q": "[ID: A-33] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 23% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "117.65%",
+      "118.29%",
+      "112.65%",
+      "109.65%"
+    ],
+    "correctAnswer": "112.65%"
+  },
+  {
+    "q": "[ID: A-34] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "15.97",
+      "13.97",
+      "12.97",
+      "16.77"
+    ],
+    "correctAnswer": "13.97"
+  },
+  {
+    "q": "[ID: A-35] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 9 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "765",
+      "45",
+      "382.5",
+      "775"
+    ],
+    "correctAnswer": "765"
+  },
+  {
+    "q": "[ID: A-36] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 66, and 46 teeth respectively. If Gear A rotates at exactly 460 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "555.00",
+      "840.00",
+      "560.00",
+      "570.00"
+    ],
+    "correctAnswer": "560.00"
+  },
+  {
+    "q": "[ID: A-37] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3673.60",
+      "4062.96",
+      "3743.60",
+      "3693.60"
+    ],
+    "correctAnswer": "3693.60"
+  },
+  {
+    "q": "[ID: A-38] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 28% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "90.07%",
+      "82.78%",
+      "90.78%",
+      "85.78%"
+    ],
+    "correctAnswer": "85.78%"
+  },
+  {
+    "q": "[ID: A-39] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "17.94",
+      "19.94",
+      "16.94",
+      "21.53"
+    ],
+    "correctAnswer": "17.94"
+  },
+  {
+    "q": "[ID: A-40] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 14 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "630",
+      "140",
+      "1260",
+      "1270"
+    ],
+    "correctAnswer": "1260"
+  },
+  {
+    "q": "[ID: A-41] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 31, and 51 teeth respectively. If Gear A rotates at exactly 510 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "915.00",
+      "610.00",
+      "620.00",
+      "605.00"
+    ],
+    "correctAnswer": "610.00"
+  },
+  {
+    "q": "[ID: A-42] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1785.60",
+      "1964.16",
+      "1835.60",
+      "1765.60"
+    ],
+    "correctAnswer": "1785.60"
+  },
+  {
+    "q": "[ID: A-43] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 33% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "109.40%",
+      "114.40%",
+      "106.40%",
+      "114.86%"
+    ],
+    "correctAnswer": "109.40%"
+  },
+  {
+    "q": "[ID: A-44] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "21.00",
+      "22.80",
+      "19.00",
+      "18.00"
+    ],
+    "correctAnswer": "19.00"
+  },
+  {
+    "q": "[ID: A-45] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 8 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "896",
+      "448",
+      "906",
+      "64"
+    ],
+    "correctAnswer": "896"
+  },
+  {
+    "q": "[ID: A-46] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 36, and 56 teeth respectively. If Gear A rotates at exactly 560 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "660.00",
+      "990.00",
+      "670.00",
+      "655.00"
+    ],
+    "correctAnswer": "660.00"
+  },
+  {
+    "q": "[ID: A-47] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3006.96",
+      "2733.60",
+      "2783.60",
+      "2713.60"
+    ],
+    "correctAnswer": "2733.60"
+  },
+  {
+    "q": "[ID: A-48] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 38% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "112.77%",
+      "107.40%",
+      "112.40%",
+      "104.40%"
+    ],
+    "correctAnswer": "107.40%"
+  },
+  {
+    "q": "[ID: A-49] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.33",
+      "17.33",
+      "20.80",
+      "16.33"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-50] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 13 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "741",
+      "1482",
+      "1492",
+      "78"
+    ],
+    "correctAnswer": "1482"
+  },
+  {
+    "q": "[ID: A-51] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 41, and 61 teeth respectively. If Gear A rotates at exactly 610 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "205.00",
+      "210.00",
+      "315.00",
+      "220.00"
+    ],
+    "correctAnswer": "210.00"
+  },
+  {
+    "q": "[ID: A-52] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1769.21",
+      "1658.37",
+      "1608.37",
+      "1588.37"
+    ],
+    "correctAnswer": "1608.37"
+  },
+  {
+    "q": "[ID: A-53] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 18% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "89.15%",
+      "97.15%",
+      "96.76%",
+      "92.15%"
+    ],
+    "correctAnswer": "92.15%"
+  },
+  {
+    "q": "[ID: A-54] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "18.64",
+      "14.53",
+      "17.53",
+      "15.53"
+    ],
+    "correctAnswer": "15.53"
+  },
+  {
+    "q": "[ID: A-55] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 7 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "847",
+      "77",
+      "857",
+      "423.5"
+    ],
+    "correctAnswer": "847"
+  },
+  {
+    "q": "[ID: A-56] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 46, and 66 teeth respectively. If Gear A rotates at exactly 660 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "270.00",
+      "260.00",
+      "255.00",
+      "390.00"
+    ],
+    "correctAnswer": "260.00"
+  },
+  {
+    "q": "[ID: A-57] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2343.49",
+      "2413.49",
+      "2363.49",
+      "2599.84"
+    ],
+    "correctAnswer": "2363.49"
+  },
+  {
+    "q": "[ID: A-58] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 23% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "122.16%",
+      "121.34%",
+      "116.34%",
+      "113.34%"
+    ],
+    "correctAnswer": "116.34%"
+  },
+  {
+    "q": "[ID: A-59] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "23.68",
+      "19.74",
+      "21.74",
+      "18.74"
+    ],
+    "correctAnswer": "19.74"
+  },
+  {
+    "q": "[ID: A-60] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 12 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "108",
+      "1738",
+      "864",
+      "1728"
+    ],
+    "correctAnswer": "1728"
+  },
+  {
+    "q": "[ID: A-61] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 51, and 41 teeth respectively. If Gear A rotates at exactly 710 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "805.24",
+      "531.83",
+      "546.83",
+      "536.83"
+    ],
+    "correctAnswer": "536.83"
+  },
+  {
+    "q": "[ID: A-62] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "829.82",
+      "779.82",
+      "759.82",
+      "857.80"
+    ],
+    "correctAnswer": "779.82"
+  },
+  {
+    "q": "[ID: A-63] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 28% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "111.07%",
+      "114.07%",
+      "119.07%",
+      "119.77%"
+    ],
+    "correctAnswer": "114.07%"
+  },
+  {
+    "q": "[ID: A-64] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "15.41",
+      "18.49",
+      "17.41",
+      "14.41"
+    ],
+    "correctAnswer": "15.41"
+  },
+  {
+    "q": "[ID: A-65] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 17 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "952",
+      "476",
+      "119",
+      "962"
+    ],
+    "correctAnswer": "952"
+  },
+  {
+    "q": "[ID: A-66] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 56, and 46 teeth respectively. If Gear A rotates at exactly 760 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "594.78",
+      "604.78",
+      "589.78",
+      "892.17"
+    ],
+    "correctAnswer": "594.78"
+  },
+  {
+    "q": "[ID: A-67] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1446.29",
+      "1314.81",
+      "1364.81",
+      "1294.81"
+    ],
+    "correctAnswer": "1314.81"
+  },
+  {
+    "q": "[ID: A-68] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 33% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "140.12%",
+      "145.12%",
+      "137.12%",
+      "147.12%"
+    ],
+    "correctAnswer": "140.12%"
+  },
+  {
+    "q": "[ID: A-69] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "23.76",
+      "18.80",
+      "21.80",
+      "19.80"
+    ],
+    "correctAnswer": "19.80"
+  },
+  {
+    "q": "[ID: A-70] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 11 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "55",
+      "715",
+      "357.5",
+      "725"
+    ],
+    "correctAnswer": "715"
+  },
+  {
+    "q": "[ID: A-71] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 61, and 51 teeth respectively. If Gear A rotates at exactly 810 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "976.76",
+      "646.18",
+      "651.18",
+      "661.18"
+    ],
+    "correctAnswer": "651.18"
+  },
+  {
+    "q": "[ID: A-72] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2168.32",
+      "1951.20",
+      "2021.20",
+      "1971.20"
+    ],
+    "correctAnswer": "1971.20"
+  },
+  {
+    "q": "[ID: A-73] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 38% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "113.78%",
+      "108.78%",
+      "114.22%",
+      "105.78%"
+    ],
+    "correctAnswer": "108.78%"
+  },
+  {
+    "q": "[ID: A-74] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "20.23",
+      "18.86",
+      "16.86",
+      "15.86"
+    ],
+    "correctAnswer": "16.86"
+  },
+  {
+    "q": "[ID: A-75] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 16 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "160",
+      "2890",
+      "2880",
+      "1440"
+    ],
+    "correctAnswer": "2880"
+  },
+  {
+    "q": "[ID: A-76] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 66, and 56 teeth respectively. If Gear A rotates at exactly 860 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "706.43",
+      "716.43",
+      "701.43",
+      "1059.64"
+    ],
+    "correctAnswer": "706.43"
+  },
+  {
+    "q": "[ID: A-77] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2798.47",
+      "2748.47",
+      "3023.32",
+      "2728.47"
+    ],
+    "correctAnswer": "2748.47"
+  },
+  {
+    "q": "[ID: A-78] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "70.68%",
+      "74.21%",
+      "67.68%",
+      "75.68%"
+    ],
+    "correctAnswer": "70.68%"
+  },
+  {
+    "q": "[ID: A-79] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.07",
+      "14.89",
+      "17.89",
+      "15.89"
+    ],
+    "correctAnswer": "15.89"
+  },
+  {
+    "q": "[ID: A-80] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 10 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "800",
+      "810",
+      "400",
+      "80"
+    ],
+    "correctAnswer": "800"
+  },
+  {
+    "q": "[ID: A-81] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 31, and 61 teeth respectively. If Gear A rotates at exactly 910 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1141.23",
+      "755.82",
+      "770.82",
+      "760.82"
+    ],
+    "correctAnswer": "760.82"
+  },
+  {
+    "q": "[ID: A-82] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1504.11",
+      "1367.37",
+      "1417.37",
+      "1347.37"
+    ],
+    "correctAnswer": "1367.37"
+  },
+  {
+    "q": "[ID: A-83] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "97.69%",
+      "93.04%",
+      "98.04%",
+      "90.04%"
+    ],
+    "correctAnswer": "93.04%"
+  },
+  {
+    "q": "[ID: A-84] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "20.80",
+      "17.33",
+      "19.33",
+      "16.33"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-85] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 15 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1350",
+      "675",
+      "1360",
+      "90"
+    ],
+    "correctAnswer": "1350"
+  },
+  {
+    "q": "[ID: A-86] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 36, and 66 teeth respectively. If Gear A rotates at exactly 960 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "814.55",
+      "1221.82",
+      "824.55",
+      "809.55"
+    ],
+    "correctAnswer": "814.55"
+  },
+  {
+    "q": "[ID: A-87] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2357.52",
+      "2123.20",
+      "2193.20",
+      "2143.20"
+    ],
+    "correctAnswer": "2143.20"
+  },
+  {
+    "q": "[ID: A-88] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "117.27%",
+      "122.27%",
+      "114.27%",
+      "123.13%"
+    ],
+    "correctAnswer": "117.27%"
+  },
+  {
+    "q": "[ID: A-89] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "26.41",
+      "21.01",
+      "24.01",
+      "22.01"
+    ],
+    "correctAnswer": "22.01"
+  },
+  {
+    "q": "[ID: A-90] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 9 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1980",
+      "990",
+      "1990",
+      "99"
+    ],
+    "correctAnswer": "1980"
+  },
+  {
+    "q": "[ID: A-91] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 41, and 41 teeth respectively. If Gear A rotates at exactly 1010 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "2254.02",
+      "1502.68",
+      "1512.68",
+      "1497.68"
+    ],
+    "correctAnswer": "1502.68"
+  },
+  {
+    "q": "[ID: A-92] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3089.77",
+      "3039.77",
+      "3343.75",
+      "3019.77"
+    ],
+    "correctAnswer": "3039.77"
+  },
+  {
+    "q": "[ID: A-93] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "111.91%",
+      "114.91%",
+      "120.66%",
+      "119.91%"
+    ],
+    "correctAnswer": "114.91%"
+  },
+  {
+    "q": "[ID: A-94] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "13.97",
+      "15.97",
+      "12.97",
+      "16.77"
+    ],
+    "correctAnswer": "13.97"
+  },
+  {
+    "q": "[ID: A-95] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 14 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1522",
+      "1512",
+      "126",
+      "756"
+    ],
+    "correctAnswer": "1512"
+  },
+  {
+    "q": "[ID: A-96] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 46, and 46 teeth respectively. If Gear A rotates at exactly 1060 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1515.87",
+      "2281.30",
+      "1530.87",
+      "1520.87"
+    ],
+    "correctAnswer": "1520.87"
+  },
+  {
+    "q": "[ID: A-97] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "4106.90",
+      "4056.90",
+      "4036.90",
+      "4462.60"
+    ],
+    "correctAnswer": "4056.90"
+  },
+  {
+    "q": "[ID: A-98] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "148.05%",
+      "141.00%",
+      "146.00%",
+      "138.00%"
+    ],
+    "correctAnswer": "141.00%"
+  },
+  {
+    "q": "[ID: A-99] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.94",
+      "17.94",
+      "16.94",
+      "21.53"
+    ],
+    "correctAnswer": "17.94"
+  },
+  {
+    "q": "[ID: A-100] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 8 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "952",
+      "56",
+      "476",
+      "962"
+    ],
+    "correctAnswer": "952"
+  },
+  {
+    "q": "[ID: A-101] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 51, and 51 teeth respectively. If Gear A rotates at exactly 110 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "45.29",
+      "67.94",
+      "55.29",
+      "40.29"
+    ],
+    "correctAnswer": "45.29"
+  },
+  {
+    "q": "[ID: A-102] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "833.98",
+      "853.98",
+      "939.38",
+      "903.98"
+    ],
+    "correctAnswer": "853.98"
+  },
+  {
+    "q": "[ID: A-103] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 18% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "128.17%",
+      "127.06%",
+      "119.06%",
+      "122.06%"
+    ],
+    "correctAnswer": "122.06%"
+  },
+  {
+    "q": "[ID: A-104] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.00",
+      "21.00",
+      "18.00",
+      "22.80"
+    ],
+    "correctAnswer": "19.00"
+  },
+  {
+    "q": "[ID: A-105] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 13 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "585",
+      "65",
+      "292.5",
+      "595"
+    ],
+    "correctAnswer": "585"
+  },
+  {
+    "q": "[ID: A-106] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 56, and 56 teeth respectively. If Gear A rotates at exactly 160 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "74.29",
+      "84.29",
+      "69.29",
+      "111.43"
+    ],
+    "correctAnswer": "74.29"
+  },
+  {
+    "q": "[ID: A-107] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1497.20",
+      "1591.92",
+      "1447.20",
+      "1427.20"
+    ],
+    "correctAnswer": "1447.20"
+  },
+  {
+    "q": "[ID: A-108] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 23% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "74.51%",
+      "67.96%",
+      "75.96%",
+      "70.96%"
+    ],
+    "correctAnswer": "70.96%"
+  },
+  {
+    "q": "[ID: A-109] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "20.80",
+      "16.33",
+      "19.33",
+      "17.33"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-110] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 7 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "70",
+      "980",
+      "490",
+      "990"
+    ],
+    "correctAnswer": "980"
+  },
+  {
+    "q": "[ID: A-111] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 61, and 61 teeth respectively. If Gear A rotates at exactly 210 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "160.08",
+      "106.72",
+      "101.72",
+      "116.72"
+    ],
+    "correctAnswer": "106.72"
+  },
+  {
+    "q": "[ID: A-112] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2389.58",
+      "2172.34",
+      "2222.34",
+      "2152.34"
+    ],
+    "correctAnswer": "2172.34"
+  },
+  {
+    "q": "[ID: A-113] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 28% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "98.00%",
+      "90.33%",
+      "98.33%",
+      "93.33%"
+    ],
+    "correctAnswer": "93.33%"
+  },
+  {
+    "q": "[ID: A-114] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "14.53",
+      "17.53",
+      "18.64",
+      "15.53"
+    ],
+    "correctAnswer": "15.53"
+  },
+  {
+    "q": "[ID: A-115] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 12 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1824",
+      "912",
+      "1834",
+      "96"
+    ],
+    "correctAnswer": "1824"
+  },
+  {
+    "q": "[ID: A-116] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 66, and 66 teeth respectively. If Gear A rotates at exactly 260 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "136.82",
+      "212.73",
+      "151.82",
+      "141.82"
+    ],
+    "correctAnswer": "141.82"
+  },
+  {
+    "q": "[ID: A-117] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3026.48",
+      "3329.13",
+      "3076.48",
+      "3006.48"
+    ],
+    "correctAnswer": "3026.48"
+  },
+  {
+    "q": "[ID: A-118] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 33% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "117.57%",
+      "122.57%",
+      "114.57%",
+      "123.45%"
+    ],
+    "correctAnswer": "117.57%"
+  },
+  {
+    "q": "[ID: A-119] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.74",
+      "23.68",
+      "21.74",
+      "18.74"
+    ],
+    "correctAnswer": "19.74"
+  },
+  {
+    "q": "[ID: A-120] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 17 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "102",
+      "1122",
+      "561",
+      "1132"
+    ],
+    "correctAnswer": "1122"
+  },
+  {
+    "q": "[ID: A-121] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 31, and 41 teeth respectively. If Gear A rotates at exactly 310 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "310.00",
+      "465.00",
+      "320.00",
+      "305.00"
+    ],
+    "correctAnswer": "310.00"
+  },
+  {
+    "q": "[ID: A-122] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "887.04",
+      "975.74",
+      "937.04",
+      "867.04"
+    ],
+    "correctAnswer": "887.04"
+  },
+  {
+    "q": "[ID: A-123] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 38% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "120.96%",
+      "112.20%",
+      "120.20%",
+      "115.20%"
+    ],
+    "correctAnswer": "115.20%"
+  },
+  {
+    "q": "[ID: A-124] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "15.41",
+      "14.41",
+      "17.41",
+      "18.49"
+    ],
+    "correctAnswer": "15.41"
+  },
+  {
+    "q": "[ID: A-125] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 11 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "968",
+      "1936",
+      "121",
+      "1946"
+    ],
+    "correctAnswer": "1936"
+  },
+  {
+    "q": "[ID: A-126] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 36, and 46 teeth respectively. If Gear A rotates at exactly 360 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "540.00",
+      "370.00",
+      "355.00",
+      "360.00"
+    ],
+    "correctAnswer": "360.00"
+  },
+  {
+    "q": "[ID: A-127] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1627.22",
+      "1459.29",
+      "1529.29",
+      "1479.29"
+    ],
+    "correctAnswer": "1479.29"
+  },
+  {
+    "q": "[ID: A-128] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 18% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "104.11%",
+      "104.07%",
+      "99.11%",
+      "96.11%"
+    ],
+    "correctAnswer": "99.11%"
+  },
+  {
+    "q": "[ID: A-129] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.80",
+      "21.80",
+      "18.80",
+      "23.76"
+    ],
+    "correctAnswer": "19.80"
+  },
+  {
+    "q": "[ID: A-130] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 16 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "144",
+      "1152",
+      "576",
+      "1162"
+    ],
+    "correctAnswer": "1152"
+  },
+  {
+    "q": "[ID: A-131] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 41, and 51 teeth respectively. If Gear A rotates at exactly 410 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "405.00",
+      "410.00",
+      "615.00",
+      "420.00"
+    ],
+    "correctAnswer": "410.00"
+  },
+  {
+    "q": "[ID: A-132] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2416.13",
+      "2196.48",
+      "2246.48",
+      "2176.48"
+    ],
+    "correctAnswer": "2196.48"
+  },
+  {
+    "q": "[ID: A-133] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 23% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "130.10%",
+      "120.91%",
+      "123.91%",
+      "128.91%"
+    ],
+    "correctAnswer": "123.91%"
+  },
+  {
+    "q": "[ID: A-134] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "18.86",
+      "15.86",
+      "20.23",
+      "16.86"
+    ],
+    "correctAnswer": "16.86"
+  },
+  {
+    "q": "[ID: A-135] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 10 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "70",
+      "920",
+      "455",
+      "910"
+    ],
+    "correctAnswer": "910"
+  },
+  {
+    "q": "[ID: A-136] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 46, and 56 teeth respectively. If Gear A rotates at exactly 460 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "460.00",
+      "470.00",
+      "455.00",
+      "690.00"
+    ],
+    "correctAnswer": "460.00"
+  },
+  {
+    "q": "[ID: A-137] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3340.66",
+      "3016.96",
+      "3086.96",
+      "3036.96"
+    ],
+    "correctAnswer": "3036.96"
+  },
+  {
+    "q": "[ID: A-138] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 28% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "126.30%",
+      "121.30%",
+      "118.30%",
+      "127.36%"
+    ],
+    "correctAnswer": "121.30%"
+  },
+  {
+    "q": "[ID: A-139] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "17.89",
+      "15.89",
+      "19.07",
+      "14.89"
+    ],
+    "correctAnswer": "15.89"
+  },
+  {
+    "q": "[ID: A-140] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 15 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1360",
+      "675",
+      "75",
+      "1350"
+    ],
+    "correctAnswer": "1350"
+  },
+  {
+    "q": "[ID: A-141] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 51, and 61 teeth respectively. If Gear A rotates at exactly 510 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "765.00",
+      "505.00",
+      "520.00",
+      "510.00"
+    ],
+    "correctAnswer": "510.00"
+  },
+  {
+    "q": "[ID: A-142] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1649.89",
+      "1479.90",
+      "1549.90",
+      "1499.90"
+    ],
+    "correctAnswer": "1499.90"
+  },
+  {
+    "q": "[ID: A-143] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 33% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "97.69%",
+      "93.04%",
+      "98.04%",
+      "90.04%"
+    ],
+    "correctAnswer": "93.04%"
+  },
+  {
+    "q": "[ID: A-144] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "16.33",
+      "17.33",
+      "19.33",
+      "20.80"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-145] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 9 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "90",
+      "910",
+      "450",
+      "900"
+    ],
+    "correctAnswer": "900"
+  },
+  {
+    "q": "[ID: A-146] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 56, and 66 teeth respectively. If Gear A rotates at exactly 560 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "560.00",
+      "555.00",
+      "840.00",
+      "570.00"
+    ],
+    "correctAnswer": "560.00"
+  },
+  {
+    "q": "[ID: A-147] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2569.58",
+      "2315.99",
+      "2385.99",
+      "2335.99"
+    ],
+    "correctAnswer": "2335.99"
+  },
+  {
+    "q": "[ID: A-148] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 38% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "117.27%",
+      "122.27%",
+      "114.27%",
+      "123.13%"
+    ],
+    "correctAnswer": "117.27%"
+  },
+  {
+    "q": "[ID: A-149] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "21.01",
+      "26.41",
+      "22.01",
+      "24.01"
+    ],
+    "correctAnswer": "22.01"
+  },
+  {
+    "q": "[ID: A-150] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 14 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1680",
+      "112",
+      "840",
+      "1690"
+    ],
+    "correctAnswer": "1680"
+  },
+  {
+    "q": "[ID: A-151] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 61, and 41 teeth respectively. If Gear A rotates at exactly 610 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "468.66",
+      "307.44",
+      "322.44",
+      "312.44"
+    ],
+    "correctAnswer": "312.44"
+  },
+  {
+    "q": "[ID: A-152] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1490.08",
+      "1560.08",
+      "1661.09",
+      "1510.08"
+    ],
+    "correctAnswer": "1510.08"
+  },
+  {
+    "q": "[ID: A-153] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "81.21%",
+      "74.34%",
+      "82.34%",
+      "77.34%"
+    ],
+    "correctAnswer": "77.34%"
+  },
+  {
+    "q": "[ID: A-154] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "12.97",
+      "15.97",
+      "13.97",
+      "16.77"
+    ],
+    "correctAnswer": "13.97"
+  },
+  {
+    "q": "[ID: A-155] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 8 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "480",
+      "48",
+      "970",
+      "960"
+    ],
+    "correctAnswer": "960"
+  },
+  {
+    "q": "[ID: A-156] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 66, and 46 teeth respectively. If Gear A rotates at exactly 660 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "368.04",
+      "383.04",
+      "373.04",
+      "559.57"
+    ],
+    "correctAnswer": "373.04"
+  },
+  {
+    "q": "[ID: A-157] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2437.78",
+      "2196.16",
+      "2266.16",
+      "2216.16"
+    ],
+    "correctAnswer": "2216.16"
+  },
+  {
+    "q": "[ID: A-158] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "105.31%",
+      "100.29%",
+      "97.29%",
+      "105.29%"
+    ],
+    "correctAnswer": "100.29%"
+  },
+  {
+    "q": "[ID: A-159] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "21.53",
+      "17.94",
+      "19.94",
+      "16.94"
+    ],
+    "correctAnswer": "17.94"
+  },
+  {
+    "q": "[ID: A-160] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 13 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1716",
+      "858",
+      "143",
+      "1726"
+    ],
+    "correctAnswer": "1716"
+  },
+  {
+    "q": "[ID: A-161] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 31, and 51 teeth respectively. If Gear A rotates at exactly 710 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "441.57",
+      "431.57",
+      "426.57",
+      "647.35"
+    ],
+    "correctAnswer": "431.57"
+  },
+  {
+    "q": "[ID: A-162] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1142.78",
+      "1192.78",
+      "1122.78",
+      "1257.06"
+    ],
+    "correctAnswer": "1142.78"
+  },
+  {
+    "q": "[ID: A-163] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "125.14%",
+      "130.14%",
+      "122.14%",
+      "131.40%"
+    ],
+    "correctAnswer": "125.14%"
+  },
+  {
+    "q": "[ID: A-164] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "18.00",
+      "22.80",
+      "21.00",
+      "19.00"
+    ],
+    "correctAnswer": "19.00"
+  },
+  {
+    "q": "[ID: A-165] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 7 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "535.5",
+      "63",
+      "1071",
+      "1081"
+    ],
+    "correctAnswer": "1071"
+  },
+  {
+    "q": "[ID: A-166] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 36, and 56 teeth respectively. If Gear A rotates at exactly 760 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "732.86",
+      "483.57",
+      "498.57",
+      "488.57"
+    ],
+    "correctAnswer": "488.57"
+  },
+  {
+    "q": "[ID: A-167] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2022.86",
+      "1818.97",
+      "1888.97",
+      "1838.97"
+    ],
+    "correctAnswer": "1838.97"
+  },
+  {
+    "q": "[ID: A-168] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "128.55%",
+      "119.43%",
+      "127.43%",
+      "122.43%"
+    ],
+    "correctAnswer": "122.43%"
+  },
+  {
+    "q": "[ID: A-169] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "17.33",
+      "19.33",
+      "16.33",
+      "20.80"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-170] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 12 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "84",
+      "766",
+      "378",
+      "756"
+    ],
+    "correctAnswer": "756"
+  },
+  {
+    "q": "[ID: A-171] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 41, and 61 teeth respectively. If Gear A rotates at exactly 810 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "544.43",
+      "554.43",
+      "816.64",
+      "539.43"
+    ],
+    "correctAnswer": "544.43"
+  },
+  {
+    "q": "[ID: A-172] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2927.23",
+      "2641.12",
+      "2661.12",
+      "2711.12"
+    ],
+    "correctAnswer": "2661.12"
+  },
+  {
+    "q": "[ID: A-173] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "149.15%",
+      "156.60%",
+      "154.15%",
+      "146.15%"
+    ],
+    "correctAnswer": "149.15%"
+  },
+  {
+    "q": "[ID: A-174] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "15.53",
+      "17.53",
+      "18.64",
+      "14.53"
+    ],
+    "correctAnswer": "15.53"
+  },
+  {
+    "q": "[ID: A-175] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 17 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "85",
+      "1200",
+      "595",
+      "1190"
+    ],
+    "correctAnswer": "1190"
+  },
+  {
+    "q": "[ID: A-176] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 46, and 66 teeth respectively. If Gear A rotates at exactly 860 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "599.39",
+      "609.39",
+      "594.39",
+      "899.09"
+    ],
+    "correctAnswer": "599.39"
+  },
+  {
+    "q": "[ID: A-177] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3968.65",
+      "3587.86",
+      "3657.86",
+      "3607.86"
+    ],
+    "correctAnswer": "3607.86"
+  },
+  {
+    "q": "[ID: A-178] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 18% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "75.52%",
+      "83.52%",
+      "78.52%",
+      "82.45%"
+    ],
+    "correctAnswer": "78.52%"
+  },
+  {
+    "q": "[ID: A-179] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "21.74",
+      "23.68",
+      "18.74",
+      "19.74"
+    ],
+    "correctAnswer": "19.74"
+  },
+  {
+    "q": "[ID: A-180] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 11 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1045",
+      "110",
+      "2090",
+      "2100"
+    ],
+    "correctAnswer": "2090"
+  },
+  {
+    "q": "[ID: A-181] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 51, and 41 teeth respectively. If Gear A rotates at exactly 910 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1697.93",
+      "1131.95",
+      "1141.95",
+      "1126.95"
+    ],
+    "correctAnswer": "1131.95"
+  },
+  {
+    "q": "[ID: A-182] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1065.94",
+      "949.04",
+      "1019.04",
+      "969.04"
+    ],
+    "correctAnswer": "969.04"
+  },
+  {
+    "q": "[ID: A-183] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 23% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "81.80%",
+      "82.91%",
+      "77.91%",
+      "74.91%"
+    ],
+    "correctAnswer": "77.91%"
+  },
+  {
+    "q": "[ID: A-184] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "18.49",
+      "14.41",
+      "17.41",
+      "15.41"
+    ],
+    "correctAnswer": "15.41"
+  },
+  {
+    "q": "[ID: A-185] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 16 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1408",
+      "704",
+      "1418",
+      "128"
+    ],
+    "correctAnswer": "1408"
+  },
+  {
+    "q": "[ID: A-186] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 56, and 46 teeth respectively. If Gear A rotates at exactly 960 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1753.04",
+      "1168.70",
+      "1163.70",
+      "1178.70"
+    ],
+    "correctAnswer": "1168.70"
+  },
+  {
+    "q": "[ID: A-187] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1590.03",
+      "1660.03",
+      "1610.03",
+      "1771.03"
+    ],
+    "correctAnswer": "1610.03"
+  },
+  {
+    "q": "[ID: A-188] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 28% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "100.88%",
+      "105.88%",
+      "97.88%",
+      "105.93%"
+    ],
+    "correctAnswer": "100.88%"
+  },
+  {
+    "q": "[ID: A-189] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.80",
+      "23.76",
+      "21.80",
+      "18.80"
+    ],
+    "correctAnswer": "19.80"
+  },
+  {
+    "q": "[ID: A-190] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 10 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "960",
+      "480",
+      "60",
+      "970"
+    ],
+    "correctAnswer": "960"
+  },
+  {
+    "q": "[ID: A-191] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 61, and 51 teeth respectively. If Gear A rotates at exactly 1010 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1208.04",
+      "1218.04",
+      "1203.04",
+      "1812.06"
+    ],
+    "correctAnswer": "1208.04"
+  },
+  {
+    "q": "[ID: A-192] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2430.80",
+      "2360.80",
+      "2618.88",
+      "2380.80"
+    ],
+    "correctAnswer": "2380.80"
+  },
+  {
+    "q": "[ID: A-193] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 33% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "125.75%",
+      "130.75%",
+      "122.75%",
+      "132.04%"
+    ],
+    "correctAnswer": "125.75%"
+  },
+  {
+    "q": "[ID: A-194] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "16.86",
+      "20.23",
+      "18.86",
+      "15.86"
+    ],
+    "correctAnswer": "16.86"
+  },
+  {
+    "q": "[ID: A-195] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 15 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1330",
+      "1320",
+      "165",
+      "660"
+    ],
+    "correctAnswer": "1320"
+  },
+  {
+    "q": "[ID: A-196] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 66, and 56 teeth respectively. If Gear A rotates at exactly 1060 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1249.29",
+      "1259.29",
+      "1244.29",
+      "1873.93"
+    ],
+    "correctAnswer": "1249.29"
+  },
+  {
+    "q": "[ID: A-197] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3278.35",
+      "3606.19",
+      "3328.35",
+      "3258.35"
+    ],
+    "correctAnswer": "3278.35"
+  },
+  {
+    "q": "[ID: A-198] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 38% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "127.99%",
+      "122.99%",
+      "129.14%",
+      "119.99%"
+    ],
+    "correctAnswer": "122.99%"
+  },
+  {
+    "q": "[ID: A-199] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "15.89",
+      "17.89",
+      "14.89",
+      "19.07"
+    ],
+    "correctAnswer": "15.89"
+  },
+  {
+    "q": "[ID: A-200] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 9 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1053",
+      "526.5",
+      "1063",
+      "81"
+    ],
+    "correctAnswer": "1053"
+  },
+  {
+    "q": "[ID: A-201] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 31, and 61 teeth respectively. If Gear A rotates at exactly 110 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "56.80",
+      "37.87",
+      "47.87",
+      "32.87"
+    ],
+    "correctAnswer": "37.87"
+  },
+  {
+    "q": "[ID: A-202] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "782.68",
+      "832.68",
+      "762.68",
+      "860.95"
+    ],
+    "correctAnswer": "782.68"
+  },
+  {
+    "q": "[ID: A-203] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 18% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "106.08%",
+      "111.38%",
+      "111.08%",
+      "103.08%"
+    ],
+    "correctAnswer": "106.08%"
+  },
+  {
+    "q": "[ID: A-204] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.33",
+      "17.33",
+      "20.80",
+      "16.33"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-205] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 14 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1764",
+      "1774",
+      "98",
+      "882"
+    ],
+    "correctAnswer": "1764"
+  },
+  {
+    "q": "[ID: A-206] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 36, and 66 teeth respectively. If Gear A rotates at exactly 160 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "94.55",
+      "58.03",
+      "63.03",
+      "73.03"
+    ],
+    "correctAnswer": "63.03"
+  },
+  {
+    "q": "[ID: A-207] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1377.57",
+      "1460.33",
+      "1327.57",
+      "1307.57"
+    ],
+    "correctAnswer": "1327.57"
+  },
+  {
+    "q": "[ID: A-208] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 23% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "131.47%",
+      "136.47%",
+      "128.47%",
+      "138.05%"
+    ],
+    "correctAnswer": "131.47%"
+  },
+  {
+    "q": "[ID: A-209] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "24.01",
+      "26.41",
+      "21.01",
+      "22.01"
+    ],
+    "correctAnswer": "22.01"
+  },
+  {
+    "q": "[ID: A-210] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 8 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "400",
+      "200",
+      "410",
+      "40"
+    ],
+    "correctAnswer": "400"
+  },
+  {
+    "q": "[ID: A-211] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 41, and 41 teeth respectively. If Gear A rotates at exactly 210 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "158.78",
+      "238.17",
+      "168.78",
+      "153.78"
+    ],
+    "correctAnswer": "158.78"
+  },
+  {
+    "q": "[ID: A-212] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1996.80",
+      "2046.80",
+      "1976.80",
+      "2196.48"
+    ],
+    "correctAnswer": "1996.80"
+  },
+  {
+    "q": "[ID: A-213] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 28% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "77.91%",
+      "82.91%",
+      "74.91%",
+      "81.80%"
+    ],
+    "correctAnswer": "77.91%"
+  },
+  {
+    "q": "[ID: A-214] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "13.97",
+      "15.97",
+      "12.97",
+      "16.77"
+    ],
+    "correctAnswer": "13.97"
+  },
+  {
+    "q": "[ID: A-215] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 13 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "975",
+      "1950",
+      "130",
+      "1960"
+    ],
+    "correctAnswer": "1950"
+  },
+  {
+    "q": "[ID: A-216] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 46, and 46 teeth respectively. If Gear A rotates at exactly 260 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "305.22",
+      "198.48",
+      "213.48",
+      "203.48"
+    ],
+    "correctAnswer": "203.48"
+  },
+  {
+    "q": "[ID: A-217] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2839.04",
+      "3067.95",
+      "2789.04",
+      "2769.04"
+    ],
+    "correctAnswer": "2789.04"
+  },
+  {
+    "q": "[ID: A-218] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 33% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "100.88%",
+      "105.88%",
+      "97.88%",
+      "105.93%"
+    ],
+    "correctAnswer": "100.88%"
+  },
+  {
+    "q": "[ID: A-219] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "21.53",
+      "16.94",
+      "19.94",
+      "17.94"
+    ],
+    "correctAnswer": "17.94"
+  },
+  {
+    "q": "[ID: A-220] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 7 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "56",
+      "1130",
+      "560",
+      "1120"
+    ],
+    "correctAnswer": "1120"
+  },
+  {
+    "q": "[ID: A-221] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 51, and 51 teeth respectively. If Gear A rotates at exactly 310 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "249.22",
+      "259.22",
+      "244.22",
+      "373.82"
+    ],
+    "correctAnswer": "249.22"
+  },
+  {
+    "q": "[ID: A-222] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1527.68",
+      "1388.80",
+      "1438.80",
+      "1368.80"
+    ],
+    "correctAnswer": "1388.80"
+  },
+  {
+    "q": "[ID: A-223] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 38% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "125.75%",
+      "130.75%",
+      "122.75%",
+      "132.04%"
+    ],
+    "correctAnswer": "125.75%"
+  },
+  {
+    "q": "[ID: A-224] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.00",
+      "21.00",
+      "22.80",
+      "18.00"
+    ],
+    "correctAnswer": "19.00"
+  },
+  {
+    "q": "[ID: A-225] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 12 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "874",
+      "72",
+      "432",
+      "864"
+    ],
+    "correctAnswer": "864"
+  },
+  {
+    "q": "[ID: A-226] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 56, and 56 teeth respectively. If Gear A rotates at exactly 360 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "443.57",
+      "305.71",
+      "290.71",
+      "295.71"
+    ],
+    "correctAnswer": "295.71"
+  },
+  {
+    "q": "[ID: A-227] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2177.61",
+      "2227.61",
+      "2157.61",
+      "2395.37"
+    ],
+    "correctAnswer": "2177.61"
+  },
+  {
+    "q": "[ID: A-228] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "84.01%",
+      "89.01%",
+      "88.21%",
+      "81.01%"
+    ],
+    "correctAnswer": "84.01%"
+  },
+  {
+    "q": "[ID: A-229] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.33",
+      "17.33",
+      "20.80",
+      "16.33"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-230] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 17 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "3179",
+      "3189",
+      "187",
+      "1589.5"
+    ],
+    "correctAnswer": "3179"
+  },
+  {
+    "q": "[ID: A-231] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 61, and 61 teeth respectively. If Gear A rotates at exactly 410 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "337.79",
+      "352.79",
+      "342.79",
+      "514.18"
+    ],
+    "correctAnswer": "342.79"
+  },
+  {
+    "q": "[ID: A-232] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3138.80",
+      "3088.80",
+      "3397.68",
+      "3068.80"
+    ],
+    "correctAnswer": "3088.80"
+  },
+  {
+    "q": "[ID: A-233] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "104.55%",
+      "112.55%",
+      "112.93%",
+      "107.55%"
+    ],
+    "correctAnswer": "107.55%"
+  },
+  {
+    "q": "[ID: A-234] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "15.53",
+      "17.53",
+      "14.53",
+      "18.64"
+    ],
+    "correctAnswer": "15.53"
+  },
+  {
+    "q": "[ID: A-235] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 11 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "445.5",
+      "99",
+      "891",
+      "901"
+    ],
+    "correctAnswer": "891"
+  },
+  {
+    "q": "[ID: A-236] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 66, and 66 teeth respectively. If Gear A rotates at exactly 460 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "585.45",
+      "385.30",
+      "400.30",
+      "390.30"
+    ],
+    "correctAnswer": "390.30"
+  },
+  {
+    "q": "[ID: A-237] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "4121.84",
+      "4171.84",
+      "4101.84",
+      "4534.03"
+    ],
+    "correctAnswer": "4121.84"
+  },
+  {
+    "q": "[ID: A-238] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "139.66%",
+      "130.01%",
+      "138.01%",
+      "133.01%"
+    ],
+    "correctAnswer": "133.01%"
+  },
+  {
+    "q": "[ID: A-239] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "21.74",
+      "19.74",
+      "18.74",
+      "23.68"
+    ],
+    "correctAnswer": "19.74"
+  },
+  {
+    "q": "[ID: A-240] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 16 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1568",
+      "784",
+      "112",
+      "1578"
+    ],
+    "correctAnswer": "1568"
+  },
+  {
+    "q": "[ID: A-241] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 31, and 41 teeth respectively. If Gear A rotates at exactly 510 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1138.17",
+      "753.78",
+      "768.78",
+      "758.78"
+    ],
+    "correctAnswer": "758.78"
+  },
+  {
+    "q": "[ID: A-242] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1083.77",
+      "1137.15",
+      "1033.77",
+      "1013.77"
+    ],
+    "correctAnswer": "1033.77"
+  },
+  {
+    "q": "[ID: A-243] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "134.94%",
+      "136.44%",
+      "129.94%",
+      "126.94%"
+    ],
+    "correctAnswer": "129.94%"
+  },
+  {
+    "q": "[ID: A-244] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "14.41",
+      "18.49",
+      "17.41",
+      "15.41"
+    ],
+    "correctAnswer": "15.41"
+  },
+  {
+    "q": "[ID: A-245] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 10 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "950",
+      "475",
+      "960",
+      "50"
+    ],
+    "correctAnswer": "950"
+  },
+  {
+    "q": "[ID: A-246] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 36, and 46 teeth respectively. If Gear A rotates at exactly 560 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1205.22",
+      "798.48",
+      "813.48",
+      "803.48"
+    ],
+    "correctAnswer": "803.48"
+  },
+  {
+    "q": "[ID: A-247] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1888.09",
+      "1696.45",
+      "1766.45",
+      "1716.45"
+    ],
+    "correctAnswer": "1716.45"
+  },
+  {
+    "q": "[ID: A-248] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "105.29%",
+      "105.31%",
+      "100.29%",
+      "97.29%"
+    ],
+    "correctAnswer": "100.29%"
+  },
+  {
+    "q": "[ID: A-249] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.80",
+      "18.80",
+      "23.76",
+      "21.80"
+    ],
+    "correctAnswer": "19.80"
+  },
+  {
+    "q": "[ID: A-250] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 15 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "150",
+      "1660",
+      "825",
+      "1650"
+    ],
+    "correctAnswer": "1650"
+  },
+  {
+    "q": "[ID: A-251] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 41, and 51 teeth respectively. If Gear A rotates at exactly 610 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "261.18",
+      "251.18",
+      "376.76",
+      "246.18"
+    ],
+    "correctAnswer": "251.18"
+  },
+  {
+    "q": "[ID: A-252] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1327.54",
+      "1377.54",
+      "1460.30",
+      "1307.54"
+    ],
+    "correctAnswer": "1327.54"
+  },
+  {
+    "q": "[ID: A-253] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 18% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "82.78%",
+      "90.07%",
+      "90.78%",
+      "85.78%"
+    ],
+    "correctAnswer": "85.78%"
+  },
+  {
+    "q": "[ID: A-254] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "16.86",
+      "18.86",
+      "15.86",
+      "20.23"
+    ],
+    "correctAnswer": "16.86"
+  },
+  {
+    "q": "[ID: A-255] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 9 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "72",
+      "1162",
+      "576",
+      "1152"
+    ],
+    "correctAnswer": "1152"
+  },
+  {
+    "q": "[ID: A-256] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 46, and 56 teeth respectively. If Gear A rotates at exactly 660 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "459.64",
+      "306.43",
+      "316.43",
+      "301.43"
+    ],
+    "correctAnswer": "306.43"
+  },
+  {
+    "q": "[ID: A-257] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1961.67",
+      "2011.67",
+      "2157.84",
+      "1941.67"
+    ],
+    "correctAnswer": "1961.67"
+  },
+  {
+    "q": "[ID: A-258] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 23% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "89.10%",
+      "89.86%",
+      "84.86%",
+      "81.86%"
+    ],
+    "correctAnswer": "84.86%"
+  },
+  {
+    "q": "[ID: A-259] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "15.89",
+      "14.89",
+      "17.89",
+      "19.07"
+    ],
+    "correctAnswer": "15.89"
+  },
+  {
+    "q": "[ID: A-260] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 14 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "682",
+      "672",
+      "84",
+      "336"
+    ],
+    "correctAnswer": "672"
+  },
+  {
+    "q": "[ID: A-261] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 51, and 61 teeth respectively. If Gear A rotates at exactly 710 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "541.23",
+      "355.82",
+      "370.82",
+      "360.82"
+    ],
+    "correctAnswer": "360.82"
+  },
+  {
+    "q": "[ID: A-262] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1068.61",
+      "1120.47",
+      "1018.61",
+      "998.61"
+    ],
+    "correctAnswer": "1018.61"
+  },
+  {
+    "q": "[ID: A-263] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 28% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "105.44%",
+      "113.86%",
+      "113.44%",
+      "108.44%"
+    ],
+    "correctAnswer": "108.44%"
+  },
+  {
+    "q": "[ID: A-264] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "17.33",
+      "19.33",
+      "20.80",
+      "16.33"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-265] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 8 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "572",
+      "1154",
+      "1144",
+      "88"
+    ],
+    "correctAnswer": "1144"
+  },
+  {
+    "q": "[ID: A-266] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 56, and 66 teeth respectively. If Gear A rotates at exactly 760 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "621.82",
+      "409.55",
+      "414.55",
+      "424.55"
+    ],
+    "correctAnswer": "414.55"
+  },
+  {
+    "q": "[ID: A-267] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1815.03",
+      "1630.03",
+      "1700.03",
+      "1650.03"
+    ],
+    "correctAnswer": "1650.03"
+  },
+  {
+    "q": "[ID: A-268] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 33% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "133.93%",
+      "138.93%",
+      "130.93%",
+      "140.63%"
+    ],
+    "correctAnswer": "133.93%"
+  },
+  {
+    "q": "[ID: A-269] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "26.41",
+      "24.01",
+      "21.01",
+      "22.01"
+    ],
+    "correctAnswer": "22.01"
+  },
+  {
+    "q": "[ID: A-270] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 13 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "2116",
+      "1053",
+      "2106",
+      "117"
+    ],
+    "correctAnswer": "2106"
+  },
+  {
+    "q": "[ID: A-271] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 61, and 41 teeth respectively. If Gear A rotates at exactly 810 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "810.00",
+      "1215.00",
+      "820.00",
+      "805.00"
+    ],
+    "correctAnswer": "810.00"
+  },
+  {
+    "q": "[ID: A-272] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2642.64",
+      "2402.40",
+      "2452.40",
+      "2382.40"
+    ],
+    "correctAnswer": "2402.40"
+  },
+  {
+    "q": "[ID: A-273] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 38% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "130.79%",
+      "135.79%",
+      "137.33%",
+      "127.79%"
+    ],
+    "correctAnswer": "130.79%"
+  },
+  {
+    "q": "[ID: A-274] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "15.97",
+      "16.77",
+      "13.97",
+      "12.97"
+    ],
+    "correctAnswer": "13.97"
+  },
+  {
+    "q": "[ID: A-275] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 7 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "490",
+      "245",
+      "500",
+      "49"
+    ],
+    "correctAnswer": "490"
+  },
+  {
+    "q": "[ID: A-276] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 66, and 46 teeth respectively. If Gear A rotates at exactly 860 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "870.00",
+      "860.00",
+      "1290.00",
+      "855.00"
+    ],
+    "correctAnswer": "860.00"
+  },
+  {
+    "q": "[ID: A-277] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3275.46",
+      "3603.00",
+      "3255.46",
+      "3325.46"
+    ],
+    "correctAnswer": "3275.46"
+  },
+  {
+    "q": "[ID: A-278] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 18% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "118.04%",
+      "118.69%",
+      "113.04%",
+      "110.04%"
+    ],
+    "correctAnswer": "113.04%"
+  },
+  {
+    "q": "[ID: A-279] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "21.53",
+      "16.94",
+      "19.94",
+      "17.94"
+    ],
+    "correctAnswer": "17.94"
+  },
+  {
+    "q": "[ID: A-280] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 12 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "450",
+      "60",
+      "900",
+      "910"
+    ],
+    "correctAnswer": "900"
+  },
+  {
+    "q": "[ID: A-281] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 31, and 51 teeth respectively. If Gear A rotates at exactly 910 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "910.00",
+      "920.00",
+      "905.00",
+      "1365.00"
+    ],
+    "correctAnswer": "910.00"
+  },
+  {
+    "q": "[ID: A-282] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1580.88",
+      "1760.97",
+      "1600.88",
+      "1650.88"
+    ],
+    "correctAnswer": "1600.88"
+  },
+  {
+    "q": "[ID: A-283] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 23% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "90.39%",
+      "83.09%",
+      "91.09%",
+      "86.09%"
+    ],
+    "correctAnswer": "86.09%"
+  },
+  {
+    "q": "[ID: A-284] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "21.00",
+      "19.00",
+      "22.80",
+      "18.00"
+    ],
+    "correctAnswer": "19.00"
+  },
+  {
+    "q": "[ID: A-285] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 17 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "170",
+      "3410",
+      "1700",
+      "3400"
+    ],
+    "correctAnswer": "3400"
+  },
+  {
+    "q": "[ID: A-286] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 36, and 56 teeth respectively. If Gear A rotates at exactly 960 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1440.00",
+      "960.00",
+      "955.00",
+      "970.00"
+    ],
+    "correctAnswer": "960.00"
+  },
+  {
+    "q": "[ID: A-287] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2473.26",
+      "2523.26",
+      "2453.26",
+      "2720.58"
+    ],
+    "correctAnswer": "2473.26"
+  },
+  {
+    "q": "[ID: A-288] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 28% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "89.40%",
+      "90.14%",
+      "85.14%",
+      "82.14%"
+    ],
+    "correctAnswer": "85.14%"
+  },
+  {
+    "q": "[ID: A-289] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.33",
+      "20.80",
+      "17.33",
+      "16.33"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-290] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 11 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1056",
+      "88",
+      "528",
+      "1066"
+    ],
+    "correctAnswer": "1056"
+  },
+  {
+    "q": "[ID: A-291] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 41, and 61 teeth respectively. If Gear A rotates at exactly 1010 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1010.00",
+      "1005.00",
+      "1020.00",
+      "1515.00"
+    ],
+    "correctAnswer": "1010.00"
+  },
+  {
+    "q": "[ID: A-292] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3812.78",
+      "3466.16",
+      "3516.16",
+      "3446.16"
+    ],
+    "correctAnswer": "3466.16"
+  },
+  {
+    "q": "[ID: A-293] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 33% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "105.73%",
+      "108.73%",
+      "113.73%",
+      "114.17%"
+    ],
+    "correctAnswer": "108.73%"
+  },
+  {
+    "q": "[ID: A-294] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "14.53",
+      "18.64",
+      "17.53",
+      "15.53"
+    ],
+    "correctAnswer": "15.53"
+  },
+  {
+    "q": "[ID: A-295] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 16 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "816",
+      "1642",
+      "96",
+      "1632"
+    ],
+    "correctAnswer": "1632"
+  },
+  {
+    "q": "[ID: A-296] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 46, and 66 teeth respectively. If Gear A rotates at exactly 1060 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1590.00",
+      "1070.00",
+      "1055.00",
+      "1060.00"
+    ],
+    "correctAnswer": "1060.00"
+  },
+  {
+    "q": "[ID: A-297] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "5037.45",
+      "4559.50",
+      "4629.50",
+      "4579.50"
+    ],
+    "correctAnswer": "4579.50"
+  },
+  {
+    "q": "[ID: A-298] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 38% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "139.24%",
+      "134.24%",
+      "140.95%",
+      "131.24%"
+    ],
+    "correctAnswer": "134.24%"
+  },
+  {
+    "q": "[ID: A-299] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.74",
+      "21.74",
+      "18.74",
+      "23.68"
+    ],
+    "correctAnswer": "19.74"
+  },
+  {
+    "q": "[ID: A-300] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 10 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "990",
+      "110",
+      "495",
+      "1000"
+    ],
+    "correctAnswer": "990"
+  },
+  {
+    "q": "[ID: A-301] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 51, and 41 teeth respectively. If Gear A rotates at exactly 110 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "66.34",
+      "84.51",
+      "56.34",
+      "51.34"
+    ],
+    "correctAnswer": "56.34"
+  },
+  {
+    "q": "[ID: A-302] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "696.96",
+      "613.60",
+      "683.60",
+      "633.60"
+    ],
+    "correctAnswer": "633.60"
+  },
+  {
+    "q": "[ID: A-303] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "95.21%",
+      "90.68%",
+      "95.68%",
+      "87.68%"
+    ],
+    "correctAnswer": "90.68%"
+  },
+  {
+    "q": "[ID: A-304] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "14.41",
+      "17.41",
+      "15.41",
+      "18.49"
+    ],
+    "correctAnswer": "15.41"
+  },
+  {
+    "q": "[ID: A-305] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 15 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "135",
+      "1900",
+      "945",
+      "1890"
+    ],
+    "correctAnswer": "1890"
+  },
+  {
+    "q": "[ID: A-306] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 56, and 46 teeth respectively. If Gear A rotates at exactly 160 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "100.43",
+      "85.43",
+      "135.65",
+      "90.43"
+    ],
+    "correctAnswer": "90.43"
+  },
+  {
+    "q": "[ID: A-307] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1081.60",
+      "1151.60",
+      "1211.76",
+      "1101.60"
+    ],
+    "correctAnswer": "1101.60"
+  },
+  {
+    "q": "[ID: A-308] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "114.81%",
+      "119.81%",
+      "111.81%",
+      "120.55%"
+    ],
+    "correctAnswer": "114.81%"
+  },
+  {
+    "q": "[ID: A-309] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.80",
+      "21.80",
+      "23.76",
+      "18.80"
+    ],
+    "correctAnswer": "19.80"
+  },
+  {
+    "q": "[ID: A-310] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 9 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "63",
+      "1207",
+      "598.5",
+      "1197"
+    ],
+    "correctAnswer": "1197"
+  },
+  {
+    "q": "[ID: A-311] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 61, and 51 teeth respectively. If Gear A rotates at exactly 210 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "191.47",
+      "127.65",
+      "137.65",
+      "122.65"
+    ],
+    "correctAnswer": "127.65"
+  },
+  {
+    "q": "[ID: A-312] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1858.56",
+      "1669.60",
+      "1739.60",
+      "1689.60"
+    ],
+    "correctAnswer": "1689.60"
+  },
+  {
+    "q": "[ID: A-313] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "147.93%",
+      "137.88%",
+      "145.88%",
+      "140.88%"
+    ],
+    "correctAnswer": "140.88%"
+  },
+  {
+    "q": "[ID: A-314] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "15.86",
+      "18.86",
+      "16.86",
+      "20.23"
+    ],
+    "correctAnswer": "16.86"
+  },
+  {
+    "q": "[ID: A-315] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 14 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "770",
+      "385",
+      "70",
+      "780"
+    ],
+    "correctAnswer": "770"
+  },
+  {
+    "q": "[ID: A-316] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 66, and 56 teeth respectively. If Gear A rotates at exactly 260 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "162.14",
+      "177.14",
+      "250.71",
+      "167.14"
+    ],
+    "correctAnswer": "167.14"
+  },
+  {
+    "q": "[ID: A-317] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2377.60",
+      "2397.60",
+      "2447.60",
+      "2637.36"
+    ],
+    "correctAnswer": "2397.60"
+  },
+  {
+    "q": "[ID: A-318] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "84.86%",
+      "89.86%",
+      "81.86%",
+      "89.10%"
+    ],
+    "correctAnswer": "84.86%"
+  },
+  {
+    "q": "[ID: A-319] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "14.89",
+      "17.89",
+      "19.07",
+      "15.89"
+    ],
+    "correctAnswer": "15.89"
+  },
+  {
+    "q": "[ID: A-320] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 8 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "80",
+      "1290",
+      "640",
+      "1280"
+    ],
+    "correctAnswer": "1280"
+  },
+  {
+    "q": "[ID: A-321] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 31, and 61 teeth respectively. If Gear A rotates at exactly 310 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "208.36",
+      "203.36",
+      "312.54",
+      "218.36"
+    ],
+    "correctAnswer": "208.36"
+  },
+  {
+    "q": "[ID: A-322] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1189.60",
+      "1330.56",
+      "1259.60",
+      "1209.60"
+    ],
+    "correctAnswer": "1209.60"
+  },
+  {
+    "q": "[ID: A-323] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "113.86%",
+      "108.44%",
+      "113.44%",
+      "105.44%"
+    ],
+    "correctAnswer": "108.44%"
+  },
+  {
+    "q": "[ID: A-324] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "17.33",
+      "19.33",
+      "20.80",
+      "16.33"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-325] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 13 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "832",
+      "104",
+      "416",
+      "842"
+    ],
+    "correctAnswer": "832"
+  },
+  {
+    "q": "[ID: A-326] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 36, and 66 teeth respectively. If Gear A rotates at exactly 360 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "250.91",
+      "260.91",
+      "245.91",
+      "376.36"
+    ],
+    "correctAnswer": "250.91"
+  },
+  {
+    "q": "[ID: A-327] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1897.60",
+      "2109.36",
+      "1967.60",
+      "1917.60"
+    ],
+    "correctAnswer": "1917.60"
+  },
+  {
+    "q": "[ID: A-328] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 18% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "98.04%",
+      "97.69%",
+      "90.04%",
+      "93.04%"
+    ],
+    "correctAnswer": "93.04%"
+  },
+  {
+    "q": "[ID: A-329] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "21.01",
+      "26.41",
+      "22.01",
+      "24.01"
+    ],
+    "correctAnswer": "22.01"
+  },
+  {
+    "q": "[ID: A-330] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 7 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "42",
+      "546",
+      "273",
+      "556"
+    ],
+    "correctAnswer": "546"
+  },
+  {
+    "q": "[ID: A-331] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 41, and 41 teeth respectively. If Gear A rotates at exactly 410 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "520.00",
+      "510.00",
+      "765.00",
+      "505.00"
+    ],
+    "correctAnswer": "510.00"
+  },
+  {
+    "q": "[ID: A-332] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2725.60",
+      "2795.60",
+      "2745.60",
+      "3020.16"
+    ],
+    "correctAnswer": "2745.60"
+  },
+  {
+    "q": "[ID: A-333] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 23% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "96.40%",
+      "91.81%",
+      "96.81%",
+      "88.81%"
+    ],
+    "correctAnswer": "91.81%"
+  },
+  {
+    "q": "[ID: A-334] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "13.97",
+      "15.97",
+      "12.97",
+      "16.77"
+    ],
+    "correctAnswer": "13.97"
+  },
+  {
+    "q": "[ID: A-335] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 12 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "2376",
+      "1188",
+      "132",
+      "2386"
+    ],
+    "correctAnswer": "2376"
+  },
+  {
+    "q": "[ID: A-336] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 46, and 46 teeth respectively. If Gear A rotates at exactly 460 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "570.00",
+      "555.00",
+      "560.00",
+      "840.00"
+    ],
+    "correctAnswer": "560.00"
+  },
+  {
+    "q": "[ID: A-337] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3743.60",
+      "3693.60",
+      "4062.96",
+      "3673.60"
+    ],
+    "correctAnswer": "3693.60"
+  },
+  {
+    "q": "[ID: A-338] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 28% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "115.99%",
+      "120.99%",
+      "112.99%",
+      "121.79%"
+    ],
+    "correctAnswer": "115.99%"
+  },
+  {
+    "q": "[ID: A-339] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "16.94",
+      "21.53",
+      "19.94",
+      "17.94"
+    ],
+    "correctAnswer": "17.94"
+  },
+  {
+    "q": "[ID: A-340] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 17 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1530",
+      "765",
+      "153",
+      "1540"
+    ],
+    "correctAnswer": "1530"
+  },
+  {
+    "q": "[ID: A-341] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 51, and 51 teeth respectively. If Gear A rotates at exactly 510 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "610.00",
+      "915.00",
+      "605.00",
+      "620.00"
+    ],
+    "correctAnswer": "610.00"
+  },
+  {
+    "q": "[ID: A-342] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1964.16",
+      "1765.60",
+      "1835.60",
+      "1785.60"
+    ],
+    "correctAnswer": "1785.60"
+  },
+  {
+    "q": "[ID: A-343] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 33% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "142.11%",
+      "147.11%",
+      "149.22%",
+      "139.11%"
+    ],
+    "correctAnswer": "142.11%"
+  },
+  {
+    "q": "[ID: A-344] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "19.00",
+      "22.80",
+      "18.00",
+      "21.00"
+    ],
+    "correctAnswer": "19.00"
+  },
+  {
+    "q": "[ID: A-345] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 11 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "577.5",
+      "77",
+      "1165",
+      "1155"
+    ],
+    "correctAnswer": "1155"
+  },
+  {
+    "q": "[ID: A-346] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 56, and 56 teeth respectively. If Gear A rotates at exactly 560 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "990.00",
+      "660.00",
+      "670.00",
+      "655.00"
+    ],
+    "correctAnswer": "660.00"
+  },
+  {
+    "q": "[ID: A-347] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3006.96",
+      "2713.60",
+      "2783.60",
+      "2733.60"
+    ],
+    "correctAnswer": "2733.60"
+  },
+  {
+    "q": "[ID: A-348] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 38% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "135.59%",
+      "145.52%",
+      "143.59%",
+      "138.59%"
+    ],
+    "correctAnswer": "138.59%"
+  },
+  {
+    "q": "[ID: A-349] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "16.33",
+      "20.80",
+      "19.33",
+      "17.33"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-350] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 16 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "80",
+      "1600",
+      "1610",
+      "800"
+    ],
+    "correctAnswer": "1600"
+  },
+  {
+    "q": "[ID: A-351] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 61, and 61 teeth respectively. If Gear A rotates at exactly 610 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "315.00",
+      "205.00",
+      "220.00",
+      "210.00"
+    ],
+    "correctAnswer": "210.00"
+  },
+  {
+    "q": "[ID: A-352] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1769.21",
+      "1608.37",
+      "1658.37",
+      "1588.37"
+    ],
+    "correctAnswer": "1608.37"
+  },
+  {
+    "q": "[ID: A-353] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 18% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "71.27%",
+      "76.27%",
+      "74.83%",
+      "68.27%"
+    ],
+    "correctAnswer": "71.27%"
+  },
+  {
+    "q": "[ID: A-354] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "15.53",
+      "14.53",
+      "18.64",
+      "17.53"
+    ],
+    "correctAnswer": "15.53"
+  },
+  {
+    "q": "[ID: A-355] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 10 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1210",
+      "1200",
+      "600",
+      "100"
+    ],
+    "correctAnswer": "1200"
+  },
+  {
+    "q": "[ID: A-356] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 66, and 66 teeth respectively. If Gear A rotates at exactly 660 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "260.00",
+      "390.00",
+      "270.00",
+      "255.00"
+    ],
+    "correctAnswer": "260.00"
+  },
+  {
+    "q": "[ID: A-357] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2343.49",
+      "2363.49",
+      "2599.84",
+      "2413.49"
+    ],
+    "correctAnswer": "2363.49"
+  },
+  {
+    "q": "[ID: A-358] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 23% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "98.33%",
+      "93.65%",
+      "98.65%",
+      "90.65%"
+    ],
+    "correctAnswer": "93.65%"
+  },
+  {
+    "q": "[ID: A-359] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "23.68",
+      "19.74",
+      "21.74",
+      "18.74"
+    ],
+    "correctAnswer": "19.74"
+  },
+  {
+    "q": "[ID: A-360] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 15 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1020",
+      "120",
+      "2050",
+      "2040"
+    ],
+    "correctAnswer": "2040"
+  },
+  {
+    "q": "[ID: A-361] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 31, and 41 teeth respectively. If Gear A rotates at exactly 710 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "531.83",
+      "805.24",
+      "536.83",
+      "546.83"
+    ],
+    "correctAnswer": "536.83"
+  },
+  {
+    "q": "[ID: A-362] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "857.80",
+      "759.82",
+      "829.82",
+      "779.82"
+    ],
+    "correctAnswer": "779.82"
+  },
+  {
+    "q": "[ID: A-363] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 28% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "92.37%",
+      "96.99%",
+      "97.37%",
+      "89.37%"
+    ],
+    "correctAnswer": "92.37%"
+  },
+  {
+    "q": "[ID: A-364] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "18.49",
+      "15.41",
+      "14.41",
+      "17.41"
+    ],
+    "correctAnswer": "15.41"
+  },
+  {
+    "q": "[ID: A-365] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 9 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "496",
+      "54",
+      "243",
+      "486"
+    ],
+    "correctAnswer": "486"
+  },
+  {
+    "q": "[ID: A-366] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 36, and 46 teeth respectively. If Gear A rotates at exactly 760 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "594.78",
+      "604.78",
+      "589.78",
+      "892.17"
+    ],
+    "correctAnswer": "594.78"
+  },
+  {
+    "q": "[ID: A-367] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1314.81",
+      "1364.81",
+      "1294.81",
+      "1446.29"
+    ],
+    "correctAnswer": "1314.81"
+  },
+  {
+    "q": "[ID: A-368] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 33% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "113.58%",
+      "121.58%",
+      "122.41%",
+      "116.58%"
+    ],
+    "correctAnswer": "116.58%"
+  },
+  {
+    "q": "[ID: A-369] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "23.76",
+      "19.80",
+      "21.80",
+      "18.80"
+    ],
+    "correctAnswer": "19.80"
+  },
+  {
+    "q": "[ID: A-370] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 14 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1078",
+      "154",
+      "2156",
+      "2166"
+    ],
+    "correctAnswer": "2156"
+  },
+  {
+    "q": "[ID: A-371] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 41, and 51 teeth respectively. If Gear A rotates at exactly 810 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "646.18",
+      "651.18",
+      "976.76",
+      "661.18"
+    ],
+    "correctAnswer": "651.18"
+  },
+  {
+    "q": "[ID: A-372] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2168.32",
+      "1971.20",
+      "2021.20",
+      "1951.20"
+    ],
+    "correctAnswer": "1971.20"
+  },
+  {
+    "q": "[ID: A-373] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 38% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "142.73%",
+      "147.73%",
+      "139.73%",
+      "149.86%"
+    ],
+    "correctAnswer": "142.73%"
+  },
+  {
+    "q": "[ID: A-374] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "20.23",
+      "16.86",
+      "15.86",
+      "18.86"
+    ],
+    "correctAnswer": "16.86"
+  },
+  {
+    "q": "[ID: A-375] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 8 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "72",
+      "1378",
+      "684",
+      "1368"
+    ],
+    "correctAnswer": "1368"
+  },
+  {
+    "q": "[ID: A-376] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 46, and 56 teeth respectively. If Gear A rotates at exactly 860 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1059.64",
+      "706.43",
+      "701.43",
+      "716.43"
+    ],
+    "correctAnswer": "706.43"
+  },
+  {
+    "q": "[ID: A-377] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2748.47",
+      "3023.32",
+      "2798.47",
+      "2728.47"
+    ],
+    "correctAnswer": "2748.47"
+  },
+  {
+    "q": "[ID: A-378] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "97.34%",
+      "102.21%",
+      "94.34%",
+      "102.34%"
+    ],
+    "correctAnswer": "97.34%"
+  },
+  {
+    "q": "[ID: A-379] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "14.89",
+      "17.89",
+      "19.07",
+      "15.89"
+    ],
+    "correctAnswer": "15.89"
+  },
+  {
+    "q": "[ID: A-380] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 13 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "1011",
+      "500.5",
+      "1001",
+      "91"
+    ],
+    "correctAnswer": "1001"
+  },
+  {
+    "q": "[ID: A-381] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 51, and 61 teeth respectively. If Gear A rotates at exactly 910 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1141.23",
+      "755.82",
+      "770.82",
+      "760.82"
+    ],
+    "correctAnswer": "760.82"
+  },
+  {
+    "q": "[ID: A-382] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "1417.37",
+      "1347.37",
+      "1504.11",
+      "1367.37"
+    ],
+    "correctAnswer": "1367.37"
+  },
+  {
+    "q": "[ID: A-383] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "128.17%",
+      "119.06%",
+      "127.06%",
+      "122.06%"
+    ],
+    "correctAnswer": "122.06%"
+  },
+  {
+    "q": "[ID: A-384] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "20.80",
+      "16.33",
+      "17.33",
+      "19.33"
+    ],
+    "correctAnswer": "17.33"
+  },
+  {
+    "q": "[ID: A-385] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 7 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "560",
+      "280",
+      "570",
+      "35"
+    ],
+    "correctAnswer": "560"
+  },
+  {
+    "q": "[ID: A-386] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 56, and 66 teeth respectively. If Gear A rotates at exactly 960 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1221.82",
+      "809.55",
+      "824.55",
+      "814.55"
+    ],
+    "correctAnswer": "814.55"
+  },
+  {
+    "q": "[ID: A-387] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "2143.20",
+      "2193.20",
+      "2123.20",
+      "2357.52"
+    ],
+    "correctAnswer": "2143.20"
+  },
+  {
+    "q": "[ID: A-388] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "93.65%",
+      "98.65%",
+      "90.65%",
+      "98.33%"
+    ],
+    "correctAnswer": "93.65%"
+  },
+  {
+    "q": "[ID: A-389] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "22.01",
+      "24.01",
+      "26.41",
+      "21.01"
+    ],
+    "correctAnswer": "22.01"
+  },
+  {
+    "q": "[ID: A-390] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 12 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "120",
+      "960",
+      "480",
+      "970"
+    ],
+    "correctAnswer": "960"
+  },
+  {
+    "q": "[ID: A-391] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 61, and 41 teeth respectively. If Gear A rotates at exactly 1010 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "1497.68",
+      "1512.68",
+      "1502.68",
+      "2254.02"
+    ],
+    "correctAnswer": "1502.68"
+  },
+  {
+    "q": "[ID: A-392] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "3343.75",
+      "3019.77",
+      "3039.77",
+      "3089.77"
+    ],
+    "correctAnswer": "3039.77"
+  },
+  {
+    "q": "[ID: A-393] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "92.37%",
+      "97.37%",
+      "89.37%",
+      "96.99%"
+    ],
+    "correctAnswer": "92.37%"
+  },
+  {
+    "q": "[ID: A-394] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "13.97",
+      "15.97",
+      "12.97",
+      "16.77"
+    ],
+    "correctAnswer": "13.97"
+  },
+  {
+    "q": "[ID: A-395] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 17 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "136",
+      "1768",
+      "884",
+      "1778"
+    ],
+    "correctAnswer": "1768"
+  },
+  {
+    "q": "[ID: A-396] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 66, and 46 teeth respectively. If Gear A rotates at exactly 1060 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "opts": [
+      "2281.30",
+      "1515.87",
+      "1530.87",
+      "1520.87"
+    ],
+    "correctAnswer": "1520.87"
+  },
+  {
+    "q": "[ID: A-397] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "opts": [
+      "4462.60",
+      "4056.90",
+      "4036.90",
+      "4106.90"
+    ],
+    "correctAnswer": "4056.90"
+  },
+  {
+    "q": "[ID: A-398] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "opts": [
+      "116.58%",
+      "121.58%",
+      "113.58%",
+      "122.41%"
+    ],
+    "correctAnswer": "116.58%"
+  },
+  {
+    "q": "[ID: A-399] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "opts": [
+      "17.94",
+      "19.94",
+      "21.53",
+      "16.94"
+    ],
+    "correctAnswer": "17.94"
+  },
+  {
+    "q": "[ID: A-400] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 11 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "opts": [
+      "66",
+      "1188",
+      "1198",
+      "594"
+    ],
+    "correctAnswer": "1188"
+  }
 ];
 
 export const GRAMMAR_POOL = [
-  { q: "Choose the correct alternative: 'A person who renounces a religious or political belief.'", opts: ["Apostate", "Antiquarian", "Ascetic", "Atheist"], correctAnswer: "Apostate" },
-  { q: "Select the most appropriate phrasal verb: 'The meeting was ______ because of the heavy rain.'", opts: ["put off", "put out", "put away", "put across"], correctAnswer: "put off" },
-  { q: "Identify the figure of speech: 'The stars danced playfully in the moonlit sky.'", opts: ["Metaphor", "Simile", "Personification", "Hyperbole"], correctAnswer: "Personification" },
-  { q: "Choose the correct idiom: 'To achieve something easily is to ______.'", opts: ["piece of cake", "break the ice", "burn the candle", "hit the nail"], correctAnswer: "piece of cake" },
-  { q: "What is the meaning of 'Ephemeral'?", opts: ["Everlasting", "Short-lived", "Beautiful", "Dangerous"], correctAnswer: "Short-lived" },
-  { q: "Identify the correct conditional: 'If he ______ harder, he would have passed the exam.'", opts: ["studies", "studied", "had studied", "would study"], correctAnswer: "had studied" },
-  { q: "Select the correctly spelled word:", opts: ["Manoeuvre", "Manouver", "Maneuvre", "Manoeuver"], correctAnswer: "Manoeuvre" },
-  { q: "Choose the correct reported speech: 'He asked me, \"Where do you live?\"'", opts: ["He asked me where I lived", "He asked me where I live", "He asked me where did I live", "He asked me where do I live"], correctAnswer: "He asked me where I lived" },
-  { q: "Identify the part of speech of 'fast' in: 'He is a fast runner.'", opts: ["Adverb", "Adjective", "Noun", "Verb"], correctAnswer: "Adjective" },
-  { q: "Choose the antonym of 'Ambiguous'", opts: ["Vague", "Clear", "Obscure", "Complex"], correctAnswer: "Clear" },
-  { q: "Select the meaning of 'Pragmatic'", opts: ["Idealistic", "Practical", "Stubborn", "Careless"], correctAnswer: "Practical" },
-  { q: "Change into passive voice: 'Someone has stolen my pen.'", opts: ["My pen has stolen by someone", "My pen has been stolen", "Someone's pen has been stolen", "My pen is stolen"], correctAnswer: "My pen has been stolen" },
-  { q: "Choose the correct preposition: 'The culprit was beset ______ many difficulties.'", opts: ["with", "by", "of", "in"], correctAnswer: "with" },
-  { q: "Select the meaning of 'Loquacious'", opts: ["Silent", "Talkative", "Strong", "Weak"], correctAnswer: "Talkative" },
-  { q: "Identify the correct verb: 'Neither the supervisor nor the workers ______ the problem.'", opts: ["understand", "understands", "understanding", "has understood"], correctAnswer: "understand" },
-  { q: "Select the correct idiom meaning: 'To spill the beans'", opts: ["To cook well", "To reveal a secret", "To waste time", "To be clumsy"], correctAnswer: "To reveal a secret" },
-  { q: "Choose the correct article: 'He is ______ honorary member of the club.'", opts: ["a", "an", "the", "no article"], correctAnswer: "an" },
-  { q: "Identify the synonym of 'Frugal'", opts: ["Wasteful", "Economical", "Generous", "Angry"], correctAnswer: "Economical" },
-  { q: "Choose the correct tag: 'You are coming with us, ______?'", opts: ["are you", "aren't you", "don't you", "won't you"], correctAnswer: "aren't you" },
-  { q: "Select the meaning of 'Gregarious'", opts: ["Anti-social", "Sociable", "Clumsy", "Intelligent"], correctAnswer: "Sociable" },
-  { q: "Identify the correct spelling:", opts: ["Maintenance", "Maintainance", "Maintenence", "Maintainence"], correctAnswer: "Maintenance" },
-  { q: "Select the one word substitute: 'One who knows everything.'", opts: ["Omniscient", "Omnipotent", "Omnipresent", "Opaque"], correctAnswer: "Omniscient" },
-  { q: "Choose the correct preposition: 'She is indifferent ______ praise and blame.'", opts: ["to", "with", "for", "at"], correctAnswer: "to" },
-  { q: "Select the meaning of 'Obsequious'", opts: ["Defiant", "Servile", "Honest", "Arrogant"], correctAnswer: "Servile" },
-  { q: "Identify the correct tense: 'I had been waiting for two hours before she arrived.'", opts: ["Past Perfect", "Past Perfect Continuous", "Present Perfect Continuous", "Simple Past"], correctAnswer: "Past Perfect Continuous" },
-  { q: "Choose the antonym of 'Benevolent'", opts: ["Kind", "Malevolent", "Generous", "Stingy"], correctAnswer: "Malevolent" },
-  { q: "Select the correctly spelled word:", opts: ["Accommodation", "Acommodation", "Accomodation", "Acomodation"], correctAnswer: "Accommodation" },
-  { q: "Choose the correct alternative: 'To keep the wolf from the door'", opts: ["To hunt a wolf", "To avoid starvation", "To guard the house", "To be brave"], correctAnswer: "To avoid starvation" },
-  { q: "Identify the part of speech of 'but' in: 'He is poor but honest.'", opts: ["Preposition", "Conjunction", "Adverb", "Noun"], correctAnswer: "Conjunction" },
-  { q: "Select the correctly punctuated sentence:", opts: ["The teacher said, 'Be quiet.'", "The teacher said 'be quiet.'", "The teacher said, Be quiet.", "The teacher said; 'Be quiet'"], correctAnswer: "The teacher said, 'Be quiet.'" },
-  { q: "Choose the correct alternative: 'A place where bees are kept.'", opts: ["Apiary", "Aviary", "Aquarium", "Abattoir"], correctAnswer: "Apiary" },
-  { q: "Identify the synonym of 'Capricious'", opts: ["Stable", "Fickle", "Generous", "Angry"], correctAnswer: "Fickle" },
-  { q: "Select the meaning of the idiom: 'To wash one's dirty linen in public'", opts: ["To clean clothes", "To discuss private matters in public", "To be honest", "To be a hard worker"], correctAnswer: "To discuss private matters in public" },
-  { q: "Choose the correct article: 'She wants to be ______ architect.'", opts: ["a", "an", "the", "no article"], correctAnswer: "an" },
-  { q: "Identify the antonym of 'Zenith'", opts: ["Nadir", "Peak", "Summit", "Top"], correctAnswer: "Nadir" },
-  { q: "Select the correctly spelled word:", opts: ["Entrepreneur", "Enterprenure", "Entreprenuer", "Enterprenuer"], correctAnswer: "Entrepreneur" },
-  { q: "Choose the correct preposition: 'He is proficient ______ English.'", opts: ["in", "at", "with", "by"], correctAnswer: "in" },
-  { q: "Identify the figure of speech: 'Life is but a walking shadow.'", opts: ["Metaphor", "Simile", "Personification", "Hyperbole"], correctAnswer: "Metaphor" },
-  { q: "Select the one word substitute: 'A child whose parents are dead.'", opts: ["Orphan", "Refugee", "Beggar", "Foundling"], correctAnswer: "Orphan" },
-  { q: "Choose the correct tense: 'I will have finished my work by 5 p.m.'", opts: ["Future Perfect", "Future Continuous", "Simple Future", "Future Perfect Continuous"], correctAnswer: "Future Perfect" },
+  {
+    "q": "[ID: G-1] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Misanthrope",
+      "Ebullient",
+      "Esoteric",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-2] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-3] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Dangling modifier",
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-4] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Apostate",
+      "Sycophant",
+      "Polyglot",
+      "Equivocal"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-5] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-6] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Dangling modifier",
+      "No error",
+      "Tense inconsistency",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-7] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Iconoclast",
+      "Ebullient",
+      "Fastidious",
+      "Apostate"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-8] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-9] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-10] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Apostate",
+      "Equivocal",
+      "Ebullient",
+      "Fastidious"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-11] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-12] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-13] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Fastidious",
+      "Iconoclast",
+      "Equivocal",
+      "Polyglot"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-14] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-15] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Dangling modifier",
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-16] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Misanthrope",
+      "Apostate",
+      "Equivocal",
+      "Sycophant"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-17] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-18] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-19] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Apostate",
+      "Esoteric",
+      "Equivocal",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-20] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-21] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-22] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Iconoclast",
+      "Misanthrope",
+      "Reticent",
+      "Sycophant"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-23] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-24] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-25] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Fastidious",
+      "Apostate",
+      "Misanthrope",
+      "Sycophant"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-26] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-27] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-28] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Reticent",
+      "Ebullient",
+      "Apostate",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-29] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-30] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-31] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Reticent",
+      "Iconoclast",
+      "Sycophant",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-32] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-33] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "Dangling modifier",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-34] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Fastidious",
+      "Polyglot",
+      "Misanthrope",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-35] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-36] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Dangling modifier",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-37] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Esoteric",
+      "Equivocal",
+      "Reticent",
+      "Ebullient"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-38] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-39] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "No error",
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-40] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Apostate",
+      "Misanthrope",
+      "Sycophant",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-41] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-42] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-43] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Sycophant",
+      "Iconoclast",
+      "Apostate",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-44] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-45] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-46] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Misanthrope",
+      "Polyglot",
+      "Equivocal",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-47] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-48] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-49] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Esoteric",
+      "Apostate",
+      "Equivocal",
+      "Ebullient"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-50] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-51] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "No error",
+      "Dangling modifier",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-52] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Sycophant",
+      "Fastidious",
+      "Polyglot",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-53] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-54] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-55] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Reticent",
+      "Fastidious",
+      "Apostate",
+      "Equivocal"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-56] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-57] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "Dangling modifier",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-58] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Fastidious",
+      "Apostate",
+      "Esoteric",
+      "Reticent"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-59] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-60] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-61] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Misanthrope",
+      "Reticent",
+      "Apostate",
+      "Sycophant"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-62] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-63] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-64] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Apostate",
+      "Polyglot",
+      "Iconoclast",
+      "Fastidious"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-65] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-66] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Dangling modifier",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-67] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Apostate",
+      "Esoteric",
+      "Ebullient",
+      "Fastidious"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-68] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-69] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-70] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Apostate",
+      "Sycophant",
+      "Misanthrope",
+      "Ebullient"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-71] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-72] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-73] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Iconoclast",
+      "Ebullient",
+      "Polyglot",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-74] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-75] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Dangling modifier",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-76] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Apostate",
+      "Fastidious",
+      "Esoteric",
+      "Equivocal"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-77] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-78] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Passive voice violation",
+      "Dangling modifier",
+      "No error",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-79] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Sycophant",
+      "Misanthrope",
+      "Apostate",
+      "Esoteric"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-80] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-81] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-82] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Apostate",
+      "Esoteric",
+      "Misanthrope",
+      "Sycophant"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-83] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-84] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-85] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Polyglot",
+      "Sycophant",
+      "Ebullient",
+      "Fastidious"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-86] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-87] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Tense inconsistency",
+      "No error",
+      "Passive voice violation",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-88] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Apostate",
+      "Reticent",
+      "Equivocal",
+      "Polyglot"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-89] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-90] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "No error",
+      "Dangling modifier",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-91] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Sycophant",
+      "Fastidious",
+      "Misanthrope",
+      "Apostate"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-92] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-93] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "Dangling modifier",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-94] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Polyglot",
+      "Fastidious",
+      "Reticent",
+      "Apostate"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-95] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-96] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-97] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Ebullient",
+      "Sycophant",
+      "Misanthrope",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-98] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-99] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-100] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Apostate",
+      "Iconoclast",
+      "Polyglot",
+      "Equivocal"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-101] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-102] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-103] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Fastidious",
+      "Iconoclast",
+      "Polyglot",
+      "Reticent"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-104] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-105] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-106] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Misanthrope",
+      "Fastidious",
+      "Iconoclast",
+      "Equivocal"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-107] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-108] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-109] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Fastidious",
+      "Misanthrope",
+      "Iconoclast",
+      "Esoteric"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-110] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-111] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "No error",
+      "Tense inconsistency",
+      "Dangling modifier",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-112] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Equivocal",
+      "Misanthrope",
+      "Sycophant",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-113] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-114] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "No error",
+      "Dangling modifier",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-115] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Fastidious",
+      "Equivocal",
+      "Sycophant",
+      "Polyglot"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-116] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-117] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-118] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Reticent",
+      "Esoteric",
+      "Fastidious",
+      "Polyglot"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-119] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-120] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Dangling modifier",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-121] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Reticent",
+      "Sycophant",
+      "Esoteric",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-122] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-123] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-124] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Equivocal",
+      "Apostate",
+      "Esoteric",
+      "Polyglot"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-125] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-126] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-127] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Equivocal",
+      "Ebullient",
+      "Esoteric",
+      "Reticent"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-128] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-129] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "No error",
+      "Dangling modifier",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-130] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Apostate",
+      "Esoteric",
+      "Equivocal",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-131] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-132] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-133] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Ebullient",
+      "Misanthrope",
+      "Esoteric",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-134] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-135] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-136] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Equivocal",
+      "Fastidious",
+      "Esoteric",
+      "Reticent"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-137] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-138] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Dangling modifier",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-139] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Ebullient",
+      "Fastidious",
+      "Apostate",
+      "Esoteric"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-140] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-141] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-142] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Misanthrope",
+      "Esoteric",
+      "Iconoclast",
+      "Sycophant"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-143] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-144] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "No error",
+      "Dangling modifier",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-145] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Misanthrope",
+      "Iconoclast",
+      "Equivocal",
+      "Fastidious"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-146] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-147] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-148] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Misanthrope",
+      "Apostate",
+      "Fastidious",
+      "Reticent"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-149] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-150] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "No error",
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-151] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Misanthrope",
+      "Polyglot",
+      "Sycophant",
+      "Equivocal"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-152] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-153] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-154] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Polyglot",
+      "Ebullient",
+      "Esoteric",
+      "Apostate"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-155] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-156] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "Dangling modifier",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-157] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Ebullient",
+      "Apostate",
+      "Esoteric",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-158] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-159] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Dangling modifier",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-160] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Equivocal",
+      "Polyglot",
+      "Apostate",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-161] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-162] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-163] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Misanthrope",
+      "Reticent",
+      "Ebullient",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-164] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-165] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-166] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Reticent",
+      "Equivocal",
+      "Apostate",
+      "Polyglot"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-167] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-168] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-169] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Esoteric",
+      "Sycophant",
+      "Apostate",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-170] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-171] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Dangling modifier",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-172] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Sycophant",
+      "Apostate",
+      "Iconoclast",
+      "Reticent"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-173] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-174] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Dangling modifier",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-175] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Fastidious",
+      "Ebullient",
+      "Iconoclast",
+      "Sycophant"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-176] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-177] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-178] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Fastidious",
+      "Equivocal",
+      "Apostate",
+      "Reticent"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-179] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-180] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "Dangling modifier",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-181] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Reticent",
+      "Iconoclast",
+      "Equivocal",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-182] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-183] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "No error",
+      "Dangling modifier",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-184] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Iconoclast",
+      "Reticent",
+      "Polyglot",
+      "Apostate"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-185] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-186] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-187] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Misanthrope",
+      "Iconoclast",
+      "Apostate",
+      "Ebullient"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-188] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-189] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-190] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Polyglot",
+      "Apostate",
+      "Reticent",
+      "Fastidious"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-191] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-192] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-193] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Misanthrope",
+      "Polyglot",
+      "Esoteric",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-194] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-195] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Passive voice violation",
+      "Dangling modifier",
+      "Tense inconsistency",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-196] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Equivocal",
+      "Ebullient",
+      "Apostate",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-197] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-198] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-199] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Misanthrope",
+      "Iconoclast",
+      "Apostate",
+      "Esoteric"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-200] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-201] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-202] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Polyglot",
+      "Reticent",
+      "Apostate",
+      "Sycophant"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-203] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-204] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-205] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Sycophant",
+      "Fastidious",
+      "Reticent",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-206] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-207] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-208] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Ebullient",
+      "Reticent",
+      "Iconoclast",
+      "Fastidious"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-209] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-210] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Dangling modifier",
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-211] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Reticent",
+      "Iconoclast",
+      "Misanthrope",
+      "Sycophant"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-212] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-213] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "No error",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-214] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Reticent",
+      "Iconoclast",
+      "Equivocal",
+      "Polyglot"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-215] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-216] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "No error",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-217] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Reticent",
+      "Apostate",
+      "Ebullient",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-218] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-219] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-220] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Fastidious",
+      "Apostate",
+      "Ebullient",
+      "Reticent"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-221] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-222] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-223] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Iconoclast",
+      "Fastidious",
+      "Apostate",
+      "Equivocal"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-224] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-225] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Tense inconsistency",
+      "No error",
+      "Dangling modifier",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-226] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Equivocal",
+      "Reticent",
+      "Esoteric",
+      "Ebullient"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-227] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-228] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Dangling modifier",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-229] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Reticent",
+      "Esoteric",
+      "Apostate",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-230] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-231] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-232] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Sycophant",
+      "Reticent",
+      "Polyglot",
+      "Apostate"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-233] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-234] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Dangling modifier",
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-235] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Sycophant",
+      "Iconoclast",
+      "Reticent",
+      "Fastidious"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-236] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-237] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-238] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Misanthrope",
+      "Fastidious",
+      "Polyglot",
+      "Reticent"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-239] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-240] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Dangling modifier",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-241] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Misanthrope",
+      "Apostate",
+      "Ebullient",
+      "Reticent"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-242] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-243] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "No error",
+      "Tense inconsistency",
+      "Dangling modifier",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-244] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Reticent",
+      "Iconoclast",
+      "Sycophant",
+      "Polyglot"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-245] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-246] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-247] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Polyglot",
+      "Ebullient",
+      "Apostate",
+      "Esoteric"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-248] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-249] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-250] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Esoteric",
+      "Reticent",
+      "Iconoclast",
+      "Apostate"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-251] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-252] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-253] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Iconoclast",
+      "Misanthrope",
+      "Apostate",
+      "Fastidious"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-254] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-255] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-256] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Sycophant",
+      "Apostate",
+      "Equivocal",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-257] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-258] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Passive voice violation",
+      "No error",
+      "Dangling modifier",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-259] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Equivocal",
+      "Iconoclast",
+      "Polyglot",
+      "Esoteric"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-260] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-261] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-262] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Esoteric",
+      "Sycophant",
+      "Reticent",
+      "Apostate"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-263] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-264] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-265] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Fastidious",
+      "Sycophant",
+      "Equivocal",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-266] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-267] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "No error",
+      "Dangling modifier",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-268] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Reticent",
+      "Equivocal",
+      "Fastidious",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-269] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-270] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-271] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Ebullient",
+      "Sycophant",
+      "Fastidious",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-272] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-273] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-274] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Esoteric",
+      "Ebullient",
+      "Polyglot",
+      "Reticent"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-275] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-276] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Dangling modifier",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-277] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Ebullient",
+      "Polyglot",
+      "Iconoclast",
+      "Sycophant"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-278] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-279] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-280] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Apostate",
+      "Misanthrope",
+      "Polyglot",
+      "Esoteric"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-281] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-282] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-283] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Iconoclast",
+      "Ebullient",
+      "Reticent",
+      "Esoteric"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-284] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-285] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-286] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Polyglot",
+      "Equivocal",
+      "Reticent",
+      "Apostate"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-287] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-288] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-289] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Apostate",
+      "Ebullient",
+      "Esoteric",
+      "Equivocal"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-290] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-291] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Dangling modifier",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-292] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Sycophant",
+      "Iconoclast",
+      "Polyglot",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-293] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-294] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-295] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Sycophant",
+      "Iconoclast",
+      "Fastidious",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-296] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-297] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-298] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Iconoclast",
+      "Ebullient",
+      "Misanthrope",
+      "Reticent"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-299] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-300] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-301] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Polyglot",
+      "Iconoclast",
+      "Fastidious",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-302] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-303] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "No error",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-304] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Iconoclast",
+      "Polyglot",
+      "Misanthrope",
+      "Apostate"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-305] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-306] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-307] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Reticent",
+      "Iconoclast",
+      "Esoteric",
+      "Ebullient"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-308] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-309] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-310] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Sycophant",
+      "Reticent",
+      "Misanthrope",
+      "Apostate"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-311] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-312] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Dangling modifier",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-313] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Iconoclast",
+      "Equivocal",
+      "Polyglot",
+      "Sycophant"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-314] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-315] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-316] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Iconoclast",
+      "Polyglot",
+      "Ebullient",
+      "Equivocal"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-317] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-318] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-319] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Esoteric",
+      "Apostate",
+      "Fastidious",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-320] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-321] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-322] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Polyglot",
+      "Sycophant",
+      "Esoteric",
+      "Equivocal"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-323] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-324] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-325] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Reticent",
+      "Esoteric",
+      "Fastidious",
+      "Equivocal"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-326] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-327] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-328] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Reticent",
+      "Ebullient",
+      "Sycophant",
+      "Apostate"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-329] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-330] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-331] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Apostate",
+      "Polyglot",
+      "Iconoclast",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-332] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-333] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-334] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Sycophant",
+      "Fastidious",
+      "Iconoclast",
+      "Polyglot"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-335] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-336] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Tense inconsistency",
+      "No error",
+      "Passive voice violation",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-337] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Ebullient",
+      "Esoteric",
+      "Polyglot",
+      "Reticent"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-338] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-339] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Dangling modifier",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-340] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Apostate",
+      "Misanthrope",
+      "Sycophant",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-341] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-342] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "No error",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-343] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Esoteric",
+      "Polyglot",
+      "Apostate",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-344] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-345] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-346] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Apostate",
+      "Reticent",
+      "Misanthrope",
+      "Equivocal"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-347] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-348] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Passive voice violation",
+      "No error",
+      "Dangling modifier",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-349] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Fastidious",
+      "Esoteric",
+      "Sycophant",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-350] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-351] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-352] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Sycophant",
+      "Misanthrope",
+      "Apostate",
+      "Equivocal"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-353] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-354] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Tense inconsistency",
+      "No error",
+      "Passive voice violation",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-355] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Iconoclast",
+      "Esoteric",
+      "Fastidious",
+      "Polyglot"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-356] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-357] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-358] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Iconoclast",
+      "Apostate",
+      "Reticent",
+      "Polyglot"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-359] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-360] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-361] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Sycophant",
+      "Apostate",
+      "Iconoclast",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-362] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-363] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Dangling modifier",
+      "No error",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-364] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Reticent",
+      "Polyglot",
+      "Ebullient",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-365] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-366] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-367] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Esoteric",
+      "Polyglot",
+      "Ebullient",
+      "Equivocal"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-368] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-369] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Tense inconsistency",
+      "No error",
+      "Passive voice violation",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-370] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Apostate",
+      "Ebullient",
+      "Reticent",
+      "Equivocal"
+    ],
+    "correctAnswer": "Apostate"
+  },
+  {
+    "q": "[ID: G-371] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-372] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "Passive voice violation",
+      "Dangling modifier",
+      "No error",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-373] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "opts": [
+      "Misanthrope",
+      "Reticent",
+      "Iconoclast",
+      "Polyglot"
+    ],
+    "correctAnswer": "Iconoclast"
+  },
+  {
+    "q": "[ID: G-374] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-375] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "Dangling modifier",
+      "No error",
+      "Tense inconsistency",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-376] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "opts": [
+      "Apostate",
+      "Misanthrope",
+      "Reticent",
+      "Equivocal"
+    ],
+    "correctAnswer": "Equivocal"
+  },
+  {
+    "q": "[ID: G-377] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-378] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Tense inconsistency",
+      "Passive voice violation",
+      "Dangling modifier",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-379] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "opts": [
+      "Esoteric",
+      "Iconoclast",
+      "Ebullient",
+      "Misanthrope"
+    ],
+    "correctAnswer": "Esoteric"
+  },
+  {
+    "q": "[ID: G-380] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-381] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "Dangling modifier"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-382] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "opts": [
+      "Sycophant",
+      "Apostate",
+      "Esoteric",
+      "Reticent"
+    ],
+    "correctAnswer": "Sycophant"
+  },
+  {
+    "q": "[ID: G-383] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-384] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Tense inconsistency",
+      "No error",
+      "Dangling modifier",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-385] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Fastidious",
+      "Polyglot",
+      "Sycophant",
+      "Iconoclast"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-386] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-387] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "opts": [
+      "No error",
+      "Passive voice violation",
+      "Dangling modifier",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-388] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "opts": [
+      "Esoteric",
+      "Iconoclast",
+      "Equivocal",
+      "Reticent"
+    ],
+    "correctAnswer": "Reticent"
+  },
+  {
+    "q": "[ID: G-389] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-390] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "opts": [
+      "No error",
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-391] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "opts": [
+      "Misanthrope",
+      "Polyglot",
+      "Equivocal",
+      "Reticent"
+    ],
+    "correctAnswer": "Misanthrope"
+  },
+  {
+    "q": "[ID: G-392] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-393] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "opts": [
+      "Dangling modifier",
+      "Tense inconsistency",
+      "Passive voice violation",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-394] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "opts": [
+      "Iconoclast",
+      "Polyglot",
+      "Esoteric",
+      "Reticent"
+    ],
+    "correctAnswer": "Polyglot"
+  },
+  {
+    "q": "[ID: G-395] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-396] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "opts": [
+      "Dangling modifier",
+      "Passive voice violation",
+      "No error",
+      "Tense inconsistency"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-397] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "opts": [
+      "Ebullient",
+      "Apostate",
+      "Misanthrope",
+      "Reticent"
+    ],
+    "correctAnswer": "Ebullient"
+  },
+  {
+    "q": "[ID: G-398] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-399] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "opts": [
+      "Dangling modifier",
+      "Passive voice violation",
+      "Tense inconsistency",
+      "No error"
+    ],
+    "correctAnswer": "No error"
+  },
+  {
+    "q": "[ID: G-400] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "opts": [
+      "Apostate",
+      "Fastidious",
+      "Equivocal",
+      "Esoteric"
+    ],
+    "correctAnswer": "Apostate"
+  }
 ];
 
 export const DOMAIN_MCQ_POOL = {
