@@ -840,7 +840,7 @@ export default function CodeEditor({
             <div className="flex gap-3">
               <button 
                 onClick={() => setSubmitConfirmationOpen(false)}
-                className="flex-1 py-3 px-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors font-bold"
+                className="flex-1 flex items-center justify-center py-3 px-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors font-bold"
                 style={{ color: "#94a3b8" }}
               >
                 Cancel
@@ -850,7 +850,7 @@ export default function CodeEditor({
                   setSubmitConfirmationOpen(false);
                   await executeSubmitSolution();
                 }}
-                className="flex-1 py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 transition-colors font-black shadow-[0_4px_15px_rgba(16,185,129,0.3)]"
+                className="flex-1 flex items-center justify-center py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 transition-colors font-black shadow-[0_4px_15px_rgba(16,185,129,0.3)]"
                 style={{ color: "#000000" }}
               >
                 Confirm & Submit

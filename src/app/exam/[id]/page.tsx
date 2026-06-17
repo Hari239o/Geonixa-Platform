@@ -2556,7 +2556,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
               <div className="flex gap-3">
                 <button 
                   onClick={() => setConfirmModal(prev => ({ ...prev, show: false }))}
-                  className="flex-1 px-6 py-4 rounded-2xl bg-white/5 font-bold hover:bg-white/10 transition-all border border-white/5"
+                  className="flex-1 flex items-center justify-center px-6 py-4 rounded-2xl bg-white/5 font-bold hover:bg-white/10 transition-all border border-white/5"
                   style={{ color: "#94a3b8" }}
                 >
                   CANCEL
@@ -2566,7 +2566,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     confirmModal.onConfirm();
                     setConfirmModal(prev => ({ ...prev, show: false }));
                   }}
-                  className="flex-1 px-6 py-4 rounded-2xl bg-emerald-500 font-black hover:bg-emerald-400 transition-all shadow-[0_10px_30px_rgba(16,185,129,0.3)]"
+                  className="flex-1 flex items-center justify-center px-6 py-4 rounded-2xl bg-emerald-500 font-black hover:bg-emerald-400 transition-all shadow-[0_10px_30px_rgba(16,185,129,0.3)]"
                   style={{ color: "#000000" }}
                 >
                   CONFIRM

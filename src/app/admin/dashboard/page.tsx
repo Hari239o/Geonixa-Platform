@@ -2161,8 +2161,8 @@ export default function AdminDashboard() {
                   </div>
                 </div>
                 <div className="flex gap-4 pt-6">
-                  <button type="button" onClick={() => setIsEditModalOpen(false)} className="flex-1 py-3.5 bg-white/5 border border-white/10 text-slate-300 font-black text-[10px] uppercase tracking-widest rounded-xl hover:bg-white/10 transition-all shadow-sm">Cancel</button>
-                  <button type="submit" className="flex-1 py-3.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-black text-[10px] uppercase tracking-widest rounded-xl hover:shadow-[0_0_20px_rgba(96,165,250,0.4)] hover:-translate-y-0.5 transition-all border border-white/20">Save Changes</button>
+                  <button type="button" onClick={() => setIsEditModalOpen(false)} className="flex-1 flex items-center justify-center py-3.5 bg-white/5 border border-white/10 text-slate-300 font-black text-[10px] uppercase tracking-widest rounded-xl hover:bg-white/10 transition-all shadow-sm">Cancel</button>
+                  <button type="submit" className="flex-1 flex items-center justify-center py-3.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-black text-[10px] uppercase tracking-widest rounded-xl hover:shadow-[0_0_20px_rgba(96,165,250,0.4)] hover:-translate-y-0.5 transition-all border border-white/20">Save Changes</button>
                 </div>
               </form>
             </motion.div>
