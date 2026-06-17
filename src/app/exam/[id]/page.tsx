@@ -1940,7 +1940,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     className="btn" 
                     disabled={(currentRound === 1 ? q1Index : q2Index) === 0}
                     onClick={() => currentRound === 1 ? setQ1Index(p => p - 1) : setQ2Index(p => p - 1)}
-                    style={{ padding: "1rem 2.5rem", borderRadius: "14px", backgroundColor: "#e2e8f0", border: "1px solid #cbd5e1", color: "#1e293b", fontWeight: "900", cursor: ((currentRound === 1 ? q1Index : q2Index) === 0) ? "not-allowed" : "pointer", opacity: ((currentRound === 1 ? q1Index : q2Index) === 0) ? 0.5 : 1 }}
+                    style={{ padding: "0 2.5rem", borderRadius: "14px", backgroundColor: "#e2e8f0", border: "1px solid #cbd5e1", color: "#1e293b", fontWeight: "900", cursor: ((currentRound === 1 ? q1Index : q2Index) === 0) ? "not-allowed" : "pointer", opacity: ((currentRound === 1 ? q1Index : q2Index) === 0) ? 0.5 : 1 }}
                   >
                     PREVIOUS
                   </button>
@@ -1949,7 +1949,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
                       <button 
                         className="btn btn-primary"
-                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }}
+                        style={{ padding: "0 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }}
                         onClick={() => {
                           currentRound === 1 ? setQ1Index(p => p + 1) : setQ2Index(p => p + 1);
                         }}
@@ -1959,7 +1959,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     ) : (
                       <button 
                         className="btn btn-danger"
-                        style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
+                        style={{ padding: "0 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
                         onClick={() => {
                           showConfirm(
                             `Submit Round ${currentRound}`,
@@ -2008,7 +2008,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   {((currentRound === 1 ? q1Index : q2Index) < 29) ? (
                     <button 
                       className="btn btn-primary"
-                      style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }}
+                      style={{ padding: "0 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }}
                       onClick={() => {
                         currentRound === 1 ? setQ1Index(p => p + 1) : setQ2Index(p => p + 1);
                       }}
@@ -2018,7 +2018,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                   ) : (
                     <button 
                       className="btn btn-danger"
-                      style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
+                      style={{ padding: "0 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
                       onClick={() => {
                         showConfirm(
                           `Submit Round ${currentRound}`,
@@ -2146,7 +2146,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     {typingTopicIndex === 0 ? (
                       <button 
                         className="btn btn-primary" 
-                        style={{ padding: "0.8rem 3rem", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900", borderRadius: "14px", display: "flex", alignItems: "center", justifyContent: "center" }}
+                        style={{ padding: "0 3rem", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900", borderRadius: "14px", display: "flex", alignItems: "center", justifyContent: "center" }}
                         onClick={() => { setTypingTopicIndex(1); setR3SubTimer(300); }}
                       >
                         SWITCH TO TOPIC 2
@@ -2154,7 +2154,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     ) : (
                         <button 
                           className="btn btn-danger" 
-                          style={{ padding: "1.2rem 4rem", backgroundColor: "#dc2626", color: "#ffffff", fontWeight: "900", borderRadius: "14px", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)", display: "flex", alignItems: "center", justifyContent: "center" }}
+                          style={{ padding: "0 4rem", backgroundColor: "#dc2626", color: "#ffffff", fontWeight: "900", borderRadius: "14px", boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)", display: "flex", alignItems: "center", justifyContent: "center" }}
                           onClick={() => {
                             showConfirm(
                               "Submit Round 3",
@@ -2307,13 +2307,13 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
                     <div className="hidden xl:flex order-3 xl:order-none items-center gap-4">
                       {codingQuestionIndex < 39 ? (
-                        <button className="btn btn-primary" style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }} onClick={() => setCodingQuestionIndex(p => p + 1)}>
+                        <button className="btn btn-primary" style={{ padding: "0 2rem", borderRadius: "14px", backgroundColor: "#0284c7", color: "#ffffff", fontWeight: "900" }} onClick={() => setCodingQuestionIndex(p => p + 1)}>
                           NEXT QUESTION
                         </button>
                       ) : (
                         <button 
                           className="btn btn-danger" 
-                          style={{ padding: "1rem 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
+                          style={{ padding: "0 2rem", borderRadius: "14px", backgroundColor: "#dc2626", color: "white" }}
                           onClick={() => {
                             showConfirm(
                               "Final Submission",
@@ -2463,7 +2463,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     <button 
                       className="btn" 
                       disabled={codingQuestionIndex === 0}
-                      style={{ backgroundColor: "#e2e8f0", color: "#1e293b", padding: "0.6rem 2rem", borderRadius: "12px", fontWeight: "800", fontSize: "0.85rem", transition: "all 0.2s", opacity: codingQuestionIndex === 0 ? 0.5 : 1, cursor: codingQuestionIndex === 0 ? "not-allowed" : "pointer" }}
+                      style={{ backgroundColor: "#e2e8f0", color: "#1e293b", padding: "0 2rem", borderRadius: "12px", fontWeight: "800", fontSize: "0.85rem", transition: "all 0.2s", opacity: codingQuestionIndex === 0 ? 0.5 : 1, cursor: codingQuestionIndex === 0 ? "not-allowed" : "pointer" }}
                       onClick={() => setCodingQuestionIndex(p => p - 1)}
                     >
                       PREVIOUS TASK
@@ -2472,7 +2472,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     {codingQuestionIndex < codingQuestions.length - 1 ? (
                       <button 
                         className="btn" 
-                        style={{ backgroundColor: "#64748b", color: "white", padding: "0.6rem 2rem", borderRadius: "12px", fontWeight: "800", fontSize: "0.85rem", transition: "all 0.2s" }}
+                        style={{ backgroundColor: "#64748b", color: "white", padding: "0 2rem", borderRadius: "12px", fontWeight: "800", fontSize: "0.85rem", transition: "all 0.2s" }}
                         onClick={() => setCodingQuestionIndex(p => p + 1)}
                       >
                         NEXT TASK
@@ -2480,7 +2480,7 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
                     ) : (
                       <button 
                         className="btn btn-danger" 
-                        style={{ padding: "0.8rem 2.5rem", borderRadius: "12px", backgroundColor: "#dc2626", color: "white", fontWeight: "900", transition: "all 0.2s", boxShadow: "0 4px 14px 0 rgba(220, 38, 38, 0.39)" }}
+                        style={{ padding: "0 2.5rem", borderRadius: "12px", backgroundColor: "#dc2626", color: "white", fontWeight: "900", transition: "all 0.2s", boxShadow: "0 4px 14px 0 rgba(220, 38, 38, 0.39)" }}
                         onClick={() => {
                           showConfirm(
                             "Final Submission",
