@@ -1433,8 +1433,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
   if (!isProfileLoading && slotValidation.status === "PENDING") {
     return (
-      <div className="min-h-screen bg-[#050810] text-white flex items-center justify-center p-6">
-        <div className="max-w-3xl w-full rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
+      <div className="min-h-screen bg-[#050810] text-white flex flex-col items-center p-6 overflow-y-auto">
+        <div className="max-w-3xl w-full my-auto rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
           <h1 className="text-4xl font-black mb-6 text-orange-400">Slot Locked</h1>
           <p className="text-slate-300 mb-4">Your assigned exam slot is not active yet.</p>
           <p className="text-slate-400 mb-2">{slotValidation.message}</p>
@@ -1446,8 +1446,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
   if (!isProfileLoading && slotValidation.status === "EXPIRED") {
     return (
-      <div className="min-h-screen bg-[#050810] text-white flex items-center justify-center p-6">
-        <div className="max-w-3xl w-full rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
+      <div className="min-h-screen bg-[#050810] text-white flex flex-col items-center p-6 overflow-y-auto">
+        <div className="max-w-3xl w-full my-auto rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
           <h1 className="text-4xl font-black mb-6 text-red-500">Slot Expired</h1>
           <p className="text-slate-300 mb-4">{slotValidation.message}</p>
           <p className="text-slate-400">Access has been revoked. Your passkey is now invalidated for this session.</p>
@@ -1458,8 +1458,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
   if (!isProfileLoading && slotValidation.status === "INVALID") {
     return (
-      <div className="min-h-screen bg-[#050810] text-white flex items-center justify-center p-6">
-        <div className="max-w-3xl w-full rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
+      <div className="min-h-screen bg-[#050810] text-white flex flex-col items-center p-6 overflow-y-auto">
+        <div className="max-w-3xl w-full my-auto rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
           <h1 className="text-4xl font-black mb-6 text-amber-400">Slot Data Invalid</h1>
           <p className="text-slate-300 mb-4">{slotValidation.message}</p>
           <p className="text-slate-400">Please contact the exam administrator before attempting access again.</p>
@@ -1470,8 +1470,8 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
   if (!isProfileLoading && slotValidation.status === "MISSING") {
     return (
-      <div className="min-h-screen bg-[#050810] text-white flex items-center justify-center p-6">
-        <div className="max-w-3xl w-full rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
+      <div className="min-h-screen bg-[#050810] text-white flex flex-col items-center p-6 overflow-y-auto">
+        <div className="max-w-3xl w-full my-auto rounded-4xl border border-slate-800/70 bg-slate-950/90 p-10 shadow-2xl">
           <h1 className="text-4xl font-black mb-6 text-slate-200">Slot Information Unavailable</h1>
           <p className="text-slate-300 mb-4">Slot metadata is missing from your profile.</p>
           <p className="text-slate-400">Contact administration to restore your exam slot assignment.</p>
@@ -1483,12 +1483,12 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
   if (examState === "SYS_CHECK") {
     const allChecksPassed = sysChecks.browser && sysChecks.network && sysChecks.camera && sysChecks.mic && hasSelfie;
     return (
-      <div className="min-h-screen bg-[#050810] text-white flex flex-col items-center justify-center p-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-blue-500/5 via-transparent to-transparent" />
+      <div className="min-h-screen bg-[#050810] text-white flex flex-col items-center p-6 relative overflow-y-auto">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-blue-500/5 via-transparent to-transparent pointer-events-none" />
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          className="relative z-10 w-full max-w-4xl bg-[#0D121F]/80 backdrop-blur-xl border border-slate-800 rounded-[40px] p-12 shadow-2xl"
+          className="relative z-10 w-full max-w-4xl bg-[#0D121F]/80 backdrop-blur-xl border border-slate-800 rounded-[40px] p-12 shadow-2xl my-auto"
         >
           <Logo size="xl" center className="mb-12" />
           
@@ -1601,29 +1601,31 @@ export default function ExamSession({ params }: { params: Promise<{ id: string }
 
   if (examState === "INSTRUCTIONS") {
     return (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: "2rem", backgroundColor: "var(--bg-deep)", overflowY: "auto" }}>
-        <Logo size="xl" center className="mb-6" />
-        <h1 style={{ color: "var(--primary)", fontSize: "2.5rem", marginBottom: "1rem", fontWeight: "900", letterSpacing: "-1px", textAlign: "center" }}>Secure Assessment Protocol</h1>
-        <div style={{ maxWidth: '800px', backgroundColor: 'var(--bg-card)', padding: '2rem', borderRadius: '12px', border: '1px solid var(--border-dim)', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', width: '100%' }}>
-           <h3 style={{ color: "var(--text-primary)", borderBottom: "2px solid #e2e8f0", paddingBottom: "0.5rem", marginBottom: "1rem" }}>Strict Examination Compliance Framework:</h3>
-           <ul style={{ marginLeft: '1.5rem', color: "#b91c1c", marginTop: "1rem", lineHeight: "1.8", fontWeight: "500" }}>
-             <li><strong>MANDATORY:</strong> A highly synchronized neural AI feed is monitoring visual metrics constantly.</li>
-             <li><strong>AUTO-TERMINATION:</strong> Leaving the active browser boundary or alt-tabbing immediately terminates the session.</li>
-             <li><strong>NO SECOND CHANCES:</strong> Attempting bypass by refreshing instances triggers instant blockade mechanisms.</li>
-           </ul>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", minHeight: "100vh", padding: "2rem", backgroundColor: "var(--bg-deep)", overflowY: "auto" }}>
+        <div style={{ margin: "auto", display: "flex", flexDirection: "column", alignItems: "center", width: "100%", maxWidth: "800px" }}>
+          <Logo size="xl" center className="mb-6" />
+          <h1 style={{ color: "var(--primary)", fontSize: "2.5rem", marginBottom: "1rem", fontWeight: "900", letterSpacing: "-1px", textAlign: "center" }}>Secure Assessment Protocol</h1>
+          <div style={{ backgroundColor: 'var(--bg-card)', padding: '2rem', borderRadius: '12px', border: '1px solid var(--border-dim)', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', width: '100%' }}>
+             <h3 style={{ color: "var(--text-primary)", borderBottom: "2px solid #e2e8f0", paddingBottom: "0.5rem", marginBottom: "1rem" }}>Strict Examination Compliance Framework:</h3>
+             <ul style={{ marginLeft: '1.5rem', color: "#b91c1c", marginTop: "1rem", lineHeight: "1.8", fontWeight: "500" }}>
+               <li><strong>MANDATORY:</strong> A highly synchronized neural AI feed is monitoring visual metrics constantly.</li>
+               <li><strong>AUTO-TERMINATION:</strong> Leaving the active browser boundary or alt-tabbing immediately terminates the session.</li>
+               <li><strong>NO SECOND CHANCES:</strong> Attempting bypass by refreshing instances triggers instant blockade mechanisms.</li>
+             </ul>
+          </div>
+          <button className="btn btn-primary flex-shrink-0" onClick={async () => { 
+            try {
+              const elem = document.documentElement as any;
+              if (elem.requestFullscreen) await elem.requestFullscreen();
+              else if (elem.webkitRequestFullscreen) await elem.webkitRequestFullscreen();
+              else if (elem.msRequestFullscreen) await elem.msRequestFullscreen();
+            } catch(e) { console.warn("Fullscreen request failed", e); }
+            setIsFullscreen(true); 
+            setExamState("ACTIVE"); 
+          }} style={{ marginTop: '2rem', marginBottom: '2rem', padding: "1.2rem 4rem", borderRadius: "20px", fontSize: "1.1rem", fontWeight: "900", letterSpacing: "1px", backgroundColor: "#0284c7", color: "#ffffff", border: "none", cursor: "pointer", boxShadow: "0 4px 15px rgba(2, 132, 199, 0.4)" }}>
+            I ACKNOWLEDGE & INITIALIZE SESSION
+          </button>
         </div>
-        <button className="btn btn-primary flex-shrink-0" onClick={async () => { 
-          try {
-            const elem = document.documentElement as any;
-            if (elem.requestFullscreen) await elem.requestFullscreen();
-            else if (elem.webkitRequestFullscreen) await elem.webkitRequestFullscreen();
-            else if (elem.msRequestFullscreen) await elem.msRequestFullscreen();
-          } catch(e) { console.warn("Fullscreen request failed", e); }
-          setIsFullscreen(true); 
-          setExamState("ACTIVE"); 
-        }} style={{ marginTop: '2rem', marginBottom: '2rem', padding: "1.2rem 4rem", borderRadius: "20px", fontSize: "1.1rem", fontWeight: "900", letterSpacing: "1px", backgroundColor: "#0284c7", color: "#ffffff", border: "none", cursor: "pointer", boxShadow: "0 4px 15px rgba(2, 132, 199, 0.4)" }}>
-          I ACKNOWLEDGE & INITIALIZE SESSION
-        </button>
       </div>
     );
   }
