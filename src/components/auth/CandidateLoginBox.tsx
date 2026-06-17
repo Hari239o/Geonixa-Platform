@@ -129,7 +129,7 @@ export default function CandidateLoginBox() {
   };
 
   return (
-    <div className="w-full max-w-[450px] mx-auto">
+    <div className="w-full max-w-[400px] mx-auto">
       <AnimatePresence mode="wait">
         {!isSuccess ? (
           <motion.div 
@@ -137,7 +137,7 @@ export default function CandidateLoginBox() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-white rounded-[50px] p-8 md:p-10 shadow-[0_25px_60px_-15px_rgba(249,115,22,0.3)] border border-slate-100 relative overflow-hidden"
+            className="bg-white rounded-[32px] p-6 md:p-8 shadow-[0_25px_60px_-15px_rgba(249,115,22,0.3)] border border-slate-100 relative overflow-hidden"
           >
             {/* Top Border Highlight */}
             <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-orange-400 via-orange-500 to-amber-500" />
@@ -167,7 +167,7 @@ export default function CandidateLoginBox() {
                   type="email" 
                   placeholder="talent@geonixa.com" 
                   required 
-                  className="w-full bg-[#f1f5f9] border-2 border-transparent rounded-2xl px-6 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-all font-medium"
+                  className="w-full bg-[#f1f5f9] border-2 border-transparent rounded-2xl px-5 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-all font-medium"
                   value={email}
                   onChange={e => setEmail(e.target.value.toLowerCase().trim())}
                 />
@@ -180,14 +180,14 @@ export default function CandidateLoginBox() {
                     type={showPassword ? "text" : "password"} 
                     placeholder="••••••••••" 
                     required 
-                    className="w-full bg-[#f1f5f9] border-2 border-transparent rounded-2xl px-6 py-4 pr-16 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-all font-medium"
+                    className="w-full bg-[#f1f5f9] border-2 border-transparent rounded-2xl px-5 py-3 pr-12 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-all font-medium"
                     value={password}
                     onChange={e => setPassword(e.target.value.trim())}
                   />
                   <button 
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -197,7 +197,7 @@ export default function CandidateLoginBox() {
               <button 
                 disabled={isLoading}
                 type="submit" 
-                className="w-full bg-[#ff5a1f] hover:bg-[#e04a15] text-white py-3.5 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-2 group shadow-[0_8px_16px_rgba(255,90,31,0.2)] mt-6"
+                className="w-full bg-[#ff5a1f] hover:bg-[#e04a15] text-white py-3 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-2 group shadow-[0_8px_16px_rgba(255,90,31,0.2)] mt-4"
               >
                 {isLoading ? (
                   <Activity className="w-5 h-5 animate-spin" />

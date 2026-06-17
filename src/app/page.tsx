@@ -153,7 +153,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 pt-28 pb-10 sm:pt-32 sm:pb-12 lg:pt-36 lg:pb-16 px-5 sm:px-8 lg:px-12 min-h-[85vh] flex items-center">
+      <section className="relative z-10 pt-20 pb-8 sm:pt-24 sm:pb-10 lg:pt-28 lg:pb-12 px-5 sm:px-8 lg:px-12 min-h-[80vh] flex items-center">
         <div className="mx-auto max-w-screen-2xl w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div 
@@ -167,12 +167,12 @@ export default function Home() {
                 <span>The New Standard in Tech Hiring</span>
               </motion.div>
 
-              <motion.h1 variants={fadeInUp} className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-slate-900">
+              <motion.h1 variants={fadeInUp} className="text-[clamp(2.5rem,5vw,3.75rem)] font-black tracking-tight leading-[1.1] text-slate-900">
                 Evaluate talent with <br />
                 <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 via-orange-500 to-amber-500">absolute precision.</span>
               </motion.h1>
 
-              <motion.p variants={fadeInUp} className="mt-6 text-base sm:text-lg leading-relaxed text-slate-600 font-medium pr-10">
+              <motion.p variants={fadeInUp} className="mt-6 text-[clamp(1rem,1.5vw,1.125rem)] leading-relaxed text-slate-600 font-medium pr-10">
                 Geonixa is the enterprise assessment infrastructure for modern teams. We unify AI proctoring, coding environments, and behavioral analytics into one seamless, secure platform.
               </motion.p>
             </motion.div>
