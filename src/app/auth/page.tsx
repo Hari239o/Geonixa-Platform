@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import { KalinqBackground } from "@/components/auth/KalinqBackground"
 import { Button } from "@/components/ui/button"
 
-export default function WelcomeAndSplashScreen() {
+export default function WelcomePage() {
   const router = useRouter()
   const [showSplash, setShowSplash] = useState(true)
 
@@ -19,7 +19,7 @@ export default function WelcomeAndSplashScreen() {
   }, [])
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-primary-red">
+    <div className="relative min-h-[100dvh] w-full flex flex-col justify-center items-center overflow-hidden bg-primary-red">
       {/* Background shapes (Matches both screens in Figma) */}
       <KalinqBackground />
 
