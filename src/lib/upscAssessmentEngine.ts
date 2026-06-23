@@ -79,7 +79,7 @@ const withAntiCopyMarkers = (
   sequenceFingerprint: string,
 ): AssessmentQuestion => {
   const optionSeed = seed + ((index + 1) * 193) + (kind === "grammar" ? 1709 : 3101);
-  const rawOpts = question.opts?.length ? question.opts 
+  const rawOpts: string[] = question.opts?.length ? question.opts 
     : (question as any).options?.length ? (question as any).options 
     : (question as any).choices?.length ? (question as any).choices 
     : (question as any).mcqOptions?.length ? (question as any).mcqOptions 

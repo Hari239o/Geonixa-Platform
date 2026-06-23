@@ -143,7 +143,7 @@ export interface ExamResult {
   reportGroup?: string;
   examPattern?: any;
   totalScore: number;
-  qualificationStatus: 'QUALIFIED' | 'FAILED' | 'TERMINATED';
+  qualificationStatus: 'QUALIFIED' | 'FAILED' | 'TERMINATED' | 'DISQUALIFIED';
   submissionType: 'MANUAL' | 'AUTO_TIMEUP' | 'TERMINATED';
   completedAt: string;
   roundScores: {
