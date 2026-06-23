@@ -142,7 +142,7 @@ export const buildUpscQuestionSet = (
 };
 
 export const calculateUpscNegativeScore = (correct: number, wrong: number) => {
-  const penalty = Math.floor(wrong / 3);
+  const penalty = wrong * 0.5;
   return {
     penalty,
     score: Math.max(0, correct - penalty),

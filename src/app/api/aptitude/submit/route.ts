@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     // Calculate score
     const correctAnswers = savedResponses.filter((res) => res.isCorrect).length;
     const wrongAnswers = savedResponses.length - correctAnswers;
-    const negativeMarks = Math.floor(wrongAnswers / 3);
+    const negativeMarks = wrongAnswers * 0.5;
     const finalScore = correctAnswers - negativeMarks;
 
     return NextResponse.json({ score: finalScore });

@@ -103,7 +103,7 @@ export class ReportGeneratorService {
     };
 
     const isTechnical = domainTrack === "technical" || domain.toLowerCase().includes("dev") || domain.toLowerCase().includes("data");
-    const maxTotalScore = isTechnical ? 100 : 80; // 15 + 15 + 10 + 60 = 100 or 15 + 15 + 10 + 40 = 80
+    const maxTotalScore = 100; // 15 + 15 + 10 + 60 = 100
     const totalScore = roundScores.round1 + roundScores.round2 + roundScores.round3 + roundScores.round4;
     const percentage = Math.min(100, Math.round((totalScore / maxTotalScore) * 100));
 
@@ -111,10 +111,10 @@ export class ReportGeneratorService {
     const isCheating = completeResults?.securityMeta?.aiProbability > 70 || legacySub?.isCheating || legacySub?.submissionType === "TERMINATED";
     const aiTrustScore = Math.max(0, 100 - (violationsCount * 10));
 
-    let qualificationStatus: 'QUALIFIED' | 'NOT QUALIFIED' | 'DISQUALIFIED' = 'NOT QUALIFIED';
+    let qualificationStatus: 'QUALIFIED' | 'NOT QUALIFIED' | 'DISQUALIFIED' = 'DISQUALIFIED';
     if (isCheating) {
       qualificationStatus = 'DISQUALIFIED';
-    } else if (percentage >= 85 || totalScore >= 85) {
+    } else if (totalScore >= 90) {
       qualificationStatus = 'QUALIFIED';
     }
 
@@ -285,7 +285,7 @@ export class ReportGeneratorService {
       ["Round 1: Cognitive Aptitude", "15", `${data.roundScores.round1}`, `${Math.round((data.roundScores.round1 / 15) * 100)}%`, data.roundScores.round1 >= 8 ? "PASSED" : "REVIEW"],
       ["Round 2: Professional Grammar", "15", `${data.roundScores.round2}`, `${Math.round((data.roundScores.round2 / 15) * 100)}%`, data.roundScores.round2 >= 8 ? "PASSED" : "REVIEW"],
       ["Round 3: Descriptive Typing Speed", "10", `${data.roundScores.round3}`, `${Math.round((data.roundScores.round3 / 10) * 100)}%`, data.roundScores.round3 >= 6 ? "PASSED" : "REVIEW"],
-      [`Round 4: Technical Challenge`, `${data.maxTotalScore - 40}`, `${data.roundScores.round4}`, `${Math.round((data.roundScores.round4 / (data.maxTotalScore - 40)) * 100)}%`, data.roundScores.round4 >= ((data.maxTotalScore - 40) * 0.6) ? "EXCELLENT" : "REVIEW"],
+      [`Round 4: Technical Challenge`, `60`, `${data.roundScores.round4}`, `${Math.round((data.roundScores.round4 / 60) * 100)}%`, data.roundScores.round4 >= 36 ? "EXCELLENT" : "REVIEW"],
     ];
 
     autoTable(doc, {
