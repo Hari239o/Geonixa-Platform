@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { SignupData } from "../SignupContext"
+import { signIn } from "next-auth/react"
 
 const brandDetailsSchema = z.object({
   brandName: z.string().min(2, { message: "Brand Name must be at least 2 characters" }),
@@ -114,7 +115,11 @@ export function BrandDetailsStep({ initialData, onNext }: BrandDetailsStepProps)
       </div>
 
       {/* Google Button */}
-      <Button variant="outline" className="w-full h-12 flex items-center justify-center gap-2 rounded-xl border-gray-200 text-text-dark font-medium hover:bg-gray-50">
+      <Button 
+        variant="outline" 
+        onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+        className="w-full h-12 flex items-center justify-center gap-2 rounded-xl border-gray-200 text-text-dark font-medium hover:bg-gray-50"
+      >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M22.56 12.25C22.56 11.47 22.49 10.72 22.36 10H12V14.26H17.92C17.66 15.63 16.88 16.81 15.7 17.59V20.34H19.27C21.36 18.42 22.56 15.6 22.56 12.25Z" fill="#4285F4"/>
           <path d="M12 23C14.97 23 17.46 22.02 19.27 20.34L15.7 17.59C14.72 18.25 13.46 18.66 12 18.66C9.17 18.66 6.77 16.75 5.88 14.18H2.21V17.03C4.01 20.61 7.74 23 12 23Z" fill="#34A853"/>

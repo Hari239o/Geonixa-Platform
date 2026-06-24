@@ -7,17 +7,19 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
-export default function BrandSignupStep1() {
+export default function PartnerSignupStep1() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    brandName: "",
+    category: "Partners",
+    name: "",
+    role: "",
     email: "",
     phoneNumber: "",
   });
 
   // Load saved data from sessionStorage
   useEffect(() => {
-    const saved = sessionStorage.getItem("brandSignupData");
+    const saved = sessionStorage.getItem("partnerSignupData");
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -29,14 +31,14 @@ export default function BrandSignupStep1() {
   const updateFormData = (data: Partial<typeof formData>) => {
     setFormData((prev) => {
       const updated = { ...prev, ...data };
-      sessionStorage.setItem("brandSignupData", JSON.stringify(updated));
+      sessionStorage.setItem("partnerSignupData", JSON.stringify(updated));
       return updated;
     });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/auth/signup/brand/otp");
+    router.push("/auth/signup/partner/otp");
   };
 
   return (
@@ -44,25 +46,54 @@ export default function BrandSignupStep1() {
       
       <div className="flex flex-col gap-3">
         
-        {/* Brand Name */}
+        {/* Categories Dropdown */}
+        <div className="flex flex-col gap-1.5 relative">
+          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Categories</Label>
+          <div className="relative">
+            <select
+              required
+              value={formData.category}
+              onChange={(e) => updateFormData({ category: e.target.value })}
+              className="w-full bg-[#F8F8F8] border border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium appearance-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#FF4D2D] focus:border-[#FF4D2D] shadow-sm cursor-pointer"
+            >
+              <option value="Partners">Partners</option>
+              <option value="Agency">Agency</option>
+            </select>
+            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0A0A0] pointer-events-none" />
+          </div>
+        </div>
+
+        {/* Name */}
         <div className="flex flex-col gap-1.5">
-          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Brand Name</Label>
+          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Name</Label>
           <Input 
             required
-            placeholder="Lois" 
-            value={formData.brandName}
-            onChange={(e) => updateFormData({ brandName: e.target.value })}
+            placeholder="Enter your name" 
+            value={formData.name}
+            onChange={(e) => updateFormData({ name: e.target.value })}
             className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm"
           />
         </div>
 
-        {/* Email */}
+        {/* Role */}
         <div className="flex flex-col gap-1.5">
-          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Email</Label>
+          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Role</Label>
+          <Input 
+            required
+            placeholder="Enter your Role" 
+            value={formData.role}
+            onChange={(e) => updateFormData({ role: e.target.value })}
+            className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm"
+          />
+        </div>
+
+        {/* Gmail */}
+        <div className="flex flex-col gap-1.5">
+          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Gmail</Label>
           <Input 
             required
             type="email"
-            placeholder="loisbecket@gmail.com" 
+            placeholder="Enter the address" 
             value={formData.email}
             onChange={(e) => updateFormData({ email: e.target.value })}
             className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm"

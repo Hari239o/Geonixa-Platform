@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 
-export default function BrandSignupStep2OTP() {
+export default function PartnerSignupStep2OTP() {
   const router = useRouter();
   const [phoneNumber, setPhoneNumber] = useState("+91 0000000000"); // Default fallback
   const [otp, setOtp] = useState(["", "", "", ""]); // 4 digits
@@ -23,7 +23,7 @@ export default function BrandSignupStep2OTP() {
     hasMounted.current = true;
 
     let savedPhone = "+91 0000000000";
-    const saved = sessionStorage.getItem("brandSignupData");
+    const saved = sessionStorage.getItem("partnerSignupData");
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -110,7 +110,7 @@ export default function BrandSignupStep2OTP() {
           setError("Invalid OTP. Please try again.");
           setLoading(false);
         } else {
-          router.push("/auth/signup/brand/details");
+          router.push("/auth/signup/partner/account");
         }
       } catch (err: any) {
         setError("Something went wrong. Please try again.");

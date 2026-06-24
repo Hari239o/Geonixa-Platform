@@ -1,5 +1,8 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
+import CredentialsProvider from "next-auth/providers/credentials"
+
+const globalAny: any = global;
 
 const handler = NextAuth({
   providers: [
@@ -7,6 +10,39 @@ const handler = NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
+    CredentialsProvider({
+      name: "Phone",
+      credentials: {
+        phoneNumber: { label: "Phone Number", type: "text" },
+        otp: { label: "OTP", type: "text" }
+      },
+      async authorize(credentials) {
+        if (!credentials?.phoneNumber || !credentials?.otp) {
+          return null
+        }
+
+        // Verify OTP from global store
+        const store = globalAny.otpStore;
+        if (store) {
+          const storedData = store.get(credentials.phoneNumber);
+          if (storedData) {
+            // Check if OTP matches and is not expired
+            if (storedData.otp === credentials.otp && storedData.expiresAt > Date.now()) {
+              // Valid! Remove it from store so it can't be reused
+              store.delete(credentials.phoneNumber);
+              return {
+                id: credentials.phoneNumber,
+                name: "Kalinq User",
+                email: `${credentials.phoneNumber.replace('+', '')}@kalinq.auth`,
+                image: "https://github.com/shadcn.png"
+              }
+            }
+          }
+        }
+
+        return null
+      }
+    })
   ],
   pages: {
     signIn: "/auth/login", // Redirect back to our custom login page on error

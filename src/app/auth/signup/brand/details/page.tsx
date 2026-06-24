@@ -1,134 +1,104 @@
-"use client"
+"use client";
 
-import React from "react"
-import { useRouter } from "next/navigation"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useSignup } from "@/components/auth/SignupContext"
-import { ArrowLeft } from "lucide-react"
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
 
-const businessSchema = z.object({
-  teamSize: z.string().min(1, { message: "Team size is required" }),
-  location: z.string().min(2, { message: "Location is required" }),
-  businessCategory: z.string().min(1, { message: "Category is required" }),
-})
+export default function BrandSignupStep3Details() {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    teamSize: "",
+    location: "",
+    category: "",
+  });
 
-type BusinessFormValues = z.infer<typeof businessSchema>
+  // Load saved data from sessionStorage
+  useEffect(() => {
+    const saved = sessionStorage.getItem("brandSignupData");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setFormData(prev => ({ ...prev, ...parsed }));
+      } catch (e) {}
+    }
+  }, []);
 
-export default function BrandSignupStep2() {
-  const router = useRouter()
-  const { data, updateData } = useSignup()
+  const updateFormData = (data: Partial<typeof formData>) => {
+    setFormData((prev) => {
+      const updated = { ...prev, ...data };
+      sessionStorage.setItem("brandSignupData", JSON.stringify(updated));
+      return updated;
+    });
+  };
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<BusinessFormValues>({
-    resolver: zodResolver(businessSchema),
-    defaultValues: {
-      teamSize: data.teamSize || "",
-      location: data.location || "",
-      businessCategory: data.businessCategory || "",
-    },
-  })
-
-  const onSubmit = (formData: BusinessFormValues) => {
-    updateData({
-      teamSize: formData.teamSize,
-      location: formData.location,
-      businessCategory: formData.businessCategory,
-    })
-    
-    // In a real app, you would submit to backend here.
-    // For now, we'll push to a dashboard or success screen
-    router.push("/dashboard")
-  }
-
-  const handlePrevious = () => {
-    // Save current state before going back
-    updateData({
-      teamSize: "1-10", // Just to ensure it's not totally empty, or pull from watch() if we wanted perfectly strict back-saving
-    })
-    router.back()
-  }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push("/auth/signup/brand/account");
+  };
 
   return (
-    <div className="w-full flex flex-col items-center">
-      {/* Orange-Red Header */}
-      <h1 className="text-3xl font-bold text-white mb-2 text-center drop-shadow-sm">
-        Business Details
-      </h1>
-      <p className="text-white/90 text-sm font-medium mb-8 text-center px-4">
-        Tell us more about your company
-      </p>
+    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col h-full justify-between">
+      
+      <div className="flex flex-col gap-4">
+        
+        {/* Team Size Input */}
+        <div className="flex flex-col gap-1.5">
+          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Size of Team</Label>
+          <Input 
+            required
+            type="number"
+            placeholder="5" 
+            value={formData.teamSize}
+            onChange={(e) => updateFormData({ teamSize: e.target.value })}
+            className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm"
+          />
+        </div>
 
-      {/* White Card */}
-      <div className="w-full max-w-[400px] bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-6 sm:p-8">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-          
-          <div className="space-y-1.5">
-            <Label htmlFor="teamSize" className="text-xs font-semibold text-text-light ml-1">Size of Team</Label>
-            <Input 
-              id="teamSize" 
-              placeholder="e.g. 5 or 1-10" 
-              {...register("teamSize")} 
-              className={errors.teamSize ? "border-red-500" : ""}
-            />
-            {errors.teamSize && <p className="text-xs text-red-500 ml-1">{errors.teamSize.message}</p>}
-          </div>
+        {/* Location */}
+        <div className="flex flex-col gap-1.5">
+          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Location</Label>
+          <Input 
+            required
+            placeholder="Enter the address" 
+            value={formData.location}
+            onChange={(e) => updateFormData({ location: e.target.value })}
+            className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm"
+          />
+        </div>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="location" className="text-xs font-semibold text-text-light ml-1">Location</Label>
-            <Input 
-              id="location" 
-              placeholder="Enter the address or city" 
-              {...register("location")} 
-              className={errors.location ? "border-red-500" : ""}
-            />
-            {errors.location && <p className="text-xs text-red-500 ml-1">{errors.location.message}</p>}
-          </div>
-
-          <div className="space-y-1.5">
-            <Label htmlFor="businessCategory" className="text-xs font-semibold text-text-light ml-1">Categories</Label>
-            <Select onValueChange={(val) => setValue("businessCategory", val)} defaultValue={data.businessCategory}>
-              <SelectTrigger className={errors.businessCategory ? "border-red-500 bg-[#F9FAFB] h-12" : "bg-[#F9FAFB] h-12"}>
-                <SelectValue placeholder="Select a Category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="fashion">Fashion & Apparel</SelectItem>
-                <SelectItem value="beauty">Beauty & Cosmetics</SelectItem>
-                <SelectItem value="tech">Technology & Electronics</SelectItem>
-                <SelectItem value="food">Food & Beverage</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.businessCategory && <p className="text-xs text-red-500 ml-1">{errors.businessCategory.message}</p>}
-          </div>
-
-          <div className="flex gap-3 pt-2">
-            <Button 
-              type="button" 
-              variant="outline" 
-              onClick={handlePrevious}
-              className="w-1/3 h-12 border-gray-200 text-text-dark font-bold rounded-xl"
+        {/* Categories Dropdown */}
+        <div className="flex flex-col gap-1.5 relative">
+          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Categories</Label>
+          <div className="relative">
+            <select
+              required
+              value={formData.category}
+              onChange={(e) => updateFormData({ category: e.target.value })}
+              className="w-full bg-[#F8F8F8] border border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium appearance-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#FF4D2D] focus:border-[#FF4D2D] shadow-sm cursor-pointer"
             >
-              Previous
-            </Button>
-            <Button 
-              type="submit" 
-              className="w-2/3 h-12 bg-primary-red hover:bg-primary-red/90 text-white font-bold rounded-xl"
-            >
-              Finish
-            </Button>
+              <option value="" disabled hidden>Drop Down</option>
+              <option value="ecommerce">E-commerce</option>
+              <option value="agency">Agency</option>
+              <option value="saas">SaaS / Tech</option>
+              <option value="retail">Retail</option>
+            </select>
+            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0A0A0] pointer-events-none" />
           </div>
-        </form>
+        </div>
+
       </div>
-    </div>
-  )
+
+      <div className="mt-2 flex flex-col">
+        <Button 
+          type="submit" 
+          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98]"
+        >
+          Next
+        </Button>
+      </div>
+    </form>
+  );
 }

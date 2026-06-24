@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 
-export default function BrandSignupStep2OTP() {
+export default function CreatorSignupStep2OTP() {
   const router = useRouter();
   const [phoneNumber, setPhoneNumber] = useState("+91 0000000000"); // Default fallback
-  const [otp, setOtp] = useState(["", "", "", ""]); // 4 digits
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]); // 6 digits for Fast2SMS
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [countdown, setCountdown] = useState(30);
   const [loading, setLoading] = useState(false);
@@ -23,12 +23,14 @@ export default function BrandSignupStep2OTP() {
     hasMounted.current = true;
 
     let savedPhone = "+91 0000000000";
-    const saved = sessionStorage.getItem("brandSignupData");
+    const saved = sessionStorage.getItem("creatorSignupData");
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
         if (parsed.phoneNumber) {
+          // Remove all non-digit characters
           let cleanPhone = parsed.phoneNumber.replace(/\D/g, '');
+          // If it doesn't already start with 91 (for India), prepend it
           if (!cleanPhone.startsWith('91')) {
              cleanPhone = '91' + cleanPhone;
           }
@@ -45,6 +47,7 @@ export default function BrandSignupStep2OTP() {
     setIsSending(true);
     setError("");
     try {
+      // Call our custom Fast2SMS backend
       const res = await fetch('/api/auth/send-otp', {
         method: 'POST',
         headers: {
@@ -82,7 +85,7 @@ export default function BrandSignupStep2OTP() {
     setOtp(newOtp);
 
     // Auto-advance
-    if (value && index < 3) {
+    if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
   };
@@ -96,10 +99,11 @@ export default function BrandSignupStep2OTP() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const code = otp.join("");
-    if (code.length === 4) {
+    if (code.length === 6) {
       setLoading(true);
       setError("");
       try {
+        // Authenticate with NextAuth Credentials Provider
         const result = await signIn("credentials", {
           redirect: false,
           phoneNumber: phoneNumber,
@@ -110,7 +114,8 @@ export default function BrandSignupStep2OTP() {
           setError("Invalid OTP. Please try again.");
           setLoading(false);
         } else {
-          router.push("/auth/signup/brand/details");
+          // Authentication successful!
+          router.push("/auth/signup/creator/social-links");
         }
       } catch (err: any) {
         setError("Something went wrong. Please try again.");
@@ -124,10 +129,10 @@ export default function BrandSignupStep2OTP() {
       
       <div className="flex flex-col items-center w-full">
         <div className="flex flex-col items-center text-center w-full mb-6">
-        <h2 className="text-[16px] font-bold text-[#333333] mb-4">OTP Verification</h2>
-        <p className="text-[13px] text-[#A0A0A0] font-medium leading-relaxed">
-          We have sent a verification code to<br/>
-          <span className="font-bold text-[#333333] mt-1 block">
+        <h2 className="text-lg font-bold text-slate-800 mb-2">OTP Verification</h2>
+        <p className="text-sm text-slate-500">
+          We have sent a 6-digit code to<br/>
+          <span className="font-bold text-slate-800 text-base mt-1 block">
             {phoneNumber}
           </span>
         </p>
@@ -136,7 +141,7 @@ export default function BrandSignupStep2OTP() {
       {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
       {isSending && <p className="text-sm text-blue-500 mb-4 animate-pulse">Sending OTP...</p>}
 
-      <div className="flex gap-4 justify-center mb-8 w-full">
+      <div className="flex gap-2 sm:gap-3 justify-center mb-8 w-full">
         {otp.map((digit, index) => (
           <input
             key={index}
@@ -147,16 +152,16 @@ export default function BrandSignupStep2OTP() {
             onChange={(e) => handleChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             disabled={isSending}
-            className={`w-[52px] h-[52px] rounded-[14px] border border-[#EEEEEE] text-center text-xl font-semibold outline-none transition-all
-              ${digit ? 'border-[#FF4D2D] text-[#333333]' : 'bg-transparent text-[#333333]'}
-              focus:border-[#FF4D2D] focus:ring-1 focus:ring-[#FF4D2D] disabled:opacity-50 shadow-sm
+            className={`w-12 h-14 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl border-2 text-center text-2xl font-semibold outline-none transition-all
+              ${digit ? 'border-[#FF4D2D] text-slate-800' : 'border-slate-200 text-slate-400 bg-[#F5F5F5]'}
+              focus:border-[#FF4D2D] focus:bg-white disabled:opacity-50
             `}
           />
         ))}
       </div>
 
-      <p className="text-[12px] text-[#A0A0A0] font-medium mb-6">
-        Resend OTP in <span className="font-semibold text-[#333333]">{countdown}</span>
+      <p className="text-sm text-slate-500 mb-6">
+        Resend OTP in <span className="font-medium text-slate-700">{countdown}</span>
       </p>
 
       {countdown === 0 && !isSending && (
@@ -164,7 +169,7 @@ export default function BrandSignupStep2OTP() {
           type="button" 
           variant="link" 
           onClick={() => sendOTP(phoneNumber)}
-          className="text-[#FF4D2D] mb-4 -mt-4 text-[13px]"
+          className="text-[#FF4D2D] mb-4 -mt-4"
         >
           Resend Code
         </Button>
@@ -175,8 +180,8 @@ export default function BrandSignupStep2OTP() {
       <div className="w-full mt-2">
         <Button 
           type="submit" 
-          disabled={otp.join("").length !== 4 || isSending || loading}
-          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98] disabled:opacity-50"
+          disabled={otp.join("").length !== 6 || isSending || loading}
+          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-xl h-14 text-lg font-bold shadow-md shadow-[#FF4D2D]/20 disabled:opacity-50"
         >
           {loading ? "Verifying..." : "Next"}
         </Button>
