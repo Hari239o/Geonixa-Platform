@@ -799,7 +799,7 @@ export async function POST(req: Request) {
           remoteMirrorsAvailable = false;
           if (!executedSuccessfully) {
             testResult.status = "INTERNAL_ERROR";
-            testResult.stderr = "Remote execution service unavailable (check JDoodle API credentials). Falling back to local runner.";
+            testResult.stderr = "Remote execution service unavailable. Falling back to local runner.";
           }
         }
       }
