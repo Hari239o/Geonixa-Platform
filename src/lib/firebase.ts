@@ -1088,11 +1088,7 @@ export const allocateSlotWithTransaction = async (
 
   await runTransaction(db, async (transaction) => {
     const slotDoc = await transaction.get(slotRef);
-    if (!slotDoc.exists()) {
-      throw new Error("Slot meta document does not exist!");
-    }
-
-    const currentData = slotDoc.data();
+    const currentData = slotDoc.exists() ? slotDoc.data() : {};
     const currentCount = currentData[slotId] || 0;
 
     if (currentCount >= 25) {
