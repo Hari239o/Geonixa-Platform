@@ -76,7 +76,7 @@ export default function CreatorDashboard() {
       {/* Profile Header Block */}
       <section className="bg-white rounded-[32px] p-6 m-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 mb-8">
         <div className="flex items-center gap-6 mb-6">
-          <Image src={profile.profilePic} alt="Profile" width={96} height={96} className="w-24 h-24 rounded-full object-cover shadow-sm flex-shrink-0" />
+          <Image src={profile.profilePic || defaultProfilePic} alt="Profile" width={96} height={96} className="w-24 h-24 rounded-full object-cover shadow-sm flex-shrink-0" />
           <div className="flex-1 flex justify-between items-center bg-[#f8fafc] rounded-2xl p-4">
             <div className="flex flex-col items-center">
               <span className="text-xs text-gray-500 font-medium mb-1">Followers</span>
@@ -240,7 +240,7 @@ export default function CreatorDashboard() {
         </div>
       </section>
 
-      <BottomNav profilePic={profile.profilePic} />
+      <BottomNav profilePic={profile.profilePic || defaultProfilePic} />
     </div>
   );
 }

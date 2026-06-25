@@ -81,7 +81,7 @@ const SetupProfilePage = () => {
     localStorage.setItem('kaling_user_profile', JSON.stringify(userProfile));
 
     // Redirect to creators dashboard
-    router.push('/creators');
+    router.push('/creator');
   };
 
   const isFormValid = () => {

@@ -47,7 +47,7 @@ export default function BottomNav({ profilePic = '/profile_pic.png' }: BottomNav
         onClick={() => router.push('/setup-profile')}
       >
         <Image 
-          src={profilePic} 
+          src={profilePic || '/profile_pic.png'} 
           alt="Profile" 
           width={40}
           height={40}

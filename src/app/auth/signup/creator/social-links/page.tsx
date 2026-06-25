@@ -38,8 +38,10 @@ export default function CreatorSignupStep3Socials() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Final Creator Signup Data:", JSON.parse(sessionStorage.getItem("creatorSignupData") || "{}"));
-    // Route to the existing creator dashboard
-    router.push("/creator");
+    // Wait to simulate network
+    setTimeout(() => {
+      router.push("/auth/login");
+    }, 1500);
   };
 
   return (
