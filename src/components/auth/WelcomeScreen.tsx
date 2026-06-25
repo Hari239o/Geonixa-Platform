@@ -12,22 +12,28 @@ export function WelcomeScreen() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.5 }}
-      className="flex flex-col items-center justify-center w-full max-w-sm mt-12"
+      className="flex flex-col items-center justify-center w-full mt-[15vh] px-8"
     >
-      <Logo large={false} showText={false} className="mb-8" />
+      <Logo large={true} showText={false} className="mb-10" />
       
-      <p className="text-white/90 text-center text-sm font-medium mb-12 px-4 leading-relaxed">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+      <p className="text-white text-center text-[12px] font-medium mb-10 leading-tight tracking-wide">
+        Lorem ipsum dolor sit amet, consectetur<br/>adipiscing elit, sed do eiusmod.
       </p>
 
-      <div className="flex flex-col w-full gap-3 px-2">
-        <Button asChild variant="yellow" className="w-full font-bold shadow-md rounded-xl h-12">
-          <Link href="/auth/login">Sign In</Link>
-        </Button>
+      <div className="flex flex-col w-full max-w-[240px] gap-3">
+        <Link 
+          href="/auth/login" 
+          className="w-full bg-[#DFEA50] text-[#EF4823] hover:bg-[#D4E03B] h-11 rounded-[10px] flex items-center justify-center font-bold text-[15px] shadow-sm transition-colors"
+        >
+          Sign In
+        </Link>
         
-        <Button asChild className="w-full bg-white text-[#FF4D2D] hover:bg-gray-50 font-bold shadow-md rounded-xl h-12">
-          <Link href="/auth/category-selection">Sign Up</Link>
-        </Button>
+        <Link 
+          href="/auth/category-selection" 
+          className="w-full bg-[#FAF1DF] text-[#EF4823] hover:bg-[#EBE2D3] h-11 rounded-[10px] flex items-center justify-center font-bold text-[15px] shadow-sm transition-colors"
+        >
+          Sign Up
+        </Link>
       </div>
     </motion.div>
   )
