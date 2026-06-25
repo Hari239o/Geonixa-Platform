@@ -31,7 +31,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
 
   // OTP State
-  const [phoneNumber, setPhoneNumber] = useState("+91 6305799927") // Default test number for demo
+  const [emailToVerify, setEmailToVerify] = useState("")
   const [otp, setOtp] = useState(["", "", "", "", "", ""]) // 6 digits
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
   const [countdown, setCountdown] = useState(30)
@@ -59,7 +59,7 @@ export default function LoginPage() {
     }
   }, [step, countdown, isSending])
 
-  const sendOTP = async (phone: string) => {
+  const sendOTP = async (email: string) => {
     setIsSending(true)
     setError("")
     try {
@@ -68,7 +68,7 @@ export default function LoginPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ phoneNumber: phone }),
+        body: JSON.stringify({ email: email }),
       });
 
       const data = await res.json();
@@ -91,9 +91,10 @@ export default function LoginPage() {
     await new Promise((resolve) => setTimeout(resolve, 1000))
     console.log("Credentials verified:", data)
     
-    // Switch to OTP step and send OTP to the registered phone number
+    // Switch to OTP step and send OTP to the registered email
+    setEmailToVerify(data.email)
     setStep("otp")
-    sendOTP(phoneNumber)
+    sendOTP(data.email)
   }
 
   const handleOtpChange = (index: number, value: string) => {
@@ -122,7 +123,7 @@ export default function LoginPage() {
       try {
         const result = await signIn("credentials", {
           redirect: false,
-          phoneNumber: phoneNumber,
+          email: emailToVerify,
           otp: code,
         })
 
@@ -157,7 +158,7 @@ export default function LoginPage() {
       <p className="text-white/95 lg:text-text-light text-[13px] font-normal mb-6 text-center px-4">
         {step === "credentials" 
           ? "Enter your email and password to log in" 
-          : "Verify your identity with the code sent to your phone"}
+          : "Verify your identity with the code sent to your email"}
       </p>
 
       {/* Card Section: Solid White */}
@@ -266,7 +267,7 @@ export default function LoginPage() {
               <p className="text-sm text-slate-500">
                 We have sent a 6-digit code to<br/>
                 <span className="font-bold text-slate-800 text-base mt-1 block">
-                  {phoneNumber}
+                  {emailToVerify}
                 </span>
               </p>
             </div>
@@ -301,7 +302,7 @@ export default function LoginPage() {
               <Button 
                 type="button" 
                 variant="link" 
-                onClick={() => sendOTP(phoneNumber)}
+                onClick={() => sendOTP(emailToVerify)}
                 className="text-[#FF4D2D] mb-4 -mt-2 text-[13px] h-auto p-0"
               >
                 Resend Code

@@ -11,39 +11,29 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
-      name: "Phone",
+      name: "Email-OTP",
       credentials: {
-        phoneNumber: { label: "Phone Number", type: "text" },
+        email: { label: "Email", type: "text" },
         otp: { label: "OTP", type: "text" }
       },
       async authorize(credentials) {
-        if (!credentials?.phoneNumber || !credentials?.otp) {
+        if (!credentials?.email || !credentials?.otp) {
           return null
-        }
-
-        // TEMPORARY BYPASS: Accept 123456 for testing purposes
-        if (credentials.otp === "123456") {
-          return {
-            id: credentials.phoneNumber,
-            name: "Kalinq User",
-            email: `${credentials.phoneNumber.replace('+', '')}@kalinq.auth`,
-            image: "https://github.com/shadcn.png"
-          }
         }
 
         // Verify OTP from global store
         const store = globalAny.otpStore;
         if (store) {
-          const storedData = store.get(credentials.phoneNumber);
+          const storedData = store.get(credentials.email.toLowerCase());
           if (storedData) {
             // Check if OTP matches and is not expired
             if (storedData.otp === credentials.otp && storedData.expiresAt > Date.now()) {
               // Valid! Remove it from store so it can't be reused
-              store.delete(credentials.phoneNumber);
+              store.delete(credentials.email.toLowerCase());
               return {
-                id: credentials.phoneNumber,
+                id: credentials.email,
                 name: "Kalinq User",
-                email: `${credentials.phoneNumber.replace('+', '')}@kalinq.auth`,
+                email: credentials.email,
                 image: "https://github.com/shadcn.png"
               }
             }
