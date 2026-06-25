@@ -36,8 +36,14 @@ export default function PartnerSignupStep3Account() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     console.log("Final Partner Signup Data:", JSON.parse(sessionStorage.getItem("partnerSignupData") || "{}"));
-    router.push("/partner");
+    
+    // Wait to simulate network
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/auth/login");
+    }, 1500);
   };
 
   return (

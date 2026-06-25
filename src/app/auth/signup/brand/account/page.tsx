@@ -36,9 +36,13 @@ export default function BrandSignupStep4Account() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     console.log("Final Brand Signup Data:", JSON.parse(sessionStorage.getItem("brandSignupData") || "{}"));
-    // Route to the existing brand dashboard
-    router.push("/brand");
+    // Wait to simulate network
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/auth/login");
+    }, 1500);
   };
 
   return (

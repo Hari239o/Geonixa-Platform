@@ -130,8 +130,9 @@ export default function LoginPage() {
           setError("Invalid OTP. Please try again.")
           setLoading(false)
         } else {
-          // Login complete!
-          router.push("/dashboard")
+          setTimeout(() => {
+            router.push("/setup-profile")
+          }, 500)
         }
       } catch (err: any) {
         setError("Something went wrong. Please try again.")
