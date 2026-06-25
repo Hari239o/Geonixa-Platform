@@ -33,13 +33,13 @@ export const maxDuration = 300;
 
 const execFileAsync = promisify(execFile);
 
-const JDOODLE_LANG_MAP: Record<string, { lang: string; version: string }> = {
-  "cpp": { lang: "cpp17", version: "0" },
-  "c": { lang: "c", version: "4" },
-  "python": { lang: "python3", version: "3" },
-  "javascript": { lang: "nodejs", version: "3" },
-  "java": { lang: "java", version: "3" },
-  "csharp": { lang: "csharp", version: "3" }
+const JUDGE0_LANG_MAP: Record<string, number> = {
+  "cpp": 54,
+  "c": 50,
+  "python": 71,
+  "javascript": 93,
+  "java": 91,
+  "csharp": 51
 };
 
 const LANG_MAP: Record<string, string> = {
@@ -57,28 +57,28 @@ const REMOTE_MIRROR_TIMEOUT_MS = 14000;
 async function executeRemoteTest(pistonLang: string, executableCode: string, test: TestCase, timeoutMs: number) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-  const clientId = process.env.JDOODLE_CLIENT_ID;
-  const clientSecret = process.env.JDOODLE_CLIENT_SECRET;
+  const rapidApiKey = process.env.RAPIDAPI_KEY;
 
-  if (!clientId || !clientSecret) {
-    throw new Error("JDOODLE_CLIENT_ID or JDOODLE_CLIENT_SECRET is missing. Remote execution unavailable.");
+  if (!rapidApiKey) {
+    throw new Error("RAPIDAPI_KEY is missing. Remote execution unavailable.");
   }
 
-  const langConfig = JDOODLE_LANG_MAP[pistonLang] || { lang: "python3", version: "3" };
+  const langId = JUDGE0_LANG_MAP[pistonLang] || 71;
 
   try {
-    const response = await fetch("https://api.jdoodle.com/v1/execute", {
+    const response = await fetch("https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=false&wait=true", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "X-RapidAPI-Key": rapidApiKey,
+        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
       },
       body: JSON.stringify({
-        clientId: clientId,
-        clientSecret: clientSecret,
-        script: executableCode,
-        language: langConfig.lang,
-        versionIndex: langConfig.version,
-        stdin: test.input || ""
+        language_id: langId,
+        source_code: executableCode,
+        stdin: test.input || "",
+        cpu_time_limit: (test.timeLimit || 5000) / 1000.0,
+        memory_limit: (test.memoryLimit || 256) * 1024
       }),
       signal: controller.signal,
     });
@@ -89,27 +89,21 @@ async function executeRemoteTest(pistonLang: string, executableCode: string, tes
     }
 
     const data = await response.json();
-
-    if (data.error && !data.output) {
-      throw new Error(`JDoodle Error: ${data.error}`);
-    }
-
-    const outputStr = data.output || "";
-    const isError = outputStr.toLowerCase().includes("error") || outputStr.toLowerCase().includes("exception");
+    const statusId = data.status?.id || 13;
 
     return {
       compile: {
-        code: 0, 
-        stderr: "",
-        output: ""
+        code: statusId === 6 ? 1 : 0,
+        stderr: data.compile_output || "",
+        output: data.compile_output || ""
       },
       run: {
-        code: isError ? 1 : 0,
-        stdout: isError ? "" : outputStr,
-        stderr: isError ? outputStr : "",
-        time: parseFloat(data.cpuTime || "0") * 1000,
+        code: (statusId === 3 || statusId === 4) ? 0 : 1,
+        stdout: data.stdout || "",
+        stderr: data.stderr || data.message || "",
+        time: parseFloat(data.time || "0") * 1000,
         memory: (data.memory || 0) * 1024,
-        signal: null
+        signal: statusId === 5 ? "SIGKILL" : null
       }
     };
   } finally {
@@ -806,7 +800,7 @@ export async function POST(req: Request) {
           remoteMirrorsAvailable = false;
           if (!executedSuccessfully) {
             testResult.status = "INTERNAL_ERROR";
-            testResult.stderr = "Remote execution service unavailable (check JDoodle API credentials). Falling back to local runner.";
+            testResult.stderr = "Remote execution service unavailable (check RAPIDAPI_KEY). Falling back to local runner.";
           }
         }
       }
