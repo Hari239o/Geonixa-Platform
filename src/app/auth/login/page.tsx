@@ -247,7 +247,7 @@ export default function LoginPage() {
                 disabled={isSubmitting}
                 className="w-full mt-6 h-11 bg-primary-red hover:bg-primary-red/90 text-secondary-yellow font-semibold rounded-[10px] transition-all text-[13px]"
               >
-                {isSubmitting ? "Authenticating..." : "Next Step"}
+                {isSubmitting ? "Authenticating..." : "Log In"}
               </Button>
             </form>
 

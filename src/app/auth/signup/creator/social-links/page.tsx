@@ -22,8 +22,8 @@ export default function CreatorSignupStep3Socials() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        setFormData(prev => ({ ...prev, ...parsed }));
-      } catch (e) {}
+        setTimeout(() => setFormData(prev => ({ ...prev, ...parsed })), 0);
+      } catch {}
     }
   }, []);
 

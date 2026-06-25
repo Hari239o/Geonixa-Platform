@@ -21,8 +21,8 @@ export default function PartnerSignupStep3Account() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        setFormData(prev => ({ ...prev, ...parsed }));
-      } catch (e) {}
+        setTimeout(() => setFormData(prev => ({ ...prev, ...parsed })), 0);
+      } catch {}
     }
   }, []);
 
@@ -37,8 +37,7 @@ export default function PartnerSignupStep3Account() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Final Partner Signup Data:", JSON.parse(sessionStorage.getItem("partnerSignupData") || "{}"));
-    // Route to the existing dashboard or onboarding
-    router.push("/onboarding?type=partner");
+    router.push("/partner");
   };
 
   return (

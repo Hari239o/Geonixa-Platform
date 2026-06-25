@@ -21,10 +21,12 @@ export default function PartnerSignupStep1() {
   useEffect(() => {
     const saved = sessionStorage.getItem("partnerSignupData");
     if (saved) {
-      try {
+      setTimeout(() => {
+        try {
         const parsed = JSON.parse(saved);
-        setFormData(prev => ({ ...prev, ...parsed }));
-      } catch (e) {}
+        setTimeout(() => setFormData(prev => ({ ...prev, ...parsed })), 0);
+      } catch {}
+      }, 0);
     }
   }, []);
 

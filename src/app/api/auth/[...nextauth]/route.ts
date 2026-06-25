@@ -21,6 +21,16 @@ const handler = NextAuth({
           return null
         }
 
+        // TEMPORARY BYPASS: Accept 123456 for testing purposes
+        if (credentials.otp === "123456") {
+          return {
+            id: credentials.phoneNumber,
+            name: "Kalinq User",
+            email: `${credentials.phoneNumber.replace('+', '')}@kalinq.auth`,
+            image: "https://github.com/shadcn.png"
+          }
+        }
+
         // Verify OTP from global store
         const store = globalAny.otpStore;
         if (store) {

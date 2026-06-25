@@ -17,32 +17,6 @@ export default function CreatorSignupStep2OTP() {
 
   const hasMounted = useRef(false);
 
-  // Load saved data from sessionStorage and send OTP
-  useEffect(() => {
-    if (hasMounted.current) return;
-    hasMounted.current = true;
-
-    let savedPhone = "+91 0000000000";
-    const saved = sessionStorage.getItem("creatorSignupData");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (parsed.phoneNumber) {
-          // Remove all non-digit characters
-          let cleanPhone = parsed.phoneNumber.replace(/\D/g, '');
-          // If it doesn't already start with 91 (for India), prepend it
-          if (!cleanPhone.startsWith('91')) {
-             cleanPhone = '91' + cleanPhone;
-          }
-          savedPhone = '+' + cleanPhone;
-          setPhoneNumber(savedPhone);
-        }
-      } catch (e) {}
-    }
-
-    sendOTP(savedPhone);
-  }, []);
-
   const sendOTP = async (phone: string) => {
     setIsSending(true);
     setError("");
@@ -64,12 +38,38 @@ export default function CreatorSignupStep2OTP() {
 
       setIsSending(false);
       setCountdown(30);
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
-      setError(err.message || "Failed to send OTP. Try again.");
+      setError(err instanceof Error ? err.message : "Failed to send OTP. Try again.");
       setIsSending(false);
     }
   };
+
+  // Load saved data from sessionStorage and send OTP
+  useEffect(() => {
+    if (hasMounted.current) return;
+    hasMounted.current = true;
+
+    let savedPhone = "+91 0000000000";
+    const saved = sessionStorage.getItem("creatorSignupData");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.phoneNumber) {
+          // Remove all non-digit characters
+          let cleanPhone = parsed.phoneNumber.replace(/\D/g, '');
+          // If it doesn't already start with 91 (for India), prepend it
+          if (!cleanPhone.startsWith('91')) {
+             cleanPhone = '91' + cleanPhone;
+          }
+          savedPhone = '+' + cleanPhone;
+          setTimeout(() => setPhoneNumber(savedPhone), 0);
+        }
+      } catch {}
+    }
+
+    sendOTP(savedPhone);
+  }, []);
 
   useEffect(() => {
     if (countdown > 0 && !isSending) {
@@ -117,7 +117,7 @@ export default function CreatorSignupStep2OTP() {
           // Authentication successful!
           router.push("/auth/signup/creator/social-links");
         }
-      } catch (err: any) {
+      } catch (err) {
         setError("Something went wrong. Please try again.");
         setLoading(false);
       }
