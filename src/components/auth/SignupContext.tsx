@@ -44,16 +44,19 @@ export function SignupProvider({ children }: { children: ReactNode }) {
 
   // Load from localStorage on mount
   useEffect(() => {
-    setMounted(true)
-    try {
-      const stored = localStorage.getItem("kalinq_signup_data")
-      if (stored) {
-        setData(JSON.parse(stored))
+    setTimeout(() => {
+      setMounted(true)
+      try {
+        const stored = localStorage.getItem("kalinq_signup_data")
+        if (stored) {
+          setData(JSON.parse(stored))
+        }
+      } catch {
+        console.error("Failed to load signup data from localStorage")
       }
-    } catch (e) {
-      console.error("Failed to load signup data from localStorage")
-    }
+    }, 0)
   }, [])
+
 
   // Save to localStorage on change
   useEffect(() => {

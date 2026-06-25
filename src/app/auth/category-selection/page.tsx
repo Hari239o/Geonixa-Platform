@@ -9,8 +9,15 @@ export default function RegisterPage() {
   const router = useRouter()
 
   const handleSelect = (category: string) => {
-    // Navigate to onboarding with the selected category
-    router.push(`/onboarding?type=${category}`)
+    if (category === "creator") {
+      router.push("/auth/signup/creator")
+    } else if (category === "brand") {
+      router.push("/auth/signup/brand")
+    } else if (category === "partner") {
+      router.push("/auth/signup/partner")
+    } else {
+      router.push(`/onboarding?type=${category}`)
+    }
   }
 
   return (

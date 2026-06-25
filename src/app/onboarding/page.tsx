@@ -14,7 +14,7 @@ function OnboardingContent() {
         You are joining as a: <strong className="text-primary-red uppercase">{type}</strong>
       </p>
       <p className="text-sm text-gray-400">
-        (The design for this screen hasn't been provided yet. Please upload the Figma screenshot for the Onboarding flow!)
+        (The design for this screen hasn&apos;t been provided yet. Please upload the Figma screenshot for the Onboarding flow!)
       </p>
     </div>
   )

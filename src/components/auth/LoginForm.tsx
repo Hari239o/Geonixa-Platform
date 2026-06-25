@@ -130,7 +130,7 @@ export function LoginForm() {
 
       {/* Sign Up Link */}
       <div className="mt-8 text-center text-xs font-medium text-text-light">
-        Don't have an account? <Link href="/auth/category-selection" className="text-primary-red font-bold hover:underline">Sign Up</Link>
+        Don&apos;t have an account? <Link href="/auth/category-selection" className="text-primary-red font-bold hover:underline">Sign Up</Link>
       </div>
     </div>
   )
