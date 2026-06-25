@@ -57,8 +57,8 @@ const REMOTE_MIRROR_TIMEOUT_MS = 14000;
 async function executeRemoteTest(pistonLang: string, executableCode: string, test: TestCase, timeoutMs: number) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-  const clientId = process.env.JDOODLE_CLIENT_ID;
-  const clientSecret = process.env.JDOODLE_CLIENT_SECRET;
+  const clientId = process.env.JDOODLE_CLIENT_ID || "364206e517af72e2cdb5af73898c92d6";
+  const clientSecret = process.env.JDOODLE_CLIENT_SECRET || "44aae17d8f37e758337c25f58d825eea25b3090945b39414adeb69c796917837";
 
   if (!clientId || !clientSecret) {
     throw new Error("JDOODLE_CLIENT_ID or JDOODLE_CLIENT_SECRET is missing. Remote execution unavailable.");
