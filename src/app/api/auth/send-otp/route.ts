@@ -9,11 +9,11 @@ if (!globalAny.otpStore) {
 
 export async function POST(request: Request) {
   try {
-    const { email } = await request.json();
+    const { phoneNumber } = await request.json();
 
-    if (!email) {
+    if (!phoneNumber) {
       return NextResponse.json(
-        { error: 'Email is required' },
+        { error: 'Phone number is required' },
         { status: 400 }
       );
     }
@@ -26,17 +26,24 @@ export async function POST(request: Request) {
       );
     }
 
+    // Clean phone number: remove all non-digits, ensure it has country code
+    let cleanPhone = phoneNumber.replace(/\D/g, '');
+    if (!cleanPhone.startsWith('91')) {
+      cleanPhone = '91' + cleanPhone;
+    }
+    const formattedPhone = '+' + cleanPhone;
+
     // Generate a secure 6-digit OTP
     const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
 
     // Store OTP in memory (valid for 5 minutes)
-    globalAny.otpStore.set(email.toLowerCase(), {
+    globalAny.otpStore.set(formattedPhone, {
       otp: generatedOtp,
       expiresAt: Date.now() + 5 * 60 * 1000
     });
 
-    // Send email using Brevo REST API
-    const brevoResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
+    // Send SMS using Brevo REST API
+    const brevoResponse = await fetch('https://api.brevo.com/v3/transactionalSMS/sms', {
       method: 'POST',
       headers: {
         'accept': 'application/json',
@@ -44,29 +51,19 @@ export async function POST(request: Request) {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        sender: { name: "Kalinq Security", email: "noreply@kalinq.com" },
-        to: [{ email: email }],
-        subject: "Your Kalinq Verification Code",
-        htmlContent: `
-          <html>
-            <body style="font-family: sans-serif; text-align: center; padding: 40px;">
-              <h2>Welcome to Kalinq!</h2>
-              <p>Your one-time verification code is:</p>
-              <h1 style="font-size: 36px; letter-spacing: 4px; color: #EF4823;">${generatedOtp}</h1>
-              <p>This code will expire in 5 minutes.</p>
-            </body>
-          </html>
-        `
+        sender: "Kalinq",
+        recipient: formattedPhone,
+        content: `Your Kalinq verification code is ${generatedOtp}. This code will expire in 5 minutes.`,
       })
     });
 
     if (!brevoResponse.ok) {
       const errorData = await brevoResponse.json();
       console.error("Brevo API Error:", errorData);
-      throw new Error("Failed to send email via Brevo");
+      throw new Error("Failed to send SMS via Brevo");
     }
 
-    console.log(`[BREVO] Sent OTP ${generatedOtp} to ${email}`);
+    console.log(`[BREVO] Sent OTP ${generatedOtp} via SMS to ${formattedPhone}`);
 
     return NextResponse.json({ success: true, message: 'OTP sent successfully' });
   } catch (error) {

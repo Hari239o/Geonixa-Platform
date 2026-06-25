@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address" }),
+  phoneNumber: z.string().min(10, { message: "Please enter a valid phone number" }),
   password: z.string().min(1, { message: "Password is required" }),
   rememberMe: z.boolean().default(false).optional(),
 })
@@ -31,7 +31,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
 
   // OTP State
-  const [emailToVerify, setEmailToVerify] = useState("")
+  const [phoneNumberToVerify, setPhoneNumberToVerify] = useState("")
   const [otp, setOtp] = useState(["", "", "", "", "", ""]) // 6 digits
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
   const [countdown, setCountdown] = useState(30)
@@ -59,7 +59,7 @@ export default function LoginPage() {
     }
   }, [step, countdown, isSending])
 
-  const sendOTP = async (email: string) => {
+  const sendOTP = async (phone: string) => {
     setIsSending(true)
     setError("")
     try {
@@ -68,7 +68,7 @@ export default function LoginPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email }),
+        body: JSON.stringify({ phoneNumber: phone }),
       });
 
       const data = await res.json();
@@ -91,10 +91,10 @@ export default function LoginPage() {
     await new Promise((resolve) => setTimeout(resolve, 1000))
     console.log("Credentials verified:", data)
     
-    // Switch to OTP step and send OTP to the registered email
-    setEmailToVerify(data.email)
+    // Switch to OTP step and send OTP to the registered phone number
+    setPhoneNumberToVerify(data.phoneNumber)
     setStep("otp")
-    sendOTP(data.email)
+    sendOTP(data.phoneNumber)
   }
 
   const handleOtpChange = (index: number, value: string) => {
@@ -123,7 +123,7 @@ export default function LoginPage() {
       try {
         const result = await signIn("credentials", {
           redirect: false,
-          email: emailToVerify,
+          phoneNumber: phoneNumberToVerify,
           otp: code,
         })
 
@@ -157,8 +157,8 @@ export default function LoginPage() {
       
       <p className="text-white/95 lg:text-text-light text-[13px] font-normal mb-6 text-center px-4">
         {step === "credentials" 
-          ? "Enter your email and password to log in" 
-          : "Verify your identity with the code sent to your email"}
+          ? "Enter your phone number and password to log in" 
+          : "Verify your identity with the code sent to your phone"}
       </p>
 
       {/* Card Section: Solid White */}
@@ -191,16 +191,16 @@ export default function LoginPage() {
 
             {/* Form */}
             <form onSubmit={handleSubmit(onSubmitCredentials)} className="space-y-4">
-              {/* Email Field */}
+              {/* Phone Number Field */}
               <div className="space-y-1.5">
-                <Label htmlFor="email" className="text-[12px] font-medium text-[#6B7280]">Email</Label>
+                <Label htmlFor="phoneNumber" className="text-[12px] font-medium text-[#6B7280]">Phone Number</Label>
                 <Input 
-                  id="email" 
-                  placeholder="Test.mail@gmail.com" 
-                  {...register("email")} 
-                  className={errors.email ? "border-red-500 focus-visible:ring-red-500 bg-red-50/50" : "bg-[#F1F5F9] border-transparent text-[#1F2937] placeholder:text-[#1F2937] h-11 rounded-[10px] focus-visible:bg-white focus-visible:border-primary-red focus-visible:ring-1 focus-visible:ring-primary-red"}
+                  id="phoneNumber" 
+                  placeholder="+91 00000 00000" 
+                  {...register("phoneNumber")} 
+                  className={errors.phoneNumber ? "border-red-500 focus-visible:ring-red-500 bg-red-50/50" : "bg-[#F1F5F9] border-transparent text-[#1F2937] placeholder:text-[#1F2937] h-11 rounded-[10px] focus-visible:bg-white focus-visible:border-primary-red focus-visible:ring-1 focus-visible:ring-primary-red"}
                 />
-                {errors.email && <p className="text-[11px] text-red-500 ml-1">{errors.email.message}</p>}
+                {errors.phoneNumber && <p className="text-[11px] text-red-500 ml-1">{errors.phoneNumber.message}</p>}
               </div>
 
               {/* Password Field */}
@@ -267,7 +267,7 @@ export default function LoginPage() {
               <p className="text-sm text-slate-500">
                 We have sent a 6-digit code to<br/>
                 <span className="font-bold text-slate-800 text-base mt-1 block">
-                  {emailToVerify}
+                  {phoneNumberToVerify}
                 </span>
               </p>
             </div>
@@ -302,7 +302,7 @@ export default function LoginPage() {
               <Button 
                 type="button" 
                 variant="link" 
-                onClick={() => sendOTP(emailToVerify)}
+                onClick={() => sendOTP(phoneNumberToVerify)}
                 className="text-[#FF4D2D] mb-4 -mt-2 text-[13px] h-auto p-0"
               >
                 Resend Code
@@ -325,7 +325,7 @@ export default function LoginPage() {
               onClick={() => setStep("credentials")}
               className="mt-4 text-[12px] text-slate-500 hover:text-slate-700"
             >
-              Back to Email/Password
+              Back to Phone/Password
             </Button>
           </form>
         )}
