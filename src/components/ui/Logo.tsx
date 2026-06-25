@@ -13,7 +13,7 @@ export function Logo({ className, showText = true, large = false }: LogoProps) {
       <img 
         src="/logo.png" 
         alt="Kalinq Logo" 
-        className={cn("object-contain", large ? "w-[160px] h-[160px]" : "w-10")} 
+        className={cn("object-contain", large ? "w-20" : "w-10")} 
       />
       {showText && (
         <h1 className={cn("text-white font-bold tracking-tight", large ? "text-5xl" : "text-3xl")}>
