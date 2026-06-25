@@ -14,19 +14,19 @@ export function WelcomeScreen() {
       transition={{ duration: 0.8, delay: 0.5 }}
       className="flex flex-col items-center justify-center w-full max-w-sm mt-12"
     >
-      <Logo large={true} showText={false} className="mb-12" />
+      <Logo large={false} showText={false} className="mb-8" />
       
       <p className="text-white/90 text-center text-sm font-medium mb-12 px-4 leading-relaxed">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
       </p>
 
-      <div className="flex flex-col w-full gap-4">
-        <Button asChild variant="yellow" size="lg" className="w-full font-bold shadow-lg">
+      <div className="flex flex-col w-full gap-3 px-2">
+        <Button asChild variant="yellow" className="w-full font-bold shadow-md rounded-xl h-12">
           <Link href="/auth/login">Sign In</Link>
         </Button>
         
-        <Button asChild variant="default" size="lg" className="w-full bg-white text-primary-red hover:bg-gray-50 font-bold shadow-lg">
-          <Link href="/auth/signup">Sign Up</Link>
+        <Button asChild className="w-full bg-white text-[#FF4D2D] hover:bg-gray-50 font-bold shadow-md rounded-xl h-12">
+          <Link href="/auth/category-selection">Sign Up</Link>
         </Button>
       </div>
     </motion.div>
