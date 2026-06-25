@@ -37,11 +37,9 @@ export default function CreatorSignupStep3Socials() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     console.log("Final Creator Signup Data:", JSON.parse(sessionStorage.getItem("creatorSignupData") || "{}"));
     // Wait to simulate network
     setTimeout(() => {
-      setLoading(false);
       router.push("/auth/login");
     }, 1500);
   };
