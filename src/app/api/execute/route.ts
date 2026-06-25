@@ -33,11 +33,14 @@ export const maxDuration = 300;
 
 const execFileAsync = promisify(execFile);
 
-const MIRRORS = [
-  "https://emkc.org/api/v2/piston/execute",
-  "https://piston.engineer/api/v2/execute",
-  "https://api.piston.dev/v2/execute"
-];
+const JUDGE0_LANG_MAP: Record<string, number> = {
+  "cpp": 54,
+  "c": 50,
+  "python": 71,
+  "javascript": 93,
+  "java": 91,
+  "csharp": 51
+};
 
 const LANG_MAP: Record<string, string> = {
   "cpp": "cpp",
@@ -51,22 +54,31 @@ const LANG_MAP: Record<string, string> = {
 const USE_LOCAL_FIRST = process.env.LOCAL_JUDGE_EXECUTION_FIRST === "true";
 const REMOTE_MIRROR_TIMEOUT_MS = 14000;
 
-async function executeRemoteTest(mirror: string, pistonLang: string, executableCode: string, test: TestCase, timeoutMs: number) {
+async function executeRemoteTest(pistonLang: string, executableCode: string, test: TestCase, timeoutMs: number) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  const rapidApiKey = process.env.RAPIDAPI_KEY;
+
+  if (!rapidApiKey) {
+    throw new Error("RAPIDAPI_KEY is missing. Remote execution unavailable.");
+  }
+
+  const langId = JUDGE0_LANG_MAP[pistonLang] || 71;
 
   try {
-    const response = await fetch(mirror, {
+    const response = await fetch("https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=false&wait=true", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-RapidAPI-Key": rapidApiKey,
+        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
+      },
       body: JSON.stringify({
-        language: pistonLang,
-        version: "*",
-        files: [{ content: executableCode }],
-        stdin: test.input,
-        compile_timeout: 10000,
-        run_timeout: test.timeLimit || 5000,
-        memory_limit: (test.memoryLimit || 256) * 1024 * 1024
+        language_id: langId,
+        source_code: executableCode,
+        stdin: test.input || "",
+        cpu_time_limit: (test.timeLimit || 5000) / 1000.0,
+        memory_limit: (test.memoryLimit || 256) * 1024
       }),
       signal: controller.signal,
     });
@@ -76,7 +88,24 @@ async function executeRemoteTest(mirror: string, pistonLang: string, executableC
       throw new Error(`HTTP_${response.status}:${serverBody}`);
     }
 
-    return await response.json();
+    const data = await response.json();
+    const statusId = data.status?.id || 13;
+
+    return {
+      compile: {
+        code: statusId === 6 ? 1 : 0,
+        stderr: data.compile_output || "",
+        output: data.compile_output || ""
+      },
+      run: {
+        code: (statusId === 3 || statusId === 4) ? 0 : 1,
+        stdout: data.stdout || "",
+        stderr: data.stderr || data.message || "",
+        time: parseFloat(data.time || "0") * 1000,
+        memory: (data.memory || 0) * 1024,
+        signal: statusId === 5 ? "SIGKILL" : null
+      }
+    };
   } finally {
     clearTimeout(timeoutId);
   }
@@ -723,10 +752,9 @@ export async function POST(req: Request) {
         await tryLocalExecution();
       }
 
-      while (mirrorAttempt < MIRRORS.length && !executedSuccessfully && remoteMirrorsAvailable) {
-        const mirror = MIRRORS[mirrorAttempt];
+      if (!executedSuccessfully && remoteMirrorsAvailable) {
         try {
-          const data = await executeRemoteTest(mirror, pistonLang, executableCode, test, Math.max(REMOTE_MIRROR_TIMEOUT_MS, timeLimit + 5000));
+          const data = await executeRemoteTest(pistonLang, executableCode, test, Math.max(REMOTE_MIRROR_TIMEOUT_MS, timeLimit + 5000));
           const run = data.run || {};
           const compile = data.compile || { code: 0 };
 
@@ -768,14 +796,11 @@ export async function POST(req: Request) {
 
           executedSuccessfully = true;
         } catch (err) {
-          console.warn(`[EXECUTE] Remote judge mirror failed (${mirror}):`, err);
-          mirrorAttempt++;
-          if (mirrorAttempt >= MIRRORS.length) {
-            remoteMirrorsAvailable = false;
-            if (!executedSuccessfully) {
-              testResult.status = "INTERNAL_ERROR";
-              testResult.stderr = "Remote execution mirrors unavailable. Falling back to local runner.";
-            }
+          console.warn(`[EXECUTE] Remote judge execution failed:`, err);
+          remoteMirrorsAvailable = false;
+          if (!executedSuccessfully) {
+            testResult.status = "INTERNAL_ERROR";
+            testResult.stderr = "Remote execution service unavailable (check RAPIDAPI_KEY). Falling back to local runner.";
           }
         }
       }
