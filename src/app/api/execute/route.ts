@@ -33,13 +33,13 @@ export const maxDuration = 300;
 
 const execFileAsync = promisify(execFile);
 
-const JDOODLE_LANG_MAP: Record<string, { lang: string; version: string }> = {
-  "cpp": { lang: "cpp17", version: "0" },
-  "c": { lang: "c", version: "4" },
-  "python": { lang: "python3", version: "3" },
-  "javascript": { lang: "nodejs", version: "3" },
-  "java": { lang: "java", version: "3" },
-  "csharp": { lang: "csharp", version: "3" }
+const PAIZA_LANG_MAP: Record<string, string> = {
+  "cpp": "cpp",
+  "c": "c",
+  "python": "python3",
+  "javascript": "javascript",
+  "java": "java",
+  "csharp": "csharp"
 };
 
 const LANG_MAP: Record<string, string> = {
@@ -55,66 +55,59 @@ const USE_LOCAL_FIRST = process.env.LOCAL_JUDGE_EXECUTION_FIRST === "true";
 const REMOTE_MIRROR_TIMEOUT_MS = 14000;
 
 async function executeRemoteTest(pistonLang: string, executableCode: string, test: TestCase, timeoutMs: number) {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-  const clientId = process.env.JDOODLE_CLIENT_ID || "364206e517af72e2cdb5af73898c92d6";
-  const clientSecret = process.env.JDOODLE_CLIENT_SECRET || "44aae17d8f37e758337c25f58d825eea25b3090945b39414adeb69c796917837";
-
-  if (!clientId || !clientSecret) {
-    throw new Error("JDOODLE_CLIENT_ID or JDOODLE_CLIENT_SECRET is missing. Remote execution unavailable.");
+  const paizaLang = PAIZA_LANG_MAP[pistonLang] || "python3";
+  
+  const createRes = await fetch("https://api.paiza.io/runners/create", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      source_code: executableCode,
+      language: paizaLang,
+      input: test.input || "",
+      api_key: "guest"
+    })
+  });
+  
+  if (!createRes.ok) {
+    throw new Error(`Paiza Create Error: ${createRes.status}`);
   }
+  
+  const createData = await createRes.json();
+  const id = createData.id;
+  if (!id) throw new Error("No runner ID returned from Paiza");
 
-  const langConfig = JDOODLE_LANG_MAP[pistonLang] || { lang: "python3", version: "3" };
-
-  try {
-    const response = await fetch("https://api.jdoodle.com/v1/execute", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        clientId: clientId,
-        clientSecret: clientSecret,
-        script: executableCode,
-        language: langConfig.lang,
-        versionIndex: langConfig.version,
-        stdin: test.input || ""
-      }),
-      signal: controller.signal,
-    });
-
-    if (!response.ok) {
-      const serverBody = await response.text().catch(() => "");
-      throw new Error(`HTTP_${response.status}:${serverBody}`);
-    }
-
-    const data = await response.json();
-
-    if (data.error && !data.output) {
-      throw new Error(`JDoodle Error: ${data.error}`);
-    }
-
-    const outputStr = data.output || "";
-    const isError = outputStr.toLowerCase().includes("error") || outputStr.toLowerCase().includes("exception");
-
-    return {
-      compile: {
-        code: 0, 
-        stderr: "",
-        output: ""
-      },
-      run: {
-        code: isError ? 1 : 0,
-        stdout: isError ? "" : outputStr,
-        stderr: isError ? outputStr : "",
-        time: parseFloat(data.cpuTime || "0") * 1000,
-        memory: (data.memory || 0) * 1024,
-        signal: null
-      }
-    };
-  } finally {
-    clearTimeout(timeoutId);
+  let details;
+  const startTime = Date.now();
+  while (Date.now() - startTime < timeoutMs) {
+    await new Promise(r => setTimeout(r, 1000));
+    const detailsRes = await fetch(`https://api.paiza.io/runners/get_details?id=${id}&api_key=guest`);
+    details = await detailsRes.json();
+    if (details.status === "completed") break;
   }
+  
+  if (!details || details.status !== "completed") {
+    throw new Error("Execution timed out");
+  }
+  
+  const isError = details.build_result === "failure" || details.result === "failure" || details.result === "error";
+  const outputStr = details.stdout || "";
+  const errorStr = details.stderr || details.build_stderr || "";
+
+  return {
+    compile: {
+      code: details.build_result === "failure" ? 1 : 0,
+      stderr: details.build_stderr || "",
+      output: details.build_stdout || ""
+    },
+    run: {
+      code: isError ? 1 : 0,
+      stdout: outputStr,
+      stderr: errorStr,
+      time: (parseFloat(details.time || "0") * 1000) || 0,
+      memory: parseFloat(details.memory || "0") || 0,
+      signal: details.result === "timeout" ? "SIGKILL" : null
+    }
+  };
 }
 
 const parseCppVector = `
