@@ -20,7 +20,6 @@ export default function AuthFlowLayout({
         {/* Top/Left Red Section */}
         {/* Mobile: Fixed top 55% background. Desktop: 50% width fixed side panel */}
         <div className="fixed lg:relative top-0 left-0 w-full lg:w-1/2 h-[55vh] lg:h-full bg-primary-red z-0 overflow-hidden flex flex-col shadow-none lg:shadow-2xl">
-          <KalinqBackground />
           
           {/* Back button */}
           <button 
