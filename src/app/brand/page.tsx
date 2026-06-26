@@ -1,166 +1,201 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Search, Bell, Send, Bookmark } from "lucide-react"
-import { Logo } from "@/components/ui/Logo"
 import BottomNav from "@/components/brand/BottomNav"
+import { Logo } from "@/components/ui/Logo"
 
-export default function BrandHomePage() {
-  const [activeFilter, setActiveFilter] = useState('All')
+// SVG for Verified Badge matching Image 2
+const VerifiedBadge = ({ className }: { className?: string }) => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="#EF4823" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+    <path d="m9 12 2 2 4-4" />
+  </svg>
+)
 
-  const filters = ['All', 'UGC', 'Influencer', 'Partners']
+const tabs = ["All", "UGC", "Influencer", "Partners"]
 
-  const profiles = [
-    { id: 1, name: 'Lorem Ipsum', image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=250&auto=format&fit=crop', tags: ['Fashion', 'UGC'], followers: '44.5k', viewership: '22.8k', engagement: '38.9k' },
-    { id: 2, name: 'Lorem Ipsum', image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=250&auto=format&fit=crop', tags: ['Fashion', 'Influencer'], followers: '44.5k', viewership: '22.8k', engagement: '38.9k' },
-    { id: 3, name: 'Lorem Ipsum', image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=250&auto=format&fit=crop', tags: ['Fashion', 'Influencer'], followers: '44.5k', viewership: '22.8k', engagement: '38.9k' },
-  ]
-  const [dynamicProfiles, setDynamicProfiles] = useState(profiles)
+export default function BrandHomeFeedPage() {
+  const [activeTab, setActiveTab] = useState("All")
+  
+  const [creators, setCreators] = useState([
+    {
+      id: 1,
+      name: "Lorem Ipsum",
+      image: null,
+      tags: ["Fashion", "UGC"],
+      followers: "44.5k",
+      viewership: "22.8k",
+      engagement: "38.9k",
+      verified: true
+    },
+    {
+      id: 2,
+      name: "Lorem Ipsum",
+      image: null,
+      tags: ["Fashion", "Influencer"],
+      followers: "44.5k",
+      viewership: "22.8k",
+      engagement: "38.9k",
+      verified: true
+    },
+    {
+      id: 3,
+      name: "Lorem Ipsum",
+      image: null,
+      tags: ["Fashion", "Influencer"],
+      followers: "44.5k",
+      viewership: "22.8k",
+      engagement: "38.9k",
+      verified: true
+    }
+  ])
 
   useEffect(() => {
-    // Check if there's a newly created creator profile
-    const saved = typeof window !== 'undefined' ? (sessionStorage.getItem("creatorSignupData") || localStorage.getItem("creatorSignupData")) : null;
-    if (saved) {
+    // Check if a creator profile was just created to show it dynamically!
+    const savedCreator = localStorage.getItem("kaling_creator_profile")
+    if (savedCreator) {
       try {
-        const creatorData = JSON.parse(saved)
-        if (creatorData.firstName || creatorData.name) {
-          const newProfile = {
-            id: 999,
-            name: creatorData.firstName ? `${creatorData.firstName} ${creatorData.lastName || ''}`.trim() : creatorData.name,
-            image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop', // Default avatar
-            tags: [creatorData.category || 'Lifestyle', creatorData.creatorType || 'Creator'],
-            followers: '0',
-            viewership: '0',
-            engagement: '0'
-          }
-          // Avoid duplicates in dev mode
-          setDynamicProfiles(prev => {
-            if (prev.some(p => p.id === 999)) return prev;
-            return [newProfile, ...prev];
-          });
-        }
+        const parsed = JSON.parse(savedCreator)
+        setCreators(prev => {
+          // Prevent duplicates if already added (simple check by name for now)
+          if (prev.some(c => c.name === parsed.fullName)) return prev;
+          
+          return [{
+            id: Date.now(),
+            name: parsed.fullName || "New Creator",
+            image: parsed.profilePic || null,
+            tags: ["New", "Creator"],
+            followers: "0",
+            viewership: "0",
+            engagement: "0",
+            verified: false
+          }, ...prev]
+        })
       } catch (e) {}
     }
   }, [])
 
   return (
-    <div className="h-full bg-black flex justify-center font-sans overflow-hidden">
-      <div className="w-full max-w-md bg-white h-full relative shadow-2xl flex flex-col overflow-hidden">
+    <div className="h-full bg-[#F8F9FA] font-sans flex justify-center overflow-hidden">
+      <div className="w-full max-w-md bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
         
-        {/* Header / Search Area */}
-        <div className="pt-12 px-5 pb-4 bg-white z-10 shrink-0">
+        {/* Fixed Header */}
+        <div className="pt-12 px-5 pb-4 shrink-0 bg-white z-20">
           <div className="flex justify-center mb-6">
             <Logo large={false} showText={true} />
           </div>
 
           <div className="flex items-center gap-4 mb-6">
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <div className="flex-1 bg-gray-50/80 border border-gray-100 rounded-full h-11 flex items-center px-4">
+              <Search className="w-5 h-5 text-gray-400 mr-2" />
               <input 
                 type="text" 
                 placeholder="Search" 
-                className="w-full bg-[#F8F9FA] rounded-2xl h-[46px] pl-12 pr-4 text-sm font-medium outline-none focus:ring-1 focus:ring-[#EF4823]"
+                className="bg-transparent border-none outline-none text-sm w-full placeholder:text-gray-400 font-medium text-gray-700"
               />
             </div>
-            <button className="relative p-2 text-gray-700 hover:text-[#EF4823] transition-colors">
-              <Bell className="w-6 h-6" />
-              <span className="absolute top-1.5 right-2 w-2 h-2 bg-[#EF4823] rounded-full border border-white"></span>
+            <button className="relative w-11 h-11 rounded-full flex items-center justify-center bg-gray-50/80 border border-gray-100 shrink-0">
+              <Bell className="w-5 h-5 text-gray-700" />
+              <span className="absolute top-2.5 right-3 w-2 h-2 bg-[#EF4823] rounded-full border-2 border-white"></span>
             </button>
           </div>
 
-          <h2 className="text-gray-900 font-bold text-[15px] mb-3">Top Opportunities For You ✨</h2>
-          
+          <div className="flex items-center gap-1 mb-4">
+            <h2 className="font-bold text-gray-800 text-[15px]">Top Opportunities For You</h2>
+            <span className="text-[14px]">✨</span>
+          </div>
+
+          {/* Filter Tabs */}
           <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-            {filters.map((filter) => (
+            {tabs.map(tab => (
               <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-colors ${
-                  activeFilter === filter 
-                    ? 'bg-[#FEF0EC] text-[#EF4823]' 
-                    : 'bg-white text-gray-500 hover:bg-gray-50'
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-colors ${
+                  activeTab === tab 
+                  ? "bg-orange-50 text-[#EF4823]" 
+                  : "text-gray-600 hover:bg-gray-50"
                 }`}
               >
-                {filter}
+                {tab}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto no-scrollbar px-4 pb-28 pt-2 touch-pan-y flex flex-col gap-5 bg-white">
+        {/* Scrollable Feed */}
+        <div className="flex-1 overflow-y-auto no-scrollbar px-5 pb-32 pt-2 touch-pan-y flex flex-col gap-5 relative">
           
-          {dynamicProfiles.map((profile) => (
-            <div key={profile.id} className="w-[335px] h-[194px] bg-white rounded-3xl flex flex-col p-4 relative mx-auto border border-gray-100 shadow-[0_4px_15px_rgba(0,0,0,0.03)]">
-              {/* Top section */}
-              <div className="flex relative z-10">
-                {/* Profile image */}
-                <div className="w-[84px] h-[84px] rounded-[24px] bg-gray-200 overflow-hidden shrink-0 shadow-sm">
-                  <img src={profile.image} alt="Profile" className="w-full h-full object-cover" />
+          {creators.map((creator) => (
+            <div key={creator.id} className="w-[335px] h-[194px] bg-[#FCF5EB] rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col mx-auto overflow-hidden shrink-0">
+              {/* Top White Section */}
+              <div className="bg-white p-4 pb-3 flex gap-4 h-[126px] rounded-b-[20px] shadow-sm z-10">
+                {/* Profile Pic */}
+                <div className="w-[84px] h-[84px] rounded-[18px] bg-gray-200 overflow-hidden shrink-0 relative mt-1">
+                  {creator.image ? (
+                    <img src={creator.image} alt={creator.name} className="object-cover w-full h-full" />
+                  ) : (
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Dummy" className="object-cover w-full h-full" />
+                  )}
                 </div>
                 
                 {/* Info */}
-                <div className="ml-4 mt-2">
-                  <div className="flex items-center gap-1.5">
-                    <h3 className="text-xl font-bold text-gray-500">{profile.name}</h3>
-                    {/* Verified Badge */}
-                    <svg className="w-5 h-5 text-[#EF4823]" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.16 15.68L6.4 13.24l1.37-1.42 3.07 2.94 6.83-7.23 1.42 1.34-8.25 8.81z"/>
-                    </svg>
+                <div className="flex-1 flex flex-col pt-1">
+                  <div className="flex justify-end gap-2.5 mb-1.5">
+                    <button><Send className="w-[15px] h-[15px] text-gray-400 hover:text-gray-600" /></button>
+                    <button><Bookmark className="w-[15px] h-[15px] text-gray-400 hover:text-gray-600" /></button>
                   </div>
-                  <div className="flex gap-2 mt-2.5">
-                    {profile.tags.map((tag, i) => (
-                      <span key={i} className="px-3 py-1 bg-[#F8F9FA] text-[#C1C1C1] text-[11px] font-bold rounded-full">
+                  <div className="flex items-center gap-1.5 mb-2.5">
+                    <h3 className="text-[20px] font-extrabold text-gray-600 leading-none">{creator.name}</h3>
+                    {creator.verified && <VerifiedBadge className="shrink-0" />}
+                  </div>
+                  <div className="flex gap-2">
+                    {creator.tags.map(tag => (
+                      <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-400 text-[10px] font-bold rounded-full">
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
-                
-                {/* Icons */}
-                <div className="absolute top-1 right-1 flex gap-3 text-gray-400">
-                  <button className="hover:text-[#EF4823] transition-colors"><Send className="w-[18px] h-[18px]" /></button>
-                  <button className="hover:text-[#EF4823] transition-colors"><Bookmark className="w-[18px] h-[18px]" /></button>
-                </div>
               </div>
-              
-              {/* Bottom section (Stats) */}
-              <div className="mt-auto h-[62px] bg-[#FDF5EB] rounded-[16px] flex items-center justify-between px-6">
-                <div className="flex flex-col items-center">
-                  <span className="text-[#EF4823] font-bold text-[17px]">{profile.followers}</span>
-                  <span className="text-gray-400 text-[10px] font-medium mt-0.5">Followers</span>
+
+              {/* Bottom Stats Section */}
+              <div className="flex-1 flex items-center justify-around px-4">
+                <div className="flex flex-col items-center gap-0.5">
+                  <span className="text-[#EF4823] font-black text-[16px]">{creator.followers}</span>
+                  <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Followers</span>
                 </div>
-                <div className="flex flex-col items-center">
-                  <span className="text-[#EF4823] font-bold text-[17px]">{profile.viewership}</span>
-                  <span className="text-gray-400 text-[10px] font-medium mt-0.5">Avg Viewership</span>
+                <div className="flex flex-col items-center gap-0.5">
+                  <span className="text-[#EF4823] font-black text-[16px]">{creator.viewership}</span>
+                  <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Avg Viewership</span>
                 </div>
-                <div className="flex flex-col items-center">
-                  <span className="text-[#EF4823] font-bold text-[17px]">{profile.engagement}</span>
-                  <span className="text-gray-400 text-[10px] font-medium mt-0.5">Avg Engagement</span>
+                <div className="flex flex-col items-center gap-0.5">
+                  <span className="text-[#EF4823] font-black text-[16px]">{creator.engagement}</span>
+                  <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Avg Engagement</span>
                 </div>
               </div>
             </div>
           ))}
 
-          {/* Find Partners Banner */}
-          <div className="w-[335px] h-[72px] bg-[#EF4823] rounded-2xl mx-auto flex items-center justify-between px-6 relative overflow-hidden mt-1 shadow-md">
-            {/* Watermark/Background Pattern overlay */}
-            <div className="absolute top-0 right-0 w-full h-full opacity-10">
-              <svg viewBox="0 0 100 100" className="w-full h-full object-cover">
-                <path d="M50 0 L100 50 L50 100 L0 50 Z" fill="white" />
-              </svg>
-            </div>
+        </div>
+
+        {/* Floating Banner */}
+        <div className="absolute bottom-20 left-0 w-full px-5 z-30 pointer-events-none">
+          <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-2xl p-4 flex items-center justify-between shadow-xl pointer-events-auto relative overflow-hidden">
+            <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-xl"></div>
             
-            <div className="flex flex-col relative z-10 mt-1">
-              <span className="text-white/90 text-[11px] font-medium leading-none">Find</span>
-              <span className="text-white text-lg font-bold">Partners</span>
+            <div className="relative z-10 flex flex-col">
+              <span className="text-white/90 text-[11px] font-medium leading-none mb-1">Find</span>
+              <span className="text-white text-xl font-bold leading-none tracking-tight">Partners</span>
             </div>
-            <button className="bg-[#E5DF72] text-[#EF4823] px-6 py-1.5 rounded-full font-bold text-sm relative z-10 active:scale-95 transition-transform">
+            <button className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-6 py-2 rounded-xl text-sm font-bold shadow-sm transition-transform active:scale-95">
               View
             </button>
           </div>
-
         </div>
+
       </div>
       
       <BottomNav />
