@@ -163,27 +163,27 @@ export default function BrandDashboardPage() {
           )}
 
           {activeTab === 'portfolio' && (
-            <div className="relative min-h-[400px]">
+            <div className="flex flex-col items-center">
               
               {portfolioImages.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-48 text-gray-400">
+                <div className="flex flex-col items-center justify-center h-48 text-gray-400 w-full">
                   <p className="text-sm font-medium">No images added yet.</p>
                   <p className="text-xs mt-1">Tap the + button to upload some!</p>
                 </div>
               ) : (
-                <div className="columns-2 gap-4 space-y-4 pb-20">
+                <div className="grid grid-cols-2 gap-[15px] w-full max-w-[323px] mx-auto mb-6">
                   {portfolioImages.map((src, i) => (
-                    <div key={i} className="break-inside-avoid rounded-3xl overflow-hidden shadow-sm relative group">
+                    <div key={i} className="rounded-2xl overflow-hidden shadow-sm relative group aspect-[154/178]">
                       {/* Using standard img for data URLs to avoid next/image domain strictness */}
-                      <img src={src} alt="Portfolio item" className="w-full h-auto object-cover" />
+                      <img src={src} alt="Portfolio item" className="w-full h-full object-cover" />
                     </div>
                   ))}
                 </div>
               )}
 
-              {/* Floating Action Button for Portfolio Upload */}
-              <label className="absolute bottom-4 left-1/2 -translate-x-1/2 w-14 h-14 bg-[#EF4823] hover:bg-[#d63d1c] rounded-full shadow-xl flex items-center justify-center text-white cursor-pointer active:scale-95 transition-transform z-20">
-                <Plus size={24} strokeWidth={3} />
+              {/* Add Button Below Grid */}
+              <label className="w-12 h-12 bg-[#EF4823] hover:bg-[#d63d1c] rounded-full shadow-lg flex items-center justify-center text-white cursor-pointer active:scale-95 transition-transform shrink-0 mb-6">
+                <Plus size={24} strokeWidth={2} />
                 <input 
                   type="file" 
                   accept="image/*" 
