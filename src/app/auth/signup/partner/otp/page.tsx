@@ -136,7 +136,7 @@ export default function PartnerSignupStep2OTP() {
       {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
       {isSending && <p className="text-sm text-blue-500 mb-4 animate-pulse">Sending OTP...</p>}
 
-      <div className="flex gap-4 justify-center mb-8 w-full">
+      <div className="flex gap-2 sm:gap-4 justify-center mb-8 w-full">
         {otp.map((digit, index) => (
           <input
             key={index}
@@ -147,7 +147,7 @@ export default function PartnerSignupStep2OTP() {
             onChange={(e) => handleChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             disabled={isSending}
-            className={`w-[52px] h-[52px] rounded-[14px] border border-[#EEEEEE] text-center text-xl font-semibold outline-none transition-all
+            className={`w-10 h-12 sm:w-[52px] sm:h-[52px] rounded-xl sm:rounded-[14px] border border-[#EEEEEE] text-center text-lg sm:text-xl font-semibold outline-none transition-all
               ${digit ? 'border-[#FF4D2D] text-[#333333]' : 'bg-transparent text-[#333333]'}
               focus:border-[#FF4D2D] focus:ring-1 focus:ring-[#FF4D2D] disabled:opacity-50 shadow-sm
             `}

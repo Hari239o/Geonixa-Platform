@@ -40,25 +40,25 @@ export default function RegisterPage() {
       </div>
 
       {/* Card Section: Solid White */}
-      <div className="w-full max-w-[360px] lg:max-w-[480px] bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-4 lg:p-6">
+      <div className="w-full max-w-[340px] sm:max-w-[360px] lg:max-w-[480px] bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-3 sm:p-4 lg:p-6 mx-auto">
         
         {/* Alternating Masonry Grid */}
-        <div className="grid grid-cols-2 gap-3 lg:gap-5">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-5">
           
           {/* LEFT COLUMN */}
-          <div className="flex flex-col gap-3 lg:gap-5">
+          <div className="flex flex-col gap-2 sm:gap-3 lg:gap-5">
             
             {/* 1. Join as a Creator (Red Block) */}
             <div 
               onClick={() => handleSelect('creator')}
-              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
+              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full blur-2xl -mr-8 -mt-8 group-hover:bg-white/20 transition-all" />
-              <div className="absolute bottom-0 left-0 w-16 h-16 bg-black/5 rounded-full blur-xl -ml-6 -mb-6" />
+              <div className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-white/10 rounded-full blur-2xl -mr-6 sm:-mr-8 -mt-6 sm:-mt-8 group-hover:bg-white/20 transition-all" />
+              <div className="absolute bottom-0 left-0 w-12 sm:w-16 h-12 sm:h-16 bg-black/5 rounded-full blur-xl -ml-4 sm:-ml-6 -mb-4 sm:-mb-6" />
               
-              <h3 className="text-white text-2xl lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
-              <p className="text-button-yellow text-[9px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
-              <p className="text-button-yellow text-[15px] lg:text-lg font-black relative z-10 leading-none">Creator</p>
+              <h3 className="text-white text-xl sm:text-2xl lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
+              <p className="text-button-yellow text-[8px] sm:text-[9px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
+              <p className="text-button-yellow text-[13px] sm:text-[15px] lg:text-lg font-black relative z-10 leading-none">Creator</p>
             </div>
 
             {/* 2. Brand Logos (White Block) */}
@@ -67,29 +67,29 @@ export default function RegisterPage() {
               className="bg-white rounded-[20px] lg:rounded-[28px] aspect-square flex flex-col p-2 lg:p-4 items-center justify-center shadow-sm border border-gray-100 cursor-pointer hover:border-gray-300 transition-colors"
             >
               <div className="grid grid-cols-2 gap-2 lg:gap-4 w-full h-full items-center justify-items-center opacity-80">
-                <span className="font-serif font-black text-[11px] lg:text-sm tracking-tighter">CHANEL</span>
-                <svg viewBox="0 0 24 24" className="w-7 h-7 lg:w-9 lg:h-9 fill-black"><path d="M24 8.25l-24 11.25 6.75-3.75 17.25-7.5z" /></svg>
-                <span className="font-black text-red-600 text-[11px] lg:text-sm tracking-tighter">Levi's</span>
-                <span className="font-serif text-pink-400 font-bold text-[9px] lg:text-[11px]">PINK</span>
+                <span className="font-serif font-black text-[9px] sm:text-[11px] lg:text-sm tracking-tighter">CHANEL</span>
+                <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-7 sm:h-7 lg:w-9 lg:h-9 fill-black"><path d="M24 8.25l-24 11.25 6.75-3.75 17.25-7.5z" /></svg>
+                <span className="font-black text-red-600 text-[9px] sm:text-[11px] lg:text-sm tracking-tighter">Levi's</span>
+                <span className="font-serif text-pink-400 font-bold text-[8px] sm:text-[9px] lg:text-[11px]">PINK</span>
               </div>
             </div>
 
             {/* 3. Join as Partners (Red Block) */}
             <div 
               onClick={() => handleSelect('partner')}
-              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
+              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full blur-2xl -mr-8 -mt-8 group-hover:bg-white/20 transition-all" />
+              <div className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-white/10 rounded-full blur-2xl -mr-6 sm:-mr-8 -mt-6 sm:-mt-8 group-hover:bg-white/20 transition-all" />
               
-              <h3 className="text-white text-2xl lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
-              <p className="text-button-yellow text-[9px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
-              <p className="text-button-yellow text-[13px] lg:text-[15px] font-black relative z-10 leading-tight text-center">Partners /<br/>Agency</p>
+              <h3 className="text-white text-xl sm:text-2xl lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
+              <p className="text-button-yellow text-[8px] sm:text-[9px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
+              <p className="text-button-yellow text-[11px] sm:text-[13px] lg:text-[15px] font-black relative z-10 leading-tight text-center">Partners /<br/>Agency</p>
             </div>
 
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="flex flex-col gap-3 lg:gap-5">
+          <div className="flex flex-col gap-2 sm:gap-3 lg:gap-5">
             
             {/* 1. Creator Photo */}
             <div 
@@ -106,13 +106,13 @@ export default function RegisterPage() {
             {/* 2. Join as a Brand (Red Block) */}
             <div 
               onClick={() => handleSelect('brand')}
-              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
+              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
             >
-              <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/10 rounded-full blur-2xl -ml-8 -mb-8 group-hover:bg-white/20 transition-all" />
+              <div className="absolute bottom-0 left-0 w-16 sm:w-20 h-16 sm:h-20 bg-white/10 rounded-full blur-2xl -ml-6 sm:-ml-8 -mb-6 sm:-mb-8 group-hover:bg-white/20 transition-all" />
               
-              <h3 className="text-white text-2xl lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
-              <p className="text-button-yellow text-[9px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
-              <p className="text-button-yellow text-[15px] lg:text-lg font-black relative z-10 leading-none">Brand</p>
+              <h3 className="text-white text-xl sm:text-2xl lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
+              <p className="text-button-yellow text-[8px] sm:text-[9px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
+              <p className="text-button-yellow text-[13px] sm:text-[15px] lg:text-lg font-black relative z-10 leading-none">Brand</p>
             </div>
 
             {/* 3. Partner Photo */}

@@ -282,7 +282,7 @@ export default function LoginPage() {
             {error && <p className="text-[11px] text-red-500 mb-4 text-center">{error}</p>}
             {isSending && <p className="text-[11px] text-blue-500 mb-4 animate-pulse">Sending OTP...</p>}
 
-            <div className="flex gap-2 sm:gap-3 justify-center mb-6 w-full">
+            <div className="flex gap-2 sm:gap-4 justify-center mb-6 lg:mb-8 w-full">
               {otp.map((digit, index) => (
                 <input
                   key={index}
@@ -293,9 +293,9 @@ export default function LoginPage() {
                   onChange={(e) => handleOtpChange(index, e.target.value)}
                   onKeyDown={(e) => handleOtpKeyDown(index, e)}
                   disabled={isSending}
-                  className={`w-10 h-12 sm:w-12 sm:h-14 rounded-xl border-2 text-center text-xl font-semibold outline-none transition-all
-                    ${digit ? 'border-[#FF4D2D] text-slate-800' : 'border-slate-200 text-slate-400 bg-[#F5F5F5]'}
-                    focus:border-[#FF4D2D] focus:bg-white disabled:opacity-50
+                  className={`w-10 h-12 sm:w-[52px] sm:h-[52px] rounded-xl sm:rounded-[14px] border border-[#EEEEEE] text-center text-lg sm:text-xl font-semibold outline-none transition-all
+                    ${digit ? 'border-[#FF4D2D] text-[#333333]' : 'bg-transparent text-[#333333]'}
+                    focus:border-[#FF4D2D] focus:ring-1 focus:ring-[#FF4D2D] disabled:opacity-50 shadow-sm
                   `}
                 />
               ))}
