@@ -47,8 +47,9 @@ export default function BrandIndividualSetupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] pb-24 font-sans flex justify-center">
-      <div className="w-full max-w-md bg-white min-h-screen shadow-sm relative pt-12 px-6">
+    <div className="h-full bg-[#F8F9FA] font-sans flex justify-center overflow-hidden">
+      <div className="w-full max-w-md bg-white h-full shadow-sm relative pt-12 flex flex-col overflow-hidden">
+        <div className="flex-1 overflow-y-auto no-scrollbar px-6 pb-24 touch-pan-y">
         
         {/* Profile Logo Section */}
         <div className="flex items-center gap-4 mb-8">
@@ -173,6 +174,7 @@ export default function BrandIndividualSetupPage() {
           >
             SAVE
           </button>
+        </div>
         </div>
       </div>
       

@@ -89,10 +89,10 @@ export default function CampaignPage() {
  };
 
  return (
- <div className="w-full max-w-md mx-auto min-h-screen bg-[#fafbfc] pb-24 font-sans relative overflow-x-hidden">
+ <div className="w-full max-w-md mx-auto h-full flex flex-col bg-[#fafbfc] font-sans relative overflow-hidden">
  
  {/* Header */}
- <div className="px-4 sm:px-6 pt-10 pb-6 flex justify-between items-center bg-white sticky top-0 z-10 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
+ <div className="px-4 sm:px-6 pt-10 pb-6 flex justify-between items-center bg-white shrink-0 z-10 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
  <div className="flex-1 relative mr-4">
  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
  <input 
@@ -111,7 +111,7 @@ export default function CampaignPage() {
  </div>
 
  {/* Tabs */}
- <div className="px-4 sm:px-6 mb-6 mt-4">
+ <div className="px-4 sm:px-6 mb-6 mt-4 shrink-0">
  <div className="flex bg-[#f3f4f6] rounded-[20px] p-1.5">
  <button 
  className={`flex-1 py-3 text-[14px] font-bold rounded-[16px] transition-all duration-300 ${activeTab === 'Private' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
@@ -129,7 +129,7 @@ export default function CampaignPage() {
  </div>
 
  {/* Campaign List */}
- <div className="px-4 sm:px-6 flex flex-col gap-5">
+ <div className="px-4 sm:px-6 flex flex-col gap-5 flex-1 overflow-y-auto no-scrollbar pb-24 touch-pan-y">
  {campaigns.map((campaign) => (
  <div 
  key={campaign.id} 

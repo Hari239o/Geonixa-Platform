@@ -49,11 +49,11 @@ export default function BrandDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex justify-center font-sans">
-      <div className="w-full max-w-md bg-[#F8F9FA] min-h-screen relative pb-24 shadow-2xl">
+    <div className="h-full bg-black flex justify-center font-sans overflow-hidden">
+      <div className="w-full max-w-md bg-[#F8F9FA] h-full relative shadow-2xl flex flex-col overflow-hidden">
         
         {/* Header Section */}
-        <div className="pt-12 px-6 pb-6 bg-white rounded-b-[40px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] z-10 relative">
+        <div className="pt-12 px-6 pb-6 bg-white rounded-b-[40px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] z-10 shrink-0 relative">
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-4">
               <div className="w-20 h-20 bg-[#EF4823] rounded-2xl flex items-center justify-center overflow-hidden relative shadow-md">
@@ -102,7 +102,7 @@ export default function BrandDashboardPage() {
         </div>
 
         {/* Tab Content */}
-        <div className="px-6 py-6">
+        <div className="px-6 py-6 flex-1 overflow-y-auto no-scrollbar pb-24 touch-pan-y">
           
           {activeTab === 'about' && (
             <div className="flex flex-col gap-4">

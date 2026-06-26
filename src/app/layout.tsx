@@ -31,7 +31,7 @@ export default function RootLayout({
       <body className="flex flex-col">
         <NextAuthProvider>
           {/* Main scrollable container for the entire app */}
-          <main className="flex-1 w-full h-full overflow-y-auto overflow-x-hidden touch-pan-y overscroll-none relative">
+          <main className="flex-1 w-full h-full overflow-hidden relative flex flex-col">
             {children}
           </main>
         </NextAuthProvider>
