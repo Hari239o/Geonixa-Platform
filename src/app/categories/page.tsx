@@ -5,6 +5,18 @@ import { Search, Bell, X, Send } from 'lucide-react';
 import BottomNav from '@/components/shared/BottomNav';
 import { getItem } from '@/utils/storage';
 
+type Campaign = {
+  id: number;
+  timeAgo: string;
+  title: string;
+  subtitle: string;
+  budget: string;
+  dateRange: string;
+  description: string;
+  negotiatedAmount: string | null;
+  isNegotiated: boolean;
+};
+
 export default function CampaignPage() {
  const router = useRouter();
  const [activeTab, setActiveTab] = useState<'Private' | 'Public'>('Private');
@@ -25,7 +37,7 @@ export default function CampaignPage() {
    loadProfile();
  }, []);
 
- const [campaigns, setCampaigns] = useState([
+ const [campaigns, setCampaigns] = useState<Campaign[]>([
  {
  id: 1,
  timeAgo: '25 minute ago',
