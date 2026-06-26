@@ -8,12 +8,21 @@ import { Home, Wallet, LayoutGrid, Wand2, User } from "lucide-react";
 export default function BottomNav() {
   const pathname = usePathname();
 
+  const [profileUrl, setProfileUrl] = React.useState("/brand/profile");
+
+  React.useEffect(() => {
+    const type = localStorage.getItem("brandType");
+    if (type === "company") {
+      setProfileUrl("/brand/company");
+    }
+  }, []);
+
   const navItems = [
     { name: "Home", href: "/brand", icon: Home },
     { name: "Wallet", href: "/brand/wallet", icon: Wallet },
     { name: "Dashboard", href: "/brand/dashboard", icon: LayoutGrid },
     { name: "Magic", href: "/brand/magic", icon: Wand2 },
-    { name: "Profile", href: "/brand/profile", icon: User },
+    { name: "Profile", href: profileUrl, icon: User },
   ];
 
   return (
@@ -21,7 +30,14 @@ export default function BottomNav() {
       <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href;
+          // Home should only be active if EXACT match, profile active if starts with /brand/profile or /brand/company
+          let isActive = pathname === item.href;
+          if (item.name === "Profile") {
+            isActive = pathname.includes("/brand/profile") || pathname.includes("/brand/company");
+          }
+          if (item.name === "Home") {
+            isActive = pathname === "/brand";
+          }
           
           return (
             <Link 
