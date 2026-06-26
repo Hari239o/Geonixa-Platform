@@ -5,7 +5,11 @@ import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Home, Wallet, Wand2 } from 'lucide-react';
 
-const CampaignIcon = (props: React.SVGProps<SVGSVGElement>) => (
+interface IconProps extends React.SVGProps<SVGSVGElement> {
+  size?: string | number;
+}
+
+const CampaignIcon = (props: IconProps) => (
  <svg
  xmlns="http://www.w3.org/2000/svg"
  viewBox="0 0 24 24"
