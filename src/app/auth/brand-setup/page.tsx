@@ -9,8 +9,12 @@ export default function BrandSetupSelectionPage() {
 
   const handleSelect = (type: string) => {
     localStorage.setItem("brandType", type)
-    // Go to brand dashboard (or a further setup profile if needed)
-    router.push("/brand")
+    
+    if (type === 'individual') {
+      router.push("/brand/setup-individual")
+    } else {
+      router.push("/brand/setup-company")
+    }
   }
 
   return (
