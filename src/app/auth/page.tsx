@@ -7,95 +7,95 @@ import { KalinqBackground } from "@/components/auth/KalinqBackground"
 import { Button } from "@/components/ui/button"
 
 export default function WelcomePage() {
-  const router = useRouter()
-  const [showSplash, setShowSplash] = useState(true)
+ const router = useRouter()
+ const [showSplash, setShowSplash] = useState(true)
 
-  useEffect(() => {
-    // Show splash screen for 2.5 seconds before fading into the Welcome Screen
-    const timer = setTimeout(() => {
-      setShowSplash(false)
-    }, 2500)
-    return () => clearTimeout(timer)
-  }, [])
+ useEffect(() => {
+ // Show splash screen for 2.5 seconds before fading into the Welcome Screen
+ const timer = setTimeout(() => {
+ setShowSplash(false)
+ }, 2500)
+ return () => clearTimeout(timer)
+ }, [])
 
-  return (
-    <div className="relative min-h-[100dvh] w-full flex flex-col justify-center items-center overflow-hidden bg-primary-red">
-      {/* Background shapes (Matches both screens in Figma) */}
-      <KalinqBackground />
+ return (
+ <div className="relative min-h-[100dvh] w-full flex flex-col justify-center items-center overflow-hidden bg-primary-red">
+ {/* Background shapes (Matches both screens in Figma) */}
+ <KalinqBackground />
 
-      <AnimatePresence mode="wait">
-        {showSplash ? (
-          /* --- SPLASH SCREEN --- */
-          <motion.div
-            key="splash"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="relative z-10 flex items-center justify-center min-h-[100dvh] w-full gap-4"
-          >
-            <img 
-              src="/logo.png" 
-              alt="Kalinq Logo" 
-              className="w-16 h-16 object-contain" 
-            />
-            <h1 className="text-5xl font-bold text-white tracking-tight drop-shadow-md">
-              Kalinq
-            </h1>
-          </motion.div>
-        ) : (
-          /* --- WELCOME SCREEN --- */
-          <motion.div
-            key="welcome"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="relative z-10 w-full max-w-sm px-8 flex flex-col items-center justify-center min-h-[100dvh]"
-          >
-            {/* Giant Logo Animation (No Kalinq text below it) */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="flex flex-col items-center justify-center w-full mb-8"
-            >
-              <img 
-                src="/logo.png" 
-                alt="Kalinq" 
-                className="w-40 h-40 md:w-48 md:h-48 object-contain drop-shadow-2xl" 
-              />
-              
-              <p className="text-white mt-6 font-medium text-[13px] leading-relaxed tracking-wide text-center max-w-[280px]">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-              </p>
-            </motion.div>
+ <AnimatePresence mode="wait">
+ {showSplash ? (
+ /* --- SPLASH SCREEN --- */
+ <motion.div
+ key="splash"
+ initial={{ opacity: 0 }}
+ animate={{ opacity: 1 }}
+ exit={{ opacity: 0, scale: 1.05 }}
+ transition={{ duration: 0.5, ease: "easeInOut" }}
+ className="relative z-10 flex items-center justify-center min-h-[100dvh] w-full gap-4"
+ >
+ <img 
+ src="/logo.png" 
+ alt="Kalinq Logo" 
+ className="w-16 h-16 object-contain" 
+ />
+ <h1 className="text-5xl font-bold text-white tracking-tight drop-shadow-md">
+ Kalinq
+ </h1>
+ </motion.div>
+ ) : (
+ /* --- WELCOME SCREEN --- */
+ <motion.div
+ key="welcome"
+ initial={{ opacity: 0 }}
+ animate={{ opacity: 1 }}
+ transition={{ duration: 0.6 }}
+ className="relative z-10 w-full max-w-sm px-8 flex flex-col items-center justify-center min-h-[100dvh]"
+ >
+ {/* Giant Logo Animation (No Kalinq text below it) */}
+ <motion.div
+ initial={{ opacity: 0, scale: 0.9, y: 10 }}
+ animate={{ opacity: 1, scale: 1, y: 0 }}
+ transition={{ duration: 0.6, ease: "easeOut" }}
+ className="flex flex-col items-center justify-center w-full mb-8"
+ >
+ <img 
+ src="/logo.png" 
+ alt="Kalinq" 
+ className="w-40 h-40 md:w-48 md:h-48 object-contain drop-shadow-2xl" 
+ />
+ 
+ <p className="text-white mt-6 font-medium text-[13px] leading-relaxed tracking-wide text-center max-w-[280px]">
+ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+ </p>
+ </motion.div>
 
-            {/* Action Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="w-full flex flex-col gap-4"
-            >
-              {/* Primary CTA = Sign In (Yellow) */}
-              <Button 
-                onClick={() => router.push("/auth/login")}
-                className="w-full h-14 bg-button-yellow text-text-dark hover:bg-button-yellow/90 text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-              >
-                Sign In
-              </Button>
+ {/* Action Buttons */}
+ <motion.div
+ initial={{ opacity: 0, y: 20 }}
+ animate={{ opacity: 1, y: 0 }}
+ transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+ className="w-full flex flex-col gap-4"
+ >
+ {/* Primary CTA = Sign In (Yellow) */}
+ <Button 
+ onClick={() => router.push("/auth/login")}
+ className="w-full h-14 bg-button-yellow text-text-dark hover:bg-button-yellow/90 text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+ >
+ Sign In
+ </Button>
 
-              {/* Secondary CTA = Sign Up (White) */}
-              <Button 
-                onClick={() => router.push("/auth/category-selection")}
-                className="w-full h-14 bg-white text-primary-red hover:bg-white/90 text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-              >
-                Sign Up
-              </Button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
+ {/* Secondary CTA = Sign Up (White) */}
+ <Button 
+ onClick={() => router.push("/auth/category-selection")}
+ className="w-full h-14 bg-white text-primary-red hover:bg-white/90 text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+ >
+ Sign Up
+ </Button>
+ </motion.div>
+ </motion.div>
+ )}
+ </AnimatePresence>
+ </div>
+ )
 }
