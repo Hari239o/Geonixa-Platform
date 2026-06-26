@@ -9,11 +9,27 @@ export default function BottomNav() {
   const pathname = usePathname();
 
   const [profileUrl, setProfileUrl] = React.useState("/brand/profile");
+  const [profilePic, setProfilePic] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const type = localStorage.getItem("brandType");
     if (type === "company") {
       setProfileUrl("/brand/company");
+      const companyData = localStorage.getItem("kaling_company_profile");
+      if (companyData) {
+        try {
+          const parsed = JSON.parse(companyData);
+          if (parsed.profilePic) setProfilePic(parsed.profilePic);
+        } catch(e) {}
+      }
+    } else {
+      const brandData = localStorage.getItem("kaling_brand_profile");
+      if (brandData) {
+        try {
+          const parsed = JSON.parse(brandData);
+          if (parsed.profilePic) setProfilePic(parsed.profilePic);
+        } catch(e) {}
+      }
     }
   }, []);
 
@@ -47,7 +63,13 @@ export default function BottomNav() {
                 isActive ? "text-[#EF4823]" : "text-gray-400"
               }`}
             >
-              <Icon className={`w-6 h-6 mb-1 ${isActive ? "text-[#EF4823]" : "text-gray-400 group-hover:text-[#EF4823] transition-colors"}`} strokeWidth={isActive ? 2.5 : 2} />
+              {item.name === "Profile" && profilePic ? (
+                <div className={`w-6 h-6 mb-1 rounded-full overflow-hidden border-2 ${isActive ? "border-[#EF4823]" : "border-transparent group-hover:border-[#EF4823]"}`}>
+                  <img src={profilePic} alt="Profile" className="w-full h-full object-cover" />
+                </div>
+              ) : (
+                <Icon className={`w-6 h-6 mb-1 ${isActive ? "text-[#EF4823]" : "text-gray-400 group-hover:text-[#EF4823] transition-colors"}`} strokeWidth={isActive ? 2.5 : 2} />
+              )}
             </Link>
           );
         })}
