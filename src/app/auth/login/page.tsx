@@ -132,7 +132,14 @@ export default function LoginPage() {
           setLoading(false)
         } else {
           setTimeout(() => {
-            router.push("/setup-profile")
+            const role = localStorage.getItem("userRole") || "creator"
+            if (role === "brand") {
+              router.push("/brand")
+            } else if (role === "partner") {
+              router.push("/partner")
+            } else {
+              router.push("/setup-profile")
+            }
           }, 500)
         }
       } catch (err: any) {

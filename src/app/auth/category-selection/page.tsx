@@ -9,6 +9,7 @@ export default function RegisterPage() {
   const router = useRouter()
 
   const handleSelect = (category: string) => {
+    localStorage.setItem("userRole", category)
     if (category === "creator") {
       router.push("/auth/signup/creator")
     } else if (category === "brand") {
