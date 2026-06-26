@@ -62,6 +62,7 @@ const handler = NextAuth({
       }
     })
   ],
+  secret: process.env.NEXTAUTH_SECRET || "y8/m1T7v0+W2q5L9zX6R4bN3kE8cQ5aJ",
   pages: {
     signIn: "/auth/login", // Redirect back to our custom login page on error
   },
