@@ -2,6 +2,14 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 
+// Force environment variables to prevent Vercel Server Error
+if (!process.env.NEXTAUTH_SECRET) {
+  process.env.NEXTAUTH_SECRET = "y8/m1T7v0+W2q5L9zX6R4bN3kE8cQ5aJ";
+}
+if (!process.env.NEXTAUTH_URL) {
+  process.env.NEXTAUTH_URL = "https://kalinq.vercel.app";
+}
+
 const globalAny: any = global;
 
 const handler = NextAuth({
