@@ -122,9 +122,10 @@ const KycVerificationPage = () => {
  }
  };
 
- return (
- <div className="w-full max-w-md mx-auto min-h-screen bg-[#f9fafb] flex flex-col p-4">
- <div className="mt-8 mb-8 text-center w-full mx-auto">
+  return (
+  <div className="w-full max-w-md mx-auto h-full flex flex-col bg-[#f9fafb] overflow-hidden">
+  <div className="flex-1 flex flex-col overflow-y-auto overflow-x-hidden p-4 relative">
+  <div className="mt-8 mb-8 text-center w-full mx-auto shrink-0">
  <h2 className="text-2xl font-bold text-gray-900 tracking-tight mb-2">Identity Verification</h2>
  <p className="text-gray-500 text-sm">Complete KYC to unlock full access. Powered by High-Security AI.</p>
  </div>
@@ -282,7 +283,8 @@ const KycVerificationPage = () => {
  </div>
  )}
  </div>
- );
+  </div>
+  );
 };
 
 export default KycVerificationPage;

@@ -8,7 +8,7 @@ function OnboardingContent() {
  const type = searchParams.get('type') || 'unknown'
 
  return (
- <div className="min-h-[100dvh] flex flex-col items-center justify-center bg-white p-8">
+ <div className="h-full flex-1 overflow-y-auto flex flex-col items-center justify-center bg-white p-8">
  <h1 className="text-4xl font-bold text-text-dark mb-4">Onboarding</h1>
  <p className="text-lg text-text-light mb-8">
  You are joining as a: <strong className="text-primary-red uppercase">{type}</strong>
