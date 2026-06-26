@@ -42,8 +42,8 @@ export default function BrandCompanySetupPage() {
       profilePic,
       type: 'company'
     }
-    localStorage.setItem("kaling_brand_profile", JSON.stringify(profileData))
-    router.push("/brand")
+    localStorage.setItem("kaling_company_profile", JSON.stringify(profileData))
+    router.push("/brand/company")
   }
 
   return (
