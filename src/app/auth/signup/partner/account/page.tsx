@@ -45,7 +45,7 @@ export default function PartnerSignupStep3Account() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col h-full justify-between">
+    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col">
       <div className="flex flex-col gap-4">
         
         {/* Username */}
