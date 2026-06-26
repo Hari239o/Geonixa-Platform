@@ -27,15 +27,12 @@ export default function RootLayout({
  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`}>
-      <body className="flex flex-col">
-        <NextAuthProvider>
-          {/* Main scrollable container for the entire app */}
-          <main className="flex-1 w-full h-full overflow-hidden relative flex flex-col">
-            {children}
-          </main>
-        </NextAuthProvider>
-      </body>
-    </html>
+  <html lang="en" className={`${inter.variable} h-full antialiased`}>
+  <body className="h-[100dvh] w-screen overflow-hidden flex flex-col bg-gray-50">
+  <NextAuthProvider>
+  {children}
+  </NextAuthProvider>
+  </body>
+  </html>
   );
 }

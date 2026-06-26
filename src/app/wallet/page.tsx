@@ -60,7 +60,8 @@ export default function WalletPage() {
  ];
 
  return (
- <div className="w-full max-w-md mx-auto min-h-screen bg-white pb-24 font-sans relative overflow-x-hidden">
+  <div className="w-full max-w-md mx-auto h-full flex flex-col bg-white font-sans overflow-hidden">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 relative">
  {/* Header */}
  <div className="px-4 sm:px-6 pt-10 pb-6 flex justify-between items-start">
  <div className="flex flex-col truncate pr-2">
@@ -163,6 +164,7 @@ export default function WalletPage() {
  <button className="relative z-10 px-6 py-2.5 bg-[#d8f042] text-[#EF4823] text-sm font-bold rounded-full shadow-sm hover:shadow-md transition-shadow">View</button>
  </div>
  </section>
+ </div>
 
  <BottomNav profilePic={profile.profilePic} />
  </div>
