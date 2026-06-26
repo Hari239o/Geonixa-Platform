@@ -13,7 +13,7 @@ export default function BottomNav() {
     { name: "Wallet", href: "/brand/wallet", icon: Wallet },
     { name: "Dashboard", href: "/brand/dashboard", icon: LayoutGrid },
     { name: "Magic", href: "/brand/magic", icon: Wand2 },
-    { name: "Profile", href: "/brand", icon: User },
+    { name: "Profile", href: "/brand/profile", icon: User },
   ];
 
   return (
@@ -21,8 +21,7 @@ export default function BottomNav() {
       <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
         {navItems.map((item) => {
           const Icon = item.icon;
-          // Profile active state can be tricky if both home and profile go to /brand
-          const isActive = pathname === item.href && (item.name === "Profile" ? true : false); // Adjust based on actual routes later
+          const isActive = pathname === item.href;
           
           return (
             <Link 
