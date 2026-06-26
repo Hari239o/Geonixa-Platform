@@ -89,7 +89,8 @@ export default function CampaignPage() {
  };
 
  return (
- <div className="w-full max-w-md mx-auto h-full flex flex-col bg-[#fafbfc] font-sans relative overflow-hidden">
+ <div className="w-full max-w-md mx-auto h-full flex flex-col bg-[#fafbfc] font-sans overflow-hidden">
+  <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 relative">
  
  {/* Header */}
  <div className="px-4 sm:px-6 pt-10 pb-6 flex justify-between items-center bg-white shrink-0 z-10 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
@@ -256,6 +257,7 @@ export default function CampaignPage() {
  </div>
  </div>
  )}
+ </div>
 
  <BottomNav profilePic={profilePic} />
  </div>

@@ -100,7 +100,7 @@ const SetupProfilePage = () => {
  }
 
  // Redirect to creators dashboard
- router.push('/creator');
+ router.push('/home');
  };
 
  const isFormValid = () => {
@@ -110,8 +110,9 @@ const SetupProfilePage = () => {
  };
 
  return (
- <div className="w-full max-w-md mx-auto min-h-screen bg-[#f9fafb] flex items-center justify-center p-4 font-sans">
- <div className="bg-white w-full rounded-[32px] p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100">
+  <div className="w-full max-w-md mx-auto h-full flex flex-col bg-[#f9fafb] font-sans overflow-hidden">
+  <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 relative">
+  <div className="bg-white w-full rounded-[32px] p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 mb-8">
  <div className="mb-8 text-center">
  <h2 className="text-2xl font-bold text-primary-red tracking-tight mb-2">Complete Your Profile</h2>
  <p className="text-primary-red/80 text-sm">Add your details to stand out to brands and partners.</p>
@@ -283,6 +284,7 @@ const SetupProfilePage = () => {
  Complete Profile
  </button>
  </form>
+ </div>
  </div>
  </div>
  );

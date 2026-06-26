@@ -46,10 +46,10 @@ export default function BottomNav({ profilePic = '/profile_pic.png' }: BottomNav
  const pathname = usePathname();
 
  const navItems = [
- { name: 'Home', path: '/creator', icon: Home },
+ { name: 'Home', path: '/home', icon: Home },
  { name: 'Wallet', path: '/wallet', icon: Wallet },
- { name: 'Campaign', path: '/categories', icon: CampaignIcon },
- { name: 'AI', path: '/studio', icon: Wand2 },
+ { name: 'Campaign', path: '/campaigns', icon: CampaignIcon },
+ { name: 'AI', path: '/ai', icon: Wand2 },
  ];
 
  return (

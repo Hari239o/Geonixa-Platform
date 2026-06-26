@@ -24,7 +24,8 @@ export default function StudioModule() {
   }, []);
 
   return (
-    <div className="w-full max-w-md mx-auto min-h-[100dvh] bg-white relative flex flex-col overflow-x-hidden font-sans">
+    <div className="w-full max-w-md mx-auto h-full bg-white relative flex flex-col overflow-hidden font-sans">
+      <div className="flex-1 flex flex-col overflow-y-auto overflow-x-hidden relative">
       {/* Header */}
       <div className="px-6 pt-10 pb-4 z-10">
         <button 
@@ -72,6 +73,7 @@ export default function StudioModule() {
         </div>
       </div>
 
+      </div>
       <BottomNav profilePic={profilePic} />
     </div>
   );

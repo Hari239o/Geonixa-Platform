@@ -112,7 +112,8 @@ export default function ProfileSettingsPage() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto min-h-[100dvh] bg-white relative flex flex-col font-sans overflow-x-hidden">
+    <div className="w-full max-w-md mx-auto h-[100dvh] bg-white relative flex flex-col font-sans overflow-hidden">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden relative">
       {/* Header */}
       <div className="px-6 pt-10 pb-6 flex items-center relative">
         <button 
@@ -270,8 +271,9 @@ export default function ProfileSettingsPage() {
           </div>
         </div>
       </div>
+      </div>
 
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-gradient-to-t from-white via-white to-transparent z-20">
+      <div className="absolute bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-gradient-to-t from-white via-white to-transparent z-20">
         <button 
           onClick={handleSave}
           className="w-full py-4 bg-[#EF4823] text-white rounded-[20px] font-bold shadow-lg hover:-translate-y-1 transition-transform"

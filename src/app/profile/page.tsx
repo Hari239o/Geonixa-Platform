@@ -120,7 +120,8 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto min-h-[100dvh] bg-white relative flex flex-col font-sans overflow-x-hidden">
+    <div className="w-full max-w-md mx-auto h-full bg-white relative flex flex-col font-sans overflow-hidden">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 relative">
       {/* Header */}
       <div className="px-6 pt-10 pb-4 flex justify-end gap-4 z-10">
         <button className="p-2 text-gray-400 hover:text-gray-900 transition-colors">
@@ -271,6 +272,7 @@ export default function ProfilePage() {
             )}
           </div>
         )}
+      </div>
       </div>
 
       {activeTab === 'Portfolio' && (
