@@ -100,7 +100,7 @@ const SetupProfilePage = () => {
  }
 
  // Redirect to creators dashboard
- router.push('/creator');
+ router.push('/home');
  };
 
  const isFormValid = () => {

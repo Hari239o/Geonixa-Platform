@@ -110,7 +110,7 @@ const KycVerificationPage = () => {
  profile.isVerified = true;
  localStorage.setItem('kaling_user_profile', JSON.stringify(profile));
  
- router.push('/creators');
+ router.push('/home');
  } else {
  setErrorMessage("Verification failed: " + data.error + ". Please try again.");
  }

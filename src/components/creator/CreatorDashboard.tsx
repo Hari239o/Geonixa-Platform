@@ -98,7 +98,7 @@ export default function CreatorDashboard() {
           </div>
           <button 
             className="relative p-2 rounded-full hover:bg-gray-50 transition-colors"
-            onClick={() => router.push('/creator/notifications')}
+            onClick={() => router.push('/home/notifications')}
           >
             <Bell className="w-6 h-6 text-[#1a1a2e]" strokeWidth={2.5} />
             <span className="absolute top-2 right-2.5 w-2.5 h-2.5 bg-primary-red rounded-full border-2 border-white"></span>
