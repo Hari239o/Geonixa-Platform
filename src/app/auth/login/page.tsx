@@ -134,7 +134,7 @@ export default function LoginPage() {
           setTimeout(() => {
             const role = localStorage.getItem("userRole") || "creator"
             if (role === "brand") {
-              router.push("/brand")
+              router.push("/auth/brand-setup")
             } else if (role === "partner") {
               router.push("/partner")
             } else {
