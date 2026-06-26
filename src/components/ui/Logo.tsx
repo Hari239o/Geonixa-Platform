@@ -5,9 +5,10 @@ interface LogoProps {
   className?: string
   showText?: boolean
   large?: boolean
+  textColor?: string
 }
 
-export function Logo({ className, showText = true, large = false }: LogoProps) {
+export function Logo({ className, showText = true, large = false, textColor = "text-white" }: LogoProps) {
   return (
     <div className={cn("flex flex-row items-center justify-center gap-3", className)}>
       <img 
@@ -16,7 +17,7 @@ export function Logo({ className, showText = true, large = false }: LogoProps) {
         className={cn("object-contain", large ? "w-[160px] h-[160px]" : "w-10")} 
       />
       {showText && (
-        <h1 className={cn("text-white font-bold tracking-tight", large ? "text-5xl" : "text-3xl")}>
+        <h1 className={cn(textColor, "font-bold tracking-tight", large ? "text-5xl" : "text-3xl")}>
           Kalinq
         </h1>
       )}
