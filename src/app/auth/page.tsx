@@ -37,9 +37,9 @@ export default function WelcomePage() {
  <img 
  src="/logo.png" 
  alt="Kalinq Logo" 
- className="w-16 h-16 object-contain" 
+ className="w-12 h-12 sm:w-14 sm:h-14 object-contain" 
  />
- <h1 className="text-5xl font-bold text-white tracking-tight drop-shadow-md">
+ <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight drop-shadow-md">
  Kalinq
  </h1>
  </motion.div>

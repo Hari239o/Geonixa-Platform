@@ -22,21 +22,21 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="w-full flex flex-col items-center h-full pb-8">
+    <div className="w-full flex flex-col items-center justify-center h-full min-h-[100dvh] py-4 sm:py-8">
       {/* Top Section */}
       <Logo large={false} showText={false} className="mb-2 lg:hidden w-8 h-8" />
       
-      <h1 className="text-3xl lg:text-4xl font-bold text-white lg:text-text-dark mb-1 lg:mb-3 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white lg:text-text-dark mb-1 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
         Sign Up
       </h1>
       
-      <p className="text-white/95 lg:text-text-light text-xs lg:text-sm font-normal mb-4 lg:mb-6 text-center px-4">
+      <p className="text-white/95 lg:text-text-light text-xs lg:text-sm font-normal mb-3 text-center px-4">
         Already have an account? <Link href="/auth/login" className="font-bold underline decoration-white/50 lg:decoration-text-light/50 underline-offset-4 hover:text-white lg:hover:text-text-dark transition-colors">Log In</Link>
       </p>
 
       {/* Yellow Pill */}
-      <div className="bg-[#E5DF72] rounded-full px-5 py-1.5 lg:px-6 lg:py-2 mb-6 lg:mb-8 shadow-sm">
-        <span className="text-primary-red font-bold text-[13px] lg:text-sm">Select your category!</span>
+      <div className="bg-[#E5DF72] rounded-full px-5 py-1.5 lg:px-6 lg:py-2 mb-4 lg:mb-6 shadow-sm">
+        <span className="text-primary-red font-bold text-[12px] sm:text-[13px] lg:text-sm">Select your category!</span>
       </div>
 
       {/* Card Section: Solid White */}
@@ -83,7 +83,7 @@ export default function RegisterPage() {
               
               <h3 className="text-white text-xl sm:text-2xl lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
               <p className="text-button-yellow text-[8px] sm:text-[9px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
-              <p className="text-button-yellow text-[11px] sm:text-[13px] lg:text-[15px] font-black relative z-10 leading-tight text-center">Partners /<br/>Agency</p>
+              <p className="text-button-yellow text-[11px] sm:text-[13px] lg:text-[15px] font-black relative z-10 leading-tight text-center mt-0.5">Partners /<br/>Agency</p>
             </div>
 
           </div>
