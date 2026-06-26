@@ -120,7 +120,7 @@ export default function BrandSignupStep2OTP() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col items-center h-full justify-between">
+    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col items-center">
       
       <div className="flex flex-col items-center w-full">
         <div className="flex flex-col items-center text-center w-full mb-6">
@@ -172,7 +172,7 @@ export default function BrandSignupStep2OTP() {
 
       </div>
 
-      <div className="w-full mt-2">
+      <div className="w-full mt-4">
         <Button 
           type="submit" 
           disabled={otp.join("").length !== 4 || isSending || loading}

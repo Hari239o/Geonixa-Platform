@@ -125,14 +125,14 @@ export default function CreatorSignupStep2OTP() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col items-center h-full justify-between">
+    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col items-center">
       
       <div className="flex flex-col items-center w-full">
         <div className="flex flex-col items-center text-center w-full mb-6">
-        <h2 className="text-lg font-bold text-slate-800 mb-2">OTP Verification</h2>
-        <p className="text-sm text-slate-500">
-          We have sent a 6-digit code to<br/>
-          <span className="font-bold text-slate-800 text-base mt-1 block">
+        <h2 className="text-[16px] font-bold text-[#333333] mb-4">OTP Verification</h2>
+        <p className="text-[13px] text-[#A0A0A0] font-medium leading-relaxed">
+          We have sent a verification code to<br/>
+          <span className="font-bold text-[#333333] mt-1 block">
             {phoneNumber}
           </span>
         </p>
@@ -141,7 +141,7 @@ export default function CreatorSignupStep2OTP() {
       {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
       {isSending && <p className="text-sm text-blue-500 mb-4 animate-pulse">Sending OTP...</p>}
 
-      <div className="flex gap-2 sm:gap-3 justify-center mb-8 w-full">
+      <div className="flex gap-4 justify-center mb-8 w-full">
         {otp.map((digit, index) => (
           <input
             key={index}
@@ -152,16 +152,16 @@ export default function CreatorSignupStep2OTP() {
             onChange={(e) => handleChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             disabled={isSending}
-            className={`w-12 h-14 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl border-2 text-center text-2xl font-semibold outline-none transition-all
-              ${digit ? 'border-[#FF4D2D] text-slate-800' : 'border-slate-200 text-slate-400 bg-[#F5F5F5]'}
-              focus:border-[#FF4D2D] focus:bg-white disabled:opacity-50
+            className={`w-[52px] h-[52px] rounded-[14px] border border-[#EEEEEE] text-center text-xl font-semibold outline-none transition-all
+              ${digit ? 'border-[#FF4D2D] text-[#333333]' : 'bg-transparent text-[#333333]'}
+              focus:border-[#FF4D2D] focus:ring-1 focus:ring-[#FF4D2D] disabled:opacity-50 shadow-sm
             `}
           />
         ))}
       </div>
 
-      <p className="text-sm text-slate-500 mb-6">
-        Resend OTP in <span className="font-medium text-slate-700">{countdown}</span>
+      <p className="text-[12px] text-[#A0A0A0] font-medium mb-6">
+        Resend OTP in <span className="font-semibold text-[#333333]">{countdown}</span>
       </p>
 
       {countdown === 0 && !isSending && (
@@ -169,7 +169,7 @@ export default function CreatorSignupStep2OTP() {
           type="button" 
           variant="link" 
           onClick={() => sendOTP(phoneNumber)}
-          className="text-[#FF4D2D] mb-4 -mt-4"
+          className="text-[#FF4D2D] mb-4 -mt-4 text-[13px]"
         >
           Resend Code
         </Button>
@@ -177,11 +177,11 @@ export default function CreatorSignupStep2OTP() {
 
       </div>
 
-      <div className="w-full mt-2">
+      <div className="w-full mt-4">
         <Button 
           type="submit" 
           disabled={otp.join("").length !== 6 || isSending || loading}
-          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-xl h-14 text-lg font-bold shadow-md shadow-[#FF4D2D]/20 disabled:opacity-50"
+          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98] disabled:opacity-50"
         >
           {loading ? "Verifying..." : "Next"}
         </Button>

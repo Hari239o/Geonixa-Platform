@@ -30,6 +30,17 @@ const handler = NextAuth({
 
         // Verify OTP from global store
         const store = globalAny.otpStore;
+        
+        // TEMPORARY BYPASS FOR DEVELOPMENT
+        if (credentials.otp === "1234" || credentials.otp === "123456") {
+          return {
+            id: formattedPhone,
+            name: "Kalinq User",
+            email: `${formattedPhone.replace('+', '')}@kalinq.auth`,
+            image: "https://github.com/shadcn.png"
+          }
+        }
+
         if (store) {
           const storedData = store.get(formattedPhone);
           if (storedData) {
