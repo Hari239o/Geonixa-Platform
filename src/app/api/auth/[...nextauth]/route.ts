@@ -5,67 +5,67 @@ import CredentialsProvider from "next-auth/providers/credentials"
 const globalAny: any = global;
 
 const handler = NextAuth({
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    }),
-    CredentialsProvider({
-      name: "Phone",
-      credentials: {
-        phoneNumber: { label: "Phone Number", type: "text" },
-        otp: { label: "OTP", type: "text" }
-      },
-      async authorize(credentials) {
-        if (!credentials?.phoneNumber || !credentials?.otp) {
-          return null
-        }
+ providers: [
+ GoogleProvider({
+ clientId: process.env.GOOGLE_CLIENT_ID as string,
+ clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+ }),
+ CredentialsProvider({
+ name: "Phone",
+ credentials: {
+ phoneNumber: { label: "Phone Number", type: "text" },
+ otp: { label: "OTP", type: "text" }
+ },
+ async authorize(credentials) {
+ if (!credentials?.phoneNumber || !credentials?.otp) {
+ return null
+ }
 
-        // TEMPORARY BYPASS: Accept 123456 for testing purposes
-        if (credentials.otp === "123456") {
-          return {
-            id: credentials.phoneNumber,
-            name: "Kalinq User",
-            email: `${credentials.phoneNumber.replace('+', '')}@kalinq.auth`,
-            image: "https://github.com/shadcn.png"
-          }
-        }
+ // TEMPORARY BYPASS: Accept 123456 for testing purposes
+ if (credentials.otp === "123456") {
+ return {
+ id: credentials.phoneNumber,
+ name: "Kalinq User",
+ email: `${credentials.phoneNumber.replace('+', '')}@kalinq.auth`,
+ image: "https://github.com/shadcn.png"
+ }
+ }
 
-        // Verify OTP from global store
-        const store = globalAny.otpStore;
-        if (store) {
-          const storedData = store.get(credentials.phoneNumber);
-          if (storedData) {
-            // Check if OTP matches and is not expired
-            if (storedData.otp === credentials.otp && storedData.expiresAt > Date.now()) {
-              // Valid! Remove it from store so it can't be reused
-              store.delete(credentials.phoneNumber);
-              return {
-                id: credentials.phoneNumber,
-                name: "Kalinq User",
-                email: `${credentials.phoneNumber.replace('+', '')}@kalinq.auth`,
-                image: "https://github.com/shadcn.png"
-              }
-            }
-          }
-        }
+ // Verify OTP from global store
+ const store = globalAny.otpStore;
+ if (store) {
+ const storedData = store.get(credentials.phoneNumber);
+ if (storedData) {
+ // Check if OTP matches and is not expired
+ if (storedData.otp === credentials.otp && storedData.expiresAt > Date.now()) {
+ // Valid! Remove it from store so it can't be reused
+ store.delete(credentials.phoneNumber);
+ return {
+ id: credentials.phoneNumber,
+ name: "Kalinq User",
+ email: `${credentials.phoneNumber.replace('+', '')}@kalinq.auth`,
+ image: "https://github.com/shadcn.png"
+ }
+ }
+ }
+ }
 
-        return null
-      }
-    })
-  ],
-  pages: {
-    signIn: "/auth/login", // Redirect back to our custom login page on error
-  },
-  callbacks: {
-    async redirect({ url, baseUrl }) {
-      // Allows relative callback URLs
-      if (url.startsWith("/")) return `${baseUrl}${url}`
-      // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url
-      return baseUrl
-    }
-  }
+ return null
+ }
+ })
+ ],
+ pages: {
+ signIn: "/auth/login", // Redirect back to our custom login page on error
+ },
+ callbacks: {
+ async redirect({ url, baseUrl }) {
+ // Allows relative callback URLs
+ if (url.startsWith("/")) return `${baseUrl}${url}`
+ // Allows callback URLs on the same origin
+ else if (new URL(url).origin === baseUrl) return url
+ return baseUrl
+ }
+ }
 })
 
 export { handler as GET, handler as POST }
