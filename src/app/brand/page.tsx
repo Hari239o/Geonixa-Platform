@@ -118,24 +118,24 @@ export default function BrandDashboardPage() {
               {/* Contact Block */}
               <div className="bg-white rounded-[24px] p-6 shadow-sm flex flex-col gap-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-[#EF4823]">
+                  <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-[#EF4823] shrink-0">
                     <Globe size={14} />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p className="text-xs text-gray-400 font-bold mb-0.5">Website</p>
-                    <p className="text-sm text-gray-800 font-medium">{profileData?.website || "www.portfolio.com"}</p>
+                    <p className="text-sm text-gray-800 font-medium break-all">{profileData?.website || "www.portfolio.com"}</p>
                   </div>
                 </div>
                 
                 <div className="h-px w-full bg-gray-50"></div>
 
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-[#EF4823]">
+                  <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-[#EF4823] shrink-0">
                     <Phone size={14} />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p className="text-xs text-gray-400 font-bold mb-0.5">Phone</p>
-                    <p className="text-sm text-gray-800 font-medium">{profileData?.phone || "000-000-0000"}</p>
+                    <p className="text-sm text-gray-800 font-medium break-all">{profileData?.phone || "000-000-0000"}</p>
                   </div>
                 </div>
               </div>
