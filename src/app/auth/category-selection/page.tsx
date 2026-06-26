@@ -35,30 +35,31 @@ export default function RegisterPage() {
       </p>
 
       {/* Yellow Pill */}
-      <div className="bg-[#E5DF72] rounded-full px-5 py-1.5 lg:px-6 lg:py-2 mb-4 lg:mb-6 shadow-sm">
-        <span className="text-primary-red font-bold text-[12px] sm:text-[13px] lg:text-sm">Select your category!</span>
+      <div className="bg-[#E5DF72] rounded-full px-4 py-1.5 lg:px-6 lg:py-2 mb-4 lg:mb-6 shadow-sm">
+        <span className="text-primary-red font-bold text-[11px] sm:text-[13px] lg:text-sm">Select your category!</span>
       </div>
 
       {/* Card Section: Solid White */}
-      <div className="w-full max-w-[340px] sm:max-w-[360px] lg:max-w-[480px] bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-3 sm:p-4 lg:p-6 mx-auto">
+      <div className="w-[90%] max-w-[340px] sm:max-w-[380px] lg:max-w-[480px] bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-5 sm:p-6 lg:p-8 mx-auto">
         
         {/* Alternating Masonry Grid */}
-        <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
           
           {/* LEFT COLUMN */}
-          <div className="flex flex-col gap-2 sm:gap-3 lg:gap-5">
+          <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6">
             
             {/* 1. Join as a Creator (Red Block) */}
             <div 
               onClick={() => handleSelect('creator')}
               className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-white/10 rounded-full blur-2xl -mr-6 sm:-mr-8 -mt-6 sm:-mt-8 group-hover:bg-white/20 transition-all" />
-              <div className="absolute bottom-0 left-0 w-12 sm:w-16 h-12 sm:h-16 bg-black/5 rounded-full blur-xl -ml-4 sm:-ml-6 -mb-4 sm:-mb-6" />
+              <div className="absolute -top-6 -right-6 w-24 h-24 opacity-[0.15] pointer-events-none transform rotate-12">
+                <img src="/logo.png" alt="watermark" className="w-full h-full object-contain" />
+              </div>
               
-              <h3 className="text-white text-xl sm:text-2xl lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
-              <p className="text-button-yellow text-[8px] sm:text-[9px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
-              <p className="text-button-yellow text-[13px] sm:text-[15px] lg:text-lg font-black relative z-10 leading-none">Creator</p>
+              <h3 className="text-white text-[22px] sm:text-[26px] lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
+              <p className="text-button-yellow text-[9px] sm:text-[10px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
+              <p className="text-button-yellow text-[14px] sm:text-[16px] lg:text-lg font-black relative z-10 leading-none">Creator</p>
             </div>
 
             {/* 2. Brand Logos (White Block) */}
@@ -68,7 +69,7 @@ export default function RegisterPage() {
             >
               <div className="grid grid-cols-2 gap-2 lg:gap-4 w-full h-full items-center justify-items-center opacity-80">
                 <span className="font-serif font-black text-[9px] sm:text-[11px] lg:text-sm tracking-tighter">CHANEL</span>
-                <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-7 sm:h-7 lg:w-9 lg:h-9 fill-black"><path d="M24 8.25l-24 11.25 6.75-3.75 17.25-7.5z" /></svg>
+                <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 fill-black"><path d="M24 7.6c-2.8.2-5.4.8-7.7 1.8-4.6 2-7.7 5.1-9 7.8-.5 1.1-.7 2.1-.7 3.1 0 1.2.6 2.1 1.6 2.5 1.5.7 3.5.2 5.5-.8 3.5-1.9 6.8-5.3 9.4-9.6.2-.3.3-.6.5-.9-1.2 1.4-2.6 2.6-4.1 3.7-2.6 1.8-5.2 2.6-7.5 2.2-1.3-.2-2.1-.8-2.5-1.6-.4-.9-.3-1.8.2-2.8 1.1-2.4 3.3-4.8 6.4-6.8 2.3-1.5 4.8-2.6 7.4-3.2.2 0 .4-.1.5-.1z" /></svg>
                 <span className="font-black text-red-600 text-[9px] sm:text-[11px] lg:text-sm tracking-tighter">Levi's</span>
                 <span className="font-serif text-pink-400 font-bold text-[8px] sm:text-[9px] lg:text-[11px]">PINK</span>
               </div>
@@ -79,17 +80,19 @@ export default function RegisterPage() {
               onClick={() => handleSelect('partner')}
               className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-white/10 rounded-full blur-2xl -mr-6 sm:-mr-8 -mt-6 sm:-mt-8 group-hover:bg-white/20 transition-all" />
+              <div className="absolute -top-6 -right-6 w-24 h-24 opacity-[0.15] pointer-events-none transform rotate-12">
+                <img src="/logo.png" alt="watermark" className="w-full h-full object-contain" />
+              </div>
               
-              <h3 className="text-white text-xl sm:text-2xl lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
-              <p className="text-button-yellow text-[8px] sm:text-[9px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
-              <p className="text-button-yellow text-[11px] sm:text-[13px] lg:text-[15px] font-black relative z-10 leading-tight text-center mt-0.5">Partners /<br/>Agency</p>
+              <h3 className="text-white text-[22px] sm:text-[26px] lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
+              <p className="text-button-yellow text-[9px] sm:text-[10px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
+              <p className="text-button-yellow text-[11px] sm:text-[12px] lg:text-[15px] font-black relative z-10 leading-tight text-center mt-0.5">Partners /<br/>Agency</p>
             </div>
 
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="flex flex-col gap-2 sm:gap-3 lg:gap-5">
+          <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6">
             
             {/* 1. Creator Photo */}
             <div 
@@ -108,11 +111,13 @@ export default function RegisterPage() {
               onClick={() => handleSelect('brand')}
               className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
             >
-              <div className="absolute bottom-0 left-0 w-16 sm:w-20 h-16 sm:h-20 bg-white/10 rounded-full blur-2xl -ml-6 sm:-ml-8 -mb-6 sm:-mb-8 group-hover:bg-white/20 transition-all" />
+              <div className="absolute -top-6 -right-6 w-24 h-24 opacity-[0.15] pointer-events-none transform rotate-12">
+                <img src="/logo.png" alt="watermark" className="w-full h-full object-contain" />
+              </div>
               
-              <h3 className="text-white text-xl sm:text-2xl lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
-              <p className="text-button-yellow text-[8px] sm:text-[9px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
-              <p className="text-button-yellow text-[13px] sm:text-[15px] lg:text-lg font-black relative z-10 leading-none">Brand</p>
+              <h3 className="text-white text-[22px] sm:text-[26px] lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
+              <p className="text-button-yellow text-[9px] sm:text-[10px] lg:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
+              <p className="text-button-yellow text-[14px] sm:text-[16px] lg:text-lg font-black relative z-10 leading-none">Brand</p>
             </div>
 
             {/* 3. Partner Photo */}
