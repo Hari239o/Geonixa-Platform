@@ -15,7 +15,7 @@ export default function AuthFlowLayout({
 
   return (
     <SignupProvider>
-      <div className="min-h-[100dvh] w-full flex flex-col lg:flex-row relative bg-white lg:overflow-hidden">
+      <div className="h-full w-full flex flex-col lg:flex-row relative bg-white lg:overflow-hidden">
         
         {/* Top/Left Red Section */}
         {/* Mobile: Fixed top 55% background. Desktop: 50% width fixed side panel */}
@@ -44,7 +44,7 @@ export default function AuthFlowLayout({
 
         {/* Form Content Area */}
         {/* Mobile: Sits directly over the fixed red background. Desktop: Sits on the right half. */}
-        <div className="relative z-10 w-full lg:w-1/2 flex flex-col items-center justify-center flex-1 min-h-[100dvh] lg:min-h-screen px-4 py-8 lg:py-12 bg-transparent lg:bg-white lg:overflow-y-auto">
+        <div className="relative z-10 w-full lg:w-1/2 flex flex-col items-center justify-center flex-1 h-full px-4 py-8 lg:py-12 bg-transparent lg:bg-white overflow-y-auto overscroll-none touch-pan-y">
           <div className="w-full flex justify-center max-w-md">
             {children}
           </div>
