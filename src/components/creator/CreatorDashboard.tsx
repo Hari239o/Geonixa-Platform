@@ -163,10 +163,20 @@ export default function CreatorDashboard() {
 
         <div className="px-4 sm:px-6 mb-8">
           {/* Bio Box */}
-          <div className="bg-white p-5 rounded-[18px] border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+          <div className="bg-white p-5 rounded-[18px] border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)] mb-6">
             <h3 className="text-[13px] font-bold text-[#1a1a2e] mb-2">About me</h3>
             <p className="text-sm text-gray-500 leading-relaxed">{profile.bio}</p>
           </div>
+          
+          {/* Fallback Authenticate Button if modal is closed */}
+          {!profile.isVerified && (
+            <button 
+              className="w-full py-4 bg-gradient-to-r from-[#EF4823] to-[#ff6b4a] text-white text-[15px] font-bold rounded-[18px] shadow-[0_8px_20px_rgba(239,72,35,0.25)] hover:-translate-y-0.5 transition-all duration-300"
+              onClick={() => router.push('/kyc')}
+            >
+              Authenticate
+            </button>
+          )}
         </div>
 
         {activeTab === 'Active' && (
