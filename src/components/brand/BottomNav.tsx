@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Wallet, LayoutGrid, Wand2, User } from "lucide-react";
+import { User } from "lucide-react";
 
 export default function BottomNav() {
   const pathname = usePathname();
@@ -18,24 +18,20 @@ export default function BottomNav() {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "/brand", icon: Home },
-    { name: "Wallet", href: "/brand/wallet", icon: Wallet },
-    { name: "Campaigns", href: "/brand/campaigns", icon: LayoutGrid },
-    { name: "Experts", href: "/brand/experts", icon: () => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M4 4h7v7H4V4zm16 16h-7v-7h7v7zm-9-9H4v7h7v-7zm9-7h-7v7h7V4z" />
-      </svg>
-    ) },
+    { name: "Home", href: "/brand", icon: "/HOME.png" },
+    { name: "Wallet", href: "/brand/wallet", icon: "/WALLET.png" },
+    { name: "Campaigns", href: "/brand/campaigns", icon: "/CAMPAIGNS.png" },
+    { name: "Experts", href: "/brand/experts", icon: "/PARTNERS.png" },
     { name: "Profile", href: profileUrl, icon: User },
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 shadow-[0_-4px_15px_rgba(0,0,0,0.05)]">
-      <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
+    <div className="fixed bottom-4 left-4 right-4 z-[100] h-16 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)] rounded-[32px] border border-gray-100/50">
+      <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium px-2">
         {navItems.map((item) => {
-          const Icon = item.icon;
-          // Home should only be active if EXACT match, profile active if starts with /brand/profile or /brand/company
+          const isCustomImage = typeof item.icon === "string";
           let isActive = pathname === item.href;
+          
           if (item.name === "Profile") {
             isActive = pathname.includes("/brand/profile") || pathname.includes("/brand/company");
           }
@@ -47,11 +43,30 @@ export default function BottomNav() {
             <Link 
               key={item.name} 
               href={item.href}
-              className={`inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group ${
+              className={`inline-flex flex-col items-center justify-center hover:bg-gray-50/50 group rounded-2xl mx-1 my-1 ${
                 isActive ? "text-[#EF4823]" : "text-gray-400"
               }`}
             >
-              <Icon className={`w-6 h-6 mb-1 ${isActive ? "text-[#EF4823]" : "text-gray-400 group-hover:text-[#EF4823] transition-colors"}`} strokeWidth={isActive ? 2.5 : 2} />
+              {isCustomImage ? (
+                <div 
+                  className={`w-[22px] h-[22px] transition-colors ${isActive ? "bg-[#EF4823]" : "bg-gray-400 group-hover:bg-[#EF4823]"}`}
+                  style={{
+                    WebkitMaskImage: `url(${item.icon})`,
+                    WebkitMaskSize: "contain",
+                    WebkitMaskRepeat: "no-repeat",
+                    WebkitMaskPosition: "center",
+                    maskImage: `url(${item.icon})`,
+                    maskSize: "contain",
+                    maskRepeat: "no-repeat",
+                    maskPosition: "center",
+                  }}
+                />
+              ) : (
+                <item.icon 
+                  className={`w-[22px] h-[22px] transition-colors ${isActive ? "text-[#EF4823]" : "text-gray-400 group-hover:text-[#EF4823]"}`} 
+                  strokeWidth={isActive ? 2.5 : 2} 
+                />
+              )}
             </Link>
           );
         })}
