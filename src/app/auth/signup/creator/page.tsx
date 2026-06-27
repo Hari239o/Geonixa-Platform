@@ -145,6 +145,7 @@ export default function CreatorSignupStep1() {
             />
           </div>
         </div>
+        </div>
 
         {/* Password */}
         <div className="flex flex-col gap-1">

@@ -87,6 +87,7 @@ export default function BrandSignupStep1() {
               value={formData.phoneNumber}
               onChange={(e) => updateFormData({ phoneNumber: e.target.value })}
               className="border-none bg-transparent rounded-none h-[52px] text-[14px] text-[#333333] font-medium placeholder:text-[#888888] focus-visible:ring-0 shadow-none px-3 w-full"
+            />
           </div>
         </div>
 
