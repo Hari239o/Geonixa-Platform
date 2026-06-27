@@ -83,9 +83,9 @@ export default function BrandHomeFeedPage() {
       <div className="w-full w-full bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
         
         {/* Fixed Header */}
-        <div className="pt-12 px-5 pb-4 shrink-0 bg-white z-20">
-          <div className="flex justify-center mb-6 mt-2">
-            <img src="/profile.png" alt="Kalinq Logo" className="w-[142px] h-[70px] object-contain" />
+        <div className="pt-4 px-5 pb-4 shrink-0 bg-white z-20">
+          <div className="flex justify-center mb-4">
+            <img src="/profile.png" alt="Kalinq Logo" className="w-[120px] h-auto object-contain" />
           </div>
 
           <div className="flex items-center gap-4 mb-6">
