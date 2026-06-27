@@ -27,22 +27,22 @@ export default function WelcomeAndSplashScreen() {
  {showSplash ? (
  /* --- SPLASH SCREEN --- */
  <motion.div
- key="splash"
- initial={{ opacity: 0 }}
- animate={{ opacity: 1 }}
- exit={{ opacity: 0, scale: 1.05 }}
- transition={{ duration: 0.5, ease: "easeInOut" }}
- className="relative z-10 flex items-center justify-center min-h-[100dvh] w-full gap-4"
- >
- <img 
- src="/logo.png" 
- alt="Kalinq Logo" 
- className="w-12 h-12 sm:w-14 sm:h-14 object-contain" 
- />
- <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight drop-shadow-md">
- Kalinq
- </h1>
- </motion.div>
+              key="splash"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, scale: 1.05 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="relative z-10 flex items-center justify-center min-h-[100dvh] w-full gap-4"
+            >
+              <img 
+                src="/logo.png" 
+                alt="Kalinq Logo" 
+                className="w-14 h-14 sm:w-16 sm:h-16 object-contain" 
+              />
+              <h1 className="text-[52px] sm:text-[64px] font-bold text-white tracking-wide drop-shadow-md font-space-grotesk mt-2">
+                Kalinq
+              </h1>
+            </motion.div>
  ) : (
  /* --- WELCOME SCREEN --- */
  <motion.div

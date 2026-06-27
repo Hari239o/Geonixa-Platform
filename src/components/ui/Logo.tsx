@@ -16,7 +16,10 @@ export function Logo({ className, showText = true, large = false }: LogoProps) {
         className={cn("object-contain", large ? "w-[160px] h-[160px]" : "w-10")} 
       />
       {showText && (
-        <h1 className={cn("text-white font-bold tracking-tight", large ? "text-5xl" : "text-3xl")}>
+        <h1 className={cn(
+          "font-bold text-white tracking-wide font-space-grotesk mt-1",
+          large ? "text-7xl" : "text-2xl"
+        )}>
           Kalinq
         </h1>
       )}
