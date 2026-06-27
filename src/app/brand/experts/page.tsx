@@ -12,16 +12,11 @@ export default function ExpertsPartnersPage() {
         
         {/* Header - Large Logo */}
         <div className="pt-16 px-5 pb-8 shrink-0 bg-white z-20 flex items-center justify-center">
-          <div className="flex flex-row items-center justify-center gap-2">
-            <img 
-              src="/logo.png" 
-              alt="Kalinq Logo" 
-              className="object-contain w-[42px] h-[42px]" 
-            />
-            <h1 className="text-[#EF4823] font-bold tracking-tight text-[32px]">
-              Kalinq
-            </h1>
-          </div>
+          <img 
+            src="/profile.png" 
+            alt="Kalinq Logo" 
+            className="object-contain w-[142px] h-[70px]" 
+          />
         </div>
 
         {/* Dynamic Content */}
