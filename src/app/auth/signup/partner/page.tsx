@@ -290,5 +290,7 @@ export default function PartnerSignupStep1() {
         </div>
       )}
     </>
-  );
+
+
+);
 }
