@@ -104,25 +104,6 @@ export default function PartnerSignupStep1() {
           />
         </div>
 
-        {/* Phone Number */}
-        <div className="flex flex-col gap-1.5">
-          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Phone Number</Label>
-          <div className="flex w-full bg-[#F8F8F8] border border-transparent rounded-[14px] overflow-hidden focus-within:ring-1 focus-within:ring-[#FF4D2D] focus-within:border-[#FF4D2D] focus-within:bg-white transition-all shadow-sm">
-            <div className="flex items-center justify-center pl-4 pr-2 gap-1.5 border-r border-transparent">
-              <span className="text-[18px]">🇮🇳</span>
-              <ChevronDown className="w-3 h-3 text-[#A0A0A0]" />
-            </div>
-            <Input 
-              required
-              type="tel"
-              placeholder="(+91) 000-000-0000" 
-              value={formData.phoneNumber}
-              onChange={(e) => updateFormData({ phoneNumber: e.target.value })}
-              className="border-none bg-transparent rounded-none h-[52px] text-[14px] text-[#333333] font-medium placeholder:text-[#888888] focus-visible:ring-0 shadow-none px-3 w-full"
-            />
-          </div>
-        </div>
-
         {/* Password */}
         <div className="flex flex-col gap-1.5 relative">
           <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Password</Label>
@@ -142,6 +123,25 @@ export default function PartnerSignupStep1() {
             >
               {showPassword ? <Eye className="w-[18px] h-[18px]" /> : <EyeOff className="w-[18px] h-[18px]" />}
             </button>
+          </div>
+        </div>
+
+        {/* Phone Number */}
+        <div className="flex flex-col gap-1.5">
+          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Phone Number</Label>
+          <div className="flex w-full bg-[#F8F8F8] border border-transparent rounded-[14px] overflow-hidden focus-within:ring-1 focus-within:ring-[#FF4D2D] focus-within:border-[#FF4D2D] focus-within:bg-white transition-all shadow-sm">
+            <div className="flex items-center justify-center pl-4 pr-2 gap-1.5 border-r border-transparent">
+              <span className="text-[18px]">🇮🇳</span>
+              <ChevronDown className="w-3 h-3 text-[#A0A0A0]" />
+            </div>
+            <Input 
+              required
+              type="tel"
+              placeholder="(+91) 000-000-0000" 
+              value={formData.phoneNumber}
+              onChange={(e) => updateFormData({ phoneNumber: e.target.value })}
+              className="border-none bg-transparent rounded-none h-[52px] text-[14px] text-[#333333] font-medium placeholder:text-[#888888] focus-visible:ring-0 shadow-none px-3 w-full"
+            />
           </div>
         </div>
       </div>
