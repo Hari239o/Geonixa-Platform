@@ -21,7 +21,11 @@ export default function BottomNav() {
     { name: "Home", href: "/brand", icon: Home },
     { name: "Wallet", href: "/brand/wallet", icon: Wallet },
     { name: "Campaigns", href: "/brand/campaigns", icon: LayoutGrid },
-    { name: "Magic", href: "/brand/magic", icon: Wand2 },
+    { name: "Experts", href: "/brand/experts", icon: () => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4 4h7v7H4V4zm16 16h-7v-7h7v7zm-9-9H4v7h7v-7zm9-7h-7v7h7V4z" />
+      </svg>
+    ) },
     { name: "Profile", href: profileUrl, icon: User },
   ];
 
