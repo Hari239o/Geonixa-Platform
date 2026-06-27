@@ -49,18 +49,12 @@ export default function BottomNav() {
                 isActive ? "bg-[#FEF5ED]" : "hover:bg-gray-50/50"
               }`}>
                 {isCustomImage ? (
-                  <div 
-                    className={`w-[24px] h-[24px] transition-colors ${isActive ? "bg-[#EF4823]" : "bg-gray-400 group-hover:bg-[#EF4823]"}`}
-                    style={{
-                      WebkitMaskImage: `url(${item.icon})`,
-                      WebkitMaskSize: "contain",
-                      WebkitMaskRepeat: "no-repeat",
-                      WebkitMaskPosition: "center",
-                      maskImage: `url(${item.icon})`,
-                      maskSize: "contain",
-                      maskRepeat: "no-repeat",
-                      maskPosition: "center",
-                    }}
+                  <img 
+                    src={item.icon as string}
+                    alt={item.name}
+                    className={`w-[24px] h-[24px] object-contain transition-all ${
+                      isActive ? "" : "grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100"
+                    }`}
                   />
                 ) : (
                   <item.icon 
