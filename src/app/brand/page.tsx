@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react"
 import { Search, Bell, Send, Bookmark } from "lucide-react"
+import { useRouter } from "next/navigation"
 import BottomNav from "@/components/brand/BottomNav"
 import { Logo } from "@/components/ui/Logo"
 
@@ -16,6 +17,7 @@ const VerifiedBadge = ({ className }: { className?: string }) => (
 const tabs = ["All", "UGC", "Influencer", "Partners"]
 
 export default function BrandHomeFeedPage() {
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState("All")
   
   const [creators, setCreators] = useState([
@@ -95,7 +97,7 @@ export default function BrandHomeFeedPage() {
                 className="bg-transparent border-none outline-none text-sm w-full placeholder:text-gray-400 font-medium text-gray-700"
               />
             </div>
-            <button className="relative w-11 h-11 rounded-full flex items-center justify-center bg-gray-50/80 border border-gray-100 shrink-0">
+            <button onClick={() => router.push('/brand/notifications')} className="relative w-11 h-11 rounded-full flex items-center justify-center bg-gray-50/80 border border-gray-100 shrink-0 hover:bg-gray-100 transition-colors">
               <Bell className="w-5 h-5 text-gray-700" />
               <span className="absolute top-2.5 right-3 w-2 h-2 bg-[#EF4823] rounded-full border-2 border-white"></span>
             </button>
