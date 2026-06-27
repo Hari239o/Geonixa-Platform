@@ -30,10 +30,12 @@ export default function CreatorSignupLayout({
             </button>
           </div>
           <div className="flex flex-col items-center gap-2">
-            {/* White Logo (SVG) */}
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
-              <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
-            </svg>
+            {/* White Logo */}
+            <img 
+              src="/logo.png" 
+              alt="Kalinq Logo" 
+              className="w-12 h-12 object-contain brightness-0 invert" 
+            />
             
             <h1 className="text-[28px] font-bold text-white tracking-tight mt-1">Sign Up</h1>
             <p className="text-white/90 text-[13px] font-medium">
