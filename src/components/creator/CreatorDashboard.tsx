@@ -24,6 +24,7 @@ interface ProfileData {
 
 export default function CreatorDashboard() {
  const router = useRouter();
+ const [activeTab, setActiveTab] = useState<'Active' | 'Completed'>('Active');
  const [mediaTab, setMediaTab] = useState<'photos' | 'videos'>('photos');
  const [profile, setProfile] = useState<ProfileData>({
  fullName: 'Hello Lorem',
@@ -134,92 +135,122 @@ export default function CreatorDashboard() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mx-4 sm:mx-6 mb-6 bg-[#f9fafb] rounded-2xl p-1 border border-gray-100/50">
-          <button className="flex-1 py-3 text-[13px] font-bold text-gray-400 rounded-xl">Active</button>
-          <button className="flex-1 py-3 text-[13px] font-bold text-white bg-primary-red rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)]">Completed</button>
-        </div>
-
-        {/* Bio Box */}
-        <div className="px-4 sm:px-6 mb-6">
-          <div className="bg-white p-5 rounded-[18px] border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
-            <h3 className="text-[13px] font-bold text-[#1a1a2e] mb-2">About me</h3>
-            <p className="text-sm text-gray-500 leading-relaxed">{profile.bio}</p>
-          </div>
-        </div>
-        <div className="px-4 sm:px-6 mb-8">
+        <div className="flex gap-2 mx-4 sm:mx-6 mb-6 bg-[#f9fafb] rounded-[18px] p-1 border border-gray-100/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]">
           <button 
-            className="w-full py-4 bg-gradient-to-r from-[#EF4823] to-[#ff6b4a] text-white text-[15px] font-bold rounded-[18px] shadow-[0_8px_20px_rgba(239,72,35,0.25)] hover:-translate-y-0.5 transition-all duration-300"
-            onClick={() => router.push('/kyc')}
+            className={`flex-1 py-3 text-[13px] font-bold rounded-xl transition-all ${activeTab === 'Active' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
+            onClick={() => setActiveTab('Active')}
           >
-            Authenticate
+            Active
+          </button>
+          <button 
+            className={`flex-1 py-3 text-[13px] font-bold rounded-xl transition-all ${activeTab === 'Completed' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
+            onClick={() => setActiveTab('Completed')}
+          >
+            Completed
           </button>
         </div>
 
-        {/* Campaigns List */}
-        <section className="px-4 flex flex-col gap-4 mb-8">
-          {campaigns.length > 0 ? (
-            campaigns.map((campaign) => (
-              <div className="bg-white rounded-2xl p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-gray-100" key={campaign.id}>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full border border-gray-200 p-1 flex items-center justify-center overflow-hidden">
-                    <div className="w-full h-full bg-gray-100 rounded-full"></div>
-                  </div>
-                  <span className="text-xs text-gray-400 font-medium">{campaign.timeAgo}</span>
-                </div>
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h3 className="text-base font-bold text-gray-900">{campaign.title}</h3>
-                    <p className="text-xs font-semibold text-gray-500">{campaign.subtitle}</p>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <span className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-0.5">Budget</span>
-                    <span className="text-sm font-extrabold text-[#EF4823]">{campaign.budget}</span>
-                  </div>
-                </div>
-                <div className="inline-block px-3 py-1 bg-[#fff7ed] text-[#ea580c] text-xs font-bold rounded-md mb-3">
-                  {campaign.dateRange}
-                </div>
-                <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                  {campaign.description} <span className="text-[#0066cc] font-semibold cursor-pointer hover:underline">Read more</span>
-                </p>
-                <div className="inline-block px-4 py-1.5 bg-[#2ed47a] text-white text-[11px] font-bold rounded-md">
-                  Completed
-                </div>
+        {activeTab === 'Completed' && (
+          <>
+            {/* Bio Box */}
+            <div className="px-4 sm:px-6 mb-6">
+              <div className="bg-white p-5 rounded-[18px] border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                <h3 className="text-[13px] font-bold text-[#1a1a2e] mb-2">About me</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{profile.bio}</p>
               </div>
-            ))
-          ) : (
-            <div className="text-center text-gray-400 py-5">
-              No active campaigns available.
             </div>
-          )}
-        </section>
+            <div className="px-4 sm:px-6 mb-8">
+              <button 
+                className="w-full py-4 bg-gradient-to-r from-[#EF4823] to-[#ff6b4a] text-white text-[15px] font-bold rounded-[18px] shadow-[0_8px_20px_rgba(239,72,35,0.25)] hover:-translate-y-0.5 transition-all duration-300"
+                onClick={() => router.push('/kyc')}
+              >
+                Authenticate
+              </button>
+            </div>
+          </>
+        )}
 
-        {/* Call to Actions */}
-        <section className="px-4 flex flex-col gap-4 mb-8">
-          <div className="bg-[#EF4823] rounded-2xl p-6 flex justify-between items-center relative overflow-hidden shadow-md h-[100px]">
-            <div className="absolute top-0 right-10 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl transform translate-x-10 -translate-y-10"></div>
-            <div className="absolute bottom-0 left-10 w-24 h-24 bg-white opacity-10 rounded-full blur-xl transform -translate-x-10 translate-y-10"></div>
-            <div className="relative z-10">
-              <div className="flex flex-col">
-                <span className="text-[13px] font-medium text-white/90 mb-0.5">Find More</span>
-                <span className="text-xl font-medium text-white tracking-wide">campaigns</span>
+        {activeTab === 'Active' && (
+          <>
+            {/* Campaigns List */}
+            <section className="px-4 flex flex-col gap-5 mb-8">
+              {campaigns.length > 0 ? (
+                campaigns.map((campaign) => (
+                  <div className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100/50" key={campaign.id}>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-11 h-11 bg-[#f4f6fa] rounded-full p-2 flex items-center justify-center">
+                        <div className="w-6 h-6 border-2 border-indigo-400 rounded-sm transform rotate-45 flex items-center justify-center">
+                           <div className="w-full h-0.5 bg-indigo-400 transform -rotate-45"></div>
+                        </div>
+                      </div>
+                      <span className="text-[11px] text-gray-400 font-medium ml-auto">{campaign.timeAgo}</span>
+                    </div>
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <h3 className="text-base font-extrabold text-[#1a1a2e]">{campaign.title}</h3>
+                        <p className="text-[11px] font-medium text-gray-500 italic mt-0.5">{campaign.subtitle}</p>
+                      </div>
+                      <div className="flex flex-col items-end">
+                        <span className="text-[10px] text-gray-500 font-semibold mb-0.5">Budget</span>
+                        <span className="text-sm font-black text-[#EF4823]">{campaign.budget}</span>
+                      </div>
+                    </div>
+                    <div className="inline-block px-3 py-1 bg-orange-50 text-orange-400 text-[10px] font-bold rounded-md mb-3">
+                      {campaign.dateRange}
+                    </div>
+                    <p className="text-[12px] text-gray-500 font-medium leading-relaxed mb-4 pr-4">
+                      {campaign.description} <span className="text-[#EF4823] font-bold cursor-pointer hover:underline">Read more</span>
+                    </p>
+                    <div className="inline-block px-3.5 py-1.5 bg-[#EF4823] text-white text-[11px] font-bold rounded-[8px]">
+                      {campaign.daysLeft || "2 days left"}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center text-gray-400 py-5">
+                  No active campaigns available.
+                </div>
+              )}
+            </section>
+
+            {/* Call to Actions */}
+            <section className="px-4 flex flex-col gap-4 mb-8">
+              <div className="bg-[#f05133] rounded-[16px] p-6 flex justify-between items-center relative overflow-hidden shadow-md h-[110px]">
+                {/* Abstract decorative shapes */}
+                <div className="absolute top-0 right-0 w-full h-full">
+                  <div className="absolute -top-10 right-10 w-40 h-40 bg-white/10 rounded-full blur-xl mix-blend-overlay"></div>
+                  <div className="absolute -bottom-10 left-20 w-32 h-32 bg-white/20 rounded-full blur-lg mix-blend-overlay"></div>
+                  <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-[#ea580c] opacity-30 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2"></div>
+                </div>
+                
+                <div className="relative z-10">
+                  <div className="flex flex-col">
+                    <span className="text-[13px] font-medium text-white/90 mb-0.5">Find More</span>
+                    <span className="text-2xl font-medium text-white tracking-wide">campaigns</span>
+                  </div>
+                </div>
+                <button className="relative z-10 px-6 py-2 bg-[#ddec6a] text-[#f05133] text-sm font-bold rounded-xl shadow-sm hover:shadow-md transition-shadow">View</button>
               </div>
-            </div>
-            <button className="relative z-10 px-6 py-2.5 bg-[#d8f042] text-[#EF4823] text-sm font-bold rounded-full shadow-sm hover:shadow-md transition-shadow">View</button>
-          </div>
-          
-          <div className="bg-[#EF4823] rounded-2xl p-6 flex justify-between items-center relative overflow-hidden shadow-md h-[100px]">
-            <div className="absolute top-0 right-10 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl transform translate-x-10 -translate-y-10"></div>
-            <div className="absolute bottom-0 left-10 w-24 h-24 bg-white opacity-10 rounded-full blur-xl transform -translate-x-10 translate-y-10"></div>
-            <div className="relative z-10">
-              <div className="flex flex-col">
-                <span className="text-[13px] font-medium text-white/90 mb-0.5">Find</span>
-                <span className="text-xl font-medium text-white tracking-wide">Partners</span>
+              
+              <div className="bg-[#f05133] rounded-[16px] p-6 flex justify-between items-center relative overflow-hidden shadow-md h-[110px]">
+                {/* Abstract decorative shapes */}
+                <div className="absolute top-0 right-0 w-full h-full">
+                  <div className="absolute -top-10 right-10 w-40 h-40 bg-white/10 rounded-full blur-xl mix-blend-overlay"></div>
+                  <div className="absolute -bottom-10 left-20 w-32 h-32 bg-white/20 rounded-full blur-lg mix-blend-overlay"></div>
+                  <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-[#ea580c] opacity-30 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2"></div>
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex flex-col">
+                    <span className="text-[13px] font-medium text-white/90 mb-0.5">Find</span>
+                    <span className="text-2xl font-medium text-white tracking-wide">Partners</span>
+                  </div>
+                </div>
+                <button className="relative z-10 px-6 py-2 bg-[#ddec6a] text-[#f05133] text-sm font-bold rounded-xl shadow-sm hover:shadow-md transition-shadow">View</button>
               </div>
-            </div>
-            <button className="relative z-10 px-6 py-2.5 bg-[#d8f042] text-[#EF4823] text-sm font-bold rounded-full shadow-sm hover:shadow-md transition-shadow">View</button>
-          </div>
-        </section>
+            </section>
+          </>
+        )}
       </div>
 
       <BottomNav profilePic={profile.profilePic || defaultProfilePic} />
