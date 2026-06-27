@@ -14,6 +14,7 @@ export default function BrandSignupStep1() {
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [isPhoneVerified, setIsPhoneVerified] = useState(false);
 
   const [formData, setFormData] = useState({
     brandName: "",
@@ -48,14 +49,17 @@ export default function BrandSignupStep1() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Open OTP modal when they try to sign up
-    setShowOtpModal(true);
+    if (!isPhoneVerified) {
+      setShowOtpModal(true);
+      return;
+    }
+    router.push("/auth/login");
   };
 
-  const handleVerifyAndSignup = () => {
+  const handleVerifyOtp = () => {
     if (otp.join("").length === 6) {
+      setIsPhoneVerified(true);
       setShowOtpModal(false);
-      router.push("/auth/login");
     }
   };
 
@@ -157,7 +161,7 @@ export default function BrandSignupStep1() {
                 className="border-none bg-transparent rounded-none h-[52px] text-[14px] text-[#333333] font-medium placeholder:text-[#888888] focus-visible:ring-0 shadow-none px-3 w-full"
               />
             </div>
-            {formData.phoneNumber && (
+            {formData.phoneNumber && !isPhoneVerified && (
               <Button 
                 type="button" 
                 onClick={handleSendOtp}
@@ -165,6 +169,11 @@ export default function BrandSignupStep1() {
               >
                 Send OTP
               </Button>
+            )}
+            {isPhoneVerified && (
+              <span className="mt-1 text-[13px] text-green-600 font-semibold self-end px-2 py-1">
+                ✓ Verified
+              </span>
             )}
           </div>
         </div>
@@ -240,7 +249,7 @@ export default function BrandSignupStep1() {
             
             <Button 
               type="button"
-              onClick={handleVerifyAndSignup}
+              onClick={handleVerifyOtp}
               disabled={otp.join("").length !== 6}
               className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-[12px] h-[50px] text-[15px] font-medium transition-all"
             >
