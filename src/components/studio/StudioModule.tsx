@@ -36,10 +36,26 @@ export default function StudioModule() {
         </button>
       </div>
 
-      {/* Faded Logo Center */}
+      {/* Faded Magic Wand Center */}
       <div className="flex-1 flex flex-col items-center justify-center -mt-20 z-0">
-        <div className="opacity-30 grayscale pointer-events-none scale-150 transform">
-          <Logo large={true} showText={true} />
+        <div className="text-gray-200 pointer-events-none transform scale-[4]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            width={48}
+            height={48}
+          >
+            <path d="M8 18L17 9C17.828 8.172 17.828 6.828 17 6L16 5C15.172 4.172 13.828 4.172 13 5L4 14C3.172 14.828 3.172 16.172 4 17L5 18C5.828 18.828 7.172 18.828 8 18Z" />
+            <line x1="12.5" y1="5.5" x2="16.5" y2="9.5" />
+            <path d="M10 3 Q10 5.5 12.5 5.5 Q10 5.5 10 8 Q10 5.5 7.5 5.5 Q10 5.5 10 3 Z" fill="currentColor" stroke="none" />
+            <path d="M18 4 Q18 6 20 6 Q18 6 18 8 Q18 6 16 6 Q18 6 18 4 Z" fill="currentColor" stroke="none" />
+            <path d="M17 14 Q17 16 19 16 Q17 16 17 18 Q17 16 15 16 Q17 16 17 14 Z" fill="currentColor" stroke="none" />
+          </svg>
         </div>
       </div>
 
