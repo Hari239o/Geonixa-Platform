@@ -32,11 +32,11 @@ export default function RootLayout({
  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}>
-      <body className="flex flex-col">
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-[#F8F9FB]`}>
+      <body className="flex flex-col items-center justify-center min-h-[100dvh] w-full overflow-hidden">
         <NextAuthProvider>
-          {/* Main scrollable container for the entire app */}
-          <main className="flex-1 w-full h-full overflow-hidden relative flex flex-col">
+          {/* Main scrollable container for the entire app, restricted to mobile width on large screens */}
+          <main className="w-full h-[100dvh] max-w-[480px] bg-white overflow-hidden relative flex flex-col sm:border-x sm:border-gray-100 sm:shadow-2xl">
             {children}
           </main>
         </NextAuthProvider>

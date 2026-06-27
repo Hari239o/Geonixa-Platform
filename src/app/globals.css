@@ -34,7 +34,6 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   /* Make app-like: prevent overscroll bounce, touch panning on root, and text selection highlights on mobile */
   overscroll-behavior: none;
-  touch-action: none;
   -webkit-tap-highlight-color: transparent;
 }
 
