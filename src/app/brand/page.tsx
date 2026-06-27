@@ -176,13 +176,14 @@ export default function BrandHomeFeedPage() {
                   <span className="text-[#EF4823] font-black text-[16px]">{creator.engagement}</span>
                   <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Avg Engagement</span>
                 </div>
+                </div>
               </div>
             </div>
           ))}
 
-        {/* Inline Banner */}
-        <div className="w-full pb-[88px] pt-2 z-10 shrink-0">
-          <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-2xl p-4 flex items-center justify-between shadow-xl relative overflow-hidden">
+        {/* Fixed Banner */}
+        <div className="fixed bottom-[88px] left-0 w-full px-5 z-40 pointer-events-none">
+          <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-[20px] p-4 flex items-center justify-between shadow-[0_8px_30px_rgba(239,72,35,0.25)] relative overflow-hidden pointer-events-auto">
             <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-xl"></div>
             
@@ -194,14 +195,17 @@ export default function BrandHomeFeedPage() {
             </div>
             
             <div className="relative z-10 flex flex-col">
-              <span className="text-white/90 text-[11px] font-medium leading-none mb-1">Find</span>
-              <span className="text-white text-xl font-bold leading-none tracking-tight">Partners</span>
+              <span className="text-white/90 text-[12px] font-semibold leading-none mb-1">Find</span>
+              <span className="text-white text-[22px] font-bold leading-none tracking-tight">Partners</span>
             </div>
-            <button className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-6 py-2 rounded-xl text-sm font-bold shadow-sm transition-transform active:scale-95">
+            <button className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-7 py-2.5 rounded-[12px] text-[15px] font-bold shadow-sm transition-transform active:scale-95">
               View
             </button>
           </div>
         </div>
+        
+        {/* Spacing for fixed banner */}
+        <div className="w-full h-[140px] shrink-0"></div>
 
         </div>
       </div>
