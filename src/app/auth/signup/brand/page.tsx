@@ -6,16 +6,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Eye, EyeOff } from "lucide-react";
+import { signIn } from "next-auth/react";
 
 export default function BrandSignupStep1() {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     brandName: "",
     email: "",
     phoneNumber: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(false);
 
   // Load saved data from sessionStorage
   useEffect(() => {
@@ -43,10 +44,8 @@ export default function BrandSignupStep1() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col h-full overflow-y-auto no-scrollbar pb-10">
-      
+    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col">
       <div className="flex flex-col gap-3">
-        
         {/* Brand Name */}
         <div className="flex flex-col gap-1.5">
           <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Brand Name</Label>
@@ -92,7 +91,7 @@ export default function BrandSignupStep1() {
         </div>
 
         {/* Password */}
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1.5 relative">
           <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Password</Label>
           <div className="relative">
             <Input 
@@ -101,24 +100,23 @@ export default function BrandSignupStep1() {
               placeholder="••••••••" 
               value={formData.password}
               onChange={(e) => updateFormData({ password: e.target.value })}
-              className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm pr-10"
+              className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm pr-12"
             />
             <button 
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-[#A0A0A0] hover:text-[#FF4D2D] focus:outline-none transition-colors"
             >
               {showPassword ? <Eye className="w-[18px] h-[18px]" /> : <EyeOff className="w-[18px] h-[18px]" />}
             </button>
           </div>
         </div>
-
       </div>
 
-      <div className="mt-2 flex flex-col gap-4">
+      <div className="mt-6 flex flex-col gap-4">
         <Button 
           type="submit" 
-          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98] mt-2"
+          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98]"
         >
           Sign Up
         </Button>
@@ -130,6 +128,7 @@ export default function BrandSignupStep1() {
 
         <Button 
           type="button" 
+          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
           variant="outline"
           className="w-full bg-white border-[#EEEEEE] hover:bg-slate-50 rounded-[14px] h-[52px] text-[14px] font-semibold text-[#333333] flex items-center justify-center gap-3 shadow-sm transition-all active:scale-[0.98]"
         >
