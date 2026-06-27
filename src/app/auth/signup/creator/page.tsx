@@ -57,8 +57,7 @@ export default function CreatorSignupStep1() {
   const handleVerifyAndSignup = () => {
     if (otp.join("").length === 6) {
       setShowOtpModal(false);
-      localStorage.setItem("userRole", "creator");
-      router.push("/creator");
+      router.push("/auth/login");
     }
   };
 

@@ -58,8 +58,7 @@ export default function PartnerSignupStep1() {
   const handleVerifyAndSignup = () => {
     if (otp.join("").length === 6) {
       setShowOtpModal(false);
-      localStorage.setItem("userRole", "partner");
-      router.push("/partner");
+      router.push("/auth/login");
     }
   };
 

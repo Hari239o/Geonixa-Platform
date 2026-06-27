@@ -55,8 +55,7 @@ export default function BrandSignupStep1() {
   const handleVerifyAndSignup = () => {
     if (otp.join("").length === 6) {
       setShowOtpModal(false);
-      localStorage.setItem("userRole", "brand");
-      router.push("/brand");
+      router.push("/auth/login");
     }
   };
 
