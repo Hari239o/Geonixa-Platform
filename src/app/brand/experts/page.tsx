@@ -46,7 +46,7 @@ export default function ExpertsPartnersPage() {
             </button>
           </div>
           <h2 className="text-[#1E1B4B] text-[22px] font-extrabold mb-1">
-            Partners
+            {roleTab === "editors" ? "Editor" : "Partners"}
           </h2>
           <p className="text-gray-400 text-[13px] font-medium mb-12">Enter your amount</p>
           
@@ -161,24 +161,26 @@ export default function ExpertsPartnersPage() {
             </div>
 
             {/* Tertiary Tabs */}
-            <div className="flex bg-white rounded-[14px] p-1 border border-gray-50 shadow-sm">
-              <button 
-                onClick={() => setTypeTab("instant")}
-                className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${typeTab === "instant" ? "bg-[#EF4823] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
-              >
-                Instant
-              </button>
-              <button 
-                onClick={() => setTypeTab("schedule")}
-                className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${typeTab === "schedule" ? "bg-[#EF4823] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
-              >
-                Schedule
-              </button>
-            </div>
+            {roleTab === "cameraman" && (
+              <div className="flex bg-white rounded-[14px] p-1 border border-gray-50 shadow-sm">
+                <button 
+                  onClick={() => setTypeTab("instant")}
+                  className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${typeTab === "instant" ? "bg-[#EF4823] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
+                >
+                  Instant
+                </button>
+                <button 
+                  onClick={() => setTypeTab("schedule")}
+                  className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${typeTab === "schedule" ? "bg-[#EF4823] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
+                >
+                  Schedule
+                </button>
+              </div>
+            )}
           </div>
 
           <div className="flex-1 overflow-y-auto no-scrollbar px-5 pt-4 pb-32">
-            {typeTab === "instant" ? (
+            {roleTab === "editors" || typeTab === "instant" ? (
               <div className="flex flex-col gap-4">
                 {[1, 2].map(i => (
                   <div key={i} className={`bg-white rounded-[16px] p-4 flex gap-4 items-center shadow-sm border ${i === 1 ? 'border-[#EF4823]' : 'border-gray-50'}`}>
@@ -204,7 +206,7 @@ export default function ExpertsPartnersPage() {
                   onClick={handleBookNow}
                   className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-4"
                 >
-                  BOOK NOW
+                  {roleTab === "editors" ? "NEXT" : "BOOK NOW"}
                 </button>
               </div>
             ) : (
