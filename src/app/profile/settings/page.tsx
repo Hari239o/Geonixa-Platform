@@ -115,7 +115,7 @@ export default function ProfileSettingsPage() {
     <div className="w-full max-w-md mx-auto h-[100dvh] bg-white relative flex flex-col font-sans overflow-hidden">
       <div className="flex-1 overflow-y-auto overflow-x-hidden relative">
       {/* Header */}
-      <div className="px-6 pt-10 pb-6 flex items-center relative">
+      <div className="px-6 pt-4 pb-6 flex items-center relative">
         <button 
           onClick={() => router.back()}
           className="w-11 h-11 bg-[#fff0e5] text-[#EF4823] rounded-[16px] flex items-center justify-center transition-transform active:scale-95 absolute left-6"

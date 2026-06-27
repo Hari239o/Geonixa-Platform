@@ -11,7 +11,7 @@ export default function WithdrawPage() {
  return (
  <div className="w-full max-w-md mx-auto min-h-screen bg-[#f9fafb] pb-24 font-sans relative flex flex-col">
  {/* Header */}
- <div className="px-6 pt-10 pb-12 flex justify-start">
+ <div className="px-6 pt-4 pb-12 flex justify-start">
  <button 
  onClick={() => router.back()}
  className="w-12 h-12 bg-orange-100/80 text-primary-red rounded-[16px] flex items-center justify-center transition-transform active:scale-95"

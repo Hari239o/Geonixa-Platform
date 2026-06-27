@@ -17,7 +17,7 @@ export default function NotificationsPage() {
  <div className="w-full max-w-md mx-auto min-h-screen bg-[#fafbfc] pb-24 font-sans relative overflow-x-hidden flex flex-col">
  
  {/* Header */}
- <div className="px-4 sm:px-6 pt-10 pb-8 flex items-center justify-between sticky top-0 z-10 bg-[#fafbfc]">
+ <div className="px-4 sm:px-6 pt-4 pb-8 flex items-center justify-between sticky top-0 z-10 bg-[#fafbfc]">
  <button 
  onClick={() => router.back()}
  className="w-12 h-12 bg-orange-100/80 text-[#EF4823] rounded-[16px] flex items-center justify-center transition-transform active:scale-95 shrink-0"

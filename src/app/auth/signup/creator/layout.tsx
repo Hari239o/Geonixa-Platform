@@ -17,7 +17,7 @@ export default function CreatorSignupLayout({
       </div>
 
       {/* Main Content Area */}
-      <div className="relative z-10 w-full pt-10 flex flex-col items-center h-[100dvh] overflow-hidden">
+      <div className="relative z-10 w-full pt-4 flex flex-col items-center h-[100dvh] overflow-hidden">
         
         {/* Header (Logo + Title) */}
         <div className="w-full relative flex justify-center items-start mb-8 px-4 shrink-0">

@@ -26,7 +26,7 @@ export default function BrandWalletPage() {
       <div className="w-full w-full bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
         
         {/* Fixed Header */}
-        <div className="pt-12 px-5 pb-6 shrink-0 z-20 bg-white">
+        <div className="pt-5 px-5 pb-6 shrink-0 z-20 bg-white">
           <div className="flex justify-between items-start mb-8">
             <div className="flex flex-col">
               <h1 className="text-gray-800 font-extrabold text-[18px]">Hello Lorem,</h1>

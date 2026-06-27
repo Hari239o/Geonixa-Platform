@@ -96,7 +96,7 @@ export default function CreatorDashboard() {
     <div className="w-full max-w-md mx-auto h-full flex flex-col bg-white font-sans overflow-hidden">
       <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24">
         {/* Top Header */}
-        <div className="flex justify-between items-center px-4 sm:px-6 pt-10 mb-8">
+        <div className="flex justify-between items-center px-4 sm:px-6 pt-4 mb-8">
           <div className="flex items-center gap-4">
             <Image src={profile.profilePic || defaultProfilePic} alt="Profile" width={48} height={48} className="w-14 h-14 rounded-[18px] object-cover shadow-sm" />
             <div className="flex flex-col">

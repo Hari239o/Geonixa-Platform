@@ -63,7 +63,7 @@ export default function WalletPage() {
   <div className="w-full max-w-md mx-auto h-full flex flex-col bg-white font-sans overflow-hidden">
     <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 relative">
  {/* Header */}
- <div className="px-4 sm:px-6 pt-10 pb-6 flex justify-between items-start">
+ <div className="px-4 sm:px-6 pt-4 pb-6 flex justify-between items-start">
  <div className="flex flex-col truncate pr-2">
  <h1 className="text-xl font-extrabold text-[#1a1a2e] tracking-tight mb-1">
  Hello {profile.fullName.split(' ')[0]},

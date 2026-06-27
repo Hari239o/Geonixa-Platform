@@ -93,7 +93,7 @@ export default function CampaignPage() {
   <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 relative">
  
  {/* Header */}
- <div className="px-4 sm:px-6 pt-10 pb-6 flex justify-between items-center bg-white shrink-0 z-10 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
+ <div className="px-4 sm:px-6 pt-4 pb-6 flex justify-between items-center bg-white shrink-0 z-10 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
  <div className="flex-1 relative mr-4">
  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
  <input 

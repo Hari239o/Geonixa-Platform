@@ -14,7 +14,7 @@ export default function AddFundsPage() {
       <div className="w-full w-full bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
         
         {/* Header with Back Button */}
-        <div className="pt-12 px-5 pb-6 shrink-0 z-20 bg-white">
+        <div className="pt-5 px-5 pb-6 shrink-0 z-20 bg-white">
           <button 
             onClick={() => router.back()}
             className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4823] hover:opacity-80 transition-opacity"
@@ -26,7 +26,7 @@ export default function AddFundsPage() {
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto no-scrollbar px-5 pb-32 touch-pan-y flex flex-col relative">
           
-          <div className="bg-white rounded-[20px] shadow-[0_2px_20px_rgba(0,0,0,0.04)] p-6 pt-10 pb-8 flex flex-col items-center">
+          <div className="bg-white rounded-[20px] shadow-[0_2px_20px_rgba(0,0,0,0.04)] p-6 pt-4 pb-8 flex flex-col items-center">
             
             <h1 className="text-gray-900 font-extrabold text-[22px] mb-1">Add funds</h1>
             <p className="text-gray-400 text-[14px] font-medium mb-8">Enter your amount</p>

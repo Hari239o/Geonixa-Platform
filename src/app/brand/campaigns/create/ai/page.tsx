@@ -13,7 +13,7 @@ export default function AICampaignCreatePage() {
       <div className="w-full w-full bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
         
         {/* Header */}
-        <div className="pt-12 px-5 pb-4 shrink-0 bg-white z-20 flex items-center justify-between">
+        <div className="pt-5 px-5 pb-4 shrink-0 bg-white z-20 flex items-center justify-between">
           <button 
             onClick={() => router.back()}
             className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4823] hover:opacity-80 transition-opacity"

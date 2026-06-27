@@ -282,7 +282,7 @@ export default function ExpertsPartnersPage() {
         
         {/* Only show header if in 'main' view */}
         {view === "main" && (
-          <div className="pt-16 px-5 pb-8 shrink-0 bg-white z-20 flex items-center justify-center">
+          <div className="pt-6 px-5 pb-8 shrink-0 bg-white z-20 flex items-center justify-center">
             <img 
               src="/profile.png" 
               alt="Kalinq Logo" 

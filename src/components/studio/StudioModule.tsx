@@ -27,7 +27,7 @@ export default function StudioModule() {
     <div className="w-full max-w-md mx-auto h-full bg-white relative flex flex-col overflow-hidden font-sans">
       <div className="flex-1 flex flex-col overflow-y-auto overflow-x-hidden relative">
       {/* Header */}
-      <div className="px-6 pt-10 pb-4 z-10">
+      <div className="px-6 pt-4 pb-4 z-10">
         <button 
           onClick={() => router.back()}
           className="w-12 h-12 bg-[#fff0e5] text-[#EF4823] rounded-[16px] flex items-center justify-center transition-transform active:scale-95"
@@ -57,7 +57,7 @@ export default function StudioModule() {
       </div>
 
       {/* Bottom Area */}
-      <div className="px-6 pb-[120px] z-10 relative bg-gradient-to-t from-white via-white to-transparent pt-10">
+      <div className="px-6 pb-[120px] z-10 relative bg-gradient-to-t from-white via-white to-transparent pt-4">
         <h2 className="text-[20px] font-extrabold text-[#1a1a2e] text-center mb-6 tracking-tight">What can I help with?</h2>
         
         <div className="flex items-center justify-center gap-3 mb-6 overflow-x-auto no-scrollbar">

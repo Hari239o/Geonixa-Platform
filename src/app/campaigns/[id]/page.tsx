@@ -23,7 +23,7 @@ function CampaignDetailContent() {
  <div className="w-full max-w-md mx-auto min-h-screen bg-white pb-24 font-sans relative overflow-x-hidden">
  
  {/* Header */}
- <div className="px-4 sm:px-6 pt-10 pb-6 flex justify-start">
+ <div className="px-4 sm:px-6 pt-4 pb-6 flex justify-start">
  <button 
  onClick={() => router.back()}
  className="w-12 h-12 bg-orange-100/80 text-primary-red rounded-[16px] flex items-center justify-center transition-transform active:scale-95"
