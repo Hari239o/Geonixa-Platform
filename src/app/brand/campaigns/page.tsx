@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Search, Bell, MessageSquare, Plus, Wand2, Edit3, X } from "lucide-react"
+import { Search, Bell, MessageSquare, Plus, Wand2, Edit3, X, Lock, Globe } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 
 export default function CampaignDashboardPage() {
@@ -156,40 +156,66 @@ export default function CampaignDashboardPage() {
 
         {/* Create Menu Bottom Sheet Overlay */}
         {showCreateMenu && (
-          <div className="fixed inset-0 z-[100] flex flex-col justify-end items-center">
+          <div className="fixed inset-0 z-[110] flex flex-col justify-end items-center">
             <div className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onClick={() => setShowCreateMenu(false)}></div>
-            <div className="bg-white rounded-t-[24px] p-6 pb-10 w-full max-w-md relative z-10 animate-in slide-in-from-bottom-full duration-200 shadow-2xl">
-              <div className="flex justify-between items-center mb-6">
+            <div className="bg-white rounded-t-[24px] p-5 pb-8 w-full max-w-md relative z-10 animate-in slide-in-from-bottom-full duration-200 shadow-2xl">
+              <div className="flex justify-between items-center mb-5">
                 <h3 className="font-extrabold text-[18px] text-gray-800">Create Campaign</h3>
                 <button onClick={() => setShowCreateMenu(false)} className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
                   <X className="w-5 h-5" />
                 </button>
               </div>
               
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2.5">
                 <button 
                   onClick={() => router.push("/brand/campaigns/create/ai")}
-                  className="w-full bg-[#FAFAFA] border border-gray-100 p-4 rounded-[16px] flex items-center gap-4 hover:bg-orange-50/50 hover:border-orange-100 transition-colors group"
+                  className="w-full bg-[#FAFAFA] border border-gray-100 p-3 rounded-[16px] flex items-center gap-4 hover:bg-orange-50/50 hover:border-orange-100 transition-colors group"
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#EF4823]/10 flex items-center justify-center shrink-0">
-                    <Wand2 className="w-6 h-6 text-[#EF4823]" />
+                  <div className="w-10 h-10 rounded-full bg-[#EF4823]/10 flex items-center justify-center shrink-0">
+                    <Wand2 className="w-5 h-5 text-[#EF4823]" />
                   </div>
                   <div className="flex flex-col items-start text-left">
-                    <span className="font-bold text-[15px] text-gray-800 group-hover:text-[#EF4823] transition-colors">Create with AI</span>
-                    <span className="text-[12px] text-gray-400 font-medium">Use our smart assistant to build it</span>
+                    <span className="font-bold text-[14px] text-gray-800 group-hover:text-[#EF4823] transition-colors">Create with AI</span>
+                    <span className="text-[11px] text-gray-400 font-medium">Use our smart assistant to build it</span>
                   </div>
                 </button>
 
                 <button 
                   onClick={() => router.push("/brand/campaigns/create/manual")}
-                  className="w-full bg-[#FAFAFA] border border-gray-100 p-4 rounded-[16px] flex items-center gap-4 hover:bg-orange-50/50 hover:border-orange-100 transition-colors group"
+                  className="w-full bg-[#FAFAFA] border border-gray-100 p-3 rounded-[16px] flex items-center gap-4 hover:bg-orange-50/50 hover:border-orange-100 transition-colors group"
                 >
-                  <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center shrink-0">
-                    <Edit3 className="w-6 h-6 text-gray-500" />
+                  <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-[#EF4823]/10">
+                    <Edit3 className="w-5 h-5 text-gray-500 group-hover:text-[#EF4823]" />
                   </div>
                   <div className="flex flex-col items-start text-left">
-                    <span className="font-bold text-[15px] text-gray-800 group-hover:text-gray-900">Create Manual</span>
-                    <span className="text-[12px] text-gray-400 font-medium">Fill out the details yourself</span>
+                    <span className="font-bold text-[14px] text-gray-800 group-hover:text-gray-900">Create Manual</span>
+                    <span className="text-[11px] text-gray-400 font-medium">Fill out the details yourself</span>
+                  </div>
+                </button>
+                
+                <button 
+                  onClick={() => router.push("/brand/campaigns/create/manual?type=private")}
+                  className="w-full bg-[#FAFAFA] border border-gray-100 p-3 rounded-[16px] flex items-center gap-4 hover:bg-orange-50/50 hover:border-orange-100 transition-colors group"
+                >
+                  <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-[#EF4823]/10">
+                    <Lock className="w-5 h-5 text-gray-500 group-hover:text-[#EF4823]" />
+                  </div>
+                  <div className="flex flex-col items-start text-left">
+                    <span className="font-bold text-[14px] text-gray-800 group-hover:text-gray-900">Private Campaign</span>
+                    <span className="text-[11px] text-gray-400 font-medium">Invite specific creators only</span>
+                  </div>
+                </button>
+
+                <button 
+                  onClick={() => router.push("/brand/campaigns/create/manual?type=public")}
+                  className="w-full bg-[#FAFAFA] border border-gray-100 p-3 rounded-[16px] flex items-center gap-4 hover:bg-orange-50/50 hover:border-orange-100 transition-colors group"
+                >
+                  <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-[#EF4823]/10">
+                    <Globe className="w-5 h-5 text-gray-500 group-hover:text-[#EF4823]" />
+                  </div>
+                  <div className="flex flex-col items-start text-left">
+                    <span className="font-bold text-[14px] text-gray-800 group-hover:text-gray-900">Public Campaign</span>
+                    <span className="text-[11px] text-gray-400 font-medium">Open to all eligible creators</span>
                   </div>
                 </button>
               </div>
