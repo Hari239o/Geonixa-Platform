@@ -48,7 +48,7 @@ export default function BrandCompanySetupPage() {
 
   return (
     <div className="h-full bg-[#F8F9FA] font-sans flex justify-center overflow-hidden">
-      <div className="w-full max-w-md bg-white h-full shadow-sm relative pt-12 flex flex-col overflow-hidden">
+      <div className="w-full w-full bg-white h-full shadow-sm relative pt-12 flex flex-col overflow-hidden">
         <div className="flex-1 overflow-y-auto no-scrollbar px-6 pb-24 touch-pan-y">
         
         {/* Profile Logo Section */}

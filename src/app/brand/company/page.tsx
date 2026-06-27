@@ -50,7 +50,7 @@ export default function BrandCompanyDashboardPage() {
 
   return (
     <div className="h-full bg-black flex justify-center font-sans overflow-hidden">
-      <div className="w-full max-w-md bg-[#F8F9FA] h-full relative shadow-2xl flex flex-col overflow-hidden">
+      <div className="w-full w-full bg-[#F8F9FA] h-full relative shadow-2xl flex flex-col overflow-hidden">
         
         {/* Header Section */}
         <div className="pt-12 px-6 pb-6 bg-white rounded-b-[40px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] z-10 shrink-0 relative">
