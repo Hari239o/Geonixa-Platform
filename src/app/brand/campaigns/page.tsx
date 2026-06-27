@@ -156,12 +156,12 @@ export default function CampaignDashboardPage() {
 
         {/* Create Menu Bottom Sheet Overlay */}
         {showCreateMenu && (
-          <div className="absolute inset-0 z-50 flex flex-col justify-end">
-            <div className="absolute inset-0 bg-black/20 backdrop-blur-sm transition-opacity" onClick={() => setShowCreateMenu(false)}></div>
-            <div className="bg-white rounded-t-[24px] p-6 pb-12 w-full relative z-10 animate-in slide-in-from-bottom-full duration-200 shadow-2xl">
+          <div className="fixed inset-0 z-[100] flex flex-col justify-end items-center">
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onClick={() => setShowCreateMenu(false)}></div>
+            <div className="bg-white rounded-t-[24px] p-6 pb-10 w-full max-w-md relative z-10 animate-in slide-in-from-bottom-full duration-200 shadow-2xl">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="font-extrabold text-[18px] text-gray-800">Create Campaign</h3>
-                <button onClick={() => setShowCreateMenu(false)} className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-200">
+                <button onClick={() => setShowCreateMenu(false)} className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
                   <X className="w-5 h-5" />
                 </button>
               </div>
