@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect, useRef } from "react"
 import { Filter } from "lucide-react"
+import { useRouter } from "next/navigation"
 import BottomNav from "@/components/brand/BottomNav"
 
 export default function BrandWalletPage() {
+  const router = useRouter()
   const [showFilter, setShowFilter] = useState(false)
   const filterRef = useRef<HTMLDivElement>(null)
 
@@ -29,7 +31,7 @@ export default function BrandWalletPage() {
             <div className="flex flex-col">
               <h1 className="text-gray-800 font-extrabold text-[18px]">Hello Lorem,</h1>
               <p className="text-gray-400 text-[13px] font-medium mb-0.5">Your available balance</p>
-              <button className="text-[#EF4823] text-[11px] font-extrabold self-start text-left hover:underline">Withdraw</button>
+              <button onClick={() => router.push("/brand/wallet/withdraw")} className="text-[#EF4823] text-[11px] font-extrabold self-start text-left hover:underline">Withdraw</button>
             </div>
             <div className="text-[#EF4823] font-extrabold text-[32px] tracking-tight leading-none mt-1">
               ₹15,901
@@ -38,10 +40,10 @@ export default function BrandWalletPage() {
 
           {/* Red Dashboard Card */}
           <div className="bg-[#EF4823] rounded-[14px] text-white py-[18px] px-6 flex justify-between items-center shadow-md">
-            <div className="flex flex-col items-center">
+            <button onClick={() => router.push("/brand/wallet/add-funds")} className="flex flex-col items-center hover:opacity-80 transition-opacity">
               <span className="text-[22px] font-medium leading-none mb-1">+</span>
               <span className="text-[12px] font-medium opacity-90">Add Money</span>
-            </div>
+            </button>
             <div className="w-px h-[42px] bg-white/30"></div>
             <div className="flex flex-col items-center">
               <span className="text-[18px] font-bold leading-none mb-1.5 mt-0.5">₹20,890</span>
