@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Eye, EyeOff } from "lucide-react";
 
 export default function PartnerSignupStep1() {
   const router = useRouter();
@@ -15,7 +15,9 @@ export default function PartnerSignupStep1() {
     role: "",
     email: "",
     phoneNumber: "",
+    password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   // Load saved data from sessionStorage
   useEffect(() => {
@@ -40,11 +42,12 @@ export default function PartnerSignupStep1() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/auth/signup/partner/otp");
+    localStorage.setItem("userRole", "partner");
+    router.push("/partner");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col">
+    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col h-full overflow-y-auto no-scrollbar pb-10">
       
       <div className="flex flex-col gap-3">
         
@@ -121,14 +124,36 @@ export default function PartnerSignupStep1() {
           </div>
         </div>
 
+        {/* Password */}
+        <div className="flex flex-col gap-1.5">
+          <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Password</Label>
+          <div className="relative">
+            <Input 
+              required
+              type={showPassword ? "text" : "password"}
+              placeholder="••••••••" 
+              value={formData.password}
+              onChange={(e) => updateFormData({ password: e.target.value })}
+              className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm pr-10"
+            />
+            <button 
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none"
+            >
+              {showPassword ? <Eye className="w-[18px] h-[18px]" /> : <EyeOff className="w-[18px] h-[18px]" />}
+            </button>
+          </div>
+        </div>
+
       </div>
 
       <div className="mt-2 flex flex-col gap-4">
         <Button 
           type="submit" 
-          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98]"
+          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98] mt-2"
         >
-          Next
+          Sign Up
         </Button>
         
         <div className="relative flex items-center justify-center py-2">

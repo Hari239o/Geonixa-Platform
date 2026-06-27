@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ArrowLeft } from "lucide-react";
+import { ChevronDown, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 
 export default function CreatorSignupStep1() {
@@ -17,7 +17,9 @@ export default function CreatorSignupStep1() {
     category: "",
     creatorType: "",
     phoneNumber: "",
+    password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   // Load saved data from sessionStorage
   useEffect(() => {
@@ -40,11 +42,12 @@ export default function CreatorSignupStep1() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/auth/signup/creator/otp");
+    localStorage.setItem("userRole", "creator");
+    router.push("/creator");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full p-6 pb-12 flex flex-col min-h-max">
+    <form onSubmit={handleSubmit} className="w-full p-6 pb-12 flex flex-col min-h-max h-full overflow-y-auto no-scrollbar">
       
       <div className="flex flex-col gap-3">
         
@@ -143,14 +146,36 @@ export default function CreatorSignupStep1() {
           </div>
         </div>
 
+        {/* Password */}
+        <div className="flex flex-col gap-1">
+          <Label className="text-[11px] text-slate-500 font-normal ml-1">Password</Label>
+          <div className="relative">
+            <Input 
+              required
+              type={showPassword ? "text" : "password"}
+              placeholder="••••••••" 
+              value={formData.password}
+              onChange={(e) => updateFormData({ password: e.target.value })}
+              className="bg-[#F5F5F5] border-slate-200 rounded-xl h-10 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D] pr-10"
+            />
+            <button 
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none"
+            >
+              {showPassword ? <Eye className="w-[18px] h-[18px]" /> : <EyeOff className="w-[18px] h-[18px]" />}
+            </button>
+          </div>
+        </div>
+
       </div>
 
       <div className="mt-6 flex flex-col gap-3">
         <Button 
           type="submit" 
-          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-xl h-11 text-sm font-semibold shadow-md shadow-[#FF4D2D]/20"
+          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-xl h-11 text-sm font-semibold shadow-md shadow-[#FF4D2D]/20 mt-2"
         >
-          Next
+          Sign Up
         </Button>
         
         <div className="relative flex items-center justify-center py-2 mt-1">
