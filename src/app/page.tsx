@@ -32,16 +32,13 @@ export default function WelcomeAndSplashScreen() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, scale: 1.05 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="relative z-10 flex flex-row items-center justify-center min-h-[100dvh] w-full gap-2 sm:gap-3"
+              className="relative z-10 flex items-center justify-center min-h-[100dvh] w-full"
             >
               <img 
-                src="/logo.png" 
-                alt="Kalinq Logo Icon" 
-                className="h-12 w-12 sm:h-16 sm:w-16 object-contain" 
+                src="/profile.png" 
+                alt="Kalinq Logo" 
+                className="w-48 sm:w-56 h-auto object-contain filter brightness-0 invert drop-shadow-md" 
               />
-              <h1 className="text-[44px] sm:text-[56px] font-bold text-white tracking-wide font-space-grotesk mt-1 sm:mt-2">
-                Kalinq
-              </h1>
             </motion.div>
  ) : (
  /* --- WELCOME SCREEN --- */
