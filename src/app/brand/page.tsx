@@ -83,7 +83,7 @@ export default function BrandHomeFeedPage() {
         {/* Fixed Header */}
         <div className="pt-12 px-5 pb-4 shrink-0 bg-white z-20">
           <div className="flex justify-center mb-6 mt-2">
-            <img src="/Kalinq%20Orange%201.png" alt="Kalinq Logo" className="h-6 object-contain" />
+            <img src="/profile.png" alt="Kalinq Logo" className="h-6 object-contain" />
           </div>
 
           <div className="flex items-center gap-4 mb-6">
