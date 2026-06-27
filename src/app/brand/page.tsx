@@ -89,7 +89,7 @@ export default function BrandHomeFeedPage() {
           </div>
 
           <div className="flex items-center gap-4 mb-6">
-            <div className="flex-1 bg-gray-50/80 border border-gray-100 rounded-full h-11 flex items-center px-4">
+            <div className="flex-1 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-gray-100 rounded-full h-11 flex items-center px-4">
               <Search className="w-5 h-5 text-gray-400 mr-2" />
               <input 
                 type="text" 
@@ -97,7 +97,7 @@ export default function BrandHomeFeedPage() {
                 className="bg-transparent border-none outline-none text-sm w-full placeholder:text-gray-400 font-medium text-gray-700"
               />
             </div>
-            <button onClick={() => router.push('/brand/notifications')} className="relative w-11 h-11 rounded-full flex items-center justify-center bg-gray-50/80 border border-gray-100 shrink-0 hover:bg-gray-100 transition-colors">
+            <button onClick={() => router.push('/brand/notifications')} className="relative w-11 h-11 rounded-full flex items-center justify-center bg-white shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-gray-100 shrink-0 hover:bg-gray-50 transition-colors">
               <Bell className="w-5 h-5 text-gray-700" />
               <span className="absolute top-2.5 right-3 w-2 h-2 bg-[#EF4823] rounded-full border-2 border-white"></span>
             </button>
@@ -134,11 +134,11 @@ export default function BrandHomeFeedPage() {
               {/* Top White Section */}
               <div className="bg-white p-4 pb-3 flex gap-4 h-[126px] rounded-b-[20px] shadow-sm z-10">
                 {/* Profile Pic */}
-                <div className="w-[84px] h-[84px] rounded-[18px] bg-gray-200 overflow-hidden shrink-0 relative mt-1">
+                <div className="w-[84px] h-[84px] rounded-[18px] bg-gray-200 shrink-0 relative mt-1 shadow-[0_8px_16px_rgba(0,0,0,0.15)] z-20">
                   {creator.image ? (
-                    <img src={creator.image} alt={creator.name} className="object-cover w-full h-full" />
+                    <img src={creator.image} alt={creator.name} className="object-cover w-full h-full rounded-[18px]" />
                   ) : (
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Dummy" className="object-cover w-full h-full" />
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Dummy" className="object-cover w-full h-full rounded-[18px]" />
                   )}
                 </div>
                 
@@ -182,11 +182,20 @@ export default function BrandHomeFeedPage() {
 
         </div>
 
-        {/* Floating Banner */}
-        <div className="absolute bottom-20 left-0 w-full px-5 z-30 pointer-events-none">
-          <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-2xl p-4 flex items-center justify-between shadow-xl pointer-events-auto relative overflow-hidden">
+        </div>
+
+        {/* Inline Banner */}
+        <div className="w-full px-5 pb-[88px] pt-2 z-10 overflow-hidden">
+          <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-2xl p-4 flex items-center justify-between shadow-xl relative overflow-hidden">
             <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-xl"></div>
+            
+            {/* Transparent Kalinq pattern */}
+            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 opacity-10">
+              <svg width="120" height="120" viewBox="0 0 24 24" fill="white">
+                <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+              </svg>
+            </div>
             
             <div className="relative z-10 flex flex-col">
               <span className="text-white/90 text-[11px] font-medium leading-none mb-1">Find</span>

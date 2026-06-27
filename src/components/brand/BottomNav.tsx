@@ -26,8 +26,8 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-[100] h-16 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)] rounded-[32px] border border-gray-100/50">
-      <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium px-2">
+    <div className="fixed bottom-0 left-0 z-[100] w-full h-[68px] bg-white shadow-[0_-4px_25px_rgba(0,0,0,0.04)] border-t border-gray-100/50 pb-safe">
+      <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium px-2 pb-1">
         {navItems.map((item) => {
           const isCustomImage = typeof item.icon === "string";
           let isActive = pathname === item.href;
@@ -43,30 +43,32 @@ export default function BottomNav() {
             <Link 
               key={item.name} 
               href={item.href}
-              className={`inline-flex flex-col items-center justify-center hover:bg-gray-50/50 group rounded-2xl mx-1 my-1 ${
-                isActive ? "text-[#EF4823]" : "text-gray-400"
-              }`}
+              className={`inline-flex flex-col items-center justify-center group`}
             >
-              {isCustomImage ? (
-                <div 
-                  className={`w-[22px] h-[22px] transition-colors ${isActive ? "bg-[#EF4823]" : "bg-gray-400 group-hover:bg-[#EF4823]"}`}
-                  style={{
-                    WebkitMaskImage: `url(${item.icon})`,
-                    WebkitMaskSize: "contain",
-                    WebkitMaskRepeat: "no-repeat",
-                    WebkitMaskPosition: "center",
-                    maskImage: `url(${item.icon})`,
-                    maskSize: "contain",
-                    maskRepeat: "no-repeat",
-                    maskPosition: "center",
-                  }}
-                />
-              ) : (
-                <item.icon 
-                  className={`w-[22px] h-[22px] transition-colors ${isActive ? "text-[#EF4823]" : "text-gray-400 group-hover:text-[#EF4823]"}`} 
-                  strokeWidth={isActive ? 2.5 : 2} 
-                />
-              )}
+              <div className={`w-[46px] h-[46px] flex items-center justify-center rounded-[14px] transition-colors ${
+                isActive ? "bg-[#FEF5ED]" : "hover:bg-gray-50/50"
+              }`}>
+                {isCustomImage ? (
+                  <div 
+                    className={`w-[24px] h-[24px] transition-colors ${isActive ? "bg-[#EF4823]" : "bg-gray-400 group-hover:bg-[#EF4823]"}`}
+                    style={{
+                      WebkitMaskImage: `url(${item.icon})`,
+                      WebkitMaskSize: "contain",
+                      WebkitMaskRepeat: "no-repeat",
+                      WebkitMaskPosition: "center",
+                      maskImage: `url(${item.icon})`,
+                      maskSize: "contain",
+                      maskRepeat: "no-repeat",
+                      maskPosition: "center",
+                    }}
+                  />
+                ) : (
+                  <item.icon 
+                    className={`w-[24px] h-[24px] transition-colors ${isActive ? "text-[#EF4823]" : "text-gray-400 group-hover:text-[#EF4823]"}`} 
+                    strokeWidth={isActive ? 2.5 : 2} 
+                  />
+                )}
+              </div>
             </Link>
           );
         })}
