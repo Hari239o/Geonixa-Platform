@@ -31,7 +31,6 @@ export default function CreatorSignupStep3Socials() {
     setFormData((prev) => {
       const updated = { ...prev, ...data };
       sessionStorage.setItem("creatorSignupData", JSON.stringify(updated));
-      localStorage.setItem("creatorSignupData", JSON.stringify(updated));
       return updated;
     });
   };
