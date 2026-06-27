@@ -176,7 +176,6 @@ export default function BrandHomeFeedPage() {
                   <span className="text-[#EF4823] font-black text-[16px]">{creator.engagement}</span>
                   <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Avg Engagement</span>
                 </div>
-                </div>
               </div>
             </div>
           ))}
