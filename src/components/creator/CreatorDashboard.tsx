@@ -279,7 +279,7 @@ export default function CreatorDashboard() {
               <BadgeCheck className="w-[42px] h-[42px] text-[#EF4823] fill-[#EF4823] text-white mb-3" />
               <h2 className="text-[20px] font-black text-[#EF4823] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
               <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
-                Take A<br />Live Selfie Video
+                With Aadhar
               </p>
 
               <button 
@@ -296,7 +296,7 @@ export default function CreatorDashboard() {
                 className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
                 onClick={() => router.push('/kyc')}
               >
-                SUBMIT
+                VERIFY
               </button>
             </div>
           </div>
