@@ -3,38 +3,92 @@
 import React from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Home, Wallet, Wand2 } from 'lucide-react';
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   size?: string | number;
 }
 
 const CampaignIcon = (props: IconProps) => (
- <svg
- xmlns="http://www.w3.org/2000/svg"
- viewBox="0 0 24 24"
- fill="none"
- stroke="currentColor"
- strokeWidth={props.strokeWidth || 2}
- strokeLinecap="round"
- strokeLinejoin="round"
- width={props.size || 24}
- height={props.size || 24}
- className={props.className}
- {...props}
- >
- {/* Top Left: Circle */}
- <circle cx="7.5" cy="7.5" r="3.5" />
- 
- {/* Top Right: Triangle */}
- <path d="M16.5 3.5 L20.5 10.5 H12.5 Z" />
- 
- {/* Bottom Left: Sparkle / 4-point star */}
- <path d="M7.5 12.5 Q7.5 16.5 11.5 16.5 Q7.5 16.5 7.5 20.5 Q7.5 16.5 3.5 16.5 Q7.5 16.5 7.5 12.5 Z" />
- 
- {/* Bottom Right: Square */}
- <rect x="13.5" y="13.5" width="6" height="6" rx="1" />
- </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={props.strokeWidth || 2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    width={props.size || 24}
+    height={props.size || 24}
+    className={props.className}
+    {...props}
+  >
+    <circle cx="7.5" cy="7.5" r="3.5" />
+    <path d="M16.5 3.5 L20.5 10.5 H12.5 Z" />
+    <path d="M7.5 12.5 Q7.5 16.5 11.5 16.5 Q7.5 16.5 7.5 20.5 Q7.5 16.5 3.5 16.5 Q7.5 16.5 7.5 12.5 Z" />
+    <rect x="13.5" y="13.5" width="6" height="6" rx="1" />
+  </svg>
+);
+
+const HomeIcon = (props: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={props.strokeWidth || 2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    width={props.size || 24}
+    height={props.size || 24}
+    className={props.className}
+    {...props}
+  >
+    <path d="M5.5 11.5L10.5858 6.41421C11.3668 5.63316 12.6332 5.63316 13.4142 6.41421L18.5 11.5V16.5C18.5 17.8807 17.3807 19 16 19H8C6.61929 19 5.5 17.8807 5.5 16.5V11.5Z" />
+    <line x1="12" y1="13" x2="12" y2="16" />
+  </svg>
+);
+
+const WalletIcon = (props: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={props.strokeWidth || 2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    width={props.size || 24}
+    height={props.size || 24}
+    className={props.className}
+    {...props}
+  >
+    <path d="M5 8.5C5 7.11929 6.11929 6 7.5 6H13C13.5523 6 14 6.44772 14 7V8.5" />
+    <path d="M14 8.5H5V17.5C5 18.8807 6.11929 20 7.5 20H16.5C17.8807 20 19 18.8807 19 17.5V11C19 9.61929 17.8807 8.5 16.5 8.5H14" />
+    <line x1="9" y1="13" x2="13" y2="13" />
+    <path d="M19 12.5H17C16.4477 12.5 16 12.9477 16 13.5C16 14.0523 16.4477 14.5 17 14.5H19" />
+  </svg>
+);
+
+const AIIcon = (props: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={props.strokeWidth || 2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    width={props.size || 24}
+    height={props.size || 24}
+    className={props.className}
+    {...props}
+  >
+    <path d="M8 18L17 9C17.828 8.172 17.828 6.828 17 6L16 5C15.172 4.172 13.828 4.172 13 5L4 14C3.172 14.828 3.172 16.172 4 17L5 18C5.828 18.828 7.172 18.828 8 18Z" />
+    <line x1="12.5" y1="5.5" x2="16.5" y2="9.5" />
+    <path d="M10 3 Q10 5.5 12.5 5.5 Q10 5.5 10 8 Q10 5.5 7.5 5.5 Q10 5.5 10 3 Z" fill="currentColor" stroke="none" />
+    <path d="M18 4 Q18 6 20 6 Q18 6 18 8 Q18 6 16 6 Q18 6 18 4 Z" fill="currentColor" stroke="none" />
+    <path d="M17 14 Q17 16 19 16 Q17 16 17 18 Q17 16 15 16 Q17 16 17 14 Z" fill="currentColor" stroke="none" />
+  </svg>
 );
 
 interface BottomNavProps {
@@ -45,12 +99,12 @@ export default function BottomNav({ profilePic = '/profile_pic.png' }: BottomNav
  const router = useRouter();
  const pathname = usePathname();
 
- const navItems = [
- { name: 'Home', path: '/home', icon: Home },
- { name: 'Wallet', path: '/wallet', icon: Wallet },
- { name: 'Campaign', path: '/campaigns', icon: CampaignIcon },
- { name: 'AI', path: '/ai', icon: Wand2 },
- ];
+  const navItems = [
+    { name: 'Home', path: '/home', icon: HomeIcon },
+    { name: 'Wallet', path: '/wallet', icon: WalletIcon },
+    { name: 'Campaign', path: '/campaigns', icon: CampaignIcon },
+    { name: 'AI', path: '/ai', icon: AIIcon },
+  ];
 
  return (
  <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-100 flex justify-between items-center px-6 py-4 z-50 rounded-t-3xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
