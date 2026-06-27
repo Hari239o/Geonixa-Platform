@@ -5,12 +5,14 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Eye, EyeOff } from "lucide-react";
+import { ChevronDown, Eye, EyeOff, X } from "lucide-react";
 import { signIn } from "next-auth/react";
 
 export default function CreatorSignupStep1() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [otp, setOtp] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -40,161 +42,230 @@ export default function CreatorSignupStep1() {
     });
   };
 
+  const handleSendOtp = () => {
+    if (!formData.phoneNumber) return;
+    setShowOtpModal(true);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem("userRole", "creator");
-    router.push("/creator");
+    setShowOtpModal(true);
+  };
+
+  const handleVerifyAndSignup = () => {
+    if (otp.length === 6) {
+      setShowOtpModal(false);
+      localStorage.setItem("userRole", "creator");
+      router.push("/creator");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full p-6 pb-12 flex flex-col min-h-max">
-      <div className="flex flex-col gap-3">
-        {/* Name Fields */}
-        <div className="flex gap-4">
-          <div className="flex-1 flex flex-col gap-1">
-            <Label className="text-[11px] text-slate-500 font-normal ml-1">First Name</Label>
+    <>
+      <form onSubmit={handleSubmit} className="w-full p-6 pb-12 flex flex-col min-h-max">
+        <div className="flex flex-col gap-3">
+          {/* Name Fields */}
+          <div className="flex gap-4">
+            <div className="flex-1 flex flex-col gap-1">
+              <Label className="text-[11px] text-slate-500 font-normal ml-1">First Name</Label>
+              <Input 
+                required
+                placeholder="First Name" 
+                value={formData.firstName}
+                onChange={(e) => updateFormData({ firstName: e.target.value })}
+                className="bg-[#F5F5F5] border-slate-200 rounded-xl h-10 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D]"
+              />
+            </div>
+            <div className="flex-1 flex flex-col gap-1">
+              <Label className="text-[11px] text-slate-500 font-normal ml-1">Last Name</Label>
+              <Input 
+                required
+                placeholder="Last Name" 
+                value={formData.lastName}
+                onChange={(e) => updateFormData({ lastName: e.target.value })}
+                className="bg-[#F5F5F5] border-slate-200 rounded-xl h-10 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D]"
+              />
+            </div>
+          </div>
+
+          {/* Email */}
+          <div className="flex flex-col gap-1">
+            <Label className="text-[11px] text-slate-500 font-normal ml-1">Email</Label>
             <Input 
               required
-              placeholder="First Name" 
-              value={formData.firstName}
-              onChange={(e) => updateFormData({ firstName: e.target.value })}
+              type="email"
+              placeholder="Loisbecket@gmail.com" 
+              value={formData.email}
+              onChange={(e) => updateFormData({ email: e.target.value })}
               className="bg-[#F5F5F5] border-slate-200 rounded-xl h-10 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D]"
             />
           </div>
-          <div className="flex-1 flex flex-col gap-1">
-            <Label className="text-[11px] text-slate-500 font-normal ml-1">Last Name</Label>
-            <Input 
-              required
-              placeholder="Last Name" 
-              value={formData.lastName}
-              onChange={(e) => updateFormData({ lastName: e.target.value })}
-              className="bg-[#F5F5F5] border-slate-200 rounded-xl h-10 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D]"
-            />
+
+          {/* Category Dropdown */}
+          <div className="flex flex-col gap-1 relative">
+            <Label className="text-[11px] text-slate-500 font-normal ml-1">Type of Category</Label>
+            <div className="relative">
+              <select
+                required
+                value={formData.category}
+                onChange={(e) => updateFormData({ category: e.target.value })}
+                className="w-full bg-[#F5F5F5] border border-slate-200 rounded-xl h-10 px-3 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#FF4D2D]/20 focus:border-[#FF4D2D]"
+              >
+                <option value="" disabled hidden>Select Category</option>
+                <option value="fashion">Fashion & Style</option>
+                <option value="tech">Technology</option>
+                <option value="lifestyle">Lifestyle</option>
+                <option value="food">Food & Beverage</option>
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+            </div>
+          </div>
+
+          {/* Creator Type Dropdown */}
+          <div className="flex flex-col gap-1 relative">
+            <Label className="text-[11px] text-slate-500 font-normal ml-1">Type of Creator</Label>
+            <div className="relative">
+              <select
+                required
+                value={formData.creatorType}
+                onChange={(e) => updateFormData({ creatorType: e.target.value })}
+                className="w-full bg-[#F5F5F5] border border-slate-200 rounded-xl h-10 px-3 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#FF4D2D]/20 focus:border-[#FF4D2D]"
+              >
+                <option value="" disabled hidden>Select Creator Type</option>
+                <option value="ugc">User Generated Content</option>
+                <option value="influencer">Influencer</option>
+                <option value="streamer">Streamer</option>
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+            </div>
+          </div>
+
+          {/* Password */}
+          <div className="flex flex-col gap-1 relative">
+            <Label className="text-[11px] text-slate-500 font-normal ml-1">Password</Label>
+            <div className="relative">
+              <Input 
+                required
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••" 
+                value={formData.password}
+                onChange={(e) => updateFormData({ password: e.target.value })}
+                className="bg-[#F5F5F5] border-slate-200 rounded-xl h-10 pr-10 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D]"
+              />
+              <button 
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#FF4D2D] focus:outline-none transition-colors"
+              >
+                {showPassword ? <Eye className="w-[18px] h-[18px]" /> : <EyeOff className="w-[18px] h-[18px]" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Phone Number */}
+          <div className="flex flex-col gap-1">
+            <Label className="text-[11px] text-slate-500 font-normal ml-1">Phone Number</Label>
+            <div className="flex w-full bg-[#F5F5F5] border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#FF4D2D]/20 focus-within:border-[#FF4D2D] transition-all">
+              <div className="flex items-center justify-center px-3 border-r border-slate-200 gap-1.5">
+                <span className="text-base">🇮🇳</span>
+                <ChevronDown className="w-3 h-3 text-slate-500" />
+              </div>
+              <Input 
+                required
+                type="tel"
+                placeholder="(+91) 000-000-0000" 
+                value={formData.phoneNumber}
+                onChange={(e) => updateFormData({ phoneNumber: e.target.value })}
+                className="border-none bg-transparent rounded-none h-10 focus-visible:ring-0 shadow-none px-3 w-full"
+              />
+            </div>
+            {formData.phoneNumber && (
+              <Button 
+                type="button" 
+                onClick={handleSendOtp}
+                className="mt-1.5 bg-[#F5F5F5] text-slate-600 border border-slate-200 hover:bg-slate-100 rounded-xl h-8 text-[12px] font-medium self-end px-4 transition-colors shadow-sm"
+              >
+                Send OTP
+              </Button>
+            )}
           </div>
         </div>
 
-        {/* Email */}
-        <div className="flex flex-col gap-1">
-          <Label className="text-[11px] text-slate-500 font-normal ml-1">Email</Label>
-          <Input 
-            required
-            type="email"
-            placeholder="Loisbecket@gmail.com" 
-            value={formData.email}
-            onChange={(e) => updateFormData({ email: e.target.value })}
-            className="bg-[#F5F5F5] border-slate-200 rounded-xl h-10 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D]"
-          />
-        </div>
-
-        {/* Category Dropdown */}
-        <div className="flex flex-col gap-1 relative">
-          <Label className="text-[11px] text-slate-500 font-normal ml-1">Type of Category</Label>
-          <div className="relative">
-            <select
-              required
-              value={formData.category}
-              onChange={(e) => updateFormData({ category: e.target.value })}
-              className="w-full bg-[#F5F5F5] border border-slate-200 rounded-xl h-10 px-3 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#FF4D2D]/20 focus:border-[#FF4D2D]"
-            >
-              <option value="" disabled hidden>Select Category</option>
-              <option value="fashion">Fashion & Style</option>
-              <option value="tech">Technology</option>
-              <option value="lifestyle">Lifestyle</option>
-              <option value="food">Food & Beverage</option>
-            </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+        <div className="mt-6 flex flex-col gap-3">
+          <Button 
+            type="submit" 
+            className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-xl h-11 text-sm font-semibold shadow-md shadow-[#FF4D2D]/20"
+          >
+            Sign Up
+          </Button>
+          
+          <div className="relative flex items-center justify-center py-2 mt-1">
+            <div className="absolute border-t border-slate-200 w-full"></div>
+            <span className="bg-white px-4 text-[11px] text-slate-400 relative z-10 capitalize tracking-wide font-medium">Or</span>
           </div>
-        </div>
 
-        {/* Creator Type Dropdown */}
-        <div className="flex flex-col gap-1 relative">
-          <Label className="text-[11px] text-slate-500 font-normal ml-1">Type of Creator</Label>
-          <div className="relative">
-            <select
-              required
-              value={formData.creatorType}
-              onChange={(e) => updateFormData({ creatorType: e.target.value })}
-              className="w-full bg-[#F5F5F5] border border-slate-200 rounded-xl h-10 px-3 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#FF4D2D]/20 focus:border-[#FF4D2D]"
-            >
-              <option value="" disabled hidden>Select Creator Type</option>
-              <option value="ugc">User Generated Content</option>
-              <option value="influencer">Influencer</option>
-              <option value="streamer">Streamer</option>
-            </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-          </div>
+          <Button 
+            type="button" 
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            variant="outline"
+            className="w-full bg-white border-slate-200 hover:bg-slate-50 rounded-xl h-11 text-sm font-medium flex items-center justify-center gap-2 shadow-sm"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            Sign up with Google
+          </Button>
         </div>
+      </form>
 
-        {/* Password */}
-        <div className="flex flex-col gap-1 relative">
-          <Label className="text-[11px] text-slate-500 font-normal ml-1">Password</Label>
-          <div className="relative">
-            <Input 
-              required
-              type={showPassword ? "text" : "password"}
-              placeholder="••••••••" 
-              value={formData.password}
-              onChange={(e) => updateFormData({ password: e.target.value })}
-              className="bg-[#F5F5F5] border-slate-200 rounded-xl h-10 pr-10 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D]"
-            />
+      {/* OTP Modal */}
+      {showOtpModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-[24px] p-8 w-full max-w-sm flex flex-col items-center relative shadow-2xl animate-in zoom-in-95 duration-200">
             <button 
               type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#FF4D2D] focus:outline-none transition-colors"
+              onClick={() => setShowOtpModal(false)}
+              className="absolute top-5 right-5 text-slate-400 hover:text-slate-700 transition-colors p-1"
             >
-              {showPassword ? <Eye className="w-[18px] h-[18px]" /> : <EyeOff className="w-[18px] h-[18px]" />}
+              <X className="w-5 h-5" />
             </button>
-          </div>
-        </div>
-
-        {/* Phone Number */}
-        <div className="flex flex-col gap-1">
-          <Label className="text-[11px] text-slate-500 font-normal ml-1">Phone Number</Label>
-          <div className="flex w-full bg-[#F5F5F5] border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#FF4D2D]/20 focus-within:border-[#FF4D2D] transition-all">
-            <div className="flex items-center justify-center px-3 border-r border-slate-200 gap-1.5">
-              <span className="text-base">🇮🇳</span>
-              <ChevronDown className="w-3 h-3 text-slate-500" />
+            
+            <div className="w-14 h-14 bg-[#FF4D2D]/10 rounded-full flex items-center justify-center mb-5">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF4D2D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
             </div>
+            
+            <h3 className="text-[22px] font-bold text-slate-800 mb-2">Verify Phone</h3>
+            <p className="text-[14px] text-slate-500 text-center mb-6 leading-relaxed px-4">
+              We've sent a 6-digit code to<br/><span className="font-semibold text-slate-800">{formData.phoneNumber || "your number"}</span>
+            </p>
+            
             <Input 
-              required
-              type="tel"
-              placeholder="(+91) 000-000-0000" 
-              value={formData.phoneNumber}
-              onChange={(e) => updateFormData({ phoneNumber: e.target.value })}
-              className="border-none bg-transparent rounded-none h-10 focus-visible:ring-0 shadow-none px-3"
+              type="text" 
+              maxLength={6}
+              placeholder="••••••"
+              className="w-full h-[60px] text-center tracking-[0.5em] font-bold text-2xl rounded-2xl bg-slate-50 border-slate-200 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-[#FF4D2D] focus-visible:border-transparent mb-6 transition-all" 
+              value={otp}
+              onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
             />
+            
+            <Button 
+              type="button"
+              onClick={handleVerifyAndSignup}
+              disabled={otp.length !== 6}
+              className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl h-12 text-sm font-semibold shadow-md shadow-[#FF4D2D]/20 transition-all"
+            >
+              Verify & Sign Up
+            </Button>
+            
+            <p className="text-[13px] text-slate-500 mt-6">
+              Didn't receive the code? <button type="button" className="text-[#FF4D2D] font-semibold hover:underline">Resend</button>
+            </p>
           </div>
         </div>
-      </div>
-
-      <div className="mt-6 flex flex-col gap-3">
-        <Button 
-          type="submit" 
-          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-xl h-11 text-sm font-semibold shadow-md shadow-[#FF4D2D]/20"
-        >
-          Sign Up
-        </Button>
-        
-        <div className="relative flex items-center justify-center py-2 mt-1">
-          <div className="absolute border-t border-slate-200 w-full"></div>
-          <span className="bg-white px-4 text-[11px] text-slate-400 relative z-10 capitalize tracking-wide font-medium">Or</span>
-        </div>
-
-        <Button 
-          type="button" 
-          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-          variant="outline"
-          className="w-full bg-white border-slate-200 hover:bg-slate-50 rounded-xl h-11 text-sm font-medium flex items-center justify-center gap-2 shadow-sm"
-        >
-          <svg className="w-5 h-5" viewBox="0 0 24 24">
-            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-          </svg>
-          Sign up with Google
-        </Button>
-      </div>
-    </form>
+      )}
+    </>
   );
 }
