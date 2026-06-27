@@ -180,12 +180,8 @@ export default function BrandHomeFeedPage() {
             </div>
           ))}
 
-        </div>
-
-        </div>
-
         {/* Inline Banner */}
-        <div className="w-full px-5 pb-[88px] pt-2 z-10 overflow-hidden">
+        <div className="w-full pb-[88px] pt-2 z-10 shrink-0">
           <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-2xl p-4 flex items-center justify-between shadow-xl relative overflow-hidden">
             <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-xl"></div>
@@ -207,6 +203,7 @@ export default function BrandHomeFeedPage() {
           </div>
         </div>
 
+        </div>
       </div>
       
       <BottomNav />
