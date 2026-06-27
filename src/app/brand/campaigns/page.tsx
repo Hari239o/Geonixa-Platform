@@ -73,11 +73,11 @@ export default function CampaignDashboardPage() {
                 className="bg-transparent border-none outline-none text-sm w-full placeholder:text-gray-400 font-medium text-gray-700"
               />
             </div>
-            <button className="relative p-2 text-gray-400 hover:text-gray-600">
+            <button onClick={() => router.push('/brand/campaigns/requests')} className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
               <MessageSquare className="w-6 h-6" />
               <span className="absolute top-2 right-2 w-2 h-2 bg-[#EF4823] rounded-full border border-white"></span>
             </button>
-            <button className="relative p-2 text-gray-400 hover:text-gray-600">
+            <button onClick={() => router.push('/brand/notifications')} className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
               <Bell className="w-6 h-6" />
               <span className="absolute top-2 right-2 w-2 h-2 bg-[#EF4823] rounded-full border border-white"></span>
             </button>
