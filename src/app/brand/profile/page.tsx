@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe } from "lucide-react"
+import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe, Trash2 } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 
 export default function BrandDashboardPage() {
@@ -48,6 +48,12 @@ export default function BrandDashboardPage() {
       }
       reader.readAsDataURL(file)
     })
+  }
+
+  const handleDeletePortfolioImage = (index: number) => {
+    const updatedImages = portfolioImages.filter((_, i) => i !== index)
+    setPortfolioImages(updatedImages)
+    localStorage.setItem("kaling_brand_portfolio", JSON.stringify(updatedImages))
   }
 
   return (
@@ -178,6 +184,12 @@ export default function BrandDashboardPage() {
                     <div key={i} className="rounded-2xl overflow-hidden shadow-sm relative group aspect-[154/178]">
                       {/* Using standard img for data URLs to avoid next/image domain strictness */}
                       <img src={src} alt="Portfolio item" className="w-full h-full object-cover" />
+                      <button 
+                        onClick={() => handleDeletePortfolioImage(i)}
+                        className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow-md text-[#EF4823]"
+                      >
+                        <Trash2 size={14} />
+                      </button>
                     </div>
                   ))}
                 </div>

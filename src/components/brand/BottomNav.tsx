@@ -11,12 +11,21 @@ export default function BottomNav() {
   const { data: session } = useSession();
 
   const [profileUrl, setProfileUrl] = React.useState("/brand/profile");
+  const [localProfilePic, setLocalProfilePic] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const type = localStorage.getItem("brandType");
     if (type === "company") {
       setProfileUrl("/brand/company");
     }
+
+    try {
+      const saved = localStorage.getItem("kaling_brand_profile");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.profilePic) setLocalProfilePic(parsed.profilePic);
+      }
+    } catch (e) {}
   }, []);
 
   const navItems = [
@@ -58,9 +67,9 @@ export default function BottomNav() {
                       isActive ? "" : "grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100"
                     }`}
                   />
-                ) : item.name === "Profile" && session?.user?.image ? (
+                ) : item.name === "Profile" && (localProfilePic || session?.user?.image) ? (
                   <img 
-                    src={session.user.image} 
+                    src={localProfilePic || session?.user?.image!} 
                     alt="Profile" 
                     className={`w-[32px] h-[32px] rounded-full object-cover transition-all ${
                       isActive ? "border-[2.5px] border-[#EF4823]" : "opacity-80 group-hover:opacity-100"
