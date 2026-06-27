@@ -80,7 +80,7 @@ export default function BrandHomeFeedPage() {
 
   return (
     <div className="h-full bg-[#F8F9FA] font-sans flex justify-center overflow-hidden">
-      <div className="w-full max-w-md bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
+      <div className="w-full w-full bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
         
         {/* Fixed Header */}
         <div className="pt-12 px-5 pb-4 shrink-0 bg-white z-20">

@@ -45,20 +45,20 @@ export default function BottomNav() {
               href={item.href}
               className={`inline-flex flex-col items-center justify-center group`}
             >
-              <div className={`w-[46px] h-[46px] flex items-center justify-center rounded-[14px] transition-colors ${
+              <div className={`w-[48px] h-[48px] flex items-center justify-center rounded-[16px] transition-colors ${
                 isActive ? "bg-[#FEF5ED]" : "hover:bg-gray-50/50"
               }`}>
                 {isCustomImage ? (
                   <img 
                     src={item.icon as string}
                     alt={item.name}
-                    className={`w-[24px] h-[24px] object-contain transition-all ${
+                    className={`w-[32px] h-[32px] object-contain transition-all ${
                       isActive ? "" : "grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100"
                     }`}
                   />
                 ) : (
                   <item.icon 
-                    className={`w-[24px] h-[24px] transition-colors ${isActive ? "text-[#EF4823]" : "text-gray-400 group-hover:text-[#EF4823]"}`} 
+                    className={`w-[26px] h-[26px] transition-colors ${isActive ? "text-[#EF4823]" : "text-gray-400 group-hover:text-[#EF4823]"}`} 
                     strokeWidth={isActive ? 2.5 : 2} 
                   />
                 )}

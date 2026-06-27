@@ -60,7 +60,7 @@ export default function CampaignDashboardPage() {
 
   return (
     <div className="h-full bg-[#F8F9FA] font-sans flex justify-center overflow-hidden">
-      <div className="w-full max-w-md bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
+      <div className="w-full w-full bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
         
         {/* Fixed Header */}
         <div className="pt-12 px-5 pb-4 shrink-0 bg-white z-20">
@@ -158,7 +158,7 @@ export default function CampaignDashboardPage() {
         {showCreateMenu && (
           <div className="fixed inset-0 z-[110] flex flex-col justify-end items-center">
             <div className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onClick={() => setShowCreateMenu(false)}></div>
-            <div className="bg-white rounded-t-[24px] p-5 pb-8 w-full max-w-md relative z-10 animate-in slide-in-from-bottom-full duration-200 shadow-2xl">
+            <div className="bg-white rounded-t-[24px] p-5 pb-8 w-full w-full relative z-10 animate-in slide-in-from-bottom-full duration-200 shadow-2xl">
               <div className="flex justify-between items-center mb-5">
                 <h3 className="font-extrabold text-[18px] text-gray-800">Create Campaign</h3>
                 <button onClick={() => setShowCreateMenu(false)} className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">

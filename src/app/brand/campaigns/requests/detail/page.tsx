@@ -18,7 +18,7 @@ export default function RequestDetailPage() {
 
   return (
     <div className="h-full bg-white font-sans flex justify-center overflow-hidden">
-      <div className="w-full max-w-md bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
+      <div className="w-full w-full bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
         
         {/* Header with Accept / Reject */}
         <div className="pt-12 px-5 pb-4 shrink-0 bg-white z-20 flex items-center justify-between">

@@ -20,7 +20,7 @@ export default function CampaignRequestsPage() {
 
   return (
     <div className="h-full bg-white font-sans flex justify-center overflow-hidden">
-      <div className="w-full max-w-md bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
+      <div className="w-full w-full bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
         
         {/* Header */}
         <div className="pt-12 px-5 pb-6 shrink-0 z-20 bg-white flex items-center justify-between">
