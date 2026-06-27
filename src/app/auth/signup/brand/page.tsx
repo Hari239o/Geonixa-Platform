@@ -1,18 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Eye, EyeOff, X } from "lucide-react";
+import { ChevronDown, Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 
 export default function BrandSignupStep1() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showOtpModal, setShowOtpModal] = useState(false);
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
   const [formData, setFormData] = useState({
     brandName: "",
     email: "",
@@ -51,10 +53,40 @@ export default function BrandSignupStep1() {
   };
 
   const handleVerifyAndSignup = () => {
-    if (otp.length === 6) {
+    if (otp.join("").length === 6) {
       setShowOtpModal(false);
       localStorage.setItem("userRole", "brand");
       router.push("/brand");
+    }
+  };
+
+  const handleOtpChange = (index: number, value: string) => {
+    if (value.length > 1) {
+      // Handle paste
+      const pasted = value.slice(0, 6).split("");
+      const newOtp = [...otp];
+      pasted.forEach((char, i) => {
+        if (index + i < 6) newOtp[index + i] = char;
+      });
+      setOtp(newOtp);
+      const focusIndex = Math.min(index + pasted.length, 5);
+      inputRefs.current[focusIndex]?.focus();
+      return;
+    }
+
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // Focus next
+    if (value !== "" && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleOtpKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace" && otp[index] === "" && index > 0) {
+      inputRefs.current[index - 1]?.focus();
     }
   };
 
@@ -168,48 +200,53 @@ export default function BrandSignupStep1() {
         </div>
       </form>
 
-      {/* OTP Modal */}
+      {/* OTP Modal exactly matching the provided design */}
       {showOtpModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-          <div className="bg-white rounded-[24px] p-8 w-full max-w-sm flex flex-col items-center relative shadow-2xl animate-in zoom-in-95 duration-200">
-            <button 
-              type="button"
-              onClick={() => setShowOtpModal(false)}
-              className="absolute top-5 right-5 text-[#A0A0A0] hover:text-[#333333] transition-colors p-1"
-            >
-              <X className="w-5 h-5" />
-            </button>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/20 backdrop-blur-[2px] animate-in fade-in duration-200">
+          <div className="bg-white rounded-[20px] pt-8 pb-6 px-6 w-full max-w-[340px] flex flex-col items-center relative shadow-[0_10px_40px_rgba(0,0,0,0.1)] animate-in zoom-in-95 duration-200">
             
-            <div className="w-14 h-14 bg-[#FF4D2D]/10 rounded-full flex items-center justify-center mb-5">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF4D2D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+            {/* Click outside to close (optional, but good UX). Not adding X per design. */}
+            {/* If they want to close it, clicking outside is standard, but let's just add a small X top right just in case, or leave it out if they want exact design. The design image does not have an X. So I will rely on clicking outside to close. */}
+            <div 
+              className="absolute inset-0 -z-10" 
+              onClick={() => setShowOtpModal(false)}
+            />
+
+            <h3 className="text-[17px] font-bold text-[#111111] mb-5">OTP Verification</h3>
+            
+            <div className="flex flex-col items-center mb-6">
+              <p className="text-[13px] text-[#666666]">We have sent a verification code to</p>
+              <p className="text-[14px] font-bold text-[#111111] mt-1">{formData.phoneNumber || "+91 0000000000"}</p>
             </div>
             
-            <h3 className="text-[22px] font-bold text-[#333333] mb-2">Verify Phone</h3>
-            <p className="text-[14px] text-[#A0A0A0] text-center mb-6 leading-relaxed px-4">
-              We've sent a 6-digit code to<br/><span className="font-semibold text-[#333333]">{formData.phoneNumber || "your number"}</span>
-            </p>
+            <div className="flex gap-2 mb-6 w-full justify-center">
+              {otp.map((digit, idx) => (
+                <input 
+                  key={idx}
+                  ref={(el) => { inputRefs.current[idx] = el; }}
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={1}
+                  value={digit}
+                  onChange={(e) => handleOtpChange(idx, e.target.value.replace(/\D/g, ''))}
+                  onKeyDown={(e) => handleOtpKeyDown(idx, e)}
+                  className="w-10 h-11 sm:w-11 sm:h-12 text-center text-xl font-semibold text-[#111111] rounded-[10px] border border-[#E0E0E0] bg-transparent focus:border-[#FF4D2D] focus:ring-1 focus:ring-[#FF4D2D] focus:outline-none transition-all shadow-sm"
+                />
+              ))}
+            </div>
             
-            <Input 
-              type="text" 
-              maxLength={6}
-              placeholder="••••••"
-              className="w-full h-[60px] text-center tracking-[0.5em] font-bold text-2xl rounded-[16px] bg-[#F8F8F8] border-transparent focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-[#FF4D2D] focus-visible:border-transparent mb-6 transition-all" 
-              value={otp}
-              onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
-            />
+            <p className="text-[13px] text-[#666666] mb-6">
+              Resend OTP in 30
+            </p>
             
             <Button 
               type="button"
               onClick={handleVerifyAndSignup}
-              disabled={otp.length !== 6}
-              className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all"
+              disabled={otp.join("").length !== 6}
+              className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-[12px] h-[50px] text-[15px] font-medium transition-all"
             >
-              Verify & Sign Up
+              Next
             </Button>
-            
-            <p className="text-[13px] text-[#A0A0A0] mt-6">
-              Didn't receive the code? <button type="button" className="text-[#FF4D2D] font-semibold hover:underline">Resend</button>
-            </p>
           </div>
         </div>
       )}
