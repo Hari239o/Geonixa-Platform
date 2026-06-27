@@ -125,25 +125,6 @@ export default function CreatorSignupStep1() {
           </div>
         </div>
 
-        {/* Phone Number */}
-        <div className="flex flex-col gap-1">
-          <Label className="text-[11px] text-slate-500 font-normal ml-1">Phone Number</Label>
-          <div className="flex w-full bg-[#F5F5F5] border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#FF4D2D]/20 focus-within:border-[#FF4D2D] transition-all">
-            <div className="flex items-center justify-center px-3 border-r border-slate-200 gap-1.5">
-              <span className="text-base">🇮🇳</span>
-              <ChevronDown className="w-3 h-3 text-slate-500" />
-            </div>
-            <Input 
-              required
-              type="tel"
-              placeholder="(+91) 000-000-0000" 
-              value={formData.phoneNumber}
-              onChange={(e) => updateFormData({ phoneNumber: e.target.value })}
-              className="border-none bg-transparent rounded-none h-10 focus-visible:ring-0 shadow-none px-3"
-            />
-          </div>
-        </div>
-
         {/* Password */}
         <div className="flex flex-col gap-1 relative">
           <Label className="text-[11px] text-slate-500 font-normal ml-1">Password</Label>
@@ -163,6 +144,25 @@ export default function CreatorSignupStep1() {
             >
               {showPassword ? <Eye className="w-[18px] h-[18px]" /> : <EyeOff className="w-[18px] h-[18px]" />}
             </button>
+          </div>
+        </div>
+
+        {/* Phone Number */}
+        <div className="flex flex-col gap-1">
+          <Label className="text-[11px] text-slate-500 font-normal ml-1">Phone Number</Label>
+          <div className="flex w-full bg-[#F5F5F5] border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#FF4D2D]/20 focus-within:border-[#FF4D2D] transition-all">
+            <div className="flex items-center justify-center px-3 border-r border-slate-200 gap-1.5">
+              <span className="text-base">🇮🇳</span>
+              <ChevronDown className="w-3 h-3 text-slate-500" />
+            </div>
+            <Input 
+              required
+              type="tel"
+              placeholder="(+91) 000-000-0000" 
+              value={formData.phoneNumber}
+              onChange={(e) => updateFormData({ phoneNumber: e.target.value })}
+              className="border-none bg-transparent rounded-none h-10 focus-visible:ring-0 shadow-none px-3"
+            />
           </div>
         </div>
       </div>
