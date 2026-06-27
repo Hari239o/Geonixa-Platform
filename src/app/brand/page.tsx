@@ -83,9 +83,9 @@ export default function BrandHomeFeedPage() {
       <div className="w-full w-full bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
         
         {/* Fixed Header */}
-        <div className="pt-5 px-5 pb-4 shrink-0 bg-white z-20">
-          <div className="flex justify-center mb-6 mt-2">
-            <img src="/profile.png" alt="Kalinq Logo" className="w-[142px] h-[70px] object-contain" />
+        <div className="pt-4 px-5 pb-4 shrink-0 bg-white z-20">
+          <div className="flex justify-center mb-4">
+            <img src="/profile.png" alt="Kalinq Logo" className="w-[120px] h-auto object-contain" />
           </div>
 
           <div className="flex items-center gap-4 mb-6">
@@ -180,9 +180,9 @@ export default function BrandHomeFeedPage() {
             </div>
           ))}
 
-        {/* Inline Banner */}
-        <div className="w-full pb-[88px] pt-2 z-10 shrink-0">
-          <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-2xl p-4 flex items-center justify-between shadow-xl relative overflow-hidden">
+        {/* Fixed Banner */}
+        <div className="fixed bottom-[88px] left-0 w-full px-5 z-40 pointer-events-none">
+          <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-[20px] p-4 flex items-center justify-between shadow-[0_8px_30px_rgba(239,72,35,0.25)] relative overflow-hidden pointer-events-auto">
             <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-xl"></div>
             
@@ -194,14 +194,17 @@ export default function BrandHomeFeedPage() {
             </div>
             
             <div className="relative z-10 flex flex-col">
-              <span className="text-white/90 text-[11px] font-medium leading-none mb-1">Find</span>
-              <span className="text-white text-xl font-bold leading-none tracking-tight">Partners</span>
+              <span className="text-white/90 text-[12px] font-semibold leading-none mb-1">Find</span>
+              <span className="text-white text-[22px] font-bold leading-none tracking-tight">Partners</span>
             </div>
-            <button className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-6 py-2 rounded-xl text-sm font-bold shadow-sm transition-transform active:scale-95">
+            <button className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-7 py-2.5 rounded-[12px] text-[15px] font-bold shadow-sm transition-transform active:scale-95">
               View
             </button>
           </div>
         </div>
+        
+        {/* Spacing for fixed banner */}
+        <div className="w-full h-[140px] shrink-0"></div>
 
         </div>
       </div>
