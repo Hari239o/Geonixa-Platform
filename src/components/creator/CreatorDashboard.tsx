@@ -20,6 +20,7 @@ interface ProfileData {
  engagement: string;
  projects: string;
  successRate: string;
+ isVerified?: boolean;
 }
 
 export default function CreatorDashboard() {
@@ -37,8 +38,10 @@ export default function CreatorDashboard() {
  viewership: '22.8k',
  engagement: '38.9k',
  projects: '17',
- successRate: '92%'
+ successRate: '92%',
+ isVerified: false
  });
+ const [showVerifyModal, setShowVerifyModal] = useState(false);
 
  const [campaigns] = useState([
  {
@@ -75,8 +78,14 @@ export default function CreatorDashboard() {
             viewership: parsed.viewership === '0' ? '22.8k' : parsed.viewership,
             engagement: parsed.engagement === '0' ? '38.9k' : parsed.engagement,
             projects: parsed.projects === '0' ? '17' : parsed.projects,
-            successRate: parsed.successRate === '0%' ? '92%' : parsed.successRate
+            successRate: parsed.successRate === '0%' ? '92%' : parsed.successRate,
+            isVerified: parsed.isVerified || false
           }));
+          if (!parsed.isVerified) {
+            setShowVerifyModal(true);
+          }
+        } else {
+          setShowVerifyModal(true);
         }
       }
     }
@@ -93,7 +102,9 @@ export default function CreatorDashboard() {
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5 mt-1">
                 <h1 className="text-xl font-extrabold text-[#1a1a2e] tracking-tight">{profile.fullName}</h1>
-                <BadgeCheck className="text-primary-red w-5 h-5 fill-primary-red text-white" />
+                {profile.isVerified && (
+                  <BadgeCheck className="text-primary-red w-5 h-5 fill-primary-red text-white" />
+                )}
               </div>
             </div>
           </div>
@@ -150,20 +161,22 @@ export default function CreatorDashboard() {
           </button>
         </div>
 
-        {/* Bio Box */}
-        <div className="px-4 sm:px-6 mb-6">
-          <div className="bg-white p-5 rounded-[18px] border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+        <div className="px-4 sm:px-6 mb-8">
+          {/* Bio Box */}
+          <div className="bg-white p-5 rounded-[18px] border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)] mb-6">
             <h3 className="text-[13px] font-bold text-[#1a1a2e] mb-2">About me</h3>
             <p className="text-sm text-gray-500 leading-relaxed">{profile.bio}</p>
           </div>
-        </div>
-        <div className="px-4 sm:px-6 mb-8">
-          <button 
-            className="w-full py-4 bg-gradient-to-r from-[#EF4823] to-[#ff6b4a] text-white text-[15px] font-bold rounded-[18px] shadow-[0_8px_20px_rgba(239,72,35,0.25)] hover:-translate-y-0.5 transition-all duration-300"
-            onClick={() => router.push('/kyc')}
-          >
-            Authenticate
-          </button>
+          
+          {/* Fallback Authenticate Button if modal is closed */}
+          {!profile.isVerified && (
+            <button 
+              className="w-full py-4 bg-gradient-to-r from-[#EF4823] to-[#ff6b4a] text-white text-[15px] font-bold rounded-[18px] shadow-[0_8px_20px_rgba(239,72,35,0.25)] hover:-translate-y-0.5 transition-all duration-300"
+              onClick={() => router.push('/kyc')}
+            >
+              Authenticate
+            </button>
+          )}
         </div>
 
         {activeTab === 'Active' && (
@@ -248,6 +261,47 @@ export default function CreatorDashboard() {
           </>
         )}
       </div>
+
+      {/* Verify Account Modal */}
+      {showVerifyModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-[320px] rounded-[24px] p-6 relative shadow-2xl animate-in fade-in zoom-in duration-200">
+            <button 
+              onClick={() => setShowVerifyModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="flex flex-col items-center mt-2">
+              <BadgeCheck className="w-[42px] h-[42px] text-[#EF4823] fill-[#EF4823] text-white mb-3" />
+              <h2 className="text-[20px] font-black text-[#EF4823] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
+              <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
+                Take A<br />Live Selfie Video
+              </p>
+
+              <button 
+                onClick={() => router.push('/kyc')}
+                className="w-full py-3.5 border-2 border-dashed border-[#EF4823]/40 rounded-[14px] flex items-center justify-center gap-3 mb-6 hover:bg-[#EF4823]/5 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#EF4823]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span className="text-[#1a1a2e] font-semibold text-[14px]">Camera</span>
+              </button>
+
+              <button 
+                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
+                onClick={() => router.push('/kyc')}
+              >
+                SUBMIT
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <BottomNav profilePic={profile.profilePic || defaultProfilePic} />
     </div>

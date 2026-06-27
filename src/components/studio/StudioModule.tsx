@@ -36,10 +36,23 @@ export default function StudioModule() {
         </button>
       </div>
 
-      {/* Faded Logo Center */}
+      {/* Faded Magic Wand Center */}
       <div className="flex-1 flex flex-col items-center justify-center -mt-20 z-0">
-        <div className="opacity-30 grayscale pointer-events-none scale-150 transform">
-          <Logo large={true} showText={true} />
+        <div className="text-gray-200 pointer-events-none transform scale-[4]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            width={48}
+            height={48}
+          >
+            <g transform="rotate(45 12 12)">
+              <path fillRule="evenodd" clipRule="evenodd" d="M8.5 5C8.5 4.44772 8.94772 4 9.5 4H14.5C15.0523 4 15.5 4.44772 15.5 5V19C15.5 19.5523 15.0523 20 14.5 20H9.5C8.94772 20 8.5 19.5523 8.5 19V5ZM10 5.5H14V9.5H10V5.5Z" fill="currentColor" />
+            </g>
+            <path d="M10 2.5 Q10 5 12.5 5 Q10 5 10 7.5 Q10 5 7.5 5 Q10 5 10 2.5 Z" fill="currentColor" />
+            <path d="M19 4 Q19 6 21 6 Q19 6 19 8 Q19 6 17 6 Q19 6 19 4 Z" fill="currentColor" />
+            <path d="M16.5 13 Q16.5 15 18.5 15 Q16.5 15 16.5 17 Q16.5 15 14.5 15 Q16.5 15 16.5 13 Z" fill="currentColor" />
+          </svg>
         </div>
       </div>
 
