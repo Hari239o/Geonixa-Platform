@@ -9,12 +9,20 @@ interface LogoProps {
 
 export function Logo({ className, showText = true, large = false }: LogoProps) {
   return (
-    <div className={cn("flex flex-row items-center justify-center gap-3", className)}>
+    <div className={cn("flex flex-row items-center justify-center gap-2", className)}>
       <img 
         src="/logo.png" 
-        alt="Kalinq Logo" 
-        className={cn("object-contain", large ? "h-16 sm:h-20 w-auto" : "h-10 w-auto")} 
+        alt="Kalinq Logo Icon" 
+        className={cn("object-contain", large ? "h-14 sm:h-16 w-auto" : "h-8 w-auto")} 
       />
+      {showText && (
+        <h1 className={cn(
+          "font-bold text-white tracking-wide font-space-grotesk mt-1",
+          large ? "text-[48px] sm:text-[56px]" : "text-2xl"
+        )}>
+          Kalinq
+        </h1>
+      )}
     </div>
   )
 }
