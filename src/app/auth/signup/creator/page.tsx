@@ -34,7 +34,6 @@ export default function CreatorSignupStep1() {
     setFormData((prev) => {
       const updated = { ...prev, ...data };
       sessionStorage.setItem("creatorSignupData", JSON.stringify(updated));
-      localStorage.setItem("creatorSignupData", JSON.stringify(updated));
       return updated;
     });
   };
@@ -45,7 +44,7 @@ export default function CreatorSignupStep1() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full p-5 sm:p-6 flex flex-col">
+    <form onSubmit={handleSubmit} className="w-full p-6 pb-12 flex flex-col min-h-max">
       
       <div className="flex flex-col gap-3">
         
@@ -154,9 +153,9 @@ export default function CreatorSignupStep1() {
           Next
         </Button>
         
-        <div className="relative flex items-center justify-center py-1">
+        <div className="relative flex items-center justify-center py-2 mt-1">
           <div className="absolute border-t border-slate-200 w-full"></div>
-          <span className="bg-white px-3 text-[10px] text-slate-400 relative z-10 uppercase tracking-wide">Or</span>
+          <span className="bg-white px-4 text-[11px] text-slate-400 relative z-10 capitalize tracking-wide font-medium">Or</span>
         </div>
 
         <Button 
