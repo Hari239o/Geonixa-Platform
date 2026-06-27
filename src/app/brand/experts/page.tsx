@@ -23,6 +23,13 @@ export default function ExpertsPartnersPage() {
   
   // view: "main" (shows tabs), "editorsForm", "amount"
   const [view, setView] = useState<"main" | "editorsForm" | "amount">("main")
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([])
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setUploadedFiles(prev => [...prev, ...Array.from(e.target.files!)])
+    }
+  }
 
   const handleBookNow = () => {
     if (mainTab === "partners" && roleTab === "editors") {
@@ -103,10 +110,28 @@ export default function ExpertsPartnersPage() {
             />
           </div>
 
-          <div className="w-full border-2 border-dashed border-orange-200 bg-orange-50/50 rounded-[16px] py-8 flex flex-col items-center justify-center cursor-pointer hover:bg-orange-50 transition-colors">
-            <span className="text-[#EF4823] text-[13px] font-bold flex items-center gap-2">
-              <span className="text-xl leading-none">+</span> Upload Files
-            </span>
+          <div className="w-full relative">
+            <input 
+              type="file" 
+              multiple 
+              onChange={handleFileChange}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+              title="Upload Files"
+            />
+            <div className="w-full border-2 border-dashed border-orange-200 bg-orange-50/50 rounded-[16px] py-8 flex flex-col items-center justify-center transition-colors">
+              <span className="text-[#EF4823] text-[13px] font-bold flex items-center gap-2">
+                <span className="text-xl leading-none">+</span> Upload Files
+              </span>
+              {uploadedFiles.length > 0 && (
+                <div className="mt-4 flex flex-col gap-1 items-center">
+                  {uploadedFiles.map((file, i) => (
+                    <span key={i} className="text-[11px] text-gray-500 font-medium truncate max-w-[200px]">
+                      {file.name}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <button 
