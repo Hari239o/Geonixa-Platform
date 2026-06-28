@@ -77,7 +77,7 @@ export default function WalletPage() {
    Withdraw
    </button>
    <button 
-   className="text-[11px] font-bold text-[#1a1a2e] text-left w-fit hover:underline"
+   className="text-[11px] font-bold text-primary-red text-left w-fit hover:underline"
    onClick={() => router.push('/wallet/add-credits')}
    >
    Add credits
