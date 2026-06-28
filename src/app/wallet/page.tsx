@@ -69,12 +69,20 @@ export default function WalletPage() {
  Hello {profile.fullName.split(' ')[0]},
  </h1>
  <p className="text-[13px] text-gray-400 font-medium mb-1">Your available balance</p>
- <button 
- className="text-[11px] font-bold text-primary-red text-left w-fit"
- onClick={() => router.push('/wallet/withdraw')}
- >
- Withdraw
- </button>
+  <div className="flex gap-4 mt-1">
+   <button 
+   className="text-[11px] font-bold text-primary-red text-left w-fit hover:underline"
+   onClick={() => router.push('/wallet/withdraw')}
+   >
+   Withdraw
+   </button>
+   <button 
+   className="text-[11px] font-bold text-[#1a1a2e] text-left w-fit hover:underline"
+   onClick={() => router.push('/wallet/add-credits')}
+   >
+   Add credits
+   </button>
+  </div>
  </div>
  <div className="text-[28px] font-extrabold text-primary-red tracking-tight">
  ₹15,901
