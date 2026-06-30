@@ -5,8007 +5,8007 @@
 
 export const APTITUDE_POOL = [
   {
-    "q": "[ID: A-1] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 31, and 41 teeth respectively. If Gear A rotates at exactly 110 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-1] A logistics convoy travels the first 124 km of a highly classified route at a heavily regulated speed of 47 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 169 km at 72 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "66.34",
-      "84.51",
-      "56.34",
-      "51.34"
+      "62.22",
+      "58.77",
+      "60.29",
+      "56.63"
     ],
-    "correctAnswer": "56.34"
+    "correctAnswer": "58.77"
   },
   {
-    "q": "[ID: A-2] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-2] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "633.60",
-      "696.96",
-      "683.60",
-      "613.60"
+      "0.6623",
+      "0.5545",
+      "0.8369",
+      "0.7857"
     ],
-    "correctAnswer": "633.60"
+    "correctAnswer": "0.7857"
   },
   {
-    "q": "[ID: A-3] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-3] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "67.21%",
-      "61.01%",
-      "69.01%",
-      "64.01%"
+      "Both statements together are required",
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "64.01%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-4] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-4] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "18.49",
-      "15.41",
-      "17.41",
-      "14.41"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "15.41"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-5] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 12 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-5] Statement 1: All analysts are directors.\nStatement 2: Some directors are certified.\nStatement 3: No certified is a consultants.\n\nConclusion I: Some analysts are certified.\nConclusion II: No consultants is a directors.\nConclusion III: Some directors are not consultants.",
     "opts": [
-      "1560",
-      "1570",
-      "120",
-      "780"
+      "All conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "1560"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-6] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 36, and 46 teeth respectively. If Gear A rotates at exactly 160 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-6] A logistics convoy travels the first 115 km of a highly classified route at a heavily regulated speed of 56 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 175 km at 72 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "90.43",
-      "135.65",
-      "100.43",
-      "85.43"
+      "64.67",
+      "62.53",
+      "66.19",
+      "68.12"
     ],
-    "correctAnswer": "90.43"
+    "correctAnswer": "64.67"
   },
   {
-    "q": "[ID: A-7] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-7] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1101.60",
-      "1151.60",
-      "1081.60",
-      "1211.76"
+      "0.4742",
+      "0.7566",
+      "0.7054",
+      "0.5820"
     ],
-    "correctAnswer": "1101.60"
+    "correctAnswer": "0.7054"
   },
   {
-    "q": "[ID: A-8] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-8] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "85.78%",
-      "90.07%",
-      "82.78%",
-      "90.78%"
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "85.78%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-9] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-9] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.80",
-      "23.76",
-      "21.80",
-      "18.80"
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
     ],
-    "correctAnswer": "19.80"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-10] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 17 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-10] Statement 1: All analysts are consultants.\nStatement 2: Some consultants are experienced.\nStatement 3: No experienced is a directors.\n\nConclusion I: Some analysts are experienced.\nConclusion II: No directors is a consultants.\nConclusion III: Some consultants are not directors.",
     "opts": [
-      "2448",
-      "1224",
-      "2458",
-      "136"
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "All conclusions follow"
     ],
-    "correctAnswer": "2448"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-11] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 41, and 51 teeth respectively. If Gear A rotates at exactly 210 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-11] A logistics convoy travels the first 104 km of a highly classified route at a heavily regulated speed of 55 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 178 km at 65 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "122.65",
-      "127.65",
-      "191.47",
-      "137.65"
+      "60.92",
+      "58.78",
+      "62.44",
+      "64.37"
     ],
-    "correctAnswer": "127.65"
+    "correctAnswer": "60.92"
   },
   {
-    "q": "[ID: A-12] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-12] In a highly secure cryptographic key repository, there are 18 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1689.60",
-      "1858.56",
-      "1739.60",
-      "1669.60"
+      "0.7816",
+      "0.7304",
+      "0.6070",
+      "0.4992"
     ],
-    "correctAnswer": "1689.60"
+    "correctAnswer": "0.7304"
   },
   {
-    "q": "[ID: A-13] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-13] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "109.40%",
-      "114.40%",
-      "114.86%",
-      "106.40%"
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "109.40%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-14] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-14] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "16.86",
-      "20.23",
-      "18.86",
-      "15.86"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
     ],
-    "correctAnswer": "16.86"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-15] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 11 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-15] Statement 1: All directors are consultants.\nStatement 2: Some consultants are overpaid.\nStatement 3: No overpaid is a analysts.\n\nConclusion I: Some directors are overpaid.\nConclusion II: No analysts is a consultants.\nConclusion III: Some consultants are not analysts.",
     "opts": [
-      "670",
-      "66",
-      "660",
-      "330"
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "660"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-16] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 46, and 56 teeth respectively. If Gear A rotates at exactly 260 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-16] A logistics convoy travels the first 118 km of a highly classified route at a heavily regulated speed of 42 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 181 km at 60 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "167.14",
-      "250.71",
-      "177.14",
-      "162.14"
+      "52.84",
+      "49.18",
+      "54.77",
+      "51.32"
     ],
-    "correctAnswer": "167.14"
+    "correctAnswer": "51.32"
   },
   {
-    "q": "[ID: A-17] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-17] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2637.36",
-      "2377.60",
-      "2447.60",
-      "2397.60"
+      "0.4070",
+      "0.5304",
+      "0.2992",
+      "0.5816"
     ],
-    "correctAnswer": "2397.60"
+    "correctAnswer": "0.5304"
   },
   {
-    "q": "[ID: A-18] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-18] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "112.40%",
-      "104.40%",
-      "112.77%",
-      "107.40%"
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "107.40%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-19] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-19] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.07",
-      "15.89",
-      "17.89",
-      "14.89"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
     ],
-    "correctAnswer": "15.89"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-20] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 16 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-20] Statement 1: All engineers are consultants.\nStatement 2: Some consultants are experienced.\nStatement 3: No experienced is a analysts.\n\nConclusion I: Some engineers are experienced.\nConclusion II: No analysts is a consultants.\nConclusion III: Some consultants are not analysts.",
     "opts": [
-      "176",
-      "2650",
-      "1320",
-      "2640"
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "Only I and II follow",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "2640"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-21] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 51, and 61 teeth respectively. If Gear A rotates at exactly 310 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-21] A logistics convoy travels the first 100 km of a highly classified route at a heavily regulated speed of 50 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 196 km at 66 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "218.36",
-      "312.54",
-      "208.36",
-      "203.36"
+      "59.56",
+      "63.01",
+      "61.08",
+      "57.42"
     ],
-    "correctAnswer": "208.36"
+    "correctAnswer": "59.56"
   },
   {
-    "q": "[ID: A-22] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-22] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1259.60",
-      "1209.60",
-      "1189.60",
-      "1330.56"
+      "0.4837",
+      "0.3759",
+      "0.6583",
+      "0.6071"
     ],
-    "correctAnswer": "1209.60"
+    "correctAnswer": "0.6071"
   },
   {
-    "q": "[ID: A-23] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-23] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "139.50%",
-      "129.86%",
-      "137.86%",
-      "132.86%"
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "132.86%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-24] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-24] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "17.33",
-      "19.33",
-      "16.33",
-      "20.80"
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "17.33"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-25] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 10 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-25] Statement 1: All analysts are engineers.\nStatement 2: Some engineers are overpaid.\nStatement 3: No overpaid is a managers.\n\nConclusion I: Some analysts are overpaid.\nConclusion II: No managers is a engineers.\nConclusion III: Some engineers are not managers.",
     "opts": [
-      "90",
-      "1800",
-      "900",
-      "1810"
+      "All conclusions follow",
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "Only Conclusion III follows"
     ],
-    "correctAnswer": "1800"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-26] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 56, and 66 teeth respectively. If Gear A rotates at exactly 360 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-26] A logistics convoy travels the first 135 km of a highly classified route at a heavily regulated speed of 55 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 166 km at 61 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "250.91",
-      "245.91",
-      "376.36",
-      "260.91"
+      "61.60",
+      "59.67",
+      "56.01",
+      "58.15"
     ],
-    "correctAnswer": "250.91"
+    "correctAnswer": "58.15"
   },
   {
-    "q": "[ID: A-27] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-27] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1897.60",
-      "1967.60",
-      "1917.60",
-      "2109.36"
+      "0.6920",
+      "0.8154",
+      "0.5842",
+      "0.8666"
     ],
-    "correctAnswer": "1917.60"
+    "correctAnswer": "0.8154"
   },
   {
-    "q": "[ID: A-28] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 18% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-28] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "120.55%",
-      "111.81%",
-      "114.81%",
-      "119.81%"
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "114.81%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-29] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-29] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "21.01",
-      "22.01",
-      "26.41",
-      "24.01"
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
     ],
-    "correctAnswer": "22.01"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-30] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 15 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-30] Statement 1: All engineers are directors.\nStatement 2: Some directors are certified.\nStatement 3: No certified is a analysts.\n\nConclusion I: Some engineers are certified.\nConclusion II: No analysts is a directors.\nConclusion III: Some directors are not analysts.",
     "opts": [
-      "1260",
-      "630",
-      "1270",
-      "105"
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "Only I and II follow",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "1260"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-31] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 61, and 41 teeth respectively. If Gear A rotates at exactly 410 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-31] A logistics convoy travels the first 103 km of a highly classified route at a heavily regulated speed of 47 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 194 km at 66 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "765.00",
-      "505.00",
-      "520.00",
-      "510.00"
+      "57.88",
+      "61.33",
+      "59.40",
+      "55.74"
     ],
-    "correctAnswer": "510.00"
+    "correctAnswer": "57.88"
   },
   {
-    "q": "[ID: A-32] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-32] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2745.60",
-      "2795.60",
-      "2725.60",
-      "3020.16"
+      "0.6244",
+      "0.5010",
+      "0.3932",
+      "0.6756"
     ],
-    "correctAnswer": "2745.60"
+    "correctAnswer": "0.6244"
   },
   {
-    "q": "[ID: A-33] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 23% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-33] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "117.65%",
-      "118.29%",
-      "112.65%",
-      "109.65%"
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "112.65%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-34] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-34] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "15.97",
-      "13.97",
-      "12.97",
-      "16.77"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
     ],
-    "correctAnswer": "13.97"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-35] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 9 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-35] Statement 1: All consultants are directors.\nStatement 2: Some directors are certified.\nStatement 3: No certified is a engineers.\n\nConclusion I: Some consultants are certified.\nConclusion II: No engineers is a directors.\nConclusion III: Some directors are not engineers.",
     "opts": [
-      "765",
-      "45",
-      "382.5",
-      "775"
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "765"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-36] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 66, and 46 teeth respectively. If Gear A rotates at exactly 460 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-36] A logistics convoy travels the first 143 km of a highly classified route at a heavily regulated speed of 59 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 189 km at 64 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "555.00",
-      "840.00",
-      "560.00",
-      "570.00"
+      "61.75",
+      "59.61",
+      "63.27",
+      "65.20"
     ],
-    "correctAnswer": "560.00"
+    "correctAnswer": "61.75"
   },
   {
-    "q": "[ID: A-37] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-37] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "3673.60",
-      "4062.96",
-      "3743.60",
-      "3693.60"
+      "0.5794",
+      "0.6306",
+      "0.4560",
+      "0.3482"
     ],
-    "correctAnswer": "3693.60"
+    "correctAnswer": "0.5794"
   },
   {
-    "q": "[ID: A-38] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 28% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-38] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "90.07%",
-      "82.78%",
-      "90.78%",
-      "85.78%"
+      "Both statements together are required",
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "85.78%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-39] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-39] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "17.94",
-      "19.94",
-      "16.94",
-      "21.53"
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
     ],
-    "correctAnswer": "17.94"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-40] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 14 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-40] Statement 1: All engineers are consultants.\nStatement 2: Some consultants are experienced.\nStatement 3: No experienced is a directors.\n\nConclusion I: Some engineers are experienced.\nConclusion II: No directors is a consultants.\nConclusion III: Some consultants are not directors.",
     "opts": [
-      "630",
-      "140",
-      "1260",
-      "1270"
+      "All conclusions follow",
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "Only I and II follow"
     ],
-    "correctAnswer": "1260"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-41] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 31, and 51 teeth respectively. If Gear A rotates at exactly 510 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-41] A logistics convoy travels the first 147 km of a highly classified route at a heavily regulated speed of 40 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 186 km at 70 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "915.00",
-      "610.00",
-      "620.00",
-      "605.00"
+      "54.11",
+      "56.04",
+      "52.59",
+      "50.45"
     ],
-    "correctAnswer": "610.00"
+    "correctAnswer": "52.59"
   },
   {
-    "q": "[ID: A-42] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-42] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1785.60",
-      "1964.16",
-      "1835.60",
-      "1765.60"
+      "0.6129",
+      "0.7875",
+      "0.7363",
+      "0.5051"
     ],
-    "correctAnswer": "1785.60"
+    "correctAnswer": "0.7363"
   },
   {
-    "q": "[ID: A-43] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 33% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-43] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "109.40%",
-      "114.40%",
-      "106.40%",
-      "114.86%"
+      "Both statements together are required",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient"
     ],
-    "correctAnswer": "109.40%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-44] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-44] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "21.00",
-      "22.80",
-      "19.00",
-      "18.00"
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "19.00"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-45] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 8 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-45] Statement 1: All engineers are analysts.\nStatement 2: Some analysts are certified.\nStatement 3: No certified is a consultants.\n\nConclusion I: Some engineers are certified.\nConclusion II: No consultants is a analysts.\nConclusion III: Some analysts are not consultants.",
     "opts": [
-      "896",
-      "448",
-      "906",
-      "64"
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "Only I and II follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "896"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-46] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 36, and 56 teeth respectively. If Gear A rotates at exactly 560 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-46] A logistics convoy travels the first 126 km of a highly classified route at a heavily regulated speed of 59 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 193 km at 70 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "660.00",
-      "990.00",
-      "670.00",
-      "655.00"
+      "66.72",
+      "63.06",
+      "68.65",
+      "65.20"
     ],
-    "correctAnswer": "660.00"
+    "correctAnswer": "65.20"
   },
   {
-    "q": "[ID: A-47] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-47] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "3006.96",
-      "2733.60",
-      "2783.60",
-      "2713.60"
+      "0.5262",
+      "0.6340",
+      "0.8086",
+      "0.7574"
     ],
-    "correctAnswer": "2733.60"
+    "correctAnswer": "0.7574"
   },
   {
-    "q": "[ID: A-48] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 38% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-48] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "112.77%",
-      "107.40%",
-      "112.40%",
-      "104.40%"
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "107.40%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-49] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-49] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.33",
-      "17.33",
-      "20.80",
-      "16.33"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
     ],
-    "correctAnswer": "17.33"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-50] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 13 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-50] Statement 1: All engineers are managers.\nStatement 2: Some managers are certified.\nStatement 3: No certified is a analysts.\n\nConclusion I: Some engineers are certified.\nConclusion II: No analysts is a managers.\nConclusion III: Some managers are not analysts.",
     "opts": [
-      "741",
-      "1482",
-      "1492",
-      "78"
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "1482"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-51] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 41, and 61 teeth respectively. If Gear A rotates at exactly 610 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-51] A logistics convoy travels the first 107 km of a highly classified route at a heavily regulated speed of 43 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 162 km at 60 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "205.00",
-      "210.00",
-      "315.00",
-      "220.00"
+      "53.37",
+      "55.30",
+      "49.71",
+      "51.85"
     ],
-    "correctAnswer": "210.00"
+    "correctAnswer": "51.85"
   },
   {
-    "q": "[ID: A-52] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-52] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1769.21",
-      "1658.37",
-      "1608.37",
-      "1588.37"
+      "0.7049",
+      "0.7561",
+      "0.4737",
+      "0.5815"
     ],
-    "correctAnswer": "1608.37"
+    "correctAnswer": "0.7049"
   },
   {
-    "q": "[ID: A-53] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 18% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-53] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "89.15%",
-      "97.15%",
-      "96.76%",
-      "92.15%"
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "92.15%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-54] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-54] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "18.64",
-      "14.53",
-      "17.53",
-      "15.53"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
     ],
-    "correctAnswer": "15.53"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-55] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 7 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-55] Statement 1: All engineers are consultants.\nStatement 2: Some consultants are strategic.\nStatement 3: No strategic is a directors.\n\nConclusion I: Some engineers are strategic.\nConclusion II: No directors is a consultants.\nConclusion III: Some consultants are not directors.",
     "opts": [
-      "847",
-      "77",
-      "857",
-      "423.5"
+      "None of the conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "All conclusions follow"
     ],
-    "correctAnswer": "847"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-56] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 46, and 66 teeth respectively. If Gear A rotates at exactly 660 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-56] A logistics convoy travels the first 137 km of a highly classified route at a heavily regulated speed of 51 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 183 km at 67 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "270.00",
-      "260.00",
-      "255.00",
-      "390.00"
+      "59.07",
+      "62.52",
+      "60.59",
+      "56.93"
     ],
-    "correctAnswer": "260.00"
+    "correctAnswer": "59.07"
   },
   {
-    "q": "[ID: A-57] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-57] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2343.49",
-      "2413.49",
-      "2363.49",
-      "2599.84"
+      "0.4837",
+      "0.6071",
+      "0.6583",
+      "0.3759"
     ],
-    "correctAnswer": "2363.49"
+    "correctAnswer": "0.6071"
   },
   {
-    "q": "[ID: A-58] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 23% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-58] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "122.16%",
-      "121.34%",
-      "116.34%",
-      "113.34%"
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient"
     ],
-    "correctAnswer": "116.34%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-59] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-59] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "23.68",
-      "19.74",
-      "21.74",
-      "18.74"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
     ],
-    "correctAnswer": "19.74"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-60] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 12 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-60] Statement 1: All directors are engineers.\nStatement 2: Some engineers are strategic.\nStatement 3: No strategic is a managers.\n\nConclusion I: Some directors are strategic.\nConclusion II: No managers is a engineers.\nConclusion III: Some engineers are not managers.",
     "opts": [
-      "108",
-      "1738",
-      "864",
-      "1728"
+      "All conclusions follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "Only I and II follow"
     ],
-    "correctAnswer": "1728"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-61] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 51, and 41 teeth respectively. If Gear A rotates at exactly 710 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-61] A logistics convoy travels the first 136 km of a highly classified route at a heavily regulated speed of 59 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 178 km at 62 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "805.24",
-      "531.83",
-      "546.83",
-      "536.83"
+      "58.52",
+      "64.11",
+      "60.66",
+      "62.18"
     ],
-    "correctAnswer": "536.83"
+    "correctAnswer": "60.66"
   },
   {
-    "q": "[ID: A-62] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-62] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "829.82",
-      "779.82",
-      "759.82",
-      "857.80"
+      "0.5010",
+      "0.3932",
+      "0.6244",
+      "0.6756"
     ],
-    "correctAnswer": "779.82"
+    "correctAnswer": "0.6244"
   },
   {
-    "q": "[ID: A-63] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 28% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-63] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "111.07%",
-      "114.07%",
-      "119.07%",
-      "119.77%"
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "114.07%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-64] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-64] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "15.41",
-      "18.49",
-      "17.41",
-      "14.41"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
     ],
-    "correctAnswer": "15.41"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-65] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 17 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-65] Statement 1: All managers are engineers.\nStatement 2: Some engineers are strategic.\nStatement 3: No strategic is a consultants.\n\nConclusion I: Some managers are strategic.\nConclusion II: No consultants is a engineers.\nConclusion III: Some engineers are not consultants.",
     "opts": [
-      "952",
-      "476",
-      "119",
-      "962"
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "952"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-66] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 56, and 46 teeth respectively. If Gear A rotates at exactly 760 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-66] A logistics convoy travels the first 146 km of a highly classified route at a heavily regulated speed of 58 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 189 km at 63 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "594.78",
-      "604.78",
-      "589.78",
-      "892.17"
+      "64.17",
+      "62.24",
+      "60.72",
+      "58.58"
     ],
-    "correctAnswer": "594.78"
+    "correctAnswer": "60.72"
   },
   {
-    "q": "[ID: A-67] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-67] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1446.29",
-      "1314.81",
-      "1364.81",
-      "1294.81"
+      "0.5820",
+      "0.4742",
+      "0.7566",
+      "0.7054"
     ],
-    "correctAnswer": "1314.81"
+    "correctAnswer": "0.7054"
   },
   {
-    "q": "[ID: A-68] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 33% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-68] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "140.12%",
-      "145.12%",
-      "137.12%",
-      "147.12%"
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "140.12%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-69] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-69] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "23.76",
-      "18.80",
-      "21.80",
-      "19.80"
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
     ],
-    "correctAnswer": "19.80"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-70] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 11 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-70] Statement 1: All engineers are directors.\nStatement 2: Some directors are strategic.\nStatement 3: No strategic is a consultants.\n\nConclusion I: Some engineers are strategic.\nConclusion II: No consultants is a directors.\nConclusion III: Some directors are not consultants.",
     "opts": [
-      "55",
-      "715",
-      "357.5",
-      "725"
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "None of the conclusions follow",
+      "Only I and II follow"
     ],
-    "correctAnswer": "715"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-71] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 61, and 51 teeth respectively. If Gear A rotates at exactly 810 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-71] A logistics convoy travels the first 113 km of a highly classified route at a heavily regulated speed of 43 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 190 km at 71 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "976.76",
-      "646.18",
-      "651.18",
-      "661.18"
+      "57.13",
+      "58.65",
+      "60.58",
+      "54.99"
     ],
-    "correctAnswer": "651.18"
+    "correctAnswer": "57.13"
   },
   {
-    "q": "[ID: A-72] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-72] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2168.32",
-      "1951.20",
-      "2021.20",
-      "1971.20"
+      "0.3932",
+      "0.6756",
+      "0.6244",
+      "0.5010"
     ],
-    "correctAnswer": "1971.20"
+    "correctAnswer": "0.6244"
   },
   {
-    "q": "[ID: A-73] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 38% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-73] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "113.78%",
-      "108.78%",
-      "114.22%",
-      "105.78%"
+      "Statement II alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "108.78%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-74] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-74] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "20.23",
-      "18.86",
-      "16.86",
-      "15.86"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "16.86"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-75] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 16 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-75] Statement 1: All managers are engineers.\nStatement 2: Some engineers are visionary.\nStatement 3: No visionary is a analysts.\n\nConclusion I: Some managers are visionary.\nConclusion II: No analysts is a engineers.\nConclusion III: Some engineers are not analysts.",
     "opts": [
-      "160",
-      "2890",
-      "2880",
-      "1440"
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "All conclusions follow",
+      "Only Conclusion III follows"
     ],
-    "correctAnswer": "2880"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-76] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 66, and 56 teeth respectively. If Gear A rotates at exactly 860 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-76] A logistics convoy travels the first 122 km of a highly classified route at a heavily regulated speed of 57 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 153 km at 60 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "706.43",
-      "716.43",
-      "701.43",
-      "1059.64"
+      "60.15",
+      "62.08",
+      "56.49",
+      "58.63"
     ],
-    "correctAnswer": "706.43"
+    "correctAnswer": "58.63"
   },
   {
-    "q": "[ID: A-77] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-77] In a highly secure cryptographic key repository, there are 18 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2798.47",
-      "2748.47",
-      "3023.32",
-      "2728.47"
+      "0.6495",
+      "0.4183",
+      "0.5261",
+      "0.7007"
     ],
-    "correctAnswer": "2748.47"
+    "correctAnswer": "0.6495"
   },
   {
-    "q": "[ID: A-78] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-78] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "70.68%",
-      "74.21%",
-      "67.68%",
-      "75.68%"
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "70.68%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-79] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-79] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.07",
-      "14.89",
-      "17.89",
-      "15.89"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "15.89"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-80] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 10 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-80] Statement 1: All managers are directors.\nStatement 2: Some directors are visionary.\nStatement 3: No visionary is a consultants.\n\nConclusion I: Some managers are visionary.\nConclusion II: No consultants is a directors.\nConclusion III: Some directors are not consultants.",
     "opts": [
-      "800",
-      "810",
-      "400",
-      "80"
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "800"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-81] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 31, and 61 teeth respectively. If Gear A rotates at exactly 910 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-81] A logistics convoy travels the first 137 km of a highly classified route at a heavily regulated speed of 48 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 186 km at 73 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "1141.23",
-      "755.82",
-      "770.82",
-      "760.82"
+      "57.65",
+      "63.24",
+      "59.79",
+      "61.31"
     ],
-    "correctAnswer": "760.82"
+    "correctAnswer": "59.79"
   },
   {
-    "q": "[ID: A-82] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-82] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1504.11",
-      "1367.37",
-      "1417.37",
-      "1347.37"
+      "0.5815",
+      "0.7049",
+      "0.7561",
+      "0.4737"
     ],
-    "correctAnswer": "1367.37"
+    "correctAnswer": "0.7049"
   },
   {
-    "q": "[ID: A-83] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-83] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "97.69%",
-      "93.04%",
-      "98.04%",
-      "90.04%"
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "93.04%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-84] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-84] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "20.80",
-      "17.33",
-      "19.33",
-      "16.33"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
     ],
-    "correctAnswer": "17.33"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-85] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 15 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-85] Statement 1: All managers are directors.\nStatement 2: Some directors are strategic.\nStatement 3: No strategic is a analysts.\n\nConclusion I: Some managers are strategic.\nConclusion II: No analysts is a directors.\nConclusion III: Some directors are not analysts.",
     "opts": [
-      "1350",
-      "675",
-      "1360",
-      "90"
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "1350"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-86] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 36, and 66 teeth respectively. If Gear A rotates at exactly 960 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-86] A logistics convoy travels the first 148 km of a highly classified route at a heavily regulated speed of 53 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 161 km at 75 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "814.55",
-      "1221.82",
-      "824.55",
-      "809.55"
+      "60.42",
+      "62.56",
+      "64.08",
+      "66.01"
     ],
-    "correctAnswer": "814.55"
+    "correctAnswer": "62.56"
   },
   {
-    "q": "[ID: A-87] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-87] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2357.52",
-      "2123.20",
-      "2193.20",
-      "2143.20"
+      "0.6583",
+      "0.6071",
+      "0.4837",
+      "0.3759"
     ],
-    "correctAnswer": "2143.20"
+    "correctAnswer": "0.6071"
   },
   {
-    "q": "[ID: A-88] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-88] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "117.27%",
-      "122.27%",
-      "114.27%",
-      "123.13%"
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "117.27%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-89] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-89] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "26.41",
-      "21.01",
-      "24.01",
-      "22.01"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "22.01"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-90] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 9 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-90] Statement 1: All engineers are managers.\nStatement 2: Some managers are experienced.\nStatement 3: No experienced is a consultants.\n\nConclusion I: Some engineers are experienced.\nConclusion II: No consultants is a managers.\nConclusion III: Some managers are not consultants.",
     "opts": [
-      "1980",
-      "990",
-      "1990",
-      "99"
+      "All conclusions follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "Only I and II follow"
     ],
-    "correctAnswer": "1980"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-91] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 41, and 41 teeth respectively. If Gear A rotates at exactly 1010 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-91] A logistics convoy travels the first 126 km of a highly classified route at a heavily regulated speed of 49 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 176 km at 75 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "2254.02",
-      "1502.68",
-      "1512.68",
-      "1497.68"
+      "64.86",
+      "62.93",
+      "61.41",
+      "59.27"
     ],
-    "correctAnswer": "1502.68"
+    "correctAnswer": "61.41"
   },
   {
-    "q": "[ID: A-92] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-92] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "3089.77",
-      "3039.77",
-      "3343.75",
-      "3019.77"
+      "0.8369",
+      "0.5545",
+      "0.7857",
+      "0.6623"
     ],
-    "correctAnswer": "3039.77"
+    "correctAnswer": "0.7857"
   },
   {
-    "q": "[ID: A-93] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-93] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "111.91%",
-      "114.91%",
-      "120.66%",
-      "119.91%"
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient",
+      "Both statements together are required",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "114.91%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-94] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-94] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "13.97",
-      "15.97",
-      "12.97",
-      "16.77"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
     ],
-    "correctAnswer": "13.97"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-95] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 14 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-95] Statement 1: All analysts are consultants.\nStatement 2: Some consultants are experienced.\nStatement 3: No experienced is a engineers.\n\nConclusion I: Some analysts are experienced.\nConclusion II: No engineers is a consultants.\nConclusion III: Some consultants are not engineers.",
     "opts": [
-      "1522",
-      "1512",
-      "126",
-      "756"
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "1512"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-96] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 46, and 46 teeth respectively. If Gear A rotates at exactly 1060 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-96] A logistics convoy travels the first 114 km of a highly classified route at a heavily regulated speed of 47 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 166 km at 72 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "1515.87",
-      "2281.30",
-      "1530.87",
-      "1520.87"
+      "60.70",
+      "59.18",
+      "62.63",
+      "57.04"
     ],
-    "correctAnswer": "1520.87"
+    "correctAnswer": "59.18"
   },
   {
-    "q": "[ID: A-97] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-97] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "4106.90",
-      "4056.90",
-      "4036.90",
-      "4462.60"
+      "0.7566",
+      "0.5820",
+      "0.7054",
+      "0.4742"
     ],
-    "correctAnswer": "4056.90"
+    "correctAnswer": "0.7054"
   },
   {
-    "q": "[ID: A-98] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-98] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "148.05%",
-      "141.00%",
-      "146.00%",
-      "138.00%"
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient"
     ],
-    "correctAnswer": "141.00%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-99] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-99] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.94",
-      "17.94",
-      "16.94",
-      "21.53"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "17.94"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-100] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 8 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-100] Statement 1: All analysts are engineers.\nStatement 2: Some engineers are overpaid.\nStatement 3: No overpaid is a consultants.\n\nConclusion I: Some analysts are overpaid.\nConclusion II: No consultants is a engineers.\nConclusion III: Some engineers are not consultants.",
     "opts": [
-      "952",
-      "56",
-      "476",
-      "962"
+      "All conclusions follow",
+      "None of the conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows"
     ],
-    "correctAnswer": "952"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-101] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 51, and 51 teeth respectively. If Gear A rotates at exactly 110 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-101] A logistics convoy travels the first 103 km of a highly classified route at a heavily regulated speed of 49 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 173 km at 66 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "45.29",
-      "67.94",
+      "61.88",
+      "58.43",
+      "56.29",
+      "59.95"
+    ],
+    "correctAnswer": "58.43"
+  },
+  {
+    "q": "[ID: A-102] In a highly secure cryptographic key repository, there are 18 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.6051",
+      "0.4305",
+      "0.3227",
+      "0.5539"
+    ],
+    "correctAnswer": "0.5539"
+  },
+  {
+    "q": "[ID: A-103] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Both statements together are required",
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-104] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-105] Statement 1: All managers are engineers.\nStatement 2: Some engineers are overpaid.\nStatement 3: No overpaid is a directors.\n\nConclusion I: Some managers are overpaid.\nConclusion II: No directors is a engineers.\nConclusion III: Some engineers are not directors.",
+    "opts": [
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "All conclusions follow",
+      "Only I and II follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-106] A logistics convoy travels the first 112 km of a highly classified route at a heavily regulated speed of 58 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 182 km at 64 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "61.57",
+      "59.43",
+      "63.09",
+      "65.02"
+    ],
+    "correctAnswer": "61.57"
+  },
+  {
+    "q": "[ID: A-107] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.5010",
+      "0.6756",
+      "0.6244",
+      "0.3932"
+    ],
+    "correctAnswer": "0.6244"
+  },
+  {
+    "q": "[ID: A-108] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-109] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-110] Statement 1: All managers are directors.\nStatement 2: Some directors are strategic.\nStatement 3: No strategic is a analysts.\n\nConclusion I: Some managers are strategic.\nConclusion II: No analysts is a directors.\nConclusion III: Some directors are not analysts.",
+    "opts": [
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "Only I and II follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-111] A logistics convoy travels the first 123 km of a highly classified route at a heavily regulated speed of 45 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 177 km at 68 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "59.67",
+      "57.74",
+      "54.08",
+      "56.22"
+    ],
+    "correctAnswer": "56.22"
+  },
+  {
+    "q": "[ID: A-112] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.7561",
+      "0.5815",
+      "0.7049",
+      "0.4737"
+    ],
+    "correctAnswer": "0.7049"
+  },
+  {
+    "q": "[ID: A-113] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-114] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-115] Statement 1: All engineers are directors.\nStatement 2: Some directors are visionary.\nStatement 3: No visionary is a consultants.\n\nConclusion I: Some engineers are visionary.\nConclusion II: No consultants is a directors.\nConclusion III: Some directors are not consultants.",
+    "opts": [
+      "None of the conclusions follow",
+      "Only I and II follow",
+      "All conclusions follow",
+      "Only Conclusion III follows"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-116] A logistics convoy travels the first 149 km of a highly classified route at a heavily regulated speed of 54 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 157 km at 67 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "59.97",
+      "63.42",
+      "57.83",
+      "61.49"
+    ],
+    "correctAnswer": "59.97"
+  },
+  {
+    "q": "[ID: A-117] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.4742",
+      "0.7054",
+      "0.5820",
+      "0.7566"
+    ],
+    "correctAnswer": "0.7054"
+  },
+  {
+    "q": "[ID: A-118] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-119] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-120] Statement 1: All engineers are managers.\nStatement 2: Some managers are certified.\nStatement 3: No certified is a directors.\n\nConclusion I: Some engineers are certified.\nConclusion II: No directors is a managers.\nConclusion III: Some managers are not directors.",
+    "opts": [
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-121] A logistics convoy travels the first 111 km of a highly classified route at a heavily regulated speed of 43 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 188 km at 77 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "57.39",
+      "62.98",
+      "59.53",
+      "61.05"
+    ],
+    "correctAnswer": "59.53"
+  },
+  {
+    "q": "[ID: A-122] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.7561",
+      "0.7049",
+      "0.4737",
+      "0.5815"
+    ],
+    "correctAnswer": "0.7049"
+  },
+  {
+    "q": "[ID: A-123] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-124] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-125] Statement 1: All managers are consultants.\nStatement 2: Some consultants are certified.\nStatement 3: No certified is a analysts.\n\nConclusion I: Some managers are certified.\nConclusion II: No analysts is a consultants.\nConclusion III: Some consultants are not analysts.",
+    "opts": [
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "All conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-126] A logistics convoy travels the first 108 km of a highly classified route at a heavily regulated speed of 52 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 199 km at 72 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "61.28",
+      "63.42",
+      "64.94",
+      "66.87"
+    ],
+    "correctAnswer": "63.42"
+  },
+  {
+    "q": "[ID: A-127] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.5815",
+      "0.4737",
+      "0.7561",
+      "0.7049"
+    ],
+    "correctAnswer": "0.7049"
+  },
+  {
+    "q": "[ID: A-128] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Neither statement is sufficient",
+      "Both statements together are required",
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-129] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-130] Statement 1: All engineers are analysts.\nStatement 2: Some analysts are overpaid.\nStatement 3: No overpaid is a managers.\n\nConclusion I: Some engineers are overpaid.\nConclusion II: No managers is a analysts.\nConclusion III: Some analysts are not managers.",
+    "opts": [
+      "Only I and II follow",
+      "All conclusions follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-131] A logistics convoy travels the first 137 km of a highly classified route at a heavily regulated speed of 59 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 172 km at 71 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "68.58",
+      "66.65",
+      "65.13",
+      "62.99"
+    ],
+    "correctAnswer": "65.13"
+  },
+  {
+    "q": "[ID: A-132] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.5010",
+      "0.6244",
+      "0.3932",
+      "0.6756"
+    ],
+    "correctAnswer": "0.6244"
+  },
+  {
+    "q": "[ID: A-133] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement II alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-134] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-135] Statement 1: All consultants are analysts.\nStatement 2: Some analysts are overpaid.\nStatement 3: No overpaid is a engineers.\n\nConclusion I: Some consultants are overpaid.\nConclusion II: No engineers is a analysts.\nConclusion III: Some analysts are not engineers.",
+    "opts": [
+      "Only I and II follow",
+      "All conclusions follow",
+      "None of the conclusions follow",
+      "Only Conclusion III follows"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-136] A logistics convoy travels the first 110 km of a highly classified route at a heavily regulated speed of 51 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 179 km at 75 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "65.13",
+      "61.47",
+      "67.06",
+      "63.61"
+    ],
+    "correctAnswer": "63.61"
+  },
+  {
+    "q": "[ID: A-137] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.6244",
+      "0.6756",
+      "0.5010",
+      "0.3932"
+    ],
+    "correctAnswer": "0.6244"
+  },
+  {
+    "q": "[ID: A-138] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-139] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-140] Statement 1: All managers are consultants.\nStatement 2: Some consultants are overpaid.\nStatement 3: No overpaid is a engineers.\n\nConclusion I: Some managers are overpaid.\nConclusion II: No engineers is a consultants.\nConclusion III: Some consultants are not engineers.",
+    "opts": [
+      "All conclusions follow",
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-141] A logistics convoy travels the first 104 km of a highly classified route at a heavily regulated speed of 44 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 163 km at 68 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "56.08",
+      "57.60",
+      "59.53",
+      "53.94"
+    ],
+    "correctAnswer": "56.08"
+  },
+  {
+    "q": "[ID: A-142] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.6583",
+      "0.3759",
+      "0.6071",
+      "0.4837"
+    ],
+    "correctAnswer": "0.6071"
+  },
+  {
+    "q": "[ID: A-143] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-144] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-145] Statement 1: All engineers are directors.\nStatement 2: Some directors are strategic.\nStatement 3: No strategic is a analysts.\n\nConclusion I: Some engineers are strategic.\nConclusion II: No analysts is a directors.\nConclusion III: Some directors are not analysts.",
+    "opts": [
+      "All conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-146] A logistics convoy travels the first 131 km of a highly classified route at a heavily regulated speed of 55 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 157 km at 60 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "61.07",
+      "55.48",
+      "59.14",
+      "57.62"
+    ],
+    "correctAnswer": "57.62"
+  },
+  {
+    "q": "[ID: A-147] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.7566",
+      "0.5820",
+      "0.4742",
+      "0.7054"
+    ],
+    "correctAnswer": "0.7054"
+  },
+  {
+    "q": "[ID: A-148] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient",
+      "Both statements together are required",
+      "Statement I alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-149] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-150] Statement 1: All managers are directors.\nStatement 2: Some directors are visionary.\nStatement 3: No visionary is a engineers.\n\nConclusion I: Some managers are visionary.\nConclusion II: No engineers is a directors.\nConclusion III: Some directors are not engineers.",
+    "opts": [
+      "All conclusions follow",
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "Only Conclusion III follows"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-151] A logistics convoy travels the first 126 km of a highly classified route at a heavily regulated speed of 50 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 195 km at 74 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "62.27",
+      "60.13",
+      "63.79",
+      "65.72"
+    ],
+    "correctAnswer": "62.27"
+  },
+  {
+    "q": "[ID: A-152] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.4453",
+      "0.7277",
+      "0.5531",
+      "0.6765"
+    ],
+    "correctAnswer": "0.6765"
+  },
+  {
+    "q": "[ID: A-153] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Neither statement is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-154] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-155] Statement 1: All directors are analysts.\nStatement 2: Some analysts are overpaid.\nStatement 3: No overpaid is a engineers.\n\nConclusion I: Some directors are overpaid.\nConclusion II: No engineers is a analysts.\nConclusion III: Some analysts are not engineers.",
+    "opts": [
+      "Only I and II follow",
+      "All conclusions follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-156] A logistics convoy travels the first 122 km of a highly classified route at a heavily regulated speed of 46 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 178 km at 63 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "56.29",
+      "52.63",
+      "54.77",
+      "58.22"
+    ],
+    "correctAnswer": "54.77"
+  },
+  {
+    "q": "[ID: A-157] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.5816",
+      "0.2992",
+      "0.4070",
+      "0.5304"
+    ],
+    "correctAnswer": "0.5304"
+  },
+  {
+    "q": "[ID: A-158] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-159] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-160] Statement 1: All directors are managers.\nStatement 2: Some managers are overpaid.\nStatement 3: No overpaid is a engineers.\n\nConclusion I: Some directors are overpaid.\nConclusion II: No engineers is a managers.\nConclusion III: Some managers are not engineers.",
+    "opts": [
+      "None of the conclusions follow",
+      "Only I and II follow",
+      "All conclusions follow",
+      "Only Conclusion III follows"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-161] A logistics convoy travels the first 118 km of a highly classified route at a heavily regulated speed of 47 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 163 km at 78 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "61.08",
+      "64.53",
+      "58.94",
+      "62.60"
+    ],
+    "correctAnswer": "61.08"
+  },
+  {
+    "q": "[ID: A-162] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.5815",
+      "0.4737",
+      "0.7561",
+      "0.7049"
+    ],
+    "correctAnswer": "0.7049"
+  },
+  {
+    "q": "[ID: A-163] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-164] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-165] Statement 1: All managers are analysts.\nStatement 2: Some analysts are visionary.\nStatement 3: No visionary is a engineers.\n\nConclusion I: Some managers are visionary.\nConclusion II: No engineers is a analysts.\nConclusion III: Some analysts are not engineers.",
+    "opts": [
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "All conclusions follow",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-166] A logistics convoy travels the first 142 km of a highly classified route at a heavily regulated speed of 44 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 190 km at 73 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "54.81",
+      "56.95",
+      "60.40",
+      "58.47"
+    ],
+    "correctAnswer": "56.95"
+  },
+  {
+    "q": "[ID: A-167] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.5262",
+      "0.7574",
+      "0.8086",
+      "0.6340"
+    ],
+    "correctAnswer": "0.7574"
+  },
+  {
+    "q": "[ID: A-168] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-169] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-170] Statement 1: All consultants are engineers.\nStatement 2: Some engineers are strategic.\nStatement 3: No strategic is a analysts.\n\nConclusion I: Some consultants are strategic.\nConclusion II: No analysts is a engineers.\nConclusion III: Some engineers are not analysts.",
+    "opts": [
+      "All conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-171] A logistics convoy travels the first 137 km of a highly classified route at a heavily regulated speed of 41 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 164 km at 78 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "58.74",
       "55.29",
-      "40.29"
+      "53.15",
+      "56.81"
     ],
-    "correctAnswer": "45.29"
+    "correctAnswer": "55.29"
   },
   {
-    "q": "[ID: A-102] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-172] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "833.98",
-      "853.98",
-      "939.38",
-      "903.98"
+      "0.4742",
+      "0.5820",
+      "0.7566",
+      "0.7054"
     ],
-    "correctAnswer": "853.98"
+    "correctAnswer": "0.7054"
   },
   {
-    "q": "[ID: A-103] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 18% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-173] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "128.17%",
-      "127.06%",
-      "119.06%",
-      "122.06%"
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "122.06%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-104] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-174] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.00",
-      "21.00",
-      "18.00",
-      "22.80"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
     ],
-    "correctAnswer": "19.00"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-105] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 13 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-175] Statement 1: All managers are engineers.\nStatement 2: Some engineers are strategic.\nStatement 3: No strategic is a analysts.\n\nConclusion I: Some managers are strategic.\nConclusion II: No analysts is a engineers.\nConclusion III: Some engineers are not analysts.",
     "opts": [
-      "585",
-      "65",
-      "292.5",
-      "595"
+      "All conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "585"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-106] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 56, and 56 teeth respectively. If Gear A rotates at exactly 160 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-176] A logistics convoy travels the first 102 km of a highly classified route at a heavily regulated speed of 58 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 159 km at 66 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "74.29",
-      "84.29",
-      "69.29",
-      "111.43"
+      "60.48",
+      "64.14",
+      "66.07",
+      "62.62"
     ],
-    "correctAnswer": "74.29"
+    "correctAnswer": "62.62"
   },
   {
-    "q": "[ID: A-107] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-177] In a highly secure cryptographic key repository, there are 19 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1497.20",
-      "1591.92",
-      "1447.20",
-      "1427.20"
+      "0.5816",
+      "0.4070",
+      "0.2992",
+      "0.5304"
     ],
-    "correctAnswer": "1447.20"
+    "correctAnswer": "0.5304"
   },
   {
-    "q": "[ID: A-108] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 23% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-178] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "74.51%",
-      "67.96%",
-      "75.96%",
-      "70.96%"
+      "Statement II alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "70.96%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-109] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-179] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "20.80",
-      "16.33",
-      "19.33",
-      "17.33"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
     ],
-    "correctAnswer": "17.33"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-110] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 7 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-180] Statement 1: All managers are consultants.\nStatement 2: Some consultants are experienced.\nStatement 3: No experienced is a analysts.\n\nConclusion I: Some managers are experienced.\nConclusion II: No analysts is a consultants.\nConclusion III: Some consultants are not analysts.",
     "opts": [
-      "70",
-      "980",
-      "490",
-      "990"
+      "None of the conclusions follow",
+      "Only I and II follow",
+      "All conclusions follow",
+      "Only Conclusion III follows"
     ],
-    "correctAnswer": "980"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-111] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 61, and 61 teeth respectively. If Gear A rotates at exactly 210 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-181] A logistics convoy travels the first 137 km of a highly classified route at a heavily regulated speed of 44 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 167 km at 61 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "160.08",
-      "106.72",
-      "101.72",
-      "116.72"
+      "53.47",
+      "49.81",
+      "55.40",
+      "51.95"
     ],
-    "correctAnswer": "106.72"
+    "correctAnswer": "51.95"
   },
   {
-    "q": "[ID: A-112] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-182] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2389.58",
-      "2172.34",
-      "2222.34",
-      "2152.34"
+      "0.3759",
+      "0.4837",
+      "0.6071",
+      "0.6583"
     ],
-    "correctAnswer": "2172.34"
+    "correctAnswer": "0.6071"
   },
   {
-    "q": "[ID: A-113] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 28% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-183] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "98.00%",
-      "90.33%",
-      "98.33%",
-      "93.33%"
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "93.33%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-114] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-184] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "14.53",
-      "17.53",
-      "18.64",
-      "15.53"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
     ],
-    "correctAnswer": "15.53"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-115] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 12 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-185] Statement 1: All directors are consultants.\nStatement 2: Some consultants are visionary.\nStatement 3: No visionary is a analysts.\n\nConclusion I: Some directors are visionary.\nConclusion II: No analysts is a consultants.\nConclusion III: Some consultants are not analysts.",
     "opts": [
-      "1824",
-      "912",
-      "1834",
-      "96"
+      "All conclusions follow",
+      "None of the conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows"
     ],
-    "correctAnswer": "1824"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-116] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 66, and 66 teeth respectively. If Gear A rotates at exactly 260 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-186] A logistics convoy travels the first 105 km of a highly classified route at a heavily regulated speed of 40 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 166 km at 75 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "136.82",
-      "212.73",
-      "151.82",
-      "141.82"
+      "59.46",
+      "56.01",
+      "53.87",
+      "57.53"
     ],
-    "correctAnswer": "141.82"
+    "correctAnswer": "56.01"
   },
   {
-    "q": "[ID: A-117] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-187] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "3026.48",
-      "3329.13",
-      "3076.48",
-      "3006.48"
+      "0.6306",
+      "0.4560",
+      "0.5794",
+      "0.3482"
     ],
-    "correctAnswer": "3026.48"
+    "correctAnswer": "0.5794"
   },
   {
-    "q": "[ID: A-118] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 33% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-188] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "117.57%",
-      "122.57%",
-      "114.57%",
-      "123.45%"
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "117.57%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-119] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-189] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.74",
-      "23.68",
-      "21.74",
-      "18.74"
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
     ],
-    "correctAnswer": "19.74"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-120] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 17 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-190] Statement 1: All consultants are directors.\nStatement 2: Some directors are overpaid.\nStatement 3: No overpaid is a analysts.\n\nConclusion I: Some consultants are overpaid.\nConclusion II: No analysts is a directors.\nConclusion III: Some directors are not analysts.",
     "opts": [
-      "102",
-      "1122",
-      "561",
-      "1132"
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "None of the conclusions follow",
+      "Only I and II follow"
     ],
-    "correctAnswer": "1122"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-121] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 31, and 41 teeth respectively. If Gear A rotates at exactly 310 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-191] A logistics convoy travels the first 128 km of a highly classified route at a heavily regulated speed of 59 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 180 km at 75 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "310.00",
-      "465.00",
-      "320.00",
-      "305.00"
+      "68.92",
+      "65.26",
+      "70.85",
+      "67.40"
     ],
-    "correctAnswer": "310.00"
+    "correctAnswer": "67.40"
   },
   {
-    "q": "[ID: A-122] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-192] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "887.04",
-      "975.74",
-      "937.04",
-      "867.04"
+      "0.5140",
+      "0.6374",
+      "0.4062",
+      "0.6886"
     ],
-    "correctAnswer": "887.04"
+    "correctAnswer": "0.6374"
   },
   {
-    "q": "[ID: A-123] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 38% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-193] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "120.96%",
-      "112.20%",
-      "120.20%",
-      "115.20%"
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "115.20%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-124] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-194] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "15.41",
-      "14.41",
-      "17.41",
-      "18.49"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
     ],
-    "correctAnswer": "15.41"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-125] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 11 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-195] Statement 1: All directors are consultants.\nStatement 2: Some consultants are visionary.\nStatement 3: No visionary is a managers.\n\nConclusion I: Some directors are visionary.\nConclusion II: No managers is a consultants.\nConclusion III: Some consultants are not managers.",
     "opts": [
-      "968",
-      "1936",
-      "121",
-      "1946"
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "All conclusions follow"
     ],
-    "correctAnswer": "1936"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-126] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 36, and 46 teeth respectively. If Gear A rotates at exactly 360 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-196] A logistics convoy travels the first 129 km of a highly classified route at a heavily regulated speed of 40 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 190 km at 70 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "540.00",
-      "370.00",
-      "355.00",
-      "360.00"
+      "51.57",
+      "57.16",
+      "55.23",
+      "53.71"
     ],
-    "correctAnswer": "360.00"
+    "correctAnswer": "53.71"
   },
   {
-    "q": "[ID: A-127] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-197] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1627.22",
-      "1459.29",
-      "1529.29",
-      "1479.29"
+      "0.5842",
+      "0.8154",
+      "0.6920",
+      "0.8666"
     ],
-    "correctAnswer": "1479.29"
+    "correctAnswer": "0.8154"
   },
   {
-    "q": "[ID: A-128] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 18% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-198] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "104.11%",
-      "104.07%",
-      "99.11%",
-      "96.11%"
+      "Neither statement is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "99.11%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-129] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-199] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.80",
-      "21.80",
-      "18.80",
-      "23.76"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "19.80"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-130] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 16 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-200] Statement 1: All consultants are engineers.\nStatement 2: Some engineers are overpaid.\nStatement 3: No overpaid is a directors.\n\nConclusion I: Some consultants are overpaid.\nConclusion II: No directors is a engineers.\nConclusion III: Some engineers are not directors.",
     "opts": [
-      "144",
-      "1152",
-      "576",
-      "1162"
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "1152"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-131] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 41, and 51 teeth respectively. If Gear A rotates at exactly 410 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-201] A logistics convoy travels the first 120 km of a highly classified route at a heavily regulated speed of 49 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 183 km at 79 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "405.00",
-      "410.00",
-      "615.00",
-      "420.00"
+      "67.03",
+      "65.10",
+      "63.58",
+      "61.44"
     ],
-    "correctAnswer": "410.00"
+    "correctAnswer": "63.58"
   },
   {
-    "q": "[ID: A-132] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-202] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2416.13",
-      "2196.48",
-      "2246.48",
-      "2176.48"
+      "0.6765",
+      "0.4453",
+      "0.5531",
+      "0.7277"
     ],
-    "correctAnswer": "2196.48"
+    "correctAnswer": "0.6765"
   },
   {
-    "q": "[ID: A-133] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 23% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-203] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "130.10%",
-      "120.91%",
-      "123.91%",
-      "128.91%"
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "123.91%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-134] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-204] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "18.86",
-      "15.86",
-      "20.23",
-      "16.86"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "16.86"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-135] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 10 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-205] Statement 1: All managers are analysts.\nStatement 2: Some analysts are certified.\nStatement 3: No certified is a engineers.\n\nConclusion I: Some managers are certified.\nConclusion II: No engineers is a analysts.\nConclusion III: Some analysts are not engineers.",
     "opts": [
-      "70",
-      "920",
-      "455",
-      "910"
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "All conclusions follow",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "910"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-136] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 46, and 56 teeth respectively. If Gear A rotates at exactly 460 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-206] A logistics convoy travels the first 100 km of a highly classified route at a heavily regulated speed of 55 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 187 km at 76 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "460.00",
-      "470.00",
-      "455.00",
-      "690.00"
+      "70.53",
+      "68.60",
+      "64.94",
+      "67.08"
     ],
-    "correctAnswer": "460.00"
+    "correctAnswer": "67.08"
   },
   {
-    "q": "[ID: A-137] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-207] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "3340.66",
-      "3016.96",
-      "3086.96",
-      "3036.96"
+      "0.8369",
+      "0.5545",
+      "0.7857",
+      "0.6623"
     ],
-    "correctAnswer": "3036.96"
+    "correctAnswer": "0.7857"
   },
   {
-    "q": "[ID: A-138] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 28% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-208] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "126.30%",
-      "121.30%",
-      "118.30%",
-      "127.36%"
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "121.30%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-139] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-209] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "17.89",
-      "15.89",
-      "19.07",
-      "14.89"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "15.89"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-140] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 15 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-210] Statement 1: All consultants are directors.\nStatement 2: Some directors are overpaid.\nStatement 3: No overpaid is a engineers.\n\nConclusion I: Some consultants are overpaid.\nConclusion II: No engineers is a directors.\nConclusion III: Some directors are not engineers.",
     "opts": [
-      "1360",
-      "675",
-      "75",
-      "1350"
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "1350"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-141] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 51, and 61 teeth respectively. If Gear A rotates at exactly 510 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-211] A logistics convoy travels the first 112 km of a highly classified route at a heavily regulated speed of 56 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 184 km at 75 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "765.00",
-      "505.00",
-      "520.00",
-      "510.00"
+      "66.47",
+      "69.92",
+      "67.99",
+      "64.33"
     ],
-    "correctAnswer": "510.00"
+    "correctAnswer": "66.47"
   },
   {
-    "q": "[ID: A-142] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-212] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1649.89",
-      "1479.90",
-      "1549.90",
-      "1499.90"
+      "0.6306",
+      "0.4560",
+      "0.5794",
+      "0.3482"
     ],
-    "correctAnswer": "1499.90"
+    "correctAnswer": "0.5794"
   },
   {
-    "q": "[ID: A-143] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 33% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-213] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "97.69%",
-      "93.04%",
-      "98.04%",
-      "90.04%"
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "93.04%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-144] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-214] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "16.33",
-      "17.33",
-      "19.33",
-      "20.80"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
     ],
-    "correctAnswer": "17.33"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-145] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 9 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-215] Statement 1: All engineers are managers.\nStatement 2: Some managers are visionary.\nStatement 3: No visionary is a consultants.\n\nConclusion I: Some engineers are visionary.\nConclusion II: No consultants is a managers.\nConclusion III: Some managers are not consultants.",
     "opts": [
-      "90",
-      "910",
-      "450",
-      "900"
+      "All conclusions follow",
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "900"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-146] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 56, and 66 teeth respectively. If Gear A rotates at exactly 560 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-216] A logistics convoy travels the first 118 km of a highly classified route at a heavily regulated speed of 50 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 174 km at 65 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "560.00",
-      "555.00",
-      "840.00",
-      "570.00"
+      "59.49",
+      "57.97",
+      "55.83",
+      "61.42"
     ],
-    "correctAnswer": "560.00"
+    "correctAnswer": "57.97"
   },
   {
-    "q": "[ID: A-147] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-217] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2569.58",
-      "2315.99",
-      "2385.99",
-      "2335.99"
+      "0.8666",
+      "0.8154",
+      "0.6920",
+      "0.5842"
     ],
-    "correctAnswer": "2335.99"
+    "correctAnswer": "0.8154"
   },
   {
-    "q": "[ID: A-148] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 38% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-218] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "117.27%",
-      "122.27%",
-      "114.27%",
-      "123.13%"
+      "Neither statement is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "117.27%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-149] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-219] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "21.01",
-      "26.41",
-      "22.01",
-      "24.01"
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "22.01"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-150] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 14 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-220] Statement 1: All managers are directors.\nStatement 2: Some directors are experienced.\nStatement 3: No experienced is a engineers.\n\nConclusion I: Some managers are experienced.\nConclusion II: No engineers is a directors.\nConclusion III: Some directors are not engineers.",
     "opts": [
-      "1680",
-      "112",
-      "840",
-      "1690"
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "All conclusions follow",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "1680"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-151] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 61, and 41 teeth respectively. If Gear A rotates at exactly 610 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-221] A logistics convoy travels the first 105 km of a highly classified route at a heavily regulated speed of 53 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 189 km at 61 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "468.66",
-      "307.44",
-      "322.44",
-      "312.44"
+      "57.88",
+      "61.33",
+      "59.40",
+      "55.74"
     ],
-    "correctAnswer": "312.44"
+    "correctAnswer": "57.88"
   },
   {
-    "q": "[ID: A-152] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-222] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1490.08",
-      "1560.08",
-      "1661.09",
-      "1510.08"
+      "0.6920",
+      "0.8154",
+      "0.8666",
+      "0.5842"
     ],
-    "correctAnswer": "1510.08"
+    "correctAnswer": "0.8154"
   },
   {
-    "q": "[ID: A-153] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-223] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "81.21%",
-      "74.34%",
-      "82.34%",
-      "77.34%"
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "77.34%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-154] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-224] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "12.97",
-      "15.97",
-      "13.97",
-      "16.77"
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
     ],
-    "correctAnswer": "13.97"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-155] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 8 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-225] Statement 1: All analysts are directors.\nStatement 2: Some directors are strategic.\nStatement 3: No strategic is a managers.\n\nConclusion I: Some analysts are strategic.\nConclusion II: No managers is a directors.\nConclusion III: Some directors are not managers.",
     "opts": [
-      "480",
-      "48",
-      "970",
-      "960"
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "Only I and II follow",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "960"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-156] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 66, and 46 teeth respectively. If Gear A rotates at exactly 660 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-226] A logistics convoy travels the first 105 km of a highly classified route at a heavily regulated speed of 41 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 185 km at 61 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "368.04",
-      "383.04",
-      "373.04",
-      "559.57"
+      "51.84",
+      "49.70",
+      "53.36",
+      "55.29"
     ],
-    "correctAnswer": "373.04"
+    "correctAnswer": "51.84"
   },
   {
-    "q": "[ID: A-157] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-227] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2437.78",
-      "2196.16",
-      "2266.16",
-      "2216.16"
+      "0.5262",
+      "0.8086",
+      "0.7574",
+      "0.6340"
     ],
-    "correctAnswer": "2216.16"
+    "correctAnswer": "0.7574"
   },
   {
-    "q": "[ID: A-158] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-228] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "105.31%",
-      "100.29%",
-      "97.29%",
-      "105.29%"
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "100.29%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-159] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-229] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "21.53",
-      "17.94",
-      "19.94",
-      "16.94"
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
     ],
-    "correctAnswer": "17.94"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-160] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 13 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-230] Statement 1: All analysts are directors.\nStatement 2: Some directors are visionary.\nStatement 3: No visionary is a consultants.\n\nConclusion I: Some analysts are visionary.\nConclusion II: No consultants is a directors.\nConclusion III: Some directors are not consultants.",
     "opts": [
-      "1716",
-      "858",
-      "143",
-      "1726"
+      "All conclusions follow",
+      "None of the conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows"
     ],
-    "correctAnswer": "1716"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-161] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 31, and 51 teeth respectively. If Gear A rotates at exactly 710 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-231] A logistics convoy travels the first 114 km of a highly classified route at a heavily regulated speed of 58 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 157 km at 68 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "441.57",
-      "431.57",
-      "426.57",
-      "647.35"
+      "61.26",
+      "66.85",
+      "63.40",
+      "64.92"
     ],
-    "correctAnswer": "431.57"
+    "correctAnswer": "63.40"
   },
   {
-    "q": "[ID: A-162] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-232] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1142.78",
-      "1192.78",
-      "1122.78",
-      "1257.06"
+      "0.6129",
+      "0.7363",
+      "0.5051",
+      "0.7875"
     ],
-    "correctAnswer": "1142.78"
+    "correctAnswer": "0.7363"
   },
   {
-    "q": "[ID: A-163] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-233] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "125.14%",
-      "130.14%",
-      "122.14%",
-      "131.40%"
+      "Both statements together are required",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient"
     ],
-    "correctAnswer": "125.14%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-164] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-234] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "18.00",
-      "22.80",
-      "21.00",
-      "19.00"
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "19.00"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-165] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 7 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-235] Statement 1: All analysts are engineers.\nStatement 2: Some engineers are certified.\nStatement 3: No certified is a consultants.\n\nConclusion I: Some analysts are certified.\nConclusion II: No consultants is a engineers.\nConclusion III: Some engineers are not consultants.",
     "opts": [
-      "535.5",
-      "63",
-      "1071",
-      "1081"
+      "None of the conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "All conclusions follow"
     ],
-    "correctAnswer": "1071"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-166] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 36, and 56 teeth respectively. If Gear A rotates at exactly 760 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-236] A logistics convoy travels the first 141 km of a highly classified route at a heavily regulated speed of 42 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 167 km at 70 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "732.86",
-      "483.57",
-      "498.57",
-      "488.57"
+      "53.63",
+      "51.49",
+      "55.15",
+      "57.08"
     ],
-    "correctAnswer": "488.57"
+    "correctAnswer": "53.63"
   },
   {
-    "q": "[ID: A-167] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-237] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2022.86",
-      "1818.97",
-      "1888.97",
-      "1838.97"
+      "0.6340",
+      "0.7574",
+      "0.5262",
+      "0.8086"
     ],
-    "correctAnswer": "1838.97"
+    "correctAnswer": "0.7574"
   },
   {
-    "q": "[ID: A-168] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-238] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "128.55%",
-      "119.43%",
-      "127.43%",
-      "122.43%"
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "122.43%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-169] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-239] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "17.33",
-      "19.33",
-      "16.33",
-      "20.80"
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "17.33"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-170] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 12 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-240] Statement 1: All engineers are analysts.\nStatement 2: Some analysts are overpaid.\nStatement 3: No overpaid is a consultants.\n\nConclusion I: Some engineers are overpaid.\nConclusion II: No consultants is a analysts.\nConclusion III: Some analysts are not consultants.",
     "opts": [
-      "84",
-      "766",
-      "378",
-      "756"
+      "Only I and II follow",
+      "All conclusions follow",
+      "None of the conclusions follow",
+      "Only Conclusion III follows"
     ],
-    "correctAnswer": "756"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-171] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 41, and 61 teeth respectively. If Gear A rotates at exactly 810 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-241] A logistics convoy travels the first 103 km of a highly classified route at a heavily regulated speed of 48 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 176 km at 71 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "544.43",
-      "554.43",
-      "816.64",
-      "539.43"
+      "58.19",
+      "60.33",
+      "61.85",
+      "63.78"
     ],
-    "correctAnswer": "544.43"
+    "correctAnswer": "60.33"
   },
   {
-    "q": "[ID: A-172] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-242] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2927.23",
-      "2641.12",
-      "2661.12",
-      "2711.12"
+      "0.6129",
+      "0.7363",
+      "0.7875",
+      "0.5051"
     ],
-    "correctAnswer": "2661.12"
+    "correctAnswer": "0.7363"
   },
   {
-    "q": "[ID: A-173] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-243] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "149.15%",
-      "156.60%",
-      "154.15%",
-      "146.15%"
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "149.15%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-174] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-244] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "15.53",
-      "17.53",
-      "18.64",
-      "14.53"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "15.53"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-175] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 17 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-245] Statement 1: All managers are engineers.\nStatement 2: Some engineers are strategic.\nStatement 3: No strategic is a consultants.\n\nConclusion I: Some managers are strategic.\nConclusion II: No consultants is a engineers.\nConclusion III: Some engineers are not consultants.",
     "opts": [
-      "85",
-      "1200",
-      "595",
-      "1190"
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "1190"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-176] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 46, and 66 teeth respectively. If Gear A rotates at exactly 860 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-246] A logistics convoy travels the first 111 km of a highly classified route at a heavily regulated speed of 57 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 171 km at 66 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "599.39",
-      "609.39",
-      "594.39",
-      "899.09"
+      "62.14",
+      "63.66",
+      "60.00",
+      "65.59"
     ],
-    "correctAnswer": "599.39"
+    "correctAnswer": "62.14"
   },
   {
-    "q": "[ID: A-177] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-247] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "3968.65",
-      "3587.86",
-      "3657.86",
-      "3607.86"
+      "0.5262",
+      "0.7574",
+      "0.8086",
+      "0.6340"
     ],
-    "correctAnswer": "3607.86"
+    "correctAnswer": "0.7574"
   },
   {
-    "q": "[ID: A-178] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 18% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-248] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "75.52%",
-      "83.52%",
-      "78.52%",
-      "82.45%"
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "78.52%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-179] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-249] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "21.74",
-      "23.68",
-      "18.74",
-      "19.74"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
     ],
-    "correctAnswer": "19.74"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-180] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 11 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-250] Statement 1: All consultants are managers.\nStatement 2: Some managers are visionary.\nStatement 3: No visionary is a engineers.\n\nConclusion I: Some consultants are visionary.\nConclusion II: No engineers is a managers.\nConclusion III: Some managers are not engineers.",
     "opts": [
-      "1045",
-      "110",
-      "2090",
-      "2100"
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "2090"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-181] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 51, and 41 teeth respectively. If Gear A rotates at exactly 910 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-251] A logistics convoy travels the first 128 km of a highly classified route at a heavily regulated speed of 44 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 184 km at 73 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "1697.93",
-      "1131.95",
-      "1141.95",
-      "1126.95"
+      "60.91",
+      "55.32",
+      "57.46",
+      "58.98"
     ],
-    "correctAnswer": "1131.95"
+    "correctAnswer": "57.46"
   },
   {
-    "q": "[ID: A-182] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-252] In a highly secure cryptographic key repository, there are 18 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1065.94",
-      "949.04",
-      "1019.04",
-      "969.04"
+      "0.7007",
+      "0.5261",
+      "0.6495",
+      "0.4183"
     ],
-    "correctAnswer": "969.04"
+    "correctAnswer": "0.6495"
   },
   {
-    "q": "[ID: A-183] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 23% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-253] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "81.80%",
-      "82.91%",
-      "77.91%",
-      "74.91%"
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "77.91%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-184] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-254] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "18.49",
-      "14.41",
-      "17.41",
-      "15.41"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "15.41"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-185] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 16 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-255] Statement 1: All directors are consultants.\nStatement 2: Some consultants are experienced.\nStatement 3: No experienced is a analysts.\n\nConclusion I: Some directors are experienced.\nConclusion II: No analysts is a consultants.\nConclusion III: Some consultants are not analysts.",
     "opts": [
-      "1408",
-      "704",
-      "1418",
-      "128"
+      "None of the conclusions follow",
+      "All conclusions follow",
+      "Only Conclusion III follows",
+      "Only I and II follow"
     ],
-    "correctAnswer": "1408"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-186] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 56, and 46 teeth respectively. If Gear A rotates at exactly 960 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-256] A logistics convoy travels the first 104 km of a highly classified route at a heavily regulated speed of 54 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 188 km at 74 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "1753.04",
-      "1168.70",
-      "1163.70",
-      "1178.70"
+      "68.83",
+      "65.38",
+      "66.90",
+      "63.24"
     ],
-    "correctAnswer": "1168.70"
+    "correctAnswer": "65.38"
   },
   {
-    "q": "[ID: A-187] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-257] In a highly secure cryptographic key repository, there are 18 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1590.03",
-      "1660.03",
-      "1610.03",
-      "1771.03"
+      "0.4305",
+      "0.5539",
+      "0.3227",
+      "0.6051"
     ],
-    "correctAnswer": "1610.03"
+    "correctAnswer": "0.5539"
   },
   {
-    "q": "[ID: A-188] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 28% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-258] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "100.88%",
-      "105.88%",
-      "97.88%",
-      "105.93%"
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "100.88%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-189] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-259] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.80",
-      "23.76",
-      "21.80",
-      "18.80"
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
     ],
-    "correctAnswer": "19.80"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-190] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 10 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-260] Statement 1: All consultants are engineers.\nStatement 2: Some engineers are experienced.\nStatement 3: No experienced is a managers.\n\nConclusion I: Some consultants are experienced.\nConclusion II: No managers is a engineers.\nConclusion III: Some engineers are not managers.",
     "opts": [
-      "960",
-      "480",
-      "60",
-      "970"
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "All conclusions follow",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "960"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-191] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 61, and 51 teeth respectively. If Gear A rotates at exactly 1010 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-261] A logistics convoy travels the first 141 km of a highly classified route at a heavily regulated speed of 57 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 189 km at 71 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "1208.04",
-      "1218.04",
-      "1203.04",
-      "1812.06"
+      "62.12",
+      "65.78",
+      "64.26",
+      "67.71"
     ],
-    "correctAnswer": "1208.04"
+    "correctAnswer": "64.26"
   },
   {
-    "q": "[ID: A-192] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-262] In a highly secure cryptographic key repository, there are 18 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2430.80",
-      "2360.80",
-      "2618.88",
-      "2380.80"
+      "0.7816",
+      "0.6070",
+      "0.7304",
+      "0.4992"
     ],
-    "correctAnswer": "2380.80"
+    "correctAnswer": "0.7304"
   },
   {
-    "q": "[ID: A-193] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 33% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-263] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "125.75%",
-      "130.75%",
-      "122.75%",
-      "132.04%"
+      "Statement II alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient"
     ],
-    "correctAnswer": "125.75%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-194] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-264] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "16.86",
-      "20.23",
-      "18.86",
-      "15.86"
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
     ],
-    "correctAnswer": "16.86"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-195] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 15 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-265] Statement 1: All engineers are directors.\nStatement 2: Some directors are overpaid.\nStatement 3: No overpaid is a managers.\n\nConclusion I: Some engineers are overpaid.\nConclusion II: No managers is a directors.\nConclusion III: Some directors are not managers.",
     "opts": [
-      "1330",
-      "1320",
-      "165",
-      "660"
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "1320"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-196] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 66, and 56 teeth respectively. If Gear A rotates at exactly 1060 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-266] A logistics convoy travels the first 148 km of a highly classified route at a heavily regulated speed of 50 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 178 km at 64 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "1249.29",
-      "1259.29",
-      "1244.29",
-      "1873.93"
+      "58.30",
+      "54.64",
+      "60.23",
+      "56.78"
     ],
-    "correctAnswer": "1249.29"
+    "correctAnswer": "56.78"
   },
   {
-    "q": "[ID: A-197] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-267] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "3278.35",
-      "3606.19",
-      "3328.35",
-      "3258.35"
+      "0.6129",
+      "0.7363",
+      "0.5051",
+      "0.7875"
     ],
-    "correctAnswer": "3278.35"
+    "correctAnswer": "0.7363"
   },
   {
-    "q": "[ID: A-198] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 38% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-268] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "127.99%",
-      "122.99%",
-      "129.14%",
-      "119.99%"
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "122.99%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-199] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-269] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "15.89",
-      "17.89",
-      "14.89",
-      "19.07"
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "15.89"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-200] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 9 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-270] Statement 1: All managers are directors.\nStatement 2: Some directors are strategic.\nStatement 3: No strategic is a analysts.\n\nConclusion I: Some managers are strategic.\nConclusion II: No analysts is a directors.\nConclusion III: Some directors are not analysts.",
     "opts": [
-      "1053",
-      "526.5",
-      "1063",
-      "81"
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "All conclusions follow"
     ],
-    "correctAnswer": "1053"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-201] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 31, and 61 teeth respectively. If Gear A rotates at exactly 110 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-271] A logistics convoy travels the first 115 km of a highly classified route at a heavily regulated speed of 41 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 191 km at 69 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "52.77",
+      "58.36",
+      "54.91",
+      "56.43"
+    ],
+    "correctAnswer": "54.91"
+  },
+  {
+    "q": "[ID: A-272] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.6306",
+      "0.4560",
+      "0.5794",
+      "0.3482"
+    ],
+    "correctAnswer": "0.5794"
+  },
+  {
+    "q": "[ID: A-273] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Both statements together are required",
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-274] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-275] Statement 1: All consultants are engineers.\nStatement 2: Some engineers are visionary.\nStatement 3: No visionary is a managers.\n\nConclusion I: Some consultants are visionary.\nConclusion II: No managers is a engineers.\nConclusion III: Some engineers are not managers.",
+    "opts": [
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "Only I and II follow",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-276] A logistics convoy travels the first 135 km of a highly classified route at a heavily regulated speed of 51 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 169 km at 75 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "62.04",
+      "65.49",
+      "59.90",
+      "63.56"
+    ],
+    "correctAnswer": "62.04"
+  },
+  {
+    "q": "[ID: A-277] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.8666",
+      "0.8154",
+      "0.6920",
+      "0.5842"
+    ],
+    "correctAnswer": "0.8154"
+  },
+  {
+    "q": "[ID: A-278] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-279] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-280] Statement 1: All analysts are engineers.\nStatement 2: Some engineers are visionary.\nStatement 3: No visionary is a directors.\n\nConclusion I: Some analysts are visionary.\nConclusion II: No directors is a engineers.\nConclusion III: Some engineers are not directors.",
+    "opts": [
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "All conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-281] A logistics convoy travels the first 125 km of a highly classified route at a heavily regulated speed of 49 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 168 km at 77 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "65.36",
+      "61.91",
+      "59.77",
+      "63.43"
+    ],
+    "correctAnswer": "61.91"
+  },
+  {
+    "q": "[ID: A-282] In a highly secure cryptographic key repository, there are 18 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.6070",
+      "0.7304",
+      "0.4992",
+      "0.7816"
+    ],
+    "correctAnswer": "0.7304"
+  },
+  {
+    "q": "[ID: A-283] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-284] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-285] Statement 1: All directors are engineers.\nStatement 2: Some engineers are strategic.\nStatement 3: No strategic is a managers.\n\nConclusion I: Some directors are strategic.\nConclusion II: No managers is a engineers.\nConclusion III: Some engineers are not managers.",
+    "opts": [
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "All conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-286] A logistics convoy travels the first 139 km of a highly classified route at a heavily regulated speed of 53 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 174 km at 60 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "56.68",
+      "58.20",
+      "54.54",
+      "60.13"
+    ],
+    "correctAnswer": "56.68"
+  },
+  {
+    "q": "[ID: A-287] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.7363",
+      "0.7875",
+      "0.5051",
+      "0.6129"
+    ],
+    "correctAnswer": "0.7363"
+  },
+  {
+    "q": "[ID: A-288] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-289] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-290] Statement 1: All consultants are analysts.\nStatement 2: Some analysts are experienced.\nStatement 3: No experienced is a directors.\n\nConclusion I: Some consultants are experienced.\nConclusion II: No directors is a analysts.\nConclusion III: Some analysts are not directors.",
+    "opts": [
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "All conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-291] A logistics convoy travels the first 148 km of a highly classified route at a heavily regulated speed of 44 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 166 km at 76 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "54.46",
+      "58.12",
+      "56.60",
+      "60.05"
+    ],
+    "correctAnswer": "56.60"
+  },
+  {
+    "q": "[ID: A-292] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.7574",
+      "0.6340",
+      "0.8086",
+      "0.5262"
+    ],
+    "correctAnswer": "0.7574"
+  },
+  {
+    "q": "[ID: A-293] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient",
+      "Both statements together are required"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-294] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-295] Statement 1: All directors are engineers.\nStatement 2: Some engineers are strategic.\nStatement 3: No strategic is a consultants.\n\nConclusion I: Some directors are strategic.\nConclusion II: No consultants is a engineers.\nConclusion III: Some engineers are not consultants.",
+    "opts": [
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "All conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-296] A logistics convoy travels the first 108 km of a highly classified route at a heavily regulated speed of 49 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 197 km at 67 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "57.15",
+      "62.74",
+      "60.81",
+      "59.29"
+    ],
+    "correctAnswer": "59.29"
+  },
+  {
+    "q": "[ID: A-297] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.6340",
+      "0.7574",
+      "0.8086",
+      "0.5262"
+    ],
+    "correctAnswer": "0.7574"
+  },
+  {
+    "q": "[ID: A-298] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-299] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-300] Statement 1: All analysts are managers.\nStatement 2: Some managers are overpaid.\nStatement 3: No overpaid is a consultants.\n\nConclusion I: Some analysts are overpaid.\nConclusion II: No consultants is a managers.\nConclusion III: Some managers are not consultants.",
+    "opts": [
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "All conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-301] A logistics convoy travels the first 120 km of a highly classified route at a heavily regulated speed of 47 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 165 km at 74 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "61.11",
+      "57.45",
+      "59.59",
+      "63.04"
+    ],
+    "correctAnswer": "59.59"
+  },
+  {
+    "q": "[ID: A-302] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.5531",
+      "0.7277",
+      "0.6765",
+      "0.4453"
+    ],
+    "correctAnswer": "0.6765"
+  },
+  {
+    "q": "[ID: A-303] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-304] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-305] Statement 1: All engineers are consultants.\nStatement 2: Some consultants are visionary.\nStatement 3: No visionary is a managers.\n\nConclusion I: Some engineers are visionary.\nConclusion II: No managers is a consultants.\nConclusion III: Some consultants are not managers.",
+    "opts": [
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "All conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-306] A logistics convoy travels the first 137 km of a highly classified route at a heavily regulated speed of 51 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 152 km at 68 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "62.17",
+      "58.72",
+      "56.58",
+      "60.24"
+    ],
+    "correctAnswer": "58.72"
+  },
+  {
+    "q": "[ID: A-307] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.3482",
+      "0.4560",
+      "0.6306",
+      "0.5794"
+    ],
+    "correctAnswer": "0.5794"
+  },
+  {
+    "q": "[ID: A-308] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-309] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-310] Statement 1: All managers are consultants.\nStatement 2: Some consultants are experienced.\nStatement 3: No experienced is a engineers.\n\nConclusion I: Some managers are experienced.\nConclusion II: No engineers is a consultants.\nConclusion III: Some consultants are not engineers.",
+    "opts": [
+      "None of the conclusions follow",
+      "All conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-311] A logistics convoy travels the first 105 km of a highly classified route at a heavily regulated speed of 56 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 155 km at 61 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "62.33",
+      "60.40",
+      "56.74",
+      "58.88"
+    ],
+    "correctAnswer": "58.88"
+  },
+  {
+    "q": "[ID: A-312] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.7566",
+      "0.5820",
+      "0.7054",
+      "0.4742"
+    ],
+    "correctAnswer": "0.7054"
+  },
+  {
+    "q": "[ID: A-313] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-314] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-315] Statement 1: All managers are consultants.\nStatement 2: Some consultants are overpaid.\nStatement 3: No overpaid is a engineers.\n\nConclusion I: Some managers are overpaid.\nConclusion II: No engineers is a consultants.\nConclusion III: Some consultants are not engineers.",
+    "opts": [
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "All conclusions follow",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-316] A logistics convoy travels the first 132 km of a highly classified route at a heavily regulated speed of 44 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 158 km at 68 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "57.93",
+      "56.00",
+      "52.34",
+      "54.48"
+    ],
+    "correctAnswer": "54.48"
+  },
+  {
+    "q": "[ID: A-317] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.5842",
+      "0.6920",
+      "0.8666",
+      "0.8154"
+    ],
+    "correctAnswer": "0.8154"
+  },
+  {
+    "q": "[ID: A-318] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Both statements together are required"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-319] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-320] Statement 1: All engineers are analysts.\nStatement 2: Some analysts are visionary.\nStatement 3: No visionary is a consultants.\n\nConclusion I: Some engineers are visionary.\nConclusion II: No consultants is a analysts.\nConclusion III: Some analysts are not consultants.",
+    "opts": [
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "All conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-321] A logistics convoy travels the first 111 km of a highly classified route at a heavily regulated speed of 40 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 175 km at 63 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "49.37",
+      "51.51",
+      "53.03",
+      "54.96"
+    ],
+    "correctAnswer": "51.51"
+  },
+  {
+    "q": "[ID: A-322] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.6374",
+      "0.4062",
+      "0.6886",
+      "0.5140"
+    ],
+    "correctAnswer": "0.6374"
+  },
+  {
+    "q": "[ID: A-323] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Both statements together are required",
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-324] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-325] Statement 1: All consultants are managers.\nStatement 2: Some managers are strategic.\nStatement 3: No strategic is a engineers.\n\nConclusion I: Some consultants are strategic.\nConclusion II: No engineers is a managers.\nConclusion III: Some managers are not engineers.",
+    "opts": [
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "All conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-326] A logistics convoy travels the first 133 km of a highly classified route at a heavily regulated speed of 42 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 154 km at 61 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "50.43",
+      "51.95",
+      "48.29",
+      "53.88"
+    ],
+    "correctAnswer": "50.43"
+  },
+  {
+    "q": "[ID: A-327] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.7054",
+      "0.7566",
+      "0.4742",
+      "0.5820"
+    ],
+    "correctAnswer": "0.7054"
+  },
+  {
+    "q": "[ID: A-328] Question: Is the integer Z a prime number?\n\nStatement I: Z > 10 and is a factor of 143.\nStatement II: Z leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement II alone is sufficient",
+      "Both statements together are required",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-329] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-330] Statement 1: All consultants are engineers.\nStatement 2: Some engineers are overpaid.\nStatement 3: No overpaid is a directors.\n\nConclusion I: Some consultants are overpaid.\nConclusion II: No directors is a engineers.\nConclusion III: Some engineers are not directors.",
+    "opts": [
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "None of the conclusions follow",
+      "Only I and II follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-331] A logistics convoy travels the first 134 km of a highly classified route at a heavily regulated speed of 45 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 198 km at 61 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "56.79",
+      "53.34",
+      "51.20",
+      "54.86"
+    ],
+    "correctAnswer": "53.34"
+  },
+  {
+    "q": "[ID: A-332] In a highly secure cryptographic key repository, there are 18 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.3227",
+      "0.4305",
+      "0.6051",
+      "0.5539"
+    ],
+    "correctAnswer": "0.5539"
+  },
+  {
+    "q": "[ID: A-333] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-334] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-335] Statement 1: All managers are directors.\nStatement 2: Some directors are experienced.\nStatement 3: No experienced is a analysts.\n\nConclusion I: Some managers are experienced.\nConclusion II: No analysts is a directors.\nConclusion III: Some directors are not analysts.",
+    "opts": [
+      "All conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-336] A logistics convoy travels the first 103 km of a highly classified route at a heavily regulated speed of 49 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 165 km at 73 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "64.89",
+      "61.44",
+      "62.96",
+      "59.30"
+    ],
+    "correctAnswer": "61.44"
+  },
+  {
+    "q": "[ID: A-337] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.6920",
+      "0.8666",
+      "0.5842",
+      "0.8154"
+    ],
+    "correctAnswer": "0.8154"
+  },
+  {
+    "q": "[ID: A-338] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-339] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-340] Statement 1: All consultants are analysts.\nStatement 2: Some analysts are experienced.\nStatement 3: No experienced is a directors.\n\nConclusion I: Some consultants are experienced.\nConclusion II: No directors is a analysts.\nConclusion III: Some analysts are not directors.",
+    "opts": [
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-341] A logistics convoy travels the first 148 km of a highly classified route at a heavily regulated speed of 44 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 178 km at 73 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "56.19",
+      "57.71",
+      "54.05",
+      "59.64"
+    ],
+    "correctAnswer": "56.19"
+  },
+  {
+    "q": "[ID: A-342] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.5051",
+      "0.7363",
+      "0.7875",
+      "0.6129"
+    ],
+    "correctAnswer": "0.7363"
+  },
+  {
+    "q": "[ID: A-343] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-344] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
+    ],
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
+  },
+  {
+    "q": "[ID: A-345] Statement 1: All engineers are analysts.\nStatement 2: Some analysts are strategic.\nStatement 3: No strategic is a directors.\n\nConclusion I: Some engineers are strategic.\nConclusion II: No directors is a analysts.\nConclusion III: Some analysts are not directors.",
+    "opts": [
+      "None of the conclusions follow",
+      "All conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-346] A logistics convoy travels the first 137 km of a highly classified route at a heavily regulated speed of 49 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 184 km at 67 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "61.37",
+      "55.78",
+      "57.92",
+      "59.44"
+    ],
+    "correctAnswer": "57.92"
+  },
+  {
+    "q": "[ID: A-347] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.5262",
+      "0.7574",
+      "0.8086",
+      "0.6340"
+    ],
+    "correctAnswer": "0.7574"
+  },
+  {
+    "q": "[ID: A-348] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Both statements together are required"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-349] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-350] Statement 1: All consultants are managers.\nStatement 2: Some managers are experienced.\nStatement 3: No experienced is a analysts.\n\nConclusion I: Some consultants are experienced.\nConclusion II: No analysts is a managers.\nConclusion III: Some managers are not analysts.",
+    "opts": [
+      "None of the conclusions follow",
+      "All conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-351] A logistics convoy travels the first 124 km of a highly classified route at a heavily regulated speed of 55 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 156 km at 77 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "66.93",
+      "63.27",
+      "68.86",
+      "65.41"
+    ],
+    "correctAnswer": "65.41"
+  },
+  {
+    "q": "[ID: A-352] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.6071",
+      "0.3759",
+      "0.6583",
+      "0.4837"
+    ],
+    "correctAnswer": "0.6071"
+  },
+  {
+    "q": "[ID: A-353] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Both statements together are required",
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-354] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-355] Statement 1: All engineers are directors.\nStatement 2: Some directors are overpaid.\nStatement 3: No overpaid is a consultants.\n\nConclusion I: Some engineers are overpaid.\nConclusion II: No consultants is a directors.\nConclusion III: Some directors are not consultants.",
+    "opts": [
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "All conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-356] A logistics convoy travels the first 122 km of a highly classified route at a heavily regulated speed of 49 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 153 km at 74 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "61.86",
+      "58.20",
+      "63.79",
+      "60.34"
+    ],
+    "correctAnswer": "60.34"
+  },
+  {
+    "q": "[ID: A-357] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.7277",
+      "0.5531",
+      "0.6765",
+      "0.4453"
+    ],
+    "correctAnswer": "0.6765"
+  },
+  {
+    "q": "[ID: A-358] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement II alone is sufficient",
+      "Both statements together are required",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-359] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-360] Statement 1: All analysts are engineers.\nStatement 2: Some engineers are strategic.\nStatement 3: No strategic is a consultants.\n\nConclusion I: Some analysts are strategic.\nConclusion II: No consultants is a engineers.\nConclusion III: Some engineers are not consultants.",
+    "opts": [
+      "All conclusions follow",
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "None of the conclusions follow"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-361] A logistics convoy travels the first 143 km of a highly classified route at a heavily regulated speed of 55 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 171 km at 67 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
+    "opts": [
+      "62.46",
+      "58.80",
+      "64.39",
+      "60.94"
+    ],
+    "correctAnswer": "60.94"
+  },
+  {
+    "q": "[ID: A-362] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
+    "opts": [
+      "0.6886",
+      "0.4062",
+      "0.6374",
+      "0.5140"
+    ],
+    "correctAnswer": "0.6374"
+  },
+  {
+    "q": "[ID: A-363] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
+    "opts": [
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient",
+      "Both statements together are required"
+    ],
+    "correctAnswer": "Statement I alone is sufficient"
+  },
+  {
+    "q": "[ID: A-364] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
+    "opts": [
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
+    ],
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
+  },
+  {
+    "q": "[ID: A-365] Statement 1: All managers are directors.\nStatement 2: Some directors are experienced.\nStatement 3: No experienced is a consultants.\n\nConclusion I: Some managers are experienced.\nConclusion II: No consultants is a directors.\nConclusion III: Some directors are not consultants.",
+    "opts": [
+      "None of the conclusions follow",
+      "Only I and II follow",
+      "All conclusions follow",
+      "Only Conclusion III follows"
+    ],
+    "correctAnswer": "Only Conclusion III follows"
+  },
+  {
+    "q": "[ID: A-366] A logistics convoy travels the first 109 km of a highly classified route at a heavily regulated speed of 46 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 194 km at 70 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
       "56.80",
-      "37.87",
-      "47.87",
-      "32.87"
+      "60.46",
+      "62.39",
+      "58.94"
     ],
-    "correctAnswer": "37.87"
+    "correctAnswer": "58.94"
   },
   {
-    "q": "[ID: A-202] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-367] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "782.68",
-      "832.68",
-      "762.68",
-      "860.95"
+      "0.5051",
+      "0.7363",
+      "0.7875",
+      "0.6129"
     ],
-    "correctAnswer": "782.68"
+    "correctAnswer": "0.7363"
   },
   {
-    "q": "[ID: A-203] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 18% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-368] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "106.08%",
-      "111.38%",
-      "111.08%",
-      "103.08%"
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Both statements together are required",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "106.08%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-204] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-369] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.33",
-      "17.33",
-      "20.80",
-      "16.33"
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
     ],
-    "correctAnswer": "17.33"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-205] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 14 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-370] Statement 1: All consultants are managers.\nStatement 2: Some managers are strategic.\nStatement 3: No strategic is a analysts.\n\nConclusion I: Some consultants are strategic.\nConclusion II: No analysts is a managers.\nConclusion III: Some managers are not analysts.",
     "opts": [
-      "1764",
-      "1774",
-      "98",
-      "882"
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "None of the conclusions follow",
+      "Only I and II follow"
     ],
-    "correctAnswer": "1764"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-206] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 36, and 66 teeth respectively. If Gear A rotates at exactly 160 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-371] A logistics convoy travels the first 107 km of a highly classified route at a heavily regulated speed of 55 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 173 km at 74 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "94.55",
-      "58.03",
-      "63.03",
-      "73.03"
+      "66.89",
+      "63.23",
+      "68.82",
+      "65.37"
     ],
-    "correctAnswer": "63.03"
+    "correctAnswer": "65.37"
   },
   {
-    "q": "[ID: A-207] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-372] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1377.57",
-      "1460.33",
-      "1327.57",
-      "1307.57"
+      "0.6129",
+      "0.5051",
+      "0.7875",
+      "0.7363"
     ],
-    "correctAnswer": "1327.57"
+    "correctAnswer": "0.7363"
   },
   {
-    "q": "[ID: A-208] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 23% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-373] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "131.47%",
-      "136.47%",
-      "128.47%",
-      "138.05%"
+      "Both statements together are required",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Statement II alone is sufficient"
     ],
-    "correctAnswer": "131.47%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-209] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-374] Read the following excerpt:\n\"The government has recently imposed a severe carbon tax on heavy industries to curb greenhouse emissions by 40% over the next decade. Surprisingly, economists project this will lead to a net increase in domestic manufacturing output.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "24.01",
-      "26.41",
-      "21.01",
-      "22.01"
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output."
     ],
-    "correctAnswer": "22.01"
+    "correctAnswer": "The revenue generated from the carbon tax will be heavily subsidized back into green manufacturing technologies, making domestic industries highly globally competitive."
   },
   {
-    "q": "[ID: A-210] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 8 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-375] Statement 1: All engineers are analysts.\nStatement 2: Some analysts are strategic.\nStatement 3: No strategic is a managers.\n\nConclusion I: Some engineers are strategic.\nConclusion II: No managers is a analysts.\nConclusion III: Some analysts are not managers.",
     "opts": [
-      "400",
-      "200",
-      "410",
-      "40"
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "All conclusions follow",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "400"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-211] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 41, and 41 teeth respectively. If Gear A rotates at exactly 210 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-376] A logistics convoy travels the first 136 km of a highly classified route at a heavily regulated speed of 59 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 173 km at 63 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "158.78",
-      "238.17",
-      "168.78",
-      "153.78"
+      "62.69",
+      "64.62",
+      "61.17",
+      "59.03"
     ],
-    "correctAnswer": "158.78"
+    "correctAnswer": "61.17"
   },
   {
-    "q": "[ID: A-212] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-377] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1996.80",
-      "2046.80",
-      "1976.80",
-      "2196.48"
+      "0.6886",
+      "0.4062",
+      "0.6374",
+      "0.5140"
     ],
-    "correctAnswer": "1996.80"
+    "correctAnswer": "0.6374"
   },
   {
-    "q": "[ID: A-213] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 28% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-378] Question: Is the integer X a prime number?\n\nStatement I: X > 10 and is a factor of 143.\nStatement II: X leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "77.91%",
-      "82.91%",
-      "74.91%",
-      "81.80%"
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient"
     ],
-    "correctAnswer": "77.91%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-214] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-379] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "13.97",
-      "15.97",
-      "12.97",
-      "16.77"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
     ],
-    "correctAnswer": "13.97"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-215] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 13 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-380] Statement 1: All engineers are analysts.\nStatement 2: Some analysts are certified.\nStatement 3: No certified is a consultants.\n\nConclusion I: Some engineers are certified.\nConclusion II: No consultants is a analysts.\nConclusion III: Some analysts are not consultants.",
     "opts": [
-      "975",
-      "1950",
-      "130",
-      "1960"
+      "All conclusions follow",
+      "None of the conclusions follow",
+      "Only Conclusion III follows",
+      "Only I and II follow"
     ],
-    "correctAnswer": "1950"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-216] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 46, and 46 teeth respectively. If Gear A rotates at exactly 260 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-381] A logistics convoy travels the first 146 km of a highly classified route at a heavily regulated speed of 57 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 157 km at 71 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "305.22",
-      "198.48",
-      "213.48",
-      "203.48"
+      "65.01",
+      "63.49",
+      "61.35",
+      "66.94"
     ],
-    "correctAnswer": "203.48"
+    "correctAnswer": "63.49"
   },
   {
-    "q": "[ID: A-217] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-382] In a highly secure cryptographic key repository, there are 16 physical access drives, of which exactly 5 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2839.04",
-      "3067.95",
-      "2789.04",
-      "2769.04"
+      "0.5820",
+      "0.7054",
+      "0.4742",
+      "0.7566"
     ],
-    "correctAnswer": "2789.04"
+    "correctAnswer": "0.7054"
   },
   {
-    "q": "[ID: A-218] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 33% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-383] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "100.88%",
-      "105.88%",
-      "97.88%",
-      "105.93%"
+      "Both statements together are required",
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Neither statement is sufficient"
     ],
-    "correctAnswer": "100.88%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-219] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-384] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "21.53",
-      "16.94",
-      "19.94",
-      "17.94"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
     ],
-    "correctAnswer": "17.94"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-220] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 7 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-385] Statement 1: All analysts are engineers.\nStatement 2: Some engineers are certified.\nStatement 3: No certified is a consultants.\n\nConclusion I: Some analysts are certified.\nConclusion II: No consultants is a engineers.\nConclusion III: Some engineers are not consultants.",
     "opts": [
-      "56",
-      "1130",
-      "560",
-      "1120"
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "1120"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-221] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 51, and 51 teeth respectively. If Gear A rotates at exactly 310 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-386] A logistics convoy travels the first 140 km of a highly classified route at a heavily regulated speed of 40 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 166 km at 74 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "249.22",
-      "259.22",
-      "244.22",
-      "373.82"
+      "51.14",
+      "53.28",
+      "54.80",
+      "56.73"
     ],
-    "correctAnswer": "249.22"
+    "correctAnswer": "53.28"
   },
   {
-    "q": "[ID: A-222] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-387] In a highly secure cryptographic key repository, there are 18 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "1527.68",
-      "1388.80",
-      "1438.80",
-      "1368.80"
+      "0.7816",
+      "0.4992",
+      "0.7304",
+      "0.6070"
     ],
-    "correctAnswer": "1388.80"
+    "correctAnswer": "0.7304"
   },
   {
-    "q": "[ID: A-223] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 38% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-388] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "125.75%",
-      "130.75%",
-      "122.75%",
-      "132.04%"
+      "Statement II alone is sufficient",
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "125.75%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-224] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-389] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.00",
-      "21.00",
-      "22.80",
-      "18.00"
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
     ],
-    "correctAnswer": "19.00"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-225] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 12 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-390] Statement 1: All analysts are engineers.\nStatement 2: Some engineers are visionary.\nStatement 3: No visionary is a directors.\n\nConclusion I: Some analysts are visionary.\nConclusion II: No directors is a engineers.\nConclusion III: Some engineers are not directors.",
     "opts": [
-      "874",
-      "72",
-      "432",
-      "864"
+      "Only Conclusion III follows",
+      "Only I and II follow",
+      "None of the conclusions follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "864"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-226] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 56, and 56 teeth respectively. If Gear A rotates at exactly 360 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-391] A logistics convoy travels the first 104 km of a highly classified route at a heavily regulated speed of 52 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 183 km at 67 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "443.57",
-      "305.71",
-      "290.71",
-      "295.71"
+      "60.66",
+      "62.18",
+      "58.52",
+      "64.11"
     ],
-    "correctAnswer": "295.71"
+    "correctAnswer": "60.66"
   },
   {
-    "q": "[ID: A-227] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-392] In a highly secure cryptographic key repository, there are 17 physical access drives, of which exactly 4 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "2177.61",
-      "2227.61",
-      "2157.61",
-      "2395.37"
+      "0.3482",
+      "0.4560",
+      "0.6306",
+      "0.5794"
     ],
-    "correctAnswer": "2177.61"
+    "correctAnswer": "0.5794"
   },
   {
-    "q": "[ID: A-228] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-393] Question: Is the integer Y a prime number?\n\nStatement I: Y > 10 and is a factor of 143.\nStatement II: Y leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "84.01%",
-      "89.01%",
-      "88.21%",
-      "81.01%"
+      "Neither statement is sufficient",
+      "Statement I alone is sufficient",
+      "Statement II alone is sufficient",
+      "Both statements together are required"
     ],
-    "correctAnswer": "84.01%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-229] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-394] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "19.33",
-      "17.33",
-      "20.80",
-      "16.33"
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload.",
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage."
     ],
-    "correctAnswer": "17.33"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-230] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 17 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-395] Statement 1: All managers are consultants.\nStatement 2: Some consultants are strategic.\nStatement 3: No strategic is a engineers.\n\nConclusion I: Some managers are strategic.\nConclusion II: No engineers is a consultants.\nConclusion III: Some consultants are not engineers.",
     "opts": [
-      "3179",
-      "3189",
-      "187",
-      "1589.5"
+      "Only Conclusion III follows",
+      "None of the conclusions follow",
+      "Only I and II follow",
+      "All conclusions follow"
     ],
-    "correctAnswer": "3179"
+    "correctAnswer": "Only Conclusion III follows"
   },
   {
-    "q": "[ID: A-231] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 61, and 61 teeth respectively. If Gear A rotates at exactly 410 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
+    "q": "[ID: A-396] A logistics convoy travels the first 119 km of a highly classified route at a heavily regulated speed of 58 km/hr. Upon reaching a security checkpoint, it accelerates, covering the remaining 153 km at 76 km/hr. If the convoy is subjected to a 15-minute delay at the checkpoint, what is the effective average speed of the entire journey in km/hr, excluding the delay, rounded to two decimal places?",
     "opts": [
-      "337.79",
-      "352.79",
-      "342.79",
-      "514.18"
+      "66.91",
+      "70.36",
+      "64.77",
+      "68.43"
     ],
-    "correctAnswer": "342.79"
+    "correctAnswer": "66.91"
   },
   {
-    "q": "[ID: A-232] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
+    "q": "[ID: A-397] In a highly secure cryptographic key repository, there are 15 physical access drives, of which exactly 6 have been compromised. A security auditor randomly selects 3 drives simultaneously for inspection. What is the probability that AT LEAST one of the drawn drives is compromised?",
     "opts": [
-      "3138.80",
-      "3088.80",
-      "3397.68",
-      "3068.80"
+      "0.6920",
+      "0.8154",
+      "0.5842",
+      "0.8666"
     ],
-    "correctAnswer": "3088.80"
+    "correctAnswer": "0.8154"
   },
   {
-    "q": "[ID: A-233] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
+    "q": "[ID: A-398] Question: Is the integer W a prime number?\n\nStatement I: W > 10 and is a factor of 143.\nStatement II: W leaves a remainder of 2 when divided by 3, and a remainder of 4 when divided by 5.\n\nWhich of the statements is/are sufficient to answer the question?",
     "opts": [
-      "104.55%",
-      "112.55%",
-      "112.93%",
-      "107.55%"
+      "Statement I alone is sufficient",
+      "Neither statement is sufficient",
+      "Both statements together are required",
+      "Statement II alone is sufficient"
     ],
-    "correctAnswer": "107.55%"
+    "correctAnswer": "Statement I alone is sufficient"
   },
   {
-    "q": "[ID: A-234] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
+    "q": "[ID: A-399] Read the following excerpt:\n\"A major tech conglomerate has abolished all management layers, transitioning to a completely flat holacracy. Within six months, employee turnover decreased by 30% while project delivery times remained exactly the same.\"\n\nWhich of the following is the most vital ASSUMPTION required for the economists/outcomes projected in the statement to hold true?",
     "opts": [
-      "15.53",
-      "17.53",
-      "14.53",
-      "18.64"
+      "The global market will simultaneously impose similar constraints, nullifying any competitive disadvantage.",
+      "The industries will simply pass the cost of the tax/restructuring directly to the consumer without changing output.",
+      "Employees and companies naturally prefer traditional hierarchies, but adapt out of pure economic necessity.",
+      "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
     ],
-    "correctAnswer": "15.53"
+    "correctAnswer": "The primary driver of employee turnover in the previous hierarchy was dissatisfaction with middle-management oversight, rather than project workload."
   },
   {
-    "q": "[ID: A-235] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 11 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
+    "q": "[ID: A-400] Statement 1: All directors are managers.\nStatement 2: Some managers are strategic.\nStatement 3: No strategic is a engineers.\n\nConclusion I: Some directors are strategic.\nConclusion II: No engineers is a managers.\nConclusion III: Some managers are not engineers.",
     "opts": [
-      "445.5",
-      "99",
-      "891",
-      "901"
+      "All conclusions follow",
+      "Only I and II follow",
+      "Only Conclusion III follows",
+      "None of the conclusions follow"
     ],
-    "correctAnswer": "891"
-  },
-  {
-    "q": "[ID: A-236] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 66, and 66 teeth respectively. If Gear A rotates at exactly 460 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "585.45",
-      "385.30",
-      "400.30",
-      "390.30"
-    ],
-    "correctAnswer": "390.30"
-  },
-  {
-    "q": "[ID: A-237] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "4121.84",
-      "4171.84",
-      "4101.84",
-      "4534.03"
-    ],
-    "correctAnswer": "4121.84"
-  },
-  {
-    "q": "[ID: A-238] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "139.66%",
-      "130.01%",
-      "138.01%",
-      "133.01%"
-    ],
-    "correctAnswer": "133.01%"
-  },
-  {
-    "q": "[ID: A-239] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "21.74",
-      "19.74",
-      "18.74",
-      "23.68"
-    ],
-    "correctAnswer": "19.74"
-  },
-  {
-    "q": "[ID: A-240] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 16 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "1568",
-      "784",
-      "112",
-      "1578"
-    ],
-    "correctAnswer": "1568"
-  },
-  {
-    "q": "[ID: A-241] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 31, and 41 teeth respectively. If Gear A rotates at exactly 510 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "1138.17",
-      "753.78",
-      "768.78",
-      "758.78"
-    ],
-    "correctAnswer": "758.78"
-  },
-  {
-    "q": "[ID: A-242] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1083.77",
-      "1137.15",
-      "1033.77",
-      "1013.77"
-    ],
-    "correctAnswer": "1033.77"
-  },
-  {
-    "q": "[ID: A-243] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "134.94%",
-      "136.44%",
-      "129.94%",
-      "126.94%"
-    ],
-    "correctAnswer": "129.94%"
-  },
-  {
-    "q": "[ID: A-244] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "14.41",
-      "18.49",
-      "17.41",
-      "15.41"
-    ],
-    "correctAnswer": "15.41"
-  },
-  {
-    "q": "[ID: A-245] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 10 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "950",
-      "475",
-      "960",
-      "50"
-    ],
-    "correctAnswer": "950"
-  },
-  {
-    "q": "[ID: A-246] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 36, and 46 teeth respectively. If Gear A rotates at exactly 560 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "1205.22",
-      "798.48",
-      "813.48",
-      "803.48"
-    ],
-    "correctAnswer": "803.48"
-  },
-  {
-    "q": "[ID: A-247] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1888.09",
-      "1696.45",
-      "1766.45",
-      "1716.45"
-    ],
-    "correctAnswer": "1716.45"
-  },
-  {
-    "q": "[ID: A-248] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "105.29%",
-      "105.31%",
-      "100.29%",
-      "97.29%"
-    ],
-    "correctAnswer": "100.29%"
-  },
-  {
-    "q": "[ID: A-249] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "19.80",
-      "18.80",
-      "23.76",
-      "21.80"
-    ],
-    "correctAnswer": "19.80"
-  },
-  {
-    "q": "[ID: A-250] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 15 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "150",
-      "1660",
-      "825",
-      "1650"
-    ],
-    "correctAnswer": "1650"
-  },
-  {
-    "q": "[ID: A-251] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 41, and 51 teeth respectively. If Gear A rotates at exactly 610 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "261.18",
-      "251.18",
-      "376.76",
-      "246.18"
-    ],
-    "correctAnswer": "251.18"
-  },
-  {
-    "q": "[ID: A-252] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1327.54",
-      "1377.54",
-      "1460.30",
-      "1307.54"
-    ],
-    "correctAnswer": "1327.54"
-  },
-  {
-    "q": "[ID: A-253] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 18% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "82.78%",
-      "90.07%",
-      "90.78%",
-      "85.78%"
-    ],
-    "correctAnswer": "85.78%"
-  },
-  {
-    "q": "[ID: A-254] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "16.86",
-      "18.86",
-      "15.86",
-      "20.23"
-    ],
-    "correctAnswer": "16.86"
-  },
-  {
-    "q": "[ID: A-255] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 9 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "72",
-      "1162",
-      "576",
-      "1152"
-    ],
-    "correctAnswer": "1152"
-  },
-  {
-    "q": "[ID: A-256] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 46, and 56 teeth respectively. If Gear A rotates at exactly 660 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "459.64",
-      "306.43",
-      "316.43",
-      "301.43"
-    ],
-    "correctAnswer": "306.43"
-  },
-  {
-    "q": "[ID: A-257] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1961.67",
-      "2011.67",
-      "2157.84",
-      "1941.67"
-    ],
-    "correctAnswer": "1961.67"
-  },
-  {
-    "q": "[ID: A-258] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 23% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "89.10%",
-      "89.86%",
-      "84.86%",
-      "81.86%"
-    ],
-    "correctAnswer": "84.86%"
-  },
-  {
-    "q": "[ID: A-259] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "15.89",
-      "14.89",
-      "17.89",
-      "19.07"
-    ],
-    "correctAnswer": "15.89"
-  },
-  {
-    "q": "[ID: A-260] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 14 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "682",
-      "672",
-      "84",
-      "336"
-    ],
-    "correctAnswer": "672"
-  },
-  {
-    "q": "[ID: A-261] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 51, and 61 teeth respectively. If Gear A rotates at exactly 710 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "541.23",
-      "355.82",
-      "370.82",
-      "360.82"
-    ],
-    "correctAnswer": "360.82"
-  },
-  {
-    "q": "[ID: A-262] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1068.61",
-      "1120.47",
-      "1018.61",
-      "998.61"
-    ],
-    "correctAnswer": "1018.61"
-  },
-  {
-    "q": "[ID: A-263] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 28% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "105.44%",
-      "113.86%",
-      "113.44%",
-      "108.44%"
-    ],
-    "correctAnswer": "108.44%"
-  },
-  {
-    "q": "[ID: A-264] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "17.33",
-      "19.33",
-      "20.80",
-      "16.33"
-    ],
-    "correctAnswer": "17.33"
-  },
-  {
-    "q": "[ID: A-265] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 8 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "572",
-      "1154",
-      "1144",
-      "88"
-    ],
-    "correctAnswer": "1144"
-  },
-  {
-    "q": "[ID: A-266] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 56, and 66 teeth respectively. If Gear A rotates at exactly 760 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "621.82",
-      "409.55",
-      "414.55",
-      "424.55"
-    ],
-    "correctAnswer": "414.55"
-  },
-  {
-    "q": "[ID: A-267] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1815.03",
-      "1630.03",
-      "1700.03",
-      "1650.03"
-    ],
-    "correctAnswer": "1650.03"
-  },
-  {
-    "q": "[ID: A-268] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 33% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "133.93%",
-      "138.93%",
-      "130.93%",
-      "140.63%"
-    ],
-    "correctAnswer": "133.93%"
-  },
-  {
-    "q": "[ID: A-269] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "26.41",
-      "24.01",
-      "21.01",
-      "22.01"
-    ],
-    "correctAnswer": "22.01"
-  },
-  {
-    "q": "[ID: A-270] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 13 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "2116",
-      "1053",
-      "2106",
-      "117"
-    ],
-    "correctAnswer": "2106"
-  },
-  {
-    "q": "[ID: A-271] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 61, and 41 teeth respectively. If Gear A rotates at exactly 810 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "810.00",
-      "1215.00",
-      "820.00",
-      "805.00"
-    ],
-    "correctAnswer": "810.00"
-  },
-  {
-    "q": "[ID: A-272] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "2642.64",
-      "2402.40",
-      "2452.40",
-      "2382.40"
-    ],
-    "correctAnswer": "2402.40"
-  },
-  {
-    "q": "[ID: A-273] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 38% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "130.79%",
-      "135.79%",
-      "137.33%",
-      "127.79%"
-    ],
-    "correctAnswer": "130.79%"
-  },
-  {
-    "q": "[ID: A-274] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "15.97",
-      "16.77",
-      "13.97",
-      "12.97"
-    ],
-    "correctAnswer": "13.97"
-  },
-  {
-    "q": "[ID: A-275] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 7 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "490",
-      "245",
-      "500",
-      "49"
-    ],
-    "correctAnswer": "490"
-  },
-  {
-    "q": "[ID: A-276] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 66, and 46 teeth respectively. If Gear A rotates at exactly 860 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "870.00",
-      "860.00",
-      "1290.00",
-      "855.00"
-    ],
-    "correctAnswer": "860.00"
-  },
-  {
-    "q": "[ID: A-277] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "3275.46",
-      "3603.00",
-      "3255.46",
-      "3325.46"
-    ],
-    "correctAnswer": "3275.46"
-  },
-  {
-    "q": "[ID: A-278] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 18% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "118.04%",
-      "118.69%",
-      "113.04%",
-      "110.04%"
-    ],
-    "correctAnswer": "113.04%"
-  },
-  {
-    "q": "[ID: A-279] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "21.53",
-      "16.94",
-      "19.94",
-      "17.94"
-    ],
-    "correctAnswer": "17.94"
-  },
-  {
-    "q": "[ID: A-280] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 12 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "450",
-      "60",
-      "900",
-      "910"
-    ],
-    "correctAnswer": "900"
-  },
-  {
-    "q": "[ID: A-281] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 31, and 51 teeth respectively. If Gear A rotates at exactly 910 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "910.00",
-      "920.00",
-      "905.00",
-      "1365.00"
-    ],
-    "correctAnswer": "910.00"
-  },
-  {
-    "q": "[ID: A-282] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1580.88",
-      "1760.97",
-      "1600.88",
-      "1650.88"
-    ],
-    "correctAnswer": "1600.88"
-  },
-  {
-    "q": "[ID: A-283] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 23% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "90.39%",
-      "83.09%",
-      "91.09%",
-      "86.09%"
-    ],
-    "correctAnswer": "86.09%"
-  },
-  {
-    "q": "[ID: A-284] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "21.00",
-      "19.00",
-      "22.80",
-      "18.00"
-    ],
-    "correctAnswer": "19.00"
-  },
-  {
-    "q": "[ID: A-285] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 17 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "170",
-      "3410",
-      "1700",
-      "3400"
-    ],
-    "correctAnswer": "3400"
-  },
-  {
-    "q": "[ID: A-286] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 36, and 56 teeth respectively. If Gear A rotates at exactly 960 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "1440.00",
-      "960.00",
-      "955.00",
-      "970.00"
-    ],
-    "correctAnswer": "960.00"
-  },
-  {
-    "q": "[ID: A-287] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "2473.26",
-      "2523.26",
-      "2453.26",
-      "2720.58"
-    ],
-    "correctAnswer": "2473.26"
-  },
-  {
-    "q": "[ID: A-288] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 28% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "89.40%",
-      "90.14%",
-      "85.14%",
-      "82.14%"
-    ],
-    "correctAnswer": "85.14%"
-  },
-  {
-    "q": "[ID: A-289] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "19.33",
-      "20.80",
-      "17.33",
-      "16.33"
-    ],
-    "correctAnswer": "17.33"
-  },
-  {
-    "q": "[ID: A-290] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 11 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "1056",
-      "88",
-      "528",
-      "1066"
-    ],
-    "correctAnswer": "1056"
-  },
-  {
-    "q": "[ID: A-291] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 41, and 61 teeth respectively. If Gear A rotates at exactly 1010 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "1010.00",
-      "1005.00",
-      "1020.00",
-      "1515.00"
-    ],
-    "correctAnswer": "1010.00"
-  },
-  {
-    "q": "[ID: A-292] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "3812.78",
-      "3466.16",
-      "3516.16",
-      "3446.16"
-    ],
-    "correctAnswer": "3466.16"
-  },
-  {
-    "q": "[ID: A-293] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 33% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "105.73%",
-      "108.73%",
-      "113.73%",
-      "114.17%"
-    ],
-    "correctAnswer": "108.73%"
-  },
-  {
-    "q": "[ID: A-294] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "14.53",
-      "18.64",
-      "17.53",
-      "15.53"
-    ],
-    "correctAnswer": "15.53"
-  },
-  {
-    "q": "[ID: A-295] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 16 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "816",
-      "1642",
-      "96",
-      "1632"
-    ],
-    "correctAnswer": "1632"
-  },
-  {
-    "q": "[ID: A-296] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 46, and 66 teeth respectively. If Gear A rotates at exactly 1060 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "1590.00",
-      "1070.00",
-      "1055.00",
-      "1060.00"
-    ],
-    "correctAnswer": "1060.00"
-  },
-  {
-    "q": "[ID: A-297] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "5037.45",
-      "4559.50",
-      "4629.50",
-      "4579.50"
-    ],
-    "correctAnswer": "4579.50"
-  },
-  {
-    "q": "[ID: A-298] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 38% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "139.24%",
-      "134.24%",
-      "140.95%",
-      "131.24%"
-    ],
-    "correctAnswer": "134.24%"
-  },
-  {
-    "q": "[ID: A-299] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "19.74",
-      "21.74",
-      "18.74",
-      "23.68"
-    ],
-    "correctAnswer": "19.74"
-  },
-  {
-    "q": "[ID: A-300] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 10 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "990",
-      "110",
-      "495",
-      "1000"
-    ],
-    "correctAnswer": "990"
-  },
-  {
-    "q": "[ID: A-301] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 51, and 41 teeth respectively. If Gear A rotates at exactly 110 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "66.34",
-      "84.51",
-      "56.34",
-      "51.34"
-    ],
-    "correctAnswer": "56.34"
-  },
-  {
-    "q": "[ID: A-302] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "696.96",
-      "613.60",
-      "683.60",
-      "633.60"
-    ],
-    "correctAnswer": "633.60"
-  },
-  {
-    "q": "[ID: A-303] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "95.21%",
-      "90.68%",
-      "95.68%",
-      "87.68%"
-    ],
-    "correctAnswer": "90.68%"
-  },
-  {
-    "q": "[ID: A-304] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "14.41",
-      "17.41",
-      "15.41",
-      "18.49"
-    ],
-    "correctAnswer": "15.41"
-  },
-  {
-    "q": "[ID: A-305] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 15 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "135",
-      "1900",
-      "945",
-      "1890"
-    ],
-    "correctAnswer": "1890"
-  },
-  {
-    "q": "[ID: A-306] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 56, and 46 teeth respectively. If Gear A rotates at exactly 160 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "100.43",
-      "85.43",
-      "135.65",
-      "90.43"
-    ],
-    "correctAnswer": "90.43"
-  },
-  {
-    "q": "[ID: A-307] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1081.60",
-      "1151.60",
-      "1211.76",
-      "1101.60"
-    ],
-    "correctAnswer": "1101.60"
-  },
-  {
-    "q": "[ID: A-308] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "114.81%",
-      "119.81%",
-      "111.81%",
-      "120.55%"
-    ],
-    "correctAnswer": "114.81%"
-  },
-  {
-    "q": "[ID: A-309] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "19.80",
-      "21.80",
-      "23.76",
-      "18.80"
-    ],
-    "correctAnswer": "19.80"
-  },
-  {
-    "q": "[ID: A-310] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 9 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "63",
-      "1207",
-      "598.5",
-      "1197"
-    ],
-    "correctAnswer": "1197"
-  },
-  {
-    "q": "[ID: A-311] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 61, and 51 teeth respectively. If Gear A rotates at exactly 210 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "191.47",
-      "127.65",
-      "137.65",
-      "122.65"
-    ],
-    "correctAnswer": "127.65"
-  },
-  {
-    "q": "[ID: A-312] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1858.56",
-      "1669.60",
-      "1739.60",
-      "1689.60"
-    ],
-    "correctAnswer": "1689.60"
-  },
-  {
-    "q": "[ID: A-313] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "147.93%",
-      "137.88%",
-      "145.88%",
-      "140.88%"
-    ],
-    "correctAnswer": "140.88%"
-  },
-  {
-    "q": "[ID: A-314] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "15.86",
-      "18.86",
-      "16.86",
-      "20.23"
-    ],
-    "correctAnswer": "16.86"
-  },
-  {
-    "q": "[ID: A-315] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 14 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "770",
-      "385",
-      "70",
-      "780"
-    ],
-    "correctAnswer": "770"
-  },
-  {
-    "q": "[ID: A-316] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 66, and 56 teeth respectively. If Gear A rotates at exactly 260 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "162.14",
-      "177.14",
-      "250.71",
-      "167.14"
-    ],
-    "correctAnswer": "167.14"
-  },
-  {
-    "q": "[ID: A-317] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "2377.60",
-      "2397.60",
-      "2447.60",
-      "2637.36"
-    ],
-    "correctAnswer": "2397.60"
-  },
-  {
-    "q": "[ID: A-318] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "84.86%",
-      "89.86%",
-      "81.86%",
-      "89.10%"
-    ],
-    "correctAnswer": "84.86%"
-  },
-  {
-    "q": "[ID: A-319] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "14.89",
-      "17.89",
-      "19.07",
-      "15.89"
-    ],
-    "correctAnswer": "15.89"
-  },
-  {
-    "q": "[ID: A-320] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 8 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "80",
-      "1290",
-      "640",
-      "1280"
-    ],
-    "correctAnswer": "1280"
-  },
-  {
-    "q": "[ID: A-321] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 31, and 61 teeth respectively. If Gear A rotates at exactly 310 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "208.36",
-      "203.36",
-      "312.54",
-      "218.36"
-    ],
-    "correctAnswer": "208.36"
-  },
-  {
-    "q": "[ID: A-322] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1189.60",
-      "1330.56",
-      "1259.60",
-      "1209.60"
-    ],
-    "correctAnswer": "1209.60"
-  },
-  {
-    "q": "[ID: A-323] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "113.86%",
-      "108.44%",
-      "113.44%",
-      "105.44%"
-    ],
-    "correctAnswer": "108.44%"
-  },
-  {
-    "q": "[ID: A-324] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "17.33",
-      "19.33",
-      "20.80",
-      "16.33"
-    ],
-    "correctAnswer": "17.33"
-  },
-  {
-    "q": "[ID: A-325] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 13 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "832",
-      "104",
-      "416",
-      "842"
-    ],
-    "correctAnswer": "832"
-  },
-  {
-    "q": "[ID: A-326] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 36, and 66 teeth respectively. If Gear A rotates at exactly 360 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "250.91",
-      "260.91",
-      "245.91",
-      "376.36"
-    ],
-    "correctAnswer": "250.91"
-  },
-  {
-    "q": "[ID: A-327] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1897.60",
-      "2109.36",
-      "1967.60",
-      "1917.60"
-    ],
-    "correctAnswer": "1917.60"
-  },
-  {
-    "q": "[ID: A-328] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 18% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "98.04%",
-      "97.69%",
-      "90.04%",
-      "93.04%"
-    ],
-    "correctAnswer": "93.04%"
-  },
-  {
-    "q": "[ID: A-329] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "21.01",
-      "26.41",
-      "22.01",
-      "24.01"
-    ],
-    "correctAnswer": "22.01"
-  },
-  {
-    "q": "[ID: A-330] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 7 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "42",
-      "546",
-      "273",
-      "556"
-    ],
-    "correctAnswer": "546"
-  },
-  {
-    "q": "[ID: A-331] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 41, and 41 teeth respectively. If Gear A rotates at exactly 410 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "520.00",
-      "510.00",
-      "765.00",
-      "505.00"
-    ],
-    "correctAnswer": "510.00"
-  },
-  {
-    "q": "[ID: A-332] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "2725.60",
-      "2795.60",
-      "2745.60",
-      "3020.16"
-    ],
-    "correctAnswer": "2745.60"
-  },
-  {
-    "q": "[ID: A-333] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 23% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "96.40%",
-      "91.81%",
-      "96.81%",
-      "88.81%"
-    ],
-    "correctAnswer": "91.81%"
-  },
-  {
-    "q": "[ID: A-334] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "13.97",
-      "15.97",
-      "12.97",
-      "16.77"
-    ],
-    "correctAnswer": "13.97"
-  },
-  {
-    "q": "[ID: A-335] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 12 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "2376",
-      "1188",
-      "132",
-      "2386"
-    ],
-    "correctAnswer": "2376"
-  },
-  {
-    "q": "[ID: A-336] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 46, and 46 teeth respectively. If Gear A rotates at exactly 460 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "570.00",
-      "555.00",
-      "560.00",
-      "840.00"
-    ],
-    "correctAnswer": "560.00"
-  },
-  {
-    "q": "[ID: A-337] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "3743.60",
-      "3693.60",
-      "4062.96",
-      "3673.60"
-    ],
-    "correctAnswer": "3693.60"
-  },
-  {
-    "q": "[ID: A-338] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 28% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "115.99%",
-      "120.99%",
-      "112.99%",
-      "121.79%"
-    ],
-    "correctAnswer": "115.99%"
-  },
-  {
-    "q": "[ID: A-339] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "16.94",
-      "21.53",
-      "19.94",
-      "17.94"
-    ],
-    "correctAnswer": "17.94"
-  },
-  {
-    "q": "[ID: A-340] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 17 ms, and Z in 10 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "1530",
-      "765",
-      "153",
-      "1540"
-    ],
-    "correctAnswer": "1530"
-  },
-  {
-    "q": "[ID: A-341] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 51, and 51 teeth respectively. If Gear A rotates at exactly 510 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "610.00",
-      "915.00",
-      "605.00",
-      "620.00"
-    ],
-    "correctAnswer": "610.00"
-  },
-  {
-    "q": "[ID: A-342] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 186 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1964.16",
-      "1765.60",
-      "1835.60",
-      "1785.60"
-    ],
-    "correctAnswer": "1785.60"
-  },
-  {
-    "q": "[ID: A-343] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 33% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "142.11%",
-      "147.11%",
-      "149.22%",
-      "139.11%"
-    ],
-    "correctAnswer": "142.11%"
-  },
-  {
-    "q": "[ID: A-344] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "19.00",
-      "22.80",
-      "18.00",
-      "21.00"
-    ],
-    "correctAnswer": "19.00"
-  },
-  {
-    "q": "[ID: A-345] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 11 ms, and Z in 15 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "577.5",
-      "77",
-      "1165",
-      "1155"
-    ],
-    "correctAnswer": "1155"
-  },
-  {
-    "q": "[ID: A-346] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 56, and 56 teeth respectively. If Gear A rotates at exactly 560 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "990.00",
-      "660.00",
-      "670.00",
-      "655.00"
-    ],
-    "correctAnswer": "660.00"
-  },
-  {
-    "q": "[ID: A-347] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 201 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "3006.96",
-      "2713.60",
-      "2783.60",
-      "2733.60"
-    ],
-    "correctAnswer": "2733.60"
-  },
-  {
-    "q": "[ID: A-348] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 38% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "135.59%",
-      "145.52%",
-      "143.59%",
-      "138.59%"
-    ],
-    "correctAnswer": "138.59%"
-  },
-  {
-    "q": "[ID: A-349] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "16.33",
-      "20.80",
-      "19.33",
-      "17.33"
-    ],
-    "correctAnswer": "17.33"
-  },
-  {
-    "q": "[ID: A-350] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 16 ms, and Z in 20 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "80",
-      "1600",
-      "1610",
-      "800"
-    ],
-    "correctAnswer": "1600"
-  },
-  {
-    "q": "[ID: A-351] A highly complex industrial gear system has three interconnected gears A, B, and C with 21, 61, and 61 teeth respectively. If Gear A rotates at exactly 610 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "315.00",
-      "205.00",
-      "220.00",
-      "210.00"
-    ],
-    "correctAnswer": "210.00"
-  },
-  {
-    "q": "[ID: A-352] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 44 km/hr and the second half at 216 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1769.21",
-      "1608.37",
-      "1658.37",
-      "1588.37"
-    ],
-    "correctAnswer": "1608.37"
-  },
-  {
-    "q": "[ID: A-353] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 18% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "71.27%",
-      "76.27%",
-      "74.83%",
-      "68.27%"
-    ],
-    "correctAnswer": "71.27%"
-  },
-  {
-    "q": "[ID: A-354] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "15.53",
-      "14.53",
-      "18.64",
-      "17.53"
-    ],
-    "correctAnswer": "15.53"
-  },
-  {
-    "q": "[ID: A-355] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 10 ms, and Z in 12 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "1210",
-      "1200",
-      "600",
-      "100"
-    ],
-    "correctAnswer": "1200"
-  },
-  {
-    "q": "[ID: A-356] A highly complex industrial gear system has three interconnected gears A, B, and C with 26, 66, and 66 teeth respectively. If Gear A rotates at exactly 660 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "260.00",
-      "390.00",
-      "270.00",
-      "255.00"
-    ],
-    "correctAnswer": "260.00"
-  },
-  {
-    "q": "[ID: A-357] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 54 km/hr and the second half at 231 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "2343.49",
-      "2363.49",
-      "2599.84",
-      "2413.49"
-    ],
-    "correctAnswer": "2363.49"
-  },
-  {
-    "q": "[ID: A-358] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 23% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "98.33%",
-      "93.65%",
-      "98.65%",
-      "90.65%"
-    ],
-    "correctAnswer": "93.65%"
-  },
-  {
-    "q": "[ID: A-359] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "23.68",
-      "19.74",
-      "21.74",
-      "18.74"
-    ],
-    "correctAnswer": "19.74"
-  },
-  {
-    "q": "[ID: A-360] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 15 ms, and Z in 17 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "1020",
-      "120",
-      "2050",
-      "2040"
-    ],
-    "correctAnswer": "2040"
-  },
-  {
-    "q": "[ID: A-361] A highly complex industrial gear system has three interconnected gears A, B, and C with 31, 31, and 41 teeth respectively. If Gear A rotates at exactly 710 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "531.83",
-      "805.24",
-      "536.83",
-      "546.83"
-    ],
-    "correctAnswer": "536.83"
-  },
-  {
-    "q": "[ID: A-362] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 64 km/hr and the second half at 66 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "857.80",
-      "759.82",
-      "829.82",
-      "779.82"
-    ],
-    "correctAnswer": "779.82"
-  },
-  {
-    "q": "[ID: A-363] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 28% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "92.37%",
-      "96.99%",
-      "97.37%",
-      "89.37%"
-    ],
-    "correctAnswer": "92.37%"
-  },
-  {
-    "q": "[ID: A-364] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "18.49",
-      "15.41",
-      "14.41",
-      "17.41"
-    ],
-    "correctAnswer": "15.41"
-  },
-  {
-    "q": "[ID: A-365] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 9 ms, and Z in 9 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "496",
-      "54",
-      "243",
-      "486"
-    ],
-    "correctAnswer": "486"
-  },
-  {
-    "q": "[ID: A-366] A highly complex industrial gear system has three interconnected gears A, B, and C with 36, 36, and 46 teeth respectively. If Gear A rotates at exactly 760 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "594.78",
-      "604.78",
-      "589.78",
-      "892.17"
-    ],
-    "correctAnswer": "594.78"
-  },
-  {
-    "q": "[ID: A-367] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 74 km/hr and the second half at 81 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1314.81",
-      "1364.81",
-      "1294.81",
-      "1446.29"
-    ],
-    "correctAnswer": "1314.81"
-  },
-  {
-    "q": "[ID: A-368] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 33% surge in Q2, and compounds another 38% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "113.58%",
-      "121.58%",
-      "122.41%",
-      "116.58%"
-    ],
-    "correctAnswer": "116.58%"
-  },
-  {
-    "q": "[ID: A-369] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "23.76",
-      "19.80",
-      "21.80",
-      "18.80"
-    ],
-    "correctAnswer": "19.80"
-  },
-  {
-    "q": "[ID: A-370] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 11 milliseconds, Y in 14 ms, and Z in 14 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "1078",
-      "154",
-      "2156",
-      "2166"
-    ],
-    "correctAnswer": "2156"
-  },
-  {
-    "q": "[ID: A-371] A highly complex industrial gear system has three interconnected gears A, B, and C with 41, 41, and 51 teeth respectively. If Gear A rotates at exactly 810 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "646.18",
-      "651.18",
-      "976.76",
-      "661.18"
-    ],
-    "correctAnswer": "651.18"
-  },
-  {
-    "q": "[ID: A-372] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 84 km/hr and the second half at 96 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "2168.32",
-      "1971.20",
-      "2021.20",
-      "1951.20"
-    ],
-    "correctAnswer": "1971.20"
-  },
-  {
-    "q": "[ID: A-373] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 38% surge in Q2, and compounds another 43% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "142.73%",
-      "147.73%",
-      "139.73%",
-      "149.86%"
-    ],
-    "correctAnswer": "142.73%"
-  },
-  {
-    "q": "[ID: A-374] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "20.23",
-      "16.86",
-      "15.86",
-      "18.86"
-    ],
-    "correctAnswer": "16.86"
-  },
-  {
-    "q": "[ID: A-375] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 9 milliseconds, Y in 8 ms, and Z in 19 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "72",
-      "1378",
-      "684",
-      "1368"
-    ],
-    "correctAnswer": "1368"
-  },
-  {
-    "q": "[ID: A-376] A highly complex industrial gear system has three interconnected gears A, B, and C with 46, 46, and 56 teeth respectively. If Gear A rotates at exactly 860 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "1059.64",
-      "706.43",
-      "701.43",
-      "716.43"
-    ],
-    "correctAnswer": "706.43"
-  },
-  {
-    "q": "[ID: A-377] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 94 km/hr and the second half at 111 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "2748.47",
-      "3023.32",
-      "2798.47",
-      "2728.47"
-    ],
-    "correctAnswer": "2748.47"
-  },
-  {
-    "q": "[ID: A-378] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 18% surge in Q2, and compounds another 48% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "97.34%",
-      "102.21%",
-      "94.34%",
-      "102.34%"
-    ],
-    "correctAnswer": "97.34%"
-  },
-  {
-    "q": "[ID: A-379] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "14.89",
-      "17.89",
-      "19.07",
-      "15.89"
-    ],
-    "correctAnswer": "15.89"
-  },
-  {
-    "q": "[ID: A-380] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 7 milliseconds, Y in 13 ms, and Z in 11 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "1011",
-      "500.5",
-      "1001",
-      "91"
-    ],
-    "correctAnswer": "1001"
-  },
-  {
-    "q": "[ID: A-381] A highly complex industrial gear system has three interconnected gears A, B, and C with 51, 51, and 61 teeth respectively. If Gear A rotates at exactly 910 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "1141.23",
-      "755.82",
-      "770.82",
-      "760.82"
-    ],
-    "correctAnswer": "760.82"
-  },
-  {
-    "q": "[ID: A-382] An autonomous vehicle completes a rigorous cross-country journey in 12 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 104 km/hr and the second half at 126 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "1417.37",
-      "1347.37",
-      "1504.11",
-      "1367.37"
-    ],
-    "correctAnswer": "1367.37"
-  },
-  {
-    "q": "[ID: A-383] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 23% surge in Q2, and compounds another 53% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "128.17%",
-      "119.06%",
-      "127.06%",
-      "122.06%"
-    ],
-    "correctAnswer": "122.06%"
-  },
-  {
-    "q": "[ID: A-384] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 34 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "20.80",
-      "16.33",
-      "17.33",
-      "19.33"
-    ],
-    "correctAnswer": "17.33"
-  },
-  {
-    "q": "[ID: A-385] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 5 milliseconds, Y in 7 ms, and Z in 16 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "560",
-      "280",
-      "570",
-      "35"
-    ],
-    "correctAnswer": "560"
-  },
-  {
-    "q": "[ID: A-386] A highly complex industrial gear system has three interconnected gears A, B, and C with 56, 56, and 66 teeth respectively. If Gear A rotates at exactly 960 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "1221.82",
-      "809.55",
-      "824.55",
-      "814.55"
-    ],
-    "correctAnswer": "814.55"
-  },
-  {
-    "q": "[ID: A-387] An autonomous vehicle completes a rigorous cross-country journey in 17 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 114 km/hr and the second half at 141 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "2143.20",
-      "2193.20",
-      "2123.20",
-      "2357.52"
-    ],
-    "correctAnswer": "2143.20"
-  },
-  {
-    "q": "[ID: A-388] A quantitative hedge fund portfolio grows by 23% in Q1, experiences a 28% surge in Q2, and compounds another 23% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "93.65%",
-      "98.65%",
-      "90.65%",
-      "98.33%"
-    ],
-    "correctAnswer": "93.65%"
-  },
-  {
-    "q": "[ID: A-389] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 34 hours, while outlet Pipe C drains it completely in 39 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "22.01",
-      "24.01",
-      "26.41",
-      "21.01"
-    ],
-    "correctAnswer": "22.01"
-  },
-  {
-    "q": "[ID: A-390] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 10 milliseconds, Y in 12 ms, and Z in 8 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "120",
-      "960",
-      "480",
-      "970"
-    ],
-    "correctAnswer": "960"
-  },
-  {
-    "q": "[ID: A-391] A highly complex industrial gear system has three interconnected gears A, B, and C with 61, 61, and 41 teeth respectively. If Gear A rotates at exactly 1010 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "1497.68",
-      "1512.68",
-      "1502.68",
-      "2254.02"
-    ],
-    "correctAnswer": "1502.68"
-  },
-  {
-    "q": "[ID: A-392] An autonomous vehicle completes a rigorous cross-country journey in 22 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 124 km/hr and the second half at 156 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "3343.75",
-      "3019.77",
-      "3039.77",
-      "3089.77"
-    ],
-    "correctAnswer": "3039.77"
-  },
-  {
-    "q": "[ID: A-393] A quantitative hedge fund portfolio grows by 13% in Q1, experiences a 33% surge in Q2, and compounds another 28% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "92.37%",
-      "97.37%",
-      "89.37%",
-      "96.99%"
-    ],
-    "correctAnswer": "92.37%"
-  },
-  {
-    "q": "[ID: A-394] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 19 hours, inlet Pipe B fills it in 24 hours, while outlet Pipe C drains it completely in 44 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "13.97",
-      "15.97",
-      "12.97",
-      "16.77"
-    ],
-    "correctAnswer": "13.97"
-  },
-  {
-    "q": "[ID: A-395] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 8 milliseconds, Y in 17 ms, and Z in 13 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "136",
-      "1768",
-      "884",
-      "1778"
-    ],
-    "correctAnswer": "1768"
-  },
-  {
-    "q": "[ID: A-396] A highly complex industrial gear system has three interconnected gears A, B, and C with 66, 66, and 46 teeth respectively. If Gear A rotates at exactly 1060 revolutions per minute, calculate the precise angular velocity of Gear C in revolutions per minute, assuming zero slip.",
-    "opts": [
-      "2281.30",
-      "1515.87",
-      "1530.87",
-      "1520.87"
-    ],
-    "correctAnswer": "1520.87"
-  },
-  {
-    "q": "[ID: A-397] An autonomous vehicle completes a rigorous cross-country journey in 27 hours. The telemetry shows it traveled the first half of the total distance at an average speed of 134 km/hr and the second half at 171 km/hr due to terrain changes. Determine the total journey distance to two decimal places.",
-    "opts": [
-      "4462.60",
-      "4056.90",
-      "4036.90",
-      "4106.90"
-    ],
-    "correctAnswer": "4056.90"
-  },
-  {
-    "q": "[ID: A-398] A quantitative hedge fund portfolio grows by 18% in Q1, experiences a 38% surge in Q2, and compounds another 33% in Q3. Calculate the exact cumulative percentage increase of the portfolio over this three-quarter period.",
-    "opts": [
-      "116.58%",
-      "121.58%",
-      "113.58%",
-      "122.41%"
-    ],
-    "correctAnswer": "116.58%"
-  },
-  {
-    "q": "[ID: A-399] In a fluid dynamics simulation, inlet Pipe A fills a reservoir in 24 hours, inlet Pipe B fills it in 29 hours, while outlet Pipe C drains it completely in 49 hours. If all three are opened simultaneously on an empty reservoir, how many hours will it take to reach maximum capacity?",
-    "opts": [
-      "17.94",
-      "19.94",
-      "21.53",
-      "16.94"
-    ],
-    "correctAnswer": "17.94"
-  },
-  {
-    "q": "[ID: A-400] A cryptographic hash sequence requires three prime-like seed generators. Generator X completes a cycle in 6 milliseconds, Y in 11 ms, and Z in 18 ms. If they are initialized synchronously, how many milliseconds must elapse before all three cycles perfectly align again?",
-    "opts": [
-      "66",
-      "1188",
-      "1198",
-      "594"
-    ],
-    "correctAnswer": "1188"
+    "correctAnswer": "Only Conclusion III follows"
   }
 ];
 
 export const GRAMMAR_POOL = [
   {
-    "q": "[ID: G-1] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "q": "[ID: G-1] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Misanthrope",
-      "Ebullient",
-      "Esoteric",
-      "Iconoclast"
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "R, Q, S, P",
+      "Q, R, P, S"
     ],
-    "correctAnswer": "Misanthrope"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-2] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-2] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
     "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-3] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-4] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-3] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Dangling modifier",
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-4] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Apostate",
-      "Sycophant",
-      "Polyglot",
-      "Equivocal"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-5] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-6] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Dangling modifier",
-      "No error",
-      "Tense inconsistency",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-7] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
-    "opts": [
-      "Iconoclast",
-      "Ebullient",
-      "Fastidious",
-      "Apostate"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-8] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-9] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-10] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
-      "Apostate",
-      "Equivocal",
-      "Ebullient",
-      "Fastidious"
-    ],
-    "correctAnswer": "Apostate"
-  },
-  {
-    "q": "[ID: G-11] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-12] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-13] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "q": "[ID: G-5] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
     "opts": [
       "Fastidious",
-      "Iconoclast",
-      "Equivocal",
-      "Polyglot"
+      "Obfuscate",
+      "Recalcitrant",
+      "Equivocate"
     ],
-    "correctAnswer": "Iconoclast"
+    "correctAnswer": "Recalcitrant"
   },
   {
-    "q": "[ID: G-14] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-6] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-7] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "Replace 'than' with 'when'."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-8] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-9] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-15] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "Dangling modifier",
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-16] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
-    "opts": [
-      "Misanthrope",
-      "Apostate",
-      "Equivocal",
-      "Sycophant"
-    ],
-    "correctAnswer": "Equivocal"
-  },
-  {
-    "q": "[ID: G-17] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-18] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-19] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
-    "opts": [
-      "Apostate",
-      "Esoteric",
-      "Equivocal",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-20] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-21] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-22] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
-    "opts": [
-      "Iconoclast",
-      "Misanthrope",
-      "Reticent",
-      "Sycophant"
-    ],
-    "correctAnswer": "Sycophant"
-  },
-  {
-    "q": "[ID: G-23] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-24] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-25] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "q": "[ID: G-10] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
     "opts": [
       "Fastidious",
-      "Apostate",
-      "Misanthrope",
-      "Sycophant"
+      "Pusillanimous",
+      "Recalcitrant",
+      "Obfuscate"
     ],
     "correctAnswer": "Fastidious"
   },
   {
-    "q": "[ID: G-26] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-11] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S"
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-27] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "q": "[ID: G-12] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
     "opts": [
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency"
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error."
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
   },
   {
-    "q": "[ID: G-28] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "q": "[ID: G-13] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
     "opts": [
-      "Reticent",
-      "Ebullient",
-      "Apostate",
-      "Iconoclast"
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
     ],
-    "correctAnswer": "Reticent"
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
   },
   {
-    "q": "[ID: G-29] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-14] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-30] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-31] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
-    "opts": [
-      "Reticent",
-      "Iconoclast",
-      "Sycophant",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Misanthrope"
-  },
-  {
-    "q": "[ID: G-32] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-33] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "Dangling modifier",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-34] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Fastidious",
-      "Polyglot",
-      "Misanthrope",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-35] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-36] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "q": "[ID: G-15] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
     "opts": [
-      "Tense inconsistency",
-      "Dangling modifier",
-      "Passive voice violation",
-      "No error"
+      "Equivocate",
+      "Pusillanimous",
+      "Recalcitrant",
+      "Obfuscate"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Recalcitrant"
   },
   {
-    "q": "[ID: G-37] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "q": "[ID: G-16] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Esoteric",
-      "Equivocal",
-      "Reticent",
-      "Ebullient"
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, S, Q, P",
+      "R, Q, S, P"
     ],
-    "correctAnswer": "Ebullient"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-38] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-17] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
     "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
   },
   {
-    "q": "[ID: G-39] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "q": "[ID: G-18] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
     "opts": [
-      "No error",
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation"
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
   },
   {
-    "q": "[ID: G-40] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "q": "[ID: G-19] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
     "opts": [
-      "Apostate",
-      "Misanthrope",
-      "Sycophant",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Apostate"
-  },
-  {
-    "q": "[ID: G-41] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-42] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "q": "[ID: G-20] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
     "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
+      "Obfuscate",
+      "Recalcitrant",
+      "Equivocate",
+      "Pusillanimous"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Pusillanimous"
   },
   {
-    "q": "[ID: G-43] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "q": "[ID: G-21] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Sycophant",
-      "Iconoclast",
-      "Apostate",
-      "Misanthrope"
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "R, Q, S, P"
     ],
-    "correctAnswer": "Iconoclast"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-44] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-22] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'.",
+      "No error."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "Replace 'than' with 'when'."
   },
   {
-    "q": "[ID: G-45] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "q": "[ID: G-23] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
     "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
   },
   {
-    "q": "[ID: G-46] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "q": "[ID: G-24] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
     "opts": [
-      "Misanthrope",
-      "Polyglot",
-      "Equivocal",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Equivocal"
-  },
-  {
-    "q": "[ID: G-47] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-48] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-49] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
-    "opts": [
-      "Esoteric",
-      "Apostate",
-      "Equivocal",
-      "Ebullient"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-50] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-51] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "No error",
-      "Dangling modifier",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-52] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
-    "opts": [
-      "Sycophant",
-      "Fastidious",
-      "Polyglot",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Sycophant"
-  },
-  {
-    "q": "[ID: G-53] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-54] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-55] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
-    "opts": [
-      "Reticent",
-      "Fastidious",
-      "Apostate",
-      "Equivocal"
-    ],
-    "correctAnswer": "Fastidious"
-  },
-  {
-    "q": "[ID: G-56] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-57] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "Dangling modifier",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-58] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
-    "opts": [
-      "Fastidious",
-      "Apostate",
-      "Esoteric",
-      "Reticent"
-    ],
-    "correctAnswer": "Reticent"
-  },
-  {
-    "q": "[ID: G-59] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-60] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-61] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
-    "opts": [
-      "Misanthrope",
-      "Reticent",
-      "Apostate",
-      "Sycophant"
-    ],
-    "correctAnswer": "Misanthrope"
-  },
-  {
-    "q": "[ID: G-62] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-63] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-64] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Apostate",
-      "Polyglot",
-      "Iconoclast",
-      "Fastidious"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-65] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-66] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Dangling modifier",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-67] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
-    "opts": [
-      "Apostate",
-      "Esoteric",
-      "Ebullient",
-      "Fastidious"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-68] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-69] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-70] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
-      "Apostate",
-      "Sycophant",
-      "Misanthrope",
-      "Ebullient"
-    ],
-    "correctAnswer": "Apostate"
-  },
-  {
-    "q": "[ID: G-71] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-72] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "q": "[ID: G-25] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
     "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-73] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
-    "opts": [
-      "Iconoclast",
-      "Ebullient",
-      "Polyglot",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Iconoclast"
-  },
-  {
-    "q": "[ID: G-74] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-75] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Dangling modifier",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-76] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
-    "opts": [
-      "Apostate",
+      "Equivocate",
       "Fastidious",
-      "Esoteric",
-      "Equivocal"
+      "Obfuscate",
+      "Recalcitrant"
     ],
-    "correctAnswer": "Equivocal"
+    "correctAnswer": "Equivocate"
   },
   {
-    "q": "[ID: G-77] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-26] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "Q, R, P, S",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-27] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-28] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-29] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
       "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-78] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "q": "[ID: G-30] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
     "opts": [
-      "Passive voice violation",
-      "Dangling modifier",
-      "No error",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-79] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
-    "opts": [
-      "Sycophant",
-      "Misanthrope",
-      "Apostate",
-      "Esoteric"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-80] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-81] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-82] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
-    "opts": [
-      "Apostate",
-      "Esoteric",
-      "Misanthrope",
-      "Sycophant"
-    ],
-    "correctAnswer": "Sycophant"
-  },
-  {
-    "q": "[ID: G-83] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-84] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-85] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
-    "opts": [
-      "Polyglot",
-      "Sycophant",
-      "Ebullient",
+      "Equivocate",
+      "Recalcitrant",
+      "Pusillanimous",
       "Fastidious"
     ],
     "correctAnswer": "Fastidious"
   },
   {
-    "q": "[ID: G-86] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-31] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Q, R, P, S",
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "P, R, Q, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-32] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-33] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-34] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-87] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Tense inconsistency",
-      "No error",
-      "Passive voice violation",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-88] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
-    "opts": [
-      "Apostate",
-      "Reticent",
-      "Equivocal",
-      "Polyglot"
-    ],
-    "correctAnswer": "Reticent"
-  },
-  {
-    "q": "[ID: G-89] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-90] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "No error",
-      "Dangling modifier",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-91] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
-    "opts": [
-      "Sycophant",
-      "Fastidious",
-      "Misanthrope",
-      "Apostate"
-    ],
-    "correctAnswer": "Misanthrope"
-  },
-  {
-    "q": "[ID: G-92] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-93] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "Dangling modifier",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-94] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Polyglot",
-      "Fastidious",
-      "Reticent",
-      "Apostate"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-95] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-96] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-97] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
-    "opts": [
-      "Ebullient",
-      "Sycophant",
-      "Misanthrope",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-98] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-99] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-100] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
-      "Apostate",
-      "Iconoclast",
-      "Polyglot",
-      "Equivocal"
-    ],
-    "correctAnswer": "Apostate"
-  },
-  {
-    "q": "[ID: G-101] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-102] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-103] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
-    "opts": [
-      "Fastidious",
-      "Iconoclast",
-      "Polyglot",
-      "Reticent"
-    ],
-    "correctAnswer": "Iconoclast"
-  },
-  {
-    "q": "[ID: G-104] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-105] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "q": "[ID: G-35] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
     "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
+      "Equivocate",
+      "Recalcitrant",
+      "Obfuscate",
+      "Fastidious"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Equivocate"
   },
   {
-    "q": "[ID: G-106] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "q": "[ID: G-36] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Misanthrope",
-      "Fastidious",
-      "Iconoclast",
-      "Equivocal"
+      "R, S, Q, P",
+      "R, Q, S, P",
+      "Q, R, P, S",
+      "P, R, Q, S"
     ],
-    "correctAnswer": "Equivocal"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-107] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-37] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
     "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular)."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
   },
   {
-    "q": "[ID: G-108] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "q": "[ID: G-38] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
     "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
   },
   {
-    "q": "[ID: G-109] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "q": "[ID: G-39] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
     "opts": [
-      "Fastidious",
-      "Misanthrope",
-      "Iconoclast",
-      "Esoteric"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-110] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-111] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "q": "[ID: G-40] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
     "opts": [
-      "No error",
-      "Tense inconsistency",
-      "Dangling modifier",
-      "Passive voice violation"
+      "Recalcitrant",
+      "Fastidious",
+      "Equivocate",
+      "Obfuscate"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Recalcitrant"
   },
   {
-    "q": "[ID: G-112] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "q": "[ID: G-41] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Equivocal",
-      "Misanthrope",
-      "Sycophant",
-      "Iconoclast"
+      "Q, R, P, S",
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "P, R, Q, S"
     ],
-    "correctAnswer": "Sycophant"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-113] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-42] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
     "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-43] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-44] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-45] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Fastidious",
+      "Recalcitrant",
+      "Obfuscate",
+      "Equivocate"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-46] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-47] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "Replace 'are' with 'is' (subject is singular).",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-48] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-49] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-50] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
+    "opts": [
+      "Equivocate",
+      "Pusillanimous",
+      "Obfuscate",
+      "Recalcitrant"
+    ],
+    "correctAnswer": "Pusillanimous"
+  },
+  {
+    "q": "[ID: G-51] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "R, Q, S, P",
+      "P, R, Q, S",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-52] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-53] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-54] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-55] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Equivocate",
+      "Obfuscate",
+      "Recalcitrant",
+      "Pusillanimous"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-56] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-57] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "Replace 'than' with 'when'."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-58] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-59] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-114] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "q": "[ID: G-60] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
     "opts": [
-      "No error",
-      "Dangling modifier",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-115] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
-    "opts": [
-      "Fastidious",
-      "Equivocal",
-      "Sycophant",
-      "Polyglot"
-    ],
-    "correctAnswer": "Fastidious"
-  },
-  {
-    "q": "[ID: G-116] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-117] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-118] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
-    "opts": [
-      "Reticent",
-      "Esoteric",
-      "Fastidious",
-      "Polyglot"
-    ],
-    "correctAnswer": "Reticent"
-  },
-  {
-    "q": "[ID: G-119] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-120] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Dangling modifier",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-121] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
-    "opts": [
-      "Reticent",
-      "Sycophant",
-      "Esoteric",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Misanthrope"
-  },
-  {
-    "q": "[ID: G-122] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-123] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-124] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Equivocal",
-      "Apostate",
-      "Esoteric",
-      "Polyglot"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-125] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-126] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-127] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
-    "opts": [
-      "Equivocal",
-      "Ebullient",
-      "Esoteric",
-      "Reticent"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-128] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-129] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "No error",
-      "Dangling modifier",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-130] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
-      "Apostate",
-      "Esoteric",
-      "Equivocal",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Apostate"
-  },
-  {
-    "q": "[ID: G-131] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-132] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-133] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
-    "opts": [
-      "Ebullient",
-      "Misanthrope",
-      "Esoteric",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Iconoclast"
-  },
-  {
-    "q": "[ID: G-134] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-135] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-136] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
-    "opts": [
-      "Equivocal",
-      "Fastidious",
-      "Esoteric",
-      "Reticent"
-    ],
-    "correctAnswer": "Equivocal"
-  },
-  {
-    "q": "[ID: G-137] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-138] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Dangling modifier",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-139] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
-    "opts": [
-      "Ebullient",
-      "Fastidious",
-      "Apostate",
-      "Esoteric"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-140] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-141] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-142] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
-    "opts": [
-      "Misanthrope",
-      "Esoteric",
-      "Iconoclast",
-      "Sycophant"
-    ],
-    "correctAnswer": "Sycophant"
-  },
-  {
-    "q": "[ID: G-143] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-144] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "No error",
-      "Dangling modifier",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-145] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
-    "opts": [
-      "Misanthrope",
-      "Iconoclast",
-      "Equivocal",
+      "Equivocate",
+      "Recalcitrant",
+      "Obfuscate",
       "Fastidious"
     ],
     "correctAnswer": "Fastidious"
   },
   {
-    "q": "[ID: G-146] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-61] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-62] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-63] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-64] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-147] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-148] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
-    "opts": [
-      "Misanthrope",
-      "Apostate",
-      "Fastidious",
-      "Reticent"
-    ],
-    "correctAnswer": "Reticent"
-  },
-  {
-    "q": "[ID: G-149] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-150] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "q": "[ID: G-65] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
     "opts": [
-      "No error",
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-151] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
-    "opts": [
-      "Misanthrope",
-      "Polyglot",
-      "Sycophant",
-      "Equivocal"
-    ],
-    "correctAnswer": "Misanthrope"
-  },
-  {
-    "q": "[ID: G-152] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-153] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-154] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Polyglot",
-      "Ebullient",
-      "Esoteric",
-      "Apostate"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-155] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-156] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "Dangling modifier",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-157] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
-    "opts": [
-      "Ebullient",
-      "Apostate",
-      "Esoteric",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-158] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-159] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Dangling modifier",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-160] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
-      "Equivocal",
-      "Polyglot",
-      "Apostate",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Apostate"
-  },
-  {
-    "q": "[ID: G-161] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-162] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-163] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
-    "opts": [
-      "Misanthrope",
-      "Reticent",
-      "Ebullient",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Iconoclast"
-  },
-  {
-    "q": "[ID: G-164] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-165] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-166] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
-    "opts": [
-      "Reticent",
-      "Equivocal",
-      "Apostate",
-      "Polyglot"
-    ],
-    "correctAnswer": "Equivocal"
-  },
-  {
-    "q": "[ID: G-167] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-168] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-169] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
-    "opts": [
-      "Esoteric",
-      "Sycophant",
-      "Apostate",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-170] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-171] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Dangling modifier",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-172] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
-    "opts": [
-      "Sycophant",
-      "Apostate",
-      "Iconoclast",
-      "Reticent"
-    ],
-    "correctAnswer": "Sycophant"
-  },
-  {
-    "q": "[ID: G-173] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-174] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Dangling modifier",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-175] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
-    "opts": [
-      "Fastidious",
-      "Ebullient",
-      "Iconoclast",
-      "Sycophant"
-    ],
-    "correctAnswer": "Fastidious"
-  },
-  {
-    "q": "[ID: G-176] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-177] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-178] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
-    "opts": [
-      "Fastidious",
-      "Equivocal",
-      "Apostate",
-      "Reticent"
-    ],
-    "correctAnswer": "Reticent"
-  },
-  {
-    "q": "[ID: G-179] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-180] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "Dangling modifier",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-181] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
-    "opts": [
-      "Reticent",
-      "Iconoclast",
-      "Equivocal",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Misanthrope"
-  },
-  {
-    "q": "[ID: G-182] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-183] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "No error",
-      "Dangling modifier",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-184] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Iconoclast",
-      "Reticent",
-      "Polyglot",
-      "Apostate"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-185] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-186] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-187] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
-    "opts": [
-      "Misanthrope",
-      "Iconoclast",
-      "Apostate",
-      "Ebullient"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-188] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-189] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-190] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
-      "Polyglot",
-      "Apostate",
-      "Reticent",
+      "Pusillanimous",
+      "Equivocate",
+      "Obfuscate",
       "Fastidious"
     ],
-    "correctAnswer": "Apostate"
+    "correctAnswer": "Pusillanimous"
   },
   {
-    "q": "[ID: G-191] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-66] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-67] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-68] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-69] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-192] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-193] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
-    "opts": [
-      "Misanthrope",
-      "Polyglot",
-      "Esoteric",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Iconoclast"
-  },
-  {
-    "q": "[ID: G-194] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-195] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "q": "[ID: G-70] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
     "opts": [
-      "Passive voice violation",
-      "Dangling modifier",
-      "Tense inconsistency",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-196] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
-    "opts": [
-      "Equivocal",
-      "Ebullient",
-      "Apostate",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Equivocal"
-  },
-  {
-    "q": "[ID: G-197] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-198] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-199] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
-    "opts": [
-      "Misanthrope",
-      "Iconoclast",
-      "Apostate",
-      "Esoteric"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-200] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-201] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-202] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
-    "opts": [
-      "Polyglot",
-      "Reticent",
-      "Apostate",
-      "Sycophant"
-    ],
-    "correctAnswer": "Sycophant"
-  },
-  {
-    "q": "[ID: G-203] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-204] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-205] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
-    "opts": [
-      "Sycophant",
+      "Recalcitrant",
       "Fastidious",
-      "Reticent",
-      "Misanthrope"
+      "Pusillanimous",
+      "Obfuscate"
     ],
-    "correctAnswer": "Fastidious"
+    "correctAnswer": "Pusillanimous"
   },
   {
-    "q": "[ID: G-206] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-71] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-72] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-73] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-74] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
     "opts": [
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-75] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
+    "opts": [
+      "Fastidious",
+      "Pusillanimous",
+      "Recalcitrant",
+      "Equivocate"
+    ],
+    "correctAnswer": "Pusillanimous"
+  },
+  {
+    "q": "[ID: G-76] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-77] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "Replace 'than' with 'when'.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-78] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-79] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "The committee has mandated unauthorized data transmissions to be ceased."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-207] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "q": "[ID: G-80] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
     "opts": [
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency"
+      "Pusillanimous",
+      "Recalcitrant",
+      "Equivocate",
+      "Obfuscate"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Equivocate"
   },
   {
-    "q": "[ID: G-208] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "q": "[ID: G-81] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Ebullient",
-      "Reticent",
-      "Iconoclast",
+      "R, Q, S, P",
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-82] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-83] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-84] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-85] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
+    "opts": [
+      "Recalcitrant",
+      "Pusillanimous",
+      "Obfuscate",
+      "Equivocate"
+    ],
+    "correctAnswer": "Obfuscate"
+  },
+  {
+    "q": "[ID: G-86] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "P, R, Q, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-87] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'than' with 'when'.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-88] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-89] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-90] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
+    "opts": [
+      "Recalcitrant",
+      "Equivocate",
+      "Pusillanimous",
       "Fastidious"
     ],
-    "correctAnswer": "Reticent"
+    "correctAnswer": "Pusillanimous"
   },
   {
-    "q": "[ID: G-209] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-91] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "R, Q, S, P",
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-92] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-93] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-94] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-210] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "q": "[ID: G-95] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
     "opts": [
-      "Dangling modifier",
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-211] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
-    "opts": [
-      "Reticent",
-      "Iconoclast",
-      "Misanthrope",
-      "Sycophant"
-    ],
-    "correctAnswer": "Misanthrope"
-  },
-  {
-    "q": "[ID: G-212] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-213] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "No error",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-214] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Reticent",
-      "Iconoclast",
-      "Equivocal",
-      "Polyglot"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-215] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-216] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "No error",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-217] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
-    "opts": [
-      "Reticent",
-      "Apostate",
-      "Ebullient",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-218] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-219] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-220] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
+      "Pusillanimous",
+      "Equivocate",
       "Fastidious",
-      "Apostate",
-      "Ebullient",
-      "Reticent"
+      "Recalcitrant"
     ],
-    "correctAnswer": "Apostate"
+    "correctAnswer": "Equivocate"
   },
   {
-    "q": "[ID: G-221] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-96] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "R, Q, S, P",
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-97] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-98] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-99] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-100] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
+    "opts": [
+      "Equivocate",
+      "Obfuscate",
+      "Fastidious",
+      "Recalcitrant"
+    ],
+    "correctAnswer": "Obfuscate"
+  },
+  {
+    "q": "[ID: G-101] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-102] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-103] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-104] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-105] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Pusillanimous",
+      "Obfuscate",
+      "Equivocate",
+      "Recalcitrant"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-106] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-107] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-108] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-109] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-222] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "q": "[ID: G-110] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
     "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
+      "Recalcitrant",
+      "Equivocate",
+      "Pusillanimous",
+      "Obfuscate"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Equivocate"
   },
   {
-    "q": "[ID: G-223] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
+    "q": "[ID: G-111] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Iconoclast",
+      "R, Q, S, P",
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-112] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'.",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-113] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-114] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-115] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
+    "opts": [
       "Fastidious",
-      "Apostate",
-      "Equivocal"
+      "Recalcitrant",
+      "Equivocate",
+      "Obfuscate"
     ],
-    "correctAnswer": "Iconoclast"
+    "correctAnswer": "Recalcitrant"
   },
   {
-    "q": "[ID: G-224] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-116] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S"
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-225] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "q": "[ID: G-117] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
     "opts": [
-      "Tense inconsistency",
-      "No error",
-      "Dangling modifier",
-      "Passive voice violation"
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular)."
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
   },
   {
-    "q": "[ID: G-226] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "q": "[ID: G-118] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
     "opts": [
-      "Equivocal",
-      "Reticent",
-      "Esoteric",
-      "Ebullient"
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
     ],
-    "correctAnswer": "Equivocal"
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
   },
   {
-    "q": "[ID: G-227] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-119] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
     "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-228] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Dangling modifier",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-229] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
-    "opts": [
-      "Reticent",
-      "Esoteric",
-      "Apostate",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-230] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-231] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-232] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
-    "opts": [
-      "Sycophant",
-      "Reticent",
-      "Polyglot",
-      "Apostate"
-    ],
-    "correctAnswer": "Sycophant"
-  },
-  {
-    "q": "[ID: G-233] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-234] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "q": "[ID: G-120] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
     "opts": [
-      "Dangling modifier",
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency"
+      "Recalcitrant",
+      "Pusillanimous",
+      "Fastidious",
+      "Equivocate"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Recalcitrant"
   },
   {
-    "q": "[ID: G-235] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "q": "[ID: G-121] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Sycophant",
-      "Iconoclast",
-      "Reticent",
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "R, Q, S, P",
+      "P, R, Q, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-122] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error.",
+      "Replace 'than' with 'when'.",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-123] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-124] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-125] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
+    "opts": [
+      "Fastidious",
+      "Pusillanimous",
+      "Recalcitrant",
+      "Obfuscate"
+    ],
+    "correctAnswer": "Recalcitrant"
+  },
+  {
+    "q": "[ID: G-126] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-127] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'than' with 'when'."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-128] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-129] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-130] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
+    "opts": [
+      "Recalcitrant",
+      "Equivocate",
+      "Pusillanimous",
       "Fastidious"
     ],
+    "correctAnswer": "Recalcitrant"
+  },
+  {
+    "q": "[ID: G-131] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-132] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "Replace 'than' with 'when'.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-133] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-134] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-135] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Equivocate",
+      "Fastidious",
+      "Obfuscate",
+      "Pusillanimous"
+    ],
     "correctAnswer": "Fastidious"
   },
   {
-    "q": "[ID: G-236] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-136] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "R, Q, S, P",
+      "P, R, Q, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-137] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-138] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-139] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
     "opts": [
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-237] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "q": "[ID: G-140] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
     "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
+      "Obfuscate",
+      "Equivocate",
+      "Pusillanimous",
+      "Recalcitrant"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Equivocate"
   },
   {
-    "q": "[ID: G-238] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "q": "[ID: G-141] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Misanthrope",
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-142] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-143] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-144] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-145] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Recalcitrant",
       "Fastidious",
-      "Polyglot",
-      "Reticent"
+      "Pusillanimous",
+      "Obfuscate"
     ],
-    "correctAnswer": "Reticent"
+    "correctAnswer": "Fastidious"
   },
   {
-    "q": "[ID: G-239] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-146] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "Q, R, P, S",
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-147] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-148] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-149] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-240] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "q": "[ID: G-150] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
     "opts": [
-      "Tense inconsistency",
-      "Dangling modifier",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-241] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
-    "opts": [
-      "Misanthrope",
-      "Apostate",
-      "Ebullient",
-      "Reticent"
-    ],
-    "correctAnswer": "Misanthrope"
-  },
-  {
-    "q": "[ID: G-242] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-243] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "No error",
-      "Tense inconsistency",
-      "Dangling modifier",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-244] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Reticent",
-      "Iconoclast",
-      "Sycophant",
-      "Polyglot"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-245] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-246] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-247] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
-    "opts": [
-      "Polyglot",
-      "Ebullient",
-      "Apostate",
-      "Esoteric"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-248] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-249] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-250] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
-      "Esoteric",
-      "Reticent",
-      "Iconoclast",
-      "Apostate"
-    ],
-    "correctAnswer": "Apostate"
-  },
-  {
-    "q": "[ID: G-251] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-252] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-253] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
-    "opts": [
-      "Iconoclast",
-      "Misanthrope",
-      "Apostate",
+      "Pusillanimous",
+      "Recalcitrant",
+      "Obfuscate",
       "Fastidious"
     ],
-    "correctAnswer": "Iconoclast"
+    "correctAnswer": "Recalcitrant"
   },
   {
-    "q": "[ID: G-254] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-151] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "R, S, Q, P",
+      "R, Q, S, P",
+      "Q, R, P, S",
+      "P, R, Q, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-152] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-153] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-154] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-255] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "q": "[ID: G-155] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
     "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
+      "Recalcitrant",
+      "Obfuscate",
+      "Fastidious",
+      "Pusillanimous"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Obfuscate"
   },
   {
-    "q": "[ID: G-256] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
+    "q": "[ID: G-156] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Sycophant",
-      "Apostate",
-      "Equivocal",
-      "Misanthrope"
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, Q, S, P"
     ],
-    "correctAnswer": "Equivocal"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-257] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-157] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'.",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-158] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-159] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
     "opts": [
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-258] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "q": "[ID: G-160] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
     "opts": [
-      "Passive voice violation",
-      "No error",
-      "Dangling modifier",
-      "Tense inconsistency"
+      "Obfuscate",
+      "Equivocate",
+      "Recalcitrant",
+      "Pusillanimous"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Pusillanimous"
   },
   {
-    "q": "[ID: G-259] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "q": "[ID: G-161] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Equivocal",
-      "Iconoclast",
-      "Polyglot",
-      "Esoteric"
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, Q, S, P"
     ],
-    "correctAnswer": "Esoteric"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-260] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-162] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
     "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-163] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-164] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-261] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "q": "[ID: G-165] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
     "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error",
-      "Dangling modifier"
+      "Pusillanimous",
+      "Equivocate",
+      "Obfuscate",
+      "Recalcitrant"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Obfuscate"
   },
   {
-    "q": "[ID: G-262] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
+    "q": "[ID: G-166] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Esoteric",
-      "Sycophant",
-      "Reticent",
-      "Apostate"
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "Q, R, P, S"
     ],
-    "correctAnswer": "Sycophant"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-263] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-167] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular)."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
   },
   {
-    "q": "[ID: G-264] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "q": "[ID: G-168] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
     "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
   },
   {
-    "q": "[ID: G-265] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "q": "[ID: G-169] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-170] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
     "opts": [
       "Fastidious",
-      "Sycophant",
-      "Equivocal",
-      "Misanthrope"
+      "Recalcitrant",
+      "Obfuscate",
+      "Equivocate"
+    ],
+    "correctAnswer": "Obfuscate"
+  },
+  {
+    "q": "[ID: G-171] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-172] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "Replace 'are' with 'is' (subject is singular).",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-173] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-174] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-175] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Recalcitrant",
+      "Equivocate",
+      "Fastidious",
+      "Obfuscate"
     ],
     "correctAnswer": "Fastidious"
   },
   {
-    "q": "[ID: G-266] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-176] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "R, Q, S, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-177] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "Replace 'than' with 'when'.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-178] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-179] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-267] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "No error",
-      "Dangling modifier",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-268] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
-    "opts": [
-      "Reticent",
-      "Equivocal",
-      "Fastidious",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Reticent"
-  },
-  {
-    "q": "[ID: G-269] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-270] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "q": "[ID: G-180] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
     "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-271] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
-    "opts": [
-      "Ebullient",
-      "Sycophant",
+      "Pusillanimous",
+      "Recalcitrant",
       "Fastidious",
-      "Misanthrope"
+      "Equivocate"
     ],
-    "correctAnswer": "Misanthrope"
+    "correctAnswer": "Pusillanimous"
   },
   {
-    "q": "[ID: G-272] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-181] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-182] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-183] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-184] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-273] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "q": "[ID: G-185] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
     "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
+      "Equivocate",
+      "Obfuscate",
+      "Recalcitrant",
+      "Fastidious"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Recalcitrant"
   },
   {
-    "q": "[ID: G-274] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "q": "[ID: G-186] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Esoteric",
-      "Ebullient",
-      "Polyglot",
-      "Reticent"
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, Q, S, P"
     ],
-    "correctAnswer": "Polyglot"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-275] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-187] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-188] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-189] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-190] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
+    "opts": [
+      "Pusillanimous",
+      "Recalcitrant",
+      "Obfuscate",
+      "Equivocate"
+    ],
+    "correctAnswer": "Obfuscate"
+  },
+  {
+    "q": "[ID: G-191] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-192] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-193] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-194] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "The committee has mandated unauthorized data transmissions to be ceased."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-276] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "q": "[ID: G-195] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
     "opts": [
-      "Tense inconsistency",
-      "Dangling modifier",
-      "Passive voice violation",
-      "No error"
+      "Pusillanimous",
+      "Obfuscate",
+      "Fastidious",
+      "Recalcitrant"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Recalcitrant"
   },
   {
-    "q": "[ID: G-277] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "q": "[ID: G-196] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Ebullient",
-      "Polyglot",
-      "Iconoclast",
-      "Sycophant"
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "P, R, Q, S"
     ],
-    "correctAnswer": "Ebullient"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-278] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-197] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "No error.",
+      "Replace 'than' with 'when'.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-198] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-199] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-200] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
+    "opts": [
+      "Fastidious",
+      "Equivocate",
+      "Recalcitrant",
+      "Pusillanimous"
+    ],
+    "correctAnswer": "Pusillanimous"
+  },
+  {
+    "q": "[ID: G-201] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-202] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "Replace 'than' with 'when'.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-203] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-204] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-205] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Pusillanimous",
+      "Equivocate",
+      "Fastidious",
+      "Recalcitrant"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-206] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-207] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-208] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-209] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-210] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
+    "opts": [
+      "Recalcitrant",
+      "Equivocate",
+      "Pusillanimous",
+      "Obfuscate"
+    ],
+    "correctAnswer": "Recalcitrant"
+  },
+  {
+    "q": "[ID: G-211] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, Q, S, P",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-212] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-213] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-214] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-215] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
+    "opts": [
+      "Obfuscate",
+      "Recalcitrant",
+      "Pusillanimous",
+      "Fastidious"
+    ],
+    "correctAnswer": "Pusillanimous"
+  },
+  {
+    "q": "[ID: G-216] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, Q, S, P",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-217] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-218] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-219] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-220] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Pusillanimous",
+      "Equivocate",
+      "Fastidious",
+      "Obfuscate"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-221] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-222] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-223] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-224] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-225] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Pusillanimous",
+      "Fastidious",
+      "Equivocate",
+      "Recalcitrant"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-226] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, Q, S, P",
+      "Q, R, P, S",
+      "R, S, Q, P",
+      "P, R, Q, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-227] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-228] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-229] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-230] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Recalcitrant",
+      "Equivocate",
+      "Pusillanimous",
+      "Fastidious"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-231] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-232] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-233] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-234] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-235] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
+    "opts": [
+      "Obfuscate",
+      "Recalcitrant",
+      "Fastidious",
+      "Pusillanimous"
+    ],
+    "correctAnswer": "Obfuscate"
+  },
+  {
+    "q": "[ID: G-236] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-237] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-238] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-239] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-279] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "q": "[ID: G-240] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
     "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error",
-      "Dangling modifier"
+      "Equivocate",
+      "Recalcitrant",
+      "Pusillanimous",
+      "Fastidious"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Equivocate"
   },
   {
-    "q": "[ID: G-280] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
+    "q": "[ID: G-241] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Apostate",
-      "Misanthrope",
-      "Polyglot",
-      "Esoteric"
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S"
     ],
-    "correctAnswer": "Apostate"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-281] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-242] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-243] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-244] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
     "opts": [
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-282] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "q": "[ID: G-245] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
     "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-283] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
-    "opts": [
-      "Iconoclast",
-      "Ebullient",
-      "Reticent",
-      "Esoteric"
-    ],
-    "correctAnswer": "Iconoclast"
-  },
-  {
-    "q": "[ID: G-284] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-285] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-286] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
-    "opts": [
-      "Polyglot",
-      "Equivocal",
-      "Reticent",
-      "Apostate"
-    ],
-    "correctAnswer": "Equivocal"
-  },
-  {
-    "q": "[ID: G-287] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-288] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-289] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
-    "opts": [
-      "Apostate",
-      "Ebullient",
-      "Esoteric",
-      "Equivocal"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-290] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-291] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Dangling modifier",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-292] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
-    "opts": [
-      "Sycophant",
-      "Iconoclast",
-      "Polyglot",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Sycophant"
-  },
-  {
-    "q": "[ID: G-293] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-294] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-295] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
-    "opts": [
-      "Sycophant",
-      "Iconoclast",
+      "Pusillanimous",
       "Fastidious",
-      "Misanthrope"
+      "Obfuscate",
+      "Equivocate"
     ],
     "correctAnswer": "Fastidious"
   },
   {
-    "q": "[ID: G-296] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-246] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-247] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-248] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-249] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
     "opts": [
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-297] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-298] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
-    "opts": [
-      "Iconoclast",
-      "Ebullient",
-      "Misanthrope",
-      "Reticent"
-    ],
-    "correctAnswer": "Reticent"
-  },
-  {
-    "q": "[ID: G-299] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-250] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
+    "opts": [
+      "Pusillanimous",
+      "Recalcitrant",
+      "Obfuscate",
+      "Equivocate"
+    ],
+    "correctAnswer": "Obfuscate"
+  },
+  {
+    "q": "[ID: G-251] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "R, Q, S, P",
+      "P, R, Q, S",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-252] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "Replace 'than' with 'when'.",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-253] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-254] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-300] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "q": "[ID: G-255] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
     "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
+      "Pusillanimous",
+      "Equivocate",
+      "Obfuscate",
+      "Recalcitrant"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Pusillanimous"
   },
   {
-    "q": "[ID: G-301] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "q": "[ID: G-256] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Polyglot",
-      "Iconoclast",
-      "Fastidious",
-      "Misanthrope"
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "P, R, Q, S"
     ],
-    "correctAnswer": "Misanthrope"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-302] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-257] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
     "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Replace 'than' with 'when'.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-258] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-259] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-303] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "No error",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-304] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Iconoclast",
-      "Polyglot",
-      "Misanthrope",
-      "Apostate"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-305] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-306] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-307] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
-    "opts": [
-      "Reticent",
-      "Iconoclast",
-      "Esoteric",
-      "Ebullient"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-308] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-309] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
+    "q": "[ID: G-260] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
     "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-310] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
-      "Sycophant",
-      "Reticent",
-      "Misanthrope",
-      "Apostate"
-    ],
-    "correctAnswer": "Apostate"
-  },
-  {
-    "q": "[ID: G-311] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-312] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Dangling modifier",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-313] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
-    "opts": [
-      "Iconoclast",
-      "Equivocal",
-      "Polyglot",
-      "Sycophant"
-    ],
-    "correctAnswer": "Iconoclast"
-  },
-  {
-    "q": "[ID: G-314] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-315] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-316] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
-    "opts": [
-      "Iconoclast",
-      "Polyglot",
-      "Ebullient",
-      "Equivocal"
-    ],
-    "correctAnswer": "Equivocal"
-  },
-  {
-    "q": "[ID: G-317] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-318] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-319] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
-    "opts": [
-      "Esoteric",
-      "Apostate",
       "Fastidious",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-320] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-321] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-322] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
-    "opts": [
-      "Polyglot",
-      "Sycophant",
-      "Esoteric",
-      "Equivocal"
-    ],
-    "correctAnswer": "Sycophant"
-  },
-  {
-    "q": "[ID: G-323] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-324] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-325] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
-    "opts": [
-      "Reticent",
-      "Esoteric",
-      "Fastidious",
-      "Equivocal"
+      "Pusillanimous",
+      "Equivocate",
+      "Recalcitrant"
     ],
     "correctAnswer": "Fastidious"
   },
   {
-    "q": "[ID: G-326] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-261] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "P, R, Q, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-262] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-263] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-264] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-265] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
+    "opts": [
+      "Pusillanimous",
+      "Equivocate",
+      "Recalcitrant",
+      "Fastidious"
+    ],
+    "correctAnswer": "Pusillanimous"
+  },
+  {
+    "q": "[ID: G-266] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-267] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-268] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-269] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-270] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Fastidious",
+      "Recalcitrant",
+      "Pusillanimous",
+      "Equivocate"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-271] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, Q, S, P",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-272] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-273] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-274] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-327] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
+    "q": "[ID: G-275] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
     "opts": [
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency",
-      "Dangling modifier"
+      "Recalcitrant",
+      "Fastidious",
+      "Pusillanimous",
+      "Obfuscate"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Obfuscate"
   },
   {
-    "q": "[ID: G-328] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
+    "q": "[ID: G-276] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Reticent",
-      "Ebullient",
-      "Sycophant",
-      "Apostate"
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "Q, R, P, S",
+      "R, S, Q, P"
     ],
-    "correctAnswer": "Reticent"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-329] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-277] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-278] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-279] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-280] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
+    "opts": [
+      "Obfuscate",
+      "Fastidious",
+      "Equivocate",
+      "Recalcitrant"
+    ],
+    "correctAnswer": "Recalcitrant"
+  },
+  {
+    "q": "[ID: G-281] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-282] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-283] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-284] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-285] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
+    "opts": [
+      "Fastidious",
+      "Obfuscate",
+      "Pusillanimous",
+      "Equivocate"
+    ],
+    "correctAnswer": "Obfuscate"
+  },
+  {
+    "q": "[ID: G-286] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-287] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'than' with 'when'."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-288] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-289] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
       "The committee has mandated unauthorized data transmissions to be ceased."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-330] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
+    "q": "[ID: G-290] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
     "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
+      "Recalcitrant",
+      "Pusillanimous",
+      "Equivocate",
+      "Obfuscate"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Obfuscate"
   },
   {
-    "q": "[ID: G-331] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
+    "q": "[ID: G-291] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Apostate",
-      "Polyglot",
-      "Iconoclast",
-      "Misanthrope"
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S"
     ],
-    "correctAnswer": "Misanthrope"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-332] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-292] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'than' with 'when'.",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-293] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-294] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-333] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-334] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Sycophant",
-      "Fastidious",
-      "Iconoclast",
-      "Polyglot"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-335] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-336] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Tense inconsistency",
-      "No error",
-      "Passive voice violation",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-337] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
-    "opts": [
-      "Ebullient",
-      "Esoteric",
-      "Polyglot",
-      "Reticent"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-338] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-295] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
+    "opts": [
+      "Fastidious",
+      "Pusillanimous",
+      "Obfuscate",
+      "Equivocate"
+    ],
+    "correctAnswer": "Obfuscate"
+  },
+  {
+    "q": "[ID: G-296] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-297] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "Replace 'than' with 'when'.",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-298] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-299] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-339] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Dangling modifier",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-340] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
-      "Apostate",
-      "Misanthrope",
-      "Sycophant",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Apostate"
-  },
-  {
-    "q": "[ID: G-341] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-342] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "No error",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-343] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
-    "opts": [
-      "Esoteric",
-      "Polyglot",
-      "Apostate",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Iconoclast"
-  },
-  {
-    "q": "[ID: G-344] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-345] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-346] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
-    "opts": [
-      "Apostate",
-      "Reticent",
-      "Misanthrope",
-      "Equivocal"
-    ],
-    "correctAnswer": "Equivocal"
-  },
-  {
-    "q": "[ID: G-347] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-348] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Passive voice violation",
-      "No error",
-      "Dangling modifier",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-349] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
+    "q": "[ID: G-300] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
     "opts": [
       "Fastidious",
-      "Esoteric",
-      "Sycophant",
-      "Iconoclast"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-350] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-351] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-352] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
-    "opts": [
-      "Sycophant",
-      "Misanthrope",
-      "Apostate",
-      "Equivocal"
-    ],
-    "correctAnswer": "Sycophant"
-  },
-  {
-    "q": "[ID: G-353] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-354] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Tense inconsistency",
-      "No error",
-      "Passive voice violation",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-355] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
-    "opts": [
-      "Iconoclast",
-      "Esoteric",
-      "Fastidious",
-      "Polyglot"
+      "Recalcitrant",
+      "Obfuscate",
+      "Equivocate"
     ],
     "correctAnswer": "Fastidious"
   },
   {
-    "q": "[ID: G-356] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-301] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
+      "Q, R, P, S",
+      "R, Q, S, P",
+      "P, R, Q, S",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-302] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "Replace 'than' with 'when'.",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-303] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-304] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-357] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-358] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
-    "opts": [
-      "Iconoclast",
-      "Apostate",
-      "Reticent",
-      "Polyglot"
-    ],
-    "correctAnswer": "Reticent"
-  },
-  {
-    "q": "[ID: G-359] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-360] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-361] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
-    "opts": [
-      "Sycophant",
-      "Apostate",
-      "Iconoclast",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Misanthrope"
-  },
-  {
-    "q": "[ID: G-362] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-363] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "q": "[ID: G-305] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
     "opts": [
-      "Tense inconsistency",
-      "Dangling modifier",
-      "No error",
-      "Passive voice violation"
+      "Equivocate",
+      "Obfuscate",
+      "Pusillanimous",
+      "Fastidious"
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "Equivocate"
   },
   {
-    "q": "[ID: G-364] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
+    "q": "[ID: G-306] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "Reticent",
-      "Polyglot",
-      "Ebullient",
-      "Iconoclast"
+      "R, S, Q, P",
+      "R, Q, S, P",
+      "P, R, Q, S",
+      "Q, R, P, S"
     ],
-    "correctAnswer": "Polyglot"
+    "correctAnswer": "R, Q, S, P"
   },
   {
-    "q": "[ID: G-365] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-307] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
     "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
   },
   {
-    "q": "[ID: G-366] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
+    "q": "[ID: G-308] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
     "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
     ],
-    "correctAnswer": "No error"
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
   },
   {
-    "q": "[ID: G-367] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
+    "q": "[ID: G-309] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
     "opts": [
-      "Esoteric",
-      "Polyglot",
-      "Ebullient",
-      "Equivocal"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-368] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-369] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Tense inconsistency",
-      "No error",
-      "Passive voice violation",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-370] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
-      "Apostate",
-      "Ebullient",
-      "Reticent",
-      "Equivocal"
-    ],
-    "correctAnswer": "Apostate"
-  },
-  {
-    "q": "[ID: G-371] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
       "The committee has mandated unauthorized data transmissions to be ceased."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-372] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "Passive voice violation",
-      "Dangling modifier",
-      "No error",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-373] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who attacks cherished beliefs or institutions.\"",
-    "opts": [
-      "Misanthrope",
-      "Reticent",
-      "Iconoclast",
-      "Polyglot"
-    ],
-    "correctAnswer": "Iconoclast"
-  },
-  {
-    "q": "[ID: G-374] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-375] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "Dangling modifier",
-      "No error",
-      "Tense inconsistency",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-376] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Open to more than one interpretation; ambiguous.\"",
-    "opts": [
-      "Apostate",
-      "Misanthrope",
-      "Reticent",
-      "Equivocal"
-    ],
-    "correctAnswer": "Equivocal"
-  },
-  {
-    "q": "[ID: G-377] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-378] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
-    "opts": [
-      "Tense inconsistency",
-      "Passive voice violation",
-      "Dangling modifier",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-379] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Intended for or likely to be understood by only a small number of people with a specialized knowledge or interest.\"",
-    "opts": [
-      "Esoteric",
-      "Iconoclast",
-      "Ebullient",
-      "Misanthrope"
-    ],
-    "correctAnswer": "Esoteric"
-  },
-  {
-    "q": "[ID: G-380] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-381] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "Dangling modifier"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-382] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who acts obsequiously toward someone important in order to gain advantage.\"",
-    "opts": [
-      "Sycophant",
-      "Apostate",
-      "Esoteric",
-      "Reticent"
-    ],
-    "correctAnswer": "Sycophant"
-  },
-  {
-    "q": "[ID: G-383] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-384] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Tense inconsistency",
-      "No error",
-      "Dangling modifier",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-385] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "q": "[ID: G-310] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
     "opts": [
       "Fastidious",
-      "Polyglot",
-      "Sycophant",
-      "Iconoclast"
+      "Pusillanimous",
+      "Obfuscate",
+      "Recalcitrant"
+    ],
+    "correctAnswer": "Obfuscate"
+  },
+  {
+    "q": "[ID: G-311] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, S, Q, P",
+      "R, Q, S, P",
+      "Q, R, P, S",
+      "P, R, Q, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-312] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'than' with 'when'."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-313] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-314] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-315] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Recalcitrant",
+      "Fastidious",
+      "Obfuscate",
+      "Equivocate"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-316] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-317] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error.",
+      "Replace 'than' with 'when'.",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-318] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-319] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-320] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
+    "opts": [
+      "Fastidious",
+      "Pusillanimous",
+      "Obfuscate",
+      "Equivocate"
+    ],
+    "correctAnswer": "Pusillanimous"
+  },
+  {
+    "q": "[ID: G-321] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-322] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "Replace 'than' with 'when'.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-323] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-324] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-325] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Obfuscate",
+      "Fastidious",
+      "Pusillanimous",
+      "Recalcitrant"
     ],
     "correctAnswer": "Fastidious"
   },
   {
-    "q": "[ID: G-386] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "q": "[ID: G-326] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
     "opts": [
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, S, Q, P",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-327] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-328] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-329] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-387] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The stoic commander has ostensibly repudiated the paradoxical theorem in blatant defiance of protocol.\"",
-    "opts": [
-      "No error",
-      "Passive voice violation",
-      "Dangling modifier",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-388] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Not revealing one's thoughts or feelings readily.\"",
-    "opts": [
-      "Esoteric",
-      "Iconoclast",
-      "Equivocal",
-      "Reticent"
-    ],
-    "correctAnswer": "Reticent"
-  },
-  {
-    "q": "[ID: G-389] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-330] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Pusillanimous",
+      "Obfuscate",
+      "Recalcitrant",
+      "Equivocate"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-331] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "R, Q, S, P",
+      "P, R, Q, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-332] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-333] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-334] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
       "The committee has mandated unauthorized data transmissions to be ceased.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-390] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The corporate director had inadvertently initiated the clandestine operation with unprecedented alacrity.\"",
-    "opts": [
-      "No error",
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-391] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who dislikes humankind and avoids human society.\"",
-    "opts": [
-      "Misanthrope",
-      "Polyglot",
-      "Equivocal",
-      "Reticent"
-    ],
-    "correctAnswer": "Misanthrope"
-  },
-  {
-    "q": "[ID: G-392] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
       "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
     ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
   },
   {
-    "q": "[ID: G-393] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The sovereign ruler will undoubtedly orchestrate the systemic anomaly despite overwhelming skepticism.\"",
+    "q": "[ID: G-335] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
     "opts": [
-      "Dangling modifier",
-      "Tense inconsistency",
-      "Passive voice violation",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-394] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who knows and is able to use several languages.\"",
-    "opts": [
-      "Iconoclast",
-      "Polyglot",
-      "Esoteric",
-      "Reticent"
-    ],
-    "correctAnswer": "Polyglot"
-  },
-  {
-    "q": "[ID: G-395] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased.",
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-396] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The enigmatic philosopher was deliberately concealing the empirical evidence amidst unprecedented turmoil.\"",
-    "opts": [
-      "Dangling modifier",
-      "Passive voice violation",
-      "No error",
-      "Tense inconsistency"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-397] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"Cheerful and full of energy.\"",
-    "opts": [
-      "Ebullient",
-      "Apostate",
-      "Misanthrope",
-      "Reticent"
-    ],
-    "correctAnswer": "Ebullient"
-  },
-  {
-    "q": "[ID: G-398] Analyze the grammatical voice shift and select the correct passive transformation of: 'The overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
-    "opts": [
-      "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
-      "Unauthorized data transmissions were mandated to cease immediately by the committee.",
-      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
-      "The committee has mandated unauthorized data transmissions to be ceased."
-    ],
-    "correctAnswer": "It was unanimously mandated by the overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
-  },
-  {
-    "q": "[ID: G-399] Syntactic Analysis Test: Identify the correct active/passive voice transformation or nuanced error in this highly advanced sentence structure: \"The pragmatic engineer must vehemently denounce the existential dilemma without demonstrable justification.\"",
-    "opts": [
-      "Dangling modifier",
-      "Passive voice violation",
-      "Tense inconsistency",
-      "No error"
-    ],
-    "correctAnswer": "No error"
-  },
-  {
-    "q": "[ID: G-400] Advanced Lexicology: Identify the most precise one-word substitute for the following complex definition: \"A person who renounces a religious or political belief.\"",
-    "opts": [
-      "Apostate",
       "Fastidious",
-      "Equivocal",
-      "Esoteric"
+      "Equivocate",
+      "Pusillanimous",
+      "Recalcitrant"
     ],
-    "correctAnswer": "Apostate"
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-336] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-337] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-338] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-339] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-340] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Recalcitrant",
+      "Equivocate",
+      "Fastidious",
+      "Obfuscate"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-341] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, Q, S, P",
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-342] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-343] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-344] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-345] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
+    "opts": [
+      "Equivocate",
+      "Recalcitrant",
+      "Fastidious",
+      "Obfuscate"
+    ],
+    "correctAnswer": "Obfuscate"
+  },
+  {
+    "q": "[ID: G-346] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, S, Q, P",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-347] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-348] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-349] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-350] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
+    "opts": [
+      "Fastidious",
+      "Equivocate",
+      "Pusillanimous",
+      "Obfuscate"
+    ],
+    "correctAnswer": "Pusillanimous"
+  },
+  {
+    "q": "[ID: G-351] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-352] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-353] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-354] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-355] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Pusillanimous",
+      "Fastidious",
+      "Recalcitrant",
+      "Obfuscate"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-356] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-357] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "Replace 'than' with 'when'.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-358] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-359] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-360] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Equivocate",
+      "Fastidious",
+      "Obfuscate",
+      "Recalcitrant"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-361] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, S, Q, P",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-362] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular)."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-363] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-364] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-365] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
+    "opts": [
+      "Obfuscate",
+      "Recalcitrant",
+      "Pusillanimous",
+      "Fastidious"
+    ],
+    "correctAnswer": "Recalcitrant"
+  },
+  {
+    "q": "[ID: G-366] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, S, Q, P",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-367] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-368] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-369] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-370] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
+    "opts": [
+      "Pusillanimous",
+      "Fastidious",
+      "Equivocate",
+      "Obfuscate"
+    ],
+    "correctAnswer": "Pusillanimous"
+  },
+  {
+    "q": "[ID: G-371] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "R, S, Q, P",
+      "Q, R, P, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-372] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-373] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-374] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-375] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
+    "opts": [
+      "Equivocate",
+      "Pusillanimous",
+      "Obfuscate",
+      "Recalcitrant"
+    ],
+    "correctAnswer": "Pusillanimous"
+  },
+  {
+    "q": "[ID: G-376] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, Q, S, P",
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-377] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'.",
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-378] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-379] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-380] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Showing a lack of courage or determination; timid.\"",
+    "opts": [
+      "Recalcitrant",
+      "Pusillanimous",
+      "Fastidious",
+      "Obfuscate"
+    ],
+    "correctAnswer": "Pusillanimous"
+  },
+  {
+    "q": "[ID: G-381] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "Q, R, P, S",
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-382] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "No error.",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-383] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-384] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-385] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Very attentive to and concerned about accuracy and detail.\"",
+    "opts": [
+      "Pusillanimous",
+      "Fastidious",
+      "Recalcitrant",
+      "Obfuscate"
+    ],
+    "correctAnswer": "Fastidious"
+  },
+  {
+    "q": "[ID: G-386] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, Q, S, P",
+      "Q, R, P, S",
+      "P, R, Q, S",
+      "R, S, Q, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-387] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"Hardly had the central bank governor announced the unprecedented quantitative easing measures, than the stock market indices plummeted drastically due to unforeseen inflationary fears.\"",
+    "opts": [
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "Replace 'than' with 'when'.",
+      "No error."
+    ],
+    "correctAnswer": "Replace 'than' with 'when'."
+  },
+  {
+    "q": "[ID: G-388] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-389] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-390] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Use ambiguous language so as to conceal the truth or avoid committing oneself.\"",
+    "opts": [
+      "Equivocate",
+      "Recalcitrant",
+      "Obfuscate",
+      "Pusillanimous"
+    ],
+    "correctAnswer": "Equivocate"
+  },
+  {
+    "q": "[ID: G-391] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "P, R, Q, S",
+      "R, Q, S, P",
+      "R, S, Q, P",
+      "Q, R, P, S"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-392] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "No error.",
+      "Replace 'are' with 'is' (subject is singular).",
+      "There is a dangling modifier at the beginning of the sentence.",
+      "The sentence lacks parallel structure in its dependent clauses."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-393] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-394] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-395] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"To deliberately make something unclear or difficult to understand.\"",
+    "opts": [
+      "Obfuscate",
+      "Recalcitrant",
+      "Equivocate",
+      "Fastidious"
+    ],
+    "correctAnswer": "Obfuscate"
+  },
+  {
+    "q": "[ID: G-396] Arrange the following highly technical statements in a logically coherent sequence to form a sound philosophical argument:\n\nP. Consequently, the epistemological burden shifts from the observer to the underlying metric of observation.\nQ. This inherent uncertainty is not merely a limitation of our instruments, but a fundamental property of the quantum realm.\nR. Heisenberg's postulate dictates that the precise position and momentum of a particle cannot be simultaneously ascertained.\nS. Therefore, any attempt to deterministically model subatomic trajectories is philosophically flawed from its inception.",
+    "opts": [
+      "R, S, Q, P",
+      "P, R, Q, S",
+      "Q, R, P, S",
+      "R, Q, S, P"
+    ],
+    "correctAnswer": "R, Q, S, P"
+  },
+  {
+    "q": "[ID: G-397] Identify the precise grammatical or syntactic error in the following complex sentence:\n\n\"The diplomatic envoy, alongside the contingent of heavily armed peacekeepers, are expected to cross the heavily fortified border before dawn.\"",
+    "opts": [
+      "Replace 'are' with 'is' (subject is singular).",
+      "No error.",
+      "The sentence lacks parallel structure in its dependent clauses.",
+      "There is a dangling modifier at the beginning of the sentence."
+    ],
+    "correctAnswer": "Replace 'are' with 'is' (subject is singular)."
+  },
+  {
+    "q": "[ID: G-398] Read the highly abstract excerpt carefully:\n\"The relentless proliferation of artificial intelligence in jurisprudence does not merely automate legal analysis; it fundamentally alters the ontological nature of justice itself. When an algorithm, devoid of human empathy and contextual leniency, dispenses verdicts based strictly on historical precedent, it institutionalizes past biases while simultaneously erasing the capacity for moral evolution.\"\n\nWhich of the following represents the most logical INFERENCE that can be drawn from the passage?",
+    "opts": [
+      "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack.",
+      "Artificial intelligence will eventually replace human judges entirely due to its superior analytical efficiency.",
+      "Historical precedents in law are entirely based on bias and should be completely discarded by modern courts.",
+      "Algorithms are fundamentally incapable of reading complex legal documents correctly."
+    ],
+    "correctAnswer": "The author believes that true justice requires a capacity for moral evolution which strictly precedent-based algorithms lack."
+  },
+  {
+    "q": "[ID: G-399] Analyze the grammatical voice shift and select the strictly correct passive transformation of the following intricate command:\n\n'The sovereign overarching committee unanimously mandated that all subsidiary branches immediately cease unauthorized data transmissions.'",
+    "opts": [
+      "Unauthorized data transmissions were mandated to cease immediately by the sovereign committee.",
+      "The committee has mandated unauthorized data transmissions to be ceased.",
+      "All subsidiary branches were unanimously mandated by the committee to cease data transmissions.",
+      "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+    ],
+    "correctAnswer": "It was unanimously mandated by the sovereign overarching committee that unauthorized data transmissions be immediately ceased by all subsidiary branches."
+  },
+  {
+    "q": "[ID: G-400] Advanced Lexicology: Identify the most precise one-word substitute for the following complex behavioral definition: \"Having an obstinately uncooperative attitude towards authority or discipline.\"",
+    "opts": [
+      "Obfuscate",
+      "Recalcitrant",
+      "Equivocate",
+      "Pusillanimous"
+    ],
+    "correctAnswer": "Recalcitrant"
   }
 ];
 
