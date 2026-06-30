@@ -50,7 +50,7 @@ export default function LoginPage() {
     } else if (role === "partner") {
       router.push("/partner")
     } else {
-      router.push("/creator")
+      router.push("/home")
     }
   }
 
