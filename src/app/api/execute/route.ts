@@ -165,6 +165,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
   if (language === "cpp") {
     const header = `#include <bits/stdc++.h>\nusing namespace std;\n\n`;
     const listNodeDef = `struct ListNode {\n    int val;\n    ListNode *next;\n    ListNode() : val(0), next(nullptr) {}\n    ListNode(int x) : val(x), next(nullptr) {}\n    ListNode(int x, ListNode *next) : val(x), next(next) {}\n};\n\n`;
+    if (title.includes("valid permutations")) {
+      return `${header}${code}\n\nint main() {\n  string s;\n  if (getline(cin, s)) {\n    ${useSolution ? "Solution solver;\n    cout << solver.numPermsDISequence(s);" : "cout << numPermsDISequence(s);"}\n  }\n  return 0;\n}\n`;
+    }
     if (title.includes("strange printer")) {
       return `${header}${code}\n\nint main() {\n  string s;\n  if (getline(cin, s)) {\n    ${useSolution ? "Solution solver;\n    cout << solver.strangePrinter(s);" : "cout << strangePrinter(s);"}\n  }\n  return 0;\n}\n`;
     }
@@ -235,8 +238,13 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
   }
 
   if (language === "java") {
-    const cleanedCode = code.replace(/public\s+class\s+Solution/g, "class Solution");
+    let cleanedCode = code.replace(/public\s+class\s+Solution/g, "class Solution");
+    cleanedCode = cleanedCode.replace(/public\s+class\s+Main/g, "class Solution");
+    cleanedCode = cleanedCode.replace(/class\s+Main\s*\{/g, "class Solution {");
     const listNodeDef = `class ListNode {\n    int val;\n    ListNode next;\n    ListNode() {}\n    ListNode(int val) { this.val = val; }\n    ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n}\n\n`;
+    if (title.includes("valid permutations")) {
+      return `${cleanedCode}\n\nimport java.util.*;\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String s = sc.hasNext() ? sc.next() : "";\n    Solution solver = new Solution();\n    System.out.print(solver.numPermsDISequence(s));\n  }\n}\n`;
+    }
     if (title.includes("strange printer")) {
       return `${cleanedCode}\n\nimport java.util.*;\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String s = sc.hasNext() ? sc.next() : "";\n    Solution solver = new Solution();\n    System.out.print(solver.strangePrinter(s));\n  }\n}\n`;
     }
@@ -309,6 +317,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
   if (language === "python") {
     const helperImports = `from typing import List, Optional, Dict, Tuple\n\n`;
     const listNodeDef = `class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\n`;
+    if (title.includes("valid permutations")) {
+      return `${helperImports}${code}\n\nimport sys\nif __name__ == '__main__':\n    s = sys.stdin.read().strip()\n    solver = Solution()\n    print(solver.numPermsDISequence(s), end="")\n`;
+    }
     if (title.includes("strange printer")) {
       return `${helperImports}${code}\n\nimport sys\nif __name__ == '__main__':\n    s = sys.stdin.read().strip()\n    solver = Solution()\n    print(solver.strangePrinter(s), end="")\n`;
     }
@@ -380,6 +391,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
 
   if (language === "javascript") {
     const listNodeDef = `function ListNode(val, next) {\n    this.val = (val===undefined ? 0 : val)\n    this.next = (next===undefined ? null : next)\n}\n\n`;
+    if (title.includes("valid permutations")) {
+      return `${code}\n\nconst fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst solver = typeof numPermsDISequence === 'function' ? numPermsDISequence : (s) => new Solution().numPermsDISequence(s);\nconsole.log(solver(input));\n`;
+    }
     if (title.includes("strange printer")) {
       return `${code}\n\nconst fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst solver = typeof strangePrinter === 'function' ? strangePrinter : (s) => new Solution().strangePrinter(s);\nconsole.log(solver(input));\n`;
     }
@@ -453,6 +467,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
   }
 
   if (language === "csharp") {
+    if (title.includes("valid permutations")) {
+      return `using System;\nusing System.Linq;\n\n${code}\n\npublic class Program {\n  public static void Main(string[] args) {\n    string s = Console.ReadLine() ?? "";\n    var solver = new Solution();\n    Console.Write(solver.NumPermsDISequence(s));\n  }\n}\n`;
+    }
     if (title.includes("strange printer")) {
       return `using System;\nusing System.Linq;\n\n${code}\n\npublic class Program {\n  public static void Main(string[] args) {\n    string s = Console.ReadLine() ?? "";\n    var solver = new Solution();\n    Console.Write(solver.StrangePrinter(s));\n  }\n}\n`;
     }
