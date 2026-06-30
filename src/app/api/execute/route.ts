@@ -15,7 +15,8 @@ import {
 import { TECHNICAL_ROUND_4_POOL } from '@/data/examQuestions';
 
 function getRealTestCases(questionTitle: string): TestCase[] {
-  const titleLower = questionTitle.toLowerCase().trim();
+  let titleLower = questionTitle.toLowerCase().trim();
+  titleLower = titleLower.replace(/^task\s*\d+\s*[:-]?\s*/i, "");
   const allPools = [
     ...TECHNICAL_ROUND_4_POOL,
     ...DSA_HARD_POOL,
@@ -164,6 +165,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
   if (language === "cpp") {
     const header = `#include <bits/stdc++.h>\nusing namespace std;\n\n`;
     const listNodeDef = `struct ListNode {\n    int val;\n    ListNode *next;\n    ListNode() : val(0), next(nullptr) {}\n    ListNode(int x) : val(x), next(nullptr) {}\n    ListNode(int x, ListNode *next) : val(x), next(next) {}\n};\n\n`;
+    if (title.includes("strange printer")) {
+      return `${header}${code}\n\nint main() {\n  string s;\n  if (getline(cin, s)) {\n    ${useSolution ? "Solution solver;\n    cout << solver.strangePrinter(s);" : "cout << strangePrinter(s);"}\n  }\n  return 0;\n}\n`;
+    }
     if (title.includes("stickers") || title.includes("spell word")) {
       return `${header}${code}\n\nint main() {\n  string stickersLine, target;\n  getline(cin, stickersLine);\n  getline(cin, target);\n  stringstream ss(stickersLine);\n  vector<string> stickers;\n  string sticker;\n  while (ss >> sticker) stickers.push_back(sticker);\n  ${useSolution ? "Solution solver;\n  cout << solver.minStickers(stickers, target);" : "cout << minStickers(stickers, target);"}\n  return 0;\n}\n`;
     }
@@ -233,6 +237,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
   if (language === "java") {
     const cleanedCode = code.replace(/public\s+class\s+Solution/g, "class Solution");
     const listNodeDef = `class ListNode {\n    int val;\n    ListNode next;\n    ListNode() {}\n    ListNode(int val) { this.val = val; }\n    ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n}\n\n`;
+    if (title.includes("strange printer")) {
+      return `${cleanedCode}\n\nimport java.util.*;\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String s = sc.hasNext() ? sc.next() : "";\n    Solution solver = new Solution();\n    System.out.print(solver.strangePrinter(s));\n  }\n}\n`;
+    }
     if (title.includes("stickers") || title.includes("spell word")) {
       return `${cleanedCode}\n\nimport java.util.*;\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    if (!sc.hasNextLine()) return;\n    String[] stickers = sc.nextLine().trim().split("\\s+");\n    String target = sc.hasNextLine() ? sc.nextLine().trim() : "";\n    Solution solver = new Solution();\n    System.out.print(solver.minStickers(stickers, target));\n  }\n}\n`;
     }
@@ -302,6 +309,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
   if (language === "python") {
     const helperImports = `from typing import List, Optional, Dict, Tuple\n\n`;
     const listNodeDef = `class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\n`;
+    if (title.includes("strange printer")) {
+      return `${helperImports}${code}\n\nimport sys\nif __name__ == '__main__':\n    s = sys.stdin.read().strip()\n    solver = Solution()\n    print(solver.strangePrinter(s), end="")\n`;
+    }
     if (title.includes("stickers") || title.includes("spell word")) {
       return `${helperImports}${code}\n\nimport sys\nif __name__ == '__main__':\n    lines = sys.stdin.read().splitlines()\n    if len(lines) >= 2:\n        stickers = lines[0].split()\n        target = lines[1].strip()\n        solver = Solution()\n        print(solver.minStickers(stickers, target), end="")\n`;
     }
@@ -370,6 +380,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
 
   if (language === "javascript") {
     const listNodeDef = `function ListNode(val, next) {\n    this.val = (val===undefined ? 0 : val)\n    this.next = (next===undefined ? null : next)\n}\n\n`;
+    if (title.includes("strange printer")) {
+      return `${code}\n\nconst fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst solver = typeof strangePrinter === 'function' ? strangePrinter : (s) => new Solution().strangePrinter(s);\nconsole.log(solver(input));\n`;
+    }
     if (title.includes("stickers") || title.includes("spell word")) {
       return `${code}\n\nconst fs = require('fs');\nconst lines = fs.readFileSync(0, 'utf-8').split(/\\r?\\n/);\nif (lines.length >= 2) {\n    const stickers = lines[0].trim().split(/\\s+/).filter(Boolean);\n    const target = lines[1].trim();\n    const solver = typeof minStickers === 'function' ? minStickers : (s, t) => new Solution().minStickers(s, t);\n    console.log(solver(stickers, target));\n}\n`;
     }
@@ -440,6 +453,9 @@ function prepareExecutableCode(code: string, language: string, questionTitle?: s
   }
 
   if (language === "csharp") {
+    if (title.includes("strange printer")) {
+      return `using System;\nusing System.Linq;\n\n${code}\n\npublic class Program {\n  public static void Main(string[] args) {\n    string s = Console.ReadLine() ?? "";\n    var solver = new Solution();\n    Console.Write(solver.StrangePrinter(s));\n  }\n}\n`;
+    }
     if (title.includes("stickers") || title.includes("spell word")) {
       return `using System;\nusing System.Linq;\n\n${code}\n\npublic class Program {\n  public static void Main(string[] args) {\n    string stickersLine = Console.ReadLine() ?? "";\n    string target = Console.ReadLine() ?? "";\n    string[] stickers = stickersLine.Split(new[] { ' ', '\\t' }, StringSplitOptions.RemoveEmptyEntries);\n    var solver = new Solution();\n    Console.Write(solver.MinStickers(stickers, target));\n  }\n}\n`;
     }
