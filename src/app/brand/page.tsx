@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { Search, Bell, Send, Bookmark } from "lucide-react"
+import { Search, Bell, Send, Bookmark, BadgeCheck } from "lucide-react"
 import { useRouter } from "next/navigation"
 import BottomNav from "@/components/brand/BottomNav"
 import { Logo } from "@/components/ui/Logo"
@@ -19,6 +19,8 @@ const tabs = ["All", "UGC", "Influencer", "Partners"]
 export default function BrandHomeFeedPage() {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState("All")
+  const [isVerified, setIsVerified] = useState(false)
+  const [showVerifyModal, setShowVerifyModal] = useState(false)
   
   const [creators, setCreators] = useState([
     {
@@ -54,6 +56,20 @@ export default function BrandHomeFeedPage() {
   ])
 
   useEffect(() => {
+    // Check if the brand is verified
+    const savedBrand = localStorage.getItem("kaling_brand_profile")
+    if (savedBrand) {
+      try {
+        const parsedBrand = JSON.parse(savedBrand)
+        setIsVerified(parsedBrand.isVerified || false)
+        if (!parsedBrand.isVerified) {
+          setShowVerifyModal(true)
+        }
+      } catch(e) {}
+    } else {
+      setShowVerifyModal(true)
+    }
+
     // Check if a creator profile was just created to show it dynamically!
     const savedCreator = localStorage.getItem("kaling_creator_profile")
     if (savedCreator) {
@@ -129,6 +145,16 @@ export default function BrandHomeFeedPage() {
         {/* Scrollable Feed */}
         <div className="flex-1 overflow-y-auto no-scrollbar px-5 pb-32 pt-2 touch-pan-y flex flex-col gap-5 relative">
           
+          {/* Fallback Authenticate Button if modal is closed */}
+          {!isVerified && (
+            <button 
+              className="w-full py-4 bg-gradient-to-r from-[#EF4823] to-[#ff6b4a] text-white text-[15px] font-bold rounded-[18px] shadow-[0_8px_20px_rgba(239,72,35,0.25)] hover:-translate-y-0.5 transition-all duration-300"
+              onClick={() => router.push('/kyc')}
+            >
+              Authenticate
+            </button>
+          )}
+
           {creators.map((creator) => (
             <div key={creator.id} className="w-[335px] h-[194px] bg-[#FCF5EB] rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col mx-auto overflow-hidden shrink-0">
               {/* Top White Section */}
@@ -209,6 +235,47 @@ export default function BrandHomeFeedPage() {
         </div>
       </div>
       
+      {/* Verify Account Modal */}
+      {showVerifyModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-[320px] rounded-[24px] p-6 relative shadow-2xl animate-in fade-in zoom-in duration-200">
+            <button 
+              onClick={() => setShowVerifyModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="flex flex-col items-center mt-2">
+              <BadgeCheck className="w-[42px] h-[42px] text-[#EF4823] fill-[#EF4823] text-white mb-3" />
+              <h2 className="text-[20px] font-black text-[#EF4823] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
+              <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
+                With Aadhar
+              </p>
+
+              <button 
+                onClick={() => router.push('/kyc')}
+                className="w-full py-3.5 border-2 border-dashed border-[#EF4823]/40 rounded-[14px] flex items-center justify-center gap-3 mb-6 hover:bg-[#EF4823]/5 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#EF4823]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span className="text-[#1a1a2e] font-semibold text-[14px]">Camera</span>
+              </button>
+
+              <button 
+                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
+                onClick={() => router.push('/kyc')}
+              >
+                VERIFY
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <BottomNav />
     </div>
   )
