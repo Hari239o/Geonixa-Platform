@@ -210,6 +210,7 @@ export default function BrandDashboardPage() {
                   </a>
                 </div>
               </div>
+            </div>
           )}
 
           {activeTab === 'portfolio' && (
