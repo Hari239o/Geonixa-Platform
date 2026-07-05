@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { prisma } from "@/lib/prisma"
+import { cookies } from "next/headers"
 
 
 // Force environment variables to prevent Vercel Server Error
@@ -90,17 +91,29 @@ const handler = NextAuth({
     signIn: "/auth/login",
   },
   callbacks: {
+
     async signIn({ user, account }) {
       try {
         // Automatically save Google users to the database
         if (account?.provider === 'google' && user.email) {
           const existingUser = await prisma.user.findFirst({ where: { email: user.email } });
           if (!existingUser) {
+            let roleToAssign = "creator";
+            try {
+              const cookieStore = await cookies();
+              const savedRole = cookieStore.get("signupRole")?.value;
+              if (savedRole === "brand" || savedRole === "partner" || savedRole === "creator") {
+                roleToAssign = savedRole;
+              }
+            } catch (e) {
+              console.error("Could not read cookies:", e);
+            }
+
             await prisma.user.create({
               data: {
                 email: user.email,
                 name: user.name || "Google User",
-                role: "creator" // Default to creator for now, or read from cookie client-side later
+                role: roleToAssign
               }
             });
           }
