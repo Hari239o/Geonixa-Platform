@@ -116,7 +116,7 @@ const KycVerificationPage = () => {
  const profile = JSON.parse(localStorage.getItem('kaling_user_profile') || '{}');
  profile.isVerified = true;
  localStorage.setItem('kaling_user_profile', JSON.stringify(profile));
- router.push('/home');
+ router.push('/creator');
  }
  } else {
  setErrorMessage("Verification failed: " + data.error + ". Please try again.");

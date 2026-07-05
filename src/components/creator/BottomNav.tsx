@@ -9,7 +9,7 @@ export default function BottomNav() {
  const pathname = usePathname();
 
  const navItems = [
- { name: "Home", href: "/home", icon: Home },
+ { name: "Home", href: "/creator", icon: Home },
  { name: "Studio", href: "/ai", icon: Video },
  { name: "Portfolio", href: "/portfolio", icon: Briefcase },
  { name: "Booking", href: "/booking", icon: Calendar },
