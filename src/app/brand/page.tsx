@@ -163,7 +163,7 @@ export default function BrandHomeFeedPage() {
                     {creator.verified && <VerifiedBadge className="shrink-0" />}
                   </div>
                   <div className="flex gap-2">
-                    {creator.tags.map(tag => (
+                    {creator.tags.map((tag: string) => (
                       <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-400 text-[10px] font-bold rounded-full">
                         {tag}
                       </span>
