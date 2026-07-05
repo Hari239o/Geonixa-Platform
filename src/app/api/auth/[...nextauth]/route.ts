@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { prisma } from "@/lib/prisma"
 
 // Force environment variables to prevent Vercel Server Error
 if (!process.env.NEXTAUTH_SECRET) {
@@ -36,49 +37,88 @@ const handler = NextAuth({
         }
         const formattedPhone = '+' + cleanPhone;
 
-        // Verify OTP from global store
-        const store = globalAny.otpStore;
-        
         // TEMPORARY BYPASS FOR DEVELOPMENT
         if (credentials.otp === "1234" || credentials.otp === "123456") {
-          return {
-            id: formattedPhone,
-            name: "Kalinq User",
-            email: `${formattedPhone.replace('+', '')}@kalinq.auth`,
-            image: "https://github.com/shadcn.png"
-          }
+           // Auto-save to database!
+           let dbUser = await prisma.user.findUnique({ where: { phone: formattedPhone } });
+           if (!dbUser) {
+             dbUser = await prisma.user.create({ data: { phone: formattedPhone, role: "user" } });
+           }
+           return {
+             id: dbUser.id,
+             name: "Kalinq User",
+             email: `${formattedPhone.replace('+', '')}@kalinq.auth`,
+           }
         }
 
+        // Verify OTP from global store
+        const store = globalAny.otpStore;
         if (store) {
           const storedData = store.get(formattedPhone);
-          if (storedData) {
-            // Check if OTP matches and is not expired
-            if (storedData.otp === credentials.otp && storedData.expiresAt > Date.now()) {
-              // Valid! Remove it from store so it can't be reused
+          if (storedData && storedData.otp === credentials.otp && storedData.expiresAt > Date.now()) {
               store.delete(formattedPhone);
+              
+              // Auto-save to database!
+              let dbUser = await prisma.user.findUnique({ where: { phone: formattedPhone } });
+              if (!dbUser) {
+                dbUser = await prisma.user.create({ data: { phone: formattedPhone, role: "user" } });
+              }
+
               return {
-                id: formattedPhone,
+                id: dbUser.id,
                 name: "Kalinq User",
                 email: `${formattedPhone.replace('+', '')}@kalinq.auth`,
-                image: "https://github.com/shadcn.png"
               }
-            }
           }
         }
-
         return null
       }
     })
   ],
   secret: process.env.NEXTAUTH_SECRET || "y8/m1T7v0+W2q5L9zX6R4bN3kE8cQ5aJ",
   pages: {
-    signIn: "/auth/login", // Redirect back to our custom login page on error
+    signIn: "/auth/login",
   },
   callbacks: {
+    async signIn({ user, account }) {
+      // Automatically save Google users to the database
+      if (account?.provider === 'google' && user.email) {
+        const existingUser = await prisma.user.findUnique({ where: { email: user.email } });
+        if (!existingUser) {
+          await prisma.user.create({
+            data: {
+              email: user.email,
+              name: user.name || "Google User",
+              role: "user"
+            }
+          });
+        }
+      }
+      return true;
+    },
+    async jwt({ token, user }) {
+      if (user) token.id = user.id;
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        let dbUser = null;
+        if (session.user.email && !session.user.email.endsWith('@kalinq.auth')) {
+          dbUser = await prisma.user.findUnique({ where: { email: session.user.email }});
+        } else if (token.id) {
+          dbUser = await prisma.user.findUnique({ where: { id: token.id as string }});
+        }
+        
+        if (dbUser) {
+          (session.user as any).id = dbUser.id;
+          (session.user as any).role = dbUser.role;
+          (session.user as any).phone = dbUser.phone;
+        }
+      }
+      return session;
+    },
     async redirect({ url, baseUrl }) {
-      // Allows relative callback URLs
       if (url.startsWith("/")) return `${baseUrl}${url}`
-      // Allows callback URLs on the same origin
       else if (new URL(url).origin === baseUrl) return url
       return baseUrl
     }
