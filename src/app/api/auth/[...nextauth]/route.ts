@@ -81,10 +81,6 @@ const handler = NextAuth({
   },
   callbacks: {
     async signIn({ user, account }) {
-      const { cookies } = await import("next/headers");
-      const cookieStore = await cookies();
-      const signupRole = cookieStore.get("signupRole")?.value || "user";
-
       // Automatically save Google users to the database
       if (account?.provider === 'google' && user.email) {
         const existingUser = await prisma.user.findUnique({ where: { email: user.email } });
@@ -93,7 +89,7 @@ const handler = NextAuth({
             data: {
               email: user.email,
               name: user.name || "Google User",
-              role: signupRole
+              role: "creator" // Default to creator for now, or read from cookie client-side later
             }
           });
         }
