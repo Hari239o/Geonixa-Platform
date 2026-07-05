@@ -22,7 +22,7 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [showPassword, setShowPassword] = useState(false)
@@ -39,8 +39,6 @@ export default function LoginPage() {
       rememberMe: false,
     },
   })
-
-
 
   const onSubmitCredentials = async (data: LoginFormValues) => {
     setLoginError(null)
@@ -175,5 +173,13 @@ export default function LoginPage() {
 
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <React.Suspense fallback={<div className="flex justify-center items-center h-screen">Loading...</div>}>
+      <LoginContent />
+    </React.Suspense>
   )
 }
