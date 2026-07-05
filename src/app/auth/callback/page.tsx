@@ -21,7 +21,7 @@ export default function AuthCallbackPage() {
         } else if (role === "partner") {
           router.replace("/partner");
         } else if (role === "creator") {
-          router.replace("/dashboard");
+          router.replace("/home");
         } else {
           router.replace("/dashboard");
         }
