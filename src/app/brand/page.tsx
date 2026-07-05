@@ -14,46 +14,14 @@ const VerifiedBadge = ({ className }: { className?: string }) => (
   </svg>
 )
 
-const tabs = ["All", "UGC", "Influencer", "Partners"]
-
 export default function BrandHomeFeedPage() {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState("All")
+  const [tabs, setTabs] = useState(["All", "UGC", "Influencer", "Partners"])
   const [isVerified, setIsVerified] = useState(false)
   const [showVerifyModal, setShowVerifyModal] = useState(false)
   
-  const [creators, setCreators] = useState([
-    {
-      id: 1,
-      name: "Lorem Ipsum",
-      image: null,
-      tags: ["Fashion", "UGC"],
-      followers: "44.5k",
-      viewership: "22.8k",
-      engagement: "38.9k",
-      verified: true
-    },
-    {
-      id: 2,
-      name: "Lorem Ipsum",
-      image: null,
-      tags: ["Fashion", "Influencer"],
-      followers: "44.5k",
-      viewership: "22.8k",
-      engagement: "38.9k",
-      verified: true
-    },
-    {
-      id: 3,
-      name: "Lorem Ipsum",
-      image: null,
-      tags: ["Fashion", "Influencer"],
-      followers: "44.5k",
-      viewership: "22.8k",
-      engagement: "38.9k",
-      verified: true
-    }
-  ])
+  const [creators, setCreators] = useState<any[]>([])
 
   useEffect(() => {
     // Check if the brand is verified
@@ -76,16 +44,31 @@ export default function BrandHomeFeedPage() {
         const res = await fetch('/api/creators');
         const data = await res.json();
         if (data.success && data.creators && data.creators.length > 0) {
-          setCreators(data.creators.map((c: any) => ({
+          const fetchedCreators = data.creators.map((c: any) => ({
             id: c.id,
             name: c.fullName || "Unnamed Creator",
             image: c.profilePic || null,
+            category: c.category || "General",
             tags: c.tags || [],
             followers: c.followers || "0",
             viewership: c.viewership || "0",
             engagement: c.engagement || "0",
             verified: c.isVerified || false
-          })));
+          }));
+          setCreators(fetchedCreators);
+          
+          // Generate real-time categories from database
+          const uniqueCategories = new Set<string>();
+          fetchedCreators.forEach((c: any) => {
+            if (c.category && c.category !== "Creator") uniqueCategories.add(c.category);
+            if (c.tags && c.tags.length > 0) {
+              c.tags.forEach((t: string) => uniqueCategories.add(t));
+            }
+          });
+          
+          if (uniqueCategories.size > 0) {
+            setTabs(["All", ...Array.from(uniqueCategories)]);
+          }
         }
       } catch (error) {
         console.error("Failed to fetch creators:", error);
@@ -156,7 +139,7 @@ export default function BrandHomeFeedPage() {
             </button>
           )}
 
-          {creators.map((creator) => (
+          {creators.filter(creator => activeTab === "All" || creator.category === activeTab || creator.tags?.includes(activeTab)).map((creator) => (
             <div key={creator.id} className="w-[335px] h-[194px] bg-[#FCF5EB] rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col mx-auto overflow-hidden shrink-0">
               {/* Top White Section */}
               <div className="bg-white p-4 pb-3 flex gap-4 h-[126px] rounded-b-[20px] shadow-sm z-10">
