@@ -82,19 +82,7 @@ const handler = NextAuth({
   },
   callbacks: {
     async signIn({ user, account }) {
-      // Automatically save Google users to the database
-      if (account?.provider === 'google' && user.email) {
-        const existingUser = await prisma.user.findFirst({ where: { email: user.email } });
-        if (!existingUser) {
-          await prisma.user.create({
-            data: {
-              email: user.email,
-              name: user.name || "Google User",
-              role: "creator" // Default to creator for now, or read from cookie client-side later
-            }
-          });
-        }
-      }
+      // Temporary bypass: do not write to DB during sign-in to prevent Vercel connection timeouts
       return true;
     },
     async jwt({ token, user }) {
