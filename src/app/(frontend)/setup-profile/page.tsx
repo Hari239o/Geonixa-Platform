@@ -99,15 +99,21 @@ const SetupProfilePage = () => {
  // Clean up temp storage
  localStorage.removeItem('kaling_temp_form');
 
- // Save to indexedDB for persistence
- try {
-   await setItem('kaling_user_profile', userProfile);
-   
-   // Mark profile as completed in the database
-   await fetch("/api/user/complete-profile", { method: "POST" });
- } catch (error) {
-   console.error("Failed to save profile:", error);
- }
+   // Save to indexedDB for persistence
+   try {
+     await setItem('kaling_user_profile', userProfile);
+     
+     // Mark profile as completed in the database and save the data
+     await fetch("/api/user/complete-profile", { 
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json"
+       },
+       body: JSON.stringify(userProfile)
+     });
+   } catch (error) {
+     console.error("Failed to save profile:", error);
+   }
 
  // Redirect to creators dashboard
  router.push('/creator');

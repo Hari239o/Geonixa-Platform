@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma"
 import { cookies } from "next/headers"
 
 
+import { NextAuthOptions } from "next-auth"
+
 // Force environment variables to prevent Vercel Server Error
 if (!process.env.NEXTAUTH_SECRET) {
   process.env.NEXTAUTH_SECRET = "y8/m1T7v0+W2q5L9zX6R4bN3kE8cQ5aJ";
@@ -12,7 +14,7 @@ if (!process.env.NEXTAUTH_SECRET) {
 
 const globalAny: any = global;
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -87,6 +89,10 @@ const handler = NextAuth({
     })
   ],
   secret: process.env.NEXTAUTH_SECRET || "y8/m1T7v0+W2q5L9zX6R4bN3kE8cQ5aJ",
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days persistent login
+  },
   pages: {
     signIn: "/auth/login",
   },
@@ -156,6 +162,8 @@ const handler = NextAuth({
       return baseUrl
     }
   }
-})
+}
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }

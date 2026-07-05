@@ -45,7 +45,13 @@ export default function BrandIndividualSetupPage() {
     localStorage.setItem("kaling_brand_profile", JSON.stringify(profileData))
     
     try {
-      await fetch("/api/user/complete-profile", { method: "POST" });
+      await fetch("/api/user/complete-profile", { 
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(profileData)
+      });
     } catch (e) {
       console.error(e);
     }
@@ -63,7 +69,7 @@ export default function BrandIndividualSetupPage() {
           <div className="relative">
             {profilePic ? (
               <div className="relative w-24 h-24 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
-                <Image src={profilePic} alt="Profile" fill className="object-cover" />
+                <img src={profilePic} alt="Profile" className="w-full h-full object-cover" />
               </div>
             ) : (
               <div className="w-24 h-24 rounded-2xl bg-[#EF4823] flex items-center justify-center text-white font-bold text-2xl shadow-sm">

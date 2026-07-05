@@ -41,7 +41,13 @@ export default function PartnerSetupProfilePage() {
     localStorage.setItem("kaling_partner_profile", JSON.stringify(profileData))
     
     try {
-      await fetch("/api/user/complete-profile", { method: "POST" });
+      await fetch("/api/user/complete-profile", { 
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(profileData)
+      });
     } catch (e) {
       console.error(e);
     }

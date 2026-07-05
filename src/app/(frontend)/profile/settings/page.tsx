@@ -145,6 +145,34 @@ export default function ProfileSettingsPage() {
     }
   };
 
+  const handleDownloadData = async () => {
+    try {
+      const response = await fetch('/api/user/export-data');
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          const dataStr = JSON.stringify(result.data, null, 2);
+          const blob = new Blob([dataStr], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "kalinq_profile_data.json";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        } else {
+          alert("Failed to export data: " + result.error);
+        }
+      } else {
+        alert("Failed to fetch export data");
+      }
+    } catch (error) {
+      console.error("Export error:", error);
+      alert("Error exporting data");
+    }
+  };
+
   return (
     <div className="w-full max-w-md mx-auto h-[100dvh] bg-white relative flex flex-col font-sans overflow-hidden">
       <div className="flex-1 overflow-y-auto overflow-x-hidden relative">
@@ -305,10 +333,17 @@ export default function ProfileSettingsPage() {
             </div>
           </div>
 
-          <div className="mt-8 flex justify-center pb-4 border-t border-gray-100 pt-8">
+          <div className="mt-8 flex flex-col items-center gap-3 pb-4 border-t border-gray-100 pt-8">
+            <button 
+              onClick={handleDownloadData}
+              className="w-full max-w-[200px] flex items-center justify-center gap-2 text-gray-700 font-bold text-[14px] bg-gray-100 hover:bg-gray-200 px-6 py-3 rounded-2xl transition-colors"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download Data
+            </button>
             <button 
               onClick={handleLogout}
-              className="flex items-center gap-2 text-red-500 font-bold text-[14px] hover:bg-red-50 px-6 py-3 rounded-2xl transition-colors"
+              className="w-full max-w-[200px] flex items-center justify-center gap-2 text-red-500 font-bold text-[14px] hover:bg-red-50 px-6 py-3 rounded-2xl transition-colors"
             >
               <LogOut size={18} strokeWidth={2.5} />
               Logout

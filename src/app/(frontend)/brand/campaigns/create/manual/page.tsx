@@ -25,7 +25,6 @@ export default function ManualCampaignCreatePage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          userId: localStorage.getItem('userId') || 'temp-brand-id',
           title,
           subtitle: '- Brand Campaign',
           budget: '₹13k - ₹25k',

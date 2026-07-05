@@ -21,6 +21,11 @@ export default function BrandHomeFeedPage() {
   const [isVerified, setIsVerified] = useState(false)
   const [showVerifyModal, setShowVerifyModal] = useState(false)
   
+  // Wallet Unlock States
+  const [selectedCreator, setSelectedCreator] = useState<any | null>(null)
+  const [showUnlockModal, setShowUnlockModal] = useState(false)
+  const [isUnlocking, setIsUnlocking] = useState(false)
+  
   const [creators, setCreators] = useState<any[]>([])
 
   useEffect(() => {
@@ -30,12 +35,7 @@ export default function BrandHomeFeedPage() {
       try {
         const parsedBrand = JSON.parse(savedBrand)
         setIsVerified(parsedBrand.isVerified || false)
-        if (!parsedBrand.isVerified) {
-          setShowVerifyModal(true)
-        }
       } catch(e) {}
-    } else {
-      setShowVerifyModal(true)
     }
 
     // Fetch creators from the database
@@ -67,7 +67,9 @@ export default function BrandHomeFeedPage() {
           });
           
           if (uniqueCategories.size > 0) {
-            setTabs(["All", ...Array.from(uniqueCategories)]);
+            const defaultTabs = ["All", "UGC", "Influencer", "Partners"];
+            const newTabs = Array.from(uniqueCategories).filter(t => !defaultTabs.includes(t));
+            setTabs([...defaultTabs, ...newTabs]);
           }
         }
       } catch (error) {
@@ -133,21 +135,12 @@ export default function BrandHomeFeedPage() {
         {/* Scrollable Feed */}
         <div className="flex-1 overflow-y-auto no-scrollbar px-5 pb-32 pt-2 touch-pan-y flex flex-col gap-5 relative">
           
-          {/* Fallback Authenticate Button if modal is closed */}
-          {!isVerified && (
-            <button 
-              className="w-full py-4 bg-gradient-to-r from-[#EF4823] to-[#ff6b4a] text-white text-[15px] font-bold rounded-[18px] shadow-[0_8px_20px_rgba(239,72,35,0.25)] hover:-translate-y-0.5 transition-all duration-300"
-              onClick={() => router.push('/kyc')}
-            >
-              Authenticate
-            </button>
-          )}
-
           {creators.filter(creator => activeTab === "All" || creator.category === activeTab || creator.tags?.includes(activeTab)).map((creator) => (
             <div 
               key={creator.id} 
-              className="w-[335px] h-[194px] bg-[#FCF5EB] rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col mx-auto overflow-hidden shrink-0 cursor-pointer active:scale-[0.98] transition-transform"
               onClick={async () => {
+                setSelectedCreator(creator);
+                setShowUnlockModal(true);
                 try {
                   await fetch('/api/creators/view', {
                     method: 'POST',
@@ -156,6 +149,7 @@ export default function BrandHomeFeedPage() {
                   });
                 } catch(e) {}
               }}
+              className="w-[335px] h-[194px] bg-[#FCF5EB] rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col mx-auto overflow-hidden shrink-0 cursor-pointer hover:shadow-md transition-all active:scale-[0.98]"
             >
               {/* Top White Section */}
               <div className="bg-white p-4 pb-3 flex gap-4 h-[126px] rounded-b-[20px] shadow-sm z-10">
@@ -235,12 +229,14 @@ export default function BrandHomeFeedPage() {
         </div>
       </div>
       
-      {/* Verify Account Modal */}
-      {showVerifyModal && (
+
+
+      {/* Wallet Unlock Modal */}
+      {showUnlockModal && selectedCreator && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white w-full max-w-[320px] rounded-[24px] p-6 relative shadow-2xl animate-in fade-in zoom-in duration-200">
             <button 
-              onClick={() => setShowVerifyModal(false)}
+              onClick={() => setShowUnlockModal(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -248,28 +244,64 @@ export default function BrandHomeFeedPage() {
               </svg>
             </button>
 
-            <div className="flex flex-col items-center mt-2">
-              <BadgeCheck className="w-[42px] h-[42px] text-[#EF4823] fill-[#EF4823] text-white mb-3" />
-              <h2 className="text-[20px] font-black text-[#EF4823] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
-              <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
-                With Aadhar
+            <div className="flex flex-col items-center mt-2 text-center">
+              <div className="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EF4823" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a8 8 0 0 1-5.45 7.59c-.36.12-.76.15-1.15.15h-11a2 2 0 0 1-2-2v-3"/>
+                  <path d="M3 11v3"/>
+                  <path d="M21 11v4"/>
+                </svg>
+              </div>
+              <h2 className="text-[20px] font-black text-gray-800 mb-1 tracking-tight">Unlock Profile?</h2>
+              <p className="text-[13px] text-gray-500 font-medium mb-6 leading-tight">
+                Unlock {selectedCreator.name}'s full profile for <span className="text-[#EF4823] font-bold">1 Credit</span>.
               </p>
 
               <button 
-                onClick={() => router.push('/kyc')}
-                className="w-full py-3.5 border-2 border-dashed border-[#EF4823]/40 rounded-[14px] flex items-center justify-center gap-3 mb-6 hover:bg-[#EF4823]/5 transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#EF4823]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-                <span className="text-[#1a1a2e] font-semibold text-[14px]">Camera</span>
-              </button>
+                disabled={isUnlocking}
+                onClick={async () => {
+                  const savedUser = localStorage.getItem('kaling_user_profile');
+                  const userId = savedUser ? JSON.parse(savedUser).id : null;
+                  
+                  if (!userId) {
+                    alert("Please log in to unlock profiles.");
+                    return;
+                  }
 
-              <button 
-                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
-                onClick={() => router.push('/kyc')}
+                  setIsUnlocking(true);
+                  try {
+                    const res = await fetch('/api/wallet/unlock-profile', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ userId, targetProfileId: selectedCreator.id })
+                    });
+                    const data = await res.json();
+                    
+                    if (data.success) {
+                      // Navigate to creator profile
+                      // For now, since dynamic route might not be built, just alert success
+                      alert(`Successfully unlocked! You have ${data.remainingCredits} credits remaining.`);
+                      setShowUnlockModal(false);
+                    } else {
+                      alert(data.error || "Failed to unlock profile");
+                    }
+                  } catch (error) {
+                    console.error("Unlock error:", error);
+                    alert("Something went wrong");
+                  } finally {
+                    setIsUnlocking(false);
+                  }
+                }}
+                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)] disabled:opacity-50 flex justify-center"
               >
-                VERIFY
+                {isUnlocking ? (
+                   <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                   </svg>
+                ) : (
+                  "UNLOCK WITH 1 CREDIT"
+                )}
               </button>
             </div>
           </div>
