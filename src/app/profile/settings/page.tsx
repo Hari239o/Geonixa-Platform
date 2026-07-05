@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { ChevronLeft, Trash2, Plus } from 'lucide-react';
+import { ChevronLeft, Trash2, Plus, LogOut } from 'lucide-react';
 import { getItem, setItem } from '@/utils/storage';
 
 interface Budget {
@@ -108,6 +108,15 @@ export default function ProfileSettingsPage() {
       } catch (error) {
         console.error("Failed to save settings:", error);
       }
+    }
+  };
+
+  const handleLogout = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('kaling_user_profile');
+      localStorage.removeItem('kaling_brand_profile');
+      localStorage.removeItem('userRole');
+      router.push('/auth/login');
     }
   };
 
@@ -268,7 +277,19 @@ export default function ProfileSettingsPage() {
                 className="w-full bg-[#fcfcfd] border border-gray-100 rounded-2xl px-5 py-4 outline-none text-[13px] text-gray-500 font-medium placeholder-gray-400"
               />
             </div>
+            </div>
           </div>
+
+          <div className="mt-8 flex justify-center pb-4 border-t border-gray-100 pt-8">
+            <button 
+              onClick={handleLogout}
+              className="flex items-center gap-2 text-red-500 font-bold text-[14px] hover:bg-red-50 px-6 py-3 rounded-2xl transition-colors"
+            >
+              <LogOut size={18} strokeWidth={2.5} />
+              Logout
+            </button>
+          </div>
+
         </div>
       </div>
       </div>
