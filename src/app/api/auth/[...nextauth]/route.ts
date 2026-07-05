@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { prisma } from "@/lib/prisma"
 
+
 // Force environment variables to prevent Vercel Server Error
 if (!process.env.NEXTAUTH_SECRET) {
   process.env.NEXTAUTH_SECRET = "y8/m1T7v0+W2q5L9zX6R4bN3kE8cQ5aJ";
@@ -83,7 +84,7 @@ const handler = NextAuth({
     async signIn({ user, account }) {
       // Automatically save Google users to the database
       if (account?.provider === 'google' && user.email) {
-        const existingUser = await prisma.user.findUnique({ where: { email: user.email } });
+        const existingUser = await prisma.user.findFirst({ where: { email: user.email } });
         if (!existingUser) {
           await prisma.user.create({
             data: {
@@ -104,9 +105,9 @@ const handler = NextAuth({
       if (session.user) {
         let dbUser = null;
         if (session.user.email && !session.user.email.endsWith('@kalinq.auth')) {
-          dbUser = await prisma.user.findUnique({ where: { email: session.user.email }});
+          dbUser = await prisma.user.findFirst({ where: { email: session.user.email }});
         } else if (token.id) {
-          dbUser = await prisma.user.findUnique({ where: { id: token.id as string }});
+          dbUser = await prisma.user.findFirst({ where: { id: token.id as string }});
         }
         
         if (dbUser) {
