@@ -86,6 +86,7 @@ const KycVerificationPage = () => {
  };
 
  const [isSubmitting, setIsSubmitting] = useState(false);
+ const [isVerifiedSuccess, setIsVerifiedSuccess] = useState(false);
  const [errorMessage, setErrorMessage] = useState('');
 
  const handleSubmit = async () => {
@@ -105,40 +106,44 @@ const KycVerificationPage = () => {
  const data = await response.json();
  
   if (data.success) {
-    const role = localStorage.getItem("userRole") || "creator";
+    setIsVerifiedSuccess(true);
     
-    // Import setItem dynamically to avoid breaking server components or needing to import at top
-    const { setItem } = await import('@/utils/storage');
-    
-    if (role === "brand") {
-      const profile = JSON.parse(localStorage.getItem('kaling_brand_profile') || '{}');
-      profile.isVerified = true;
-      localStorage.setItem('kaling_brand_profile', JSON.stringify(profile));
-      await setItem('kaling_brand_profile', profile);
+    setTimeout(async () => {
+      const role = localStorage.getItem("userRole") || "creator";
       
-      // Also update the backend in the background so it actually persists for real
-      fetch('/api/creators', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...profile, role: "brand" })
-      }).catch(console.error);
+      // Import setItem dynamically to avoid breaking server components or needing to import at top
+      const { setItem } = await import('@/utils/storage');
+      
+      if (role === "brand") {
+        const profile = JSON.parse(localStorage.getItem('kaling_brand_profile') || '{}');
+        profile.isVerified = true;
+        localStorage.setItem('kaling_brand_profile', JSON.stringify(profile));
+        await setItem('kaling_brand_profile', profile);
+        
+        // Also update the backend in the background so it actually persists for real
+        fetch('/api/creators', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...profile, role: "brand" })
+        }).catch(console.error);
 
-      router.push('/brand');
-    } else {
-      const profile = JSON.parse(localStorage.getItem('kaling_user_profile') || '{}');
-      profile.isVerified = true;
-      localStorage.setItem('kaling_user_profile', JSON.stringify(profile));
-      await setItem('kaling_user_profile', profile);
-      
-      // Update creator profile in the real backend
-      fetch('/api/creators', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(profile)
-      }).catch(console.error);
-      
-      router.push('/creator');
-    }
+        router.push('/brand');
+      } else {
+        const profile = JSON.parse(localStorage.getItem('kaling_user_profile') || '{}');
+        profile.isVerified = true;
+        localStorage.setItem('kaling_user_profile', JSON.stringify(profile));
+        await setItem('kaling_user_profile', profile);
+        
+        // Update creator profile in the real backend
+        fetch('/api/creators', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(profile)
+        }).catch(console.error);
+        
+        router.push('/creator');
+      }
+    }, 1500);
  } else {
  setErrorMessage("Verification failed: " + data.error + ". Please try again.");
  }
@@ -297,6 +302,14 @@ const KycVerificationPage = () => {
  >
  <Camera size={18} />
  Capture Photo
+ </button>
+ ) : isVerifiedSuccess ? (
+ <button 
+ className="flex-1 p-4 bg-emerald-500 text-white text-base font-bold rounded-2xl flex items-center justify-center gap-2 shadow-[0_4px_15px_rgba(16,185,129,0.3)] transition-all" 
+ disabled
+ >
+ <CheckCircle size={20} />
+ Verified
  </button>
  ) : (
  <button 
