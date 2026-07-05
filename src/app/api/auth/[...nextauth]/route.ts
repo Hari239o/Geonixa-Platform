@@ -82,7 +82,7 @@ const handler = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       const { cookies } = await import("next/headers");
-      const cookieStore = cookies();
+      const cookieStore = await cookies();
       const signupRole = cookieStore.get("signupRole")?.value || "user";
 
       // Automatically save Google users to the database
