@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe, Trash2 } from "lucide-react"
+import { signOut } from "next-auth/react"
+import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe, Trash2, LogOut, Star } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 
 export default function BrandDashboardPage() {
@@ -24,6 +25,22 @@ export default function BrandDashboardPage() {
       setPortfolioImages(JSON.parse(savedImages))
     }
   }, [])
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: profileData?.fullName || "Brand Profile",
+          text: "Check out my brand profile!",
+          url: window.location.href,
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      alert("Sharing is not supported on this device.");
+    }
+  }
 
   const handlePortfolioUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
@@ -89,9 +106,10 @@ export default function BrandDashboardPage() {
               </div>
             </div>
             
-            <div className="flex gap-3 text-gray-400 mt-2">
-              <button onClick={() => router.push("/brand/setup-company")} className="hover:text-[#EF4823] transition-colors"><Send size={18} /></button>
-              <button className="hover:text-[#EF4823] transition-colors"><SlidersHorizontal size={18} /></button>
+            <div className="flex gap-3 text-gray-400 mt-2 items-center">
+              <button onClick={handleShare} className="hover:text-[#EF4823] transition-colors" title="Share Profile"><Send size={18} /></button>
+              <button onClick={() => router.push("/brand/setup-company")} className="hover:text-[#EF4823] transition-colors" title="Edit Profile"><SlidersHorizontal size={18} /></button>
+              <button onClick={() => signOut({ callbackUrl: "/auth/login" })} className="hover:text-red-500 transition-colors" title="Log Out"><LogOut size={18} /></button>
             </div>
           </div>
 
@@ -126,36 +144,51 @@ export default function BrandDashboardPage() {
           {activeTab === 'about' && (
             <div className="flex flex-col gap-4">
               
-              {/* Bio Block */}
-              <div className="bg-white rounded-[24px] p-6 shadow-sm">
-                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Bio</h3>
-                <p className="text-sm text-gray-500 leading-relaxed font-medium">
-                  {profileData?.bio || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor turpis sodales nulla velit. Nunc cum vitae, rhoncus leo id. Volutpat. Duis tinunt pretium luctus pulvinar pretium."}
-                </p>
-              </div>
-
-              {/* Contact Block */}
-              <div className="bg-white rounded-[24px] p-6 shadow-sm flex flex-col gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-[#EF4823] shrink-0">
-                    <Globe size={14} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-gray-400 font-bold mb-0.5">Website</p>
-                    <p className="text-sm text-gray-800 font-medium break-all">{profileData?.website || "www.portfolio.com"}</p>
-                  </div>
+              {/* Profile Details Block */}
+              <div className="bg-white rounded-[24px] p-6 shadow-sm flex flex-col gap-6">
+                <div>
+                  <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Bio</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed font-medium">
+                    {profileData?.bio || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor turpis sodales nulla velit. Nunc cum vitae, rhoncus leo id. Volutpat. Duis tinunt pretium luctus pulvinar pretium."}
+                  </p>
                 </div>
                 
                 <div className="h-px w-full bg-gray-50"></div>
+                
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-start gap-8">
+                    <p className="text-xs text-gray-400 font-bold w-16">Website</p>
+                    <p className="text-sm text-gray-800 font-medium">{profileData?.website || "www.portfolio.com"}</p>
+                  </div>
+                  
+                  <div className="flex items-start gap-8">
+                    <p className="text-xs text-gray-400 font-bold w-16">Phone</p>
+                    <p className="text-sm text-gray-800 font-medium">{profileData?.phone || "000-000-0000"}</p>
+                  </div>
+                </div>
+              </div>
 
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-[#EF4823] shrink-0">
-                    <Phone size={14} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-gray-400 font-bold mb-0.5">Phone</p>
-                    <p className="text-sm text-gray-800 font-medium break-all">{profileData?.phone || "000-000-0000"}</p>
-                  </div>
+              {/* Stats Block */}
+              <div className="bg-white rounded-[24px] p-6 shadow-sm flex items-center justify-between px-8">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl font-bold text-gray-900">17</span>
+                  <span className="text-xs text-gray-400 font-bold leading-tight">Projects<br/>Done</span>
+                </div>
+                <div className="w-px h-8 bg-gray-100"></div>
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl font-bold text-gray-900">92%</span>
+                  <span className="text-xs text-gray-400 font-bold leading-tight">Success<br/>Rate</span>
+                </div>
+              </div>
+
+              {/* Rating Block */}
+              <div className="bg-white rounded-[24px] p-6 shadow-sm">
+                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Rating</h3>
+                <div className="flex gap-1.5">
+                  {[1, 2, 3, 4].map(star => (
+                    <Star key={star} size={22} className="fill-[#FBBF24] text-[#FBBF24]" />
+                  ))}
+                  <Star size={22} className="fill-gray-200 text-gray-200" />
                 </div>
               </div>
 

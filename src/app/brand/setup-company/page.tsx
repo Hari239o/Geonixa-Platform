@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { Trash2 } from "lucide-react"
+import { Trash2, ChevronLeft } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 
 export default function BrandCompanySetupPage() {
@@ -56,7 +56,20 @@ export default function BrandCompanySetupPage() {
 
   return (
     <div className="h-full bg-[#F8F9FA] font-sans flex justify-center overflow-hidden">
-      <div className="w-full w-full bg-white h-full shadow-sm relative pt-5 flex flex-col overflow-hidden">
+      <div className="w-full w-full bg-white h-full shadow-sm relative pt-6 flex flex-col overflow-hidden">
+        
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 mb-8 shrink-0">
+          <button 
+            onClick={() => router.back()} 
+            className="w-10 h-10 bg-orange-50 rounded-2xl flex items-center justify-center text-[#EF4823] hover:bg-orange-100 transition-colors"
+          >
+            <ChevronLeft size={20} strokeWidth={3} />
+          </button>
+          <h1 className="text-xl font-black text-[#1E1B4B] tracking-tight">Settings</h1>
+          <div className="w-10" /> {/* Spacer for centering */}
+        </div>
+
         <div className="flex-1 overflow-y-auto no-scrollbar px-6 pb-24 touch-pan-y">
         
         {/* Profile Logo Section */}
