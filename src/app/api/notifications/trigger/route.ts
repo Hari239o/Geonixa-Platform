@@ -3,7 +3,7 @@ import { Knock } from '@knocklabs/node';
 
 // Initialize the Knock Node SDK
 // Since this is server-side, we use the Secret API Key
-const knock = new Knock(process.env.KNOCK_SECRET_API_KEY);
+const knock = new Knock(process.env.KNOCK_SECRET_API_KEY as string);
 
 export async function POST(request: Request) {
   try {

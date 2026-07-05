@@ -5,14 +5,20 @@ import { useRouter } from 'next/navigation';
 const MockInstagramLogin = () => {
  const router = useRouter();
 
- const handleAuthorize = () => {
- // Simulate redirecting back to our app with a secret auth code
- router.push('/auth/callback?code=mock_auth_code_12345');
- };
+  const handleAuthorize = () => {
+    // Simulate setting verification status
+    const saved = localStorage.getItem("kaling_brand_profile");
+    if (saved) {
+      const data = JSON.parse(saved);
+      data.isVerified = true;
+      localStorage.setItem("kaling_brand_profile", JSON.stringify(data));
+    }
+    router.push('/brand/profile');
+  };
 
- const handleCancel = () => {
- router.push('/setup-profile');
- };
+  const handleCancel = () => {
+    router.back();
+  };
 
  return (
  <div className="min-h-screen flex items-center justify-center bg-[#fafafa] font-sans p-4">
