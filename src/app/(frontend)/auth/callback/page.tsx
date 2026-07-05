@@ -19,7 +19,7 @@ export default function AuthCallbackPage() {
         const hasProfile = (session.user as any).profileCompleted === true;
         
         if (role === "brand") {
-          router.replace(hasProfile ? "/brand" : "/brand/setup-company");
+          router.replace(hasProfile ? "/brand" : "/auth/brand-setup");
         } else if (role === "partner") {
           router.replace(hasProfile ? "/partner" : "/partner/setup-profile");
         } else if (role === "creator") {

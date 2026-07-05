@@ -40,6 +40,14 @@ model CreatorProfile {
   successRate     String   @default("0%")
   isVerified      Boolean  @default(false)
   
+  website         String?
+  phone           String?
+  facebook        String?
+  instagram       String?
+  x               String?
+  teamMembers     String?
+  brandType       String?
+  
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
