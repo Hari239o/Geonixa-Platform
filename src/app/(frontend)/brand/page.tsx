@@ -109,31 +109,7 @@ export default function BrandHomeFeedPage() {
               <span className="text-[14px]">✨</span>
             </div>
             
-            {/* Temporary Test Notification Button */}
-            <button 
-              onClick={async () => {
-                const userId = localStorage.getItem("kalinq_mock_user_id");
-                if (!userId) return alert("User ID not initialized yet");
-                try {
-                  const res = await fetch("/api/notifications/trigger", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      userId,
-                      message: "<b>New Campaign!</b> Nike wants to work with you.",
-                      actionLabel: "View Details"
-                    })
-                  });
-                  const data = await res.json();
-                  if (!data.success) alert(data.error || "Failed to send notification");
-                } catch(e) {
-                  console.error(e);
-                }
-              }}
-              className="text-[10px] bg-indigo-50 text-indigo-500 px-2 py-1 rounded-md font-bold"
-            >
-              Test Notification
-            </button>
+
           </div>
 
           {/* Filter Tabs */}

@@ -114,30 +114,7 @@ export default function CreatorDashboard() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <button 
-              onClick={async () => {
-                const userId = localStorage.getItem("kalinq_mock_user_id");
-                if (!userId) return alert("User ID not initialized yet");
-                try {
-                  const res = await fetch("/api/notifications/trigger", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      userId,
-                      message: "<b>New Campaign!</b> A brand wants to work with you.",
-                      actionLabel: "View Details"
-                    })
-                  });
-                  const data = await res.json();
-                  if (!data.success) alert(data.error || "Failed to send notification");
-                } catch(e) {
-                  console.error(e);
-                }
-              }}
-              className="text-[10px] bg-indigo-50 text-indigo-500 px-2 py-1 rounded-md font-bold"
-            >
-              Test Notification
-            </button>
+
             <button 
               className="relative p-2 rounded-full hover:bg-gray-50 transition-colors"
               onClick={() => router.push('/creator/notifications')}
