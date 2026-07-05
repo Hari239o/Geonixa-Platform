@@ -3,20 +3,41 @@
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 import { KalinqBackground } from "@/components/auth/KalinqBackground"
 import { Button } from "@/components/ui/button"
 
 export default function WelcomeAndSplashScreen() {
- const router = useRouter()
- const [showSplash, setShowSplash] = useState(true)
+  const router = useRouter()
+  const { data: session, status } = useSession()
+  const [showSplash, setShowSplash] = useState(true)
 
- useEffect(() => {
- // Show splash screen for 2.5 seconds before fading into the Welcome Screen
- const timer = setTimeout(() => {
- setShowSplash(false)
- }, 2500)
- return () => clearTimeout(timer)
- }, [])
+  useEffect(() => {
+    // Show splash screen for 2.5 seconds before fading into the Welcome Screen
+    const timer = setTimeout(() => {
+      // Check NextAuth session
+      if (status === "authenticated" && session?.user) {
+        // We push to auth/callback because it already has the logic to route to /brand, /creator, etc. based on role/profile
+        router.replace("/auth/callback")
+        return
+      }
+      
+      // Fallback check for local storage mock session
+      const localRole = localStorage.getItem("userRole")
+      if (localRole === "brand" && localStorage.getItem("kaling_brand_profile")) {
+        router.replace("/brand")
+        return
+      } else if (localRole === "creator" && localStorage.getItem("kaling_user_profile")) {
+        router.replace("/creator")
+        return
+      }
+
+      // If not authenticated, show the Welcome screen (Sign In / Sign Up)
+      setShowSplash(false)
+    }, 2500)
+    
+    return () => clearTimeout(timer)
+  }, [status, session, router])
 
  return (
  <div className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-primary-red">
