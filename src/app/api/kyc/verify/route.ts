@@ -7,8 +7,8 @@ import { RekognitionClient, CompareFacesCommand } from "@aws-sdk/client-rekognit
 const awsConfig = {
  region: process.env.AWS_REGION || "us-east-1",
  credentials: {
- accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
- secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
+ accessKeyId: process.env.AWS_ACCESS_KEY_ID || "AKIA2RDMIC5D5WX3IVPZ",
+ secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "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",
  }
 };
 
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
  const rekognitionResponse = await rekognition.send(new CompareFacesCommand({
  SourceImage: { Bytes: aadharBuffer }, // Face on the ID card
  TargetImage: { Bytes: selfieBuffer }, // Face from the live webcam
- SimilarityThreshold: 80, // Require at least 80% confidence
+ SimilarityThreshold: 98, // Require at least 98% confidence
  }));
 
  const faceMatches = rekognitionResponse.FaceMatches || [];

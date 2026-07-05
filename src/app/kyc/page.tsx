@@ -105,12 +105,19 @@ const KycVerificationPage = () => {
  const data = await response.json();
  
  if (data.success) {
- // Update local storage to reflect verified status
+ const role = localStorage.getItem("userRole") || "creator";
+ 
+ if (role === "brand") {
+ const profile = JSON.parse(localStorage.getItem('kaling_brand_profile') || '{}');
+ profile.isVerified = true;
+ localStorage.setItem('kaling_brand_profile', JSON.stringify(profile));
+ router.push('/brand');
+ } else {
  const profile = JSON.parse(localStorage.getItem('kaling_user_profile') || '{}');
  profile.isVerified = true;
  localStorage.setItem('kaling_user_profile', JSON.stringify(profile));
- 
  router.push('/home');
+ }
  } else {
  setErrorMessage("Verification failed: " + data.error + ". Please try again.");
  }
