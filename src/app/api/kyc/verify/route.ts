@@ -5,7 +5,7 @@ import { RekognitionClient, CompareFacesCommand } from "@aws-sdk/client-rekognit
 // Initialize AWS Clients
 // In Next.js App Router, process.env.AWS_ACCESS_KEY_ID is automatically available from .env / .env.local
 const awsConfig = {
- region: process.env.AWS_REGION || "us-east-1",
+ region: process.env.AWS_REGION || "ap-south-1",
  credentials: {
  accessKeyId: process.env.AWS_ACCESS_KEY_ID || "AKIA2RDMIC5D5WX3IVPZ",
  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "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",
