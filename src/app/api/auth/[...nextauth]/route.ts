@@ -82,40 +82,49 @@ const handler = NextAuth({
   },
   callbacks: {
     async signIn({ user, account }) {
-      // Automatically save Google users to the database
-      if (account?.provider === 'google' && user.email) {
-        const existingUser = await prisma.user.findFirst({ where: { email: user.email } });
-        if (!existingUser) {
-          await prisma.user.create({
-            data: {
-              email: user.email,
-              name: user.name || "Google User",
-              role: "creator" // Default to creator for now, or read from cookie client-side later
-            }
-          });
+      try {
+        // Automatically save Google users to the database
+        if (account?.provider === 'google' && user.email) {
+          const existingUser = await prisma.user.findFirst({ where: { email: user.email } });
+          if (!existingUser) {
+            await prisma.user.create({
+              data: {
+                email: user.email,
+                name: user.name || "Google User",
+                role: "creator" // Default to creator for now, or read from cookie client-side later
+              }
+            });
+          }
         }
+        return true;
+      } catch (error: any) {
+        console.error("SignIn Error:", error);
+        return `/auth/login?error=${encodeURIComponent(error.message || "Unknown Database Error")}`;
       }
-      return true;
     },
     async jwt({ token, user }) {
       if (user) token.id = user.id;
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
-        let dbUser = null;
-        if (session.user.email && !session.user.email.endsWith('@kalinq.auth')) {
-          dbUser = await prisma.user.findFirst({ where: { email: session.user.email }});
-        } else if (token.id) {
-          dbUser = await prisma.user.findFirst({ where: { id: token.id as string }});
+      try {
+        if (session.user) {
+          let dbUser = null;
+          if (session.user.email && !session.user.email.endsWith('@kalinq.auth')) {
+            dbUser = await prisma.user.findFirst({ where: { email: session.user.email }});
+          } else if (token.id) {
+            dbUser = await prisma.user.findFirst({ where: { id: token.id as string }});
+          }
+          
+          if (dbUser) {
+            (session.user as any).id = dbUser.id;
+            (session.user as any).role = dbUser.role;
+            (session.user as any).phone = dbUser.phone;
+            (session.user as any).profileCompleted = dbUser.profileCompleted;
+          }
         }
-        
-        if (dbUser) {
-          (session.user as any).id = dbUser.id;
-          (session.user as any).role = dbUser.role;
-          (session.user as any).phone = dbUser.phone;
-          (session.user as any).profileCompleted = dbUser.profileCompleted;
-        }
+      } catch (error: any) {
+        console.error("Session Error:", error);
       }
       return session;
     },
