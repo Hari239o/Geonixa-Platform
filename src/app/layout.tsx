@@ -25,6 +25,7 @@ export const viewport: import("next").Viewport = {
 };
 
 import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
+import { KnockClientProvider } from "@/components/providers/KnockClientProvider";
 
 export default function RootLayout({
  children,
@@ -35,10 +36,12 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-[#F8F9FB]`}>
       <body className="flex flex-col items-center justify-center min-h-[100dvh] w-full overflow-hidden">
         <NextAuthProvider>
-          {/* Main scrollable container for the entire app, restricted to mobile width on large screens */}
-          <main className="w-full h-[100dvh] max-w-[480px] bg-white overflow-hidden relative flex flex-col sm:border-x sm:border-gray-100 sm:shadow-2xl">
-            {children}
-          </main>
+          <KnockClientProvider>
+            {/* Main scrollable container for the entire app, restricted to mobile width on large screens */}
+            <main className="w-full h-[100dvh] max-w-[480px] bg-white overflow-hidden relative flex flex-col sm:border-x sm:border-gray-100 sm:shadow-2xl">
+              {children}
+            </main>
+          </KnockClientProvider>
         </NextAuthProvider>
       </body>
     </html>
