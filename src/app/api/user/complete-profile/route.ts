@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     }
 
     // Update profileCompleted to true
-    await prisma.user.update({
+    await (prisma as any).user.update({
       where: { id: user.id },
       data: { profileCompleted: true }
     });

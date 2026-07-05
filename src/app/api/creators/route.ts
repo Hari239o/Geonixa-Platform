@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export async function GET() {
   try {
-    const creators = await prisma.creatorProfile.findMany({
+    const creators = await (prisma as any).creatorProfile.findMany({
       orderBy: { createdAt: "desc" }
     });
     return NextResponse.json({ success: true, creators });
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     }
 
     // Upsert creator profile
-    const creator = await prisma.creatorProfile.upsert({
+    const creator = await (prisma as any).creatorProfile.upsert({
       where: { userId },
       update: {
         fullName,
