@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 
 export async function POST(req: Request) {
   try {
-    const { phone, role } = await req.json();
+    const { phone, role, email, name } = await req.json();
     
     if (!phone) {
       return NextResponse.json({ error: 'Phone number is required' }, { status: 400 });
@@ -12,8 +12,17 @@ export async function POST(req: Request) {
     // Upsert user based on phone number
     const user = await prisma.user.upsert({
       where: { phone },
-      update: { role: role || 'user' },
-      create: { phone, role: role || 'user' }
+      update: { 
+        role: role || 'user',
+        ...(email && { email }),
+        ...(name && { name })
+      },
+      create: { 
+        phone, 
+        role: role || 'user',
+        ...(email && { email }),
+        ...(name && { name })
+      }
     });
 
     return NextResponse.json({ message: 'User registered successfully', user }, { status: 200 });
