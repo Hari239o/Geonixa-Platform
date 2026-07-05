@@ -107,12 +107,10 @@ export async function POST(request: Request) {
  
  // Check if it's an AWS subscription issue
  if (err.name === 'SubscriptionRequiredException' || err.message?.includes('SubscriptionRequiredException')) {
- console.warn("AWS Subscription not active yet. Using mock successful verification for testing.");
  return NextResponse.json({ 
- success: true, 
- message: "KYC Verification Successful (MOCK - AWS Pending)",
- similarity: 98.5
- });
+ success: false, 
+ error: "AWS Account lacks active subscription for Textract/Rekognition API access." 
+ }, { status: 403 });
  }
 
  if (err.name === 'InvalidParameterException' || err.message?.includes('InvalidParameterException')) {
