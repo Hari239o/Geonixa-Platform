@@ -95,12 +95,6 @@ function LoginContent() {
           <div className="flex-grow border-t border-[#F3F4F6]"></div>
         </div>
 
-        {loginError && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-xl text-xs text-center font-medium">
-            {loginError}
-          </div>
-        )}
-
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmitCredentials)} className="space-y-4">
           {/* Phone Number Field */}
@@ -156,7 +150,6 @@ function LoginContent() {
           </div>
 
           {/* Submit Button */}
-          {loginError && <p className="text-sm text-red-500 font-medium text-center">{loginError}</p>}
           <Button 
             type="submit" 
             disabled={isSubmitting}
