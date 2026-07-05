@@ -39,20 +39,18 @@ export default function LoginPage() {
   })
 
   const onSubmitCredentials = async (data: LoginFormValues) => {
-    // Simulate checking email and password
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    console.log("Credentials verified:", data)
-    
-    // Redirect based on simulated user role
-    const role = localStorage.getItem("userRole") || "creator"
-    if (role === "brand") {
-      router.push("/brand")
-    } else if (role === "partner") {
-      router.push("/partner")
-    } else {
-      router.push("/home")
+    const result = await signIn("credentials", {
+      phoneNumber: data.phoneNumber,
+      otp: data.password, // Mapping password to OTP for the current mock setup
+      redirect: false
+    });
+
+    if (result?.error) {
+      console.error("Login failed:", result.error);
+    } else if (result?.ok) {
+      router.push("/auth/callback");
     }
-  }
+  };
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -74,7 +72,7 @@ export default function LoginPage() {
         <Button 
           variant="outline" 
           type="button"
-          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+          onClick={() => signIn("google", { callbackUrl: "/auth/callback" })}
           className="w-full h-[46px] flex items-center justify-center gap-3 mb-5 rounded-xl border-[#E5E7EB] text-[#4B5563] text-[13px] font-medium hover:bg-gray-50 transition-colors shadow-sm"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

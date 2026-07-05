@@ -50,13 +50,38 @@ export default function CreatorSignupStep1() {
     setShowOtpModal(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isPhoneVerified) {
       setShowOtpModal(true);
       return;
     }
-    router.push("/auth/login");
+    
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          phone: "+91" + formData.phoneNumber.replace(/\D/g, ''),
+          role: "creator",
+          name: `${formData.firstName} ${formData.lastName}`.trim(),
+          email: formData.email,
+        }),
+      });
+
+      if (res.ok) {
+        router.push("/auth/login");
+      } else {
+        console.error("Failed to register user");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleGoogleSignup = () => {
+    document.cookie = "signupRole=creator; path=/; max-age=3600";
+    signIn("google", { callbackUrl: "/auth/callback" });
   };
 
   const handleVerifyOtp = () => {
@@ -247,7 +272,7 @@ export default function CreatorSignupStep1() {
 
           <Button 
             type="button" 
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            onClick={handleGoogleSignup}
             variant="outline"
             className="w-full bg-white border-slate-200 hover:bg-slate-50 rounded-xl h-11 text-sm font-medium flex items-center justify-center gap-2 shadow-sm"
           >

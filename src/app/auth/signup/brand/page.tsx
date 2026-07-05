@@ -47,13 +47,38 @@ export default function BrandSignupStep1() {
     setShowOtpModal(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isPhoneVerified) {
       setShowOtpModal(true);
       return;
     }
-    router.push("/auth/login");
+    
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          phone: "+91" + formData.phoneNumber.replace(/\D/g, ''),
+          role: "brand",
+          name: formData.brandName.trim(),
+          email: formData.email,
+        }),
+      });
+
+      if (res.ok) {
+        router.push("/auth/login");
+      } else {
+        console.error("Failed to register user");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleGoogleSignup = () => {
+    document.cookie = "signupRole=brand; path=/; max-age=3600";
+    signIn("google", { callbackUrl: "/auth/callback" });
   };
 
   const handleVerifyOtp = () => {
@@ -193,7 +218,7 @@ export default function BrandSignupStep1() {
 
           <Button 
             type="button" 
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            onClick={handleGoogleSignup}
             variant="outline"
             className="w-full bg-white border-[#EEEEEE] hover:bg-slate-50 rounded-[14px] h-[52px] text-[14px] font-semibold text-[#333333] flex items-center justify-center gap-3 shadow-sm transition-all active:scale-[0.98]"
           >
