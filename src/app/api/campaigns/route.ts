@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export async function GET() {
   try {
-    const campaigns = await prisma.campaign.findMany({
+    const campaigns = await (prisma as any).campaign.findMany({
       orderBy: { createdAt: "desc" }
     });
     return NextResponse.json({ success: true, campaigns });
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "userId and title are required" }, { status: 400 });
     }
 
-    const campaign = await prisma.campaign.create({
+    const campaign = await (prisma as any).campaign.create({
       data: {
         userId,
         title,
