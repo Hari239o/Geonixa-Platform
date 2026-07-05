@@ -14,15 +14,17 @@ const SetupProfilePage = () => {
  const saved = localStorage.getItem('kaling_temp_form');
  if (saved) return JSON.parse(saved);
  }
- return {
- fullName: '',
- category: '',
- customCategory: '',
- portfolioLink: '',
- bio: '',
- creatorType: 'UGC'
- };
- });
+    return {
+      fullName: '',
+      category: '',
+      customCategory: '',
+      portfolioLink: '',
+      instagramLink: '',
+      followers: '',
+      bio: '',
+      creatorType: 'UGC'
+    };
+  });
 
  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
  const file = e.target.files?.[0];
@@ -81,12 +83,17 @@ const SetupProfilePage = () => {
  category: formData.category === 'Others' ? formData.customCategory : formData.category,
  profilePic: profilePic, // data URL
  portfolioImages: portfolioImages,
- followers: '44.5k',
+ followers: formData.followers || '0',
  viewership: '22.8k',
  engagement: '38.9k',
  projects: '17',
  successRate: '92%',
- budgets: initialBudgets
+ budgets: initialBudgets,
+ socials: {
+   instagram: formData.instagramLink || '',
+   facebook: '',
+   x: ''
+ }
  };
 
  // Clean up temp storage
@@ -202,21 +209,49 @@ const SetupProfilePage = () => {
  </select>
  </div>
 
- {formData.category === 'Others' && (
- <div className="flex flex-col gap-2">
- <label htmlFor="customCategory" className="text-sm font-bold text-primary-red">Specify Your Role</label>
- <input 
- type="text" 
- id="customCategory"
- name="customCategory" 
- placeholder="e.g. 3D Animator"
- value={formData.customCategory}
- onChange={handleInputChange}
- required 
- className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
- />
- </div>
- )}
+  {formData.category === 'Others' && (
+    <div className="flex flex-col gap-2">
+      <label htmlFor="customCategory" className="text-sm font-bold text-primary-red">Specify Your Role</label>
+      <input 
+        type="text" 
+        id="customCategory"
+        name="customCategory" 
+        placeholder="e.g. 3D Animator"
+        value={formData.customCategory}
+        onChange={handleInputChange}
+        required 
+        className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+      />
+    </div>
+  )}
+
+  <div className="flex flex-col gap-2">
+    <label htmlFor="instagramLink" className="text-sm font-bold text-primary-red">Instagram Profile Link</label>
+    <input 
+      type="url" 
+      id="instagramLink"
+      name="instagramLink" 
+      placeholder="https://instagram.com/yourhandle"
+      value={formData.instagramLink}
+      onChange={handleInputChange}
+      required
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+    />
+  </div>
+
+  <div className="flex flex-col gap-2">
+    <label htmlFor="followers" className="text-sm font-bold text-primary-red">Number of Followers</label>
+    <input 
+      type="text" 
+      id="followers"
+      name="followers" 
+      placeholder="e.g. 10.5k"
+      value={formData.followers}
+      onChange={handleInputChange}
+      required
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+    />
+  </div>
  
  <div className="flex flex-col gap-2">
  <label htmlFor="portfolioLink" className="text-sm font-bold text-primary-red">Portfolio / Website Link</label>

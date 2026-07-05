@@ -53,11 +53,11 @@ export default function CreatorDashboard() {
           setProfile(prev => ({ 
             ...prev, 
             ...parsed,
-            followers: parsed.followers === '0' ? '44.5k' : parsed.followers,
-            viewership: parsed.viewership === '0' ? '22.8k' : parsed.viewership,
-            engagement: parsed.engagement === '0' ? '38.9k' : parsed.engagement,
-            projects: parsed.projects === '0' ? '17' : parsed.projects,
-            successRate: parsed.successRate === '0%' ? '92%' : parsed.successRate,
+            followers: parsed.followers || '44.5k',
+            viewership: parsed.viewership || '22.8k',
+            engagement: parsed.engagement || '38.9k',
+            projects: parsed.projects || '17',
+            successRate: parsed.successRate || '92%',
             isVerified: parsed.isVerified || false
           }));
           if (!parsed.isVerified) {
