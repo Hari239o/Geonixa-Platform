@@ -17,4 +17,46 @@ model User {
   profileCompleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  // Relations
+  creatorProfile CreatorProfile?
+  campaigns      Campaign[]
 }
+
+model CreatorProfile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  fullName        String?
+  bio             String?
+  profilePic      String?
+  category        String?
+  tags            String[] @default([])
+  followers       String   @default("0")
+  viewership      String   @default("0")
+  engagement      String   @default("0")
+  projects        String   @default("0")
+  successRate     String   @default("0%")
+  isVerified      Boolean  @default(false)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Campaign {
+  id              String   @id @default(uuid())
+  userId          String   // Brand that created the campaign
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  title           String
+  subtitle        String?
+  budget          String?
+  dateRange       String?
+  description     String?
+  daysLeft        String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+

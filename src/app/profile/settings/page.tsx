@@ -104,6 +104,31 @@ export default function ProfileSettingsPage() {
           portfolioImages
         };
         await setItem('kaling_user_profile', updatedProfile);
+        
+        // Sync to database if userRole is creator
+        const role = localStorage.getItem('userRole');
+        if (!role || role === 'creator') {
+          await fetch('/api/creators', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              userId: localStorage.getItem('userId') || 'temp-user-id', // Assuming temp-user-id for now
+              fullName,
+              bio,
+              profilePic,
+              category: 'Creator',
+              followers: updatedProfile.followers || '44.5k',
+              viewership: updatedProfile.viewership || '22.8k',
+              engagement: updatedProfile.engagement || '38.9k',
+              projects: updatedProfile.projects || '17',
+              successRate: updatedProfile.successRate || '92%',
+              isVerified: updatedProfile.isVerified || false
+            })
+          });
+        }
+        
         router.back();
       } catch (error) {
         console.error("Failed to save settings:", error);

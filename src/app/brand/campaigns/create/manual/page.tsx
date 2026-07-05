@@ -8,6 +8,43 @@ import BottomNav from "@/components/brand/BottomNav"
 export default function ManualCampaignCreatePage() {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState("Private")
+  
+  // Form State
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+  const [tags, setTags] = useState("")
+  const [deadline, setDeadline] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async () => {
+    if (!title) return;
+    setIsSubmitting(true);
+    
+    try {
+      const res = await fetch('/api/campaigns', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: localStorage.getItem('userId') || 'temp-brand-id',
+          title,
+          subtitle: '- Brand Campaign',
+          budget: '₹13k - ₹25k',
+          dateRange: deadline,
+          description: description || 'New campaign',
+          daysLeft: 'Active'
+        })
+      });
+      
+      const data = await res.json();
+      if (data.success) {
+        router.push('/brand');
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <div className="h-full bg-white font-sans flex justify-center overflow-hidden">
@@ -71,6 +108,8 @@ export default function ManualCampaignCreatePage() {
               <input 
                 type="text" 
                 placeholder="Enter gig title"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
                 className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-4 px-5 text-gray-800 font-medium text-[14px] placeholder:text-gray-300 placeholder:font-normal"
               />
             </div>
@@ -81,6 +120,8 @@ export default function ManualCampaignCreatePage() {
               <textarea 
                 placeholder="Enter gig description"
                 rows={3}
+                value={description}
+                onChange={e => setDescription(e.target.value)}
                 className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-4 px-5 text-gray-800 font-medium text-[14px] placeholder:text-gray-300 placeholder:font-normal resize-none"
               />
             </div>
@@ -91,6 +132,8 @@ export default function ManualCampaignCreatePage() {
               <input 
                 type="text" 
                 placeholder="Social media"
+                value={tags}
+                onChange={e => setTags(e.target.value)}
                 className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-4 px-5 text-gray-800 font-medium text-[14px] placeholder:text-gray-300 placeholder:font-normal"
               />
             </div>
@@ -101,6 +144,8 @@ export default function ManualCampaignCreatePage() {
               <input 
                 type="text" 
                 placeholder="Enter the deadline"
+                value={deadline}
+                onChange={e => setDeadline(e.target.value)}
                 className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-4 px-5 text-gray-800 font-medium text-[14px] placeholder:text-gray-300 placeholder:font-normal"
               />
             </div>
@@ -133,8 +178,12 @@ export default function ManualCampaignCreatePage() {
               </div>
             </div>
 
-            <button className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-2">
-              FIND CREATORS
+            <button 
+              onClick={handleSubmit} 
+              disabled={isSubmitting}
+              className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-2 disabled:opacity-50"
+            >
+              {isSubmitting ? "CREATING..." : "CREATE CAMPAIGN"}
             </button>
 
           </div>

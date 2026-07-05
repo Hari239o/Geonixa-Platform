@@ -70,28 +70,29 @@ export default function BrandHomeFeedPage() {
       setShowVerifyModal(true)
     }
 
-    // Check if a creator profile was just created to show it dynamically!
-    const savedCreator = localStorage.getItem("kaling_creator_profile")
-    if (savedCreator) {
+    // Fetch creators from the database
+    async function fetchCreators() {
       try {
-        const parsed = JSON.parse(savedCreator)
-        setCreators(prev => {
-          // Prevent duplicates if already added (simple check by name for now)
-          if (prev.some(c => c.name === parsed.fullName)) return prev;
-          
-          return [{
-            id: Date.now(),
-            name: parsed.fullName || "New Creator",
-            image: parsed.profilePic || null,
-            tags: ["New", "Creator"],
-            followers: "0",
-            viewership: "0",
-            engagement: "0",
-            verified: false
-          }, ...prev]
-        })
-      } catch (e) {}
+        const res = await fetch('/api/creators');
+        const data = await res.json();
+        if (data.success && data.creators && data.creators.length > 0) {
+          setCreators(data.creators.map((c: any) => ({
+            id: c.id,
+            name: c.fullName || "Unnamed Creator",
+            image: c.profilePic || null,
+            tags: c.tags || [],
+            followers: c.followers || "0",
+            viewership: c.viewership || "0",
+            engagement: c.engagement || "0",
+            verified: c.isVerified || false
+          })));
+        }
+      } catch (error) {
+        console.error("Failed to fetch creators:", error);
+      }
     }
+    
+    fetchCreators();
   }, [])
 
   return (

@@ -43,28 +43,7 @@ export default function CreatorDashboard() {
  });
  const [showVerifyModal, setShowVerifyModal] = useState(false);
 
- const [campaigns] = useState([
- {
- id: 1,
- timeAgo: '25 minute ago',
- title: 'Glow With Radiance',
- subtitle: '- Skincare Brand Campaign',
- budget: '₹6000',
- dateRange: '04 September - 10 September 2025',
- description: "We're looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum.",
- daysLeft: '2 days left'
- },
- {
- id: 2,
- timeAgo: '25 minute ago',
- title: 'Glow With Radiance',
- subtitle: '- Skincare Brand Campaign',
- budget: '₹6000',
- dateRange: '04 September - 10 September 2025',
- description: "We're looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum.",
- daysLeft: '5 days left'
- }
- ]);
+ const [campaigns, setCampaigns] = useState<any[]>([]);
 
   useEffect(() => {
     async function loadProfile() {
@@ -89,7 +68,30 @@ export default function CreatorDashboard() {
         }
       }
     }
+    
+    async function fetchCampaigns() {
+      try {
+        const res = await fetch('/api/campaigns');
+        const data = await res.json();
+        if (data.success && data.campaigns) {
+          setCampaigns(data.campaigns.map((c: any) => ({
+             id: c.id,
+             timeAgo: 'Just now',
+             title: c.title,
+             subtitle: c.subtitle || '',
+             budget: c.budget || 'Open',
+             dateRange: c.dateRange || 'TBD',
+             description: c.description || '',
+             daysLeft: c.daysLeft || 'Active'
+          })));
+        }
+      } catch (error) {
+        console.error("Failed to fetch campaigns:", error);
+      }
+    }
+
     loadProfile();
+    fetchCampaigns();
   }, []);
 
   return (
