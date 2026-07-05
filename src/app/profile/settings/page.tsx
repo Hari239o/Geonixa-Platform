@@ -289,8 +289,6 @@ export default function ProfileSettingsPage() {
               Logout
             </button>
           </div>
-
-        </div>
       </div>
       </div>
 
