@@ -19,13 +19,8 @@ export function KnockClientProvider({ children }: { children: React.ReactNode })
     setUserId(storedId);
   }, []);
 
-  const knockPublicKey = process.env.NEXT_PUBLIC_KNOCK_PUBLIC_API_KEY;
-  const knockFeedChannelId = process.env.NEXT_PUBLIC_KNOCK_FEED_CHANNEL_ID;
-
-  if (!knockPublicKey || !knockFeedChannelId) {
-    console.error("Missing Knock Environment Variables. Notifications will not work.");
-    return <>{children}</>;
-  }
+  const knockPublicKey = process.env.NEXT_PUBLIC_KNOCK_PUBLIC_API_KEY || "pk_test_dummy";
+  const knockFeedChannelId = process.env.NEXT_PUBLIC_KNOCK_FEED_CHANNEL_ID || "dummy_feed_id";
 
   // During SSR, we provide the provider to prevent errors in pages that call useKnockFeed
   return (
