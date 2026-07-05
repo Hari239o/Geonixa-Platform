@@ -16,12 +16,16 @@ export default function AuthCallbackPage() {
       // Small delay for smooth UX
       setTimeout(() => {
         const role = (session.user as any).role || "user";
+        
         if (role === "brand") {
-          router.replace("/brand");
+          const hasProfile = localStorage.getItem("kaling_brand_profile");
+          router.replace(hasProfile ? "/brand" : "/brand/setup-company");
         } else if (role === "partner") {
-          router.replace("/partner");
+          const hasProfile = localStorage.getItem("kaling_partner_profile");
+          router.replace(hasProfile ? "/partner" : "/partner/setup-profile");
         } else if (role === "creator") {
-          router.replace("/creator");
+          const hasProfile = localStorage.getItem("kaling_user_profile");
+          router.replace(hasProfile ? "/creator" : "/setup-profile");
         } else {
           router.replace("/dashboard");
         }
