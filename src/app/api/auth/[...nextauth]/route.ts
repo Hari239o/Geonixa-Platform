@@ -120,7 +120,7 @@ const handler = NextAuth({
             (session.user as any).id = dbUser.id;
             (session.user as any).role = dbUser.role;
             (session.user as any).phone = dbUser.phone;
-            (session.user as any).profileCompleted = dbUser.profileCompleted;
+            (session.user as any).profileCompleted = (dbUser as any).profileCompleted;
           }
         }
       } catch (error: any) {
