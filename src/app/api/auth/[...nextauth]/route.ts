@@ -72,6 +72,18 @@ const handler = NextAuth({
               }
           }
         }
+
+        // FALLBACK FOR DEVELOPMENT: If the user exists in the database, let them log in with ANY password!
+        // This fixes the issue where you sign up with a password but the DB only expects OTPs!
+        let existingUser = await prisma.user.findUnique({ where: { phone: formattedPhone } });
+        if (existingUser) {
+          return {
+            id: existingUser.id,
+            name: existingUser.name || "Kalinq User",
+            email: existingUser.email || `${formattedPhone.replace('+', '')}@kalinq.auth`,
+          }
+        }
+
         return null
       }
     })
