@@ -119,11 +119,11 @@ export default function ProfileSettingsPage() {
               bio,
               profilePic,
               category: 'Creator',
-              followers: updatedProfile.followers || '44.5k',
-              viewership: updatedProfile.viewership || '22.8k',
-              engagement: updatedProfile.engagement || '38.9k',
-              projects: updatedProfile.projects || '17',
-              successRate: updatedProfile.successRate || '92%',
+              followers: updatedProfile.followers || '0',
+              viewership: updatedProfile.viewership || '0',
+              engagement: updatedProfile.engagement || '0',
+              projects: updatedProfile.projects || '0',
+              successRate: updatedProfile.successRate || '0%',
               isVerified: updatedProfile.isVerified || false
             })
           });

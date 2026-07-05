@@ -144,7 +144,19 @@ export default function BrandHomeFeedPage() {
           )}
 
           {creators.filter(creator => activeTab === "All" || creator.category === activeTab || creator.tags?.includes(activeTab)).map((creator) => (
-            <div key={creator.id} className="w-[335px] h-[194px] bg-[#FCF5EB] rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col mx-auto overflow-hidden shrink-0">
+            <div 
+              key={creator.id} 
+              className="w-[335px] h-[194px] bg-[#FCF5EB] rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col mx-auto overflow-hidden shrink-0 cursor-pointer active:scale-[0.98] transition-transform"
+              onClick={async () => {
+                try {
+                  await fetch('/api/creators/view', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: creator.id })
+                  });
+                } catch(e) {}
+              }}
+            >
               {/* Top White Section */}
               <div className="bg-white p-4 pb-3 flex gap-4 h-[126px] rounded-b-[20px] shadow-sm z-10">
                 {/* Profile Pic */}

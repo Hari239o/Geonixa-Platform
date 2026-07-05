@@ -84,10 +84,10 @@ const SetupProfilePage = () => {
  profilePic: profilePic, // data URL
  portfolioImages: portfolioImages,
  followers: formData.followers || '0',
- viewership: '22.8k',
- engagement: '38.9k',
- projects: '17',
- successRate: '92%',
+ viewership: '0',
+ engagement: '0',
+ projects: '0',
+ successRate: '0%',
  budgets: initialBudgets,
  socials: {
    instagram: formData.instagramLink || '',
