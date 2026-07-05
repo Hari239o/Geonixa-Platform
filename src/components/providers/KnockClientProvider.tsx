@@ -5,11 +5,12 @@ import { KnockProvider, KnockFeedProvider } from "@knocklabs/react";
 import "@knocklabs/react/dist/index.css";
 
 export function KnockClientProvider({ children }: { children: React.ReactNode }) {
-  const [userId, setUserId] = useState<string | null>(null);
+  // Initialize with a fallback string for SSR so the provider doesn't unmount and break child pages
+  const [userId, setUserId] = useState<string | null>("ssr-fallback");
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Generate a permanent mock user ID for this browser if it doesn't exist
-    // In a real app, this would come from your auth provider (e.g. NextAuth session.user.id)
+    setIsMounted(true);
     let storedId = localStorage.getItem("kalinq_mock_user_id");
     if (!storedId) {
       storedId = "user_" + Math.random().toString(36).substring(2, 9);
@@ -26,13 +27,9 @@ export function KnockClientProvider({ children }: { children: React.ReactNode })
     return <>{children}</>;
   }
 
-  // We only initialize Knock once we have a userId to avoid errors
-  if (!userId) {
-    return <>{children}</>;
-  }
-
+  // During SSR, we provide the provider to prevent errors in pages that call useKnockFeed
   return (
-    <KnockProvider apiKey={knockPublicKey} userId={userId}>
+    <KnockProvider apiKey={knockPublicKey} userId={userId || "ssr-fallback"}>
       <KnockFeedProvider feedId={knockFeedChannelId}>
         {children}
       </KnockFeedProvider>
