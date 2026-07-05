@@ -105,7 +105,10 @@ export default function CreatorDashboard() {
               <div className="flex items-center gap-1.5 mt-1">
                 <h1 className="text-xl font-extrabold text-[#1a1a2e] tracking-tight">{profile.fullName}</h1>
                 {profile.isVerified && (
-                  <BadgeCheck className="text-primary-red w-5 h-5 fill-primary-red text-white" />
+                  <div className="flex items-center gap-1 mt-0.5">
+                    <BadgeCheck className="text-primary-red w-5 h-5 fill-primary-red text-white" />
+                    <span className="text-primary-red text-xs font-bold uppercase tracking-wider">Verified</span>
+                  </div>
                 )}
               </div>
             </div>
