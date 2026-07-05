@@ -104,20 +104,41 @@ const KycVerificationPage = () => {
 
  const data = await response.json();
  
- if (data.success) {
- const role = localStorage.getItem("userRole") || "creator";
- 
- if (role === "brand") {
- const profile = JSON.parse(localStorage.getItem('kaling_brand_profile') || '{}');
- profile.isVerified = true;
- localStorage.setItem('kaling_brand_profile', JSON.stringify(profile));
- router.push('/brand');
- } else {
- const profile = JSON.parse(localStorage.getItem('kaling_user_profile') || '{}');
- profile.isVerified = true;
- localStorage.setItem('kaling_user_profile', JSON.stringify(profile));
- router.push('/creator');
- }
+  if (data.success) {
+    const role = localStorage.getItem("userRole") || "creator";
+    
+    // Import setItem dynamically to avoid breaking server components or needing to import at top
+    const { setItem } = await import('@/utils/storage');
+    
+    if (role === "brand") {
+      const profile = JSON.parse(localStorage.getItem('kaling_brand_profile') || '{}');
+      profile.isVerified = true;
+      localStorage.setItem('kaling_brand_profile', JSON.stringify(profile));
+      await setItem('kaling_brand_profile', profile);
+      
+      // Also update the backend in the background so it actually persists for real
+      fetch('/api/creators', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...profile, role: "brand" })
+      }).catch(console.error);
+
+      router.push('/brand');
+    } else {
+      const profile = JSON.parse(localStorage.getItem('kaling_user_profile') || '{}');
+      profile.isVerified = true;
+      localStorage.setItem('kaling_user_profile', JSON.stringify(profile));
+      await setItem('kaling_user_profile', profile);
+      
+      // Update creator profile in the real backend
+      fetch('/api/creators', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(profile)
+      }).catch(console.error);
+      
+      router.push('/creator');
+    }
  } else {
  setErrorMessage("Verification failed: " + data.error + ". Please try again.");
  }
