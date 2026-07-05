@@ -38,7 +38,10 @@ export default function LoginPage() {
     },
   })
 
+  const [loginError, setLoginError] = useState<string | null>(null)
+
   const onSubmitCredentials = async (data: LoginFormValues) => {
+    setLoginError(null)
     const result = await signIn("credentials", {
       phoneNumber: data.phoneNumber,
       otp: data.password, // Mapping password to OTP for the current mock setup
@@ -47,6 +50,7 @@ export default function LoginPage() {
 
     if (result?.error) {
       console.error("Login failed:", result.error);
+      setLoginError(result.error);
     } else if (result?.ok) {
       router.push("/auth/callback");
     }
@@ -146,6 +150,7 @@ export default function LoginPage() {
           </div>
 
           {/* Submit Button */}
+          {loginError && <p className="text-sm text-red-500 font-medium text-center">{loginError}</p>}
           <Button 
             type="submit" 
             disabled={isSubmitting}
