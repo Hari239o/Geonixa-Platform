@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Logo } from "@/components/ui/Logo"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
 
 const loginSchema = z.object({
@@ -24,7 +24,9 @@ type LoginFormValues = z.infer<typeof loginSchema>
 
 export default function LoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [showPassword, setShowPassword] = useState(false)
+  const [loginError, setLoginError] = useState<string | null>(searchParams.get("error"))
 
   const {
     register,
@@ -38,7 +40,7 @@ export default function LoginPage() {
     },
   })
 
-  const [loginError, setLoginError] = useState<string | null>(null)
+
 
   const onSubmitCredentials = async (data: LoginFormValues) => {
     setLoginError(null)
