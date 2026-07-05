@@ -16,15 +16,13 @@ export default function AuthCallbackPage() {
       // Small delay for smooth UX
       setTimeout(() => {
         const role = (session.user as any).role || "user";
+        const hasProfile = (session.user as any).profileCompleted === true;
         
         if (role === "brand") {
-          const hasProfile = localStorage.getItem("kaling_brand_profile");
           router.replace(hasProfile ? "/brand" : "/brand/setup-company");
         } else if (role === "partner") {
-          const hasProfile = localStorage.getItem("kaling_partner_profile");
           router.replace(hasProfile ? "/partner" : "/partner/setup-profile");
         } else if (role === "creator") {
-          const hasProfile = localStorage.getItem("kaling_user_profile");
           router.replace(hasProfile ? "/creator" : "/setup-profile");
         } else {
           router.replace("/dashboard");

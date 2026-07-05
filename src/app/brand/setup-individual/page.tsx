@@ -35,7 +35,7 @@ export default function BrandIndividualSetupPage() {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Save to local storage for temporary persistence
     const profileData = {
       ...formData,
@@ -43,6 +43,13 @@ export default function BrandIndividualSetupPage() {
       type: 'individual'
     }
     localStorage.setItem("kaling_brand_profile", JSON.stringify(profileData))
+    
+    try {
+      await fetch("/api/user/complete-profile", { method: "POST" });
+    } catch (e) {
+      console.error(e);
+    }
+    
     router.push("/brand")
   }
 

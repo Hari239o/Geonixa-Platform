@@ -32,13 +32,20 @@ export default function PartnerSetupProfilePage() {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Save to local storage for temporary persistence
     const profileData = {
       ...formData,
       profilePic,
     }
     localStorage.setItem("kaling_partner_profile", JSON.stringify(profileData))
+    
+    try {
+      await fetch("/api/user/complete-profile", { method: "POST" });
+    } catch (e) {
+      console.error(e);
+    }
+    
     router.push("/partner")
   }
 

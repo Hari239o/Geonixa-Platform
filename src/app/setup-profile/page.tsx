@@ -95,8 +95,11 @@ const SetupProfilePage = () => {
  // Save to indexedDB for persistence
  try {
    await setItem('kaling_user_profile', userProfile);
+   
+   // Mark profile as completed in the database
+   await fetch("/api/user/complete-profile", { method: "POST" });
  } catch (error) {
-   console.error("Failed to save to IndexedDB:", error);
+   console.error("Failed to save profile:", error);
  }
 
  // Redirect to creators dashboard
