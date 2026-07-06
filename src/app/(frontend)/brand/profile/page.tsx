@@ -141,6 +141,16 @@ export default function BrandDashboardPage() {
         {/* Tab Content */}
         <div className="px-6 py-6 flex-1 overflow-y-auto no-scrollbar pb-24 touch-pan-y">
           
+          {/* Authentication Prompt */}
+          {!profileData?.isVerified && (
+            <button
+              onClick={() => setShowVerifyModal(true)}
+              className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white font-bold py-4 rounded-[20px] shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98] mb-6 flex items-center justify-center gap-2"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              Authenticate Account
+            </button>
+          )}
 
 
           {activeTab === 'about' && (
@@ -259,17 +269,6 @@ export default function BrandDashboardPage() {
 
           {/* Actions at bottom */}
           <div className="flex flex-col gap-3 mt-8">
-            
-            {/* Authentication Prompt */}
-            {!profileData?.isVerified && (
-              <button
-                onClick={() => setShowVerifyModal(true)}
-                className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white font-bold py-4 rounded-[20px] shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98] flex items-center justify-center gap-2"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                Authenticate Account
-              </button>
-            )}
 
             <button
               onClick={() => {
