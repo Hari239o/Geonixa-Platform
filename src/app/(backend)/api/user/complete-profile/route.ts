@@ -94,6 +94,7 @@ export async function POST(req: Request) {
             engagement: profileData.engagement !== undefined ? profileData.engagement : undefined,
             projects: profileData.projects !== undefined ? profileData.projects : undefined,
             portfolioImages: profileData.portfolioImages !== undefined ? profileData.portfolioImages : undefined,
+            isVerified: profileData.isVerified !== undefined ? profileData.isVerified : undefined,
           },
           create: {
             userId: user.id,
@@ -113,6 +114,7 @@ export async function POST(req: Request) {
             engagement: profileData.engagement || "0",
             projects: profileData.projects || "0",
             portfolioImages: profileData.portfolioImages || [],
+            isVerified: profileData.isVerified || false,
           }
         });
       } catch (upsertError) {

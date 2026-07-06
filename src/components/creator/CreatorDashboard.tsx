@@ -337,7 +337,29 @@ export default function CreatorDashboard() {
 
               <button 
                 className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
-                onClick={() => router.push('/kyc')}
+                onClick={() => {
+                  setShowVerifyModal(false);
+                  
+                  // Update local state
+                  setProfile(prev => ({ ...prev, isVerified: true }));
+                  
+                  // Update IndexedDB
+                  import('@/utils/storage').then(({ getItem, setItem }) => {
+                    getItem<any>('kaling_user_profile').then(existing => {
+                      setItem('kaling_user_profile', { ...(existing || {}), isVerified: true });
+                    });
+                  });
+                  
+                  // Update DB via API
+                  fetch('/api/user/complete-profile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                      userId: localStorage.getItem('userId') || 'temp-user-id',
+                      isVerified: true 
+                    })
+                  });
+                }}
               >
                 VERIFY
               </button>
