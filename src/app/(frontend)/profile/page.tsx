@@ -93,31 +93,30 @@ export default function ProfilePage() {
         if (res.ok) {
           const data = await res.json();
           if (data.profile) {
-            const mergedProfile = {
-              fullName: data.profile.fullName || prev.fullName,
-              bio: data.profile.bio || prev.bio,
-              profilePic: data.profile.profilePic || prev.profilePic,
-              category: data.profile.category || prev.category,
-              followers: data.profile.followers || prev.followers || '0',
-              viewership: data.profile.viewership || prev.viewership || '0',
-              engagement: data.profile.engagement || prev.engagement || '0',
-              projects: data.profile.projects || prev.projects || '0',
-              successRate: data.profile.successRate || prev.successRate || '0%',
-              portfolioImages: (data.profile.portfolioImages && data.profile.portfolioImages.length > 0) ? data.profile.portfolioImages : prev.portfolioImages,
-              budgets: (data.profile.budgets && data.profile.budgets.length > 0) ? data.profile.budgets : prev.budgets,
-              isVerified: data.profile.isVerified || false
-            };
-
-            setProfile(prev => ({
-              ...prev,
-              ...mergedProfile
-            }));
-            
-            // Cache to IndexedDB for next load
-            import('@/utils/storage').then(({ setItem, getItem }) => {
-              getItem<any>('kaling_user_profile').then(existing => {
-                setItem('kaling_user_profile', { ...(existing || {}), ...mergedProfile });
+            setProfile(prev => {
+              const mergedProfile = {
+                fullName: data.profile.fullName || prev.fullName,
+                bio: data.profile.bio || prev.bio,
+                profilePic: data.profile.profilePic || prev.profilePic,
+                category: data.profile.category || prev.category,
+                followers: data.profile.followers || prev.followers || '0',
+                viewership: data.profile.viewership || prev.viewership || '0',
+                engagement: data.profile.engagement || prev.engagement || '0',
+                projects: data.profile.projects || prev.projects || '0',
+                successRate: data.profile.successRate || prev.successRate || '0%',
+                portfolioImages: (data.profile.portfolioImages && data.profile.portfolioImages.length > 0) ? data.profile.portfolioImages : prev.portfolioImages,
+                budgets: (data.profile.budgets && data.profile.budgets.length > 0) ? data.profile.budgets : prev.budgets,
+                isVerified: data.profile.isVerified || false
+              };
+              
+              // Cache to IndexedDB for next load
+              import('@/utils/storage').then(({ setItem, getItem }) => {
+                getItem<any>('kaling_user_profile').then(existing => {
+                  setItem('kaling_user_profile', { ...(existing || {}), ...mergedProfile });
+                });
               });
+              
+              return { ...prev, ...mergedProfile };
             });
           }
         }
