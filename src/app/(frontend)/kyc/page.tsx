@@ -1,354 +1,363 @@
-'use client';
-import React, { useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { ShieldCheck, Upload, Camera, CheckCircle } from 'lucide-react';
-import { uploadFileToR2 } from '@/utils/upload';
+"use client";
 
-const KycVerificationPage = () => {
- const router = useRouter();
- const [step, setStep] = useState(1);
- const [fullName, setFullName] = useState('');
- const [aadharImage, setAadharImage] = useState<string | null>(null);
- const [aadharPreview, setAadharPreview] = useState<string | null>(null);
- const [selfieImage, setSelfieImage] = useState<string | null>(null);
- const [selfiePreview, setSelfiePreview] = useState<string | null>(null);
- 
- // Camera references
- const videoRef = useRef<HTMLVideoElement>(null);
- const canvasRef = useRef<HTMLCanvasElement>(null);
- const [cameraActive, setCameraActive] = useState(false);
+import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, Camera, UploadCloud, CheckCircle2, AlertCircle } from "lucide-react";
 
- const handleNextStep = () => {
- if (step === 2) {
- // Start camera when moving to step 3
- startCamera();
- }
- setStep((prev) => prev + 1);
- };
+export default function KycPage() {
+  const router = useRouter();
+  
+  const [step, setStep] = useState(1);
+  const [fullName, setFullName] = useState("");
+  const [aadharFile, setAadharFile] = useState<File | null>(null);
+  const [selfieFile, setSelfieFile] = useState<File | null>(null);
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
- const handlePrevStep = () => {
- if (step === 3) {
- stopCamera();
- }
- setStep((prev) => prev - 1);
- };
+  // Camera Refs
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [cameraActive, setCameraActive] = useState(false);
 
-  const handleAadharUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setAadharPreview(URL.createObjectURL(file));
-      try {
-        // Upload immediately to R2 private bucket
-        const url = await uploadFileToR2(file, 'private');
-        setAadharImage(url);
-      } catch (err: any) {
-        console.error("Upload failed", err);
-        alert("Failed to upload Aadhar. Please try again.");
+  useEffect(() => {
+    if (step === 3 && !selfieFile) {
+      startCamera();
+    } else {
+      stopCamera();
+    }
+    return () => stopCamera();
+  }, [step, selfieFile]);
+
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        setCameraActive(true);
       }
+    } catch (err) {
+      console.error("Camera error:", err);
+      setError("Unable to access camera. Please allow camera permissions.");
     }
   };
 
- const startCamera = async () => {
- try {
- const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
- if (videoRef.current) {
- videoRef.current.srcObject = stream;
- setCameraActive(true);
- }
- } catch (err: any) {
- console.error("Error accessing camera:", err);
- alert("Please allow camera access to complete verification.");
- }
- };
+  const stopCamera = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach(track => track.stop());
+      setCameraActive(false);
+    }
+  };
 
- const stopCamera = () => {
- if (videoRef.current && videoRef.current.srcObject) {
- const stream = videoRef.current.srcObject as MediaStream;
- const tracks = stream.getTracks();
- tracks.forEach((track: MediaStreamTrack) => track.stop());
- setCameraActive(false);
- }
- };
-
-  const capturePhoto = async () => {
+  const capturePhoto = () => {
     if (videoRef.current && canvasRef.current) {
       const video = videoRef.current;
       const canvas = canvasRef.current;
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       if (ctx) {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
-        // Show immediate local preview
-        setSelfiePreview(canvas.toDataURL('image/jpeg'));
-        
-        // Convert to blob and upload to R2
-        canvas.toBlob(async (blob) => {
+        canvas.toBlob((blob) => {
           if (blob) {
-            const file = new File([blob], 'selfie.jpg', { type: 'image/jpeg' });
-            try {
-              const url = await uploadFileToR2(file, 'private');
-              setSelfieImage(url);
-            } catch (err: any) {
-              console.error("Selfie upload failed", err);
-              alert("Failed to upload selfie. Please try again.");
-            }
+            const file = new File([blob], "selfie.jpg", { type: "image/jpeg" });
+            setSelfieFile(file);
+            stopCamera();
           }
-        }, 'image/jpeg');
+        }, "image/jpeg");
       }
-      stopCamera();
     }
   };
 
- const retakePhoto = () => {
- setSelfieImage(null);
- setSelfiePreview(null);
- startCamera();
- };
+  const handleNextStep1 = () => {
+    if (!fullName.trim()) {
+      setError("Please enter your full name");
+      return;
+    }
+    setError(null);
+    setStep(2);
+  };
 
- const [isSubmitting, setIsSubmitting] = useState(false);
- const [isVerifiedSuccess, setIsVerifiedSuccess] = useState(false);
- const [errorMessage, setErrorMessage] = useState('');
-
- const handleSubmit = async () => {
- setIsSubmitting(true);
- setErrorMessage('');
- try {
- const response = await fetch('/api/kyc/verify', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({
- fullName,
- aadharImage,
- selfieImage
- })
- });
-
- const data = await response.json();
- 
-  if (data.success) {
-    setIsVerifiedSuccess(true);
-    
-    setTimeout(async () => {
-      const role = localStorage.getItem("userRole") || "creator";
+  const handleAadharUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setAadharFile(file);
       
-      // Import setItem dynamically to avoid breaking server components or needing to import at top
-      const { setItem } = await import('@/utils/storage');
+      setIsLoading(true);
+      setError(null);
       
-      if (role === "brand") {
-        const profile = JSON.parse(localStorage.getItem('kaling_brand_profile') || '{}');
-        profile.isVerified = true;
-        localStorage.setItem('kaling_brand_profile', JSON.stringify(profile));
-        await setItem('kaling_brand_profile', profile);
-        
-        // Also update the backend in the background so it actually persists for real
-        fetch('/api/user/complete-profile', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...profile, role: "brand" })
-        }).catch(console.error);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("name", fullName);
 
-        router.push('/brand');
-      } else {
-        const profile = JSON.parse(localStorage.getItem('kaling_user_profile') || '{}');
-        profile.isVerified = true;
-        localStorage.setItem('kaling_user_profile', JSON.stringify(profile));
-        await setItem('kaling_user_profile', profile);
+      try {
+        const res = await fetch("/api/kyc/verify-aadhar", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await res.json();
         
-        // Update creator profile in the real backend
-        fetch('/api/user/complete-profile', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(profile)
-        }).catch(console.error);
-        
-        router.push('/creator');
+        if (data.success) {
+          setStep(3);
+        } else {
+          setError(data.error || "Not a valid Aadhar");
+          setAadharFile(null);
+        }
+      } catch (err) {
+        setError("Network error occurred");
+        setAadharFile(null);
+      } finally {
+        setIsLoading(false);
       }
-    }, 1500);
- } else {
- setErrorMessage("Verification failed: " + data.error + ". Please try again.");
- }
- } catch (error) {
- console.error("KYC Error:", error);
- setErrorMessage("An error occurred during verification. Please try again.");
- } finally {
- setIsSubmitting(false);
- }
- };
+    }
+  };
+
+  const handleVerifyFace = async () => {
+    if (!selfieFile || !aadharFile) return;
+
+    setIsLoading(true);
+    setError(null);
+
+    const formData = new FormData();
+    formData.append("selfieFile", selfieFile);
+    formData.append("aadharFile", aadharFile);
+
+    try {
+      const res = await fetch("/api/kyc/verify-face", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setStep(4);
+      } else {
+        setError(data.error || "Verification failed");
+        setSelfieFile(null);
+        startCamera();
+      }
+    } catch (err) {
+      setError("Network error occurred");
+      setSelfieFile(null);
+      startCamera();
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const completeKyc = async () => {
+    // Update Profile to isVerified: true locally and in backend
+    try {
+      const role = localStorage.getItem('userRole');
+      const isBrand = role === 'brand';
+      
+      // Local
+      import("@/utils/storage").then(({ getItem, setItem }) => {
+        const key = isBrand ? "kaling_brand_profile" : "kaling_user_profile";
+        getItem<any>(key).then(existing => {
+          setItem(key, { ...(existing || {}), isVerified: true });
+        });
+      });
+
+      // API
+      await fetch("/api/user/complete-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          userId: localStorage.getItem("userId") || "temp-user-id",
+          isVerified: true 
+        })
+      });
+      
+      router.push(isBrand ? "/brand" : "/creator");
+    } catch (e) {
+      console.error(e);
+      router.push("/creator");
+    }
+  };
 
   return (
-  <div className="w-full max-w-md mx-auto h-full flex flex-col bg-[#f9fafb] overflow-hidden">
-  <div className="flex-1 flex flex-col overflow-y-auto overflow-x-hidden p-4 relative">
-  <div className="mt-8 mb-8 text-center w-full mx-auto shrink-0">
- <h2 className="text-2xl font-bold text-gray-900 tracking-tight mb-2">Identity Verification</h2>
- <p className="text-gray-500 text-sm">Complete KYC to unlock full access. Powered by High-Security AI.</p>
- </div>
+    <div className="min-h-screen bg-white font-sans flex flex-col items-center">
+      <div className="w-full max-w-md h-screen flex flex-col relative overflow-hidden bg-[#FAFAFA]">
+        
+        {/* Header */}
+        <div className="px-6 pt-8 pb-4 bg-white shadow-sm z-10 flex items-center justify-between sticky top-0">
+          <button onClick={() => router.back()} className="text-gray-400 hover:text-black transition">
+            <ArrowLeft className="w-6 h-6" />
+          </button>
+          <h1 className="text-[17px] font-black text-[#1a1a2e] tracking-tight">KYC VERIFICATION</h1>
+          <div className="w-6" /> {/* Spacer */}
+        </div>
 
- <div className="flex justify-center gap-3 mb-8">
- <div className={`w-8 h-2 rounded-full transition-colors ${step >= 1 ? 'bg-[#EF4823]' : 'bg-gray-200'}`}></div>
- <div className={`w-8 h-2 rounded-full transition-colors ${step >= 2 ? 'bg-[#EF4823]' : 'bg-gray-200'}`}></div>
- <div className={`w-8 h-2 rounded-full transition-colors ${step >= 3 ? 'bg-[#EF4823]' : 'bg-gray-200'}`}></div>
- </div>
+        <div className="flex-1 overflow-y-auto px-6 py-8">
+          
+          {/* Progress Bar */}
+          {step < 4 && (
+            <div className="flex gap-2 mb-8">
+              <div className={`h-1.5 flex-1 rounded-full ${step >= 1 ? "bg-[#EF4823]" : "bg-gray-200"}`} />
+              <div className={`h-1.5 flex-1 rounded-full ${step >= 2 ? "bg-[#EF4823]" : "bg-gray-200"}`} />
+              <div className={`h-1.5 flex-1 rounded-full ${step >= 3 ? "bg-[#EF4823]" : "bg-gray-200"}`} />
+            </div>
+          )}
 
- {step === 1 && (
- <div className="bg-white w-full mx-auto rounded-[32px] p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 flex flex-col min-h-[400px]">
- <div className="text-center mb-8">
- <ShieldCheck size={48} color="#EF4823" className="mx-auto mb-4" />
- <h3 className="text-xl font-bold text-gray-900">Legal Identity</h3>
- <p className="text-[13px] text-gray-500 mt-2">
- Please enter your name exactly as it appears on your Aadhar card.
- </p>
- </div>
- 
- <div className="flex flex-col gap-2 mb-auto">
- <label htmlFor="fullName" className="text-sm font-bold text-gray-700">Full Name (Exact as per Aadhar)</label>
- <input 
- type="text" 
- id="fullName"
- value={fullName}
- onChange={(e) => setFullName(e.target.value)}
- placeholder="e.g. Rahul Sharma"
- required 
- className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
- />
- </div>
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-[12px] mb-6 flex items-start gap-3 text-sm font-medium">
+              <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+              <p>{error}</p>
+            </div>
+          )}
 
- <button 
- className="mt-6 w-full p-4 bg-[#EF4823] text-white text-base font-bold rounded-2xl cursor-pointer transition-all hover:bg-[#d63d1c] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_15px_rgba(239,72,35,0.2)]" 
- onClick={handleNextStep}
- disabled={fullName.trim().length < 3}
- >
- Continue
- </button>
- </div>
- )}
+          {/* STEP 1: Name Input */}
+          {step === 1 && (
+            <div className="animate-in fade-in slide-in-from-right-4 duration-300">
+              <h2 className="text-[22px] font-black text-[#1a1a2e] mb-2 tracking-tight">What's your name?</h2>
+              <p className="text-[13px] text-gray-500 font-medium mb-6">Please enter your full name exactly as it appears on your Aadhar Card.</p>
+              
+              <div className="mb-6">
+                <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 block">Full Name (As per Aadhar)</label>
+                <input 
+                  type="text" 
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="e.g. Rahul Sharma"
+                  className="w-full bg-white border-2 border-gray-100 rounded-[16px] px-5 py-4 text-[15px] font-bold text-[#1a1a2e] outline-none focus:border-[#EF4823] transition-colors shadow-sm"
+                />
+              </div>
 
- {step === 2 && (
- <div className="bg-white w-full mx-auto rounded-[32px] p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 flex flex-col min-h-[400px]">
- <div className="text-center mb-6">
- <h3 className="text-xl font-bold text-gray-900">Upload Aadhar Card</h3>
- <p className="text-[13px] text-gray-500 mt-2">
- High-Security AI scan is active to catch false or tampered documents.
- </p>
- </div>
+              <button 
+                onClick={handleNextStep1}
+                className="w-full bg-[#1a1a2e] hover:bg-black text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(26,26,46,0.15)] mt-4"
+              >
+                CONTINUE
+              </button>
+            </div>
+          )}
 
- <div className="flex-1 flex flex-col mb-6">
- {aadharPreview ? (
- <>
- <div className="relative w-full aspect-[1.58] rounded-2xl border border-gray-200 mb-4 shadow-sm overflow-hidden">
- <Image src={aadharPreview} alt="Aadhar Preview" fill className="object-cover" />
- </div>
- <button className="w-full p-4 bg-orange-50 text-[#EF4823] text-base font-bold rounded-2xl cursor-pointer transition-colors hover:bg-orange-100" onClick={() => { setAadharImage(null); setAadharPreview(null); }}>
- Upload Different Image
- </button>
- </>
- ) : (
- <label className="flex-1 flex flex-col items-center justify-center bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl cursor-pointer transition-all hover:bg-orange-50 hover:border-orange-200 group p-6 text-center">
- <Upload size={32} color="#EF4823" className="mb-3 transition-transform group-hover:-translate-y-1" />
- <span className="font-bold text-gray-700 text-sm mb-1">Click to Upload Aadhar Front</span>
- <p className="text-xs text-gray-400">JPEG or PNG only</p>
- <input 
- type="file" 
- accept="image/jpeg, image/png" 
- onChange={handleAadharUpload}
- className="hidden"
- />
- </label>
- )}
- </div>
+          {/* STEP 2: Aadhar Upload */}
+          {step === 2 && (
+            <div className="animate-in fade-in slide-in-from-right-4 duration-300">
+              <h2 className="text-[22px] font-black text-[#1a1a2e] mb-2 tracking-tight">Upload Aadhar</h2>
+              <p className="text-[13px] text-gray-500 font-medium mb-8">We use secure OCR to extract and verify your Aadhar details. We do not store this image permanently.</p>
+              
+              <label className="border-2 border-dashed border-gray-200 bg-white hover:border-[#EF4823] hover:bg-orange-50 transition-colors rounded-[24px] p-8 flex flex-col items-center justify-center cursor-pointer shadow-sm min-h-[220px]">
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  className="hidden" 
+                  onChange={handleAadharUpload}
+                  disabled={isLoading}
+                />
+                
+                {isLoading ? (
+                  <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 border-4 border-[#EF4823] border-t-transparent rounded-full animate-spin mb-4" />
+                    <span className="text-sm font-bold text-[#1a1a2e]">Verifying Aadhar...</span>
+                    <span className="text-[11px] text-gray-400 font-medium mt-1 text-center">Scanning for 12-digit UIDAI number and your name</span>
+                  </div>
+                ) : (
+                  <>
+                    <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4 text-[#EF4823]">
+                      <UploadCloud className="w-6 h-6" />
+                    </div>
+                    <span className="text-[15px] font-bold text-[#1a1a2e] mb-1">Tap to Upload Photo</span>
+                    <span className="text-[12px] text-gray-400 font-medium">JPEG, PNG up to 5MB</span>
+                  </>
+                )}
+              </label>
+            </div>
+          )}
 
- <div className="flex gap-3 mt-auto">
- <button className="flex-[0.4] p-4 bg-orange-50 text-[#EF4823] text-base font-bold rounded-2xl cursor-pointer transition-colors hover:bg-orange-100" onClick={handlePrevStep}>Back</button>
- <button 
- className="flex-1 p-4 bg-[#EF4823] text-white text-base font-bold rounded-2xl cursor-pointer transition-all hover:bg-[#d63d1c] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_15px_rgba(239,72,35,0.2)]" 
- onClick={handleNextStep}
- disabled={!aadharImage}
- >
- Verify Aadhar
- </button>
- </div>
- </div>
- )}
+          {/* STEP 3: Selfie Capture */}
+          {step === 3 && (
+            <div className="animate-in fade-in slide-in-from-right-4 duration-300">
+              <h2 className="text-[22px] font-black text-[#1a1a2e] mb-2 tracking-tight">Selfie Verification</h2>
+              <p className="text-[13px] text-gray-500 font-medium mb-6">We'll compare your face with your Aadhar photo to verify your identity.</p>
+              
+              <div className="bg-white rounded-[24px] p-2 shadow-sm border border-gray-100 mb-6">
+                {!selfieFile ? (
+                  <div className="relative w-full aspect-[3/4] bg-black rounded-[20px] overflow-hidden flex items-center justify-center">
+                    <video 
+                      ref={videoRef} 
+                      autoPlay 
+                      playsInline 
+                      muted 
+                      className="absolute inset-0 w-full h-full object-cover transform -scale-x-100" 
+                    />
+                    
+                    {/* Face Guide Overlay */}
+                    <div className="absolute inset-0 border-[6px] border-black/30 rounded-[20px] pointer-events-none"></div>
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <div className="w-[60%] h-[50%] border-2 border-white/50 border-dashed rounded-full" />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="relative w-full aspect-[3/4] bg-gray-100 rounded-[20px] overflow-hidden">
+                    <img 
+                      src={URL.createObjectURL(selfieFile)} 
+                      alt="Selfie" 
+                      className="w-full h-full object-cover transform -scale-x-100" 
+                    />
+                  </div>
+                )}
+              </div>
+              
+              {/* Hidden Canvas for capturing */}
+              <canvas ref={canvasRef} className="hidden" />
 
- {step === 3 && (
- <div className="bg-white w-full mx-auto rounded-[32px] p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 flex flex-col min-h-[400px]">
- <div className="text-center mb-6">
- <h3 className="text-xl font-bold text-gray-900">Liveness Check</h3>
- <p className="text-[13px] text-gray-500 mt-2">
- We need a real-time photo to match with your Aadhar.
- </p>
- </div>
+              {!selfieFile ? (
+                <button 
+                  onClick={capturePhoto}
+                  disabled={!cameraActive}
+                  className="w-full bg-[#1a1a2e] hover:bg-black text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(26,26,46,0.15)] flex justify-center items-center gap-2"
+                >
+                  <Camera className="w-5 h-5" /> CAPTURE SELFIE
+                </button>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  <button 
+                    onClick={handleVerifyFace}
+                    disabled={isLoading}
+                    className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center disabled:opacity-70"
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        ANALYZING...
+                      </span>
+                    ) : "VERIFY MY IDENTITY"}
+                  </button>
+                  <button 
+                    onClick={() => { setSelfieFile(null); startCamera(); }}
+                    disabled={isLoading}
+                    className="w-full bg-white border-2 border-gray-200 hover:bg-gray-50 text-gray-600 font-bold py-3.5 rounded-[16px] transition-all disabled:opacity-50"
+                  >
+                    RETAKE SELFIE
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
 
- <div className="flex-1 flex flex-col mb-6">
- {selfiePreview ? (
- <>
- <div className="relative w-full aspect-[3/4] rounded-2xl border border-gray-200 mb-4 shadow-sm overflow-hidden">
- <Image src={selfiePreview} alt="Selfie" fill className="object-cover" />
- </div>
- <div className="flex items-center justify-center gap-2 text-emerald-500 font-bold mb-4 bg-emerald-50 py-2 rounded-lg">
- <CheckCircle size={20} /> Face Captured
- </div>
- <button className="w-full p-4 bg-orange-50 text-[#EF4823] text-base font-bold rounded-2xl cursor-pointer transition-colors hover:bg-orange-100" onClick={retakePhoto}>Retake Photo</button>
- </>
- ) : (
- <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden bg-black shadow-inner">
- <video 
- ref={videoRef} 
- autoPlay 
- playsInline 
- muted 
- className="w-full h-full object-cover"
- />
- <div className="absolute inset-0 border-[6px] border-[#EF4823]/30 rounded-2xl pointer-events-none z-10 m-4"></div>
- </div>
- )}
- </div>
-
- {/* Hidden canvas to process the image */}
- <canvas ref={canvasRef} className="hidden" />
-
- {errorMessage && (
- <div className="bg-red-50 text-red-500 p-3 rounded-xl text-[13px] text-center mb-4 font-medium border border-red-100">
- {errorMessage}
- </div>
- )}
-
- <div className="flex gap-3 mt-auto">
- <button className="flex-[0.4] p-4 bg-orange-50 text-[#EF4823] text-base font-bold rounded-2xl cursor-pointer transition-colors hover:bg-orange-100" onClick={handlePrevStep}>Back</button>
- {!selfieImage ? (
- <button 
- className="flex-1 p-4 bg-[#EF4823] text-white text-base font-bold rounded-2xl cursor-pointer transition-all hover:bg-[#d63d1c] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_15px_rgba(239,72,35,0.2)] flex items-center justify-center gap-2" 
- onClick={capturePhoto}
- disabled={!cameraActive}
- >
- <Camera size={18} />
- Capture Photo
- </button>
- ) : isVerifiedSuccess ? (
- <button 
- className="flex-1 p-4 bg-emerald-500 text-white text-base font-bold rounded-2xl flex items-center justify-center gap-2 shadow-[0_4px_15px_rgba(16,185,129,0.3)] transition-all" 
- disabled
- >
- <CheckCircle size={20} />
- Verified
- </button>
- ) : (
- <button 
- className="flex-1 p-4 bg-[#EF4823] text-white text-base font-bold rounded-2xl cursor-pointer transition-all hover:bg-[#d63d1c] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_15px_rgba(239,72,35,0.2)]" 
- onClick={handleSubmit}
- disabled={isSubmitting}
- >
- {isSubmitting ? 'Processing...' : 'Submit'}
- </button>
- )}
- </div>
- </div>
- )}
- </div>
-  </div>
+          {/* STEP 4: Success */}
+          {step === 4 && (
+            <div className="animate-in fade-in zoom-in duration-500 flex flex-col items-center text-center h-full justify-center pb-20">
+              <div className="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6 shadow-sm">
+                <CheckCircle2 className="w-12 h-12" />
+              </div>
+              <h2 className="text-[26px] font-black text-[#1a1a2e] mb-2 tracking-tight">Verified!</h2>
+              <p className="text-[14px] text-gray-500 font-medium mb-10 max-w-[280px]">Your identity has been successfully verified. You now have the official tick mark.</p>
+              
+              <button 
+                onClick={completeKyc}
+                className="w-full bg-[#1a1a2e] hover:bg-black text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(26,26,46,0.15)]"
+              >
+                GO TO DASHBOARD
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
-};
-
-export default KycVerificationPage;
+}
