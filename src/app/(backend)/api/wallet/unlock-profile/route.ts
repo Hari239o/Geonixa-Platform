@@ -3,11 +3,13 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
-    const { userId, targetProfileId } = await request.json();
+    const { userId, targetProfileId, unlockType } = await request.json();
 
     if (!userId || !targetProfileId) {
       return NextResponse.json({ success: false, error: "Missing required fields" }, { status: 400 });
     }
+
+    const cost = unlockType === 'permanent' ? 50 : 1;
 
     // 1. Fetch user to check credits
     const user = await prisma.user.findUnique({
@@ -19,25 +21,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "User not found" }, { status: 404 });
     }
 
-    if (user.credits < 1) {
-      return NextResponse.json({ success: false, error: "Insufficient credits. Please recharge your wallet." }, { status: 403 });
+    if (user.credits < cost) {
+      return NextResponse.json({ success: false, error: `Insufficient credits. You need ${cost} credits.` }, { status: 403 });
     }
 
-    // 2. Deduct 1 credit
+    // 2. Deduct credits
     await prisma.user.update({
       where: { id: userId },
       data: {
-        credits: user.credits - 1
+        credits: user.credits - cost
       }
     });
-
-    // 3. (Optional) Record the unlock event in a separate table if needed in the future.
-    // For now, we just deduct the credit and return success to let the client route to the profile.
 
     return NextResponse.json({ 
       success: true, 
       message: "Profile unlocked successfully",
-      remainingCredits: user.credits - 1 
+      remainingCredits: user.credits - cost,
+      unlockType: unlockType || 'once'
     });
 
   } catch (error: any) {

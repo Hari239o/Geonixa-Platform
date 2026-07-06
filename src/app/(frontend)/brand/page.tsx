@@ -97,31 +97,8 @@ export default function BrandHomeFeedPage() {
         
         {/* Fixed Header */}
         <div className="pt-4 px-5 pb-4 shrink-0 bg-white z-20">
-          <div className="flex justify-between items-center mb-6 mt-2">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-100 border border-gray-200">
-                 {brandProfile?.profilePic ? (
-                   <img src={brandProfile.profilePic} className="w-full h-full object-cover" alt="Brand Logo" />
-                 ) : (
-                   <div className="w-full h-full bg-[#EF4823] text-white flex items-center justify-center font-bold text-xl">
-                     {(brandProfile?.fullName || brandProfile?.name || session?.user?.name || "K")[0]?.toUpperCase()}
-                   </div>
-                 )}
-              </div>
-              <div className="flex flex-col">
-                <h1 className="text-gray-900 font-extrabold text-[18px] leading-tight">
-                  {brandProfile?.fullName || brandProfile?.name || session?.user?.name?.split(' ')[0] || "Kalinq Brand"}
-                </h1>
-                <span className="text-[#EF4823] text-[12px] font-bold capitalize">
-                  {brandProfile?.type || brandProfile?.brandType || "Brand"}
-                </span>
-              </div>
-            </div>
-            
-            <button className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center relative">
-              <Bell className="w-5 h-5 text-gray-600" />
-              <div className="absolute top-2.5 right-2.5 w-2 h-2 bg-[#EF4823] rounded-full border border-white"></div>
-            </button>
+          <div className="flex justify-center mb-6 mt-2 scale-125 origin-top">
+            <Logo showText={true} />
           </div>
 
           <div className="flex items-center gap-4 mb-6">
@@ -172,16 +149,21 @@ export default function BrandHomeFeedPage() {
           {creators.filter(creator => activeTab === "All" || creator.category === activeTab || creator.tags?.includes(activeTab)).map((creator) => (
             <div 
               key={creator.id} 
-              onClick={async () => {
-                setSelectedCreator(creator);
-                setShowUnlockModal(true);
-                try {
-                  await fetch('/api/creators/view', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: creator.id })
-                  });
-                } catch(e) {}
+              onClick={() => {
+                const unlocked = JSON.parse(localStorage.getItem('kaling_unlocked_profiles') || '[]');
+                if (unlocked.includes(creator.id)) {
+                  router.push(`/brand/portfolio/${creator.id}`);
+                } else {
+                  setSelectedCreator(creator);
+                  setShowUnlockModal(true);
+                  try {
+                    fetch('/api/creators/view', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ id: creator.id })
+                    });
+                  } catch(e) {}
+                }
               }}
               className="w-[335px] bg-white border border-gray-100 rounded-[24px] shadow-[0_8px_30px_rgba(0,0,0,0.04)] flex flex-col mx-auto overflow-hidden shrink-0 cursor-pointer hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:border-gray-200 transition-all active:scale-[0.98]"
             >
@@ -300,63 +282,108 @@ export default function BrandHomeFeedPage() {
               </div>
               <h2 className="text-[20px] font-black text-gray-800 mb-1 tracking-tight">Unlock Profile?</h2>
               <p className="text-[13px] text-gray-500 font-medium mb-6 leading-tight">
-                Unlock {selectedCreator.name}'s full profile for <span className="text-[#EF4823] font-bold">1 Credit</span>.
+                Unlock {selectedCreator.name}'s full profile.
               </p>
-
-              <button 
-                disabled={isUnlocking}
-                onClick={async () => {
-                  // Get userId from session
-                  const userId = (session?.user as any)?.id;
-                  
-                  if (!userId) {
-                    alert("Please log in to unlock profiles.");
-                    return;
-                  }
-
-                  setIsUnlocking(true);
-                  try {
-                    const res = await fetch('/api/wallet/unlock-profile', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ userId, targetProfileId: selectedCreator.id })
-                    });
-                    const data = await res.json();
-                    
-                    if (data.success) {
-                      await updateSession();
-                      alert(`Successfully unlocked! You have ${data.remainingCredits} credits remaining.`);
-                      setShowUnlockModal(false);
-                      // Navigate to the unlocked creator's actual profile page
-                      router.push(`/brand/portfolio/${selectedCreator.id}`);
-                    } else {
-                      if (data.error && data.error.toLowerCase().includes("credit")) {
-                        if (confirm("Insufficient credits! Would you like to go to your wallet to get more?")) {
-                          setShowUnlockModal(false);
-                          router.push('/brand/wallet');
-                        }
-                      } else {
-                        alert(data.error || "Failed to unlock profile");
-                      }
+              
+              <div className="flex flex-col gap-3 w-full">
+                <button 
+                  disabled={isUnlocking}
+                  onClick={async () => {
+                    const userId = (session?.user as any)?.id;
+                    if (!userId) {
+                      alert("Please log in to unlock profiles.");
+                      return;
                     }
-                  } catch (error) {
-                    console.error("Unlock error:", error);
-                    alert("Something went wrong");
-                  } finally {
-                    setIsUnlocking(false);
-                  }
-                }}
-                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)] disabled:opacity-50 flex justify-center"
-              >
-                {isUnlocking ? (
-                   <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                   </svg>
-                ) : (
-                  "UNLOCK WITH 1 CREDIT"
-                )}
-              </button>
+
+                    setIsUnlocking(true);
+                    try {
+                      const res = await fetch('/api/wallet/unlock-profile', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId, targetProfileId: selectedCreator.id, unlockType: 'once' })
+                      });
+                      const data = await res.json();
+                      
+                      if (data.success) {
+                        await updateSession();
+                        alert(`Successfully unlocked! You have ${data.remainingCredits} credits remaining.`);
+                        setShowUnlockModal(false);
+                        router.push(`/brand/portfolio/${selectedCreator.id}`);
+                      } else {
+                        if (data.error && data.error.toLowerCase().includes("credit")) {
+                          if (confirm("Insufficient credits! Would you like to go to your wallet to get more?")) {
+                            setShowUnlockModal(false);
+                            router.push('/brand/wallet');
+                          }
+                        } else {
+                          alert(data.error || "Failed to unlock");
+                        }
+                      }
+                    } catch(e) {
+                      console.error(e);
+                      alert("An error occurred");
+                    } finally {
+                      setIsUnlocking(false);
+                    }
+                  }}
+                  className="w-full bg-white border border-gray-200 text-gray-800 font-bold py-3.5 rounded-[16px] hover:bg-gray-50 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                >
+                  Unlock Once (-1 Credit)
+                </button>
+
+                <button 
+                  disabled={isUnlocking}
+                  onClick={async () => {
+                    const userId = (session?.user as any)?.id;
+                    if (!userId) {
+                      alert("Please log in to unlock profiles.");
+                      return;
+                    }
+
+                    setIsUnlocking(true);
+                    try {
+                      const res = await fetch('/api/wallet/unlock-profile', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId, targetProfileId: selectedCreator.id, unlockType: 'permanent' })
+                      });
+                      const data = await res.json();
+                      
+                      if (data.success) {
+                        await updateSession();
+                        
+                        // Save permanent unlock locally
+                        const unlocked = JSON.parse(localStorage.getItem('kaling_unlocked_profiles') || '[]');
+                        if (!unlocked.includes(selectedCreator.id)) {
+                          unlocked.push(selectedCreator.id);
+                          localStorage.setItem('kaling_unlocked_profiles', JSON.stringify(unlocked));
+                        }
+                        
+                        alert(`Permanently unlocked! You have ${data.remainingCredits} credits remaining.`);
+                        setShowUnlockModal(false);
+                        router.push(`/brand/portfolio/${selectedCreator.id}`);
+                      } else {
+                        if (data.error && data.error.toLowerCase().includes("credit")) {
+                          if (confirm("Insufficient credits! Would you like to go to your wallet to get more?")) {
+                            setShowUnlockModal(false);
+                            router.push('/brand/wallet');
+                          }
+                        } else {
+                          alert(data.error || "Failed to unlock");
+                        }
+                      }
+                    } catch(e) {
+                      console.error(e);
+                      alert("An error occurred");
+                    } finally {
+                      setIsUnlocking(false);
+                    }
+                  }}
+                  className="w-full bg-[#EF4823] text-white font-bold py-3.5 rounded-[16px] hover:bg-[#d63d1c] active:scale-[0.98] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex items-center justify-center gap-2"
+                >
+                  Permanent Unlock (-50 Credits)
+                </button>
+              </div>
             </div>
           </div>
         </div>
