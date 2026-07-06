@@ -6,15 +6,16 @@ import BottomNav from '@/components/shared/BottomNav';
 import { getItem } from '@/utils/storage';
 
 type Campaign = {
-  id: number;
-  timeAgo: string;
+  id: string;
+  timeAgo?: string;
   title: string;
-  subtitle: string;
-  budget: string;
-  dateRange: string;
-  description: string;
-  negotiatedAmount: string | null;
-  isNegotiated: boolean;
+  subtitle?: string;
+  budget?: string;
+  dateRange?: string;
+  description?: string;
+  negotiatedAmount?: string | null;
+  isNegotiated?: boolean;
+  createdAt?: string;
 };
 
 export default function CampaignPage() {
@@ -22,7 +23,7 @@ export default function CampaignPage() {
  const [activeTab, setActiveTab] = useState<'Private' | 'Public'>('Private');
  const [negotiateModalOpen, setNegotiateModalOpen] = useState(false);
  const [negotiateAmount, setNegotiateAmount] = useState('');
- const [selectedCampaignId, setSelectedCampaignId] = useState<number | null>(null);
+ const [selectedCampaignId, setSelectedCampaignId] = useState<string | null>(null);
  const [profilePic, setProfilePic] = useState<string>('/profile_pic.png');
 
  useEffect(() => {
@@ -37,43 +38,26 @@ export default function CampaignPage() {
    loadProfile();
  }, []);
 
- const [campaigns, setCampaigns] = useState<Campaign[]>([
- {
- id: 1,
- timeAgo: '25 minute ago',
- title: 'Glow With Radiance',
- subtitle: '- Skincare Brand Campaign',
- budget: '₹6000',
- dateRange: '04 September - 10 September 2025',
- description: "We're looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum.",
- negotiatedAmount: null,
- isNegotiated: false
- },
- {
- id: 2,
- timeAgo: '25 minute ago',
- title: 'Glow With Radiance',
- subtitle: '- Skincare Brand Campaign',
- budget: '₹6000',
- dateRange: '04 September - 10 September 2025',
- description: "We're looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum.",
- negotiatedAmount: null,
- isNegotiated: false
- },
- {
- id: 3,
- timeAgo: '25 minute ago',
- title: 'Glow With Radiance',
- subtitle: '- Skincare Brand Campaign',
- budget: '₹6000',
- dateRange: '04 September - 10 September 2025',
- description: "We're looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum.",
- negotiatedAmount: null,
- isNegotiated: false
- }
- ]);
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 
- const handleNegotiateClick = (id: number) => {
+  useEffect(() => {
+    async function fetchCampaigns() {
+      try {
+        const res = await fetch('/api/campaigns');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.campaigns) {
+            setCampaigns(data.campaigns);
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching campaigns:", err);
+      }
+    }
+    fetchCampaigns();
+  }, []);
+
+ const handleNegotiateClick = (id: string) => {
  setSelectedCampaignId(id);
  setNegotiateModalOpen(true);
  };
