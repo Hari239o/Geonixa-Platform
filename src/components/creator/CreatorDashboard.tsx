@@ -76,18 +76,30 @@ export default function CreatorDashboard() {
         if (res.ok) {
           const data = await res.json();
           if (data.profile) {
+            const mergedProfile = {
+              ...data.profile,
+              fullName: data.profile.fullName || '',
+              bio: data.profile.bio || '',
+              followers: data.profile.followers || '0',
+              viewership: data.profile.viewership || '0',
+              engagement: data.profile.engagement || '0',
+              projects: data.profile.projects || '0',
+              successRate: data.profile.successRate || '0%',
+              isVerified: data.profile.isVerified || false
+            };
+            
             setProfile(prev => ({ 
               ...prev, 
-              ...data.profile,
-              fullName: data.profile.fullName || prev.fullName,
-              bio: data.profile.bio || prev.bio,
-              followers: data.profile.followers || prev.followers || '0',
-              viewership: data.profile.viewership || prev.viewership || '0',
-              engagement: data.profile.engagement || prev.engagement || '0',
-              projects: data.profile.projects || prev.projects || '0',
-              successRate: data.profile.successRate || prev.successRate || '0%',
-              isVerified: data.profile.isVerified || false
+              ...mergedProfile
             }));
+            
+            // Cache to IndexedDB for next load
+            import('@/utils/storage').then(({ setItem, getItem }) => {
+              getItem<any>('kaling_user_profile').then(existing => {
+                setItem('kaling_user_profile', { ...(existing || {}), ...mergedProfile });
+              });
+            });
+
             if (!data.profile.isVerified && !localProfile?.isVerified) {
               setShowVerifyModal(true);
             }

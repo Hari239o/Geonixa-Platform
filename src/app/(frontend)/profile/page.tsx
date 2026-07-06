@@ -93,8 +93,7 @@ export default function ProfilePage() {
         if (res.ok) {
           const data = await res.json();
           if (data.profile) {
-            setProfile(prev => ({
-              ...prev,
+            const mergedProfile = {
               fullName: data.profile.fullName || prev.fullName,
               bio: data.profile.bio || prev.bio,
               profilePic: data.profile.profilePic || prev.profilePic,
@@ -107,10 +106,19 @@ export default function ProfilePage() {
               portfolioImages: (data.profile.portfolioImages && data.profile.portfolioImages.length > 0) ? data.profile.portfolioImages : prev.portfolioImages,
               budgets: (data.profile.budgets && data.profile.budgets.length > 0) ? data.profile.budgets : prev.budgets,
               isVerified: data.profile.isVerified || false
+            };
+
+            setProfile(prev => ({
+              ...prev,
+              ...mergedProfile
             }));
             
-            // If DB data was missing but we have local data, we could sync it up here
-            // But for now, just merging is fine.
+            // Cache to IndexedDB for next load
+            import('@/utils/storage').then(({ setItem, getItem }) => {
+              getItem<any>('kaling_user_profile').then(existing => {
+                setItem('kaling_user_profile', { ...(existing || {}), ...mergedProfile });
+              });
+            });
           }
         }
       } catch (error) {
