@@ -67,32 +67,36 @@ export default function BrandIndividualSetupPage() {
         {/* Profile Logo Section */}
         <div className="flex items-center gap-4 mb-8">
           <div className="relative">
-            {profilePic ? (
-              <div className="relative w-24 h-24 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
-                <img src={profilePic} alt="Profile" className="w-full h-full object-cover" />
-              </div>
-            ) : (
-              <div className="w-24 h-24 rounded-2xl bg-[#EF4823] flex items-center justify-center text-white font-bold text-2xl shadow-sm">
-                LOGO
-              </div>
+            <label className="cursor-pointer block relative">
+              {profilePic ? (
+                <div className="relative w-24 h-24 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                  <img src={profilePic} alt="Profile" className="w-full h-full object-cover" />
+                </div>
+              ) : (
+                <div className="w-24 h-24 rounded-2xl bg-[#EF4823] flex items-center justify-center text-white font-bold text-2xl shadow-sm hover:bg-[#d63d1c] transition-colors">
+                  LOGO
+                </div>
+              )}
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleImageUpload} 
+                className="hidden"
+              />
+            </label>
+            
+            {profilePic && (
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setProfilePic(null);
+                }}
+                className="absolute -bottom-2 -right-2 bg-white rounded-full p-1.5 shadow-md border border-gray-100 text-[#EF4823] hover:bg-gray-50 z-10"
+              >
+                <Trash2 size={14} />
+              </button>
             )}
-            <button 
-              onClick={() => setProfilePic(null)}
-              className="absolute -bottom-2 -right-2 bg-white rounded-full p-1.5 shadow-md border border-gray-100 text-[#EF4823] hover:bg-gray-50"
-            >
-              <Trash2 size={14} />
-            </button>
           </div>
-          
-          <label className="bg-[#EF4823] hover:bg-[#d63d1c] text-white px-5 py-2 rounded-xl text-sm font-bold cursor-pointer transition-colors active:scale-95 shadow-sm">
-            Change
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={handleImageUpload} 
-              className="hidden"
-            />
-          </label>
         </div>
 
         {/* Form Fields */}
