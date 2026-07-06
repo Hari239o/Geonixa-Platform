@@ -305,21 +305,35 @@ export default function ProfilePage() {
           <div className="grid grid-cols-2 gap-4 pb-16">
             {profile.portfolioImages && profile.portfolioImages.length > 0 ? (
               profile.portfolioImages.map((img, i) => (
-                <div key={i} className="aspect-square rounded-[24px] overflow-hidden relative">
+                <div key={i} className="aspect-square rounded-[24px] overflow-hidden relative group">
                   {(img.startsWith('data:video/') || img.match(/\.(mp4|webm|ogg|mov)$/i)) ? (
                     <video src={img} className="w-full h-full object-cover" controls playsInline />
                   ) : (
                     <img src={img} alt={`Portfolio ${i}`} className="w-full h-full object-cover" />
                   )}
+                  <button 
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      const updatedImages = profile.portfolioImages.filter((_, index) => index !== i);
+                      setProfile(prev => ({ ...prev, portfolioImages: updatedImages }));
+                      try {
+                        const parsed = await getItem('kaling_user_profile') || {};
+                        await setItem('kaling_user_profile', { ...parsed, portfolioImages: updatedImages });
+                      } catch (err) {
+                        console.error("Failed to remove image from IndexedDB", err);
+                      }
+                    }}
+                    className="absolute top-2 right-2 w-7 h-7 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-red-500 hover:bg-red-50 hover:text-red-600 transition-all shadow-sm z-10"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                  </button>
                 </div>
               ))
             ) : (
-              <>
-                <div className="aspect-square rounded-[24px] overflow-hidden relative bg-gray-100"></div>
-                <div className="aspect-square rounded-[24px] overflow-hidden relative bg-gray-100"></div>
-                <div className="aspect-square rounded-[24px] overflow-hidden relative bg-gray-100"></div>
-                <div className="aspect-square rounded-[24px] overflow-hidden relative bg-gray-100"></div>
-              </>
+              <div className="col-span-2 py-10 flex flex-col items-center justify-center text-gray-400">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mb-3 opacity-50"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                <p>No portfolio images yet.</p>
+              </div>
             )}
           </div>
         )}

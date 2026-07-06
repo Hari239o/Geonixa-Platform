@@ -202,6 +202,17 @@ export default function BrandCompanyDashboardPage() {
                     <div key={i} className="rounded-2xl overflow-hidden shadow-sm relative group aspect-[154/178]">
                       {/* Using standard img for data URLs to avoid next/image domain strictness */}
                       <img src={src} alt="Portfolio item" className="w-full h-full object-cover" />
+                      <button 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const updatedImages = portfolioImages.filter((_, index) => index !== i);
+                          setPortfolioImages(updatedImages);
+                          localStorage.setItem("kaling_company_portfolio", JSON.stringify(updatedImages));
+                        }}
+                        className="absolute top-2 right-2 w-7 h-7 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-red-500 hover:bg-red-50 hover:text-red-600 transition-all shadow-sm z-10"
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                      </button>
                     </div>
                   ))}
                 </div>
