@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Bell, BadgeCheck } from 'lucide-react';
+import { Bell, BadgeCheck, Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 import BottomNav from '../shared/BottomNav';
 import { getItem } from '@/utils/storage';
 
@@ -21,6 +21,13 @@ interface ProfileData {
  projects: string;
  successRate: string;
  isVerified?: boolean;
+ socials?: {
+   instagram?: string;
+   facebook?: string;
+   x?: string;
+   linkedin?: string;
+ };
+ budgets?: any[];
 }
 
 export default function CreatorDashboard() {
@@ -39,7 +46,9 @@ export default function CreatorDashboard() {
  engagement: '0',
  projects: '0',
  successRate: '0%',
- isVerified: false
+ isVerified: false,
+ socials: {},
+ budgets: []
  });
  const [showVerifyModal, setShowVerifyModal] = useState(false);
 
@@ -62,7 +71,9 @@ export default function CreatorDashboard() {
               engagement: parsed.engagement || '0',
               projects: parsed.projects || '0',
               successRate: parsed.successRate || '0%',
-              isVerified: parsed.isVerified || false
+              isVerified: parsed.isVerified || false,
+              socials: parsed.socials || {},
+              budgets: parsed.budgets || []
             }));
           }
         } catch (error) {
@@ -85,7 +96,14 @@ export default function CreatorDashboard() {
               engagement: data.profile.engagement || '0',
               projects: data.profile.projects || '0',
               successRate: data.profile.successRate || '0%',
-              isVerified: data.profile.isVerified || false
+              isVerified: data.profile.isVerified || false,
+              socials: data.profile.socials || localProfile?.socials || {
+                instagram: data.profile.instagram || '',
+                facebook: data.profile.facebook || '',
+                x: data.profile.x || '',
+                linkedin: data.profile.linkedin || ''
+              },
+              budgets: data.profile.budgets || localProfile?.budgets || []
             };
             
             setProfile(prev => ({ 
@@ -228,6 +246,50 @@ export default function CreatorDashboard() {
             <h3 className="text-[13px] font-bold text-[#1a1a2e] mb-2">About me</h3>
             <p className="text-sm text-gray-500 leading-relaxed">{profile.bio}</p>
           </div>
+
+          {/* On The Web */}
+          {(profile.socials?.instagram || profile.socials?.facebook || profile.socials?.x || profile.socials?.linkedin) && (
+            <div className="bg-white p-5 rounded-[18px] border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)] mb-6">
+              <h3 className="text-[13px] font-bold text-[#1a1a2e] mb-3">On the Web</h3>
+              <div className="flex gap-4">
+                {profile.socials?.instagram && (
+                  <a href={profile.socials.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center text-pink-500 hover:bg-pink-100 transition-colors">
+                    <Instagram size={18} />
+                  </a>
+                )}
+                {profile.socials?.facebook && (
+                  <a href={profile.socials.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-500 hover:bg-blue-100 transition-colors">
+                    <Facebook size={18} />
+                  </a>
+                )}
+                {profile.socials?.x && (
+                  <a href={profile.socials.x} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-800 hover:bg-gray-100 transition-colors">
+                    <Twitter size={18} />
+                  </a>
+                )}
+                {profile.socials?.linkedin && (
+                  <a href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-700 hover:bg-blue-100 transition-colors">
+                    <Linkedin size={18} />
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Budgets */}
+          {profile.budgets && profile.budgets.length > 0 && (
+            <div className="bg-white p-5 rounded-[18px] border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)] mb-6">
+              <h3 className="text-[13px] font-bold text-[#1a1a2e] mb-3">Budgets</h3>
+              <div className="flex flex-wrap gap-2">
+                {profile.budgets.map((budget: any, index: number) => (
+                  <div key={index} className="flex-1 min-w-[120px] bg-gray-50 border border-gray-100 rounded-xl p-3 flex flex-col items-center justify-center text-center">
+                    <span className="text-[11px] text-gray-500 font-medium mb-1">{budget.name}</span>
+                    <span className="text-sm font-extrabold text-primary-red">{budget.price}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {activeTab === 'Active' && (

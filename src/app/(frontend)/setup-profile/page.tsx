@@ -21,7 +21,13 @@ const SetupProfilePage = () => {
       customCategory: '',
       portfolioLink: '',
       instagramLink: '',
+      facebookLink: '',
+      twitterLink: '',
+      linkedinLink: '',
       followers: '',
+      viewership: '',
+      engagement: '',
+      pricePerReel: '',
       bio: '',
       creatorType: 'UGC'
     };
@@ -78,39 +84,45 @@ const SetupProfilePage = () => {
  }));
  };
 
- const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
- e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const basePrice = parseInt(formData.pricePerReel) || 0;
+  // Apply bulk discount: 10% off for 5 reels, 15% off for 10 reels
+  const price5Reels = Math.round((basePrice * 5) * 0.9);
+  const price10Reels = Math.round((basePrice * 10) * 0.85);
 
   const initialBudgets = formData.creatorType === 'UGC' ? [
-    { name: '1 Reel', price: '₹ xxx' },
-    { name: '5 Reels', price: '₹ xxx' },
-    { name: '10 Reels', price: '₹ xxx' },
+    { name: '1 Reel', price: `₹ ${basePrice || 'xxx'}` },
+    { name: '5 Reels', price: `₹ ${price5Reels || 'xxx'}` },
+    { name: '10 Reels', price: `₹ ${price10Reels || 'xxx'}` },
     { name: 'Custom', price: '₹ xxx' },
   ] : [
-    { name: 'Collab Reel', price: '₹ xxx' },
-    { name: 'YT Integration', price: '₹ xxx' },
-    { name: 'Timeline', price: '₹ xxx' },
+    { name: 'Collab Reel', price: `₹ ${basePrice || 'xxx'}` },
+    { name: 'YT Integration', price: `₹ ${Math.round(basePrice * 1.5) || 'xxx'}` },
+    { name: 'Timeline', price: `₹ ${Math.round(basePrice * 0.8) || 'xxx'}` },
     { name: 'Custom', price: '₹ xxx' },
   ];
 
- // Create profile object with initial stats
- const userProfile = {
- ...formData,
- category: formData.category === 'Others' ? formData.customCategory : formData.category,
- profilePic: profilePic, // data URL
- portfolioImages: portfolioImages,
- followers: formData.followers || '0',
- viewership: '0',
- engagement: '0',
- projects: '0',
- successRate: '0%',
- budgets: initialBudgets,
- socials: {
-   instagram: formData.instagramLink || '',
-   facebook: '',
-   x: ''
- }
- };
+  // Create profile object with initial stats
+  const userProfile = {
+  ...formData,
+  category: formData.category === 'Others' ? formData.customCategory : formData.category,
+  profilePic: profilePic, // data URL
+  portfolioImages: portfolioImages,
+  followers: formData.followers || '0',
+  viewership: formData.viewership || '0',
+  engagement: formData.engagement || '0',
+  projects: '0',
+  successRate: '0%',
+  budgets: initialBudgets,
+  socials: {
+    instagram: formData.instagramLink || '',
+    facebook: formData.facebookLink || '',
+    x: formData.twitterLink || '',
+    linkedin: formData.linkedinLink || ''
+  }
+  };
 
  // Clean up temp storage
  localStorage.removeItem('kaling_temp_form');
@@ -259,7 +271,7 @@ const SetupProfilePage = () => {
   )}
 
   <div className="flex flex-col gap-2">
-    <label htmlFor="instagramLink" className="text-sm font-bold text-primary-red">Instagram Profile Link</label>
+    <label htmlFor="instagramLink" className="text-sm font-bold text-primary-red">Instagram Profile Link (Optional)</label>
     <input 
       type="url" 
       id="instagramLink"
@@ -267,7 +279,45 @@ const SetupProfilePage = () => {
       placeholder="https://instagram.com/yourhandle"
       value={formData.instagramLink}
       onChange={handleInputChange}
-      required
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+    />
+  </div>
+
+  <div className="flex flex-col gap-2">
+    <label htmlFor="facebookLink" className="text-sm font-bold text-primary-red">Facebook Profile Link (Optional)</label>
+    <input 
+      type="url" 
+      id="facebookLink"
+      name="facebookLink" 
+      placeholder="https://facebook.com/yourhandle"
+      value={formData.facebookLink}
+      onChange={handleInputChange}
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+    />
+  </div>
+
+  <div className="flex flex-col gap-2">
+    <label htmlFor="twitterLink" className="text-sm font-bold text-primary-red">X (Twitter) Profile Link (Optional)</label>
+    <input 
+      type="url" 
+      id="twitterLink"
+      name="twitterLink" 
+      placeholder="https://x.com/yourhandle"
+      value={formData.twitterLink}
+      onChange={handleInputChange}
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+    />
+  </div>
+
+  <div className="flex flex-col gap-2">
+    <label htmlFor="linkedinLink" className="text-sm font-bold text-primary-red">LinkedIn Profile Link (Optional)</label>
+    <input 
+      type="url" 
+      id="linkedinLink"
+      name="linkedinLink" 
+      placeholder="https://linkedin.com/in/yourhandle"
+      value={formData.linkedinLink}
+      onChange={handleInputChange}
       className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
     />
   </div>
@@ -280,6 +330,48 @@ const SetupProfilePage = () => {
       name="followers" 
       placeholder="e.g. 10.5k"
       value={formData.followers}
+      onChange={handleInputChange}
+      required
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+    />
+  </div>
+
+  <div className="flex flex-col gap-2">
+    <label htmlFor="viewership" className="text-sm font-bold text-primary-red">Avg Viewership</label>
+    <input 
+      type="text" 
+      id="viewership"
+      name="viewership" 
+      placeholder="e.g. 50k"
+      value={formData.viewership}
+      onChange={handleInputChange}
+      required
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+    />
+  </div>
+
+  <div className="flex flex-col gap-2">
+    <label htmlFor="engagement" className="text-sm font-bold text-primary-red">Avg Engagement</label>
+    <input 
+      type="text" 
+      id="engagement"
+      name="engagement" 
+      placeholder="e.g. 12%"
+      value={formData.engagement}
+      onChange={handleInputChange}
+      required
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+    />
+  </div>
+
+  <div className="flex flex-col gap-2">
+    <label htmlFor="pricePerReel" className="text-sm font-bold text-primary-red">Base Price Per Reel (₹)</label>
+    <input 
+      type="number" 
+      id="pricePerReel"
+      name="pricePerReel" 
+      placeholder="e.g. 2000"
+      value={formData.pricePerReel}
       onChange={handleInputChange}
       required
       className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"

@@ -47,6 +47,8 @@ model CreatorProfile {
   facebook        String?
   instagram       String?
   x               String?
+  linkedin        String?
+  budgets         Json?
   teamMembers     String?
   brandType       String?
   

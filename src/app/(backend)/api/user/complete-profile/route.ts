@@ -73,6 +73,8 @@ export async function POST(req: Request) {
       const facebook = profileData.facebook || profileData.socials?.facebook || null;
       const instagram = profileData.instagram || profileData.socials?.instagram || null;
       const x = profileData.x || profileData.socials?.x || null;
+      const linkedin = profileData.linkedin || profileData.socials?.linkedin || null;
+      const budgets = profileData.budgets || null;
       
       try {
         // Build tags array
@@ -97,6 +99,8 @@ export async function POST(req: Request) {
             facebook: facebook !== undefined ? facebook : undefined,
             instagram: instagram !== undefined ? instagram : undefined,
             x: x !== undefined ? x : undefined,
+            linkedin: linkedin !== undefined ? linkedin : undefined,
+            budgets: budgets !== undefined ? budgets : undefined,
             teamMembers: profileData.teamMembers !== undefined ? profileData.teamMembers : undefined,
             brandType: profileData.brandType || profileData.type || undefined,
             followers: profileData.followers !== undefined ? profileData.followers : undefined,
@@ -119,6 +123,8 @@ export async function POST(req: Request) {
             facebook,
             instagram,
             x,
+            linkedin,
+            budgets,
             teamMembers: profileData.teamMembers || null,
             brandType: profileData.brandType || profileData.type || null,
             followers: profileData.followers || "0",
