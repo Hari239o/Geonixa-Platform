@@ -37,7 +37,7 @@ export default function PartnerSignupStep2OTP() {
 
       setIsSending(false);
       setCountdown(30);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       setError(err instanceof Error ? err.message : "Failed to send OTP. Try again.");
       setIsSending(false);
@@ -112,7 +112,7 @@ export default function PartnerSignupStep2OTP() {
         } else {
           router.push("/auth/signup/partner/account");
         }
-      } catch (err) {
+      } catch (err: any) {
         setError("Something went wrong. Please try again.");
         setLoading(false);
       }

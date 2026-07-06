@@ -57,7 +57,7 @@ export default function ProfileSettingsPage() {
       try {
         const url = await uploadFileToR2(file, 'public');
         setProfilePic(url);
-      } catch (err) {
+      } catch (err: any) {
         console.error("Upload failed", err);
         alert("Upload failed: " + (err.message || String(err)));
       }
@@ -91,7 +91,7 @@ export default function ProfileSettingsPage() {
       const uploadPromises = files.map(file => uploadFileToR2(file, 'public'));
       const urls = await Promise.all(uploadPromises);
       setPortfolioImages(prev => [...prev, ...urls]);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Portfolio upload failed", err);
       alert("Upload failed: " + (err.message || String(err)));
     }

@@ -39,7 +39,7 @@ const KycVerificationPage = () => {
         // Upload immediately to R2 private bucket
         const url = await uploadFileToR2(file, 'private');
         setAadharImage(url);
-      } catch (err) {
+      } catch (err: any) {
         console.error("Upload failed", err);
         alert("Failed to upload Aadhar. Please try again.");
       }
@@ -53,7 +53,7 @@ const KycVerificationPage = () => {
  videoRef.current.srcObject = stream;
  setCameraActive(true);
  }
- } catch (err) {
+ } catch (err: any) {
  console.error("Error accessing camera:", err);
  alert("Please allow camera access to complete verification.");
  }
@@ -85,7 +85,7 @@ const KycVerificationPage = () => {
             try {
               const url = await uploadFileToR2(file, 'private');
               setSelfieImage(url);
-            } catch (err) {
+            } catch (err: any) {
               console.error("Selfie upload failed", err);
               alert("Failed to upload selfie. Please try again.");
             }

@@ -38,7 +38,7 @@ export default function CreatorSignupStep2OTP() {
 
       setIsSending(false);
       setCountdown(30);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       setError(err instanceof Error ? err.message : "Failed to send OTP. Try again.");
       setIsSending(false);
@@ -117,7 +117,7 @@ export default function CreatorSignupStep2OTP() {
           // Authentication successful!
           router.push("/auth/signup/creator/social-links");
         }
-      } catch (err) {
+      } catch (err: any) {
         setError("Something went wrong. Please try again.");
         setLoading(false);
       }

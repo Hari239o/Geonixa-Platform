@@ -66,7 +66,7 @@ export default function BrandIndividualSetupPage() {
       try {
         const url = await uploadFileToR2(file, 'public')
         setProfilePic(url)
-      } catch (err) {
+      } catch (err: any) {
         console.error("Upload failed", err)
         alert("Upload failed: " + (err.message || String(err)))
       }

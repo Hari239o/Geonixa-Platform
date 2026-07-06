@@ -50,7 +50,7 @@ export default function CampaignPage() {
             setCampaigns(data.campaigns);
           }
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error("Error fetching campaigns:", err);
       }
     }
