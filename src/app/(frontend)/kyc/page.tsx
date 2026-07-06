@@ -144,7 +144,7 @@ const KycVerificationPage = () => {
         await setItem('kaling_brand_profile', profile);
         
         // Also update the backend in the background so it actually persists for real
-        fetch('/api/creators', {
+        fetch('/api/user/complete-profile', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...profile, role: "brand" })
@@ -158,7 +158,7 @@ const KycVerificationPage = () => {
         await setItem('kaling_user_profile', profile);
         
         // Update creator profile in the real backend
-        fetch('/api/creators', {
+        fetch('/api/user/complete-profile', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(profile)

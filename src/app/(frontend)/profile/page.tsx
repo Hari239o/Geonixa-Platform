@@ -199,7 +199,9 @@ export default function ProfilePage() {
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
               <h1 className="text-[26px] font-bold text-gray-600 tracking-tight">{profile.fullName}</h1>
-              <BadgeCheck className="text-[#EF4823] w-6 h-6 fill-[#EF4823] text-white" />
+              {profile.isVerified && (
+                <BadgeCheck className="text-[#EF4823] w-6 h-6 fill-[#EF4823] text-white" />
+              )}
             </div>
           </div>
         </div>
