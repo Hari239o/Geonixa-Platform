@@ -29,15 +29,24 @@ export default function BrandHomeFeedPage() {
   const [isUnlocking, setIsUnlocking] = useState(false)
   
   const [creators, setCreators] = useState<any[]>([])
+  const [brandProfile, setBrandProfile] = useState<any>(null)
 
   useEffect(() => {
-    // Check if the brand is verified
-    const savedBrand = localStorage.getItem("kaling_brand_profile")
+    // Check if the brand is verified and get their profile
+    const savedBrand = localStorage.getItem("kaling_brand_profile") || localStorage.getItem("kaling_company_profile")
     if (savedBrand) {
       try {
         const parsedBrand = JSON.parse(savedBrand)
         setIsVerified(parsedBrand.isVerified || false)
+        setBrandProfile(parsedBrand)
       } catch(e) {}
+    } else {
+      fetch('/api/user/complete-profile').then(res => res.json()).then(data => {
+        if (data.profile) {
+          setBrandProfile(data.profile)
+          setIsVerified(data.profile.isVerified || false)
+        }
+      }).catch(console.error)
     }
 
     // Fetch creators from the database
@@ -88,8 +97,31 @@ export default function BrandHomeFeedPage() {
         
         {/* Fixed Header */}
         <div className="pt-4 px-5 pb-4 shrink-0 bg-white z-20">
-          <div className="flex justify-center mb-4">
-            <Logo showText={true} />
+          <div className="flex justify-between items-center mb-6 mt-2">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-100 border border-gray-200">
+                 {brandProfile?.profilePic ? (
+                   <img src={brandProfile.profilePic} className="w-full h-full object-cover" alt="Brand Logo" />
+                 ) : (
+                   <div className="w-full h-full bg-[#EF4823] text-white flex items-center justify-center font-bold text-xl">
+                     {(brandProfile?.fullName || brandProfile?.name || session?.user?.name || "K")[0]?.toUpperCase()}
+                   </div>
+                 )}
+              </div>
+              <div className="flex flex-col">
+                <h1 className="text-gray-900 font-extrabold text-[18px] leading-tight">
+                  {brandProfile?.fullName || brandProfile?.name || session?.user?.name?.split(' ')[0] || "Kalinq Brand"}
+                </h1>
+                <span className="text-[#EF4823] text-[12px] font-bold capitalize">
+                  {brandProfile?.type || brandProfile?.brandType || "Brand"}
+                </span>
+              </div>
+            </div>
+            
+            <button className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center relative">
+              <Bell className="w-5 h-5 text-gray-600" />
+              <div className="absolute top-2.5 right-2.5 w-2 h-2 bg-[#EF4823] rounded-full border border-white"></div>
+            </button>
           </div>
 
           <div className="flex items-center gap-4 mb-6">

@@ -70,15 +70,15 @@ export default function BrandCompanyDashboardPage() {
         <div className="pt-5 px-6 pb-6 bg-white rounded-b-[40px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] z-10 shrink-0 relative">
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-4">
-              <div className="w-20 h-20 bg-[#EF4823] rounded-2xl flex items-center justify-center overflow-hidden relative shadow-md">
+              <div className="w-24 h-24 bg-[#EF4823] rounded-2xl flex items-center justify-center overflow-hidden relative shadow-md">
                 {profileData?.profilePic ? (
                   <img src={profileData.profilePic} alt="Brand Logo" className="w-full h-full object-cover" />
                 ) : (
-                  <span className="text-white font-black text-xl">LOGO</span>
+                  <span className="text-white font-black text-2xl">LOGO</span>
                 )}
               </div>
               <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
+                <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
                   {profileData?.fullName || "Lorem Ipsum"}
                 </h1>
                 {profileData?.isVerified && (

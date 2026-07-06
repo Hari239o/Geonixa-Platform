@@ -120,11 +120,11 @@ export default function BrandDashboardPage() {
         <div className="pt-5 px-6 pb-6 bg-white rounded-b-[40px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] z-10 shrink-0 relative">
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-4">
-              <label className="w-20 h-20 bg-[#EF4823] rounded-2xl flex items-center justify-center overflow-hidden relative shadow-md cursor-pointer group">
+              <label className="w-24 h-24 bg-[#EF4823] rounded-2xl flex items-center justify-center overflow-hidden relative shadow-md cursor-pointer group">
                 {profileData?.profilePic ? (
                   <img src={profileData.profilePic} alt="Brand Logo" className="w-full h-full object-cover group-hover:opacity-80 transition-opacity" />
                 ) : (
-                  <span className="text-white font-black text-xl group-hover:opacity-80 transition-opacity">LOGO</span>
+                  <span className="text-white font-black text-2xl group-hover:opacity-80 transition-opacity">LOGO</span>
                 )}
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
@@ -133,7 +133,7 @@ export default function BrandDashboardPage() {
               </label>
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
+                  <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
                     {profileData?.fullName || "Lorem Ipsum"}
                   </h1>
                   {profileData?.isVerified && (
