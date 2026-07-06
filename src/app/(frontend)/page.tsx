@@ -38,9 +38,9 @@ export default function WelcomeAndSplashScreen() {
               className="relative z-10 flex items-center justify-center min-h-[100dvh] w-full"
             >
               <img 
-                src="/profile.png" 
+                src="/kalinq-company-name-profile.png" 
                 alt="Kalinq Logo" 
-                className="w-48 sm:w-56 h-auto object-contain filter brightness-0 invert drop-shadow-md" 
+                className="w-48 sm:w-64 h-auto object-contain drop-shadow-md" 
               />
             </motion.div>
  ) : (
