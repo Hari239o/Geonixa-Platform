@@ -276,12 +276,12 @@ export default function ProfilePage() {
 
             {/* Budgets Card */}
             <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
-              <h3 className="text-[13px] font-bold text-gray-500 mb-4">Budgets</h3>
-              <div className="flex flex-col gap-4 text-[13px]">
+              <h3 className="text-[14px] font-bold text-[#1a1a2e] mb-4">Budgets</h3>
+              <div className="grid grid-cols-2 gap-3">
                 {profile.budgets.map((b, i) => (
-                  <div key={i} className="flex justify-between items-center">
-                    <span className="text-gray-500 font-medium">{b.name}</span>
-                    <span className="text-gray-400 font-medium">{b.price}</span>
+                  <div key={i} className="bg-gray-50 border border-gray-100 rounded-2xl p-4 flex flex-col items-center justify-center text-center">
+                    <span className="text-[12px] text-gray-500 font-medium mb-1.5">{b.name}</span>
+                    <span className="text-[15px] font-extrabold text-[#EF4823]">{b.price}</span>
                   </div>
                 ))}
               </div>

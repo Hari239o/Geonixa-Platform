@@ -249,20 +249,7 @@ export default function CreatorDashboard() {
 
           {/* On The Web section moved to Profile tab */}
 
-          {/* Budgets */}
-          {profile.budgets && profile.budgets.length > 0 && (
-            <div className="bg-white p-5 rounded-[18px] border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)] mb-6">
-              <h3 className="text-[13px] font-bold text-[#1a1a2e] mb-3">Budgets</h3>
-              <div className="flex flex-wrap gap-2">
-                {profile.budgets.map((budget: any, index: number) => (
-                  <div key={index} className="flex-1 min-w-[120px] bg-gray-50 border border-gray-100 rounded-xl p-3 flex flex-col items-center justify-center text-center">
-                    <span className="text-[11px] text-gray-500 font-medium mb-1">{budget.name}</span>
-                    <span className="text-sm font-extrabold text-primary-red">{budget.price}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* Budgets moved to Profile tab */}
         </div>
 
         {activeTab === 'Active' && (

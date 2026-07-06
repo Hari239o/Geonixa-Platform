@@ -223,20 +223,20 @@ export default function ProfileSettingsPage() {
           <div className="flex flex-col gap-4 mt-2">
             <label className="text-[13px] text-gray-500 font-medium">Budgets</label>
             {budgets.map((budget, index) => (
-              <div key={index} className="flex gap-4">
+              <div key={index} className="grid grid-cols-2 gap-4">
                 <input 
                   type="text" 
                   value={budget.name}
                   onChange={(e) => handleBudgetChange(index, 'name', e.target.value)}
                   placeholder="1 Reel"
-                  className="flex-1 bg-[#fcfcfd] border border-gray-100 rounded-2xl px-5 py-4 outline-none text-[13px] text-gray-500 font-medium placeholder-gray-400"
+                  className="w-full bg-[#fcfcfd] border border-gray-100 rounded-2xl px-5 py-4 outline-none text-[13px] text-gray-500 font-medium placeholder-gray-400 text-center"
                 />
                 <input 
                   type="text" 
                   value={budget.price}
                   onChange={(e) => handleBudgetChange(index, 'price', e.target.value)}
                   placeholder="₹ xxx"
-                  className="w-32 bg-[#fcfcfd] border border-gray-100 rounded-2xl px-5 py-4 outline-none text-[13px] text-gray-500 font-medium placeholder-gray-400 text-center"
+                  className="w-full bg-[#fcfcfd] border border-gray-100 rounded-2xl px-5 py-4 outline-none text-[13px] text-gray-500 font-medium placeholder-gray-400 text-center"
                 />
               </div>
             ))}
