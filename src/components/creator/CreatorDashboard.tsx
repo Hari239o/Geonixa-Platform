@@ -47,24 +47,54 @@ export default function CreatorDashboard() {
 
   useEffect(() => {
     async function loadProfile() {
+      try {
+        const res = await fetch('/api/user/complete-profile');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.profile) {
+            setProfile(prev => ({ 
+              ...prev, 
+              ...data.profile,
+              followers: data.profile.followers || '0',
+              viewership: data.profile.viewership || '0',
+              engagement: data.profile.engagement || '0',
+              projects: data.profile.projects || '0',
+              successRate: data.profile.successRate || '0%',
+              isVerified: data.profile.isVerified || false
+            }));
+            if (!data.profile.isVerified) {
+              setShowVerifyModal(true);
+            }
+            return; // Use DB data successfully
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch profile from DB:", error);
+      }
+
+      // Fallback to local storage
       if (typeof window !== 'undefined') {
-        const parsed = await getItem<any>('kaling_user_profile');
-        if (parsed) {
-          setProfile(prev => ({ 
-            ...prev, 
-            ...parsed,
-            followers: parsed.followers || '0',
-            viewership: parsed.viewership || '0',
-            engagement: parsed.engagement || '0',
-            projects: parsed.projects || '0',
-            successRate: parsed.successRate || '0%',
-            isVerified: parsed.isVerified || false
-          }));
-          if (!parsed.isVerified) {
+        try {
+          const parsed = await getItem<any>('kaling_user_profile');
+          if (parsed) {
+            setProfile(prev => ({ 
+              ...prev, 
+              ...parsed,
+              followers: parsed.followers || '0',
+              viewership: parsed.viewership || '0',
+              engagement: parsed.engagement || '0',
+              projects: parsed.projects || '0',
+              successRate: parsed.successRate || '0%',
+              isVerified: parsed.isVerified || false
+            }));
+            if (!parsed.isVerified) {
+              setShowVerifyModal(true);
+            }
+          } else {
             setShowVerifyModal(true);
           }
-        } else {
-          setShowVerifyModal(true);
+        } catch (error) {
+          console.error("Failed to load profile from local DB:", error);
         }
       }
     }
