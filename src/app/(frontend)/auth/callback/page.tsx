@@ -25,17 +25,17 @@ export default function AuthCallbackPage() {
         } else if (role === "creator") {
           router.replace(hasProfile ? "/creator" : "/setup-profile");
         } else {
-          router.replace("/dashboard");
+          router.replace("/auth/category-selection");
         }
       }, 500);
     }
   }, [status, session, router]);
 
   return (
-    <div className="w-full flex flex-col items-center justify-center min-h-[50vh]">
-      <Logo large={false} showText={false} className="mb-6 w-12 h-12 animate-pulse" />
-      <h1 className="text-2xl font-bold text-text-dark mb-2">Authenticating...</h1>
-      <p className="text-text-light text-sm">Please wait while we log you in.</p>
+    <div className="w-full max-w-sm bg-white p-10 rounded-[30px] shadow-2xl flex flex-col items-center justify-center min-h-[350px] mx-auto z-20 relative border border-gray-100">
+      <Logo large={false} showText={false} className="mb-6 w-14 h-14 animate-pulse" />
+      <h1 className="text-[22px] font-black tracking-tight text-text-dark mb-3">Authenticating...</h1>
+      <p className="text-text-light text-sm font-medium text-center leading-relaxed">Please wait while we securely set up your session.</p>
     </div>
   );
 }

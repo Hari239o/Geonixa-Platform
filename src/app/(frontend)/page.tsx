@@ -40,7 +40,7 @@ export default function WelcomeAndSplashScreen() {
   }, [status, session, router])
 
  return (
- <div className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-primary-red">
+ <div className="relative min-h-[100dvh] h-[100dvh] w-full flex flex-col justify-center items-center overflow-hidden bg-primary-red" style={{ backgroundColor: '#EF4823' }}>
  {/* Background shapes (Matches both screens in Figma) */}
  <KalinqBackground />
 

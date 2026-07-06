@@ -5,7 +5,7 @@ export default function DashboardPage() {
  return (
  <div className="w-full max-w-md mx-auto min-h-screen bg-[#F9FAFB] flex flex-col items-center p-8">
  <div className="w-full max-w-4xl bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col items-center">
- <div className="bg-primary-red p-4 rounded-xl mb-6 shadow-md">
+ <div className="p-4 mb-6">
  <Logo large={false} showText={true} />
  </div>
  
