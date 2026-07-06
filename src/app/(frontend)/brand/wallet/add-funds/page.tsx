@@ -3,12 +3,42 @@
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import { ChevronLeft, Building2, CreditCard, Check, ShieldCheck } from "lucide-react"
+import { useSession } from "next-auth/react"
 
 export default function AddFundsPage() {
   const router = useRouter()
   const [amount, setAmount] = useState("₹500")
   const [showSuccess, setShowSuccess] = useState(false)
   const [selectedMethod, setSelectedMethod] = useState("bank")
+  const [loading, setLoading] = useState(false)
+  
+  const { data: session, update: updateSession } = useSession()
+  const credits = (session?.user as any)?.credits || 0
+  const balance = credits * 10
+
+  const handleAddFunds = async () => {
+    try {
+      setLoading(true)
+      const numericAmount = parseInt(amount.replace(/\D/g, "")) || 0
+      
+      const res = await fetch("/api/wallet/add-dummy-funds", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amountInRupees: numericAmount })
+      })
+      
+      if (res.ok) {
+        await updateSession() // refresh session credits
+        setShowSuccess(true)
+      } else {
+        alert("Failed to add dummy funds.")
+      }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   if (showSuccess) {
     return (
@@ -63,7 +93,7 @@ export default function AddFundsPage() {
               className="w-full bg-white border border-[#EF4823] outline-none rounded-[14px] py-4 px-5 text-gray-500 font-medium text-[15px] mb-2"
             />
             <span className="text-gray-400 text-[12px] font-medium pl-1 mb-4">
-              Your balance : <span className="text-[#EF4823] font-bold">₹15,901</span>
+              Your balance : <span className="text-[#EF4823] font-bold">₹{balance.toLocaleString()}</span>
             </span>
 
             <div className="flex gap-3">
@@ -93,10 +123,11 @@ export default function AddFundsPage() {
 
           <div className="mt-auto pt-8 pb-8">
             <button 
-              onClick={() => setShowSuccess(true)}
-              className="w-full bg-[#EF4823] text-white font-bold text-[14px] py-4 rounded-[14px] shadow-[0_4px_14px_rgba(239,72,35,0.4)] hover:bg-[#e03d1b] transition-colors"
+              onClick={handleAddFunds}
+              disabled={loading}
+              className="w-full bg-[#EF4823] text-white font-bold text-[14px] py-4 rounded-[14px] shadow-[0_4px_14px_rgba(239,72,35,0.4)] hover:bg-[#e03d1b] transition-colors disabled:opacity-50"
             >
-              ADD FUNDS
+              {loading ? "PROCESSING..." : "ADD FUNDS"}
             </button>
           </div>
         </div>

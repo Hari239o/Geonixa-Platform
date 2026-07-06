@@ -153,6 +153,7 @@ export const authOptions: NextAuthOptions = {
             (session.user as any).role = dbUser.role;
             (session.user as any).phone = dbUser.phone;
             (session.user as any).profileCompleted = (dbUser as any).profileCompleted;
+            (session.user as any).credits = dbUser.credits;
           }
         }
       } catch (error: any) {

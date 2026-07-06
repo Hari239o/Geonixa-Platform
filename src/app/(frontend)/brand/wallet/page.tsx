@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Filter } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 import BottomNav from "@/components/brand/BottomNav"
 
 export default function BrandWalletPage() {
@@ -21,6 +22,11 @@ export default function BrandWalletPage() {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
+  const { data: session } = useSession()
+  const credits = (session?.user as any)?.credits || 0
+  // 10 rupees = 1 credit, so balance = credits * 10
+  const balance = credits * 10
+
   return (
     <div className="h-full bg-white font-sans flex justify-center overflow-hidden">
       <div className="w-full w-full bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
@@ -29,11 +35,11 @@ export default function BrandWalletPage() {
         <div className="pt-5 px-5 pb-6 shrink-0 z-20 bg-white">
           <div className="flex justify-between items-start mb-6">
             <div className="flex flex-col">
-              <h1 className="text-gray-800 font-extrabold text-[18px]">Hello Lorem,</h1>
+              <h1 className="text-gray-800 font-extrabold text-[18px]">Hello {session?.user?.name?.split(' ')[0] || 'Lorem'},</h1>
               <p className="text-gray-400 text-[13px] font-medium mb-0.5">Your available balance</p>
             </div>
             <div className="text-[#EF4823] font-extrabold text-[32px] tracking-tight leading-none mt-1">
-              ₹0
+              ₹{balance.toLocaleString()}
             </div>
           </div>
 
@@ -59,7 +65,7 @@ export default function BrandWalletPage() {
             </div>
             <div className="w-px h-[42px] bg-white/30"></div>
             <div className="flex flex-col items-center flex-1">
-              <span className="text-[18px] font-bold leading-none mb-1.5 mt-0.5">0</span>
+              <span className="text-[18px] font-bold leading-none mb-1.5 mt-0.5">{credits}</span>
               <span className="text-[11px] font-medium opacity-90">Credit Coins</span>
             </div>
           </div>
