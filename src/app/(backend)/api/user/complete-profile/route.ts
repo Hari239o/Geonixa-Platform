@@ -75,6 +75,15 @@ export async function POST(req: Request) {
       const x = profileData.x || profileData.socials?.x || null;
       
       try {
+        // Build tags array
+        let tags: string[] = [];
+        if (profileData.creatorType) {
+          tags.push(profileData.creatorType);
+        }
+        if (user.role === 'partner' || profileData.isPartner) {
+          tags.push('Partners');
+        }
+
         await prisma.creatorProfile.upsert({
           where: { userId: user.id },
           update: {
@@ -82,6 +91,7 @@ export async function POST(req: Request) {
             bio: profileData.bio !== undefined ? profileData.bio : undefined,
             profilePic: profileData.profilePic !== undefined ? profileData.profilePic : undefined,
             category: profileData.category !== undefined ? profileData.category : undefined,
+            tags: tags.length > 0 ? { set: tags } : undefined,
             website: profileData.website !== undefined ? profileData.website : undefined,
             phone: profileData.phone !== undefined ? profileData.phone : undefined,
             facebook: facebook !== undefined ? facebook : undefined,
@@ -103,6 +113,7 @@ export async function POST(req: Request) {
             bio: profileData.bio || null,
             profilePic: profileData.profilePic || null,
             category: profileData.category || null,
+            tags: tags,
             website: profileData.website || null,
             phone: profileData.phone || null,
             facebook,

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { Search, Bell, Send, Bookmark, BadgeCheck } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 import BottomNav from "@/components/brand/BottomNav"
 import { Logo } from "@/components/ui/Logo"
 
@@ -16,6 +17,7 @@ const VerifiedBadge = ({ className }: { className?: string }) => (
 
 export default function BrandHomeFeedPage() {
   const router = useRouter()
+  const { data: session, update: updateSession } = useSession()
   const [activeTab, setActiveTab] = useState("All")
   const [tabs, setTabs] = useState(["All", "UGC", "Influencer", "Partners"])
   const [isVerified, setIsVerified] = useState(false)
@@ -272,8 +274,8 @@ export default function BrandHomeFeedPage() {
               <button 
                 disabled={isUnlocking}
                 onClick={async () => {
-                  const savedUser = localStorage.getItem('kaling_user_profile');
-                  const userId = savedUser ? JSON.parse(savedUser).id : null;
+                  // Get userId from session
+                  const userId = (session?.user as any)?.id;
                   
                   if (!userId) {
                     alert("Please log in to unlock profiles.");
@@ -290,9 +292,11 @@ export default function BrandHomeFeedPage() {
                     const data = await res.json();
                     
                     if (data.success) {
+                      await updateSession();
                       alert(`Successfully unlocked! You have ${data.remainingCredits} credits remaining.`);
                       setShowUnlockModal(false);
-                      // TODO: Navigate to the unlocked creator's actual profile page
+                      // Navigate to the unlocked creator's actual profile page
+                      router.push(`/brand/portfolio/${selectedCreator.id}`);
                     } else {
                       if (data.error && data.error.toLowerCase().includes("credit")) {
                         if (confirm("Insufficient credits! Would you like to go to your wallet to get more?")) {
