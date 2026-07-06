@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 export async function POST(request: Request) {
   try {
-    const formData = await request.formData();
-    const file = formData.get('file') as File | null;
-    const type = formData.get('type') as string | null;
+    const body = await request.json();
+    const { filename, type, contentType } = body;
 
-    if (!file) {
-      return NextResponse.json({ success: false, error: 'No file provided' }, { status: 400 });
+    if (!filename || !contentType) {
+      return NextResponse.json({ success: false, error: 'Filename and contentType are required' }, { status: 400 });
     }
 
     if (type !== 'public' && type !== 'private') {
@@ -37,37 +37,35 @@ export async function POST(request: Request) {
       },
     });
 
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const fileExtension = file.name.split('.').pop();
+    const fileExtension = filename.split('.').pop() || '';
     const uniqueFilename = `${crypto.randomUUID()}.${fileExtension}`;
 
     const command = new PutObjectCommand({
       Bucket: bucketName,
       Key: uniqueFilename,
-      Body: buffer,
-      ContentType: file.type,
+      ContentType: contentType,
     });
 
-    await s3Client.send(command);
+    // Generate presigned URL for the client to upload to directly
+    const presignedUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
 
     let fileUrl = '';
     if (isPublic) {
       const publicUrlBase = process.env.R2_PUBLIC_URL || '';
       fileUrl = `${publicUrlBase}/${uniqueFilename}`;
     } else {
-      // For private, return an identifier or a securely signed URL later if needed.
-      // For now, returning the filename/key so the backend can fetch it later if necessary.
       fileUrl = `private://${uniqueFilename}`;
     }
 
     return NextResponse.json({
       success: true,
+      presignedUrl,
       url: fileUrl,
       filename: uniqueFilename
     });
 
   } catch (error: any) {
-    console.error('R2 Upload Error:', error);
+    console.error('R2 Presign Error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
