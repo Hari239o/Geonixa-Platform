@@ -136,8 +136,8 @@ export default function ProfilePage() {
       <div className="px-6 pt-4 pb-4 flex justify-end gap-4 z-10">
         <button className="p-2 text-[#808b98] hover:text-gray-900 transition-colors">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21.5 2.5L2 9.5l8 3.5 3.5 8 8-18.5z" />
-            <path d="M13.5 13L10 10.5" />
+            <path d="M21 3L3 10.5l7.5 3 3 7.5L21 3z" />
+            <path d="M10.5 13.5l4.5-4.5" />
           </svg>
         </button>
         <button 
