@@ -52,8 +52,8 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<'About' | 'Portfolio'>('About');
   const [showVerifyModal, setShowVerifyModal] = useState(false);
   const [profile, setProfile] = useState<UserProfile>({
-    fullName: 'Lorem Ipsum',
-    bio: 'Lorem Ipsum Dolor Sit Amet, Consectetur Adipi Scing Elit. Tortor Turpis Sodales Nulla Velit. Nunc Cum Vitae, Rhoncus Leo Id. Volutpat Duis Tinunt Pretium Luctus Pulvinar Pretium.',
+    fullName: '',
+    bio: '',
     profilePic: '/profile_pic.png',
     category: '',
     followers: '0',
@@ -73,7 +73,21 @@ export default function ProfilePage() {
 
   useEffect(() => {
     async function loadProfile() {
-      // 1. First fetch from database
+      // 1. Immediately try to load from local storage to prevent UI flashing
+      let localProfile = null;
+      if (typeof window !== 'undefined') {
+        try {
+          const parsed = await getItem<any>('kaling_user_profile');
+          if (parsed) {
+            localProfile = parsed;
+            setProfile(prev => ({ ...prev, ...parsed }));
+          }
+        } catch (error) {
+          console.error("Failed to load profile from local DB:", error);
+        }
+      }
+
+      // 2. Fetch fresh data from database
       try {
         const res = await fetch('/api/user/complete-profile');
         if (res.ok) {
@@ -85,50 +99,26 @@ export default function ProfilePage() {
               bio: data.profile.bio || prev.bio,
               profilePic: data.profile.profilePic || prev.profilePic,
               category: data.profile.category || prev.category,
-              followers: data.profile.followers || '0',
-              viewership: data.profile.viewership || '0',
-              engagement: data.profile.engagement || '0',
-              projects: data.profile.projects || '0',
-              successRate: data.profile.successRate || '0%',
-              portfolioImages: data.profile.portfolioImages || prev.portfolioImages,
+              followers: data.profile.followers || prev.followers || '0',
+              viewership: data.profile.viewership || prev.viewership || '0',
+              engagement: data.profile.engagement || prev.engagement || '0',
+              projects: data.profile.projects || prev.projects || '0',
+              successRate: data.profile.successRate || prev.successRate || '0%',
+              portfolioImages: (data.profile.portfolioImages && data.profile.portfolioImages.length > 0) ? data.profile.portfolioImages : prev.portfolioImages,
               budgets: (data.profile.budgets && data.profile.budgets.length > 0) ? data.profile.budgets : prev.budgets,
               isVerified: data.profile.isVerified || false
             }));
-            return; // Use DB data successfully
+            
+            // If DB data was missing but we have local data, we could sync it up here
+            // But for now, just merging is fine.
           }
         }
       } catch (error) {
         console.error("Failed to fetch profile from DB:", error);
       }
-
-      // 2. Fallback to local storage / indexedDB
-      if (typeof window !== 'undefined') {
-        try {
-          const parsed = await getItem<any>('kaling_user_profile');
-          if (parsed) {
-            setProfile(prev => ({
-              ...prev,
-              fullName: parsed.fullName || prev.fullName,
-              bio: parsed.bio || prev.bio,
-              profilePic: parsed.profilePic || prev.profilePic,
-              followers: parsed.followers || '0',
-              viewership: parsed.viewership || '0',
-              engagement: parsed.engagement || '0',
-              projects: parsed.projects || '0',
-              successRate: parsed.successRate || '0%',
-              portfolioImages: parsed.portfolioImages || prev.portfolioImages,
-              budgets: (parsed.budgets && parsed.budgets.length > 0) ? parsed.budgets : prev.budgets,
-              isVerified: parsed.isVerified || false
-            }));
-          }
-        } catch (error) {
-          console.error("Failed to load profile from local DB:", error);
-        }
-      }
     }
     loadProfile();
   }, []);
-
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files);

@@ -15,7 +15,7 @@ interface Budget {
 export default function ProfileSettingsPage() {
   const router = useRouter();
   const [profilePic, setProfilePic] = useState<string>('/profile_pic.png');
-  const [fullName, setFullName] = useState('Lorem ipsum');
+  const [fullName, setFullName] = useState('');
   const [bio, setBio] = useState('');
   
   const [budgets, setBudgets] = useState<Budget[]>([

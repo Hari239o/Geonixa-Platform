@@ -28,17 +28,17 @@ export default function CreatorDashboard() {
  const [activeTab, setActiveTab] = useState<'Active' | 'Completed'>('Active');
  const [mediaTab, setMediaTab] = useState<'photos' | 'videos'>('photos');
  const [profile, setProfile] = useState<ProfileData>({
- fullName: 'Hello Lorem',
- bio: 'Lorem ipsum dolor sit amet',
+ fullName: '',
+ bio: '',
  profilePic: defaultProfilePic,
  category: 'Category',
  portfolioLink: '',
  portfolioImages: [],
- followers: '44.5k',
- viewership: '22.8k',
- engagement: '38.9k',
- projects: '17',
- successRate: '92%',
+ followers: '0',
+ viewership: '0',
+ engagement: '0',
+ projects: '0',
+ successRate: '0%',
  isVerified: false
  });
  const [showVerifyModal, setShowVerifyModal] = useState(false);
@@ -47,36 +47,13 @@ export default function CreatorDashboard() {
 
   useEffect(() => {
     async function loadProfile() {
-      try {
-        const res = await fetch('/api/user/complete-profile');
-        if (res.ok) {
-          const data = await res.json();
-          if (data.profile) {
-            setProfile(prev => ({ 
-              ...prev, 
-              ...data.profile,
-              followers: data.profile.followers || '0',
-              viewership: data.profile.viewership || '0',
-              engagement: data.profile.engagement || '0',
-              projects: data.profile.projects || '0',
-              successRate: data.profile.successRate || '0%',
-              isVerified: data.profile.isVerified || false
-            }));
-            if (!data.profile.isVerified) {
-              setShowVerifyModal(true);
-            }
-            return; // Use DB data successfully
-          }
-        }
-      } catch (error) {
-        console.error("Failed to fetch profile from DB:", error);
-      }
-
-      // Fallback to local storage
+      // 1. First immediately load from local storage
+      let localProfile = null;
       if (typeof window !== 'undefined') {
         try {
           const parsed = await getItem<any>('kaling_user_profile');
           if (parsed) {
+            localProfile = parsed;
             setProfile(prev => ({ 
               ...prev, 
               ...parsed,
@@ -87,15 +64,37 @@ export default function CreatorDashboard() {
               successRate: parsed.successRate || '0%',
               isVerified: parsed.isVerified || false
             }));
-            if (!parsed.isVerified) {
-              setShowVerifyModal(true);
-            }
-          } else {
-            setShowVerifyModal(true);
           }
         } catch (error) {
           console.error("Failed to load profile from local DB:", error);
         }
+      }
+
+      // 2. Fetch fresh data from database
+      try {
+        const res = await fetch('/api/user/complete-profile');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.profile) {
+            setProfile(prev => ({ 
+              ...prev, 
+              ...data.profile,
+              fullName: data.profile.fullName || prev.fullName,
+              bio: data.profile.bio || prev.bio,
+              followers: data.profile.followers || prev.followers || '0',
+              viewership: data.profile.viewership || prev.viewership || '0',
+              engagement: data.profile.engagement || prev.engagement || '0',
+              projects: data.profile.projects || prev.projects || '0',
+              successRate: data.profile.successRate || prev.successRate || '0%',
+              isVerified: data.profile.isVerified || false
+            }));
+            if (!data.profile.isVerified && !localProfile?.isVerified) {
+              setShowVerifyModal(true);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch profile from DB:", error);
       }
     }
     
