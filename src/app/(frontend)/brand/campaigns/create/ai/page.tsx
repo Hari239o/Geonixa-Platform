@@ -32,7 +32,19 @@ export default function AICampaignCreatePage() {
           
           {/* Centered Watermark */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04]">
-            <img src="/kalinq-company-name-profile.png" alt="Kalinq Watermark" className="w-48 object-contain grayscale invert" />
+            <div 
+              className="w-[180px] h-[60px] bg-[#EF4823]"
+              style={{
+                WebkitMaskImage: 'url(/kalinq-company-name-profile.png)',
+                WebkitMaskSize: 'contain',
+                WebkitMaskRepeat: 'no-repeat',
+                WebkitMaskPosition: 'center',
+                maskImage: 'url(/kalinq-company-name-profile.png)',
+                maskSize: 'contain',
+                maskRepeat: 'no-repeat',
+                maskPosition: 'center'
+              }}
+            />
           </div>
 
           {/* Bottom Chat Section */}

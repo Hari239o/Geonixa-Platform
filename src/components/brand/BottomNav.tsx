@@ -19,13 +19,37 @@ export default function BottomNav() {
       setProfileUrl("/brand/company");
     }
 
-    try {
-      const saved = localStorage.getItem("kaling_brand_profile");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.profilePic) setLocalProfilePic(parsed.profilePic);
+    const loadProfile = async () => {
+      try {
+        const saved = localStorage.getItem("kaling_brand_profile");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed.profilePic) {
+            setLocalProfilePic(parsed.profilePic);
+            return;
+          }
+        }
+        
+        // If not in local storage, try fetching from server
+        const res = await fetch('/api/user/complete-profile');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.profile?.profilePic) {
+            setLocalProfilePic(data.profile.profilePic);
+            // Optionally update local storage so we don't have to fetch next time
+            if (saved) {
+              const parsed = JSON.parse(saved);
+              parsed.profilePic = data.profile.profilePic;
+              localStorage.setItem("kaling_brand_profile", JSON.stringify(parsed));
+            }
+          }
+        }
+      } catch (e) {
+        console.error("Failed to load profile pic in nav:", e);
       }
-    } catch (e) {}
+    };
+    
+    loadProfile();
   }, []);
 
   const navItems = [

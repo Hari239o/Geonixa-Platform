@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Search, Bell, MessageSquare, Plus, Wand2, Edit3, X, Lock, Globe } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
+import { Logo } from "@/components/ui/Logo"
 
 export default function CampaignDashboardPage() {
   const router = useRouter()
@@ -65,7 +66,7 @@ export default function CampaignDashboardPage() {
         {/* Fixed Header */}
         <div className="pt-4 px-5 pb-4 shrink-0 bg-white z-20">
           <div className="flex justify-center mb-4">
-            <img src="/kalinq-company-name-profile.png" alt="Kalinq Logo" className="w-[120px] h-auto object-contain invert" />
+            <Logo showText={true} />
           </div>
 
           <div className="flex items-center gap-3 mb-6">
