@@ -195,23 +195,18 @@ export default function BrandHomeFeedPage() {
               <div className="w-full h-[1px] bg-gray-50"></div>
 
               {/* Bottom Stats Section */}
-              <div className="flex items-center justify-between px-6 py-4 bg-gray-50/30">
+              <div className="flex items-center justify-between px-6 py-4 bg-[#FEF5ED] rounded-b-[24px]">
                 <div className="flex flex-col items-center">
-                  <span className="text-gray-900 font-bold text-[15px]">{creator.followers}</span>
-                  <span className="text-gray-400 text-[10px] font-medium mt-0.5">Followers</span>
+                  <span className="text-[#EF4823] font-bold text-[15px]">{creator.followers || "0"}</span>
+                  <span className="text-gray-500 text-[10px] font-medium mt-0.5">Followers</span>
                 </div>
-                <div className="w-[1px] h-8 bg-gray-200"></div>
                 <div className="flex flex-col items-center">
-                  <div className="flex items-center gap-1">
-                    <span className="text-gray-900 font-bold text-[15px]">{creator.rating}</span>
-                    <span className="text-yellow-400 text-[12px]">★</span>
-                  </div>
-                  <span className="text-gray-400 text-[10px] font-medium mt-0.5">Rating</span>
+                  <span className="text-[#EF4823] font-bold text-[15px]">{creator.viewership || "0"}</span>
+                  <span className="text-gray-500 text-[10px] font-medium mt-0.5">Avg Viewership</span>
                 </div>
-                <div className="w-[1px] h-8 bg-gray-200"></div>
                 <div className="flex flex-col items-center">
-                  <span className="text-gray-900 font-bold text-[15px]">{creator.campaigns}</span>
-                  <span className="text-gray-400 text-[10px] font-medium mt-0.5">Campaigns</span>
+                  <span className="text-[#EF4823] font-bold text-[15px]">{creator.engagement || "0"}</span>
+                  <span className="text-gray-500 text-[10px] font-medium mt-0.5">Avg Engagement</span>
                 </div>
               </div>
             </div>
@@ -295,12 +290,18 @@ export default function BrandHomeFeedPage() {
                     const data = await res.json();
                     
                     if (data.success) {
-                      // Navigate to creator profile
-                      // For now, since dynamic route might not be built, just alert success
                       alert(`Successfully unlocked! You have ${data.remainingCredits} credits remaining.`);
                       setShowUnlockModal(false);
+                      // TODO: Navigate to the unlocked creator's actual profile page
                     } else {
-                      alert(data.error || "Failed to unlock profile");
+                      if (data.error && data.error.toLowerCase().includes("credit")) {
+                        if (confirm("Insufficient credits! Would you like to go to your wallet to get more?")) {
+                          setShowUnlockModal(false);
+                          router.push('/brand/wallet');
+                        }
+                      } else {
+                        alert(data.error || "Failed to unlock profile");
+                      }
                     }
                   } catch (error) {
                     console.error("Unlock error:", error);

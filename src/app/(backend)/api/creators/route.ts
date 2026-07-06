@@ -4,6 +4,9 @@ import { prisma } from "@/lib/prisma";
 export async function GET() {
   try {
     const creators = await prisma.creatorProfile.findMany({
+      where: {
+        user: { role: 'creator' }
+      },
       include: {
         user: {
           select: { name: true }
