@@ -6,6 +6,8 @@ import Image from "next/image"
 import { Trash2, ChevronLeft } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 
+import { uploadFileToR2 } from "@/utils/upload"
+
 export default function BrandCompanySetupPage() {
   const router = useRouter()
   const [profilePic, setProfilePic] = useState<string | null>(null)
@@ -20,14 +22,16 @@ export default function BrandCompanySetupPage() {
     x: ""
   })
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setProfilePic(reader.result as string)
+      try {
+        const url = await uploadFileToR2(file, 'public')
+        setProfilePic(url)
+      } catch (err) {
+        console.error("Upload failed", err)
+        alert("Failed to upload image.")
       }
-      reader.readAsDataURL(file)
     }
   }
 

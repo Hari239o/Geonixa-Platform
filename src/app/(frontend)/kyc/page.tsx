@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { ShieldCheck, Upload, Camera, CheckCircle } from 'lucide-react';
+import { uploadFileToR2 } from '@/utils/upload';
 
 const KycVerificationPage = () => {
  const router = useRouter();
@@ -31,16 +32,19 @@ const KycVerificationPage = () => {
  setStep((prev) => prev - 1);
  };
 
- const handleAadharUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
- const file = e.target.files?.[0];
- if (file) {
- const reader = new FileReader();
- reader.onloadend = () => {
- setAadharImage(reader.result as string);
- };
- reader.readAsDataURL(file);
- }
- };
+  const handleAadharUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        // Upload immediately to R2 private bucket
+        const url = await uploadFileToR2(file, 'private');
+        setAadharImage(url);
+      } catch (err) {
+        console.error("Upload failed", err);
+        alert("Failed to upload Aadhar. Please try again.");
+      }
+    }
+  };
 
  const startCamera = async () => {
  try {
@@ -64,21 +68,33 @@ const KycVerificationPage = () => {
  }
  };
 
- const capturePhoto = () => {
- if (videoRef.current && canvasRef.current) {
- const video = videoRef.current;
- const canvas = canvasRef.current;
- canvas.width = video.videoWidth;
- canvas.height = video.videoHeight;
- const ctx = canvas.getContext('2d');
- if (ctx) {
- ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
- const imageDataUrl = canvas.toDataURL('image/jpeg');
- setSelfieImage(imageDataUrl);
- }
- stopCamera();
- }
- };
+  const capturePhoto = async () => {
+    if (videoRef.current && canvasRef.current) {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        // Convert to blob and upload to R2
+        canvas.toBlob(async (blob) => {
+          if (blob) {
+            const file = new File([blob], 'selfie.jpg', { type: 'image/jpeg' });
+            try {
+              const url = await uploadFileToR2(file, 'private');
+              setSelfieImage(url);
+            } catch (err) {
+              console.error("Selfie upload failed", err);
+              alert("Failed to upload selfie. Please try again.");
+            }
+          }
+        }, 'image/jpeg');
+      }
+      stopCamera();
+    }
+  };
 
  const retakePhoto = () => {
  setSelfieImage(null);

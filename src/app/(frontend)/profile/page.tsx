@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { BadgeCheck, Send, Settings2, Plus } from 'lucide-react';
 import { getItem, setItem } from '@/utils/storage';
 import { signOut } from 'next-auth/react';
+import { uploadFileToR2 } from '@/utils/upload';
 
 const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -95,34 +96,37 @@ export default function ProfilePage() {
     loadProfile();
   }, []);
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files);
     
-    files.forEach((file: File) => {
-      const reader = new FileReader();
-      reader.onloadend = async () => {
-        const result = reader.result as string;
-        let updatedProfile: any = null;
-        setProfile(prev => {
-          const newPortfolioImages = [...(prev.portfolioImages || []), result];
-          const newProfile = { ...prev, portfolioImages: newPortfolioImages };
-          updatedProfile = newProfile;
-          return newProfile;
-        });
+    try {
+      const uploadPromises = files.map(file => uploadFileToR2(file, 'public'));
+      const urls = await Promise.all(uploadPromises);
+      
+      let updatedProfile: any = null;
+      setProfile(prev => {
+        const newPortfolioImages = [...(prev.portfolioImages || []), ...urls];
+        const newProfile = { ...prev, portfolioImages: newPortfolioImages };
+        updatedProfile = newProfile;
+        return newProfile;
+      });
 
-        // Save to IndexedDB
-        if (typeof window !== 'undefined' && updatedProfile) {
-          try {
-            const parsed = await getItem<any>('kaling_user_profile') || {};
-            await setItem('kaling_user_profile', { ...parsed, portfolioImages: updatedProfile.portfolioImages });
-          } catch (error) {
-            console.error("Failed to save image to IndexedDB", error);
-          }
+      // Save to IndexedDB
+      if (typeof window !== 'undefined') {
+        try {
+          const parsed = await getItem<any>('kaling_user_profile') || {};
+          // Note: relying on the state update to be fast enough here is risky, 
+          // we use the urls directly for the DB update
+          await setItem('kaling_user_profile', { ...parsed, portfolioImages: [...(parsed.portfolioImages || []), ...urls] });
+        } catch (error) {
+          console.error("Failed to save image to IndexedDB", error);
         }
-      };
-      reader.readAsDataURL(file);
-    });
+      }
+    } catch (err) {
+      console.error("Failed to upload portfolio media", err);
+      alert("Failed to upload portfolio media");
+    }
   };
 
   return (

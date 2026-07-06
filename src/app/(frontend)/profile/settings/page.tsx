@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ChevronLeft, Trash2, Plus, LogOut } from 'lucide-react';
 import { getItem, setItem } from '@/utils/storage';
 import { signOut } from 'next-auth/react';
+import { uploadFileToR2 } from '@/utils/upload';
 
 interface Budget {
   name: string;
@@ -50,14 +51,16 @@ export default function ProfileSettingsPage() {
     loadSettings();
   }, []);
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfilePic(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      try {
+        const url = await uploadFileToR2(file, 'public');
+        setProfilePic(url);
+      } catch (err) {
+        console.error("Upload failed", err);
+        alert("Failed to upload image.");
+      }
     }
   };
 
@@ -79,16 +82,19 @@ export default function ProfileSettingsPage() {
     setPortfolioImages(prev => prev.filter((_, i) => i !== index));
   };
 
-  const handleAddPortfolioMedia = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAddPortfolioMedia = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files);
-    files.forEach(file => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPortfolioImages(prev => [...prev, reader.result as string]);
-      };
-      reader.readAsDataURL(file);
-    });
+    
+    // Upload all files in parallel
+    try {
+      const uploadPromises = files.map(file => uploadFileToR2(file, 'public'));
+      const urls = await Promise.all(uploadPromises);
+      setPortfolioImages(prev => [...prev, ...urls]);
+    } catch (err) {
+      console.error("Portfolio upload failed", err);
+      alert("Failed to upload some portfolio media.");
+    }
   };
 
   const handleSave = async () => {

@@ -6,6 +6,7 @@ import Image from "next/image"
 import { signOut } from "next-auth/react"
 import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe, Trash2, LogOut, Star, BadgeCheck } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
+import { uploadFileToR2 } from "@/utils/upload"
 
 export default function BrandDashboardPage() {
   const router = useRouter()
@@ -43,29 +44,21 @@ export default function BrandDashboardPage() {
     }
   }
 
-  const handlePortfolioUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePortfolioUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
     const files = Array.from(e.target.files)
     
-    const newImages: string[] = []
-    
-    // We use a counter to know when all files are read to save them together
-    let processed = 0
-    
-    files.forEach((file) => {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        newImages.push(reader.result as string)
-        processed++
-        
-        if (processed === files.length) {
-          const updatedImages = [...portfolioImages, ...newImages]
-          setPortfolioImages(updatedImages)
-          localStorage.setItem("kaling_brand_portfolio", JSON.stringify(updatedImages))
-        }
-      }
-      reader.readAsDataURL(file)
-    })
+    try {
+      const uploadPromises = files.map(file => uploadFileToR2(file, 'public'))
+      const urls = await Promise.all(uploadPromises)
+      
+      const updatedImages = [...portfolioImages, ...urls]
+      setPortfolioImages(updatedImages)
+      localStorage.setItem("kaling_brand_portfolio", JSON.stringify(updatedImages))
+    } catch (err) {
+      console.error("Portfolio upload failed", err)
+      alert("Failed to upload some portfolio media.")
+    }
   }
 
   const handleDeletePortfolioImage = (index: number) => {

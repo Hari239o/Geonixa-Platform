@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Camera, ImagePlus, X } from 'lucide-react';
 import { setItem } from '@/utils/storage';
+import { uploadFileToR2 } from '@/utils/upload';
 
 const SetupProfilePage = () => {
  const router = useRouter();
@@ -37,29 +38,33 @@ const SetupProfilePage = () => {
     });
   }, [router]);
 
- const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
- const file = e.target.files?.[0];
- if (file) {
- const reader = new FileReader();
- reader.onloadend = () => {
- setProfilePic(reader.result as string);
- };
- reader.readAsDataURL(file);
- }
- };
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        const url = await uploadFileToR2(file, 'public');
+        setProfilePic(url);
+      } catch (err) {
+        console.error("Upload failed", err);
+        alert("Failed to upload image.");
+      }
+    }
+  };
 
- const handlePortfolioImagesUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
- if (!e.target.files) return;
- const files = Array.from(e.target.files);
- 
- files.forEach((file: File) => {
- const reader = new FileReader();
- reader.onloadend = () => {
- setPortfolioImages((prev: string[]) => [...prev, reader.result as string]);
- };
- reader.readAsDataURL(file);
- });
- };
+
+  const handlePortfolioImagesUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const files = Array.from(e.target.files);
+    
+    try {
+      const uploadPromises = files.map(file => uploadFileToR2(file, 'public'));
+      const urls = await Promise.all(uploadPromises);
+      setPortfolioImages((prev: string[]) => [...prev, ...urls]);
+    } catch (err) {
+      console.error("Portfolio upload failed", err);
+      alert("Failed to upload some portfolio media.");
+    }
+  };
 
  const removePortfolioImage = (indexToRemove: number) => {
  setPortfolioImages(prev => prev.filter((_, index) => index !== indexToRemove));
