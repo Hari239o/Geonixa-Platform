@@ -95,6 +95,13 @@ function LoginContent() {
           <div className="flex-grow border-t border-[#F3F4F6]"></div>
         </div>
 
+        {/* Error Message */}
+        {loginError && (
+          <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-600 text-[12px] font-medium text-center">
+            {loginError}
+          </div>
+        )}
+
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmitCredentials)} className="space-y-4">
           {/* Phone Number Field */}

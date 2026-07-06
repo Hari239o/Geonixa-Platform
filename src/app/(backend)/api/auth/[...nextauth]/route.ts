@@ -40,15 +40,14 @@ export const authOptions: NextAuthOptions = {
 
         // TEMPORARY BYPASS FOR DEVELOPMENT
         if (credentials.otp === "1234" || credentials.otp === "123456") {
-           // Auto-save to database!
            let dbUser = await prisma.user.findUnique({ where: { phone: formattedPhone } });
            if (!dbUser) {
-             dbUser = await prisma.user.create({ data: { phone: formattedPhone, role: "user" } });
+             throw new Error("You don't have an account, go to signup");
            }
            return {
              id: dbUser.id,
-             name: "Kalinq User",
-             email: `${formattedPhone.replace('+', '')}@kalinq.auth`,
+             name: dbUser.name || "Kalinq User",
+             email: dbUser.email || `${formattedPhone.replace('+', '')}@kalinq.auth`,
            }
         }
 
@@ -59,10 +58,9 @@ export const authOptions: NextAuthOptions = {
           if (storedData && storedData.otp === credentials.otp && storedData.expiresAt > Date.now()) {
               store.delete(formattedPhone);
               
-              // Auto-save to database!
               let dbUser = await prisma.user.findUnique({ where: { phone: formattedPhone } });
               if (!dbUser) {
-                dbUser = await prisma.user.create({ data: { phone: formattedPhone, role: "user" } });
+                throw new Error("You don't have an account, go to signup");
               }
 
               return {
@@ -104,24 +102,30 @@ export const authOptions: NextAuthOptions = {
         if (account?.provider === 'google' && user.email) {
           const existingUser = await prisma.user.findFirst({ where: { email: user.email } });
           if (!existingUser) {
+            let isSignup = false;
             let roleToAssign = "user";
             try {
               const cookieStore = await cookies();
               const savedRole = cookieStore.get("signupRole")?.value;
               if (savedRole === "brand" || savedRole === "partner" || savedRole === "creator") {
                 roleToAssign = savedRole;
+                isSignup = true;
               }
             } catch (e) {
               console.error("Could not read cookies:", e);
             }
 
-            await prisma.user.create({
-              data: {
-                email: user.email,
-                name: user.name || "Google User",
-                role: roleToAssign
-              }
-            });
+            if (isSignup) {
+              await prisma.user.create({
+                data: {
+                  email: user.email,
+                  name: user.name || "Google User",
+                  role: roleToAssign
+                }
+              });
+            } else {
+              throw new Error("You don't have an account, go to signup");
+            }
           }
         }
         return true;
