@@ -262,7 +262,7 @@ export default function ProfilePage() {
               profile.portfolioImages.map((img, i) => (
                 <div key={i} className="aspect-square rounded-[24px] overflow-hidden relative">
                   {img.startsWith('data:video/') ? (
-                    <video src={img} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+                    <video src={img} className="w-full h-full object-cover" controls playsInline />
                   ) : (
                     <img src={img} alt={`Portfolio ${i}`} className="w-full h-full object-cover" />
                   )}
