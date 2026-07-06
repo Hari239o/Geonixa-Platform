@@ -58,7 +58,7 @@ export default function BrandCompanyDashboardPage() {
       localStorage.setItem("kaling_company_portfolio", JSON.stringify(updatedImages))
     } catch (err) {
       console.error("Portfolio upload failed", err)
-      alert("Failed to upload some portfolio media.")
+      alert("Upload failed: " + (err.message || String(err)))
     }
   }
 

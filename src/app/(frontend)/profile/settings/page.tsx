@@ -59,7 +59,7 @@ export default function ProfileSettingsPage() {
         setProfilePic(url);
       } catch (err) {
         console.error("Upload failed", err);
-        alert("Failed to upload image.");
+        alert("Upload failed: " + (err.message || String(err)));
       }
     }
   };
@@ -93,7 +93,7 @@ export default function ProfileSettingsPage() {
       setPortfolioImages(prev => [...prev, ...urls]);
     } catch (err) {
       console.error("Portfolio upload failed", err);
-      alert("Failed to upload some portfolio media.");
+      alert("Upload failed: " + (err.message || String(err)));
     }
   };
 

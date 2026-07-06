@@ -70,7 +70,7 @@ export default function BrandCompanySetupPage() {
         setProfilePic(url)
       } catch (err) {
         console.error("Upload failed", err)
-        alert("Failed to upload image.")
+        alert("Upload failed: " + (err.message || String(err)))
       }
     }
   }
