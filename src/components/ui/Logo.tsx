@@ -11,7 +11,7 @@ export function Logo({ className, showText = true, large = false }: LogoProps) {
   return (
     <div className={cn("flex flex-row items-center justify-center", className)}>
       <img 
-        src={showText ? "/profile.png" : "/logo.png"} 
+        src={showText ? "/kalinq-company-name-profile.png" : "/logo.png"} 
         alt="Kalinq Logo" 
         className={cn(
           "object-contain", 

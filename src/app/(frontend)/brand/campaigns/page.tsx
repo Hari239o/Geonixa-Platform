@@ -65,7 +65,7 @@ export default function CampaignDashboardPage() {
         {/* Fixed Header */}
         <div className="pt-4 px-5 pb-4 shrink-0 bg-white z-20">
           <div className="flex justify-center mb-4">
-            <img src="/profile.png" alt="Kalinq Logo" className="w-[120px] h-auto object-contain" />
+            <img src="/kalinq-company-name-profile.png" alt="Kalinq Logo" className="w-[120px] h-auto object-contain" />
           </div>
 
           <div className="flex items-center gap-3 mb-6">

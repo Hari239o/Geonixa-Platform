@@ -284,7 +284,7 @@ export default function ExpertsPartnersPage() {
         {view === "main" && (
           <div className="pt-6 px-5 pb-8 shrink-0 bg-white z-20 flex items-center justify-center">
             <img 
-              src="/profile.png" 
+              src="/kalinq-company-name-profile.png" 
               alt="Kalinq Logo" 
               className="object-contain w-[142px] h-[70px]" 
             />

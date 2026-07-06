@@ -32,7 +32,7 @@ export default function AICampaignCreatePage() {
           
           {/* Centered Watermark */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04]">
-            <img src="/profile.png" alt="Kalinq Watermark" className="w-48 object-contain grayscale" />
+            <img src="/kalinq-company-name-profile.png" alt="Kalinq Watermark" className="w-48 object-contain grayscale" />
           </div>
 
           {/* Bottom Chat Section */}
