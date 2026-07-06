@@ -57,6 +57,8 @@ export default function ProfilePage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'About' | 'Portfolio'>('About');
   const [showVerifyModal, setShowVerifyModal] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
   const [profile, setProfile] = useState<UserProfile>({
     fullName: '',
     bio: '',
@@ -139,12 +141,18 @@ export default function ProfilePage() {
     }
     loadProfile();
   }, []);
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
     const files = Array.from(e.target.files);
-    
+    setSelectedFiles(files);
+    e.target.value = ''; // Reset input so same file can be selected again
+  };
+
+  const confirmUpload = async () => {
+    if (selectedFiles.length === 0) return;
+    setIsUploading(true);
     try {
-      const uploadPromises = files.map(file => uploadFileToR2(file, 'public'));
+      const uploadPromises = selectedFiles.map(file => uploadFileToR2(file, 'public'));
       const urls = await Promise.all(uploadPromises);
       
       let updatedProfile: any = null;
@@ -159,16 +167,17 @@ export default function ProfilePage() {
       if (typeof window !== 'undefined') {
         try {
           const parsed = await getItem<any>('kaling_user_profile') || {};
-          // Note: relying on the state update to be fast enough here is risky, 
-          // we use the urls directly for the DB update
           await setItem('kaling_user_profile', { ...parsed, portfolioImages: [...(parsed.portfolioImages || []), ...urls] });
         } catch (error) {
           console.error("Failed to save image to IndexedDB", error);
         }
       }
+      setSelectedFiles([]); // clear after successful upload
     } catch (err: any) {
       console.error("Failed to upload portfolio media", err);
       alert("Upload failed: " + (err.message || String(err)));
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -439,6 +448,68 @@ export default function ProfilePage() {
                 onClick={() => router.push('/kyc')}
               >
                 VERIFY
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Upload Confirmation Modal */}
+      {selectedFiles.length > 0 && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center px-4 bg-black/60 backdrop-blur-sm animate-in fade-in zoom-in duration-200">
+          <div className="bg-white w-full max-w-[320px] rounded-[24px] overflow-hidden relative shadow-2xl flex flex-col">
+            
+            {/* Header */}
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+              <h3 className="font-bold text-gray-800">New Post</h3>
+              <button 
+                onClick={() => setSelectedFiles([])}
+                className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-gray-400 hover:text-gray-600 shadow-sm border border-gray-100"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Preview Area */}
+            <div className="p-4 flex flex-col items-center justify-center bg-gray-100 min-h-[200px] max-h-[300px] overflow-hidden relative">
+              {selectedFiles[0].type.startsWith('video/') ? (
+                <video 
+                  src={URL.createObjectURL(selectedFiles[0])} 
+                  className="w-full h-full object-contain" 
+                  controls 
+                />
+              ) : (
+                <img 
+                  src={URL.createObjectURL(selectedFiles[0])} 
+                  alt="Preview" 
+                  className="w-full h-full object-contain" 
+                />
+              )}
+              {selectedFiles.length > 1 && (
+                <div className="absolute bottom-3 right-3 bg-black/60 text-white text-[11px] font-bold px-2 py-1 rounded-md backdrop-blur-md">
+                  +{selectedFiles.length - 1} more
+                </div>
+              )}
+            </div>
+
+            {/* Actions */}
+            <div className="p-5 flex flex-col gap-3 bg-white">
+              <p className="text-[13px] text-gray-500 font-medium text-center mb-1">
+                Ready to add {selectedFiles.length} item{selectedFiles.length > 1 ? 's' : ''} to your portfolio?
+              </p>
+              <button 
+                onClick={confirmUpload}
+                disabled={isUploading}
+                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-all shadow-[0_4px_14px_rgba(239,72,35,0.25)] flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isUploading ? (
+                  <span className="flex items-center gap-2">
+                    <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    POSTING...
+                  </span>
+                ) : "POST"}
               </button>
             </div>
           </div>
