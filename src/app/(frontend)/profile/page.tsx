@@ -45,6 +45,12 @@ interface UserProfile {
   portfolioImages: string[];
   budgets: { name: string; price: string }[];
   isVerified?: boolean;
+  socials?: {
+    instagram?: string;
+    facebook?: string;
+    x?: string;
+    linkedin?: string;
+  };
 }
 
 export default function ProfilePage() {
@@ -68,7 +74,8 @@ export default function ProfilePage() {
       { name: '10 Reels', price: '₹ xxx' },
       { name: 'Custom', price: '₹ xxx' },
     ],
-    isVerified: false
+    isVerified: false,
+    socials: {}
   });
 
   useEffect(() => {
@@ -106,7 +113,13 @@ export default function ProfilePage() {
                 successRate: data.profile.successRate || prev.successRate || '0%',
                 portfolioImages: (data.profile.portfolioImages && data.profile.portfolioImages.length > 0) ? data.profile.portfolioImages : prev.portfolioImages,
                 budgets: (data.profile.budgets && data.profile.budgets.length > 0) ? data.profile.budgets : prev.budgets,
-                isVerified: data.profile.isVerified || false
+                isVerified: data.profile.isVerified || false,
+                socials: data.profile.socials || localProfile?.socials || {
+                  instagram: data.profile.instagram || '',
+                  facebook: data.profile.facebook || '',
+                  x: data.profile.x || '',
+                  linkedin: data.profile.linkedin || ''
+                }
               };
               
               // Cache to IndexedDB for next load
@@ -293,10 +306,38 @@ export default function ProfilePage() {
             <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
               <h3 className="text-[13px] font-bold text-gray-500 mb-5">On The Web</h3>
               <div className="flex gap-4">
-                <div className="w-9 h-9 rounded-full bg-[#8c919c] flex items-center justify-center text-white"><LinkedinIcon size={16} /></div>
-                <div className="w-9 h-9 rounded-full bg-[#8c919c] flex items-center justify-center text-white"><TwitterIcon size={16} /></div>
-                <div className="w-9 h-9 rounded-full bg-[#8c919c] flex items-center justify-center text-white"><FacebookIcon size={16} /></div>
-                <div className="w-9 h-9 rounded-full bg-[#8c919c] flex items-center justify-center text-white"><InstagramIcon size={16} /></div>
+                <a 
+                  href={profile.socials?.instagram ? profile.socials.instagram : '#'} 
+                  target={profile.socials?.instagram ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${profile.socials?.instagram ? 'bg-pink-50 text-pink-500 hover:bg-pink-100' : 'bg-[#8c919c] text-white'}`}
+                >
+                  <InstagramIcon size={18} />
+                </a>
+                <a 
+                  href={profile.socials?.facebook ? profile.socials.facebook : '#'} 
+                  target={profile.socials?.facebook ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${profile.socials?.facebook ? 'bg-blue-50 text-blue-500 hover:bg-blue-100' : 'bg-[#8c919c] text-white'}`}
+                >
+                  <FacebookIcon size={18} />
+                </a>
+                <a 
+                  href={profile.socials?.x ? profile.socials.x : '#'} 
+                  target={profile.socials?.x ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${profile.socials?.x ? 'bg-gray-50 text-gray-800 hover:bg-gray-100' : 'bg-[#8c919c] text-white'}`}
+                >
+                  <TwitterIcon size={18} />
+                </a>
+                <a 
+                  href={profile.socials?.linkedin ? profile.socials.linkedin : '#'} 
+                  target={profile.socials?.linkedin ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${profile.socials?.linkedin ? 'bg-blue-50 text-blue-700 hover:bg-blue-100' : 'bg-[#8c919c] text-white'}`}
+                >
+                  <LinkedinIcon size={18} />
+                </a>
               </div>
             </div>
           </div>
