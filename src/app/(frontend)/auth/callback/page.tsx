@@ -16,28 +16,33 @@ export default function AuthCallbackPage() {
       // Small delay for smooth UX
       setTimeout(() => {
         const role = (session.user as any).role || "user";
-        const hasProfile = (session.user as any).profileCompleted === true;
+        let hasProfile = (session.user as any).profileCompleted === true;
         
         if (role === "brand") {
+          let brandType = "individual";
+          try {
+            const profile = localStorage.getItem("kaling_brand_profile");
+            if (profile) {
+              hasProfile = true;
+              const parsed = JSON.parse(profile);
+              if (parsed.type === "company") {
+                brandType = "company";
+              }
+            }
+          } catch (e) {}
+
           if (!hasProfile) {
             router.replace("/auth/brand-setup");
           } else {
-            let brandType = "individual";
-            try {
-              const profile = localStorage.getItem("kaling_brand_profile");
-              if (profile) {
-                const parsed = JSON.parse(profile);
-                if (parsed.type === "company") {
-                  brandType = "company";
-                }
-              }
-            } catch (e) {}
-            
             router.replace(brandType === "company" ? "/brand/company" : "/brand");
           }
         } else if (role === "partner") {
           router.replace(hasProfile ? "/partner" : "/partner/setup-profile");
         } else if (role === "creator") {
+          // If hasProfile is false but they have a local session, bypass it
+          const localProfile = localStorage.getItem("kaling_user_profile") || typeof window !== 'undefined' && window.indexedDB; 
+          // We can't synchronously check indexedDB here, but if the backend says no profile, we just send to setup.
+          // Setup page will redirect if it finds indexedDB.
           router.replace(hasProfile ? "/creator" : "/setup-profile");
         } else {
           router.replace("/auth/category-selection");

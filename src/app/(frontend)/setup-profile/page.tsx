@@ -26,6 +26,17 @@ const SetupProfilePage = () => {
     };
   });
 
+  // Check if profile was already completed
+  React.useEffect(() => {
+    import('@/utils/storage').then(({ getItem }) => {
+      getItem('kaling_user_profile').then(profile => {
+        if (profile) {
+          router.replace('/creator');
+        }
+      }).catch(e => console.error(e));
+    });
+  }, [router]);
+
  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
  const file = e.target.files?.[0];
  if (file) {
@@ -99,24 +110,29 @@ const SetupProfilePage = () => {
  // Clean up temp storage
  localStorage.removeItem('kaling_temp_form');
 
-   // Save to indexedDB for persistence
-   try {
-     await setItem('kaling_user_profile', userProfile);
-     
-     // Mark profile as completed in the database and save the data
-     await fetch("/api/user/complete-profile", { 
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json"
-       },
-       body: JSON.stringify(userProfile)
-     });
-   } catch (error) {
-     console.error("Failed to save profile:", error);
-   }
+    // Save to indexedDB for persistence
+    try {
+      await setItem('kaling_user_profile', userProfile);
+      
+      // Mark profile as completed in the database and save the data
+      const res = await fetch("/api/user/complete-profile", { 
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userProfile)
+      });
+      
+      if (!res.ok) {
+        console.error("Failed to save profile to server:", await res.text());
+        // We still continue to local dashboard if server fails, as they can retry later
+      }
+    } catch (error) {
+      console.error("Failed to save profile:", error);
+    }
 
- // Redirect to creators dashboard
- router.push('/creator');
+  // Redirect to creators dashboard
+  router.replace('/creator');
  };
 
  const isFormValid = () => {

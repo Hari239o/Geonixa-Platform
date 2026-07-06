@@ -35,36 +35,53 @@ export async function POST(req: Request) {
 
     // Upsert CreatorProfile with whatever data was provided
     if (Object.keys(profileData).length > 0) {
-      await prisma.creatorProfile.upsert({
-        where: { userId: user.id },
-        update: {
-          fullName: profileData.fullName || profileData.name || null,
-          bio: profileData.bio || null,
-          profilePic: profileData.profilePic || null,
-          category: profileData.category || null,
-          website: profileData.website || null,
-          phone: profileData.phone || null,
-          facebook: profileData.facebook || null,
-          instagram: profileData.instagram || null,
-          x: profileData.x || null,
-          teamMembers: profileData.teamMembers || null,
-          brandType: profileData.brandType || profileData.type || null,
-        },
-        create: {
-          userId: user.id,
-          fullName: profileData.fullName || profileData.name || null,
-          bio: profileData.bio || null,
-          profilePic: profileData.profilePic || null,
-          category: profileData.category || null,
-          website: profileData.website || null,
-          phone: profileData.phone || null,
-          facebook: profileData.facebook || null,
-          instagram: profileData.instagram || null,
-          x: profileData.x || null,
-          teamMembers: profileData.teamMembers || null,
-          brandType: profileData.brandType || profileData.type || null,
-        }
-      });
+      const facebook = profileData.facebook || profileData.socials?.facebook || null;
+      const instagram = profileData.instagram || profileData.socials?.instagram || null;
+      const x = profileData.x || profileData.socials?.x || null;
+      
+      try {
+        await prisma.creatorProfile.upsert({
+          where: { userId: user.id },
+          update: {
+            fullName: profileData.fullName || profileData.name || null,
+            bio: profileData.bio || null,
+            profilePic: profileData.profilePic || null,
+            category: profileData.category || null,
+            website: profileData.website || null,
+            phone: profileData.phone || null,
+            facebook,
+            instagram,
+            x,
+            teamMembers: profileData.teamMembers || null,
+            brandType: profileData.brandType || profileData.type || null,
+            followers: profileData.followers || "0",
+            viewership: profileData.viewership || "0",
+            engagement: profileData.engagement || "0",
+            projects: profileData.projects || "0",
+          },
+          create: {
+            userId: user.id,
+            fullName: profileData.fullName || profileData.name || null,
+            bio: profileData.bio || null,
+            profilePic: profileData.profilePic || null,
+            category: profileData.category || null,
+            website: profileData.website || null,
+            phone: profileData.phone || null,
+            facebook,
+            instagram,
+            x,
+            teamMembers: profileData.teamMembers || null,
+            brandType: profileData.brandType || profileData.type || null,
+            followers: profileData.followers || "0",
+            viewership: profileData.viewership || "0",
+            engagement: profileData.engagement || "0",
+            projects: profileData.projects || "0",
+          }
+        });
+      } catch (upsertError) {
+        console.error("Upsert failed:", upsertError);
+        // We don't return here so we can still mark the profile as completed below
+      }
     }
 
     // Update profileCompleted to true

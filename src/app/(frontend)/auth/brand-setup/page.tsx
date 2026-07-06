@@ -7,6 +7,16 @@ import { useRouter } from "next/navigation"
 export default function BrandSetupSelectionPage() {
   const router = useRouter()
 
+  React.useEffect(() => {
+    try {
+      const profile = localStorage.getItem("kaling_brand_profile");
+      if (profile) {
+        const parsed = JSON.parse(profile);
+        router.replace(parsed.type === "company" ? "/brand/company" : "/brand");
+      }
+    } catch (e) {}
+  }, [router]);
+
   const handleSelect = (type: string) => {
     localStorage.setItem("brandType", type)
     
