@@ -14,6 +14,7 @@ export default function ManualCampaignCreatePage() {
   const [description, setDescription] = useState("")
   const [tags, setTags] = useState("")
   const [deadline, setDeadline] = useState("")
+  const [category, setCategory] = useState("Creators")
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async () => {
@@ -30,7 +31,9 @@ export default function ManualCampaignCreatePage() {
           budget: '₹13k - ₹25k',
           dateRange: deadline,
           description: description || 'New campaign',
-          daysLeft: 'Active'
+          daysLeft: 'Active',
+          category,
+          tags: tags ? tags.split(',').map(t => t.trim()).filter(Boolean) : []
         })
       });
       
@@ -92,10 +95,14 @@ export default function ManualCampaignCreatePage() {
             <div className="flex flex-col gap-1.5">
               <label className="text-gray-400 text-[12px] font-medium pl-1">Type</label>
               <div className="relative">
-                <select className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-4 px-5 text-gray-800 font-bold text-[14px] appearance-none cursor-pointer">
-                  <option>Creators</option>
-                  <option>Influencers</option>
-                  <option>Agencies</option>
+                <select 
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-4 px-5 text-gray-800 font-bold text-[14px] appearance-none cursor-pointer"
+                >
+                  <option value="Creators">Creators</option>
+                  <option value="Influencers">Influencers</option>
+                  <option value="Agencies">Agencies</option>
                 </select>
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
               </div>

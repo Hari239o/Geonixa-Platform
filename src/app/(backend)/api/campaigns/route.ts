@@ -2,12 +2,44 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
+import { Knock } from '@knocklabs/node';
+
+const knock = new Knock({ apiKey: process.env.KNOCK_SECRET_API_KEY || 'dummy-key-for-build' });
 
 export async function GET() {
   try {
+    const session = await getServerSession(authOptions);
+    let userId = (session?.user as any)?.id;
+    if (!userId && session?.user?.email) {
+      const user = await prisma.user.findFirst({ where: { email: session.user.email }});
+      if (user) userId = user.id;
+    }
+
+    if (!userId) {
+       return NextResponse.json({ success: true, campaigns: [] });
+    }
+
+    const creator = await prisma.creatorProfile.findUnique({
+      where: { userId }
+    });
+
+    if (!creator || !creator.isVerified) {
+      return NextResponse.json({ success: true, campaigns: [] });
+    }
+
+    const orConditions = [];
+    if (creator.category) orConditions.push({ category: creator.category });
+    if (creator.tags && creator.tags.length > 0) orConditions.push({ tags: { hasSome: creator.tags } });
+
+    if (orConditions.length === 0) {
+      return NextResponse.json({ success: true, campaigns: [] });
+    }
+
     const campaigns = await prisma.campaign.findMany({
+      where: { OR: orConditions },
       orderBy: { createdAt: 'desc' }
     });
+    
     return NextResponse.json({ success: true, campaigns });
   } catch (error: any) {
     console.error("GET /api/campaigns error:", error);
@@ -30,7 +62,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, subtitle, budget, dateRange, description, daysLeft } = body;
+    const { title, subtitle, budget, dateRange, description, daysLeft, category, tags } = body;
 
     if (!title) {
       return NextResponse.json({ success: false, error: "title is required" }, { status: 400 });
@@ -45,8 +77,37 @@ export async function POST(request: Request) {
         dateRange,
         description,
         daysLeft,
+        category,
+        tags: tags || [],
       }
     });
+
+    // Trigger Push Notifications to matching creators
+    const orConditions = [];
+    if (category) orConditions.push({ category: category });
+    if (tags && tags.length > 0) orConditions.push({ tags: { hasSome: tags } });
+
+    if (orConditions.length > 0) {
+      const matchingCreators = await prisma.creatorProfile.findMany({
+        where: { OR: orConditions }
+      });
+
+      for (const creator of matchingCreators) {
+        try {
+          await knock.workflows.trigger('default-notification', {
+            recipients: [creator.userId],
+            data: {
+              message: `New campaign matching your profile: ${title}`,
+              actionLabel: 'View Campaign',
+              actionUrl: '/creator',
+              type: 'campaign'
+            }
+          });
+        } catch(e) {
+          console.error("Failed to trigger Knock workflow for", creator.userId, e);
+        }
+      }
+    }
 
     return NextResponse.json({ success: true, campaign: campaignData });
   } catch (error: any) {
