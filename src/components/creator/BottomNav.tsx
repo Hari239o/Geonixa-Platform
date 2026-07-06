@@ -13,7 +13,7 @@ export default function BottomNav() {
  { name: "Studio", href: "/ai", icon: Video },
  { name: "Portfolio", href: "/portfolio", icon: Briefcase },
  { name: "Booking", href: "/booking", icon: Calendar },
- { name: "Profile", href: "/setup-profile", icon: User },
+ { name: "Profile", href: "/profile", icon: User },
  ];
 
  return (

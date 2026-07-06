@@ -149,52 +149,69 @@ export default function BrandHomeFeedPage() {
                   });
                 } catch(e) {}
               }}
-              className="w-[335px] h-[194px] bg-[#FCF5EB] rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col mx-auto overflow-hidden shrink-0 cursor-pointer hover:shadow-md transition-all active:scale-[0.98]"
+              className="w-[335px] bg-white border border-gray-100 rounded-[24px] shadow-[0_8px_30px_rgba(0,0,0,0.04)] flex flex-col mx-auto overflow-hidden shrink-0 cursor-pointer hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:border-gray-200 transition-all active:scale-[0.98]"
             >
-              {/* Top White Section */}
-              <div className="bg-white p-4 pb-3 flex gap-4 h-[126px] rounded-b-[20px] shadow-sm z-10">
+              {/* Top Profile Section */}
+              <div className="p-5 flex gap-4">
                 {/* Profile Pic */}
-                <div className="w-[84px] h-[84px] rounded-[18px] bg-gray-200 shrink-0 relative mt-1 shadow-[0_8px_16px_rgba(0,0,0,0.15)] z-20">
+                <div className="w-[88px] h-[88px] rounded-[20px] bg-gray-100 shrink-0 relative overflow-hidden shadow-sm">
                   {creator.image ? (
-                    <img src={creator.image} alt={creator.name} className="object-cover w-full h-full rounded-[18px]" />
+                    <img src={creator.image} alt={creator.name} className="object-cover w-full h-full" />
                   ) : (
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Dummy" className="object-cover w-full h-full rounded-[18px]" />
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Dummy" className="object-cover w-full h-full" />
                   )}
                 </div>
                 
                 {/* Info */}
-                <div className="flex-1 flex flex-col pt-1">
-                  <div className="flex justify-end gap-2.5 mb-1.5">
-                    <button><Send className="w-[15px] h-[15px] text-gray-400 hover:text-gray-600" /></button>
-                    <button><Bookmark className="w-[15px] h-[15px] text-gray-400 hover:text-gray-600" /></button>
+                <div className="flex-1 flex flex-col justify-center">
+                  <div className="flex items-center gap-1.5 mb-1.5">
+                    <h3 className="text-[18px] font-bold text-gray-900 leading-tight">{creator.name}</h3>
+                    {creator.verified && <VerifiedBadge className="shrink-0 w-4 h-4" />}
                   </div>
-                  <div className="flex items-center gap-1.5 mb-2.5">
-                    <h3 className="text-[20px] font-extrabold text-gray-600 leading-none">{creator.name}</h3>
-                    {creator.verified && <VerifiedBadge className="shrink-0" />}
-                  </div>
-                  <div className="flex gap-2">
-                    {creator.tags.map((tag: string) => (
-                      <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-400 text-[10px] font-bold rounded-full">
+                  
+                  {/* Category */}
+                  {creator.category && (
+                    <div className="text-[12px] font-medium text-[#EF4823] mb-2 capitalize">
+                      {creator.category} Creator
+                    </div>
+                  )}
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {creator.tags.slice(0, 2).map((tag: string) => (
+                      <span key={tag} className="px-2.5 py-1 bg-gray-50 border border-gray-100 text-gray-500 text-[10px] font-semibold rounded-full">
                         {tag}
                       </span>
                     ))}
+                    {creator.tags.length > 2 && (
+                      <span className="px-2.5 py-1 bg-gray-50 border border-gray-100 text-gray-500 text-[10px] font-semibold rounded-full">
+                        +{creator.tags.length - 2}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
 
+              <div className="w-full h-[1px] bg-gray-50"></div>
+
               {/* Bottom Stats Section */}
-              <div className="flex-1 flex items-center justify-around px-4">
-                <div className="flex flex-col items-center gap-0.5">
-                  <span className="text-[#EF4823] font-black text-[16px]">{creator.followers}</span>
-                  <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Followers</span>
+              <div className="flex items-center justify-between px-6 py-4 bg-gray-50/30">
+                <div className="flex flex-col items-center">
+                  <span className="text-gray-900 font-bold text-[15px]">{creator.followers}</span>
+                  <span className="text-gray-400 text-[10px] font-medium mt-0.5">Followers</span>
                 </div>
-                <div className="flex flex-col items-center gap-0.5">
-                  <span className="text-[#EF4823] font-black text-[16px]">{creator.viewership}</span>
-                  <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Avg Viewership</span>
+                <div className="w-[1px] h-8 bg-gray-200"></div>
+                <div className="flex flex-col items-center">
+                  <div className="flex items-center gap-1">
+                    <span className="text-gray-900 font-bold text-[15px]">{creator.rating}</span>
+                    <span className="text-yellow-400 text-[12px]">★</span>
+                  </div>
+                  <span className="text-gray-400 text-[10px] font-medium mt-0.5">Rating</span>
                 </div>
-                <div className="flex flex-col items-center gap-0.5">
-                  <span className="text-[#EF4823] font-black text-[16px]">{creator.engagement}</span>
-                  <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Avg Engagement</span>
+                <div className="w-[1px] h-8 bg-gray-200"></div>
+                <div className="flex flex-col items-center">
+                  <span className="text-gray-900 font-bold text-[15px]">{creator.campaigns}</span>
+                  <span className="text-gray-400 text-[10px] font-medium mt-0.5">Campaigns</span>
                 </div>
               </div>
             </div>
