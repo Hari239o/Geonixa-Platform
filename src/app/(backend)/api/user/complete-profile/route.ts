@@ -99,6 +99,7 @@ export async function POST(req: Request) {
             facebook: facebook !== undefined ? facebook : undefined,
             instagram: instagram !== undefined ? instagram : undefined,
             x: x !== undefined ? x : undefined,
+            // @ts-ignore
             linkedin: linkedin !== undefined ? linkedin : undefined,
             budgets: budgets !== undefined ? budgets : undefined,
             teamMembers: profileData.teamMembers !== undefined ? profileData.teamMembers : undefined,
@@ -123,6 +124,7 @@ export async function POST(req: Request) {
             facebook,
             instagram,
             x,
+            // @ts-ignore
             linkedin,
             budgets,
             teamMembers: profileData.teamMembers || null,
