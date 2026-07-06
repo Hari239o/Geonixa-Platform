@@ -28,6 +28,11 @@ function LoginContent() {
   const [showPassword, setShowPassword] = useState(false)
   const [loginError, setLoginError] = useState<string | null>(searchParams.get("error"))
 
+  React.useEffect(() => {
+    // Clear any stale signup cookies when landing on the login page
+    document.cookie = "signupRole=; path=/; max-age=0";
+  }, []);
+
   const {
     register,
     handleSubmit,

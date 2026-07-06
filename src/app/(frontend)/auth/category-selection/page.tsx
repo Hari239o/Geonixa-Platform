@@ -10,6 +10,11 @@ export default function RegisterPage() {
   const router = useRouter()
   const { data: session, status } = useSession()
 
+  React.useEffect(() => {
+    // Clear any stale signup cookies when landing here
+    document.cookie = "signupRole=; path=/; max-age=0";
+  }, []);
+
   const handleSelect = async (category: string) => {
     localStorage.setItem("userRole", category)
     
