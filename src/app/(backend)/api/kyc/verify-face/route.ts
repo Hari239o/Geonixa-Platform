@@ -17,8 +17,8 @@ export async function POST(req: Request) {
     const client = new RekognitionClient({
       region: process.env.AWS_REKOGNITION_REGION || "ap-south-1",
       credentials: {
-        accessKeyId: process.env.AWS_REKOGNITION_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.AWS_REKOGNITION_SECRET_ACCESS_KEY!,
+        accessKeyId: process.env.AWS_REKOGNITION_ACCESS_KEY_ID || "AKIA4IADKOHXBEXNEWH6",
+        secretAccessKey: process.env.AWS_REKOGNITION_SECRET_ACCESS_KEY || "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",
       },
     });
 

@@ -70,46 +70,46 @@ export default function KycPage() {
     }
   };
 
-  const handleNextStep1 = () => {
+  const handleNextStep1 = async () => {
     if (!fullName.trim()) {
-      setError("Please enter your full name");
+      setError("Please enter your full name first");
       return;
     }
+    if (!aadharFile) {
+      setError("Please upload your Aadhar Card photo");
+      return;
+    }
+
+    setIsLoading(true);
     setError(null);
-    setStep(2);
+    
+    const formData = new FormData();
+    formData.append("file", aadharFile);
+    formData.append("name", fullName);
+
+    try {
+      const res = await fetch("/api/kyc/verify-aadhar", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        setStep(2); // Move to Selfie step
+      } else {
+        setError(data.error || "Not a valid Aadhar");
+      }
+    } catch (err) {
+      setError("Network error occurred");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleAadharUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAadharUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setAadharFile(file);
-      
-      setIsLoading(true);
+      setAadharFile(e.target.files[0]);
       setError(null);
-      
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("name", fullName);
-
-      try {
-        const res = await fetch("/api/kyc/verify-aadhar", {
-          method: "POST",
-          body: formData,
-        });
-        const data = await res.json();
-        
-        if (data.success) {
-          setStep(3);
-        } else {
-          setError(data.error || "Not a valid Aadhar");
-          setAadharFile(null);
-        }
-      } catch (err) {
-        setError("Network error occurred");
-        setAadharFile(null);
-      } finally {
-        setIsLoading(false);
-      }
     }
   };
 
@@ -124,14 +124,21 @@ export default function KycPage() {
     formData.append("aadharFile", aadharFile);
 
     try {
+      // Added a small UI delay to make the verification feel more robust (5 seconds as requested)
+      const startTime = Date.now();
       const res = await fetch("/api/kyc/verify-face", {
         method: "POST",
         body: formData,
       });
       const data = await res.json();
+      
+      const elapsed = Date.now() - startTime;
+      if (elapsed < 5000) {
+        await new Promise(r => setTimeout(r, 5000 - elapsed));
+      }
 
       if (data.success) {
-        setStep(4);
+        setStep(3); // Success step
       } else {
         setError(data.error || "Verification failed");
         setSelfieFile(null);
@@ -193,11 +200,10 @@ export default function KycPage() {
         <div className="flex-1 overflow-y-auto px-6 py-8">
           
           {/* Progress Bar */}
-          {step < 4 && (
+          {step < 3 && (
             <div className="flex gap-2 mb-8">
               <div className={`h-1.5 flex-1 rounded-full ${step >= 1 ? "bg-[#EF4823]" : "bg-gray-200"}`} />
               <div className={`h-1.5 flex-1 rounded-full ${step >= 2 ? "bg-[#EF4823]" : "bg-gray-200"}`} />
-              <div className={`h-1.5 flex-1 rounded-full ${step >= 3 ? "bg-[#EF4823]" : "bg-gray-200"}`} />
             </div>
           )}
 
@@ -208,11 +214,11 @@ export default function KycPage() {
             </div>
           )}
 
-          {/* STEP 1: Name Input */}
+          {/* STEP 1: Name Input & Aadhar Upload */}
           {step === 1 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="text-[22px] font-black text-[#1a1a2e] mb-2 tracking-tight">What's your name?</h2>
-              <p className="text-[13px] text-gray-500 font-medium mb-6">Please enter your full name exactly as it appears on your Aadhar Card.</p>
+              <h2 className="text-[22px] font-black text-[#1a1a2e] mb-2 tracking-tight">Identity Details</h2>
+              <p className="text-[13px] text-gray-500 font-medium mb-6">Please enter your name and upload your Aadhar Card photo for verification.</p>
               
               <div className="mb-6">
                 <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 block">Full Name (As per Aadhar)</label>
@@ -222,49 +228,53 @@ export default function KycPage() {
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. Rahul Sharma"
                   className="w-full bg-white border-2 border-gray-100 rounded-[16px] px-5 py-4 text-[15px] font-bold text-[#1a1a2e] outline-none focus:border-[#EF4823] transition-colors shadow-sm"
+                  disabled={isLoading}
                 />
+              </div>
+
+              <div className="mb-6">
+                <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 block">Aadhar Card Photo</label>
+                <label className="border-2 border-dashed border-gray-200 bg-white hover:border-[#EF4823] hover:bg-orange-50 transition-colors rounded-[24px] p-6 flex flex-col items-center justify-center cursor-pointer shadow-sm min-h-[160px]">
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    className="hidden" 
+                    onChange={handleAadharUpload}
+                    disabled={isLoading}
+                  />
+                  
+                  {aadharFile ? (
+                    <div className="flex flex-col items-center">
+                      <div className="w-12 h-12 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-2">
+                        <CheckCircle2 className="w-6 h-6" />
+                      </div>
+                      <span className="text-[13px] font-bold text-[#1a1a2e]">{aadharFile.name}</span>
+                      <span className="text-[11px] text-gray-400 mt-1">Tap to change file</span>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-3 text-[#EF4823]">
+                        <UploadCloud className="w-5 h-5" />
+                      </div>
+                      <span className="text-[14px] font-bold text-[#1a1a2e] mb-1">Tap to Upload Aadhar</span>
+                      <span className="text-[11px] text-gray-400 font-medium">JPEG, PNG up to 5MB</span>
+                    </>
+                  )}
+                </label>
               </div>
 
               <button 
                 onClick={handleNextStep1}
-                className="w-full bg-[#1a1a2e] hover:bg-black text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(26,26,46,0.15)] mt-4"
+                disabled={isLoading}
+                className="w-full bg-[#1a1a2e] hover:bg-black text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(26,26,46,0.15)] mt-2 flex justify-center items-center"
               >
-                CONTINUE
-              </button>
-            </div>
-          )}
-
-          {/* STEP 2: Aadhar Upload */}
-          {step === 2 && (
-            <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="text-[22px] font-black text-[#1a1a2e] mb-2 tracking-tight">Upload Aadhar</h2>
-              <p className="text-[13px] text-gray-500 font-medium mb-8">We use secure OCR to extract and verify your Aadhar details. We do not store this image permanently.</p>
-              
-              <label className="border-2 border-dashed border-gray-200 bg-white hover:border-[#EF4823] hover:bg-orange-50 transition-colors rounded-[24px] p-8 flex flex-col items-center justify-center cursor-pointer shadow-sm min-h-[220px]">
-                <input 
-                  type="file" 
-                  accept="image/*" 
-                  className="hidden" 
-                  onChange={handleAadharUpload}
-                  disabled={isLoading}
-                />
-                
                 {isLoading ? (
-                  <div className="flex flex-col items-center">
-                    <div className="w-10 h-10 border-4 border-[#EF4823] border-t-transparent rounded-full animate-spin mb-4" />
-                    <span className="text-sm font-bold text-[#1a1a2e]">Verifying Aadhar...</span>
-                    <span className="text-[11px] text-gray-400 font-medium mt-1 text-center">Scanning for 12-digit UIDAI number and your name</span>
-                  </div>
-                ) : (
-                  <>
-                    <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4 text-[#EF4823]">
-                      <UploadCloud className="w-6 h-6" />
-                    </div>
-                    <span className="text-[15px] font-bold text-[#1a1a2e] mb-1">Tap to Upload Photo</span>
-                    <span className="text-[12px] text-gray-400 font-medium">JPEG, PNG up to 5MB</span>
-                  </>
-                )}
-              </label>
+                  <span className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    VERIFYING...
+                  </span>
+                ) : "CONTINUE TO SELFIE"}
+              </button>
             </div>
           )}
 
