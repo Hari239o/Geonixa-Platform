@@ -45,12 +45,16 @@ export default function PartnerSetupProfilePage() {
     localStorage.setItem("kaling_partner_profile", JSON.stringify(profileData))
     
     try {
+      const serverPayload: any = { ...profileData };
+      if (serverPayload.profilePic && serverPayload.profilePic.startsWith('data:image/')) {
+        delete serverPayload.profilePic;
+      }
       await fetch("/api/user/complete-profile", { 
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(profileData)
+        body: JSON.stringify(serverPayload)
       });
     } catch (e) {
       console.error(e);
@@ -81,12 +85,6 @@ export default function PartnerSetupProfilePage() {
                   LOGO
                 </div>
               )}
-              <button 
-                onClick={() => setProfilePic(null)}
-                className="absolute -bottom-2 -right-2 bg-white rounded-full p-1.5 shadow-md border border-gray-100 text-[#EF4823] hover:bg-gray-50"
-              >
-                <Trash2 size={14} />
-              </button>
             </div>
             
             <label className="bg-[#EF4823] hover:bg-[#d63d1c] text-white px-5 py-2 rounded-xl text-sm font-bold cursor-pointer transition-colors active:scale-95 shadow-sm">

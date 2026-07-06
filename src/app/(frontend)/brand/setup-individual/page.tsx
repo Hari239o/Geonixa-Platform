@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { Trash2 } from "lucide-react"
@@ -20,6 +20,45 @@ export default function BrandIndividualSetupPage() {
     instagram: "",
     x: ""
   })
+
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const res = await fetch('/api/user/complete-profile');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.profile) {
+            setFormData(prev => ({
+              ...prev,
+              fullName: data.profile.fullName || "",
+              bio: data.profile.bio || "",
+              website: data.profile.website || "",
+              phone: data.profile.phone || "",
+              facebook: data.profile.facebook || "",
+              instagram: data.profile.instagram || "",
+              x: data.profile.x || ""
+            }));
+            if (data.profile.profilePic) {
+              setProfilePic(data.profile.profilePic);
+            }
+            return;
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+      
+      const saved = localStorage.getItem("kaling_brand_profile")
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          setFormData(prev => ({...prev, ...parsed}));
+          if (parsed.profilePic) setProfilePic(parsed.profilePic);
+        } catch(e) {}
+      }
+    }
+    fetchProfile();
+  }, [])
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -49,12 +88,16 @@ export default function BrandIndividualSetupPage() {
     localStorage.setItem("kaling_brand_profile", JSON.stringify(profileData))
     
     try {
+      const serverPayload: any = { ...profileData };
+      if (serverPayload.profilePic && serverPayload.profilePic.startsWith('data:image/')) {
+        delete serverPayload.profilePic;
+      }
       await fetch("/api/user/complete-profile", { 
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(profileData)
+        body: JSON.stringify(serverPayload)
       });
     } catch (e) {
       console.error(e);
@@ -88,18 +131,6 @@ export default function BrandIndividualSetupPage() {
                 className="hidden"
               />
             </label>
-            
-            {profilePic && (
-              <button 
-                onClick={(e) => {
-                  e.preventDefault();
-                  setProfilePic(null);
-                }}
-                className="absolute -bottom-2 -right-2 bg-white rounded-full p-1.5 shadow-md border border-gray-100 text-[#EF4823] hover:bg-gray-50 z-10"
-              >
-                <Trash2 size={14} />
-              </button>
-            )}
           </div>
         </div>
 

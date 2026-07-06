@@ -15,11 +15,11 @@ export default function AuthFlowLayout({
 
   return (
     <SignupProvider>
-      <div className="h-full w-full flex flex-col lg:flex-row relative bg-white lg:overflow-hidden">
+      <div className="min-h-[100dvh] w-full flex flex-col lg:flex-row relative bg-primary-red lg:bg-white lg:overflow-hidden">
         
         {/* Top/Left Red Section */}
-        {/* Mobile: Fixed top 55% background. Desktop: 50% width fixed side panel */}
-        <div className="fixed lg:relative top-0 left-0 w-full lg:w-1/2 h-[55vh] lg:h-full bg-primary-red z-0 overflow-hidden flex flex-col shadow-none lg:shadow-2xl">
+        {/* Mobile: Full screen background. Desktop: 50% width fixed side panel */}
+        <div className="absolute lg:relative top-0 left-0 w-full lg:w-1/2 min-h-[100dvh] h-full bg-primary-red z-0 overflow-hidden flex flex-col shadow-none lg:shadow-2xl">
           
           {/* Back button */}
           <button 
@@ -31,7 +31,7 @@ export default function AuthFlowLayout({
 
  {/* Desktop Branding Content */}
  <div className="hidden lg:flex flex-col items-center justify-center h-full relative z-10 text-white p-12">
- <img src="/logo.png" alt="Kalinq" className="w-32 h-32 mb-8 object-contain drop-shadow-2xl" />
+ <img src="/logo.png" alt="Kalinq" className="w-32 h-32 mb-8 object-contain drop-shadow-2xl filter brightness-0 invert" />
  <h1 className="text-5xl font-black tracking-tight mb-4 drop-shadow-md text-center">
  Welcome to Kalinq
  </h1>

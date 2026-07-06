@@ -4,12 +4,30 @@ import React from "react"
 import { Logo } from "@/components/ui/Logo"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 
 export default function RegisterPage() {
   const router = useRouter()
+  const { data: session, status } = useSession()
 
-  const handleSelect = (category: string) => {
+  const handleSelect = async (category: string) => {
     localStorage.setItem("userRole", category)
+    
+    if (status === "authenticated" && session?.user) {
+      try {
+        await fetch("/api/auth/update-role", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ role: category })
+        })
+        // Force session update by going to callback
+        router.replace("/auth/callback")
+      } catch (e) {
+        console.error(e)
+      }
+      return
+    }
+
     if (category === "creator") {
       router.push("/auth/signup/creator")
     } else if (category === "brand") {
@@ -24,9 +42,9 @@ export default function RegisterPage() {
   return (
     <div className="w-full flex flex-col items-center justify-center h-full min-h-[100dvh] py-4 sm:py-8">
       {/* Top Section */}
-      <Logo large={false} showText={false} className="mb-2 lg:hidden w-8 h-8" />
+      <img src="/logo.png" alt="Kalinq Logo" className="mb-6 lg:hidden w-32 h-auto object-contain filter brightness-0 invert" />
       
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white lg:text-text-dark mb-1 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
+      <h1 className="text-[28px] font-bold text-white lg:text-text-dark mb-2 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
         Sign Up
       </h1>
       

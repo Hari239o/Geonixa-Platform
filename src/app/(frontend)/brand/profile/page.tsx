@@ -16,11 +16,28 @@ export default function BrandDashboardPage() {
   const [showVerifyModal, setShowVerifyModal] = useState(false)
 
   useEffect(() => {
-    // Load data from localStorage (this is temporary until backend is connected)
-    const saved = localStorage.getItem("kaling_brand_profile")
-    if (saved) {
-      setProfileData(JSON.parse(saved))
+    async function fetchProfile() {
+      try {
+        const res = await fetch('/api/user/complete-profile');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.profile) {
+            setProfileData(data.profile);
+            return; // Use DB data if available
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+      
+      // Fallback to local storage
+      const saved = localStorage.getItem("kaling_brand_profile")
+      if (saved) {
+        setProfileData(JSON.parse(saved))
+      }
     }
+    
+    fetchProfile();
     
     const savedImages = localStorage.getItem("kaling_brand_portfolio")
     if (savedImages) {
@@ -142,23 +159,23 @@ export default function BrandDashboardPage() {
               Portfolio
             </button>
           </div>
+          {/* Authentication Prompt - Placed below About/Portfolio tabs as requested */}
+          {!profileData?.isVerified && (
+            <div className="mt-4 px-1">
+              <button
+                onClick={() => setShowVerifyModal(true)}
+                className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white font-bold py-3.5 rounded-[16px] shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                Authenticate Account
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Tab Content */}
         <div className="px-6 py-6 flex-1 overflow-y-auto no-scrollbar pb-24 touch-pan-y">
           
-          {/* Authentication Prompt */}
-          {!profileData?.isVerified && (
-            <button
-              onClick={() => setShowVerifyModal(true)}
-              className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white font-bold py-4 rounded-[20px] shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98] mb-6 flex items-center justify-center gap-2"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-              Authenticate Account
-            </button>
-          )}
-
-
           {activeTab === 'about' && (
             <div className="flex flex-col gap-4">
               
@@ -275,12 +292,13 @@ export default function BrandDashboardPage() {
 
           {/* Actions at bottom */}
           <div className="flex flex-col gap-3 mt-8">
-
+            
             <button
               onClick={async () => {
                 localStorage.removeItem("kaling_brand_profile");
                 localStorage.removeItem("kalinq_mock_user_id");
-                await signOut({ callbackUrl: "/auth/login" });
+                await signOut({ redirect: false });
+              window.location.href = "/";
               }}
               className="w-full text-red-500 font-bold py-4 flex items-center justify-center gap-2 hover:bg-red-50 rounded-[20px] transition-colors"
             >

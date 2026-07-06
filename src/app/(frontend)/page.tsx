@@ -13,26 +13,8 @@ export default function WelcomeAndSplashScreen() {
   const [showSplash, setShowSplash] = useState(true)
 
   useEffect(() => {
-    // Show splash screen for 2.5 seconds before fading into the Welcome Screen
     const timer = setTimeout(() => {
-      // Check NextAuth session
-      if (status === "authenticated" && session?.user) {
-        // We push to auth/callback because it already has the logic to route to /brand, /creator, etc. based on role/profile
-        router.replace("/auth/callback")
-        return
-      }
-      
-      // Fallback check for local storage mock session
-      const localRole = localStorage.getItem("userRole")
-      if (localRole === "brand" && localStorage.getItem("kaling_brand_profile")) {
-        router.replace("/brand")
-        return
-      } else if (localRole === "creator" && localStorage.getItem("kaling_user_profile")) {
-        router.replace("/creator")
-        return
-      }
-
-      // If not authenticated, show the Welcome screen (Sign In / Sign Up)
+      // Always show the Welcome screen (Sign In / Sign Up) after splash
       setShowSplash(false)
     }, 2500)
     

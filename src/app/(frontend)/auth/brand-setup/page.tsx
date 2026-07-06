@@ -28,11 +28,11 @@ export default function BrandSetupSelectionPage() {
   }
 
   return (
-    <div className="w-full flex flex-col items-center h-full pb-8">
+    <div className="w-full flex flex-col items-center">
       {/* Top Section */}
-      <Logo large={false} showText={false} className="mb-2 lg:hidden w-8 h-8" />
+      <img src="/logo.png" alt="Kalinq Logo" className="mb-6 lg:hidden w-32 h-auto object-contain filter brightness-0 invert" />
       
-      <h1 className="text-3xl lg:text-4xl font-bold text-white lg:text-text-dark mb-1 lg:mb-3 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
+      <h1 className="text-3xl font-bold text-white lg:text-text-dark mb-2 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
         Brand Profile
       </h1>
       
@@ -46,7 +46,7 @@ export default function BrandSetupSelectionPage() {
       </div>
 
       {/* Card Section: Solid White */}
-      <div className="w-full max-w-[340px] sm:max-w-[360px] lg:max-w-[480px] bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-4 sm:p-6 lg:p-8 mx-auto flex flex-col gap-4 sm:gap-6">
+      <div className="w-[90%] max-w-[340px] sm:max-w-[360px] lg:max-w-[480px] bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-4 sm:p-6 lg:p-8 mx-auto flex flex-col gap-4 sm:gap-6">
         
         {/* Individual Option */}
         <div 

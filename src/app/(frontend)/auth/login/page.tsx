@@ -59,7 +59,7 @@ function LoginContent() {
   return (
     <div className="w-full flex flex-col items-center">
       {/* Top Section */}
-      <Logo large={false} showText={false} className="mb-4 lg:hidden w-10 h-10" />
+      <img src="/logo.png" alt="Kalinq Logo" className="mb-6 lg:hidden w-32 h-auto object-contain filter brightness-0 invert" />
       
       <h1 className="text-3xl font-bold text-white lg:text-text-dark mb-2 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
         Sign in to your<br />Account
@@ -70,7 +70,7 @@ function LoginContent() {
       </p>
 
       {/* Card Section: Solid White */}
-      <div className="w-full max-w-[400px] bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-6">
+      <div className="w-[90%] max-w-[400px] bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-6">
         
         {/* Google Button */}
         <Button 

@@ -44,11 +44,13 @@ interface UserProfile {
   successRate: string;
   portfolioImages: string[];
   budgets: { name: string; price: string }[];
+  isVerified?: boolean;
 }
 
 export default function ProfilePage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'About' | 'Portfolio'>('About');
+  const [showVerifyModal, setShowVerifyModal] = useState(false);
   const [profile, setProfile] = useState<UserProfile>({
     fullName: 'Lorem Ipsum',
     bio: 'Lorem Ipsum Dolor Sit Amet, Consectetur Adipi Scing Elit. Tortor Turpis Sodales Nulla Velit. Nunc Cum Vitae, Rhoncus Leo Id. Volutpat Duis Tinunt Pretium Luctus Pulvinar Pretium.',
@@ -65,11 +67,41 @@ export default function ProfilePage() {
       { name: '5 Reels', price: '₹ xxx' },
       { name: '10 Reels', price: '₹ xxx' },
       { name: 'Custom', price: '₹ xxx' },
-    ]
+    ],
+    isVerified: false
   });
 
   useEffect(() => {
     async function loadProfile() {
+      // 1. First fetch from database
+      try {
+        const res = await fetch('/api/user/complete-profile');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.profile) {
+            setProfile(prev => ({
+              ...prev,
+              fullName: data.profile.fullName || prev.fullName,
+              bio: data.profile.bio || prev.bio,
+              profilePic: data.profile.profilePic || prev.profilePic,
+              category: data.profile.category || prev.category,
+              followers: data.profile.followers || '0',
+              viewership: data.profile.viewership || '0',
+              engagement: data.profile.engagement || '0',
+              projects: data.profile.projects || '0',
+              successRate: data.profile.successRate || '0%',
+              portfolioImages: data.profile.portfolioImages || prev.portfolioImages,
+              budgets: (data.profile.budgets && data.profile.budgets.length > 0) ? data.profile.budgets : prev.budgets,
+              isVerified: data.profile.isVerified || false
+            }));
+            return; // Use DB data successfully
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch profile from DB:", error);
+      }
+
+      // 2. Fallback to local storage / indexedDB
       if (typeof window !== 'undefined') {
         try {
           const parsed = await getItem<any>('kaling_user_profile');
@@ -86,10 +118,11 @@ export default function ProfilePage() {
               successRate: parsed.successRate || '0%',
               portfolioImages: parsed.portfolioImages || prev.portfolioImages,
               budgets: (parsed.budgets && parsed.budgets.length > 0) ? parsed.budgets : prev.budgets,
+              isVerified: parsed.isVerified || false
             }));
           }
         } catch (error) {
-          console.error("Failed to load profile:", error);
+          console.error("Failed to load profile from local DB:", error);
         }
       }
     }
@@ -206,6 +239,19 @@ export default function ProfilePage() {
           </button>
         </div>
 
+        {/* Authentication Prompt - Placed below About/Portfolio tabs as requested */}
+        {!profile?.isVerified && (
+          <div className="mb-8 px-1">
+            <button
+              onClick={() => setShowVerifyModal(true)}
+              className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white font-bold py-3.5 rounded-[16px] shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              Authenticate Account
+            </button>
+          </div>
+        )}
+
         {/* Tab Content */}
         {activeTab === 'About' && (
           <div className="flex flex-col gap-5">
@@ -292,6 +338,23 @@ export default function ProfilePage() {
             )}
           </div>
         )}
+
+        {/* Actions at bottom */}
+        <div className="flex flex-col gap-3 mt-8">
+          
+            <button
+              onClick={async () => {
+                localStorage.removeItem("kaling_user_profile");
+                await signOut({ redirect: false });
+                window.location.href = "/";
+              }}
+              className="w-full text-red-500 font-bold py-4 flex items-center justify-center gap-2 hover:bg-red-50 rounded-[20px] transition-colors"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+              Logout
+            </button>
+        </div>
+
       </div>
       </div>
 
@@ -307,6 +370,52 @@ export default function ProfilePage() {
               onChange={handleFileUpload} 
             />
           </label>
+        </div>
+      )}
+
+      {/* Verify Account Modal */}
+      {showVerifyModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-[320px] rounded-[24px] p-6 relative shadow-2xl animate-in fade-in zoom-in duration-200">
+            <button 
+              onClick={() => setShowVerifyModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="flex flex-col items-center mt-2">
+              <div className="w-[42px] h-[42px] mb-3">
+                <svg viewBox="0 0 24 24" fill="#EF4823" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
+                  <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </div>
+              <h2 className="text-[20px] font-black text-[#EF4823] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
+              <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
+                With Aadhar
+              </p>
+
+              <button 
+                onClick={() => router.push('/kyc')}
+                className="w-full py-3.5 border-2 border-dashed border-[#EF4823]/40 rounded-[14px] flex items-center justify-center gap-3 mb-6 hover:bg-[#EF4823]/5 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#EF4823]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span className="text-[#1a1a2e] font-semibold text-[14px]">Camera</span>
+              </button>
+
+              <button 
+                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
+                onClick={() => router.push('/kyc')}
+              >
+                VERIFY
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

@@ -115,7 +115,7 @@ export default function ProfileSettingsPage() {
         // Sync to database if userRole is creator
         const role = localStorage.getItem('userRole');
         if (!role || role === 'creator') {
-          await fetch('/api/creators', {
+          await fetch('/api/user/complete-profile', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -148,7 +148,8 @@ export default function ProfileSettingsPage() {
       localStorage.removeItem('kaling_user_profile');
       localStorage.removeItem('kaling_brand_profile');
       localStorage.removeItem('userRole');
-      await signOut({ callbackUrl: '/auth/login' });
+      await signOut({ redirect: false });
+      window.location.href = '/auth/login';
     }
   };
 
@@ -168,35 +169,27 @@ export default function ProfileSettingsPage() {
 
       <div className="px-8 pb-32 pt-4">
         {/* Profile Picture Section */}
-        <div className="flex items-center gap-4 mb-8">
-          <div className="relative">
-            <div className="w-[84px] h-[84px] rounded-[24px] overflow-hidden shadow-sm shrink-0">
+        <div className="flex items-center justify-center mb-8">
+          <div className="relative group cursor-pointer">
+            <div className="w-[100px] h-[100px] rounded-[30px] overflow-hidden shadow-sm shrink-0 border border-gray-100 relative">
               <Image 
                 src={profilePic} 
                 alt="Profile" 
-                width={84} height={84} 
+                width={100} height={100} 
                 className="w-full h-full object-cover"
               />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path>
+                </svg>
+              </div>
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleImageUpload} 
+                className="absolute inset-0 opacity-0 cursor-pointer z-10 w-full h-full"
+              />
             </div>
-            {profilePic !== '/profile_pic.png' && (
-              <button 
-                onClick={removeProfilePic}
-                className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-100"
-              >
-                <Trash2 size={16} className="text-[#EF4823]" />
-              </button>
-            )}
-          </div>
-          <div className="relative overflow-hidden">
-            <button className="px-6 py-2.5 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-sm">
-              Change
-            </button>
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={handleImageUpload} 
-              className="absolute inset-0 opacity-0 cursor-pointer"
-            />
           </div>
         </div>
 
@@ -312,15 +305,8 @@ export default function ProfileSettingsPage() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-col items-center gap-3 pb-4 border-t border-gray-100 pt-8">
-
-            <button 
-              onClick={handleLogout}
-              className="w-full max-w-[200px] flex items-center justify-center gap-2 text-red-500 font-bold text-[14px] hover:bg-red-50 px-6 py-3 rounded-2xl transition-colors"
-            >
-              <LogOut size={18} strokeWidth={2.5} />
-              Logout
-            </button>
+          <div className="mt-8 flex flex-col items-center">
+            {/* We removed the Logout button because it is on the profile page */}
           </div>
       </div>
       </div>

@@ -3,6 +3,41 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
 
+export async function GET(req: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+    
+    const userEmail = session?.user?.email;
+    const userId = (session?.user as any)?.id;
+    
+    if (!userEmail && !userId) {
+       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    let user;
+    if (userId) {
+       user = await prisma.user.findUnique({ 
+         where: { id: userId },
+         include: { creatorProfile: true }
+       });
+    } else if (userEmail) {
+       user = await prisma.user.findFirst({ 
+         where: { email: userEmail },
+         include: { creatorProfile: true }
+       });
+    }
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, profile: user.creatorProfile });
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
@@ -84,10 +119,21 @@ export async function POST(req: Request) {
       }
     }
 
-    // Update profileCompleted to true
+    // Determine role based on profile data
+    let roleToUpdate = user.role;
+    if (profileData.type === 'company' || profileData.type === 'individual' || profileData.brandType) {
+      roleToUpdate = 'brand';
+    } else if (profileData.creatorType || profileData.category) {
+      roleToUpdate = 'creator';
+    }
+
+    // Update profileCompleted to true and set the role
     await prisma.user.update({
       where: { id: user.id },
-      data: { profileCompleted: true }
+      data: { 
+        profileCompleted: true,
+        role: roleToUpdate !== "user" ? roleToUpdate : undefined
+      }
     });
 
     return NextResponse.json({ success: true, message: "Profile marked as completed and saved" });

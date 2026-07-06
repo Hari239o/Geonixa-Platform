@@ -34,14 +34,30 @@ export default function PartnerSignupStep3Account() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Final Partner Signup Data:", JSON.parse(sessionStorage.getItem("partnerSignupData") || "{}"));
+    const signupData = JSON.parse(sessionStorage.getItem("partnerSignupData") || "{}");
     
-    // Wait to simulate network
-    setTimeout(() => {
-      router.push("/auth/login");
-    }, 1500);
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          phone: "+91" + (signupData.phoneNumber || "").replace(/\D/g, ''),
+          role: "partner",
+          name: `${signupData.firstName || ''} ${signupData.lastName || ''}`.trim(),
+          email: formData.username || signupData.email,
+        }),
+      });
+
+      if (res.ok) {
+        router.push("/auth/login");
+      } else {
+        console.error("Failed to register partner");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

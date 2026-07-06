@@ -104,7 +104,7 @@ export const authOptions: NextAuthOptions = {
         if (account?.provider === 'google' && user.email) {
           const existingUser = await prisma.user.findFirst({ where: { email: user.email } });
           if (!existingUser) {
-            let roleToAssign = "creator";
+            let roleToAssign = "user";
             try {
               const cookieStore = await cookies();
               const savedRole = cookieStore.get("signupRole")?.value;

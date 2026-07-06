@@ -34,13 +34,30 @@ export default function BrandSignupStep4Account() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Final Brand Signup Data:", JSON.parse(sessionStorage.getItem("brandSignupData") || "{}"));
-    // Wait to simulate network
-    setTimeout(() => {
-      router.push("/auth/login");
-    }, 1500);
+    const signupData = JSON.parse(sessionStorage.getItem("brandSignupData") || "{}");
+    
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          phone: "+91" + (signupData.phoneNumber || "").replace(/\D/g, ''),
+          role: "brand",
+          name: `${signupData.firstName || ''} ${signupData.lastName || ''}`.trim(),
+          email: formData.username || signupData.email,
+        }),
+      });
+
+      if (res.ok) {
+        router.push("/auth/login");
+      } else {
+        console.error("Failed to register brand");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

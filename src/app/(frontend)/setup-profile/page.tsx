@@ -119,13 +119,20 @@ const SetupProfilePage = () => {
     try {
       await setItem('kaling_user_profile', userProfile);
       
+      // Strip huge base64 images before sending to server since DB doesn't store them anyway
+      const serverPayload: any = { ...userProfile };
+      delete serverPayload.portfolioImages;
+      if (serverPayload.profilePic && serverPayload.profilePic.startsWith('data:image/')) {
+        delete serverPayload.profilePic;
+      }
+
       // Mark profile as completed in the database and save the data
       const res = await fetch("/api/user/complete-profile", { 
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(userProfile)
+        body: JSON.stringify(serverPayload)
       });
       
       if (!res.ok) {

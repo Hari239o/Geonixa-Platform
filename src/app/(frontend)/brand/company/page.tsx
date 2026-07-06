@@ -6,18 +6,38 @@ import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe } from "l
 import BottomNav from "@/components/brand/BottomNav"
 import { signOut } from "next-auth/react"
 import { uploadFileToR2 } from "@/utils/upload"
+import { useRouter } from "next/navigation"
 
 export default function BrandCompanyDashboardPage() {
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState<'about' | 'portfolio'>('about')
   const [profileData, setProfileData] = useState<any>(null)
   const [portfolioImages, setPortfolioImages] = useState<string[]>([])
+  const [showVerifyModal, setShowVerifyModal] = useState(false)
 
   useEffect(() => {
-    // Load data from localStorage (this is temporary until backend is connected)
-    const saved = localStorage.getItem("kaling_company_profile")
-    if (saved) {
-      setProfileData(JSON.parse(saved))
+    async function fetchProfile() {
+      try {
+        const res = await fetch('/api/user/complete-profile');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.profile) {
+            setProfileData(data.profile);
+            return; // Use DB data if available
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+      
+      // Fallback to local storage
+      const saved = localStorage.getItem("kaling_company_profile")
+      if (saved) {
+        setProfileData(JSON.parse(saved))
+      }
     }
+    
+    fetchProfile();
     
     const savedImages = localStorage.getItem("kaling_company_portfolio")
     if (savedImages) {
@@ -93,6 +113,18 @@ export default function BrandCompanyDashboardPage() {
               Portfolio
             </button>
           </div>
+          {/* Authentication Prompt - Placed below About/Portfolio tabs as requested */}
+          {!profileData?.isVerified && (
+            <div className="mt-4 px-1">
+              <button
+                onClick={() => setShowVerifyModal(true)}
+                className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white font-bold py-3.5 rounded-[16px] shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                Authenticate Account
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Tab Content */}
@@ -196,7 +228,8 @@ export default function BrandCompanyDashboardPage() {
               onClick={async () => {
                 localStorage.removeItem("kaling_company_profile");
                 localStorage.removeItem("kaling_brand_profile");
-                await signOut({ callbackUrl: "/auth/login" });
+                await signOut({ redirect: false });
+                window.location.href = "/";
               }}
               className="w-full text-red-500 font-bold py-4 flex items-center justify-center gap-2 hover:bg-red-50 rounded-[20px] transition-colors"
             >
@@ -208,6 +241,52 @@ export default function BrandCompanyDashboardPage() {
       </div>
       
       <BottomNav />
+
+      {/* Verify Account Modal */}
+      {showVerifyModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-[320px] rounded-[24px] p-6 relative shadow-2xl animate-in fade-in zoom-in duration-200">
+            <button 
+              onClick={() => setShowVerifyModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="flex flex-col items-center mt-2">
+              <div className="w-[42px] h-[42px] mb-3">
+                <svg viewBox="0 0 24 24" fill="#EF4823" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
+                  <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </div>
+              <h2 className="text-[20px] font-black text-[#EF4823] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
+              <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
+                With Aadhar
+              </p>
+
+              <button 
+                onClick={() => router.push('/kyc')}
+                className="w-full py-3.5 border-2 border-dashed border-[#EF4823]/40 rounded-[14px] flex items-center justify-center gap-3 mb-6 hover:bg-[#EF4823]/5 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#EF4823]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span className="text-[#1a1a2e] font-semibold text-[14px]">Camera</span>
+              </button>
+
+              <button 
+                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
+                onClick={() => router.push('/kyc')}
+              >
+                VERIFY
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
