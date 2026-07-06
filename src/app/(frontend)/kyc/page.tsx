@@ -21,7 +21,7 @@ export default function KycPage() {
   const [cameraActive, setCameraActive] = useState(false);
 
   useEffect(() => {
-    if (step === 3 && !selfieFile) {
+    if (step === 2 && !selfieFile) {
       startCamera();
     } else {
       stopCamera();
@@ -278,8 +278,8 @@ export default function KycPage() {
             </div>
           )}
 
-          {/* STEP 3: Selfie Capture */}
-          {step === 3 && (
+          {/* STEP 2: Selfie Capture */}
+          {step === 2 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
               <h2 className="text-[22px] font-black text-[#1a1a2e] mb-2 tracking-tight">Selfie Verification</h2>
               <p className="text-[13px] text-gray-500 font-medium mb-6">We'll compare your face with your Aadhar photo to verify your identity.</p>
@@ -349,8 +349,8 @@ export default function KycPage() {
             </div>
           )}
 
-          {/* STEP 4: Success */}
-          {step === 4 && (
+          {/* STEP 3: Success */}
+          {step === 3 && (
             <div className="animate-in fade-in zoom-in duration-500 flex flex-col items-center text-center h-full justify-center pb-20">
               <div className="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6 shadow-sm">
                 <CheckCircle2 className="w-12 h-12" />
