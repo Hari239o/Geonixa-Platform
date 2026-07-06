@@ -141,16 +141,7 @@ export default function BrandDashboardPage() {
         {/* Tab Content */}
         <div className="px-6 py-6 flex-1 overflow-y-auto no-scrollbar pb-24 touch-pan-y">
           
-          {/* Authentication Prompt */}
-          {!profileData?.isVerified && (
-            <button
-              onClick={() => setShowVerifyModal(true)}
-              className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white font-bold py-4 rounded-[20px] shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98] mb-6 flex items-center justify-center gap-2"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-              Authenticate Account
-            </button>
-          )}
+
 
           {activeTab === 'about' && (
             <div className="flex flex-col gap-4">
@@ -266,41 +257,19 @@ export default function BrandDashboardPage() {
 
 
 
-          {/* Logout & Download Buttons */}
+          {/* Actions at bottom */}
           <div className="flex flex-col gap-3 mt-8">
-            <button
-              onClick={async () => {
-                try {
-                  const response = await fetch('/api/user/export-data');
-                  if (response.ok) {
-                    const result = await response.json();
-                    if (result.success) {
-                      const dataStr = JSON.stringify(result.data, null, 2);
-                      const blob = new Blob([dataStr], { type: "application/json" });
-                      const url = URL.createObjectURL(blob);
-                      const a = document.createElement("a");
-                      a.href = url;
-                      a.download = "kalinq_brand_data.json";
-                      document.body.appendChild(a);
-                      a.click();
-                      document.body.removeChild(a);
-                      URL.revokeObjectURL(url);
-                    } else {
-                      alert("Failed to export data: " + result.error);
-                    }
-                  } else {
-                    alert("Failed to fetch export data");
-                  }
-                } catch (error) {
-                  console.error("Export error:", error);
-                  alert("Error exporting data");
-                }
-              }}
-              className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-4 flex items-center justify-center gap-2 rounded-[20px] transition-colors shadow-sm"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-              Download My Data
-            </button>
+            
+            {/* Authentication Prompt */}
+            {!profileData?.isVerified && (
+              <button
+                onClick={() => setShowVerifyModal(true)}
+                className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white font-bold py-4 rounded-[20px] shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                Authenticate Account
+              </button>
+            )}
 
             <button
               onClick={() => {
