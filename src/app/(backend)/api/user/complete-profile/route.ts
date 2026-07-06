@@ -93,6 +93,7 @@ export async function POST(req: Request) {
             viewership: profileData.viewership !== undefined ? profileData.viewership : undefined,
             engagement: profileData.engagement !== undefined ? profileData.engagement : undefined,
             projects: profileData.projects !== undefined ? profileData.projects : undefined,
+            // @ts-ignore
             portfolioImages: profileData.portfolioImages !== undefined ? profileData.portfolioImages : undefined,
             isVerified: profileData.isVerified !== undefined ? profileData.isVerified : undefined,
           },
