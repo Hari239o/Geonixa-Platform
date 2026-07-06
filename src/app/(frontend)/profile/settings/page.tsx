@@ -122,10 +122,8 @@ export default function ProfileSettingsPage() {
             },
             body: JSON.stringify({
               userId: localStorage.getItem('userId') || 'temp-user-id', // Assuming temp-user-id for now
-              fullName,
-              bio,
-              profilePic,
-              category: 'Creator',
+              ...updatedProfile,
+              category: updatedProfile.category || 'Creator',
               followers: updatedProfile.followers || '0',
               viewership: updatedProfile.viewership || '0',
               engagement: updatedProfile.engagement || '0',
