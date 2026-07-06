@@ -194,29 +194,17 @@ export default function CreatorDashboard() {
         </div>
 
         {/* Authentication Prompt */}
-        <div className="mb-8 px-4 sm:px-6">
-          <button
-            disabled={profile?.isVerified}
-            onClick={() => !profile?.isVerified && setShowVerifyModal(true)}
-            className={`w-full font-bold py-3.5 rounded-[16px] transition-all flex items-center justify-center gap-2 ${
-              profile?.isVerified 
-                ? 'bg-green-500 text-white cursor-default shadow-sm' 
-                : 'bg-[#EF4823] hover:bg-[#d63d1c] text-white active:scale-[0.98] shadow-[0_4px_15px_rgba(239,72,35,0.25)]'
-            }`}
-          >
-            {profile?.isVerified ? (
-              <>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                Account Authenticated
-              </>
-            ) : (
-              <>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                Authenticate Account
-              </>
-            )}
-          </button>
-        </div>
+        {!profile?.isVerified && (
+          <div className="mb-8 px-4 sm:px-6">
+            <button
+              onClick={() => setShowVerifyModal(true)}
+              className="w-full font-bold py-3.5 rounded-[16px] transition-all flex items-center justify-center gap-2 bg-[#EF4823] hover:bg-[#d63d1c] text-white active:scale-[0.98] shadow-[0_4px_15px_rgba(239,72,35,0.25)]"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              Authenticate Account
+            </button>
+          </div>
+        )}
 
         {/* Tabs */}
         <div className="flex gap-2 mx-4 sm:mx-6 mb-6 bg-[#f9fafb] rounded-[18px] p-1 border border-gray-100/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]">
