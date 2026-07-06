@@ -145,9 +145,16 @@ export default function ProfileSettingsPage() {
 
   const handleLogout = async () => {
     if (typeof window !== 'undefined') {
+      try {
+        await setItem('kaling_user_profile', null);
+        await setItem('kaling_brand_profile', null);
+      } catch (e) {
+        console.error("Failed to clear IndexedDB", e);
+      }
       localStorage.removeItem('kaling_user_profile');
       localStorage.removeItem('kaling_brand_profile');
       localStorage.removeItem('userRole');
+      localStorage.removeItem('userId');
       await signOut({ redirect: false });
       window.location.href = '/auth/login';
     }
