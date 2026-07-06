@@ -134,14 +134,24 @@ export default function ProfilePage() {
       <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 relative">
       {/* Header */}
       <div className="px-6 pt-4 pb-4 flex justify-end gap-4 z-10">
-        <button className="p-2 text-gray-400 hover:text-gray-900 transition-colors">
-          <Send size={22} strokeWidth={2.5} className="transform -rotate-45" />
+        <button className="p-2 text-[#808b98] hover:text-gray-900 transition-colors">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21.5 2.5L2 9.5l8 3.5 3.5 8 8-18.5z" />
+            <path d="M13.5 13L10 10.5" />
+          </svg>
         </button>
         <button 
-          className="p-2 text-gray-400 hover:text-gray-900 transition-colors"
+          className="p-2 text-[#808b98] hover:text-gray-900 transition-colors"
           onClick={() => router.push('/profile/settings')}
         >
-          <Settings2 size={24} strokeWidth={2.5} />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 9h4" />
+            <circle cx="10" cy="9" r="3" />
+            <path d="M13 9h8" />
+            <path d="M3 16h9" />
+            <circle cx="15" cy="16" r="3" />
+            <path d="M18 16h3" />
+          </svg>
         </button>
       </div>
 
