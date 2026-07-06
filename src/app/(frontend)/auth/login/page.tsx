@@ -59,7 +59,9 @@ function LoginContent() {
   return (
     <div className="w-full flex flex-col items-center">
       {/* Top Section */}
-      <img src="/logo.png" alt="Kalinq Logo" className="mb-6 lg:hidden w-32 h-auto object-contain filter brightness-0 invert" />
+      <div className="w-full flex justify-center mb-6 mt-8 sm:mt-10 lg:mt-0">
+        <img src="/logo.png" alt="Kalinq Logo" className="w-12 h-12 sm:w-14 sm:h-14 lg:hidden object-contain filter brightness-0 invert" />
+      </div>
       
       <h1 className="text-3xl font-bold text-white lg:text-text-dark mb-2 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
         Sign in to your<br />Account
