@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
+import { signOut } from "next-auth/react"
 
 export default function BrandCompanyDashboardPage() {
   const [activeTab, setActiveTab] = useState<'about' | 'portfolio'>('about')
@@ -199,10 +200,10 @@ export default function BrandCompanyDashboardPage() {
           {/* Actions at bottom */}
           <div className="flex flex-col gap-3 mt-8">
             <button
-              onClick={() => {
+              onClick={async () => {
                 localStorage.removeItem("kaling_company_profile");
                 localStorage.removeItem("kaling_brand_profile");
-                window.location.href = "/";
+                await signOut({ callbackUrl: "/auth/login" });
               }}
               className="w-full text-red-500 font-bold py-4 flex items-center justify-center gap-2 hover:bg-red-50 rounded-[20px] transition-colors"
             >

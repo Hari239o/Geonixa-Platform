@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { ChevronLeft, Trash2, Plus, LogOut } from 'lucide-react';
 import { getItem, setItem } from '@/utils/storage';
+import { signOut } from 'next-auth/react';
 
 interface Budget {
   name: string;
@@ -136,12 +137,12 @@ export default function ProfileSettingsPage() {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('kaling_user_profile');
       localStorage.removeItem('kaling_brand_profile');
       localStorage.removeItem('userRole');
-      router.push('/auth/login');
+      await signOut({ callbackUrl: '/auth/login' });
     }
   };
 

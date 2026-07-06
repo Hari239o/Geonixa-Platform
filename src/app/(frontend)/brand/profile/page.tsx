@@ -271,10 +271,10 @@ export default function BrandDashboardPage() {
           <div className="flex flex-col gap-3 mt-8">
 
             <button
-              onClick={() => {
+              onClick={async () => {
                 localStorage.removeItem("kaling_brand_profile");
                 localStorage.removeItem("kalinq_mock_user_id");
-                router.push("/");
+                await signOut({ callbackUrl: "/auth/login" });
               }}
               className="w-full text-red-500 font-bold py-4 flex items-center justify-center gap-2 hover:bg-red-50 rounded-[20px] transition-colors"
             >

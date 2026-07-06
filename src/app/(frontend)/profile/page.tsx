@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { BadgeCheck, Send, Settings2, Plus } from 'lucide-react';
 import { getItem, setItem } from '@/utils/storage';
+import { signOut } from 'next-auth/react';
 
 const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -298,10 +299,10 @@ export default function ProfilePage() {
       {/* Logout & Download Buttons */}
       <div className="px-6 flex flex-col gap-3 pb-24 mt-4">
         <button
-          onClick={() => {
+          onClick={async () => {
             localStorage.removeItem("kaling_user_profile");
             localStorage.removeItem("kalinq_mock_user_id");
-            window.location.href = "/";
+            await signOut({ callbackUrl: "/auth/login" });
           }}
           className="w-full text-red-500 font-bold py-4 flex items-center justify-center gap-2 hover:bg-red-50 rounded-[20px] transition-colors"
         >
