@@ -305,8 +305,14 @@ export default function ProfileSettingsPage() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-col items-center">
-            {/* We removed the Logout button because it is on the profile page */}
+          <div className="mt-12 mb-20 flex flex-col items-center">
+            <button
+              onClick={handleLogout}
+              className="w-full text-red-500 font-bold py-4 flex items-center justify-center gap-2 hover:bg-red-50 rounded-[20px] transition-colors"
+            >
+              <LogOut size={18} strokeWidth={2.5} />
+              Logout
+            </button>
           </div>
       </div>
       </div>
