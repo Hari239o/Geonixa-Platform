@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react"
 import Image from "next/image"
-import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe } from "lucide-react"
+import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe, BadgeCheck } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 import { signOut } from "next-auth/react"
 import { uploadFileToR2 } from "@/utils/upload"
@@ -77,10 +77,13 @@ export default function BrandCompanyDashboardPage() {
                   <span className="text-white font-black text-xl">LOGO</span>
                 )}
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
                   {profileData?.fullName || "Lorem Ipsum"}
                 </h1>
+                {profileData?.isVerified && (
+                  <BadgeCheck className="text-[#EF4823] w-6 h-6 fill-[#EF4823] text-white" />
+                )}
               </div>
             </div>
             
@@ -113,18 +116,7 @@ export default function BrandCompanyDashboardPage() {
               Portfolio
             </button>
           </div>
-          {/* Authentication Prompt - Placed below About/Portfolio tabs as requested */}
-          {!profileData?.isVerified && (
-            <div className="mt-4 px-1">
-              <button
-                onClick={() => setShowVerifyModal(true)}
-                className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white font-bold py-3.5 rounded-[16px] shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98] flex items-center justify-center gap-2"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                Authenticate Account
-              </button>
-            </div>
-          )}
+
         </div>
 
         {/* Tab Content */}
@@ -132,6 +124,31 @@ export default function BrandCompanyDashboardPage() {
           
           {activeTab === 'about' && (
             <div className="flex flex-col gap-4">
+
+              {/* Authentication Prompt */}
+              <div className="px-1">
+                <button
+                  disabled={profileData?.isVerified}
+                  onClick={() => !profileData?.isVerified && setShowVerifyModal(true)}
+                  className={`w-full font-bold py-3.5 rounded-[16px] transition-all flex items-center justify-center gap-2 ${
+                    profileData?.isVerified 
+                      ? 'bg-green-500 text-white cursor-default shadow-sm' 
+                      : 'bg-[#EF4823] hover:bg-[#d63d1c] text-white active:scale-[0.98] shadow-[0_4px_15px_rgba(239,72,35,0.25)]'
+                  }`}
+                >
+                  {profileData?.isVerified ? (
+                    <>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                      Account Authenticated
+                    </>
+                  ) : (
+                    <>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                      Authenticate Account
+                    </>
+                  )}
+                </button>
+              </div>
               
               {/* Bio Block */}
               <div className="bg-white rounded-[24px] p-6 shadow-sm">
