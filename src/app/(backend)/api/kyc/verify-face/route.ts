@@ -25,14 +25,14 @@ export async function POST(req: Request) {
     const command = new CompareFacesCommand({
       SourceImage: { Bytes: selfieBuffer },
       TargetImage: { Bytes: aadharBuffer },
-      SimilarityThreshold: 80,
+      SimilarityThreshold: 96,
     });
 
     const response = await client.send(command);
 
     if (response.FaceMatches && response.FaceMatches.length > 0) {
       const match = response.FaceMatches[0];
-      if (match.Similarity && match.Similarity >= 80) {
+      if (match.Similarity && match.Similarity >= 96) {
         return NextResponse.json({ 
           success: true, 
           message: "Face match successful", 
