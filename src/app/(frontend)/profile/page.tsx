@@ -321,7 +321,7 @@ export default function ProfilePage() {
             {profile.portfolioImages && profile.portfolioImages.length > 0 ? (
               profile.portfolioImages.map((img, i) => (
                 <div key={i} className="aspect-square rounded-[24px] overflow-hidden relative">
-                  {img.startsWith('data:video/') ? (
+                  {(img.startsWith('data:video/') || img.match(/\.(mp4|webm|ogg|mov)$/i)) ? (
                     <video src={img} className="w-full h-full object-cover" controls playsInline />
                   ) : (
                     <img src={img} alt={`Portfolio ${i}`} className="w-full h-full object-cover" />

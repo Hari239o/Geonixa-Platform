@@ -260,8 +260,11 @@ export default function BrandDashboardPage() {
                 <div className="grid grid-cols-2 gap-[15px] w-full max-w-[323px] mx-auto mb-6">
                   {portfolioImages.map((src, i) => (
                     <div key={i} className="rounded-2xl overflow-hidden shadow-sm relative group aspect-[154/178]">
-                      {/* Using standard img for data URLs to avoid next/image domain strictness */}
-                      <img src={src} alt="Portfolio item" className="w-full h-full object-cover" />
+                      {(src.startsWith('data:video/') || src.match(/\.(mp4|webm|ogg|mov)$/i)) ? (
+                        <video src={src} className="w-full h-full object-cover" controls playsInline />
+                      ) : (
+                        <img src={src} alt={`Portfolio ${i}`} className="w-full h-full object-cover" />
+                      )}
                       <button 
                         onClick={() => handleDeletePortfolioImage(i)}
                         className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow-md text-[#EF4823]"
