@@ -286,7 +286,7 @@ export default function ExpertsPartnersPage() {
             <img 
               src="/kalinq-company-name-profile.png" 
               alt="Kalinq Logo" 
-              className="object-contain w-[142px] h-[70px]" 
+              className="object-contain w-[142px] h-[70px] invert" 
             />
           </div>
         )}
