@@ -10,7 +10,9 @@ const KycVerificationPage = () => {
  const [step, setStep] = useState(1);
  const [fullName, setFullName] = useState('');
  const [aadharImage, setAadharImage] = useState<string | null>(null);
+ const [aadharPreview, setAadharPreview] = useState<string | null>(null);
  const [selfieImage, setSelfieImage] = useState<string | null>(null);
+ const [selfiePreview, setSelfiePreview] = useState<string | null>(null);
  
  // Camera references
  const videoRef = useRef<HTMLVideoElement>(null);
@@ -35,6 +37,7 @@ const KycVerificationPage = () => {
   const handleAadharUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setAadharPreview(URL.createObjectURL(file));
       try {
         // Upload immediately to R2 private bucket
         const url = await uploadFileToR2(file, 'private');
@@ -78,6 +81,9 @@ const KycVerificationPage = () => {
       if (ctx) {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         
+        // Show immediate local preview
+        setSelfiePreview(canvas.toDataURL('image/jpeg'));
+        
         // Convert to blob and upload to R2
         canvas.toBlob(async (blob) => {
           if (blob) {
@@ -98,6 +104,7 @@ const KycVerificationPage = () => {
 
  const retakePhoto = () => {
  setSelfieImage(null);
+ setSelfiePreview(null);
  startCamera();
  };
 
@@ -228,12 +235,12 @@ const KycVerificationPage = () => {
  </div>
 
  <div className="flex-1 flex flex-col mb-6">
- {aadharImage ? (
+ {aadharPreview ? (
  <>
  <div className="relative w-full aspect-[1.58] rounded-2xl border border-gray-200 mb-4 shadow-sm overflow-hidden">
- <Image src={aadharImage as string} alt="Aadhar Preview" fill className="object-cover" />
+ <Image src={aadharPreview} alt="Aadhar Preview" fill className="object-cover" />
  </div>
- <button className="w-full p-4 bg-orange-50 text-[#EF4823] text-base font-bold rounded-2xl cursor-pointer transition-colors hover:bg-orange-100" onClick={() => setAadharImage(null)}>
+ <button className="w-full p-4 bg-orange-50 text-[#EF4823] text-base font-bold rounded-2xl cursor-pointer transition-colors hover:bg-orange-100" onClick={() => { setAadharImage(null); setAadharPreview(null); }}>
  Upload Different Image
  </button>
  </>
@@ -275,10 +282,10 @@ const KycVerificationPage = () => {
  </div>
 
  <div className="flex-1 flex flex-col mb-6">
- {selfieImage ? (
+ {selfiePreview ? (
  <>
  <div className="relative w-full aspect-[3/4] rounded-2xl border border-gray-200 mb-4 shadow-sm overflow-hidden">
- <Image src={selfieImage as string} alt="Selfie" fill className="object-cover" />
+ <Image src={selfiePreview} alt="Selfie" fill className="object-cover" />
  </div>
  <div className="flex items-center justify-center gap-2 text-emerald-500 font-bold mb-4 bg-emerald-50 py-2 rounded-lg">
  <CheckCircle size={20} /> Face Captured

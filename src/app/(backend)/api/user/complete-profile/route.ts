@@ -93,6 +93,7 @@ export async function POST(req: Request) {
             viewership: profileData.viewership || "0",
             engagement: profileData.engagement || "0",
             projects: profileData.projects || "0",
+            portfolioImages: profileData.portfolioImages || [],
           },
           create: {
             userId: user.id,
@@ -111,6 +112,7 @@ export async function POST(req: Request) {
             viewership: profileData.viewership || "0",
             engagement: profileData.engagement || "0",
             projects: profileData.projects || "0",
+            portfolioImages: profileData.portfolioImages || [],
           }
         });
       } catch (upsertError) {

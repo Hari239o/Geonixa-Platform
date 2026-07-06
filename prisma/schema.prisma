@@ -39,6 +39,7 @@ model CreatorProfile {
   engagement      String   @default("0")
   projects        String   @default("0")
   successRate     String   @default("0%")
+  portfolioImages String[] @default([])
   isVerified      Boolean  @default(false)
   
   website         String?

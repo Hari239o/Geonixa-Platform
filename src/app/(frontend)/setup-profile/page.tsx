@@ -119,9 +119,8 @@ const SetupProfilePage = () => {
     try {
       await setItem('kaling_user_profile', userProfile);
       
-      // Strip huge base64 images before sending to server since DB doesn't store them anyway
+      // We keep portfolioImages since they are now URLs, not base64 strings
       const serverPayload: any = { ...userProfile };
-      delete serverPayload.portfolioImages;
       if (serverPayload.profilePic && serverPayload.profilePic.startsWith('data:image/')) {
         delete serverPayload.profilePic;
       }
@@ -321,10 +320,10 @@ const SetupProfilePage = () => {
  <div className="flex flex-wrap gap-3 mt-2">
  {portfolioImages.map((mediaSrc: string, index: number) => (
  <div key={index} className="relative w-20 h-20">
- {mediaSrc.startsWith('data:video') ? (
+ {mediaSrc.startsWith('data:video') || mediaSrc.match(/\.(mp4|webm|ogg|mov)$/i) ? (
  <video src={mediaSrc} className="w-full h-full object-cover rounded-xl" muted />
  ) : (
- <Image src={mediaSrc} alt={`Portfolio ${index}`} fill className="object-cover rounded-xl" />
+ <img src={mediaSrc} alt={`Portfolio ${index}`} className="object-cover rounded-xl w-full h-full" />
  )}
  <button type="button" aria-label="Remove image" title="Remove image" className="absolute -top-2 -right-2 bg-red-500 w-6 h-6 rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition-colors" onClick={() => removePortfolioImage(index)}>
  <X size={14} color="white" />
