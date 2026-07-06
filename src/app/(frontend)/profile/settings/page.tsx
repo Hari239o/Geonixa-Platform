@@ -257,7 +257,7 @@ export default function ProfileSettingsPage() {
             <div className="grid grid-cols-2 gap-4">
               {portfolioImages.map((img, index) => (
                 <div key={index} className="aspect-square rounded-[24px] overflow-hidden relative group border border-gray-100 shadow-sm">
-                  {img.startsWith('data:video/') ? (
+                  {img.startsWith('data:video/') || img.match(/\.(mp4|webm|ogg|mov)$/i) ? (
                     <video src={img} className="w-full h-full object-cover" controls playsInline />
                   ) : (
                     <img src={img} alt="Portfolio item" className="w-full h-full object-cover" />
