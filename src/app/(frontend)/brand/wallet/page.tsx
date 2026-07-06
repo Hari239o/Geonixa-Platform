@@ -33,7 +33,7 @@ export default function BrandWalletPage() {
               <p className="text-gray-400 text-[13px] font-medium mb-0.5">Your available balance</p>
             </div>
             <div className="text-[#EF4823] font-extrabold text-[32px] tracking-tight leading-none mt-1">
-              ₹15,901
+              ₹0
             </div>
           </div>
 
@@ -49,17 +49,17 @@ export default function BrandWalletPage() {
           {/* Red Dashboard Card */}
           <div className="bg-[#EF4823] rounded-[14px] text-white py-[18px] px-4 flex justify-between items-center shadow-md">
             <div className="flex flex-col items-center flex-1">
-              <span className="text-[18px] font-bold leading-none mb-1.5 mt-0.5">₹5,820</span>
+              <span className="text-[18px] font-bold leading-none mb-1.5 mt-0.5">₹0</span>
               <span className="text-[11px] font-medium opacity-90">Pending</span>
             </div>
             <div className="w-px h-[42px] bg-white/30"></div>
             <div className="flex flex-col items-center flex-1">
-              <span className="text-[18px] font-bold leading-none mb-1.5 mt-0.5">₹20,890</span>
+              <span className="text-[18px] font-bold leading-none mb-1.5 mt-0.5">₹0</span>
               <span className="text-[11px] font-medium opacity-90">Received</span>
             </div>
             <div className="w-px h-[42px] bg-white/30"></div>
             <div className="flex flex-col items-center flex-1">
-              <span className="text-[18px] font-bold leading-none mb-1.5 mt-0.5">{Math.floor(15901 / 10)}</span>
+              <span className="text-[18px] font-bold leading-none mb-1.5 mt-0.5">0</span>
               <span className="text-[11px] font-medium opacity-90">Credit Coins</span>
             </div>
           </div>
@@ -82,7 +82,7 @@ export default function BrandWalletPage() {
               {showFilter && (
                 <div className="absolute right-0 top-9 bg-white border border-[#EF4823] rounded-[10px] p-1.5 flex flex-col shadow-[0_4px_20px_rgba(0,0,0,0.08)] z-50 w-28">
                   <button onClick={() => setShowFilter(false)} className="text-[11px] text-gray-500 font-medium py-2 px-2.5 text-left hover:bg-gray-50 rounded-md">Pending</button>
-                  <button onClick={() => setShowFilter(false)} className="text-[11px] text-gray-500 font-medium py-2 px-2.5 text-left hover:bg-gray-50 rounded-md">Recived</button>
+                  <button onClick={() => setShowFilter(false)} className="text-[11px] text-gray-500 font-medium py-2 px-2.5 text-left hover:bg-gray-50 rounded-md">Received</button>
                   <button onClick={() => setShowFilter(false)} className="text-[11px] text-gray-500 font-medium py-2 px-2.5 text-left hover:bg-gray-50 rounded-md">last month</button>
                   <button onClick={() => setShowFilter(false)} className="text-[11px] text-gray-500 font-medium py-2 px-2.5 text-left hover:bg-gray-50 rounded-md">Clear</button>
                 </div>
@@ -90,58 +90,8 @@ export default function BrandWalletPage() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-6">
-            
-            {/* Transaction 1 */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-[46px] h-[46px] rounded-full overflow-hidden shrink-0 bg-gray-200">
-                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="User" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-gray-800 font-bold text-[15px] mb-0.5">Lorem Ipsum</span>
-                  <span className="text-gray-400 text-[11px] font-medium">26 .11 .2021 - 5:15 AM</span>
-                </div>
-              </div>
-              <div className="flex flex-col items-end">
-                <span className="text-[#EF4823] font-bold text-[14px] mb-0.5">-₹5000</span>
-                <span className="text-gray-400 text-[9px] font-medium">Withdrawn</span>
-              </div>
-            </div>
-
-            {/* Transaction 2 */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-[46px] h-[46px] rounded-full overflow-hidden shrink-0 bg-gray-200">
-                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="User" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-gray-800 font-bold text-[15px] mb-0.5">Lorem Ipsum</span>
-                  <span className="text-gray-400 text-[11px] font-medium">21 .11 .2021 - 2:15 PM</span>
-                </div>
-              </div>
-              <div className="flex flex-col items-end">
-                <span className="text-[#2ECC71] font-bold text-[14px]">₹8000</span>
-              </div>
-            </div>
-
-            {/* Transaction 3 */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-[46px] h-[46px] rounded-full overflow-hidden shrink-0 bg-gray-200">
-                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="User" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-gray-800 font-bold text-[15px] mb-0.5">Lorem Ipsum</span>
-                  <span className="text-gray-400 text-[11px] font-medium">19 .11 .2021 - 4:35 AM</span>
-                </div>
-              </div>
-              <div className="flex flex-col items-end">
-                <span className="text-[#F1C40F] font-bold text-[14px] mb-0.5">₹5000</span>
-                <span className="text-gray-400 text-[9px] font-medium">Pending</span>
-              </div>
-            </div>
-
+          <div className="flex flex-col gap-6 items-center justify-center pt-8">
+            <span className="text-gray-400 font-medium text-sm">No transactions yet</span>
           </div>
 
         </div>
