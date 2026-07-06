@@ -156,9 +156,9 @@ export default function ProfilePage() {
           console.error("Failed to save image to IndexedDB", error);
         }
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Failed to upload portfolio media", err);
-      alert("Failed to upload portfolio media");
+      alert("Upload failed: " + (err.message || String(err)));
     }
   };
 

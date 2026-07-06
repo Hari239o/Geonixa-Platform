@@ -60,9 +60,9 @@ const SetupProfilePage = () => {
       const uploadPromises = files.map(file => uploadFileToR2(file, 'public'));
       const urls = await Promise.all(uploadPromises);
       setPortfolioImages((prev: string[]) => [...prev, ...urls]);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Portfolio upload failed", err);
-      alert("Failed to upload some portfolio media.");
+      alert("Upload failed: " + (err.message || String(err)));
     }
   };
 
