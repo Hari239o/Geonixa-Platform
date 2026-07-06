@@ -41,8 +41,16 @@ export default function RegisterPage() {
 
   return (
     <div className="w-full flex flex-col items-center justify-center h-full min-h-[100dvh] py-4 sm:py-8">
-      {/* Top Section */}
-      <img src="/logo.png" alt="Kalinq Logo" className="mb-6 lg:hidden w-32 h-auto object-contain filter brightness-0 invert" />
+      {/* Top Header Section */}
+      <div className="w-full flex items-center justify-center relative mb-6 px-4 pt-4 sm:pt-6">
+        <button 
+          onClick={() => router.back()} 
+          className="absolute left-4 sm:left-6 text-white p-2 hover:bg-white/10 rounded-full transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <img src="/logo.png" alt="Kalinq Logo" className="w-12 h-12 sm:w-14 sm:h-14 lg:hidden object-contain filter brightness-0 invert" />
+      </div>
       
       <h1 className="text-[28px] font-bold text-white lg:text-text-dark mb-2 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
         Sign Up
