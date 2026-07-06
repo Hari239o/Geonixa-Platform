@@ -29,35 +29,7 @@ export default function WalletPage() {
     loadProfile();
   }, []);
 
- const transactions = [
- {
- id: 1,
- name: 'Lorem Ipsum',
- date: '26 .11 .2021 - 5:15 AM',
- amount: '-₹5000',
- status: 'Withdrawn',
- type: 'withdraw',
- avatar: '/profile_pic.png' // using default as placeholder
- },
- {
- id: 2,
- name: 'Lorem Ipsum',
- date: '21 .11 .2021 - 2:15 PM',
- amount: '₹8000',
- status: '',
- type: 'received',
- avatar: '/profile_pic.png'
- },
- {
- id: 3,
- name: 'Lorem Ipsum',
- date: '19 .11 .2021 - 4:35 AM',
- amount: '₹5000',
- status: 'Pending',
- type: 'pending',
- avatar: '/profile_pic.png'
- }
- ];
+ const transactions: any[] = [];
 
  return (
   <div className="w-full max-w-md mx-auto h-full flex flex-col bg-white font-sans overflow-hidden">
@@ -85,7 +57,7 @@ export default function WalletPage() {
   </div>
  </div>
  <div className="text-[28px] font-extrabold text-primary-red tracking-tight">
- ₹15,901
+ ₹0
  </div>
  </div>
 
@@ -96,15 +68,15 @@ export default function WalletPage() {
  <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl transform translate-x-10 -translate-y-10"></div>
  
  <div className="flex flex-col items-center flex-1 border-r border-white/20">
- <span className="text-lg font-bold text-white mb-0.5">₹5,820</span>
+ <span className="text-lg font-bold text-white mb-0.5">₹0</span>
  <span className="text-[11px] text-white/90 font-medium">Pending</span>
  </div>
  <div className="flex flex-col items-center flex-1 border-r border-white/20">
- <span className="text-lg font-bold text-white mb-0.5">₹20,890</span>
+ <span className="text-lg font-bold text-white mb-0.5">₹0</span>
  <span className="text-[11px] text-white/90 font-medium">Received</span>
  </div>
  <div className="flex flex-col items-center flex-1">
- <span className="text-lg font-bold text-white mb-0.5">178</span>
+ <span className="text-lg font-bold text-white mb-0.5">0</span>
  <span className="text-[11px] text-white/90 font-medium">Credit Coins</span>
  </div>
  </div>
