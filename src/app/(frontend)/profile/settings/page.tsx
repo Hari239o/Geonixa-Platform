@@ -315,18 +315,18 @@ export default function ProfileSettingsPage() {
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 max-w-md mx-auto p-6 pt-10 bg-gradient-to-t from-white via-white to-transparent z-20 flex flex-col gap-2">
+        <button 
+          onClick={handleSave}
+          className="w-full py-4 bg-[#EF4823] text-white rounded-[20px] font-bold shadow-lg hover:-translate-y-1 transition-transform"
+        >
+          Save Changes
+        </button>
         <button
           onClick={handleLogout}
           className="w-full text-red-500 font-bold py-3 flex items-center justify-center gap-2 hover:bg-red-50 rounded-[20px] transition-colors"
         >
           <LogOut size={18} strokeWidth={2.5} />
           Logout
-        </button>
-        <button 
-          onClick={handleSave}
-          className="w-full py-4 bg-[#EF4823] text-white rounded-[20px] font-bold shadow-lg hover:-translate-y-1 transition-transform"
-        >
-          Save Changes
         </button>
       </div>
     </div>
