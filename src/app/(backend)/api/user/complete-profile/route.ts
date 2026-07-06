@@ -114,6 +114,7 @@ export async function POST(req: Request) {
             viewership: profileData.viewership || "0",
             engagement: profileData.engagement || "0",
             projects: profileData.projects || "0",
+            // @ts-ignore
             portfolioImages: profileData.portfolioImages || [],
             isVerified: profileData.isVerified || false,
           }
