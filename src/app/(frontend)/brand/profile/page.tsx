@@ -109,7 +109,6 @@ export default function BrandDashboardPage() {
             <div className="flex gap-3 text-gray-400 mt-2 items-center">
               <button onClick={handleShare} className="hover:text-[#EF4823] transition-colors" title="Share Profile"><Send size={18} /></button>
               <button onClick={() => router.push("/brand/setup-company")} className="hover:text-[#EF4823] transition-colors" title="Edit Profile"><SlidersHorizontal size={18} /></button>
-              <button onClick={() => signOut({ callbackUrl: "/auth/login" })} className="hover:text-red-500 transition-colors" title="Log Out"><LogOut size={18} /></button>
             </div>
           </div>
 

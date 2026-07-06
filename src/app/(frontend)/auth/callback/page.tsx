@@ -19,7 +19,22 @@ export default function AuthCallbackPage() {
         const hasProfile = (session.user as any).profileCompleted === true;
         
         if (role === "brand") {
-          router.replace(hasProfile ? "/brand" : "/auth/brand-setup");
+          if (!hasProfile) {
+            router.replace("/auth/brand-setup");
+          } else {
+            let brandType = "individual";
+            try {
+              const profile = localStorage.getItem("kaling_brand_profile");
+              if (profile) {
+                const parsed = JSON.parse(profile);
+                if (parsed.type === "company") {
+                  brandType = "company";
+                }
+              }
+            } catch (e) {}
+            
+            router.replace(brandType === "company" ? "/brand/company" : "/brand");
+          }
         } else if (role === "partner") {
           router.replace(hasProfile ? "/partner" : "/partner/setup-profile");
         } else if (role === "creator") {
@@ -33,7 +48,7 @@ export default function AuthCallbackPage() {
 
   return (
     <div className="w-full max-w-sm bg-white p-10 rounded-[30px] shadow-2xl flex flex-col items-center justify-center min-h-[350px] mx-auto z-20 relative border border-gray-100">
-      <Logo large={false} showText={false} className="mb-6 w-14 h-14 animate-pulse" />
+      <img src="/profile.png" alt="Kalinq Logo" className="mb-6 w-32 h-auto object-contain animate-pulse" />
       <h1 className="text-[22px] font-black tracking-tight text-text-dark mb-3">Authenticating...</h1>
       <p className="text-text-light text-sm font-medium text-center leading-relaxed">Please wait while we securely set up your session.</p>
     </div>
