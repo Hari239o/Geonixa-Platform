@@ -172,7 +172,7 @@ export default function ProfileSettingsPage() {
         <h1 className="text-[20px] font-extrabold text-[#1a1a2e] tracking-tight w-full text-center">Settings</h1>
       </div>
 
-      <div className="px-8 pb-32 pt-4">
+      <div className="px-8 pb-48 pt-4">
         {/* Profile Picture Section */}
         <div className="flex items-center justify-center mb-8">
           <div className="relative group cursor-pointer">
@@ -310,19 +310,18 @@ export default function ProfileSettingsPage() {
             </div>
           </div>
 
-          <div className="mt-12 mb-20 flex flex-col items-center">
-            <button
-              onClick={handleLogout}
-              className="w-full text-red-500 font-bold py-4 flex items-center justify-center gap-2 hover:bg-red-50 rounded-[20px] transition-colors"
-            >
-              <LogOut size={18} strokeWidth={2.5} />
-              Logout
-            </button>
-          </div>
+          {/* Logout moved to fixed footer */}
       </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 max-w-md mx-auto p-6 bg-gradient-to-t from-white via-white to-transparent z-20">
+      <div className="absolute bottom-0 left-0 right-0 max-w-md mx-auto p-6 pt-10 bg-gradient-to-t from-white via-white to-transparent z-20 flex flex-col gap-2">
+        <button
+          onClick={handleLogout}
+          className="w-full text-red-500 font-bold py-3 flex items-center justify-center gap-2 hover:bg-red-50 rounded-[20px] transition-colors"
+        >
+          <LogOut size={18} strokeWidth={2.5} />
+          Logout
+        </button>
         <button 
           onClick={handleSave}
           className="w-full py-4 bg-[#EF4823] text-white rounded-[20px] font-bold shadow-lg hover:-translate-y-1 transition-transform"
