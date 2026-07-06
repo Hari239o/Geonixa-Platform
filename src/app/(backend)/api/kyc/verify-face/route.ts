@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { RekognitionClient, CompareFacesCommand } from "@aws-sdk/client-rekognition";
 
 export async function POST(req: Request) {
   try {
@@ -10,23 +11,46 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: "Missing images" }, { status: 400 });
     }
 
-    // SIMULATION MODE
-    // In production, send both files to AWS Rekognition CompareFacesCommand
-    // Mocking 2 second processing time
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    const selfieBuffer = Buffer.from(await selfieFile.arrayBuffer());
+    const aadharBuffer = Buffer.from(await aadharFile.arrayBuffer());
 
-    const isFake = selfieFile.name.toLowerCase().includes("fake");
+    const client = new RekognitionClient({
+      region: process.env.AWS_REKOGNITION_REGION || "ap-south-1",
+      credentials: {
+        accessKeyId: process.env.AWS_REKOGNITION_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.AWS_REKOGNITION_SECRET_ACCESS_KEY!,
+      },
+    });
 
-    if (isFake) {
-      return NextResponse.json({ 
-        success: false, 
-        error: "Face match failed. The person in the selfie does not match the Aadhar photo." 
-      }, { status: 400 });
+    const command = new CompareFacesCommand({
+      SourceImage: { Bytes: selfieBuffer },
+      TargetImage: { Bytes: aadharBuffer },
+      SimilarityThreshold: 80,
+    });
+
+    const response = await client.send(command);
+
+    if (response.FaceMatches && response.FaceMatches.length > 0) {
+      const match = response.FaceMatches[0];
+      if (match.Similarity && match.Similarity >= 80) {
+        return NextResponse.json({ 
+          success: true, 
+          message: "Face match successful", 
+          similarity: match.Similarity 
+        });
+      }
     }
 
-    return NextResponse.json({ success: true, message: "Face match successful" });
-  } catch (error) {
+    return NextResponse.json({ 
+      success: false, 
+      error: "Face match failed. The person in the selfie does not match the Aadhar photo." 
+    }, { status: 400 });
+
+  } catch (error: any) {
     console.error("Face Verification Error", error);
-    return NextResponse.json({ success: false, error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json({ 
+      success: false, 
+      error: error.message || "Face Verification Failed" 
+    }, { status: 500 });
   }
 }
