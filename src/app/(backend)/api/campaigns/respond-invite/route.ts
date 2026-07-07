@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
 import { Knock } from '@knocklabs/node';
 
-const knock = new Knock(process.env.KNOCK_SECRET_API_KEY || 'dummy-key');
+const knock = new Knock({ apiKey: process.env.KNOCK_SECRET_API_KEY || 'dummy-key' });
 
 export async function POST(request: Request) {
   try {
@@ -114,7 +114,7 @@ export async function POST(request: Request) {
           message: notifMsg,
           actionUrl: "/creator",
           actionLabel: "View Dashboard",
-          senderImage: invite.brand.logo || null
+          senderImage: invite.brand.profilePic || null
         }
       });
 
