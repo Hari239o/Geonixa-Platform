@@ -8,13 +8,8 @@ export default function BrandSetupSelectionPage() {
   const router = useRouter()
 
   React.useEffect(() => {
-    try {
-      const profile = localStorage.getItem("kaling_brand_profile");
-      if (profile) {
-        const parsed = JSON.parse(profile);
-        router.replace(parsed.type === "company" ? "/brand/company" : "/brand");
-      }
-    } catch (e) {}
+    // Only redirect if they explicitly set a brandType in this session
+    // otherwise wait for their selection
   }, [router]);
 
   const handleSelect = (type: string) => {

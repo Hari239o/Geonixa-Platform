@@ -13,29 +13,35 @@ export default function AuthCallbackPage() {
     if (status === "unauthenticated") {
       router.replace("/auth/login");
     } else if (status === "authenticated" && session?.user) {
-      // Small delay for smooth UX
-      setTimeout(() => {
+      const handleRedirect = async () => {
         const role = (session.user as any).role || "user";
         let hasProfile = (session.user as any).profileCompleted === true;
         
         if (role === "brand") {
-          let brandType = "individual"; // default
-          try {
-            // Only try to read local storage to figure out if it's company or individual 
-            // if we really need to. Ideally this comes from DB too but let's just 
-            // check if they have profile first.
-            const profile = localStorage.getItem("kaling_brand_profile");
-            if (profile) {
-              const parsed = JSON.parse(profile);
-              if (parsed.type === "company") {
-                brandType = "company";
-              }
-            }
-          } catch (e) {}
-
           if (!hasProfile) {
             router.replace("/auth/brand-setup");
           } else {
+            let brandType = "individual";
+            try {
+              const res = await fetch("/api/user/complete-profile");
+              if (res.ok) {
+                const data = await res.json();
+                if (data.profile?.brandType) {
+                  brandType = data.profile.brandType;
+                } else {
+                  // Fallback to local storage if DB is missing brandType
+                  const profile = localStorage.getItem("kaling_brand_profile");
+                  if (profile) {
+                    const parsed = JSON.parse(profile);
+                    if (parsed.type === "company" || parsed.brandType === "company") {
+                      brandType = "company";
+                    }
+                  }
+                }
+              }
+            } catch (e) {
+              console.error("Failed to fetch profile in callback", e);
+            }
             router.replace(brandType === "company" ? "/brand/company" : "/brand");
           }
         } else if (role === "partner") {
@@ -45,6 +51,11 @@ export default function AuthCallbackPage() {
         } else {
           router.replace("/auth/category-selection");
         }
+      };
+
+      // Small delay for smooth UX
+      setTimeout(() => {
+        handleRedirect();
       }, 500);
     }
   }, [status, session, router]);

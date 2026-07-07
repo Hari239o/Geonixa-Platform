@@ -14,6 +14,7 @@ export default function BottomNav() {
   const [localProfilePic, setLocalProfilePic] = React.useState<string | null>(null);
 
   React.useEffect(() => {
+    // Fallback to local storage initially
     const type = localStorage.getItem("brandType");
     if (type === "company") {
       setProfileUrl("/brand/company");
@@ -26,26 +27,38 @@ export default function BottomNav() {
           const parsed = JSON.parse(saved);
           if (parsed.profilePic) {
             setLocalProfilePic(parsed.profilePic);
-            return;
+          }
+          if (parsed.type === "company" || parsed.brandType === "company") {
+            setProfileUrl("/brand/company");
           }
         }
         
-        // If not in local storage, try fetching from server
+        // Always try fetching from server to ensure correctness
         const res = await fetch('/api/user/complete-profile');
         if (res.ok) {
           const data = await res.json();
-          if (data.profile?.profilePic) {
-            setLocalProfilePic(data.profile.profilePic);
-            // Optionally update local storage so we don't have to fetch next time
-            if (saved) {
-              const parsed = JSON.parse(saved);
-              parsed.profilePic = data.profile.profilePic;
-              localStorage.setItem("kaling_brand_profile", JSON.stringify(parsed));
+          if (data.profile) {
+            if (data.profile.brandType === "company") {
+              setProfileUrl("/brand/company");
+              localStorage.setItem("brandType", "company");
+            } else if (data.profile.brandType === "individual") {
+              setProfileUrl("/brand/profile");
+              localStorage.setItem("brandType", "individual");
+            }
+
+            if (data.profile.profilePic) {
+              setLocalProfilePic(data.profile.profilePic);
+              // Optionally update local storage so we don't have to fetch next time
+              if (saved) {
+                const parsed = JSON.parse(saved);
+                parsed.profilePic = data.profile.profilePic;
+                localStorage.setItem("kaling_brand_profile", JSON.stringify(parsed));
+              }
             }
           }
         }
       } catch (e) {
-        console.error("Failed to load profile pic in nav:", e);
+        console.error("Failed to load profile in nav:", e);
       }
     };
     
