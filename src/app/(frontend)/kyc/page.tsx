@@ -300,12 +300,14 @@ export default function KycPage() {
                   />
                   
                   {aadharFile ? (
-                    <div className="flex flex-col items-center">
-                      <div className="w-12 h-12 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-2">
-                        <CheckCircle2 className="w-6 h-6" />
+                    <div className="flex flex-col items-center relative w-full h-[180px] rounded-[16px] overflow-hidden group">
+                      <img src={URL.createObjectURL(aadharFile)} alt="Aadhar Preview" className="w-full h-full object-cover group-hover:opacity-70 transition-opacity" />
+                      <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
+                        <div className="w-10 h-10 bg-white text-gray-800 rounded-full flex items-center justify-center mb-2 shadow-sm">
+                          <UploadCloud className="w-5 h-5" />
+                        </div>
+                        <span className="text-[12px] font-bold text-white">Tap to change file</span>
                       </div>
-                      <span className="text-[13px] font-bold text-[#1a1a2e]">{aadharFile.name}</span>
-                      <span className="text-[11px] text-gray-400 mt-1">Tap to change file</span>
                     </div>
                   ) : (
                     <>
