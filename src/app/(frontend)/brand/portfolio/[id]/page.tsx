@@ -283,7 +283,7 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
               <h3 className="text-[13px] font-bold text-gray-500 mb-5">On The Web</h3>
               <div className="flex gap-4">
                 <a 
-                  href={profile.socials?.instagram ? profile.socials.instagram : '#'} 
+                  href={profile.socials?.instagram ? (profile.socials.instagram.startsWith('http') ? profile.socials.instagram : `https://${profile.socials.instagram}`) : '#'} 
                   target={profile.socials?.instagram ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${profile.socials?.instagram ? 'bg-pink-50 text-pink-500 hover:bg-pink-100' : 'bg-[#8c919c] text-white'}`}
@@ -291,7 +291,7 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
                   <InstagramIcon size={18} />
                 </a>
                 <a 
-                  href={profile.socials?.facebook ? profile.socials.facebook : '#'} 
+                  href={profile.socials?.facebook ? (profile.socials.facebook.startsWith('http') ? profile.socials.facebook : `https://${profile.socials.facebook}`) : '#'} 
                   target={profile.socials?.facebook ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${profile.socials?.facebook ? 'bg-blue-50 text-blue-500 hover:bg-blue-100' : 'bg-[#8c919c] text-white'}`}
@@ -299,7 +299,7 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
                   <FacebookIcon size={18} />
                 </a>
                 <a 
-                  href={profile.socials?.x ? profile.socials.x : '#'} 
+                  href={profile.socials?.x ? (profile.socials.x.startsWith('http') ? profile.socials.x : `https://${profile.socials.x}`) : '#'} 
                   target={profile.socials?.x ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${profile.socials?.x ? 'bg-gray-50 text-gray-800 hover:bg-gray-100' : 'bg-[#8c919c] text-white'}`}
@@ -307,7 +307,7 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
                   <TwitterIcon size={18} />
                 </a>
                 <a 
-                  href={profile.socials?.linkedin ? profile.socials.linkedin : '#'} 
+                  href={profile.socials?.linkedin ? (profile.socials.linkedin.startsWith('http') ? profile.socials.linkedin : `https://${profile.socials.linkedin}`) : '#'} 
                   target={profile.socials?.linkedin ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${profile.socials?.linkedin ? 'bg-blue-50 text-blue-700 hover:bg-blue-100' : 'bg-[#8c919c] text-white'}`}

@@ -80,10 +80,10 @@ export async function POST(req: Request) {
 
     // Upsert Profile with whatever data was provided
     if (Object.keys(profileData).length > 0) {
-      const facebook = profileData.facebook || profileData.socials?.facebook || null;
-      const instagram = profileData.instagram || profileData.socials?.instagram || null;
-      const x = profileData.x || profileData.socials?.x || null;
-      const linkedin = profileData.linkedin || profileData.socials?.linkedin || null;
+      const facebook = profileData.facebook || profileData.socials?.facebook;
+      const instagram = profileData.instagram || profileData.socials?.instagram;
+      const x = profileData.x || profileData.socials?.x;
+      const linkedin = profileData.linkedin || profileData.socials?.linkedin;
       const budgets = profileData.budgets || null;
       
       try {
@@ -146,11 +146,11 @@ export async function POST(req: Request) {
               tags: tags.length > 0 ? { set: tags } : undefined,
               website: profileData.website !== undefined ? profileData.website : undefined,
               phone: profileData.phone !== undefined ? profileData.phone : undefined,
-              facebook: facebook !== undefined ? facebook : undefined,
-              instagram: instagram !== undefined ? instagram : undefined,
-              x: x !== undefined ? x : undefined,
+              facebook: facebook ? facebook : undefined,
+              instagram: instagram ? instagram : undefined,
+              x: x ? x : undefined,
               // @ts-ignore
-              linkedin: linkedin !== undefined ? linkedin : undefined,
+              linkedin: linkedin ? linkedin : undefined,
               budgets: budgets !== undefined ? budgets : undefined,
               teamMembers: profileData.teamMembers !== undefined ? profileData.teamMembers : undefined,
               brandType: profileData.brandType || profileData.type || undefined,

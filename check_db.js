@@ -1,19 +1,25 @@
+require('dotenv').config({ path: '.env.local' });
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-  try {
-    const brands = await prisma.brandProfile.findMany();
-    console.log("BRAND PROFILES:", brands);
-    
-    const users = await prisma.user.findMany({
-      include: { brandProfile: true, creatorProfile: true }
-    });
-    console.log("\nALL USERS:", JSON.stringify(users, null, 2));
-  } catch (e) {
-    console.error("DB ERROR:", e);
-  } finally {
-    await prisma.$disconnect();
-  }
+  const creators = await prisma.creatorProfile.findMany({
+    select: {
+      id: true,
+      userId: true,
+      fullName: true,
+      instagram: true,
+      facebook: true,
+      x: true,
+      linkedin: true
+    }
+  });
+  console.log("CREATORS IN DB:");
+  console.table(creators);
 }
-main();
+
+main()
+  .catch(e => console.error(e))
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
