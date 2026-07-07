@@ -212,15 +212,15 @@ export default function CampaignPage() {
 
  {/* Action Buttons */}
  <div className="flex flex-wrap items-center gap-2" onClick={(e) => e.stopPropagation()}>
- {campaign.creatorStatus === 'applied' || campaign.creatorStatus === 'ACCEPTED' ? (
+ {['brand_accepted_negotiation', 'BRAND_ACCEPTED_NEGOTIATION', 'ACCEPTED', 'accepted', 'applied'].includes(campaign.creatorStatus || '') ? (
     <div className="w-full py-3 bg-green-50 text-green-600 text-[13px] font-bold rounded-xl text-center border border-green-100 uppercase tracking-wide">
-      STATUS: {campaign.creatorStatus}
+      STATUS: {campaign.creatorStatus === 'applied' ? 'APPLIED' : 'ACCEPTED'}
     </div>
  ) : campaign.creatorStatus === 'negotiating' ? (
     <div className="w-full py-3 bg-orange-50 text-orange-500 text-[13px] font-bold rounded-xl text-center border border-orange-100 uppercase tracking-wide">
       STATUS: NEGOTIATING
     </div>
- ) : campaign.creatorStatus === 'REJECTED' ? (
+ ) : campaign.creatorStatus === 'REJECTED' || campaign.creatorStatus === 'rejected' ? (
     <div className="w-full py-3 bg-red-50 text-red-500 text-[13px] font-bold rounded-xl text-center border border-red-100 uppercase tracking-wide">
       STATUS: REJECTED
     </div>

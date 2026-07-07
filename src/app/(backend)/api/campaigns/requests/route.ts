@@ -31,6 +31,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "Missing required fields" }, { status: 400 });
     }
 
+    const existingRequest = await prisma.campaignRequest.findUnique({
+      where: {
+        campaignId_creatorId: {
+          campaignId,
+          creatorId: creator.id
+        }
+      }
+    });
+
+    if (existingRequest && status === 'applied') {
+      return NextResponse.json({ success: false, error: "You have already applied to this campaign." }, { status: 400 });
+    }
+
     // Upsert the request so if they accept then reject it updates
     const campaignRequest = await prisma.campaignRequest.upsert({
       where: {
