@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import { ChevronLeft, ChevronDown, SendHorizontal, Loader2, Wand2 } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
+import DualRangeSlider from "@/components/ui/DualRangeSlider"
 
 export default function AICampaignCreatePage() {
   const router = useRouter()
@@ -257,28 +258,22 @@ export default function AICampaignCreatePage() {
               </div>
 
               {/* Budget Slider */}
-              <div className="flex flex-col gap-1.5 mb-6 mt-4">
-                <label className="text-gray-400 text-[12px] font-medium pl-1 mb-2">Budget (in ₹k)</label>
+              <div className="flex flex-col gap-1.5 mb-10 mt-4">
+                <label className="text-gray-400 text-[12px] font-medium pl-1 mb-2">Budget</label>
                 <div className="flex justify-between items-center px-1 mb-2">
                   <span className="text-gray-400 text-[10px] font-medium">Minimum</span>
                   <span className="text-gray-400 text-[10px] font-medium">Maximum</span>
                 </div>
-                <div className="flex gap-4">
-                  <input 
-                    type="number" 
-                    value={minBudget}
-                    onChange={(e) => setMinBudget(Number(e.target.value))}
-                    className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-3 px-5 text-[#EF4823] font-bold text-[14px]"
+                <div className="px-2">
+                  <DualRangeSlider 
+                    min={1} 
+                    max={100} 
+                    value={[minBudget, maxBudget]} 
+                    onChange={([min, max]) => {
+                      setMinBudget(min);
+                      setMaxBudget(max);
+                    }} 
                   />
-                  <input 
-                    type="number" 
-                    value={maxBudget}
-                    onChange={(e) => setMaxBudget(Number(e.target.value))}
-                    className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-3 px-5 text-[#EF4823] font-bold text-[14px]"
-                  />
-                </div>
-                <div className="relative w-full h-1 bg-gray-200 rounded-full mx-1 mt-4">
-                  <div className="absolute left-0 right-0 h-full bg-[#EF4823] rounded-full"></div>
                 </div>
               </div>
 
