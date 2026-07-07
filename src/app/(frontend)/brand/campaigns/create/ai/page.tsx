@@ -54,7 +54,7 @@ export default function AICampaignCreatePage() {
         body: JSON.stringify({
           title,
           subtitle: '- Brand Campaign',
-          budget: '₹13k - ₹25k',
+          budget: `₹${minBudget}k - ₹${maxBudget}k`,
           dateRange: deadline,
           description: description || 'New campaign',
           daysLeft: 'Active',
@@ -240,21 +240,27 @@ export default function AICampaignCreatePage() {
 
               {/* Budget Slider */}
               <div className="flex flex-col gap-1.5 mb-6 mt-4">
-                <label className="text-gray-400 text-[12px] font-medium pl-1 mb-2">Budget</label>
-                <div className="flex justify-between items-center px-1 mb-4">
+                <label className="text-gray-400 text-[12px] font-medium pl-1 mb-2">Budget (in ₹k)</label>
+                <div className="flex justify-between items-center px-1 mb-2">
                   <span className="text-gray-400 text-[10px] font-medium">Minimum</span>
                   <span className="text-gray-400 text-[10px] font-medium">Maximum</span>
                 </div>
-                <div className="relative w-full h-1 bg-gray-200 rounded-full mx-1">
-                  <div className="absolute left-[30%] right-[20%] h-full bg-[#EF4823] rounded-full"></div>
-                  <div className="absolute left-[30%] -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col items-center">
-                    <div className="w-4 h-4 bg-white border-2 border-[#EF4823] rounded-full shadow-sm"></div>
-                    <span className="text-[#1E1B4B] font-bold text-[11px] mt-2">₹13k</span>
-                  </div>
-                  <div className="absolute right-[20%] translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col items-center">
-                    <div className="w-4 h-4 bg-white border-2 border-[#EF4823] rounded-full shadow-sm"></div>
-                    <span className="text-[#1E1B4B] font-bold text-[11px] mt-2">₹25k</span>
-                  </div>
+                <div className="flex gap-4">
+                  <input 
+                    type="number" 
+                    value={minBudget}
+                    onChange={(e) => setMinBudget(Number(e.target.value))}
+                    className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-3 px-5 text-[#EF4823] font-bold text-[14px]"
+                  />
+                  <input 
+                    type="number" 
+                    value={maxBudget}
+                    onChange={(e) => setMaxBudget(Number(e.target.value))}
+                    className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-3 px-5 text-[#EF4823] font-bold text-[14px]"
+                  />
+                </div>
+                <div className="relative w-full h-1 bg-gray-200 rounded-full mx-1 mt-4">
+                  <div className="absolute left-0 right-0 h-full bg-[#EF4823] rounded-full"></div>
                 </div>
               </div>
 
@@ -270,39 +276,54 @@ export default function AICampaignCreatePage() {
 
           {step === 2 && (
             <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-right-4 duration-300">
-              {[1, 2, 3].map((creator) => (
-                <div key={creator} className="bg-white rounded-[20px] p-4 border border-[#EF4823] shadow-sm relative">
-                  <div className="absolute top-4 right-4 w-5 h-5 rounded-full border-2 border-[#EF4823] flex items-center justify-center">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#EF4823]"></div>
-                  </div>
+              {creators.length === 0 ? (
+                <div className="text-center text-gray-400 py-10">Loading creators...</div>
+              ) : creators.map((creator) => (
+                <div 
+                  key={creator.id} 
+                  onClick={() => {
+                    if (selectedCreators.includes(creator.id)) {
+                       setSelectedCreators(selectedCreators.filter(id => id !== creator.id))
+                    } else {
+                       setSelectedCreators([...selectedCreators, creator.id])
+                    }
+                  }}
+                  className={`bg-white rounded-[20px] p-4 border shadow-sm relative cursor-pointer transition-colors ${selectedCreators.includes(creator.id) ? 'border-[#EF4823] bg-orange-50/10' : 'border-gray-100'}`}
+                >
+                  {selectedCreators.includes(creator.id) && (
+                    <div className="absolute top-4 right-4 w-5 h-5 rounded-full border-2 border-[#EF4823] flex items-center justify-center">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#EF4823]"></div>
+                    </div>
+                  )}
                   
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-gray-200 rounded-full overflow-hidden">
-                      <img src={`https://i.pravatar.cc/150?img=${creator + 10}`} alt="Creator" className="w-full h-full object-cover" />
+                    <div className="w-12 h-12 bg-gray-200 rounded-full overflow-hidden shrink-0">
+                      <img src={creator.profilePic || `https://ui-avatars.com/api/?name=${encodeURIComponent(creator.fullName || creator.user?.name || 'Creator')}`} alt="Creator" className="w-full h-full object-cover" />
                     </div>
-                    <div className="flex flex-col">
-                      <span className="font-bold text-gray-900 text-[15px]">Lorem Ipsum</span>
-                      <div className="flex gap-2 mt-1">
-                        <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">Fashion</span>
-                        <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">Lifestyle</span>
+                    <div className="flex flex-col flex-1 truncate">
+                      <span className="font-bold text-gray-900 text-[15px] truncate">{creator.fullName || creator.user?.name || 'Creator'}</span>
+                      <div className="flex gap-2 mt-1 overflow-x-auto no-scrollbar">
+                        {(creator.tags && creator.tags.length > 0 ? creator.tags : ['Fashion', 'Lifestyle']).slice(0, 2).map((t: string) => (
+                          <span key={t} className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">{t}</span>
+                        ))}
                       </div>
                     </div>
                   </div>
 
                   <div className="flex justify-between items-center px-2 py-3 bg-[#FAFAFA] rounded-[12px] border border-gray-100">
                     <div className="flex flex-col items-center">
-                      <span className="text-[#EF4823] font-bold text-[14px]">44.5k</span>
+                      <span className="text-[#EF4823] font-bold text-[14px]">{creator.followers || '0'}</span>
                       <span className="text-gray-400 text-[10px] font-medium">Followers</span>
                     </div>
                     <div className="w-[1px] h-6 bg-gray-200"></div>
                     <div className="flex flex-col items-center">
-                      <span className="text-[#EF4823] font-bold text-[14px]">22.8k</span>
-                      <span className="text-gray-400 text-[10px] font-medium">Avg Viewership</span>
+                      <span className="text-[#EF4823] font-bold text-[14px]">{creator.viewership || '0'}</span>
+                      <span className="text-gray-400 text-[10px] font-medium">Avg View</span>
                     </div>
                     <div className="w-[1px] h-6 bg-gray-200"></div>
                     <div className="flex flex-col items-center">
-                      <span className="text-[#EF4823] font-bold text-[14px]">36.5k</span>
-                      <span className="text-gray-400 text-[10px] font-medium">Avg Engagement</span>
+                      <span className="text-[#EF4823] font-bold text-[14px]">{creator.engagement || '0'}</span>
+                      <span className="text-gray-400 text-[10px] font-medium">Avg Eng</span>
                     </div>
                   </div>
                 </div>
