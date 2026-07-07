@@ -25,8 +25,11 @@ function CampaignDetailContent() {
      .catch(() => setLoading(false));
  }, [params.id]);
 
+  const [actionLoading, setActionLoading] = useState(false);
+
   const handleAction = async (status: string, message?: string) => {
     if (!campaign) return;
+    setActionLoading(true);
     try {
       const isPrivate = campaign.visibility === 'Private';
       
@@ -63,9 +66,14 @@ function CampaignDetailContent() {
         alert(`Campaign ${status}!`);
         if (status === 'negotiating') setNegotiateModalOpen(false);
         router.push('/creator/dashboard');
+      } else {
+        alert(`Error: ${data.error}`);
       }
-    } catch(e) {
+    } catch(e: any) {
       console.error(e);
+      alert(`Network Error: ${e.message}`);
+    } finally {
+      setActionLoading(false);
     }
   };
 
@@ -160,41 +168,45 @@ function CampaignDetailContent() {
        Applied
      </div>
    ) : (
-     <button 
-       className="w-full py-3 px-10 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:bg-[#d83e1c] transition-colors"
-       onClick={() => handleAction('applied')}
-     >
-       Apply
-     </button>
-   )
- ) : (
- <>
- {campaign.requests && campaign.requests.length > 0 ? (
-   <div className="w-full py-3 bg-gray-50 text-gray-600 text-[13px] font-bold rounded-xl text-center border border-gray-200 uppercase tracking-wide">
-     Status: {campaign.requests[0].status}
-   </div>
- ) : (
-   <>
-     <button 
-     className="flex-1 py-3 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:bg-[#d83e1c] transition-colors"
-     onClick={() => handleAction('accepted')}
-     >
-     Accept
-     </button>
-     <button 
-     className="flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl hover:bg-gray-200 transition-colors"
-     onClick={() => handleAction('rejected')}
-     >
-     Reject
-     </button>
-     <button 
-     className="flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl hover:bg-gray-200 transition-colors"
-     onClick={() => setNegotiateModalOpen(true)}
-     >
-     Negotiate
-     </button>
-   </>
- )}
+      <button 
+      disabled={actionLoading}
+      className={`w-full py-3 px-10 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
+      onClick={() => handleAction('applied')}
+      >
+        {actionLoading ? 'Working...' : 'Apply'}
+      </button>
+    )
+  ) : (
+  <>
+  {campaign.requests && campaign.requests.length > 0 ? (
+    <div className="w-full py-3 bg-gray-50 text-gray-600 text-[13px] font-bold rounded-xl text-center border border-gray-200 uppercase tracking-wide">
+      Status: {campaign.requests[0].status}
+    </div>
+  ) : (
+    <>
+      <button 
+      disabled={actionLoading}
+      className={`flex-1 py-3 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
+      onClick={() => handleAction('accepted')}
+      >
+      {actionLoading ? '...' : 'Accept'}
+      </button>
+      <button 
+      disabled={actionLoading}
+      className={`flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-gray-200'}`}
+      onClick={() => handleAction('rejected')}
+      >
+      {actionLoading ? '...' : 'Reject'}
+      </button>
+      <button 
+      disabled={actionLoading}
+      className={`flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-gray-200'}`}
+      onClick={() => setNegotiateModalOpen(true)}
+      >
+      Negotiate
+      </button>
+    </>
+  )}
  </>
  )}
  </div>
@@ -235,10 +247,11 @@ function CampaignDetailContent() {
  </div>
 
  <button 
- className="w-full py-4 bg-[#EF4823] text-white text-[14px] font-bold tracking-wide rounded-[14px] shadow-[0_6px_16px_rgba(239,72,35,0.25)] hover:-translate-y-0.5 transition-all duration-300"
+ disabled={actionLoading}
+ className={`w-full py-4 bg-[#EF4823] text-white text-[14px] font-bold tracking-wide rounded-[14px] shadow-[0_6px_16px_rgba(239,72,35,0.25)] transition-all duration-300 ${actionLoading ? 'opacity-50' : 'hover:-translate-y-0.5'}`}
  onClick={applyNegotiation}
  >
- APPLY
+ {actionLoading ? 'WORKING...' : 'APPLY'}
  </button>
  </div>
  </div>

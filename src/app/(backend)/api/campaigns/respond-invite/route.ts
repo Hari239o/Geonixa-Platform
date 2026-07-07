@@ -52,7 +52,7 @@ export async function POST(request: Request) {
       else if (action === "NEGOTIATE") newStatus = "NEGOTIATING";
 
       await prisma.campaignInvite.update({
-        where: { id: inviteId },
+        where: { id: invite.id },
         data: {
           status: newStatus,
           negotiatedPrice: action === "NEGOTIATE" ? negotiatedPrice : invite.negotiatedPrice,
@@ -115,7 +115,7 @@ export async function POST(request: Request) {
       else if (action === "REJECT") newStatus = "BRAND_REJECTED_NEGOTIATION";
 
       await prisma.campaignInvite.update({
-        where: { id: inviteId },
+        where: { id: invite.id },
         data: { status: newStatus }
       });
 
