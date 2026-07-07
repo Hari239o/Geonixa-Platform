@@ -354,44 +354,7 @@ export default function CreatorDashboard() {
           </>
         )}
 
-            {/* Call to Actions */}
-            <section className="px-4 flex flex-col gap-4 mb-8">
-              <div className="bg-[#f05133] rounded-[16px] p-6 flex justify-between items-center relative overflow-hidden shadow-md h-[110px]">
-                {/* Abstract decorative shapes */}
-                <div className="absolute top-0 right-0 w-full h-full">
-                  <div className="absolute -top-10 right-10 w-40 h-40 bg-white/10 rounded-full blur-xl mix-blend-overlay"></div>
-                  <div className="absolute -bottom-10 left-20 w-32 h-32 bg-white/20 rounded-full blur-lg mix-blend-overlay"></div>
-                  <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-[#ea580c] opacity-30 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2"></div>
-                </div>
-                
-                <div className="relative z-10">
-                  <div className="flex flex-col">
-                    <span className="text-[13px] font-medium text-white/90 mb-0.5">Find More</span>
-                    <span className="text-2xl font-medium text-white tracking-wide">campaigns</span>
-                  </div>
-                </div>
-                <button className="relative z-10 px-6 py-2 bg-[#ddec6a] text-[#f05133] text-sm font-bold rounded-xl shadow-sm hover:shadow-md transition-shadow">View</button>
-              </div>
-              
-              <div className="bg-[#f05133] rounded-[16px] p-6 flex justify-between items-center relative overflow-hidden shadow-md h-[110px]">
-                {/* Abstract decorative shapes */}
-                <div className="absolute top-0 right-0 w-full h-full">
-                  <div className="absolute -top-10 right-10 w-40 h-40 bg-white/10 rounded-full blur-xl mix-blend-overlay"></div>
-                  <div className="absolute -bottom-10 left-20 w-32 h-32 bg-white/20 rounded-full blur-lg mix-blend-overlay"></div>
-                  <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-[#ea580c] opacity-30 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2"></div>
-                </div>
 
-                <div className="relative z-10">
-                  <div className="flex flex-col">
-                    <span className="text-[13px] font-medium text-white/90 mb-0.5">Find</span>
-                    <span className="text-2xl font-medium text-white tracking-wide">Partners</span>
-                  </div>
-                </div>
-                <button className="relative z-10 px-6 py-2 bg-[#ddec6a] text-[#f05133] text-sm font-bold rounded-xl shadow-sm hover:shadow-md transition-shadow">View</button>
-              </div>
-            </section>
-          </>
-        )}
       </div>
 
       {/* Verify Account Modal */}
