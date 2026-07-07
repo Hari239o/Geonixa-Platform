@@ -5,7 +5,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -24,6 +24,7 @@ model User {
   brandProfile   BrandProfile?
   campaigns      Campaign[]
   unlockedProfiles UnlockedProfile[]
+  notifications  Notification[]
 }
 
 model CreatorProfile {
@@ -58,6 +59,8 @@ model CreatorProfile {
   
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  
+  campaignInvites CampaignInvite[]
 }
 
 model Campaign {
@@ -80,6 +83,8 @@ model Campaign {
   
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  
+  campaignInvites CampaignInvite[]
 }
 
 model CampaignRequest {
@@ -118,6 +123,8 @@ model BrandProfile {
   
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  
+  campaignInvites CampaignInvite[]
 }
 
 model UnlockedProfile {
@@ -130,4 +137,37 @@ model UnlockedProfile {
   createdAt       DateTime @default(now())
 
   @@unique([brandId, creatorId, unlockType])
+}
+
+model CampaignInvite {
+  id              String   @id @default(uuid())
+  campaignId      String
+  campaign        Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  
+  creatorId       String
+  creator         CreatorProfile @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  
+  brandId         String
+  brand           BrandProfile @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  status          String   @default("PENDING") // PENDING, ACCEPTED, REJECTED, NEGOTIATING, BRAND_ACCEPTED_NEGOTIATION, BRAND_REJECTED_NEGOTIATION
+  negotiatedPrice String?  // Price proposed by the creator during negotiation
+  message         String?  // Optional message from creator
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@unique([campaignId, creatorId])
+}
+
+model Notification {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  message     String
+  actionUrl   String?
+  actionLabel String?
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
 }

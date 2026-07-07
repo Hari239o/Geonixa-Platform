@@ -143,7 +143,7 @@ export default function CreatorDashboard() {
              description: c.description || 'No description provided.',
              visibility: c.visibility || 'Public',
              brandProfilePic: c.user?.brandProfile?.profilePic || null,
-             privateState: c.creatorStatus || 'pending'
+             invite: c.campaignInvites && c.campaignInvites.length > 0 ? c.campaignInvites[0] : null
           })));
         }
       } catch (error) {
@@ -154,6 +154,40 @@ export default function CreatorDashboard() {
     loadProfile();
     fetchCampaigns();
   }, []);
+
+  const [negotiatingId, setNegotiatingId] = useState<string | null>(null);
+  const [negotiatedPrice, setNegotiatedPrice] = useState<string>('');
+
+  const handleRespond = async (inviteId: string, action: string, price?: string, message?: string) => {
+    try {
+      const res = await fetch('/api/campaigns/respond-invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ inviteId, action, negotiatedPrice: price, message })
+      });
+      if (res.ok) {
+        // Refresh campaigns
+        const campaignsRes = await fetch('/api/campaigns');
+        const data = await campaignsRes.json();
+        if (data.success && data.campaigns) {
+          setCampaigns(data.campaigns.map((c: any) => ({
+             id: c.id,
+             timeAgo: 'Just now',
+             title: c.title,
+             subtitle: c.subtitle || `${c.visibility || 'Public'} Campaign`,
+             budget: c.budget || 'Open',
+             dateRange: c.dateRange || 'TBD',
+             description: c.description || 'No description provided.',
+             visibility: c.visibility || 'Public',
+             invite: c.campaignInvites && c.campaignInvites.length > 0 ? c.campaignInvites[0] : null
+          })));
+        }
+        setNegotiatingId(null);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div className="w-full max-w-md mx-auto h-full flex flex-col bg-white font-sans overflow-hidden">
@@ -284,28 +318,45 @@ export default function CreatorDashboard() {
                       {campaign.description} <span className="text-[#EF4823] font-bold cursor-pointer hover:underline">Read more</span>
                     </p>
                     
-                    {campaign.privateState === 'accepted' ? (
+                    {campaign.invite?.status === 'ACCEPTED' || campaign.invite?.status === 'BRAND_ACCEPTED_NEGOTIATION' ? (
                       <div className="inline-block px-5 py-2 bg-[#22C55E] text-white text-[12px] font-bold rounded-[8px]">
                         Accepted
                       </div>
-                    ) : campaign.privateState === 'negotiating' ? (
+                    ) : campaign.invite?.status === 'REJECTED' || campaign.invite?.status === 'BRAND_REJECTED_NEGOTIATION' ? (
+                      <div className="inline-block px-5 py-2 bg-red-500 text-white text-[12px] font-bold rounded-[8px]">
+                        Rejected
+                      </div>
+                    ) : campaign.invite?.status === 'NEGOTIATING' ? (
                       <div className="flex flex-col gap-2">
-                        <p className="text-[#EF4823] text-[11px] font-bold">Negotiated to ₹9000</p>
-                        <div className="flex gap-2">
-                          <button className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Accept</button>
-                          <button className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Reject</button>
-                          <div className="flex-1 flex items-center bg-gray-50 rounded-[8px] border border-gray-200 px-2">
-                            <span className="text-gray-400 text-[12px]">-</span>
-                            <span className="text-[#EF4823] text-[11px] font-bold flex-1 text-center">₹9000</span>
-                            <span className="text-gray-400 text-[12px]">+</span>
-                          </div>
-                        </div>
+                        <p className="text-[#EF4823] text-[11px] font-bold">Negotiated to {campaign.invite.negotiatedPrice}</p>
+                        <div className="text-gray-400 text-[10px]">Waiting for brand response...</div>
                       </div>
                     ) : (
-                      <div className="flex gap-2">
-                        <button className="flex-1 py-2 bg-[#EF4823] text-white text-[11px] font-bold rounded-[8px] hover:bg-[#d63f1c]">Accept</button>
-                        <button className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Reject</button>
-                        <button className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Negotiate</button>
+                      <div className="flex gap-2 flex-col">
+                        {!negotiatingId || negotiatingId !== campaign.id ? (
+                          <div className="flex gap-2">
+                            <button onClick={() => handleRespond(campaign.invite?.id, 'ACCEPT')} className="flex-1 py-2 bg-[#EF4823] text-white text-[11px] font-bold rounded-[8px] hover:bg-[#d63f1c]">Accept</button>
+                            <button onClick={() => handleRespond(campaign.invite?.id, 'REJECT')} className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Reject</button>
+                            <button onClick={() => setNegotiatingId(campaign.id)} className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Negotiate</button>
+                          </div>
+                        ) : (
+                          <div className="flex gap-2 items-center">
+                            <input 
+                              type="text" 
+                              placeholder="₹ New Price" 
+                              className="flex-1 py-2 px-2 bg-gray-50 rounded-[8px] border border-gray-200 text-[11px]"
+                              value={negotiatedPrice}
+                              onChange={(e) => setNegotiatedPrice(e.target.value)}
+                            />
+                            <button 
+                              onClick={() => handleRespond(campaign.invite?.id, 'NEGOTIATE', negotiatedPrice)}
+                              className="py-2 px-4 bg-[#EF4823] text-white text-[11px] font-bold rounded-[8px] hover:bg-[#d63f1c]"
+                            >
+                              Send
+                            </button>
+                            <button onClick={() => setNegotiatingId(null)} className="py-2 px-3 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px]">Cancel</button>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>

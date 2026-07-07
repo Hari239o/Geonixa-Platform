@@ -2,9 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
-import { Knock } from '@knocklabs/node';
-
-const knock = new Knock({ apiKey: process.env.KNOCK_SECRET_API_KEY || 'dummy-key-for-build' });
 
 export async function GET(request: Request) {
   try {
@@ -34,7 +31,10 @@ export async function GET(request: Request) {
       const brandCampaigns = await prisma.campaign.findMany({
         where: { userId },
         include: {
-          user: { select: { brandProfile: { select: { profilePic: true } } } }
+          user: { select: { brandProfile: { select: { profilePic: true } } } },
+          campaignInvites: {
+            include: { creator: true }
+          }
         },
         orderBy: { createdAt: 'desc' }
       });
@@ -65,6 +65,9 @@ export async function GET(request: Request) {
       },
       include: {
         user: { select: { brandProfile: { select: { profilePic: true } } } },
+        campaignInvites: {
+          where: { creatorId: creator.id }
+        },
         requests: {
           where: { creatorId: creator.id },
           select: { status: true }
@@ -130,17 +133,17 @@ export async function POST(request: Request) {
       });
       for (const creator of invitedProfiles) {
         try {
-          await knock.workflows.trigger('default-notification', {
-            recipients: [creator.userId],
+          await prisma.notification.create({
             data: {
+              userId: creator.userId,
+              title: "New Campaign Alert",
               message: `You have been invited to a Private Campaign: ${title}`,
               actionLabel: 'View Campaign',
               actionUrl: '/creator',
-              type: 'campaign'
             }
           });
         } catch(e) {
-          console.error("Failed to trigger Knock workflow for invited creator", creator.userId, e);
+          console.error("Failed to trigger DB notification for invited creator", creator.userId, e);
         }
       }
     } else if (visibility !== "Private") {
@@ -156,17 +159,17 @@ export async function POST(request: Request) {
 
         for (const creator of matchingCreators) {
           try {
-            await knock.workflows.trigger('default-notification', {
-              recipients: [creator.userId],
+            await prisma.notification.create({
               data: {
+                userId: creator.userId,
+                title: "New Campaign Alert",
                 message: `New campaign matching your profile: ${title}`,
                 actionLabel: 'View Campaign',
                 actionUrl: '/creator',
-                type: 'campaign'
               }
             });
           } catch(e) {
-            console.error("Failed to trigger Knock workflow for", creator.userId, e);
+            console.error("Failed to trigger DB notification for", creator.userId, e);
           }
         }
       }

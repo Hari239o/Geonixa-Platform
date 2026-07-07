@@ -78,6 +78,9 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
     socials: {}
   });
 
+  const [campaigns, setCampaigns] = useState<any[]>([]);
+  const [showInviteModal, setShowInviteModal] = useState(false);
+
   useEffect(() => {
     async function loadProfile() {
       // 1. Immediately try to load from local storage to prevent UI flashing
@@ -125,8 +128,41 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
         console.error("Failed to fetch profile from DB:", error);
       }
     }
+    async function fetchCampaigns() {
+      try {
+        const res = await fetch('/api/campaigns');
+        const data = await res.json();
+        if (data.success && data.campaigns) {
+          setCampaigns(data.campaigns);
+        }
+      } catch (error) {
+        console.error("Failed to fetch campaigns:", error);
+      }
+    }
     loadProfile();
+    fetchCampaigns();
   }, []);
+
+  const handleInvite = async (campaignId: string) => {
+    try {
+      const resolvedParams = await params;
+      const res = await fetch('/api/campaigns/invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ campaignId, creatorId: resolvedParams.id })
+      });
+      if (res.ok) {
+        alert('Invitation sent successfully!');
+        setShowInviteModal(false);
+      } else {
+        const data = await res.json();
+        alert('Error: ' + data.error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files);
@@ -165,6 +201,9 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
       <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 relative">
       {/* Header */}
       <div className="px-6 pt-4 pb-4 flex justify-end gap-4 z-10">
+        <button onClick={() => setShowInviteModal(true)} className="px-4 py-2 bg-[#EF4823] text-white text-[13px] font-bold rounded-[12px] shadow-sm hover:bg-[#d63f1c] transition-colors">
+          Invite to Campaign
+        </button>
         <button className="p-2 text-[#808b98] hover:text-gray-900 transition-colors">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 3L3 10.5l7.5 3 3 7.5L21 3z" />
@@ -346,6 +385,32 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
       </div>
 
       <BottomNav />
+      {showInviteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-[20px] w-full max-w-sm mx-4">
+            <h2 className="text-[18px] font-bold text-gray-900 mb-4">Invite to Campaign</h2>
+            {campaigns.length === 0 ? (
+              <p className="text-[14px] text-gray-500 mb-6">You don't have any active campaigns to invite this creator to.</p>
+            ) : (
+              <div className="flex flex-col gap-3 mb-6 max-h-[300px] overflow-y-auto">
+                {campaigns.map(c => (
+                  <button 
+                    key={c.id} 
+                    onClick={() => handleInvite(c.id)}
+                    className="text-left p-3 rounded-[12px] border border-gray-200 hover:border-[#EF4823] hover:bg-orange-50 transition-colors"
+                  >
+                    <div className="font-bold text-[14px] text-gray-900">{c.title}</div>
+                    <div className="text-[12px] text-gray-500 line-clamp-1">{c.description}</div>
+                  </button>
+                ))}
+              </div>
+            )}
+            <button onClick={() => setShowInviteModal(false)} className="w-full py-3 bg-gray-100 text-gray-700 font-bold rounded-[12px] hover:bg-gray-200">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

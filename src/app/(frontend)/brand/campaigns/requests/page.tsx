@@ -4,6 +4,7 @@ import React from "react"
 import { useRouter } from "next/navigation"
 import { ChevronLeft, Send, Bookmark } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
+import { User } from "lucide-react"
 
 // SVG for Verified Badge
 const VerifiedBadge = ({ className }: { className?: string }) => (
@@ -19,16 +20,46 @@ export default function CampaignRequestsPage() {
   const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
-    fetch('/api/campaigns/requests')
-      .then(r => r.json())
-      .then(data => {
-        if (data.success) {
-          setRequests(data.requests)
+    async function loadRequests() {
+      try {
+        const res = await fetch('/api/campaigns')
+        const data = await res.json()
+        if (data.success && data.campaigns) {
+          const allRequests: any[] = []
+          data.campaigns.forEach((camp: any) => {
+            if (camp.campaignInvites) {
+              camp.campaignInvites.forEach((inv: any) => {
+                if (inv.status === 'NEGOTIATING' || inv.status === 'PENDING') {
+                  allRequests.push({ ...inv, campaign: camp })
+                }
+              })
+            }
+          })
+          setRequests(allRequests.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()))
         }
+      } catch (e) {
+        console.error(e)
+      } finally {
         setLoading(false)
-      })
-      .catch(() => setLoading(false))
+      }
+    }
+    loadRequests()
   }, [])
+
+  const handleAction = async (inviteId: string, action: string) => {
+    try {
+      const res = await fetch('/api/campaigns/respond-invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ inviteId, action })
+      });
+      if (res.ok) {
+        setRequests(prev => prev.filter(req => req.id !== inviteId))
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div className="h-full bg-white font-sans flex justify-center overflow-hidden">
@@ -52,9 +83,9 @@ export default function CampaignRequestsPage() {
         <div className="flex-1 overflow-y-auto no-scrollbar px-5 pb-32 touch-pan-y flex flex-col gap-8 relative bg-gray-50/30">
           
           {loading ? (
-            <div className="flex justify-center py-10 text-gray-500">Loading requests...</div>
+             <div className="text-center text-gray-400 mt-10">Loading...</div>
           ) : requests.length === 0 ? (
-            <div className="flex justify-center py-10 text-gray-500">No requests yet.</div>
+             <div className="text-center text-gray-400 mt-10">No pending requests</div>
           ) : requests.map((req) => (
             <div key={req.id} className="flex flex-col gap-2">
               
@@ -69,8 +100,12 @@ export default function CampaignRequestsPage() {
                   </span>
                   
                   {/* Profile Pic */}
-                  <div className="w-[84px] h-[84px] rounded-[18px] bg-gray-200 overflow-hidden shrink-0 relative mt-1">
-                    <img src={req.creator.profilePic || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200"} alt="Creator" className="object-cover w-full h-full" />
+                  <div className="w-[84px] h-[84px] rounded-[18px] bg-gray-200 overflow-hidden shrink-0 relative mt-1 flex items-center justify-center">
+                    {req.creator.profilePic ? (
+                      <img src={req.creator.profilePic} alt="Profile" className="object-cover w-full h-full" />
+                    ) : (
+                      <User className="w-10 h-10 text-gray-400" />
+                    )}
                   </div>
                   
                   {/* Info */}
@@ -107,10 +142,14 @@ export default function CampaignRequestsPage() {
 
               {/* Campaign Card below it */}
               <div className="bg-white rounded-[20px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.03)] flex flex-col relative border border-gray-50">
+                <div className="w-10 h-10 rounded-[12px] bg-gray-100 flex items-center justify-center mb-4">
+                   <div className="w-5 h-5 bg-blue-500 rounded-sm rotate-45 transform flex items-center justify-center opacity-40"></div>
+                </div>
+
                 <div className="flex justify-between items-start mb-2">
                   <div className="flex flex-col">
                     <h3 className="font-extrabold text-gray-800 text-[15px]">{req.campaign.title}</h3>
-                    <p className="text-gray-400 text-[11px] font-medium">{req.campaign.subtitle || 'Brand Campaign'}</p>
+                    <p className="text-gray-400 text-[11px] font-medium">- {req.campaign.subtitle || 'Brand Campaign'}</p>
                   </div>
                   <div className="flex flex-col items-end pt-1">
                     <span className="text-gray-400 text-[10px] font-bold">Budget</span>
@@ -122,16 +161,32 @@ export default function CampaignRequestsPage() {
                   {req.campaign.dateRange || 'TBD'}
                 </div>
 
-                {req.status === 'negotiating' && (
-                  <p className="text-[#EF4823] font-bold text-[12px] mb-4 pr-2">
-                    Message: {req.message || 'I would like to negotiate.'}
-                  </p>
+                <p className="text-gray-500 text-[11px] leading-relaxed mb-4 pr-2">
+                  {req.campaign.description}
+                </p>
+
+                {req.status === 'NEGOTIATING' && (
+                  <div className="mb-4 bg-orange-50 p-3 rounded-xl border border-orange-100">
+                    <p className="text-[#EF4823] text-sm font-bold mb-1">Creator Negotiated Price: {req.negotiatedPrice}</p>
+                    {req.message && <p className="text-gray-600 text-xs italic">"{req.message}"</p>}
+                  </div>
                 )}
 
-                <div className="flex gap-3 mt-2">
-                  <div className="flex-1 bg-gray-50 text-center text-gray-700 text-[12px] font-bold py-3 rounded-[12px] uppercase tracking-wide border border-gray-200">
-                    Status: <span className={req.status === 'accepted' ? 'text-green-500' : req.status === 'rejected' ? 'text-red-500' : 'text-orange-500'}>{req.status}</span>
-                  </div>
+                <div className="flex gap-3">
+                  {req.status === 'NEGOTIATING' ? (
+                    <>
+                      <button onClick={() => handleAction(req.id, 'ACCEPT')} className="flex-1 bg-[#EF4823] text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-[#e03d1b] transition-colors">
+                        Accept Deal
+                      </button>
+                      <button onClick={() => handleAction(req.id, 'REJECT')} className="flex-1 bg-gray-100 text-gray-500 text-[12px] font-bold py-3 rounded-[12px] hover:bg-gray-200 transition-colors">
+                        Reject
+                      </button>
+                    </>
+                  ) : (
+                    <div className="flex-1 bg-gray-100 text-gray-500 text-[12px] font-bold py-3 text-center rounded-[12px]">
+                      Waiting for Creator
+                    </div>
+                  )}
                 </div>
               </div>
 

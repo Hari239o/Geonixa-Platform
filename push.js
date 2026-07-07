@@ -1,10 +1,13 @@
+const fs = require('fs');
 const { execSync } = require('child_process');
-try {
-  console.log("Running Prisma db push...");
-  const output = execSync('npx prisma db push --accept-data-loss', { stdio: 'pipe', env: process.env });
-  console.log("SUCCESS:", output.toString());
-} catch(e) {
-  console.log("FAILED.");
-  if (e.stdout) console.log("STDOUT:", e.stdout.toString());
-  if (e.stderr) console.log("STDERR:", e.stderr.toString());
-}
+
+const env = fs.readFileSync('.env.local', 'utf8').split('\n');
+env.forEach(l => {
+  if (l.includes('=')) {
+    const [k, ...v] = l.split('=');
+    process.env[k.trim()] = v.join('=').trim().replace(/['"]+/g, '');
+  }
+});
+
+execSync('npx prisma db push', { stdio: 'inherit', env: process.env });
+execSync('npx prisma generate', { stdio: 'inherit', env: process.env });

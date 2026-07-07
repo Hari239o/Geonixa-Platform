@@ -88,11 +88,13 @@ const AIIcon = (props: IconProps) => (
   </svg>
 );
 
+import { User } from 'lucide-react';
+
 interface BottomNavProps {
  profilePic?: string;
 }
 
-export default function BottomNav({ profilePic = '/profile_pic.png' }: BottomNavProps) {
+export default function BottomNav({ profilePic }: BottomNavProps) {
  const router = useRouter();
  const pathname = usePathname();
 
@@ -129,13 +131,19 @@ export default function BottomNav({ profilePic = '/profile_pic.png' }: BottomNav
         className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${pathname.startsWith('/profile') ? 'ring-2 ring-offset-2 ring-[#EF4823] rounded-full' : ''}`}
         onClick={() => router.push('/profile')}
       >
- <Image 
- src={profilePic || '/profile_pic.png'} 
- alt="Profile" 
- width={40}
- height={40}
- className="w-10 h-10 rounded-full object-cover border border-gray-200" 
- />
+ {profilePic ? (
+   <Image 
+     src={profilePic} 
+     alt="Profile" 
+     width={40}
+     height={40}
+     className="w-10 h-10 rounded-full object-cover border border-gray-200" 
+   />
+ ) : (
+   <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center border border-gray-200">
+     <User className="w-5 h-5 text-gray-500" />
+   </div>
+ )}
  </div>
  </nav>
  );
