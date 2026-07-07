@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { signOut } from "next-auth/react"
-import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe, Trash2, LogOut, Star, BadgeCheck } from "lucide-react"
+import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe, Trash2, LogOut, Star, BadgeCheck, Settings } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 import { uploadFileToR2 } from "@/utils/upload"
 
@@ -163,15 +163,8 @@ export default function BrandDashboardPage() {
                   <path d="M10.5 13.5l4.5-4.5" />
                 </svg>
               </button>
-              <button onClick={() => router.push("/brand/setup-company")} className="hover:text-[#EF4823] transition-colors" title="Edit Profile">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 9h4" />
-                  <circle cx="10" cy="9" r="3" />
-                  <path d="M13 9h8" />
-                  <path d="M3 16h9" />
-                  <circle cx="15" cy="16" r="3" />
-                  <path d="M18 16h3" />
-                </svg>
+              <button onClick={() => router.push("/brand/setup-company")} className="hover:text-[#EF4823] transition-colors" title="Settings">
+                <Settings size={20} strokeWidth={2.5} />
               </button>
             </div>
           </div>
