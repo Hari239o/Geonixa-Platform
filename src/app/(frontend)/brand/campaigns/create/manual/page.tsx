@@ -21,7 +21,7 @@ export default function ManualCampaignCreatePage() {
   const [description, setDescription] = useState("")
   const [tags, setTags] = useState("")
   const [deadline, setDeadline] = useState("")
-  const [category, setCategory] = useState("Creators")
+  const [category, setCategory] = useState("Content Creator")
   const [minBudget, setMinBudget] = useState(13)
   const [maxBudget, setMaxBudget] = useState(25)
   const [creators, setCreators] = useState<any[]>([])
@@ -134,9 +134,21 @@ export default function ManualCampaignCreatePage() {
                     onChange={(e) => setCategory(e.target.value)}
                     className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-4 px-5 text-gray-800 font-bold text-[14px] appearance-none cursor-pointer"
                   >
-                    <option value="Creators">Creators</option>
-                    <option value="Influencers">Influencers</option>
-                    <option value="Agencies">Agencies</option>
+                    <option value="Content Creator">Content Creator</option>
+                    <option value="Video Editors">Video Editors</option>
+                    <option value="Photographer">Photographer</option>
+                    <option value="Cinematographer">Cinematographer</option>
+                    <option value="Drone Operator">Drone Operator</option>
+                    <option value="Film Directors">Film Directors</option>
+                    <option value="Assistant Directors">Assistant Directors</option>
+                    <option value="Actor">Actor</option>
+                    <option value="Writer">Writer</option>
+                    <option value="Production">Production</option>
+                    <option value="Music & Sound">Music & Sound</option>
+                    <option value="Makeup Artists">Makeup Artists</option>
+                    <option value="Hair Stylists">Hair Stylists</option>
+                    <option value="Costume Designers">Costume Designers</option>
+                    <option value="Others">Others</option>
                   </select>
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
                 </div>

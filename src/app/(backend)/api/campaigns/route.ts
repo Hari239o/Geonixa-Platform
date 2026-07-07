@@ -40,7 +40,9 @@ export async function GET() {
       return NextResponse.json({ success: true, campaigns: [] });
     }
 
-    const orConditions: any[] = [];
+    const orConditions: any[] = [
+      { category: "Creators" } // Fallback for legacy campaigns created before category options were updated
+    ];
     if (creator.category) orConditions.push({ category: creator.category });
     if (creator.tags && creator.tags.length > 0) orConditions.push({ tags: { hasSome: creator.tags } });
 
