@@ -16,6 +16,9 @@ type Campaign = {
   negotiatedAmount?: string | null;
   isNegotiated?: boolean;
   createdAt?: string;
+  visibility?: string;
+  creatorStatus?: string;
+  requests?: any[];
 };
 
 export default function CampaignPage() {
@@ -25,6 +28,8 @@ export default function CampaignPage() {
  const [negotiateAmount, setNegotiateAmount] = useState('');
  const [selectedCampaignId, setSelectedCampaignId] = useState<string | null>(null);
  const [profilePic, setProfilePic] = useState<string>('/profile_pic.png');
+ const [actionLoading, setActionLoading] = useState<string | null>(null);
+ const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 
  useEffect(() => {
    async function loadProfile() {
@@ -38,12 +43,10 @@ export default function CampaignPage() {
    loadProfile();
  }, []);
 
-  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-
   useEffect(() => {
     async function fetchCampaigns() {
       try {
-        const res = await fetch('/api/campaigns');
+        const res = await fetch('/api/campaigns?role=creator');
         if (res.ok) {
           const data = await res.json();
           if (data.success && data.campaigns) {
@@ -57,20 +60,78 @@ export default function CampaignPage() {
     fetchCampaigns();
   }, []);
 
- const handleNegotiateClick = (id: string) => {
- setSelectedCampaignId(id);
- setNegotiateModalOpen(true);
+ const handleNegotiateClick = (e: React.MouseEvent, id: string) => {
+   e.stopPropagation();
+   setSelectedCampaignId(id);
+   setNegotiateModalOpen(true);
  };
 
+ const handleAction = async (e: React.MouseEvent | null, campaignId: string, status: string, message?: string) => {
+    if (e) e.stopPropagation();
+    const campaign = campaigns.find(c => c.id === campaignId);
+    if (!campaign) return;
+    
+    setActionLoading(campaignId);
+    try {
+      const isPrivate = campaign.visibility === 'Private';
+      const endpoint = isPrivate ? '/api/campaigns/respond-invite' : '/api/campaigns/requests';
+      let payload: any = {};
+      
+      if (isPrivate) {
+        let action = status.toUpperCase();
+        if (action === 'APPLIED' || action === 'ACCEPTED') action = 'ACCEPT';
+        else if (action === 'REJECTED') action = 'REJECT';
+        else if (action === 'NEGOTIATING') action = 'NEGOTIATE';
+        
+        payload = { 
+          campaignId: campaign.id,
+          action, 
+          negotiatedPrice: status === 'negotiating' ? negotiateAmount : undefined, 
+          message 
+        };
+      } else {
+        payload = { 
+          campaignId: campaign.id, 
+          status, 
+          message: status === 'negotiating' ? `Negotiated to ₹${negotiateAmount || 8000}` : undefined 
+        };
+      }
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert(`Campaign ${status}!`);
+        if (status === 'negotiating') {
+          setNegotiateModalOpen(false);
+          setNegotiateAmount('');
+        }
+        setCampaigns(campaigns.map(c => 
+          c.id === campaignId 
+            ? { ...c, creatorStatus: status === 'negotiating' ? 'negotiating' : (isPrivate && status === 'accepted' ? 'ACCEPTED' : 'applied') }
+            : c
+        ));
+      } else {
+        alert(`Error: ${data.error}`);
+      }
+    } catch(err: any) {
+      console.error(err);
+      alert(`Network Error: ${err.message}`);
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
  const applyNegotiation = () => {
- if (selectedCampaignId && negotiateAmount) {
- setCampaigns(campaigns.map(c => 
- c.id === selectedCampaignId ? { ...c, isNegotiated: true, negotiatedAmount: `₹ ${negotiateAmount}` } : c
- ));
- }
- setNegotiateModalOpen(false);
- setNegotiateAmount('');
+   if (selectedCampaignId && negotiateAmount) {
+     handleAction(null, selectedCampaignId, 'negotiating', `Negotiated to ₹${negotiateAmount}`);
+   }
  };
+
+ const filteredCampaigns = campaigns.filter(c => (c.visibility || 'Public') === activeTab);
 
  return (
  <div className="w-full max-w-md mx-auto h-full flex flex-col bg-[#fafbfc] font-sans overflow-hidden">
@@ -115,82 +176,84 @@ export default function CampaignPage() {
 
  {/* Campaign List */}
  <div className="px-4 sm:px-6 flex flex-col gap-5 flex-1 overflow-y-auto no-scrollbar pb-24 touch-pan-y">
- {campaigns.map((campaign) => (
+ {filteredCampaigns.length === 0 ? (
+    <div className="text-center text-gray-400 py-10">No {activeTab} campaigns found.</div>
+ ) : filteredCampaigns.map((campaign) => (
  <div 
  key={campaign.id} 
- className={`bg-white rounded-[24px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.03)] cursor-pointer transition-all duration-300 ${campaign.isNegotiated && activeTab === 'Private' ? 'border-2 border-[#EF4823]' : 'border border-gray-100'}`}
- onClick={() => router.push(`/categories/${campaign.id}?type=${activeTab.toLowerCase()}`)}
+ className={`bg-white rounded-[24px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.03)] cursor-pointer transition-all duration-300 ${campaign.creatorStatus === 'negotiating' ? 'border-2 border-[#EF4823]' : 'border border-gray-100'}`}
+ onClick={() => router.push(`/campaigns/${campaign.id}`)}
  >
  <div className="flex justify-between items-start mb-4">
  <div className="w-12 h-12 bg-[#f0f4ff] rounded-[14px] flex items-center justify-center shrink-0">
- {/* Abstract brand icon */}
  <div className="w-6 h-6 border-4 border-[#8ba4eb] rounded-sm transform rotate-45 border-t-transparent"></div>
  </div>
- <span className="text-[11px] font-medium text-gray-400 mt-1">{campaign.timeAgo}</span>
+ <span className="text-[11px] font-medium text-gray-400 mt-1">{campaign.timeAgo || 'Just now'}</span>
  </div>
  
  <div className="flex justify-between items-start mb-3">
  <div className="flex flex-col pr-4">
  <h3 className="text-base font-extrabold text-[#1a1a2e] mb-0.5 tracking-tight">{campaign.title}</h3>
- <p className="text-[11px] font-medium text-gray-500 italic">{campaign.subtitle}</p>
+ <p className="text-[11px] font-medium text-gray-500 italic">{campaign.subtitle || 'Brand Campaign'}</p>
  </div>
  <div className="flex flex-col items-end shrink-0">
  <span className="text-[10px] font-bold uppercase tracking-wide text-gray-400 mb-0.5">Budget</span>
- <span className="text-[16px] font-extrabold text-[#EF4823]">{campaign.budget}</span>
+ <span className="text-[16px] font-extrabold text-[#EF4823]">{campaign.budget || 'Open'}</span>
  </div>
  </div>
 
  <div className="inline-block px-3 py-1.5 bg-[#fff7ed] text-[#ea580c] text-[11px] font-bold rounded-lg mb-4">
- {campaign.dateRange}
+ {campaign.dateRange || 'TBD'}
  </div>
 
- <p className="text-[13px] text-gray-500 leading-relaxed mb-6">
+ <p className="text-[13px] text-gray-500 leading-relaxed mb-6 line-clamp-2">
  {campaign.description} <span className="text-[#EF4823] font-semibold hover:underline cursor-pointer">Read more</span>
  </p>
 
  {/* Action Buttons */}
  <div className="flex flex-wrap items-center gap-2" onClick={(e) => e.stopPropagation()}>
- {activeTab === 'Public' ? (
+ {campaign.creatorStatus === 'applied' || campaign.creatorStatus === 'ACCEPTED' ? (
+    <div className="w-full py-3 bg-green-50 text-green-600 text-[13px] font-bold rounded-xl text-center border border-green-100 uppercase tracking-wide">
+      STATUS: {campaign.creatorStatus}
+    </div>
+ ) : campaign.creatorStatus === 'negotiating' ? (
+    <div className="w-full py-3 bg-orange-50 text-orange-500 text-[13px] font-bold rounded-xl text-center border border-orange-100 uppercase tracking-wide">
+      STATUS: NEGOTIATING
+    </div>
+ ) : campaign.creatorStatus === 'REJECTED' ? (
+    <div className="w-full py-3 bg-red-50 text-red-500 text-[13px] font-bold rounded-xl text-center border border-red-100 uppercase tracking-wide">
+      STATUS: REJECTED
+    </div>
+ ) : activeTab === 'Public' ? (
  <button 
- className="py-2.5 px-10 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:bg-[#d83e1c] transition-colors"
- onClick={() => alert("Applied to Campaign!")}
+ disabled={actionLoading === campaign.id}
+ className={`py-2.5 px-10 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading === campaign.id ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
+ onClick={(e) => handleAction(e, campaign.id, 'applied')}
  >
- Apply
+ {actionLoading === campaign.id ? 'Working...' : 'Apply'}
  </button>
  ) : (
- !campaign.isNegotiated ? (
  <>
- <button className="flex-1 min-w-[80px] py-3 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:bg-[#d83e1c] transition-colors">
- Accept
- </button>
- <button className="flex-1 min-w-[80px] py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl hover:bg-gray-200 transition-colors">
- Reject
+ <button 
+ disabled={actionLoading === campaign.id}
+ onClick={(e) => handleAction(e, campaign.id, 'accepted')}
+ className={`flex-1 min-w-[80px] py-3 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading === campaign.id ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}>
+ {actionLoading === campaign.id ? '...' : 'Accept'}
  </button>
  <button 
- className="flex-1 min-w-[80px] py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl hover:bg-gray-200 transition-colors"
- onClick={() => handleNegotiateClick(campaign.id)}
+ disabled={actionLoading === campaign.id}
+ onClick={(e) => handleAction(e, campaign.id, 'rejected')}
+ className={`flex-1 min-w-[80px] py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl transition-colors ${actionLoading === campaign.id ? 'opacity-50' : 'hover:bg-gray-200'}`}>
+ {actionLoading === campaign.id ? '...' : 'Reject'}
+ </button>
+ <button 
+ disabled={actionLoading === campaign.id}
+ className={`flex-1 min-w-[80px] py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl transition-colors ${actionLoading === campaign.id ? 'opacity-50' : 'hover:bg-gray-200'}`}
+ onClick={(e) => handleNegotiateClick(e, campaign.id)}
  >
  Negotiate
  </button>
  </>
- ) : (
- <>
- <button className="flex-1 min-w-[80px] py-3 bg-[#f9fafb] text-gray-400 text-[13px] font-bold rounded-xl cursor-not-allowed">
- Accept
- </button>
- <button className="flex-1 min-w-[80px] py-3 bg-[#f9fafb] text-gray-400 text-[13px] font-bold rounded-xl cursor-not-allowed">
- Reject
- </button>
- <div className="flex-1 min-w-[120px] flex justify-end items-center gap-2">
- <div className="px-4 py-2.5 bg-[#fff7ed] text-[#EF4823] text-[14px] font-extrabold rounded-xl">
- {campaign.negotiatedAmount}
- </div>
- <button className="w-10 h-10 bg-[#EF4823] text-white rounded-[12px] flex items-center justify-center shadow-sm hover:scale-105 transition-transform shrink-0">
- <Send size={16} strokeWidth={2.5} className="-ml-0.5" />
- </button>
- </div>
- </>
- )
  )}
  </div>
  </div>
@@ -200,13 +263,11 @@ export default function CampaignPage() {
  {/* Negotiation Modal Overlay */}
  {negotiateModalOpen && (
  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
- {/* Backdrop */}
  <div 
  className="absolute inset-0 bg-[#1a1a2e]/60 backdrop-blur-[2px]"
  onClick={() => setNegotiateModalOpen(false)}
  ></div>
  
- {/* Modal Content */}
  <div className="relative bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl z-10 animate-in fade-in zoom-in duration-200">
  <button 
  className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
@@ -233,10 +294,11 @@ export default function CampaignPage() {
  </div>
 
  <button 
- className="w-full py-4 bg-[#EF4823] text-white text-[14px] font-bold tracking-wide rounded-[14px] shadow-[0_6px_16px_rgba(239,72,35,0.25)] hover:-translate-y-0.5 transition-all duration-300"
+ disabled={actionLoading === selectedCampaignId}
+ className={`w-full py-4 bg-[#EF4823] text-white text-[14px] font-bold tracking-wide rounded-[14px] shadow-[0_6px_16px_rgba(239,72,35,0.25)] transition-all duration-300 ${actionLoading === selectedCampaignId ? 'opacity-50' : 'hover:-translate-y-0.5'}`}
  onClick={applyNegotiation}
  >
- APPLY
+ {actionLoading === selectedCampaignId ? 'WORKING...' : 'APPLY'}
  </button>
  </div>
  </div>
