@@ -71,6 +71,7 @@ model Campaign {
   daysLeft        String?
   category        String?
   tags            String[] @default([])
+  visibility      String   @default("Public")
   
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

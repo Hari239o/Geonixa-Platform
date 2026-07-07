@@ -4,13 +4,16 @@ import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import { ChevronLeft, ChevronDown, Wand2 } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
-import WalletCheckModal from "@/components/brand/WalletCheckModal"
 
 export default function ManualCampaignCreatePage() {
   const router = useRouter()
-  const [step, setStep] = useState(1) // 1: Form, 2: Preview, 3: Visibility
-  const [visibility, setVisibility] = useState("Public")
-  const [showWalletModal, setShowWalletModal] = useState(false)
+  const [step, setStep] = useState(1) // 1: Form, 2: Select Creators, 3: Wallet
+  const [visibility, setVisibility] = useState("Private")
+  
+  // Wallet State
+  const [walletAmount, setWalletAmount] = useState("")
+  const [balance, setBalance] = useState(5000)
+  const requiredAmount = 13000
   
   // Form State
   const [title, setTitle] = useState("")
@@ -36,6 +39,7 @@ export default function ManualCampaignCreatePage() {
           description: description || 'New campaign',
           daysLeft: 'Active',
           category,
+          visibility,
           tags: tags ? tags.split(',').map(t => t.trim()).filter(Boolean) : []
         })
       });
@@ -56,7 +60,7 @@ export default function ManualCampaignCreatePage() {
       <div className="w-full w-full bg-white h-full relative shadow-sm flex flex-col overflow-hidden">
         
         {/* Header */}
-        <div className="pt-5 px-5 pb-4 shrink-0 bg-white z-20 flex items-center justify-between border-b border-gray-50">
+        <div className="pt-5 px-5 pb-4 shrink-0 bg-white z-20 flex items-center justify-between">
           <button 
             onClick={() => {
               if (step > 1) setStep(step - 1)
@@ -68,19 +72,39 @@ export default function ManualCampaignCreatePage() {
           </button>
           
           <h1 className="text-[#1E1B4B] font-extrabold text-[18px]">
-            {step === 1 ? "Fill Details" : step === 2 ? "Preview Form" : "Select Visibility"}
+            {step === 1 ? "Add Campaign" : step === 2 ? "Select Creators" : "Wallet"}
           </h1>
           
-          <button onClick={() => router.push("/brand/campaigns/create/ai")} className="w-10 h-10 flex items-center justify-center text-[#EF4823] hover:bg-orange-50 rounded-full transition-colors">
-             <Wand2 className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Content Area */}
-        <div className="flex-1 overflow-y-auto no-scrollbar px-5 py-6 pb-32 touch-pan-y flex flex-col relative">
+          {step === 1 ? (
+            <button onClick={() => router.push("/brand/campaigns/create/ai")} className="w-10 h-10 flex items-center justify-center text-[#EF4823] hover:bg-orange-50 rounded-full transition-colors">
+               <Wand2 className="w-5 h-5" />
+            </button>
+          ) : (
+            <div className="w-10 h-10"></div>
+          )}
+        </div>        {/* Content Area */}
+        <div className="flex-1 overflow-y-auto no-scrollbar px-5 py-2 pb-32 touch-pan-y flex flex-col relative">
           
           {step === 1 && (
             <div className="flex flex-col gap-5 animate-in fade-in slide-in-from-bottom-4 duration-300">
+              
+              {/* Visibility Tabs */}
+              <div className="flex bg-gray-50 rounded-[12px] p-1 mb-2">
+                {["Private", "Public"].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setVisibility(tab)}
+                    className={`flex-1 py-2.5 rounded-[10px] text-[13px] font-bold transition-colors ${
+                      visibility === tab 
+                      ? "bg-[#EF4823] text-white shadow-sm" 
+                      : "text-gray-400 hover:text-gray-600"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+
               {/* Type */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-gray-400 text-[12px] font-medium pl-1">Type</label>
@@ -127,7 +151,7 @@ export default function ManualCampaignCreatePage() {
                 <label className="text-gray-400 text-[12px] font-medium pl-1">Tags</label>
                 <input 
                   type="text" 
-                  placeholder="Social media, Beauty, etc"
+                  placeholder="Social media"
                   value={tags}
                   onChange={e => setTags(e.target.value)}
                   className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-4 px-5 text-gray-800 font-medium text-[14px] placeholder:text-gray-300 placeholder:font-normal"
@@ -139,7 +163,7 @@ export default function ManualCampaignCreatePage() {
                 <label className="text-gray-400 text-[12px] font-medium pl-1">Deadline</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. 04 September - 10 September"
+                  placeholder="Enter the deadline"
                   value={deadline}
                   onChange={e => setDeadline(e.target.value)}
                   className="w-full bg-[#FAFAFA] border-none outline-none rounded-[14px] py-4 px-5 text-gray-800 font-medium text-[14px] placeholder:text-gray-300 placeholder:font-normal"
@@ -171,96 +195,101 @@ export default function ManualCampaignCreatePage() {
                 disabled={!title}
                 className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-2 disabled:opacity-50"
               >
-                NEXT: PREVIEW FORM
+                FIND CREATORS
               </button>
             </div>
           )}
 
           {step === 2 && (
-            <div className="flex flex-col gap-5 animate-in fade-in slide-in-from-right-4 duration-300">
-              <div className="bg-[#FAFAFA] rounded-[24px] p-6 border border-gray-100 flex flex-col gap-6">
-                <div>
-                  <h3 className="font-extrabold text-[20px] text-gray-900 mb-2">{title || "Untitled Campaign"}</h3>
-                  <p className="text-gray-500 text-[13px] leading-relaxed">{description || "No description provided."}</p>
+            <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-right-4 duration-300">
+              {[1, 2, 3].map((creator) => (
+                <div key={creator} className="bg-white rounded-[20px] p-4 border border-[#EF4823] shadow-sm relative">
+                  <div className="absolute top-4 right-4 w-5 h-5 rounded-full border-2 border-[#EF4823] flex items-center justify-center">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#EF4823]"></div>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gray-200 rounded-full overflow-hidden">
+                      <img src={`https://i.pravatar.cc/150?img=${creator + 10}`} alt="Creator" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-gray-900 text-[15px]">Lorem Ipsum</span>
+                      <div className="flex gap-2 mt-1">
+                        <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">Fashion</span>
+                        <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">Lifestyle</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between items-center px-2 py-3 bg-[#FAFAFA] rounded-[12px] border border-gray-100">
+                    <div className="flex flex-col items-center">
+                      <span className="text-[#EF4823] font-bold text-[14px]">44.5k</span>
+                      <span className="text-gray-400 text-[10px] font-medium">Followers</span>
+                    </div>
+                    <div className="w-[1px] h-6 bg-gray-200"></div>
+                    <div className="flex flex-col items-center">
+                      <span className="text-[#EF4823] font-bold text-[14px]">22.8k</span>
+                      <span className="text-gray-400 text-[10px] font-medium">Avg Viewership</span>
+                    </div>
+                    <div className="w-[1px] h-6 bg-gray-200"></div>
+                    <div className="flex flex-col items-center">
+                      <span className="text-[#EF4823] font-bold text-[14px]">36.5k</span>
+                      <span className="text-gray-400 text-[10px] font-medium">Avg Engagement</span>
+                    </div>
+                  </div>
                 </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                   <div className="flex flex-col gap-1">
-                     <span className="text-gray-400 text-[11px] font-bold uppercase tracking-wide">Category</span>
-                     <span className="text-gray-800 font-bold text-[14px]">{category}</span>
-                   </div>
-                   <div className="flex flex-col gap-1">
-                     <span className="text-gray-400 text-[11px] font-bold uppercase tracking-wide">Budget</span>
-                     <span className="text-[#EF4823] font-bold text-[14px]">₹13k - ₹25k</span>
-                   </div>
-                   <div className="flex flex-col gap-1 col-span-2">
-                     <span className="text-gray-400 text-[11px] font-bold uppercase tracking-wide">Timeline</span>
-                     <span className="text-gray-800 font-bold text-[14px]">{deadline || "Not specified"}</span>
-                   </div>
-                   {tags && (
-                     <div className="flex flex-col gap-1 col-span-2">
-                       <span className="text-gray-400 text-[11px] font-bold uppercase tracking-wide">Tags</span>
-                       <div className="flex flex-wrap gap-2 mt-1">
-                         {tags.split(',').map((t, i) => (
-                           <span key={i} className="bg-white border border-gray-200 text-gray-600 text-[11px] px-3 py-1 rounded-full">{t.trim()}</span>
-                         ))}
-                       </div>
-                     </div>
-                   )}
-                </div>
-              </div>
+              ))}
 
               <button 
                 onClick={() => setStep(3)} 
-                className="w-full bg-[#1E1B4B] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:opacity-90 transition-colors mt-2"
+                className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-4"
               >
-                LOOKS GOOD, CONTINUE
+                NEXT
               </button>
             </div>
           )}
 
           {step === 3 && (
-            <div className="flex flex-col gap-5 animate-in fade-in slide-in-from-right-4 duration-300">
-              <p className="text-gray-500 text-[14px] mb-2 text-center">Who should be able to see and apply for this campaign?</p>
-              
-              <div 
-                onClick={() => setVisibility("Public")}
-                className={`p-5 rounded-[20px] border-2 cursor-pointer transition-all ${visibility === 'Public' ? 'border-[#EF4823] bg-[#EF4823]/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}
-              >
-                <h4 className={`font-bold text-[16px] mb-1 ${visibility === 'Public' ? 'text-[#EF4823]' : 'text-gray-800'}`}>Public Campaign</h4>
-                <p className="text-gray-500 text-[12px] leading-relaxed">Your campaign will be listed on the discovery page. Any eligible creator can view details and submit an application.</p>
+            <div className="flex flex-col items-center pt-8 gap-6 animate-in fade-in slide-in-from-right-4 duration-300">
+              <div className="text-center w-full">
+                <p className="text-gray-500 text-[14px] font-medium mb-1">Enter your amount</p>
+                <p className="text-red-500 text-[11px] font-bold mb-4 uppercase">INSUFFICIENT FUNDS</p>
+                
+                <div className="bg-[#FAFAFA] border border-[#EF4823] rounded-[16px] py-4 px-6 w-full text-left relative shadow-sm">
+                  <span className="text-gray-900 font-bold text-[24px]">₹</span>
+                  <input 
+                    type="number" 
+                    value={walletAmount}
+                    onChange={e => setWalletAmount(e.target.value)}
+                    placeholder="5000"
+                    className="bg-transparent border-none outline-none font-bold text-[24px] text-gray-900 ml-1 placeholder:text-gray-300 w-[150px]"
+                  />
+                </div>
+                
+                <p className="text-gray-400 text-[13px] font-medium mt-4 text-left px-2">Net Balance : ₹{balance}</p>
               </div>
 
-              <div 
-                onClick={() => setVisibility("Private")}
-                className={`p-5 rounded-[20px] border-2 cursor-pointer transition-all ${visibility === 'Private' ? 'border-[#1E1B4B] bg-[#1E1B4B]/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}
-              >
-                <h4 className={`font-bold text-[16px] mb-1 ${visibility === 'Private' ? 'text-[#1E1B4B]' : 'text-gray-800'}`}>Private Campaign</h4>
-                <p className="text-gray-500 text-[12px] leading-relaxed">Your campaign will be hidden. You will manually invite specific creators to view and apply for this campaign.</p>
-              </div>
-
-              <button 
-                onClick={() => setShowWalletModal(true)} 
-                disabled={isSubmitting}
-                className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-6 disabled:opacity-50 relative overflow-hidden"
-              >
-                CONTINUE TO PUBLISH
-              </button>
+              {balance >= requiredAmount ? (
+                <button 
+                  onClick={handleSubmit} 
+                  disabled={isSubmitting}
+                  className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-6 disabled:opacity-50"
+                >
+                  {isSubmitting ? "PUBLISHING..." : "PUBLISH"}
+                </button>
+              ) : (
+                <button 
+                  onClick={() => setBalance(balance + 10000)} 
+                  className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-6"
+                >
+                  ADD MONEY
+                </button>
+              )}
             </div>
           )}
 
         </div>
         
-        <WalletCheckModal 
-          isOpen={showWalletModal}
-          onClose={() => setShowWalletModal(false)}
-          onProceed={() => {
-             setShowWalletModal(false);
-             handleSubmit();
-          }}
-          budget="₹13k - ₹25k"
-        />
-
         <BottomNav />
       </div>
     </div>

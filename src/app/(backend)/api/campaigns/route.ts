@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, subtitle, budget, dateRange, description, daysLeft, category, tags } = body;
+    const { title, subtitle, budget, dateRange, description, daysLeft, category, tags, visibility } = body;
 
     if (!title) {
       return NextResponse.json({ success: false, error: "title is required" }, { status: 400 });
@@ -78,6 +78,7 @@ export async function POST(request: Request) {
         description,
         daysLeft,
         category,
+        visibility: visibility || "Public",
         tags: tags || [],
       }
     });

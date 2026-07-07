@@ -32,7 +32,7 @@ interface ProfileData {
 
 export default function CreatorDashboard() {
  const router = useRouter();
- const [activeTab, setActiveTab] = useState<'Active' | 'Completed'>('Active');
+ const [activeTab, setActiveTab] = useState<'Private' | 'Public'>('Private');
  const [mediaTab, setMediaTab] = useState<'photos' | 'videos'>('photos');
  const [profile, setProfile] = useState<ProfileData>({
  fullName: '',
@@ -135,13 +135,15 @@ export default function CreatorDashboard() {
         if (data.success && data.campaigns) {
           setCampaigns(data.campaigns.map((c: any) => ({
              id: c.id,
-             timeAgo: 'Just now',
+             timeAgo: '20 minutes ago',
              title: c.title,
-             subtitle: c.subtitle || '',
-             budget: c.budget || 'Open',
-             dateRange: c.dateRange || 'TBD',
-             description: c.description || '',
-             daysLeft: c.daysLeft || 'Active'
+             subtitle: c.visibility === 'Private' ? 'Private | Haircare' : 'Public | Haircare',
+             budget: c.budget || '₹8000',
+             dateRange: c.dateRange || '04 September - 10 September',
+             description: c.description || 'We are looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum.',
+             visibility: c.visibility || 'Public',
+             // Mock states for UI demonstration
+             privateState: c.id % 3 === 0 ? 'negotiating' : c.id % 2 === 0 ? 'accepted' : 'pending'
           })));
         }
       } catch (error) {
@@ -216,16 +218,16 @@ export default function CreatorDashboard() {
         {/* Tabs */}
         <div className="flex gap-2 mx-4 sm:mx-6 mb-6 bg-[#f9fafb] rounded-[18px] p-1 border border-gray-100/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]">
           <button 
-            className={`flex-1 py-3 text-[13px] font-bold rounded-xl transition-all ${activeTab === 'Active' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
-            onClick={() => setActiveTab('Active')}
+            className={`flex-1 py-3 text-[13px] font-bold rounded-xl transition-all ${activeTab === 'Private' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
+            onClick={() => setActiveTab('Private')}
           >
-            Active
+            Private
           </button>
           <button 
-            className={`flex-1 py-3 text-[13px] font-bold rounded-xl transition-all ${activeTab === 'Completed' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
-            onClick={() => setActiveTab('Completed')}
+            className={`flex-1 py-3 text-[13px] font-bold rounded-xl transition-all ${activeTab === 'Public' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
+            onClick={() => setActiveTab('Public')}
           >
-            Completed
+            Public
           </button>
         </div>
 
@@ -241,17 +243,16 @@ export default function CreatorDashboard() {
           {/* Budgets moved to Profile tab */}
         </div>
 
-        {activeTab === 'Active' && (
+        {activeTab === 'Private' && (
           <>
-            {/* Campaigns List */}
+            {/* Private Campaigns List */}
             <section className="px-4 flex flex-col gap-5 mb-8">
-              {campaigns.length > 0 ? (
-                campaigns.map((campaign) => (
+              {campaigns.filter(c => c.visibility === 'Private').length > 0 ? (
+                campaigns.filter(c => c.visibility === 'Private').map((campaign) => (
                   <div className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100/50" key={campaign.id}>
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-11 h-11 bg-[#f4f6fa] rounded-full p-2 flex items-center justify-center">
-                        <div className="w-6 h-6 border-2 border-indigo-400 rounded-sm transform rotate-45 flex items-center justify-center">
-                           <div className="w-full h-0.5 bg-indigo-400 transform -rotate-45"></div>
+                        <div className="w-6 h-6 border-2 border-indigo-400 rounded-sm transform rotate-45 flex items-center justify-center opacity-40">
                         </div>
                       </div>
                       <span className="text-[11px] text-gray-400 font-medium ml-auto">{campaign.timeAgo}</span>
@@ -259,7 +260,7 @@ export default function CreatorDashboard() {
                     <div className="flex justify-between items-start mb-3">
                       <div>
                         <h3 className="text-base font-extrabold text-[#1a1a2e]">{campaign.title}</h3>
-                        <p className="text-[11px] font-medium text-gray-500 italic mt-0.5">{campaign.subtitle}</p>
+                        <p className="text-[11px] font-medium text-gray-400 mt-0.5">{campaign.subtitle}</p>
                       </div>
                       <div className="flex flex-col items-end">
                         <span className="text-[10px] text-gray-500 font-semibold mb-0.5">Budget</span>
@@ -272,17 +273,86 @@ export default function CreatorDashboard() {
                     <p className="text-[12px] text-gray-500 font-medium leading-relaxed mb-4 pr-4">
                       {campaign.description} <span className="text-[#EF4823] font-bold cursor-pointer hover:underline">Read more</span>
                     </p>
-                    <div className="inline-block px-3.5 py-1.5 bg-[#EF4823] text-white text-[11px] font-bold rounded-[8px]">
-                      {campaign.daysLeft || "2 days left"}
-                    </div>
+                    
+                    {campaign.privateState === 'accepted' ? (
+                      <div className="inline-block px-5 py-2 bg-[#22C55E] text-white text-[12px] font-bold rounded-[8px]">
+                        Accepted
+                      </div>
+                    ) : campaign.privateState === 'negotiating' ? (
+                      <div className="flex flex-col gap-2">
+                        <p className="text-[#EF4823] text-[11px] font-bold">Negotiated to ₹9000</p>
+                        <div className="flex gap-2">
+                          <button className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Accept</button>
+                          <button className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Reject</button>
+                          <div className="flex-1 flex items-center bg-gray-50 rounded-[8px] border border-gray-200 px-2">
+                            <span className="text-gray-400 text-[12px]">-</span>
+                            <span className="text-[#EF4823] text-[11px] font-bold flex-1 text-center">₹9000</span>
+                            <span className="text-gray-400 text-[12px]">+</span>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex gap-2">
+                        <button className="flex-1 py-2 bg-[#EF4823] text-white text-[11px] font-bold rounded-[8px] hover:bg-[#d63f1c]">Accept</button>
+                        <button className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Reject</button>
+                        <button className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Negotiate</button>
+                      </div>
+                    )}
                   </div>
                 ))
               ) : (
                 <div className="text-center text-gray-400 py-5">
-                  No active campaigns available.
+                  No private invitations yet.
                 </div>
               )}
             </section>
+          </>
+        )}
+
+        {activeTab === 'Public' && (
+          <>
+            {/* Public Campaigns List */}
+            <section className="px-4 flex flex-col gap-5 mb-8">
+              {campaigns.filter(c => c.visibility === 'Public').length > 0 ? (
+                campaigns.filter(c => c.visibility === 'Public').map((campaign) => (
+                  <div className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100/50" key={campaign.id}>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-11 h-11 bg-[#f4f6fa] rounded-full p-2 flex items-center justify-center">
+                        <div className="w-6 h-6 border-2 border-indigo-400 rounded-sm transform rotate-45 flex items-center justify-center opacity-40">
+                        </div>
+                      </div>
+                      <span className="text-[11px] text-gray-400 font-medium ml-auto">{campaign.timeAgo}</span>
+                    </div>
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <h3 className="text-base font-extrabold text-[#1a1a2e]">{campaign.title}</h3>
+                        <p className="text-[11px] font-medium text-gray-400 mt-0.5">{campaign.subtitle}</p>
+                      </div>
+                      <div className="flex flex-col items-end">
+                        <span className="text-[10px] text-gray-500 font-semibold mb-0.5">Budget</span>
+                        <span className="text-sm font-black text-[#EF4823]">{campaign.budget}</span>
+                      </div>
+                    </div>
+                    <div className="inline-block px-3 py-1 bg-orange-50 text-orange-400 text-[10px] font-bold rounded-md mb-3">
+                      {campaign.dateRange}
+                    </div>
+                    <p className="text-[12px] text-gray-500 font-medium leading-relaxed mb-4 pr-4">
+                      {campaign.description} <span className="text-[#EF4823] font-bold cursor-pointer hover:underline">Read more</span>
+                    </p>
+                    
+                    <button className="w-fit px-8 py-2 border border-gray-200 text-gray-700 text-[12px] font-bold rounded-[12px] hover:bg-gray-50 transition-colors">
+                      Apply
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center text-gray-400 py-5">
+                  No public campaigns available.
+                </div>
+              )}
+            </section>
+          </>
+        )}
 
             {/* Call to Actions */}
             <section className="px-4 flex flex-col gap-4 mb-8">
