@@ -13,7 +13,7 @@ function CampaignDetailContent() {
  const [loading, setLoading] = useState(true);
 
  React.useEffect(() => {
-   fetch('/api/campaigns?role=creator')
+   fetch(`/api/campaigns?role=creator&t=${Date.now()}`)
      .then(r => r.json())
      .then(data => {
        if (data.success && data.campaigns) {
