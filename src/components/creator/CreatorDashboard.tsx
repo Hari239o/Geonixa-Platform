@@ -135,12 +135,12 @@ export default function CreatorDashboard() {
         if (data.success && data.campaigns) {
           setCampaigns(data.campaigns.map((c: any) => ({
              id: c.id,
-             timeAgo: '20 minutes ago',
+             timeAgo: 'Just now',
              title: c.title,
-             subtitle: c.visibility === 'Private' ? 'Private | Haircare' : 'Public | Haircare',
-             budget: c.budget || '₹8000',
-             dateRange: c.dateRange || '04 September - 10 September',
-             description: c.description || 'We are looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum.',
+             subtitle: c.subtitle || `${c.visibility || 'Public'} Campaign`,
+             budget: c.budget || 'Open',
+             dateRange: c.dateRange || 'TBD',
+             description: c.description || 'No description provided.',
              visibility: c.visibility || 'Public',
              // Mock states for UI demonstration
              privateState: c.id % 3 === 0 ? 'negotiating' : c.id % 2 === 0 ? 'accepted' : 'pending'
