@@ -27,7 +27,7 @@ export async function GET() {
       return NextResponse.json({ success: true, campaigns: [] });
     }
 
-    const orConditions = [];
+    const orConditions: any[] = [];
     if (creator.category) orConditions.push({ category: creator.category });
     if (creator.tags && creator.tags.length > 0) orConditions.push({ tags: { hasSome: creator.tags } });
 
