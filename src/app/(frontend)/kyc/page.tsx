@@ -175,6 +175,9 @@ export default function KycPage() {
     setError(null);
 
     try {
+      // 5-second artificial delay as requested
+      await new Promise(resolve => setTimeout(resolve, 5000));
+
       const faceapi = (await import("face-api.js"));
       const img = await faceapi.bufferToImage(selfieFile);
       const detection = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
@@ -391,7 +394,7 @@ export default function KycPage() {
                     {isLoading ? (
                       <span className="flex items-center gap-2">
                         <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        ANALYZING...
+                        CHECKING YOUR DETAILS PLEASE WAIT
                       </span>
                     ) : "VERIFY MY IDENTITY"}
                   </button>
