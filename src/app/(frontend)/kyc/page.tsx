@@ -70,6 +70,29 @@ export default function KycPage() {
     }
   };
 
+  // Face-API & Tesseract Models Loading
+  const [modelsLoaded, setModelsLoaded] = useState(false);
+  const [aadharFaceDescriptor, setAadharFaceDescriptor] = useState<Float32Array | null>(null);
+
+  useEffect(() => {
+    async function loadModels() {
+      try {
+        const faceapi = (await import("face-api.js"));
+        const MODEL_URL = '/models';
+        await Promise.all([
+          faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL),
+          faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+          faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL)
+        ]);
+        setModelsLoaded(true);
+      } catch (e) {
+        console.error("Failed to load models", e);
+        setError("Failed to load required AI models. Please refresh the page.");
+      }
+    }
+    loadModels();
+  }, []);
+
   const handleNextStep1 = async () => {
     if (!fullName.trim()) {
       setError("Please enter your full name first");
@@ -79,28 +102,57 @@ export default function KycPage() {
       setError("Please upload your Aadhar Card photo");
       return;
     }
+    if (!modelsLoaded) {
+      setError("AI Models are still loading. Please wait a moment.");
+      return;
+    }
 
     setIsLoading(true);
     setError(null);
     
-    const formData = new FormData();
-    formData.append("file", aadharFile);
-    formData.append("name", fullName);
-
     try {
-      const res = await fetch("/api/kyc/verify-aadhar", {
-        method: "POST",
-        body: formData,
+      // 1. Textract/OCR using Tesseract.js
+      const Tesseract = (await import("tesseract.js")).default;
+      const tesseractResult = await Tesseract.recognize(aadharFile, 'eng', {
+        logger: m => console.log(m)
       });
-      const data = await res.json();
+      const text = tesseractResult.data.text.toLowerCase();
       
-      if (data.success) {
-        setStep(2); // Move to Selfie step
-      } else {
-        setError(data.error || "Not a valid Aadhar");
+      // Basic validation: check for 12 digits or 'government of india' or the name
+      const aadharRegex = /\d{4}\s?\d{4}\s?\d{4}/;
+      const nameParts = fullName.toLowerCase().split(' ');
+      
+      let isValidAadhar = aadharRegex.test(text) || text.includes('government of india') || text.includes('vid');
+      let nameFound = nameParts.some(part => text.includes(part));
+      
+      if (!isValidAadhar) {
+        setError("The uploaded image does not appear to be a valid Aadhar card.");
+        setIsLoading(false);
+        return;
       }
+      
+      if (!nameFound && nameParts.length > 0 && nameParts[0].length > 2) {
+        // We'll proceed anyway with a warning or just be lenient for now 
+        console.warn("Name not perfectly matched in OCR, but proceeding to face check");
+      }
+
+      // 2. Face Extraction using face-api.js
+      const faceapi = (await import("face-api.js"));
+      const img = await faceapi.bufferToImage(aadharFile);
+      const detection = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+      
+      if (!detection) {
+        setError("Could not detect a clear face on the Aadhar card. Please upload a clearer photo.");
+        setIsLoading(false);
+        return;
+      }
+      
+      setAadharFaceDescriptor(detection.descriptor);
+      setStep(2); // Move to Selfie step
+      
     } catch (err) {
-      setError("Network error occurred");
+      console.error(err);
+      setError("Error processing Aadhar. Please try a clearer image.");
     } finally {
       setIsLoading(false);
     }
@@ -114,38 +166,42 @@ export default function KycPage() {
   };
 
   const handleVerifyFace = async () => {
-    if (!selfieFile || !aadharFile) return;
+    if (!selfieFile || !aadharFaceDescriptor) {
+      setError("Missing selfie or Aadhar face data");
+      return;
+    }
 
     setIsLoading(true);
     setError(null);
 
-    const formData = new FormData();
-    formData.append("selfieFile", selfieFile);
-    formData.append("aadharFile", aadharFile);
-
     try {
-      // Added a small UI delay to make the verification feel more robust (5 seconds as requested)
-      const startTime = Date.now();
-      const res = await fetch("/api/kyc/verify-face", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await res.json();
+      const faceapi = (await import("face-api.js"));
+      const img = await faceapi.bufferToImage(selfieFile);
+      const detection = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
       
-      const elapsed = Date.now() - startTime;
-      if (elapsed < 5000) {
-        await new Promise(r => setTimeout(r, 5000 - elapsed));
+      if (!detection) {
+        setError("Could not detect a face in the selfie. Please retake.");
+        setSelfieFile(null);
+        startCamera();
+        setIsLoading(false);
+        return;
       }
 
-      if (data.success) {
+      // 3. Match the Faces
+      const distance = faceapi.euclideanDistance(aadharFaceDescriptor, detection.descriptor);
+      console.log("Face Match Distance:", distance);
+      
+      // Threshold is typically 0.6. Lower is stricter.
+      if (distance < 0.6) {
         setStep(3); // Success step
       } else {
-        setError(data.error || "Verification failed");
+        setError("Face does not match the Aadhar photo. Please retake in good lighting.");
         setSelfieFile(null);
         startCamera();
       }
     } catch (err) {
-      setError("Network error occurred");
+      console.error(err);
+      setError("Error processing selfie. Please retake.");
       setSelfieFile(null);
       startCamera();
     } finally {
