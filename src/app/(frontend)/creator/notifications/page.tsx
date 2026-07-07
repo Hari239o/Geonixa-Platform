@@ -1,14 +1,12 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, Bell, CheckCircle } from 'lucide-react';
+import { ChevronLeft, Bell, CheckCircle, Check } from 'lucide-react';
 import BottomNav from '@/components/shared/BottomNav';
-import { useKnockFeed } from "@knocklabs/react";
 
 export default function NotificationsPage() {
  const router = useRouter();
-
- const [dbNotifs, setDbNotifs] = React.useState<any[]>([]);
+ const [dbNotifs, setDbNotifs] = useState<any[]>([]);
 
  useEffect(() => {
    async function fetchNotifs() {
@@ -25,6 +23,25 @@ export default function NotificationsPage() {
    fetchNotifs();
  }, []);
 
+ const markAsRead = async (id?: string) => {
+   try {
+     const res = await fetch('/api/notifications', {
+       method: 'PATCH',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify(id ? { notificationId: id } : {})
+     });
+     if (res.ok) {
+       if (id) {
+         setDbNotifs(dbNotifs.map(n => n.id === id ? { ...n, isRead: true } : n));
+       } else {
+         setDbNotifs(dbNotifs.map(n => ({ ...n, isRead: true })));
+       }
+     }
+   } catch (e) {
+     console.error(e);
+   }
+ };
+
  const formatTime = (dateString: string) => {
    const date = new Date(dateString)
    const now = new Date()
@@ -38,7 +55,7 @@ export default function NotificationsPage() {
    return `${Math.floor(diffHrs / 24)} days ago`
  }
 
- const unreadCount = dbNotifs.filter(n => !n.isRead).length;
+ const unreadNotifs = dbNotifs.filter(n => !n.isRead);
 
  return (
  <div className="w-full max-w-md mx-auto min-h-screen bg-[#fafbfc] pb-24 font-sans relative overflow-x-hidden flex flex-col">
@@ -51,10 +68,11 @@ export default function NotificationsPage() {
  >
  <ChevronLeft size={28} strokeWidth={2.5} />
  </button>
- <h1 className="text-[20px] font-extrabold text-[#1a1a2e] tracking-tight">Notifications {unreadCount > 0 && <span className="bg-[#EF4823] text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1">{unreadCount}</span>}</h1>
+ <h1 className="text-[20px] font-extrabold text-[#1a1a2e] tracking-tight">Notifications {unreadNotifs.length > 0 && <span className="bg-[#EF4823] text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1">{unreadNotifs.length}</span>}</h1>
  <button 
+  onClick={() => markAsRead()}
   className="text-[13px] font-bold text-[#EF4823] shrink-0 disabled:opacity-50"
-  disabled={unreadCount === 0}
+  disabled={unreadNotifs.length === 0}
  >
  Read all
  </button>
@@ -62,20 +80,26 @@ export default function NotificationsPage() {
 
  {/* Notifications List */}
  <div className="px-4 sm:px-6 flex flex-col gap-5">
-  {dbNotifs.length === 0 ? (
+  {unreadNotifs.length === 0 ? (
     <div className="flex flex-col items-center justify-center h-full text-gray-400 mt-20">
       <Bell className="w-12 h-12 mb-4 text-gray-200" />
       <p className="text-sm font-medium">No notifications yet.</p>
     </div>
   ) : (
-    dbNotifs.map((notif: any) => (
+    unreadNotifs.map((notif: any) => (
       <div 
         key={notif.id} 
-        className={`bg-white rounded-[24px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.02)] border cursor-pointer transition-all ${
-          !notif.isRead ? "border-orange-200 bg-orange-50/30" : "border-white"
-        }`}
+        className="bg-white rounded-[24px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.02)] border border-orange-200 bg-orange-50/30 transition-all relative"
       >
       
+      {/* Mark as read button */}
+      <button 
+        onClick={(e) => { e.stopPropagation(); markAsRead(notif.id); }}
+        className="absolute top-4 right-4 text-xs font-bold text-gray-400 hover:text-[#EF4823] flex items-center gap-1 transition-colors"
+      >
+        <Check size={14} strokeWidth={2.5} /> Read
+      </button>
+
       {/* Logo */}
       <div className={`w-[52px] h-[52px] rounded-full flex items-center justify-center mb-4 relative overflow-hidden ${
         notif.senderImage ? "" : (notif.title?.includes("Responded") ? "bg-emerald-500" : "bg-[#00a8ff]")
@@ -94,9 +118,7 @@ export default function NotificationsPage() {
       </div>
 
       {/* Content */}
-      <div 
-        className="text-[13px] text-gray-500 leading-relaxed mb-5 knock-content"
-      >
+      <div className="text-[13px] text-gray-500 leading-relaxed mb-5 pr-8">
         <span className="font-bold block mb-1 text-gray-800">{notif.title}</span>
         {notif.message}
       </div>

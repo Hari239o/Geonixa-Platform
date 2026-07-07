@@ -24,3 +24,40 @@ export async function GET() {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
+
+export async function PATCH(request: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+    let userId = (session?.user as any)?.id;
+    if (!userId && session?.user?.email) {
+      const user = await prisma.user.findFirst({ where: { email: session.user.email }});
+      if (user) userId = user.id;
+    }
+    if (!userId) return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+
+    let notificationId;
+    try {
+      const body = await request.json();
+      notificationId = body.notificationId;
+    } catch(e) {
+      // no body
+    }
+
+    if (notificationId) {
+      await prisma.notification.update({
+        where: { id: notificationId, userId },
+        data: { isRead: true }
+      });
+    } else {
+      await prisma.notification.updateMany({
+        where: { userId, isRead: false },
+        data: { isRead: true }
+      });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error("PATCH /api/notifications error:", error);
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}

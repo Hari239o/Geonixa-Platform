@@ -141,7 +141,7 @@ export default function WalletPage() {
  <span className="text-xl font-medium text-white tracking-wide">campaigns</span>
  </div>
  </div>
- <button className="relative z-10 px-6 py-2.5 bg-[#d8f042] text-[#EF4823] text-sm font-bold rounded-full shadow-sm hover:shadow-md transition-shadow">View</button>
+ <button onClick={() => router.push('/campaigns')} className="relative z-10 px-6 py-2.5 bg-[#d8f042] text-[#EF4823] text-sm font-bold rounded-full shadow-sm hover:shadow-md transition-shadow">View</button>
  </div>
  </section>
  </div>

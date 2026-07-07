@@ -112,7 +112,7 @@ export default function BrandWalletPage() {
               <span className="text-white/90 text-[11px] font-medium leading-none mb-1">Find More</span>
               <span className="text-white text-xl font-bold leading-none tracking-tight">campaigns</span>
             </div>
-            <button className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-6 py-2 rounded-xl text-sm font-bold shadow-sm transition-transform active:scale-95">
+            <button onClick={() => router.push('/brand/campaigns')} className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-6 py-2 rounded-xl text-sm font-bold shadow-sm transition-transform active:scale-95">
               View
             </button>
           </div>
