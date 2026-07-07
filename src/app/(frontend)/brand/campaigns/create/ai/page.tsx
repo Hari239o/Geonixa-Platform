@@ -26,6 +26,24 @@ export default function AICampaignCreatePage() {
   const [deadline, setDeadline] = useState("")
   const [category, setCategory] = useState("Creators")
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [minBudget, setMinBudget] = useState(13)
+  const [maxBudget, setMaxBudget] = useState(25)
+  const [creators, setCreators] = useState<any[]>([])
+  const [selectedCreators, setSelectedCreators] = useState<string[]>([])
+  
+  // Fetch creators when step becomes 2
+  React.useEffect(() => {
+    if (step === 2 && creators.length === 0) {
+      fetch('/api/creators')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.creators) {
+             setCreators(data.creators)
+          }
+        })
+        .catch(console.error)
+    }
+  }, [step])
 
   const handleGenerate = () => {
     if (!prompt) return;

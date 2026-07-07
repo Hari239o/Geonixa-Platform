@@ -25,6 +25,7 @@ export default function ManualCampaignCreatePage() {
   const [maxBudget, setMaxBudget] = useState(25)
   const [creators, setCreators] = useState<any[]>([])
   const [selectedCreators, setSelectedCreators] = useState<string[]>([])
+  const [isSubmitting, setIsSubmitting] = useState(false)
   
   // Fetch creators when step becomes 2
   React.useEffect(() => {
