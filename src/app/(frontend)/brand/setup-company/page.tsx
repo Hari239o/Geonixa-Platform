@@ -108,7 +108,7 @@ export default function BrandCompanySetupPage() {
       console.error(e);
     }
     
-    router.push("/brand/company")
+    router.push("/kyc")
   }
 
   return (

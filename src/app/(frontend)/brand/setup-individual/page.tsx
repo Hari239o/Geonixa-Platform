@@ -103,7 +103,7 @@ export default function BrandIndividualSetupPage() {
       console.error(e);
     }
     
-    router.push("/brand")
+    router.push("/kyc")
   }
 
   return (
