@@ -65,7 +65,7 @@ export async function GET(request: Request) {
         },
         requests: {
           where: { creatorId: creator.id },
-          select: { status: true, message: true }
+          select: { id: true, status: true, message: true, creatorId: true }
         }
       },
       orderBy: { createdAt: 'desc' }
