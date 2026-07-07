@@ -45,7 +45,11 @@ export async function POST(req: Request) {
       },
     });
 
-    const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/auth/reset-password?token=${resetToken}`;
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL 
+      || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : null)
+      || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+    
+    const resetUrl = `${baseUrl}/auth/reset-password?token=${resetToken}`;
 
     const mailOptions = {
       from: `"Kalinq" <${process.env.EMAIL_USER}>`,
