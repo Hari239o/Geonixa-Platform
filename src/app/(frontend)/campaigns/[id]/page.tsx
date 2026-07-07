@@ -34,7 +34,8 @@ function CampaignDetailContent() {
       let payload: any = {};
       
       if (isPrivate) {
-        if (!campaign.invite) {
+        const invite = campaign.campaignInvites?.[0];
+        if (!invite) {
           alert('You do not have an invite for this private campaign.');
           return;
         }
@@ -43,7 +44,7 @@ function CampaignDetailContent() {
         if (action === 'APPLIED') action = 'ACCEPT'; // For private, "apply" means "accept" invite
         
         payload = { 
-          inviteId: campaign.invite.id, 
+          inviteId: invite.id, 
           action, 
           negotiatedPrice: status === 'negotiating' ? negotiateAmount : undefined, 
           message 
