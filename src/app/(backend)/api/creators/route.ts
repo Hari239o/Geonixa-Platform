@@ -29,7 +29,7 @@ export async function GET() {
         where: { brandId: userId, unlockType: 'lifelong' },
         select: { creatorId: true }
       });
-      unlockedIds = unlocks.map(u => u.creatorId);
+      unlockedIds = unlocks.map((u: any) => u.creatorId);
     }
 
     const creatorsWithUnlockStatus = creators.map(c => ({
