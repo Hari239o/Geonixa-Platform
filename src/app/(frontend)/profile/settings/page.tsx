@@ -123,13 +123,13 @@ export default function ProfileSettingsPage() {
             body: JSON.stringify({
               userId: localStorage.getItem('userId') || 'temp-user-id', // Assuming temp-user-id for now
               ...updatedProfile,
-              category: updatedProfile.category || 'Creator',
-              followers: updatedProfile.followers || '0',
-              viewership: updatedProfile.viewership || '0',
-              engagement: updatedProfile.engagement || '0',
-              projects: updatedProfile.projects || '0',
-              successRate: updatedProfile.successRate || '0%',
-              isVerified: updatedProfile.isVerified || false
+              category: updatedProfile.category || undefined,
+              followers: updatedProfile.followers || undefined,
+              viewership: updatedProfile.viewership || undefined,
+              engagement: updatedProfile.engagement || undefined,
+              projects: updatedProfile.projects || undefined,
+              successRate: updatedProfile.successRate || undefined,
+              isVerified: updatedProfile.isVerified || undefined
             })
           });
         }
