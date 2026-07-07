@@ -38,47 +38,52 @@ export const authOptions: NextAuthOptions = {
         }
         const formattedPhone = '+' + cleanPhone;
 
-        // TEMPORARY BYPASS FOR DEVELOPMENT
+        let user = await prisma.user.findFirst({
+          where: {
+            OR: [
+              { phone: formattedPhone },
+              { email: credentials.phoneNumber }
+            ]
+          }
+        });
+
+        if (!user) {
+          throw new Error("You don't have an account, go to signup");
+        }
+
+        if (user.password) {
+          const bcrypt = require('bcryptjs');
+          const isValid = await bcrypt.compare(credentials.otp, user.password);
+          if (!isValid) {
+            throw new Error("Invalid password");
+          }
+          return {
+            id: user.id,
+            name: user.name || "Kalinq User",
+            email: user.email || `${formattedPhone.replace('+', '')}@kalinq.auth`,
+          };
+        }
+
+        // Fallback for mock setup where no password exists yet
         if (credentials.otp === "1234" || credentials.otp === "123456") {
-           let dbUser = await prisma.user.findUnique({ where: { phone: formattedPhone } });
-           if (!dbUser) {
-             throw new Error("You don't have an account, go to signup");
-           }
            return {
-             id: dbUser.id,
-             name: dbUser.name || "Kalinq User",
-             email: dbUser.email || `${formattedPhone.replace('+', '')}@kalinq.auth`,
+             id: user.id,
+             name: user.name || "Kalinq User",
+             email: user.email || `${formattedPhone.replace('+', '')}@kalinq.auth`,
            }
         }
 
-        // Verify OTP from global store
+        // Verify OTP from global store for OTP based login
         const store = globalAny.otpStore;
         if (store) {
           const storedData = store.get(formattedPhone);
           if (storedData && storedData.otp === credentials.otp && storedData.expiresAt > Date.now()) {
               store.delete(formattedPhone);
-              
-              let dbUser = await prisma.user.findUnique({ where: { phone: formattedPhone } });
-              if (!dbUser) {
-                throw new Error("You don't have an account, go to signup");
-              }
-
               return {
-                id: dbUser.id,
-                name: "Kalinq User",
-                email: `${formattedPhone.replace('+', '')}@kalinq.auth`,
+                id: user.id,
+                name: user.name || "Kalinq User",
+                email: user.email || `${formattedPhone.replace('+', '')}@kalinq.auth`,
               }
-          }
-        }
-
-        // FALLBACK FOR DEVELOPMENT: If the user exists in the database, let them log in with ANY password!
-        // This fixes the issue where you sign up with a password but the DB only expects OTPs!
-        let existingUser = await prisma.user.findUnique({ where: { phone: formattedPhone } });
-        if (existingUser) {
-          return {
-            id: existingUser.id,
-            name: existingUser.name || "Kalinq User",
-            email: existingUser.email || `${formattedPhone.replace('+', '')}@kalinq.auth`,
           }
         }
 

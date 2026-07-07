@@ -61,11 +61,11 @@ export default function CreatorSignupStep1() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
           phone: "+91" + formData.phoneNumber.replace(/\D/g, ''),
           role: "creator",
           name: `${formData.firstName} ${formData.lastName}`.trim(),
           email: formData.email,
+          password: formData.password,
         }),
       });
 

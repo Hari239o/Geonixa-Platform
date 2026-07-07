@@ -3,10 +3,16 @@ import prisma from '@/lib/prisma';
 
 export async function POST(req: Request) {
   try {
-    const { phone, role, email, name } = await req.json();
+    const { phone, role, email, name, password } = await req.json();
     
     if (!phone) {
       return NextResponse.json({ error: 'Phone number is required' }, { status: 400 });
+    }
+
+    let hashedPassword = undefined;
+    if (password) {
+      const bcrypt = require('bcryptjs');
+      hashedPassword = await bcrypt.hash(password, 10);
     }
 
     // Upsert user based on phone number
@@ -15,13 +21,15 @@ export async function POST(req: Request) {
       update: { 
         role: role || 'user',
         ...(email && { email }),
-        ...(name && { name })
+        ...(name && { name }),
+        ...(hashedPassword && { password: hashedPassword })
       },
       create: { 
         phone, 
         role: role || 'user',
         ...(email && { email }),
-        ...(name && { name })
+        ...(name && { name }),
+        ...(hashedPassword && { password: hashedPassword })
       }
     });
 

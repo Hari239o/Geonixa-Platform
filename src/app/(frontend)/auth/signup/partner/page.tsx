@@ -62,11 +62,11 @@ export default function PartnerSignupStep1() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
           phone: "+91" + formData.phoneNumber.replace(/\D/g, ''),
           role: "partner",
           name: formData.name.trim(),
           email: formData.email,
+          password: formData.password,
         }),
       });
 

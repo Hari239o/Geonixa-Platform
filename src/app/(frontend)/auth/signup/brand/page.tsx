@@ -58,11 +58,11 @@ export default function BrandSignupStep1() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
           phone: "+91" + formData.phoneNumber.replace(/\D/g, ''),
           role: "brand",
           name: formData.brandName.trim(),
           email: formData.email,
+          password: formData.password,
         }),
       });
 
