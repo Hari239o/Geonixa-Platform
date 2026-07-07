@@ -16,8 +16,7 @@ export async function POST(req: Request) {
     });
 
     if (!user) {
-      // Return 200 even if user not found to prevent email enumeration
-      return NextResponse.json({ message: 'If an account exists, a reset link has been sent.' }, { status: 200 });
+      return NextResponse.json({ error: 'No account found with this email address.' }, { status: 404 });
     }
 
     // Generate secure reset token
@@ -65,7 +64,7 @@ export async function POST(req: Request) {
 
     await transporter.sendMail(mailOptions);
 
-    return NextResponse.json({ message: 'If an account exists, a reset link has been sent.' }, { status: 200 });
+    return NextResponse.json({ message: 'Reset link sent successfully to your email!' }, { status: 200 });
   } catch (error) {
     console.error('Forgot password error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
