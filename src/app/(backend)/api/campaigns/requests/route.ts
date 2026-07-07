@@ -4,9 +4,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
 import { Knock } from '@knocklabs/node';
 
-// Safely init Knock so it doesn't crash if keys are missing
-const knock = new Knock(process.env.KNOCK_SECRET_API_KEY || 'dummy-key');
-
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
@@ -71,6 +68,7 @@ export async function POST(request: Request) {
         });
         
         if (process.env.KNOCK_SECRET_API_KEY) {
+          const knock = new Knock(process.env.KNOCK_SECRET_API_KEY);
           await knock.workflows.trigger('default-notification', {
             recipients: [campaign.userId],
             data: {
@@ -177,6 +175,7 @@ export async function PATCH(request: Request) {
     });
     if (process.env.KNOCK_SECRET_API_KEY) {
       try {
+        const knock = new Knock(process.env.KNOCK_SECRET_API_KEY);
         await knock.workflows.trigger('default-notification', {
           recipients: [campReq.creator.userId],
           data: { message: notifMsg, actionLabel: "View Dashboard", actionUrl: "/creator/dashboard", type: 'info' },
