@@ -39,9 +39,10 @@ function CampaignDetailContent() {
           alert('You do not have an invite for this private campaign.');
           return;
         }
-        // Map status to uppercase ACTION for respond-invite
         let action = status.toUpperCase();
-        if (action === 'APPLIED') action = 'ACCEPT'; // For private, "apply" means "accept" invite
+        if (action === 'APPLIED' || action === 'ACCEPTED') action = 'ACCEPT';
+        else if (action === 'REJECTED') action = 'REJECT';
+        else if (action === 'NEGOTIATING') action = 'NEGOTIATE';
         
         payload = { 
           inviteId: invite.id, 

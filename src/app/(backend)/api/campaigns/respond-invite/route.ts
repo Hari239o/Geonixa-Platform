@@ -81,18 +81,21 @@ export async function POST(request: Request) {
         }
       });
 
-      try {
-        await knock.workflows.trigger('default-notification', {
-          recipients: [invite.brand.userId],
-          data: {
-            message: notifMsg,
-            actionLabel: "View Requests",
-            actionUrl: "/brand/campaigns/requests",
-            type: 'info'
-          },
-          actor: invite.creator.userId
-        });
-      } catch(e) { console.error("Knock trigger error:", e); }
+      if (process.env.KNOCK_SECRET_API_KEY) {
+        try {
+          const knockClient = new Knock({ apiKey: process.env.KNOCK_SECRET_API_KEY });
+          await knockClient.workflows.trigger('default-notification', {
+            recipients: [invite.brand.userId],
+            data: {
+              message: notifMsg,
+              actionLabel: "View Requests",
+              actionUrl: "/brand/campaigns/requests",
+              type: 'info'
+            },
+            actor: invite.creator.userId
+          });
+        } catch(e) { console.error("Knock trigger error:", e); }
+      }
     }
 
     if (isBrand) {
@@ -117,18 +120,21 @@ export async function POST(request: Request) {
         }
       });
 
-      try {
-        await knock.workflows.trigger('default-notification', {
-          recipients: [invite.creator.userId],
-          data: {
-            message: notifMsg,
-            actionLabel: "View Dashboard",
-            actionUrl: "/creator",
-            type: 'info'
-          },
-          actor: invite.brand.userId
-        });
-      } catch(e) { console.error("Knock trigger error:", e); }
+      if (process.env.KNOCK_SECRET_API_KEY) {
+        try {
+          const knockClient = new Knock({ apiKey: process.env.KNOCK_SECRET_API_KEY });
+          await knockClient.workflows.trigger('default-notification', {
+            recipients: [invite.creator.userId],
+            data: {
+              message: notifMsg,
+              actionLabel: "View Dashboard",
+              actionUrl: "/creator",
+              type: 'info'
+            },
+            actor: invite.brand.userId
+          });
+        } catch(e) { console.error("Knock trigger error:", e); }
+      }
     }
 
     return NextResponse.json({ success: true, status: newStatus });

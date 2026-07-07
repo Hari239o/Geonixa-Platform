@@ -37,29 +37,9 @@ export default function CampaignTrackingPage() {
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto no-scrollbar px-5 py-6 pb-32 touch-pan-y flex flex-col relative">
           
-          <div className="bg-white rounded-[24px] p-6 shadow-sm border border-gray-50 mb-6 relative">
+          <div className="bg-white rounded-[24px] p-6 shadow-sm border border-gray-50 mb-6">
             <h2 className="font-extrabold text-[20px] text-gray-900 mb-2">Glow Up Skincare Routine</h2>
             <p className="text-gray-500 text-[13px]">Status: <span className="text-[#EF4823] font-bold">Reviewing Submissions</span></p>
-            <button 
-              onClick={async () => {
-                if(confirm("Are you sure you want to delete this campaign?")) {
-                  try {
-                    // Extract ID from URL
-                    const id = window.location.pathname.split("/").pop();
-                    const res = await fetch(`/api/campaigns/${id}`, { method: 'DELETE' });
-                    const data = await res.json();
-                    if(data.success) {
-                      router.push('/brand/campaigns');
-                    } else {
-                      alert("Error deleting campaign");
-                    }
-                  } catch(e) { console.error(e); }
-                }
-              }}
-              className="absolute top-6 right-6 px-3 py-1.5 bg-red-50 text-red-600 font-bold text-xs rounded-full hover:bg-red-100 transition-colors"
-            >
-              Delete
-            </button>
           </div>
 
           <h3 className="font-extrabold text-[16px] text-gray-800 mb-6 px-1">Progress</h3>
@@ -105,6 +85,28 @@ export default function CampaignTrackingPage() {
             })}
           </div>
 
+        </div>
+
+        <div className="px-5 pb-8 pt-4 bg-[#F8F9FA] z-10 border-t border-gray-100 flex justify-center">
+          <button 
+            onClick={async () => {
+              if(confirm("Are you sure you want to delete this campaign?")) {
+                try {
+                  const id = window.location.pathname.split("/").pop();
+                  const res = await fetch(`/api/campaigns/${id}`, { method: 'DELETE' });
+                  const data = await res.json();
+                  if(data.success) {
+                    router.push('/brand/campaigns');
+                  } else {
+                    alert("Error deleting campaign");
+                  }
+                } catch(e) { console.error(e); }
+              }
+            }}
+            className="w-full py-3.5 bg-red-50 text-red-600 font-bold text-[14px] rounded-xl hover:bg-red-100 transition-colors"
+          >
+            Delete Campaign
+          </button>
         </div>
         
       </div>
