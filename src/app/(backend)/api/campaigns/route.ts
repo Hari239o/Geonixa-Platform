@@ -49,7 +49,17 @@ export async function GET() {
     }
 
     const campaigns = await prisma.campaign.findMany({
-      where: { OR: orConditions },
+      where: {
+        AND: [
+          { OR: orConditions },
+          {
+            OR: [
+              { visibility: "Public" },
+              { visibility: "Private", invitedCreators: { has: creator.id } }
+            ]
+          }
+        ]
+      },
       orderBy: { createdAt: 'desc' }
     });
     
@@ -75,7 +85,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, subtitle, budget, dateRange, description, daysLeft, category, tags, visibility } = body;
+    const { title, subtitle, budget, dateRange, description, daysLeft, category, tags, visibility, invitedCreators } = body;
 
     if (!title) {
       return NextResponse.json({ success: false, error: "title is required" }, { status: 400 });
@@ -93,6 +103,7 @@ export async function POST(request: Request) {
         category,
         visibility: visibility || "Public",
         tags: tags || [],
+        invitedCreators: invitedCreators || [],
       }
     });
 

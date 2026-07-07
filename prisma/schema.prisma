@@ -72,6 +72,7 @@ model Campaign {
   category        String?
   tags            String[] @default([])
   visibility      String   @default("Public")
+  invitedCreators String[] @default([])
   
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

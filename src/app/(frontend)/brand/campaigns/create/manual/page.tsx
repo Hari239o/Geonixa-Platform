@@ -59,7 +59,8 @@ export default function ManualCampaignCreatePage() {
           daysLeft: 'Active',
           category,
           visibility,
-          tags: tags ? tags.split(',').map(t => t.trim()).filter(Boolean) : []
+          tags: tags ? tags.split(',').map(t => t.trim()).filter(Boolean) : [],
+          invitedCreators: selectedCreators
         })
       });
       
