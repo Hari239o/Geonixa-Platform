@@ -6,8 +6,10 @@ import { Knock } from '@knocklabs/node';
 
 const knock = new Knock({ apiKey: process.env.KNOCK_SECRET_API_KEY || 'dummy-key-for-build' });
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const roleParam = searchParams.get('role');
     const session = await getServerSession(authOptions);
     let userId = (session?.user as any)?.id;
     if (!userId && session?.user?.email) {
@@ -27,7 +29,7 @@ export async function GET() {
       where: { userId }
     });
 
-    if (brand) {
+    if (brand && roleParam !== 'creator') {
       // If user is a brand, return their own created campaigns
       const brandCampaigns = await prisma.campaign.findMany({
         where: { userId },
@@ -40,29 +42,22 @@ export async function GET() {
       return NextResponse.json({ success: true, campaigns: [] });
     }
 
-    const hasCategoryOrTags = creator.category || (creator.tags && creator.tags.length > 0);
-    let filterCondition: any = {};
-
-    if (hasCategoryOrTags) {
-      const orConditions: any[] = [
-        { category: "Creators" } // Fallback for legacy campaigns created before category options were updated
-      ];
-      if (creator.category) orConditions.push({ category: creator.category });
-      if (creator.tags && creator.tags.length > 0) orConditions.push({ tags: { hasSome: creator.tags } });
-      
-      filterCondition = { OR: orConditions };
-    }
+    const orConditions: any[] = [
+      { category: "Creators" } // Fallback for legacy campaigns created before category options were updated
+    ];
+    if (creator.category) orConditions.push({ category: creator.category });
+    if (creator.tags && creator.tags.length > 0) orConditions.push({ tags: { hasSome: creator.tags } });
 
     const campaigns = await prisma.campaign.findMany({
       where: {
-        AND: [
-          filterCondition,
+        OR: [
           {
-            OR: [
-              { visibility: "Public" },
-              { visibility: "Private", invitedCreators: { has: creator.id } }
+            AND: [
+              { OR: orConditions },
+              { visibility: "Public" }
             ]
-          }
+          },
+          { visibility: "Private", invitedCreators: { has: creator.id } }
         ]
       },
       orderBy: { createdAt: 'desc' }

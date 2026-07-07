@@ -18,7 +18,7 @@ export default function CampaignDashboardPage() {
   React.useEffect(() => {
     async function fetchCampaigns() {
       try {
-        const res = await fetch('/api/campaigns')
+        const res = await fetch('/api/campaigns?role=brand')
         const data = await res.json()
         if (data.success && data.campaigns) {
           setCampaigns(data.campaigns.map((c: any) => ({

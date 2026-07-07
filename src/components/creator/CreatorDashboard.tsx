@@ -130,7 +130,7 @@ export default function CreatorDashboard() {
     
     async function fetchCampaigns() {
       try {
-        const res = await fetch('/api/campaigns');
+        const res = await fetch('/api/campaigns?role=creator');
         const data = await res.json();
         if (data.success && data.campaigns) {
           setCampaigns(data.campaigns.map((c: any) => ({
@@ -249,7 +249,11 @@ export default function CreatorDashboard() {
             <section className="px-4 flex flex-col gap-5 mb-8">
               {campaigns.filter(c => c.visibility === 'Private').length > 0 ? (
                 campaigns.filter(c => c.visibility === 'Private').map((campaign) => (
-                  <div className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100/50" key={campaign.id}>
+                  <div 
+                    onClick={() => router.push(`/campaigns/${campaign.id}`)}
+                    className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100/50 cursor-pointer hover:shadow-md transition-shadow" 
+                    key={campaign.id}
+                  >
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-11 h-11 bg-[#f4f6fa] rounded-full p-2 flex items-center justify-center">
                         <div className="w-6 h-6 border-2 border-indigo-400 rounded-sm transform rotate-45 flex items-center justify-center opacity-40">
@@ -315,7 +319,11 @@ export default function CreatorDashboard() {
             <section className="px-4 flex flex-col gap-5 mb-8">
               {campaigns.filter(c => c.visibility === 'Public').length > 0 ? (
                 campaigns.filter(c => c.visibility === 'Public').map((campaign) => (
-                  <div className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100/50" key={campaign.id}>
+                  <div 
+                    onClick={() => router.push(`/campaigns/${campaign.id}`)}
+                    className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100/50 cursor-pointer hover:shadow-md transition-shadow" 
+                    key={campaign.id}
+                  >
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-11 h-11 bg-[#f4f6fa] rounded-full p-2 flex items-center justify-center">
                         <div className="w-6 h-6 border-2 border-indigo-400 rounded-sm transform rotate-45 flex items-center justify-center opacity-40">
