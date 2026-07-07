@@ -5,9 +5,10 @@ import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id: campaignId } = await params;
     const session = await getServerSession(authOptions);
     let userId = (session?.user as any)?.id;
     if (!userId && session?.user?.email) {
@@ -18,8 +19,6 @@ export async function DELETE(
     if (!userId) {
       return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
     }
-
-    const campaignId = params.id;
 
     // Verify ownership
     const campaign = await prisma.campaign.findUnique({
