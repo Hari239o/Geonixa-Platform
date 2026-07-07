@@ -129,6 +129,15 @@ export async function POST(request: Request) {
       for (const creator of invitedProfiles) {
         const notifMsg = `You have been invited to a Private Campaign: ${title}`;
         try {
+          await prisma.campaignInvite.create({
+            data: {
+              campaignId: campaignData.id,
+              creatorId: creator.id,
+              brandId: brand.id,
+              status: "PENDING"
+            }
+          });
+
           await prisma.notification.create({
             data: {
               userId: creator.userId,
