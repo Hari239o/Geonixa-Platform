@@ -33,6 +33,9 @@ export async function GET(request: Request) {
       // If user is a brand, return their own created campaigns
       const brandCampaigns = await prisma.campaign.findMany({
         where: { userId },
+        include: {
+          user: { select: { brandProfile: { select: { profilePic: true } } } }
+        },
         orderBy: { createdAt: 'desc' }
       });
       return NextResponse.json({ success: true, campaigns: brandCampaigns });
@@ -60,10 +63,22 @@ export async function GET(request: Request) {
           { visibility: "Private", invitedCreators: { has: creator.id } }
         ]
       },
+      include: {
+        user: { select: { brandProfile: { select: { profilePic: true } } } },
+        requests: {
+          where: { creatorId: creator.id },
+          select: { status: true }
+        }
+      },
       orderBy: { createdAt: 'desc' }
     });
+
+    const campaignsWithStatus = campaigns.map(c => ({
+      ...c,
+      creatorStatus: c.requests && c.requests.length > 0 ? c.requests[0].status : "pending"
+    }));
     
-    return NextResponse.json({ success: true, campaigns });
+    return NextResponse.json({ success: true, campaigns: campaignsWithStatus });
   } catch (error: any) {
     console.error("GET /api/campaigns error:", error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

@@ -9,15 +9,49 @@ function CampaignDetailContent() {
  const params = useParams();
  const searchParams = useSearchParams();
  const isPublic = searchParams.get('type') === 'public';
- 
  const [negotiateModalOpen, setNegotiateModalOpen] = useState(false);
  const [negotiateAmount, setNegotiateAmount] = useState('');
+ const [campaign, setCampaign] = useState<any>(null);
+ const [loading, setLoading] = useState(true);
+
+ React.useEffect(() => {
+   fetch('/api/campaigns?role=creator')
+     .then(r => r.json())
+     .then(data => {
+       if (data.success && data.campaigns) {
+         const found = data.campaigns.find((c: any) => c.id === params.id);
+         setCampaign(found);
+       }
+       setLoading(false);
+     })
+     .catch(() => setLoading(false));
+ }, [params.id]);
+
+ const handleAction = async (status: string, message?: string) => {
+   if (!campaign) return;
+   try {
+     const res = await fetch('/api/campaigns/requests', {
+       method: 'POST',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({ campaignId: campaign.id, status, message })
+     });
+     const data = await res.json();
+     if (data.success) {
+       alert(`Campaign ${status}!`);
+       if (status === 'negotiating') setNegotiateModalOpen(false);
+       router.push('/dashboard');
+     }
+   } catch(e) {
+     console.error(e);
+   }
+ };
 
  const applyNegotiation = () => {
- alert(`Negotiation for ₹${negotiateAmount || 8000} applied!`);
- setNegotiateModalOpen(false);
- router.push('/categories');
+   handleAction('negotiating', `Negotiated to ₹${negotiateAmount || 8000}`);
  };
+
+ if (loading) return <div className="min-h-screen flex justify-center items-center">Loading...</div>;
+ if (!campaign) return <div className="min-h-screen flex justify-center items-center">Campaign not found</div>;
 
  return (
  <div className="w-full max-w-md mx-auto min-h-screen bg-white pb-24 font-sans relative overflow-x-hidden">
@@ -35,26 +69,31 @@ function CampaignDetailContent() {
  <div className="px-4 sm:px-6">
  {/* Campaign Info Header */}
  <div className="flex justify-between items-start mb-4">
- <div className="w-12 h-12 bg-[#f0f4ff] rounded-[14px] flex items-center justify-center shrink-0">
- {/* Abstract brand icon */}
- <div className="w-6 h-6 border-4 border-[#8ba4eb] rounded-sm transform rotate-45 border-t-transparent"></div>
- </div>
- <span className="text-[11px] font-medium text-gray-400 mt-1">25 minute ago</span>
+ {campaign.user?.brandProfile?.profilePic ? (
+   <div className="w-12 h-12 rounded-[14px] overflow-hidden shrink-0">
+     <img src={campaign.user.brandProfile.profilePic} alt="Brand" className="w-full h-full object-cover" />
+   </div>
+ ) : (
+   <div className="w-12 h-12 bg-[#f0f4ff] rounded-[14px] flex items-center justify-center shrink-0">
+     <div className="w-6 h-6 border-4 border-[#8ba4eb] rounded-sm transform rotate-45 border-t-transparent"></div>
+   </div>
+ )}
+ <span className="text-[11px] font-medium text-gray-400 mt-1">Just now</span>
  </div>
  
  <div className="flex justify-between items-start mb-3">
  <div className="flex flex-col pr-4">
- <h1 className="text-[20px] font-extrabold text-[#1a1a2e] mb-0.5 tracking-tight">Glow With Radiance</h1>
- <p className="text-[12px] font-medium text-gray-500 italic">- Skincare Brand Campaign</p>
+ <h1 className="text-[20px] font-extrabold text-[#1a1a2e] mb-0.5 tracking-tight">{campaign.title}</h1>
+ <p className="text-[12px] font-medium text-gray-500 italic">{campaign.subtitle || 'Brand Campaign'}</p>
  </div>
  <div className="flex flex-col items-end shrink-0">
  <span className="text-[11px] font-bold uppercase tracking-wide text-gray-400 mb-0.5">Budget</span>
- <span className="text-[18px] font-extrabold text-[#EF4823]">₹6000</span>
+ <span className="text-[18px] font-extrabold text-[#EF4823]">{campaign.budget || 'Open'}</span>
  </div>
  </div>
 
  <div className="inline-block px-3 py-1.5 bg-[#fff7ed] text-[#ea580c] text-[11px] font-bold rounded-lg mb-8">
- 04 September - 10 September 2025
+ {campaign.dateRange || 'TBD'}
  </div>
 
  {/* Detailed Sections */}
@@ -62,8 +101,8 @@ function CampaignDetailContent() {
  
  <section>
  <h2 className="text-[15px] font-extrabold text-[#1a1a2e] mb-3">Campaign Brief</h2>
- <p className="text-[13px] text-gray-500 leading-relaxed">
- We're looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum. The campaign will highlight how the serum fits seamlessly into everyday skincare routines, promoting natural beauty and confidence. Influencers should create authentic, engaging content that resonates with their followers and communicates the product's key benefits: hydration, glow, and skin nourishment.
+ <p className="text-[13px] text-gray-500 leading-relaxed whitespace-pre-wrap">
+ {campaign.description || "No description provided."}
  </p>
  </section>
 
@@ -101,13 +140,13 @@ function CampaignDetailContent() {
  <>
  <button 
  className="flex-1 py-3 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:bg-[#d83e1c] transition-colors"
- onClick={() => alert("Campaign Accepted!")}
+ onClick={() => handleAction('accepted')}
  >
  Accept
  </button>
  <button 
  className="flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl hover:bg-gray-200 transition-colors"
- onClick={() => router.back()}
+ onClick={() => handleAction('rejected')}
  >
  Reject
  </button>

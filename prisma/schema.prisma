@@ -54,6 +54,8 @@ model CreatorProfile {
   teamMembers     String?
   brandType       String?
   
+  campaignRequests CampaignRequest[]
+  
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
@@ -74,8 +76,24 @@ model Campaign {
   visibility      String   @default("Public")
   invitedCreators String[] @default([])
   
+  requests        CampaignRequest[]
+  
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+}
+
+model CampaignRequest {
+  id              String   @id @default(uuid())
+  campaignId      String
+  campaign        Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  creatorId       String
+  creator         CreatorProfile @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  status          String   @default("pending") // "accepted", "rejected", "negotiating"
+  message         String?  // Optional negotiation message
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([campaignId, creatorId])
 }
 
 model BrandProfile {

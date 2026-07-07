@@ -142,8 +142,8 @@ export default function CreatorDashboard() {
              dateRange: c.dateRange || 'TBD',
              description: c.description || 'No description provided.',
              visibility: c.visibility || 'Public',
-             // Mock states for UI demonstration
-             privateState: c.id % 3 === 0 ? 'negotiating' : c.id % 2 === 0 ? 'accepted' : 'pending'
+             brandProfilePic: c.user?.brandProfile?.profilePic || null,
+             privateState: c.creatorStatus || 'pending'
           })));
         }
       } catch (error) {
@@ -255,10 +255,16 @@ export default function CreatorDashboard() {
                     key={campaign.id}
                   >
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-11 h-11 bg-[#f4f6fa] rounded-full p-2 flex items-center justify-center">
-                        <div className="w-6 h-6 border-2 border-indigo-400 rounded-sm transform rotate-45 flex items-center justify-center opacity-40">
+                      {campaign.brandProfilePic ? (
+                        <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-gray-100">
+                          <img src={campaign.brandProfilePic} alt="Brand" className="w-full h-full object-cover" />
                         </div>
-                      </div>
+                      ) : (
+                        <div className="w-11 h-11 bg-[#f4f6fa] rounded-full p-2 flex items-center justify-center shrink-0">
+                          <div className="w-6 h-6 border-2 border-indigo-400 rounded-sm transform rotate-45 flex items-center justify-center opacity-40">
+                          </div>
+                        </div>
+                      )}
                       <span className="text-[11px] text-gray-400 font-medium ml-auto">{campaign.timeAgo}</span>
                     </div>
                     <div className="flex justify-between items-start mb-3">
@@ -325,10 +331,16 @@ export default function CreatorDashboard() {
                     key={campaign.id}
                   >
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-11 h-11 bg-[#f4f6fa] rounded-full p-2 flex items-center justify-center">
-                        <div className="w-6 h-6 border-2 border-indigo-400 rounded-sm transform rotate-45 flex items-center justify-center opacity-40">
+                      {campaign.brandProfilePic ? (
+                        <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-gray-100">
+                          <img src={campaign.brandProfilePic} alt="Brand" className="w-full h-full object-cover" />
                         </div>
-                      </div>
+                      ) : (
+                        <div className="w-11 h-11 bg-[#f4f6fa] rounded-full p-2 flex items-center justify-center shrink-0">
+                          <div className="w-6 h-6 border-2 border-indigo-400 rounded-sm transform rotate-45 flex items-center justify-center opacity-40">
+                          </div>
+                        </div>
+                      )}
                       <span className="text-[11px] text-gray-400 font-medium ml-auto">{campaign.timeAgo}</span>
                     </div>
                     <div className="flex justify-between items-start mb-3">
