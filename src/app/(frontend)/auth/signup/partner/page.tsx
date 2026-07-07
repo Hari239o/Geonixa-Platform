@@ -75,7 +75,7 @@ export default function PartnerSignupStep1() {
       setShowOtpModal(true);
     } catch (error: any) {
       console.error("Error sending OTP:", error);
-      alert("Failed to send OTP. Please check your phone number and try again.");
+      alert("Failed to send OTP: " + (error.message || "Unknown error"));
       if ((window as any).recaptchaVerifier) {
         (window as any).recaptchaVerifier.clear();
         (window as any).recaptchaVerifier = null;
