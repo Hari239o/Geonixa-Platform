@@ -37,6 +37,9 @@ export async function GET(request: Request) {
           user: { select: { brandProfile: { select: { profilePic: true } } } },
           campaignInvites: {
             include: { creator: true }
+          },
+          requests: {
+            include: { creator: true }
           }
         },
         orderBy: { createdAt: 'desc' }

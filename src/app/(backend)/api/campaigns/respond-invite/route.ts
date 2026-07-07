@@ -4,10 +4,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
 import { Knock } from '@knocklabs/node';
 
-const knock = new Knock({ apiKey: process.env.KNOCK_SECRET_API_KEY || 'dummy-key' });
-
 export async function POST(request: Request) {
   try {
+    const knock = new Knock({ apiKey: process.env.KNOCK_SECRET_API_KEY || 'dummy-key' });
     const session = await getServerSession(authOptions);
     let userId = (session?.user as any)?.id;
     if (!userId && session?.user?.email) {

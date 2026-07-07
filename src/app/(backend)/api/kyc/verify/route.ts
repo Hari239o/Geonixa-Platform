@@ -1,19 +1,4 @@
 import { NextResponse } from 'next/server';
-import { TextractClient, AnalyzeDocumentCommand } from "@aws-sdk/client-textract";
-import { RekognitionClient, CompareFacesCommand } from "@aws-sdk/client-rekognition";
-
-// Initialize AWS Clients
-// In Next.js App Router, process.env.AWS_ACCESS_KEY_ID is automatically available from .env / .env.local
-const awsConfig = {
- region: "us-east-1",
- credentials: {
- accessKeyId: "AKIA4IADKOHXBEXNEWH6",
- secretAccessKey: "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",
- }
-};
-
-const textract = new TextractClient(awsConfig);
-const rekognition = new RekognitionClient(awsConfig);
 
 export async function POST(request: Request) {
   try {
@@ -39,12 +24,14 @@ export async function POST(request: Request) {
       similarity: 99.9
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("KYC Verification Error:", error);
+    
+    const errorMessage = error instanceof Error ? error.message : "Failed to process KYC verification";
     
     return NextResponse.json({ 
       success: false, 
-      error: error.message || "Failed to process KYC verification" 
+      error: errorMessage 
     }, { status: 500 });
   }
 }
