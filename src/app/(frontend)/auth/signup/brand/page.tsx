@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { auth } from "@/lib/firebase";
+import { RecaptchaVerifier, signInWithPhoneNumber, ConfirmationResult } from "firebase/auth";
 
 export default function BrandSignupStep1() {
   const router = useRouter();
@@ -15,6 +17,10 @@ export default function BrandSignupStep1() {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [isPhoneVerified, setIsPhoneVerified] = useState(false);
+  const [confirmationResult, setConfirmationResult] = useState<ConfirmationResult | null>(null);
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
+  const [otpError, setOtpError] = useState("");
 
   const [formData, setFormData] = useState({
     brandName: "",
@@ -42,15 +48,43 @@ export default function BrandSignupStep1() {
     });
   };
 
-  const handleSendOtp = () => {
+  const setupRecaptcha = () => {
+    if (!(window as any).recaptchaVerifier) {
+      (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        'size': 'invisible',
+      });
+    }
+  };
+
+  const handleSendOtp = async () => {
     if (!formData.phoneNumber) return;
-    setShowOtpModal(true);
+    setOtpError("");
+    setIsSendingOtp(true);
+    
+    try {
+      setupRecaptcha();
+      const appVerifier = (window as any).recaptchaVerifier;
+      const formattedPhone = "+91" + formData.phoneNumber.replace(/\D/g, '');
+      
+      const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
+      setConfirmationResult(confirmation);
+      setShowOtpModal(true);
+    } catch (error: any) {
+      console.error("Error sending OTP:", error);
+      alert("Failed to send OTP. Please check your phone number and try again.");
+      if ((window as any).recaptchaVerifier) {
+        (window as any).recaptchaVerifier.clear();
+        (window as any).recaptchaVerifier = null;
+      }
+    } finally {
+      setIsSendingOtp(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isPhoneVerified) {
-      setShowOtpModal(true);
+      handleSendOtp();
       return;
     }
     
@@ -82,10 +116,22 @@ export default function BrandSignupStep1() {
     signIn("google", { callbackUrl: "/auth/callback" });
   };
 
-  const handleVerifyOtp = () => {
-    if (otp.join("").length === 6) {
-      setIsPhoneVerified(true);
-      setShowOtpModal(false);
+  const handleVerifyOtp = async () => {
+    const otpCode = otp.join("");
+    if (otpCode.length === 6 && confirmationResult) {
+      setIsVerifyingOtp(true);
+      setOtpError("");
+      try {
+        await confirmationResult.confirm(otpCode);
+        setIsPhoneVerified(true);
+        setShowOtpModal(false);
+        // OTP verified successfully! They can now submit the form to create the account.
+      } catch (error) {
+        console.error("Error verifying OTP:", error);
+        setOtpError("Invalid OTP. Please try again.");
+      } finally {
+        setIsVerifyingOtp(false);
+      }
     }
   };
 
@@ -204,6 +250,9 @@ export default function BrandSignupStep1() {
           </div>
         </div>
 
+        {/* Firebase Recaptcha Container */}
+        <div id="recaptcha-container" className="mt-2"></div>
+
         <div className="mt-6 flex flex-col gap-4">
           <Button 
             type="submit" 
@@ -269,18 +318,28 @@ export default function BrandSignupStep1() {
               ))}
             </div>
             
-            <p className="text-[13px] text-[#666666] mb-6">
-              Resend OTP in 30
-            </p>
-            
+            {otpError && (
+              <p className="text-[#FF4D2D] text-sm text-center mt-4 font-medium">{otpError}</p>
+            )}
             <Button 
               type="button"
               onClick={handleVerifyOtp}
-              disabled={otp.join("").length !== 6}
-              className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-[12px] h-[50px] text-[15px] font-medium transition-all"
+              disabled={otp.join("").length !== 6 || isVerifyingOtp}
+              className="w-full mt-8 bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-[14px] h-[52px] text-[15px] font-semibold"
             >
-              Next
+              {isVerifyingOtp ? "Verifying..." : "Verify Code"}
             </Button>
+            <div className="mt-4 text-center">
+              <span className="text-[#A0A0A0] text-sm">Didn't receive the code? </span>
+              <button 
+                type="button"
+                disabled={isSendingOtp}
+                onClick={handleSendOtp}
+                className="text-[#333333] text-sm font-semibold hover:underline"
+              >
+                {isSendingOtp ? "Sending..." : "Resend"}
+              </button>
+            </div>
           </div>
         </div>
       )}

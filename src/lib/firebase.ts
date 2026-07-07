@@ -3,13 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
- projectId: "kalinq-app",
- appId: "1:125040198973:web:6a9168b90ca9a98bd8b154",
- storageBucket: "kalinq-app.firebasestorage.app",
- apiKey: "AIzaSyB9k1SlvuXSGHrxA6QJR614YHArtQ_Ijc4",
- authDomain: "kalinq-app.firebaseapp.com",
- messagingSenderId: "125040198973",
- measurementId: "G-QFKBS49XC5"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
