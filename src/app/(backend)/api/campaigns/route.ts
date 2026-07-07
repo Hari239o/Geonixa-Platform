@@ -23,6 +23,19 @@ export async function GET() {
       where: { userId }
     });
 
+    const brand = await prisma.brandProfile.findUnique({
+      where: { userId }
+    });
+
+    if (brand) {
+      // If user is a brand, return their own created campaigns
+      const brandCampaigns = await prisma.campaign.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' }
+      });
+      return NextResponse.json({ success: true, campaigns: brandCampaigns });
+    }
+
     if (!creator || !creator.isVerified) {
       return NextResponse.json({ success: true, campaigns: [] });
     }

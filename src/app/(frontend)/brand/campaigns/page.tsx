@@ -12,39 +12,36 @@ export default function CampaignDashboardPage() {
   const [isPopulated, setIsPopulated] = useState(true) // Set to true to show populated state based on mockups
   const [showCreateMenu, setShowCreateMenu] = useState(false)
 
-  // Dummy data based on Image 2
-  const campaigns = [
-    {
-      id: 1,
-      title: "Glow With Radiance",
-      subtitle: "- Skincare Brand Campaign",
-      date: "04 September - 10 September 2025",
-      desc: "We're looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum. ",
-      budget: "₹8000",
-      timeAgo: "25 minute ago",
-      status: "Accepted", // Accepted, Rejected, Pending, Negotiated
-    },
-    {
-      id: 2,
-      title: "Glow With Radiance",
-      subtitle: "- Skincare Brand Campaign",
-      date: "04 September - 10 September 2025",
-      desc: "We're looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum. ",
-      budget: "₹6000",
-      timeAgo: "25 minute ago",
-      status: "Rejected",
-    },
-    {
-      id: 3,
-      title: "Glow With Radiance",
-      subtitle: "- Skincare Brand Campaign",
-      date: "04 September - 10 September 2025",
-      desc: "We're looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum. ",
-      budget: "₹6000",
-      timeAgo: "25 minute ago",
-      status: "Pending",
+  const [campaigns, setCampaigns] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  React.useEffect(() => {
+    async function fetchCampaigns() {
+      try {
+        const res = await fetch('/api/campaigns')
+        const data = await res.json()
+        if (data.success && data.campaigns) {
+          setCampaigns(data.campaigns.map((c: any) => ({
+             id: c.id,
+             title: c.title,
+             subtitle: c.subtitle || `${c.visibility || 'Public'} Campaign`,
+             date: c.dateRange || 'TBD',
+             desc: c.description || 'No description provided.',
+             budget: c.budget || 'Open',
+             timeAgo: 'Just now',
+             status: 'Accepted', // Mock status for demonstration based on user images
+             visibility: c.visibility || 'Public'
+          })))
+        }
+      } catch (e) {
+        console.error("Failed to fetch campaigns", e)
+      } finally {
+        setLoading(false)
+        setIsPopulated(true)
+      }
     }
-  ]
+    fetchCampaigns()
+  }, [])
 
   const getStatusBadge = (status: string) => {
     switch(status) {
@@ -109,12 +106,16 @@ export default function CampaignDashboardPage() {
         {/* Scrollable Feed */}
         <div className="flex-1 overflow-y-auto no-scrollbar px-5 pb-32 pt-2 touch-pan-y flex flex-col gap-4 relative bg-[#F8F9FA]">
           
-          {!isPopulated ? (
+          {loading ? (
+            <div className="absolute inset-0 flex items-center justify-center pb-20">
+              <span className="text-gray-400 font-medium">Loading...</span>
+            </div>
+          ) : campaigns.filter(c => c.visibility === activeTab).length === 0 ? (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none pb-20">
-              <h2 className="text-gray-400 text-lg font-medium text-center leading-snug">Create<br/>New Campaign</h2>
+              <h2 className="text-gray-400 text-lg font-medium text-center leading-snug">No {activeTab} Campaigns<br/>Found</h2>
             </div>
           ) : (
-            campaigns.map((camp) => (
+            campaigns.filter(c => c.visibility === activeTab).map((camp) => (
               <div 
                 key={camp.id} 
                 onClick={() => router.push(`/brand/campaigns/${camp.id}`)}
