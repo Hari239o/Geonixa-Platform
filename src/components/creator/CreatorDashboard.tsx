@@ -323,7 +323,7 @@ export default function CreatorDashboard() {
                       {campaign.description} <span className="text-[#EF4823] font-bold cursor-pointer hover:underline">Read more</span>
                     </p>
                     
-                    {campaign.privateState === 'accepted' ? (
+                    {['accepted', 'brand_accepted_negotiation'].includes(campaign.privateState || '') ? (
                       <div className="mt-2 w-full py-3 bg-green-50 text-green-600 text-[12px] font-bold rounded-[12px] text-center border border-green-100 uppercase tracking-wide">
                         STATUS: ACCEPTED
                       </div>

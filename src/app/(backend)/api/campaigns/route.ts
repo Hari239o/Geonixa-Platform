@@ -73,7 +73,9 @@ export async function GET(request: Request) {
 
     const campaignsWithStatus = campaigns.map(c => ({
       ...c,
-      creatorStatus: c.requests && c.requests.length > 0 ? c.requests[0].status : "pending",
+      creatorStatus: c.visibility === 'Private' 
+        ? (c.campaignInvites && c.campaignInvites.length > 0 ? c.campaignInvites[0].status : "pending")
+        : (c.requests && c.requests.length > 0 ? c.requests[0].status : "pending"),
       requests: c.requests
     }));
     
