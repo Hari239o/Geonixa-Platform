@@ -1,27 +1,23 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
+import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user || !(session.user as any).id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const userId = (session?.user as any)?.id;
+    
+    if (!userId) {
+       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await req.json();
-    const { amountInRupees } = body; // e.g. 500, 1000, 2000
-
-    if (!amountInRupees || isNaN(amountInRupees)) {
-      return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
-    }
-
-    // Dummy conversion: 100 rupees = 10 credits (so 10 rupees = 1 credit)
+    const amountInRupees = body.amountInRupees || 500;
     const creditsToAdd = Math.floor(amountInRupees / 10);
 
-    const updatedUser = await prisma.user.update({
-      where: { id: (session.user as any).id },
+    const user = await prisma.user.update({
+      where: { id: userId },
       data: {
         credits: {
           increment: creditsToAdd
@@ -29,9 +25,9 @@ export async function POST(req: NextRequest) {
       }
     });
 
-    return NextResponse.json({ success: true, credits: updatedUser.credits });
+    return NextResponse.json({ success: true, newBalance: user.credits });
   } catch (error) {
-    console.error("Add dummy funds error:", error);
+    console.error("Error adding dummy funds:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

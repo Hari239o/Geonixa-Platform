@@ -64,7 +64,8 @@ export default function BrandHomeFeedPage() {
             followers: c.followers || "0",
             viewership: c.viewership || "0",
             engagement: c.engagement || "0",
-            verified: c.isVerified || false
+            verified: c.isVerified || false,
+            isUnlocked: c.isUnlocked || false
           }));
           setCreators(fetchedCreators);
           
@@ -150,8 +151,7 @@ export default function BrandHomeFeedPage() {
             <div 
               key={creator.id} 
               onClick={() => {
-                const unlocked = JSON.parse(localStorage.getItem('kaling_unlocked_profiles') || '[]');
-                if (unlocked.includes(creator.id)) {
+                if (creator.isUnlocked) {
                   router.push(`/brand/portfolio/${creator.id}`);
                 } else {
                   setSelectedCreator(creator);

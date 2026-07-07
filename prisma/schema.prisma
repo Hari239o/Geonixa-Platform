@@ -15,13 +15,15 @@ model User {
   name      String?
   role      String   @default("user") // "creator", "brand", "partner", "user"
   profileCompleted Boolean @default(false)
-  credits   Int      @default(10) // 10 free credits for testing
+  credits   Int      @default(0) // Default 0 credits
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
   // Relations
   creatorProfile CreatorProfile?
+  brandProfile   BrandProfile?
   campaigns      Campaign[]
+  unlockedProfiles UnlockedProfile[]
 }
 
 model CreatorProfile {
@@ -74,3 +76,38 @@ model Campaign {
   updatedAt       DateTime @updatedAt
 }
 
+model BrandProfile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  fullName        String?  // Company Name or Individual Name
+  bio             String?
+  profilePic      String?
+  category        String?
+  website         String?
+  phone           String?
+  facebook        String?
+  instagram       String?
+  x               String?
+  linkedin        String?
+  teamMembers     String?
+  brandType       String?  // company or individual
+  portfolioImages String[] @default([])
+  isVerified      Boolean  @default(false)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model UnlockedProfile {
+  id              String   @id @default(uuid())
+  brandId         String   // The brand that unlocked
+  user            User     @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  
+  creatorId       String   // The creator who was unlocked
+  unlockType      String   // "once", "lifelong"
+  createdAt       DateTime @default(now())
+
+  @@unique([brandId, creatorId, unlockType])
+}
