@@ -130,6 +130,10 @@ export default function ProfilePage() {
                   setItem('kaling_user_profile', { ...(existing || {}), ...mergedProfile });
                 });
               });
+
+              if (!mergedProfile.isVerified) {
+                setShowVerifyModal(true);
+              }
               
               return { ...prev, ...mergedProfile };
             });
