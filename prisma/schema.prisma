@@ -175,3 +175,31 @@ model Notification {
   isRead      Boolean  @default(false)
   createdAt   DateTime @default(now())
 }
+
+model DealChat {
+  id        String   @id @default(uuid())
+  dealId    String   // Reference to the campaign request or invite
+  brandId   String
+  creatorId String
+  status    String   @default("bot") // "bot", "admin_joined", "resolved"
+  
+  messages  ChatMessage[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([dealId])
+}
+
+model ChatMessage {
+  id         String   @id @default(uuid())
+  chatId     String
+  chat       DealChat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  
+  senderId   String   // "bot", "admin", or userId
+  senderName String
+  content    String
+  
+  createdAt  DateTime @default(now())
+}
+

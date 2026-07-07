@@ -3,6 +3,7 @@ import React, { useState, Suspense } from 'react';
 import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import { ChevronLeft, X } from 'lucide-react';
 import BottomNav from '@/components/shared/BottomNav';
+import PostDealChatbot from '@/components/shared/PostDealChatbot';
 
 function CampaignDetailContent() {
   const router = useRouter();
@@ -26,6 +27,7 @@ function CampaignDetailContent() {
  }, [params.id]);
 
   const [actionLoading, setActionLoading] = useState(false);
+  const [activeDealInfo, setActiveDealInfo] = useState<{dealId: string, brandId: string, creatorId: string} | null>(null);
 
   const handleAction = async (status: string, message?: string) => {
     if (!campaign) return;
@@ -63,6 +65,10 @@ function CampaignDetailContent() {
       });
       const data = await res.json();
       if (data.success) {
+        if (status === 'accepted') {
+          setActiveDealInfo({ dealId: payload.inviteId || payload.campaignId, brandId: campaign.userId, creatorId: '' });
+          return;
+        }
         alert(`Campaign ${status}!`);
         if (status === 'negotiating') setNegotiateModalOpen(false);
         router.push('/creator');
@@ -259,6 +265,17 @@ function CampaignDetailContent() {
 
  <BottomNav />
  </div>
+ 
+ {activeDealInfo && (
+   <PostDealChatbot 
+     dealId={activeDealInfo.dealId}
+     brandId={activeDealInfo.brandId}
+     creatorId={activeDealInfo.creatorId}
+     onComplete={() => { setActiveDealInfo(null); router.push('/creator'); }}
+     onClose={() => { setActiveDealInfo(null); router.push('/creator'); }}
+   />
+ )}
+ </>
  );
 }
 

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { ChevronLeft, Send, Bookmark } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 import { User } from "lucide-react"
+import PostDealChatbot from "@/components/shared/PostDealChatbot"
 
 // SVG for Verified Badge
 const VerifiedBadge = ({ className }: { className?: string }) => (
@@ -18,6 +19,7 @@ export default function CampaignRequestsPage() {
   const router = useRouter()
   const [requests, setRequests] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
+  const [activeDealInfo, setActiveDealInfo] = React.useState<{dealId: string, brandId: string, creatorId: string} | null>(null)
 
   React.useEffect(() => {
     async function loadRequests() {
@@ -65,6 +67,16 @@ export default function CampaignRequestsPage() {
         body: JSON.stringify(payload)
       });
       if (res.ok) {
+        if (action === 'ACCEPT' || action === 'accepted') {
+          const req = requests.find(r => r.id === id);
+          if (req) {
+            setActiveDealInfo({
+              dealId: id,
+              brandId: isPublicRequest ? req.campaign.userId : req.brandId,
+              creatorId: req.creatorId
+            });
+          }
+        }
         setRequests(prev => prev.filter(req => req.id !== id))
       }
     } catch (error) {
@@ -208,6 +220,16 @@ export default function CampaignRequestsPage() {
         
         <BottomNav />
       </div>
+
+      {activeDealInfo && (
+        <PostDealChatbot 
+          dealId={activeDealInfo.dealId}
+          brandId={activeDealInfo.brandId}
+          creatorId={activeDealInfo.creatorId}
+          onComplete={() => setActiveDealInfo(null)}
+          onClose={() => setActiveDealInfo(null)}
+        />
+      )}
     </div>
   )
 }

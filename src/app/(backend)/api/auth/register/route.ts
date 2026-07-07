@@ -16,17 +16,19 @@ export async function POST(req: Request) {
     }
 
     // Upsert user based on phone number
+    const userRole = email === 'admin@kalinq.com' ? 'admin' : (role || 'user');
+
     const user = await prisma.user.upsert({
       where: { phone },
       update: { 
-        role: role || 'user',
+        role: userRole,
         ...(email && { email }),
         ...(name && { name }),
         ...(hashedPassword && { password: hashedPassword })
       },
       create: { 
         phone, 
-        role: role || 'user',
+        role: userRole,
         ...(email && { email }),
         ...(name && { name }),
         ...(hashedPassword && { password: hashedPassword })
