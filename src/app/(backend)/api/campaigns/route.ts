@@ -107,29 +107,52 @@ export async function POST(request: Request) {
       }
     });
 
-    // Trigger Push Notifications to matching creators
-    const orConditions = [];
-    if (category) orConditions.push({ category: category });
-    if (tags && tags.length > 0) orConditions.push({ tags: { hasSome: tags } });
-
-    if (orConditions.length > 0) {
-      const matchingCreators = await prisma.creatorProfile.findMany({
-        where: { OR: orConditions }
+    // Trigger Push Notifications
+    if (visibility === "Private" && invitedCreators && invitedCreators.length > 0) {
+      // For private campaigns, only notify the invited creators
+      const invitedProfiles = await prisma.creatorProfile.findMany({
+        where: { id: { in: invitedCreators } }
       });
-
-      for (const creator of matchingCreators) {
+      for (const creator of invitedProfiles) {
         try {
           await knock.workflows.trigger('default-notification', {
             recipients: [creator.userId],
             data: {
-              message: `New campaign matching your profile: ${title}`,
+              message: `You have been invited to a Private Campaign: ${title}`,
               actionLabel: 'View Campaign',
               actionUrl: '/creator',
               type: 'campaign'
             }
           });
         } catch(e) {
-          console.error("Failed to trigger Knock workflow for", creator.userId, e);
+          console.error("Failed to trigger Knock workflow for invited creator", creator.userId, e);
+        }
+      }
+    } else if (visibility !== "Private") {
+      // For public campaigns, notify matching creators
+      const orConditions = [];
+      if (category) orConditions.push({ category: category });
+      if (tags && tags.length > 0) orConditions.push({ tags: { hasSome: tags } });
+
+      if (orConditions.length > 0) {
+        const matchingCreators = await prisma.creatorProfile.findMany({
+          where: { OR: orConditions }
+        });
+
+        for (const creator of matchingCreators) {
+          try {
+            await knock.workflows.trigger('default-notification', {
+              recipients: [creator.userId],
+              data: {
+                message: `New campaign matching your profile: ${title}`,
+                actionLabel: 'View Campaign',
+                actionUrl: '/creator',
+                type: 'campaign'
+              }
+            });
+          } catch(e) {
+            console.error("Failed to trigger Knock workflow for", creator.userId, e);
+          }
         }
       }
     }
