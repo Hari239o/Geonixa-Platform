@@ -93,6 +93,7 @@ function CampaignDetailContent() {
  const isPublic = campaign.visibility === 'Public';
 
  return (
+ <>
  <div className="w-full max-w-md mx-auto min-h-screen bg-white pb-40 font-sans relative overflow-x-hidden">
  
  {/* Header */}
