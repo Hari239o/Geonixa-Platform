@@ -87,7 +87,7 @@ function CampaignDetailContent() {
  const isPublic = campaign.visibility === 'Public';
 
  return (
- <div className="w-full max-w-md mx-auto min-h-screen bg-white pb-24 font-sans relative overflow-x-hidden">
+ <div className="w-full max-w-md mx-auto min-h-screen bg-white pb-40 font-sans relative overflow-x-hidden">
  
  {/* Header */}
  <div className="px-4 sm:px-6 pt-4 pb-6 flex justify-start">
@@ -160,8 +160,8 @@ function CampaignDetailContent() {
 
  </div>
 
- {/* Action Buttons */}
- <div className="flex flex-wrap items-center gap-2 mb-10">
+  {/* Action Buttons (Sticky) */}
+  <div className="fixed bottom-[72px] sm:bottom-[80px] left-1/2 -translate-x-1/2 w-full max-w-md px-4 sm:px-6 py-4 bg-white/90 backdrop-blur-md border-t border-gray-100 flex flex-wrap items-center gap-2 z-40 shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
  {isPublic ? (
    campaign.requests && campaign.requests.length > 0 ? (
      <div className="w-full py-3 bg-green-50 text-green-600 text-[13px] font-bold rounded-xl text-center border border-green-100 uppercase tracking-wide">
