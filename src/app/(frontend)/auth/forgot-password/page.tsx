@@ -48,9 +48,8 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center pt-8">
-      
-      <h1 className="text-3xl font-bold text-white lg:text-text-dark mb-2 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
+    <div className="w-full flex flex-col items-center">
+      <h1 className="text-3xl font-bold text-white lg:text-text-dark mb-2 mt-8 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
         Forgot Password
       </h1>
       

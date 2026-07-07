@@ -33,6 +33,11 @@ export async function POST(req: Request) {
     });
 
     // Send email using Nodemailer
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('Forgot password error: EMAIL_USER or EMAIL_PASS environment variables are missing in Vercel.');
+      return NextResponse.json({ error: 'Email service is not configured on the server. Please add EMAIL_USER and EMAIL_PASS to Vercel.' }, { status: 500 });
+    }
+
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
