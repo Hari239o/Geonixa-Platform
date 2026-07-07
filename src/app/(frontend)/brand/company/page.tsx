@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react"
 import Image from "next/image"
-import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe, BadgeCheck } from "lucide-react"
+import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe, BadgeCheck, Settings } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 import { signOut } from "next-auth/react"
 import { uploadFileToR2 } from "@/utils/upload"
@@ -45,6 +45,39 @@ export default function BrandCompanyDashboardPage() {
     }
   }, [])
 
+  const handleDeletePortfolioImage = (index: number) => {
+    const updatedImages = portfolioImages.filter((_, i) => i !== index)
+    setPortfolioImages(updatedImages)
+    localStorage.setItem("kaling_company_portfolio", JSON.stringify(updatedImages))
+  }
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const file = e.target.files[0];
+    
+    try {
+      const url = await uploadFileToR2(file, 'public');
+      const updatedProfile = { ...profileData, profilePic: url };
+      setProfileData(updatedProfile);
+      
+      localStorage.setItem("kaling_company_profile", JSON.stringify(updatedProfile));
+      localStorage.setItem("kaling_brand_profile", JSON.stringify(updatedProfile));
+      
+      const serverPayload: any = { ...updatedProfile };
+      await fetch("/api/user/complete-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: localStorage.getItem('userId') || 'temp-user-id',
+          ...serverPayload
+        })
+      });
+    } catch (err: any) {
+      console.error("Logo upload failed", err);
+      alert("Upload failed: " + (err.message || String(err)));
+    }
+  }
+
   const handlePortfolioUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
     const files = Array.from(e.target.files)
@@ -70,13 +103,17 @@ export default function BrandCompanyDashboardPage() {
         <div className="pt-5 px-6 pb-6 bg-white rounded-b-[40px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] z-10 shrink-0 relative">
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-4">
-              <div className="w-24 h-24 bg-[#EF4823] rounded-2xl flex items-center justify-center overflow-hidden relative shadow-md">
+              <label className="w-24 h-24 bg-[#EF4823] rounded-2xl flex items-center justify-center overflow-hidden relative shadow-md cursor-pointer group">
                 {profileData?.profilePic ? (
-                  <img src={profileData.profilePic} alt="Brand Logo" className="w-full h-full object-cover" />
+                  <img src={profileData.profilePic} alt="Brand Logo" className="w-full h-full object-cover group-hover:opacity-80 transition-opacity" />
                 ) : (
-                  <span className="text-white font-black text-2xl">LOGO</span>
+                  <span className="text-white font-black text-2xl group-hover:opacity-80 transition-opacity">LOGO</span>
                 )}
-              </div>
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+                <input type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} />
+              </label>
               <div className="flex items-center gap-2">
                 <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
                   {profileData?.fullName || "Lorem Ipsum"}
@@ -88,8 +125,20 @@ export default function BrandCompanyDashboardPage() {
             </div>
             
             <div className="flex gap-3 text-gray-400 mt-2">
-              <button className="hover:text-[#EF4823] transition-colors"><Send size={18} /></button>
-              <button className="hover:text-[#EF4823] transition-colors"><SlidersHorizontal size={18} /></button>
+              <button className="hover:text-[#EF4823] transition-colors" title="Share Profile"><Send size={18} /></button>
+              <button 
+                onClick={() => {
+                  if (profileData?.brandType === 'individual') {
+                    router.push("/brand/setup-individual")
+                  } else {
+                    router.push("/brand/setup-company")
+                  }
+                }} 
+                className="hover:text-[#EF4823] transition-colors" 
+                title="Settings"
+              >
+                <Settings size={20} strokeWidth={2.5} />
+              </button>
             </div>
           </div>
 
