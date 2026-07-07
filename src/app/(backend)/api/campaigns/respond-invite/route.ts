@@ -15,13 +15,25 @@ export async function POST(request: Request) {
     }
     if (!userId) return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
 
-    const { inviteId, action, negotiatedPrice, message } = await request.json();
-    if (!inviteId || !action) return NextResponse.json({ success: false, error: "Missing parameters" }, { status: 400 });
+    const { inviteId, campaignId, action, negotiatedPrice, message } = await request.json();
+    if (!inviteId && !campaignId) return NextResponse.json({ success: false, error: "Missing parameters" }, { status: 400 });
 
-    const invite = await prisma.campaignInvite.findUnique({
-      where: { id: inviteId },
-      include: { campaign: true, creator: true, brand: true }
-    });
+    let invite;
+    if (inviteId) {
+      invite = await prisma.campaignInvite.findUnique({
+        where: { id: inviteId },
+        include: { campaign: true, creator: true, brand: true }
+      });
+    } else if (campaignId) {
+      // Find invite using campaignId and logged-in user's creator profile
+      const creator = await prisma.creatorProfile.findUnique({ where: { userId } });
+      if (creator) {
+        invite = await prisma.campaignInvite.findFirst({
+          where: { campaignId, creatorId: creator.id },
+          include: { campaign: true, creator: true, brand: true }
+        });
+      }
+    }
 
     if (!invite) return NextResponse.json({ success: false, error: "Invite not found" }, { status: 404 });
 

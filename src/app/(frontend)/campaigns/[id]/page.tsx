@@ -34,18 +34,17 @@ function CampaignDetailContent() {
       let payload: any = {};
       
       if (isPrivate) {
-        const invite = campaign.campaignInvites?.[0];
-        if (!invite) {
-          alert('You do not have an invite for this private campaign.');
-          return;
-        }
+        // Map status to uppercase ACTION for respond-invite
         let action = status.toUpperCase();
         if (action === 'APPLIED' || action === 'ACCEPTED') action = 'ACCEPT';
         else if (action === 'REJECTED') action = 'REJECT';
         else if (action === 'NEGOTIATING') action = 'NEGOTIATE';
         
+        const inviteId = campaign.campaignInvites?.[0]?.id;
+        
         payload = { 
-          inviteId: invite.id, 
+          campaignId: campaign.id,
+          inviteId, 
           action, 
           negotiatedPrice: status === 'negotiating' ? negotiateAmount : undefined, 
           message 
