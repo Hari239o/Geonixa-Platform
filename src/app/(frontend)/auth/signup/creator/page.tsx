@@ -27,7 +27,7 @@ export default function CreatorSignupStep1() {
     lastName: "",
     email: "",
     category: "",
-    creatorType: "",
+    creatorType: "influencer",
     phoneNumber: "",
     password: "",
   });
@@ -229,24 +229,7 @@ export default function CreatorSignupStep1() {
             </div>
           </div>
 
-          {/* Creator Type Dropdown */}
-          <div className="flex flex-col gap-1 relative">
-            <Label className="text-[11px] text-slate-500 font-normal ml-1">Type of Creator</Label>
-            <div className="relative">
-              <select
-                required
-                value={formData.creatorType}
-                onChange={(e) => updateFormData({ creatorType: e.target.value })}
-                className="w-full bg-[#F5F5F5] border border-slate-200 rounded-xl h-10 px-3 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#FF4D2D]/20 focus:border-[#FF4D2D]"
-              >
-                <option value="" disabled hidden>Select Creator Type</option>
-                <option value="ugc">User Generated Content</option>
-                <option value="influencer">Influencer</option>
-                <option value="partner">Partner</option>
-              </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-            </div>
-          </div>
+
 
           {/* Password */}
           <div className="flex flex-col gap-1 relative">

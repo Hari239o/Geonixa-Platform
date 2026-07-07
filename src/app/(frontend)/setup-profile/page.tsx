@@ -29,7 +29,7 @@ const SetupProfilePage = () => {
       engagement: '',
       pricePerReel: '',
       bio: '',
-      creatorType: 'UGC'
+      creatorType: 'Influencer'
     };
   });
 
@@ -40,9 +40,7 @@ const SetupProfilePage = () => {
         const parsed = JSON.parse(savedSignupData);
         if (parsed.creatorType) {
           // Normalize to match tabs: 'UGC', 'Influencer', 'Partners'
-          let mappedType = 'UGC';
-          if (parsed.creatorType.toLowerCase() === 'influencer') mappedType = 'Influencer';
-          if (parsed.creatorType.toLowerCase() === 'partners' || parsed.creatorType.toLowerCase() === 'partner') mappedType = 'Partners';
+          let mappedType = 'Influencer';
           
           setFormData((prev: any) => ({ ...prev, creatorType: mappedType }));
         }
@@ -109,12 +107,7 @@ const SetupProfilePage = () => {
   const price5Reels = Math.round((basePrice * 5) * 0.9);
   const price10Reels = Math.round((basePrice * 10) * 0.85);
 
-  const initialBudgets = formData.creatorType === 'UGC' ? [
-    { name: '1 Reel', price: `₹ ${basePrice || 'xxx'}` },
-    { name: '5 Reels', price: `₹ ${price5Reels || 'xxx'}` },
-    { name: '10 Reels', price: `₹ ${price10Reels || 'xxx'}` },
-    { name: 'Custom', price: '₹ xxx' },
-  ] : [
+  const initialBudgets = [
     { name: 'Collab Reel', price: `₹ ${basePrice || 'xxx'}` },
     { name: 'YT Integration', price: `₹ ${Math.round(basePrice * 1.5) || 'xxx'}` },
     { name: 'Timeline', price: `₹ ${Math.round(basePrice * 0.8) || 'xxx'}` },
@@ -227,24 +220,7 @@ const SetupProfilePage = () => {
  />
  </div>
 
-  {/* Creator Type */}
-  <div className="flex flex-col gap-2">
-    <label className="text-sm font-bold text-primary-red">Creator Type</label>
-    <div className="flex gap-4">
-      <label className={`flex-1 flex items-center justify-center p-4 border rounded-xl cursor-pointer transition-colors ${formData.creatorType === 'UGC' ? 'bg-[#EF4823]/10 border-[#EF4823] text-[#EF4823] font-bold' : 'bg-gray-50 border-gray-200 text-gray-500 font-medium hover:bg-gray-100'}`}>
-        <input type="radio" name="creatorType" value="UGC" checked={formData.creatorType === 'UGC'} onChange={handleInputChange} className="hidden" />
-        UGC
-      </label>
-      <label className={`flex-1 flex items-center justify-center p-4 border rounded-xl cursor-pointer transition-colors ${formData.creatorType === 'Influencer' ? 'bg-[#EF4823]/10 border-[#EF4823] text-[#EF4823] font-bold' : 'bg-gray-50 border-gray-200 text-gray-500 font-medium hover:bg-gray-100'}`}>
-        <input type="radio" name="creatorType" value="Influencer" checked={formData.creatorType === 'Influencer'} onChange={handleInputChange} className="hidden" />
-        Influencer
-      </label>
-      <label className={`flex-1 flex items-center justify-center p-4 border rounded-xl cursor-pointer transition-colors ${formData.creatorType === 'Partners' ? 'bg-[#EF4823]/10 border-[#EF4823] text-[#EF4823] font-bold' : 'bg-gray-50 border-gray-200 text-gray-500 font-medium hover:bg-gray-100'}`}>
-        <input type="radio" name="creatorType" value="Partners" checked={formData.creatorType === 'Partners'} onChange={handleInputChange} className="hidden" />
-        Partners
-      </label>
-    </div>
-  </div>
+
 
  <div className="flex flex-col gap-2">
  <label htmlFor="category" className="text-sm font-bold text-primary-red">Category</label>
