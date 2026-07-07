@@ -195,7 +195,7 @@ export default function CreatorSignupStep1() {
                 <option value="" disabled hidden>Select Creator Type</option>
                 <option value="ugc">User Generated Content</option>
                 <option value="influencer">Influencer</option>
-                <option value="streamer">Streamer</option>
+                <option value="partner">Partner</option>
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
             </div>

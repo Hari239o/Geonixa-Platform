@@ -177,7 +177,7 @@ export default function KycPage() {
         })
       });
       
-      router.push(isBrand ? "/brand" : "/creator");
+      router.push(isBrand ? "/brand/profile" : "/creator");
     } catch (e) {
       console.error(e);
       router.push("/creator");

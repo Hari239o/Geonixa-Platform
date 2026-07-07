@@ -33,6 +33,23 @@ const SetupProfilePage = () => {
     };
   });
 
+  React.useEffect(() => {
+    const savedSignupData = sessionStorage.getItem("creatorSignupData");
+    if (savedSignupData) {
+      try {
+        const parsed = JSON.parse(savedSignupData);
+        if (parsed.creatorType) {
+          // Normalize to match tabs: 'UGC', 'Influencer', 'Partners'
+          let mappedType = 'UGC';
+          if (parsed.creatorType.toLowerCase() === 'influencer') mappedType = 'Influencer';
+          if (parsed.creatorType.toLowerCase() === 'partners' || parsed.creatorType.toLowerCase() === 'partner') mappedType = 'Partners';
+          
+          setFormData((prev: any) => ({ ...prev, creatorType: mappedType }));
+        }
+      } catch (e) {}
+    }
+  }, []);
+
   // Check if profile was already completed
   React.useEffect(() => {
     import('@/utils/storage').then(({ getItem }) => {
@@ -221,6 +238,10 @@ const SetupProfilePage = () => {
       <label className={`flex-1 flex items-center justify-center p-4 border rounded-xl cursor-pointer transition-colors ${formData.creatorType === 'Influencer' ? 'bg-[#EF4823]/10 border-[#EF4823] text-[#EF4823] font-bold' : 'bg-gray-50 border-gray-200 text-gray-500 font-medium hover:bg-gray-100'}`}>
         <input type="radio" name="creatorType" value="Influencer" checked={formData.creatorType === 'Influencer'} onChange={handleInputChange} className="hidden" />
         Influencer
+      </label>
+      <label className={`flex-1 flex items-center justify-center p-4 border rounded-xl cursor-pointer transition-colors ${formData.creatorType === 'Partners' ? 'bg-[#EF4823]/10 border-[#EF4823] text-[#EF4823] font-bold' : 'bg-gray-50 border-gray-200 text-gray-500 font-medium hover:bg-gray-100'}`}>
+        <input type="radio" name="creatorType" value="Partners" checked={formData.creatorType === 'Partners'} onChange={handleInputChange} className="hidden" />
+        Partners
       </label>
     </div>
   </div>
