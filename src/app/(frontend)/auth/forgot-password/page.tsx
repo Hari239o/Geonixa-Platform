@@ -48,13 +48,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="w-full flex items-center justify-between mb-8">
-        <Link href="/auth/login" className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-[12px] flex items-center justify-center text-white transition-colors">
-          <ChevronLeft className="w-5 h-5" />
-        </Link>
-        <div className="w-10 h-10"></div>
-      </div>
+    <div className="w-full flex flex-col items-center pt-8">
       
       <h1 className="text-3xl font-bold text-white lg:text-text-dark mb-2 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
         Forgot Password
