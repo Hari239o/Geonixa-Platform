@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
+import { Knock } from '@knocklabs/node';
+
+const knock = new Knock(process.env.KNOCK_SECRET_API_KEY || 'dummy-key');
 
 export async function GET(request: Request) {
   try {
@@ -92,6 +95,8 @@ export async function POST(request: Request) {
        return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
     }
 
+    const brand = await prisma.brandProfile.findUnique({ where: { userId } });
+
     const body = await request.json();
     const { title, subtitle, budget, dateRange, description, daysLeft, category, tags, visibility, invitedCreators } = body;
 
@@ -122,18 +127,31 @@ export async function POST(request: Request) {
         where: { id: { in: invitedCreators } }
       });
       for (const creator of invitedProfiles) {
+        const notifMsg = `You have been invited to a Private Campaign: ${title}`;
         try {
           await prisma.notification.create({
             data: {
               userId: creator.userId,
               title: "New Campaign Alert",
-              message: `You have been invited to a Private Campaign: ${title}`,
+              message: notifMsg,
               actionLabel: 'View Campaign',
               actionUrl: '/creator',
+              senderImage: brand?.logo || null
             }
           });
+          
+          await knock.workflows.trigger('default-notification', {
+            recipients: [creator.userId],
+            data: {
+              message: notifMsg,
+              actionLabel: 'View Campaign',
+              actionUrl: '/creator',
+              type: 'info'
+            },
+            actor: userId
+          });
         } catch(e) {
-          console.error("Failed to trigger DB notification for invited creator", creator.userId, e);
+          console.error("Failed to trigger notification for invited creator", creator.userId, e);
         }
       }
     } else if (visibility !== "Private") {
@@ -148,18 +166,31 @@ export async function POST(request: Request) {
         });
 
         for (const creator of matchingCreators) {
+          const notifMsg = `New campaign matching your profile: ${title}`;
           try {
             await prisma.notification.create({
               data: {
                 userId: creator.userId,
                 title: "New Campaign Alert",
-                message: `New campaign matching your profile: ${title}`,
+                message: notifMsg,
                 actionLabel: 'View Campaign',
                 actionUrl: '/creator',
+                senderImage: brand?.logo || null
               }
             });
+            
+            await knock.workflows.trigger('default-notification', {
+              recipients: [creator.userId],
+              data: {
+                message: notifMsg,
+                actionLabel: 'View Campaign',
+                actionUrl: '/creator',
+                type: 'info'
+              },
+              actor: userId
+            });
           } catch(e) {
-            console.error("Failed to trigger DB notification for", creator.userId, e);
+            console.error("Failed to trigger notification for", creator.userId, e);
           }
         }
       }

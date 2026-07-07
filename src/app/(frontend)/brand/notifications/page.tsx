@@ -81,15 +81,22 @@ export default function BrandNotificationsPage() {
                 } flex flex-col gap-3`}
               >
                 
-                <div className={`w-11 h-11 rounded-full flex items-center justify-center shrink-0 ${
-                  notif.title?.includes("Responded") ? "bg-emerald-500" : "bg-[#0095FF]"
+                {/* Logo */}
+                <div className={`w-[52px] h-[52px] rounded-full flex items-center justify-center mb-4 relative overflow-hidden ${
+                  notif.senderImage ? "" : (notif.title?.includes("Alert") ? "bg-[#00a8ff]" : "bg-emerald-500")
                 }`}>
-                  {notif.title?.includes("Responded") ? (
-                    <CheckCircle className="w-5 h-5 text-white" />
-                  ) : (
-                    <Wand2 className="w-5 h-5 text-white" />
-                  )}
-                </div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    {notif.senderImage ? (
+                      <img src={notif.senderImage} alt="Profile" className="w-full h-full object-cover" />
+                    ) : notif.title?.includes("Alert") ? (
+                      <div className="w-6 h-6 border-[3px] border-white rounded-sm transform rotate-45 flex items-center justify-center">
+                        <div className="w-full h-0.5 bg-white transform -rotate-45"></div>
+                      </div>
+                    ) : (
+                      <CheckCircle className="w-6 h-6 text-white" />
+                    )}
+                  </div>
+                </div>      
                 
                 <div 
                   className="text-[12px] text-gray-600 leading-snug pr-2 knock-content"

@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
+import { Knock } from '@knocklabs/node';
+
+const knock = new Knock(process.env.KNOCK_SECRET_API_KEY || 'dummy-key');
 
 export async function POST(request: Request) {
   try {
@@ -49,6 +52,35 @@ export async function POST(request: Request) {
         message
       }
     });
+
+    // Notify the Brand
+    const campaign = await prisma.campaign.findUnique({ where: { id: campaignId } });
+    if (campaign && campaign.userId) {
+      const notifMsg = `${creator.fullName} has applied to your campaign ${campaign.title}`;
+      try {
+        await prisma.notification.create({
+          data: {
+            userId: campaign.userId,
+            title: "New Campaign Request",
+            message: notifMsg,
+            actionUrl: "/brand/campaigns/requests",
+            actionLabel: "View Requests",
+            senderImage: creator.profilePic || null
+          }
+        });
+
+        await knock.workflows.trigger('default-notification', {
+          recipients: [campaign.userId],
+          data: {
+            message: notifMsg,
+            actionLabel: "View Requests",
+            actionUrl: "/brand/campaigns/requests",
+            type: 'info'
+          },
+          actor: userId
+        });
+      } catch (e) { console.error("Notification error:", e); }
+    }
 
     return NextResponse.json({ success: true, request: campaignRequest });
   } catch (error: any) {

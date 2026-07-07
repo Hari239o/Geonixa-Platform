@@ -78,10 +78,12 @@ export default function NotificationsPage() {
       
       {/* Logo */}
       <div className={`w-[52px] h-[52px] rounded-full flex items-center justify-center mb-4 relative overflow-hidden ${
-        notif.title?.includes("Responded") ? "bg-emerald-500" : "bg-[#00a8ff]"
+        notif.senderImage ? "" : (notif.title?.includes("Responded") ? "bg-emerald-500" : "bg-[#00a8ff]")
       }`}>
         <div className="absolute inset-0 flex items-center justify-center">
-          {notif.title?.includes("Responded") ? (
+          {notif.senderImage ? (
+            <img src={notif.senderImage} alt="Profile" className="w-full h-full object-cover" />
+          ) : notif.title?.includes("Responded") ? (
             <CheckCircle className="w-6 h-6 text-white" />
           ) : (
             <div className="w-6 h-6 border-[3px] border-white rounded-sm transform rotate-45 flex items-center justify-center">
