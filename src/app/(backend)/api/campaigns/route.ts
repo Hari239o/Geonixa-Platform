@@ -45,21 +45,10 @@ export async function GET(request: Request) {
       return NextResponse.json({ success: true, campaigns: [] });
     }
 
-    const orConditions: any[] = [
-      { category: "Creators" } // Fallback for legacy campaigns created before category options were updated
-    ];
-    if (creator.category) orConditions.push({ category: creator.category });
-    if (creator.tags && creator.tags.length > 0) orConditions.push({ tags: { hasSome: creator.tags } });
-
     const campaigns = await prisma.campaign.findMany({
       where: {
         OR: [
-          {
-            AND: [
-              { OR: orConditions },
-              { visibility: "Public" }
-            ]
-          },
+          { visibility: "Public" },
           { visibility: "Private", invitedCreators: { has: creator.id } }
         ]
       },
