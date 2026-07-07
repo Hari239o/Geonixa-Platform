@@ -14,26 +14,31 @@ export default function BrandCompanyDashboardPage() {
   const [profileData, setProfileData] = useState<any>(null)
   const [portfolioImages, setPortfolioImages] = useState<string[]>([])
   const [showVerifyModal, setShowVerifyModal] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     async function fetchProfile() {
+      // First try local storage for instant load
+      const saved = localStorage.getItem("kaling_company_profile")
+      if (saved) {
+        setProfileData(JSON.parse(saved))
+        setIsLoading(false)
+      }
+
       try {
         const res = await fetch('/api/user/complete-profile');
         if (res.ok) {
           const data = await res.json();
           if (data.profile) {
             setProfileData(data.profile);
-            return; // Use DB data if available
+            localStorage.setItem("kaling_company_profile", JSON.stringify(data.profile));
+            localStorage.setItem("kaling_brand_profile", JSON.stringify(data.profile));
           }
         }
       } catch (e) {
         console.error(e);
-      }
-      
-      // Fallback to local storage
-      const saved = localStorage.getItem("kaling_company_profile")
-      if (saved) {
-        setProfileData(JSON.parse(saved))
+      } finally {
+        setIsLoading(false);
       }
     }
     
@@ -95,6 +100,14 @@ export default function BrandCompanyDashboardPage() {
     }
   }
 
+  if (isLoading) {
+    return (
+      <div className="h-full bg-[#F8F9FA] flex justify-center items-center font-sans">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EF4823]"></div>
+      </div>
+    )
+  }
+
   return (
     <div className="h-full bg-black flex justify-center font-sans overflow-hidden">
       <div className="w-full w-full bg-[#F8F9FA] h-full relative shadow-2xl flex flex-col overflow-hidden">
@@ -116,7 +129,7 @@ export default function BrandCompanyDashboardPage() {
               </label>
               <div className="flex items-center gap-2">
                 <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
-                  {profileData?.fullName || "Lorem Ipsum"}
+                  {profileData?.fullName || ""}
                 </h1>
                 {profileData?.isVerified && (
                   <BadgeCheck className="text-[#EF4823] w-6 h-6 fill-[#EF4823] text-white" />
@@ -191,7 +204,7 @@ export default function BrandCompanyDashboardPage() {
               <div className="bg-white rounded-[24px] p-6 shadow-sm">
                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Bio</h3>
                 <p className="text-sm text-gray-500 leading-relaxed font-medium">
-                  {profileData?.bio || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor turpis sodales nulla velit. Nunc cum vitae, rhoncus leo id. Volutpat. Duis tinunt pretium luctus pulvinar pretium."}
+                  {profileData?.bio || "No bio added yet."}
                 </p>
               </div>
 
@@ -203,7 +216,7 @@ export default function BrandCompanyDashboardPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs text-gray-400 font-bold mb-0.5">Website</p>
-                    <p className="text-sm text-gray-800 font-medium break-all">{profileData?.website || "www.portfolio.com"}</p>
+                    <p className="text-sm text-gray-800 font-medium break-all">{profileData?.website || "Not provided"}</p>
                   </div>
                 </div>
                 
@@ -215,7 +228,7 @@ export default function BrandCompanyDashboardPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs text-gray-400 font-bold mb-0.5">Phone</p>
-                    <p className="text-sm text-gray-800 font-medium break-all">{profileData?.phone || "000-000-0000"}</p>
+                    <p className="text-sm text-gray-800 font-medium break-all">{profileData?.phone || "Not provided"}</p>
                   </div>
                 </div>
               </div>

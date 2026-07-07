@@ -232,7 +232,7 @@ export default function BrandDashboardPage() {
                 <div>
                   <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Bio</h3>
                   <p className="text-sm text-gray-500 leading-relaxed font-medium">
-                    {profileData?.bio || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor turpis sodales nulla velit. Nunc cum vitae, rhoncus leo id. Volutpat. Duis tinunt pretium luctus pulvinar pretium."}
+                    {profileData?.bio || "No bio added yet."}
                   </p>
                 </div>
                 
@@ -241,12 +241,12 @@ export default function BrandDashboardPage() {
                 <div className="flex flex-col gap-4">
                   <div className="flex items-start gap-8">
                     <p className="text-xs text-gray-400 font-bold w-16">Website</p>
-                    <p className="text-sm text-gray-800 font-medium">{profileData?.website || "www.portfolio.com"}</p>
+                    <p className="text-sm text-gray-800 font-medium">{profileData?.website || "Not provided"}</p>
                   </div>
                   
                   <div className="flex items-start gap-8">
                     <p className="text-xs text-gray-400 font-bold w-16">Phone</p>
-                    <p className="text-sm text-gray-800 font-medium">{profileData?.phone || "000-000-0000"}</p>
+                    <p className="text-sm text-gray-800 font-medium">{profileData?.phone || "Not provided"}</p>
                   </div>
                 </div>
               </div>
