@@ -18,7 +18,8 @@ export default function BrandIndividualSetupPage() {
     phone: "",
     facebook: "",
     instagram: "",
-    x: ""
+    x: "",
+    linkedin: ""
   })
 
   useEffect(() => {
@@ -215,6 +216,18 @@ export default function BrandIndividualSetupPage() {
               name="x"
               placeholder="https://"
               value={formData.x}
+              onChange={handleInputChange}
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+            />
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">LinkedIn</label>
+            <input 
+              type="url" 
+              name="linkedin"
+              placeholder="https://"
+              value={formData.linkedin}
               onChange={handleInputChange}
               className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
