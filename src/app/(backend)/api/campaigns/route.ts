@@ -70,7 +70,7 @@ export async function GET(request: Request) {
         },
         requests: {
           where: { creatorId: creator.id },
-          select: { status: true }
+          select: { status: true, message: true }
         }
       },
       orderBy: { createdAt: 'desc' }
@@ -78,7 +78,8 @@ export async function GET(request: Request) {
 
     const campaignsWithStatus = campaigns.map(c => ({
       ...c,
-      creatorStatus: c.requests && c.requests.length > 0 ? c.requests[0].status : "pending"
+      creatorStatus: c.requests && c.requests.length > 0 ? c.requests[0].status : "pending",
+      requests: c.requests
     }));
     
     return NextResponse.json({ success: true, campaigns: campaignsWithStatus });

@@ -5,10 +5,8 @@ import { ChevronLeft, X } from 'lucide-react';
 import BottomNav from '@/components/shared/BottomNav';
 
 function CampaignDetailContent() {
- const router = useRouter();
- const params = useParams();
- const searchParams = useSearchParams();
- const isPublic = searchParams.get('type') === 'public';
+  const router = useRouter();
+  const params = useParams();
  const [negotiateModalOpen, setNegotiateModalOpen] = useState(false);
  const [negotiateAmount, setNegotiateAmount] = useState('');
  const [campaign, setCampaign] = useState<any>(null);
@@ -46,12 +44,14 @@ function CampaignDetailContent() {
    }
  };
 
- const applyNegotiation = () => {
+  const applyNegotiation = () => {
    handleAction('negotiating', `Negotiated to ₹${negotiateAmount || 8000}`);
  };
 
  if (loading) return <div className="min-h-screen flex justify-center items-center">Loading...</div>;
  if (!campaign) return <div className="min-h-screen flex justify-center items-center">Campaign not found</div>;
+
+ const isPublic = campaign.visibility === 'Public';
 
  return (
  <div className="w-full max-w-md mx-auto min-h-screen bg-white pb-24 font-sans relative overflow-x-hidden">
@@ -130,32 +130,46 @@ function CampaignDetailContent() {
  {/* Action Buttons */}
  <div className="flex flex-wrap items-center gap-2 mb-10">
  {isPublic ? (
- <button 
- className="py-3 px-10 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:bg-[#d83e1c] transition-colors"
- onClick={() => alert("Applied to Campaign!")}
- >
- Apply
- </button>
+   campaign.requests && campaign.requests.length > 0 ? (
+     <div className="w-full py-3 bg-green-50 text-green-600 text-[13px] font-bold rounded-xl text-center border border-green-100 uppercase tracking-wide">
+       Applied
+     </div>
+   ) : (
+     <button 
+       className="w-full py-3 px-10 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:bg-[#d83e1c] transition-colors"
+       onClick={() => handleAction('applied')}
+     >
+       Apply
+     </button>
+   )
  ) : (
  <>
- <button 
- className="flex-1 py-3 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:bg-[#d83e1c] transition-colors"
- onClick={() => handleAction('accepted')}
- >
- Accept
- </button>
- <button 
- className="flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl hover:bg-gray-200 transition-colors"
- onClick={() => handleAction('rejected')}
- >
- Reject
- </button>
- <button 
- className="flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl hover:bg-gray-200 transition-colors"
- onClick={() => setNegotiateModalOpen(true)}
- >
- Negotiate
- </button>
+ {campaign.requests && campaign.requests.length > 0 ? (
+   <div className="w-full py-3 bg-gray-50 text-gray-600 text-[13px] font-bold rounded-xl text-center border border-gray-200 uppercase tracking-wide">
+     Status: {campaign.requests[0].status}
+   </div>
+ ) : (
+   <>
+     <button 
+     className="flex-1 py-3 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:bg-[#d83e1c] transition-colors"
+     onClick={() => handleAction('accepted')}
+     >
+     Accept
+     </button>
+     <button 
+     className="flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl hover:bg-gray-200 transition-colors"
+     onClick={() => handleAction('rejected')}
+     >
+     Reject
+     </button>
+     <button 
+     className="flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl hover:bg-gray-200 transition-colors"
+     onClick={() => setNegotiateModalOpen(true)}
+     >
+     Negotiate
+     </button>
+   </>
+ )}
  </>
  )}
  </div>

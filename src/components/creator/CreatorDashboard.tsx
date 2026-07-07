@@ -318,47 +318,22 @@ export default function CreatorDashboard() {
                       {campaign.description} <span className="text-[#EF4823] font-bold cursor-pointer hover:underline">Read more</span>
                     </p>
                     
-                    {campaign.invite?.status === 'ACCEPTED' || campaign.invite?.status === 'BRAND_ACCEPTED_NEGOTIATION' ? (
-                      <div className="inline-block px-5 py-2 bg-[#22C55E] text-white text-[12px] font-bold rounded-[8px]">
-                        Accepted
+                    {campaign.privateState === 'accepted' ? (
+                      <div className="mt-2 w-full py-3 bg-green-50 text-green-600 text-[12px] font-bold rounded-[12px] text-center border border-green-100 uppercase tracking-wide">
+                        STATUS: ACCEPTED
                       </div>
-                    ) : campaign.invite?.status === 'REJECTED' || campaign.invite?.status === 'BRAND_REJECTED_NEGOTIATION' ? (
-                      <div className="inline-block px-5 py-2 bg-red-500 text-white text-[12px] font-bold rounded-[8px]">
-                        Rejected
+                    ) : campaign.privateState === 'negotiating' ? (
+                      <div className="flex flex-col gap-2 mt-2">
+                        <p className="text-[#EF4823] text-[12px] font-bold">Message: {campaign.requests?.[0]?.message || 'Negotiating amount...'}</p>
+                        <div className="w-full py-3 bg-orange-50 text-orange-500 text-[12px] font-bold rounded-[12px] text-center border border-orange-100 uppercase tracking-wide">
+                          STATUS: NEGOTIATING
+                        </div>
                       </div>
-                    ) : campaign.invite?.status === 'NEGOTIATING' ? (
-                      <div className="flex flex-col gap-2">
-                        <p className="text-[#EF4823] text-[11px] font-bold">Negotiated to {campaign.invite.negotiatedPrice}</p>
-                        <div className="text-gray-400 text-[10px]">Waiting for brand response...</div>
+                    ) : campaign.privateState === 'rejected' ? (
+                      <div className="mt-2 w-full py-3 bg-red-50 text-red-500 text-[12px] font-bold rounded-[12px] text-center border border-red-100 uppercase tracking-wide">
+                        STATUS: REJECTED
                       </div>
-                    ) : (
-                      <div className="flex gap-2 flex-col">
-                        {!negotiatingId || negotiatingId !== campaign.id ? (
-                          <div className="flex gap-2">
-                            <button onClick={() => handleRespond(campaign.invite?.id, 'ACCEPT')} className="flex-1 py-2 bg-[#EF4823] text-white text-[11px] font-bold rounded-[8px] hover:bg-[#d63f1c]">Accept</button>
-                            <button onClick={() => handleRespond(campaign.invite?.id, 'REJECT')} className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Reject</button>
-                            <button onClick={() => setNegotiatingId(campaign.id)} className="flex-1 py-2 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px] hover:bg-gray-200">Negotiate</button>
-                          </div>
-                        ) : (
-                          <div className="flex gap-2 items-center">
-                            <input 
-                              type="text" 
-                              placeholder="₹ New Price" 
-                              className="flex-1 py-2 px-2 bg-gray-50 rounded-[8px] border border-gray-200 text-[11px]"
-                              value={negotiatedPrice}
-                              onChange={(e) => setNegotiatedPrice(e.target.value)}
-                            />
-                            <button 
-                              onClick={() => handleRespond(campaign.invite?.id, 'NEGOTIATE', negotiatedPrice)}
-                              className="py-2 px-4 bg-[#EF4823] text-white text-[11px] font-bold rounded-[8px] hover:bg-[#d63f1c]"
-                            >
-                              Send
-                            </button>
-                            <button onClick={() => setNegotiatingId(null)} className="py-2 px-3 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-[8px]">Cancel</button>
-                          </div>
-                        )}
-                      </div>
-                    )}
+                    ) : null}
                   </div>
                 ))
               ) : (
@@ -411,9 +386,11 @@ export default function CreatorDashboard() {
                       {campaign.description} <span className="text-[#EF4823] font-bold cursor-pointer hover:underline">Read more</span>
                     </p>
                     
-                    <button className="w-fit px-8 py-2 border border-gray-200 text-gray-700 text-[12px] font-bold rounded-[12px] hover:bg-gray-50 transition-colors">
-                      Apply
-                    </button>
+                    {campaign.privateState === 'applied' || campaign.privateState === 'accepted' ? (
+                      <div className="mt-2 w-full py-3 bg-green-50 text-green-600 text-[12px] font-bold rounded-[12px] text-center border border-green-100 uppercase tracking-wide">
+                        STATUS: APPLIED
+                      </div>
+                    ) : null}
                   </div>
                 ))
               ) : (
