@@ -31,14 +31,14 @@ export default function CampaignRequestsPage() {
           data.campaigns.forEach((camp: any) => {
             if (camp.campaignInvites) {
               camp.campaignInvites.forEach((inv: any) => {
-                if (inv.status === 'NEGOTIATING' || inv.status === 'PENDING') {
+                if (['NEGOTIATING', 'PENDING', 'BRAND_ACCEPTED_NEGOTIATION', 'ACCEPTED', 'accepted'].includes(inv.status)) {
                   allRequests.push({ ...inv, campaign: camp, isPublicRequest: false })
                 }
               })
             }
             if (camp.requests) {
               camp.requests.forEach((req: any) => {
-                if (req.status === 'negotiating' || req.status === 'pending' || req.status === 'applied') {
+                if (['negotiating', 'pending', 'applied', 'BRAND_ACCEPTED_NEGOTIATION', 'ACCEPTED', 'accepted'].includes(req.status)) {
                   allRequests.push({ ...req, campaign: camp, isPublicRequest: true })
                 }
               })
@@ -67,22 +67,33 @@ export default function CampaignRequestsPage() {
         body: JSON.stringify(payload)
       });
       if (res.ok) {
-        if (action === 'ACCEPT' || action === 'accepted') {
-          const req = requests.find(r => r.id === id);
-          if (req) {
-            setActiveDealInfo({
-              dealId: id,
-              brandId: isPublicRequest ? req.campaign.userId : req.brandId,
-              creatorId: req.creatorId
-            });
-          }
+        const data = await res.json();
+        if (action === 'REJECT' || action === 'rejected') {
+          setRequests(prev => prev.filter(req => req.id !== id))
+        } else {
+          setRequests(prev => prev.map(req => req.id === id ? { ...req, status: data.status || 'ACCEPTED' } : req))
         }
-        setRequests(prev => prev.filter(req => req.id !== id))
       }
     } catch (error) {
       console.error(error)
     }
   }
+
+  const handleConnect = async (dealId: string, creatorId: string, campaignUserId: string) => {
+    try {
+      const res = await fetch('/api/chats/initiate-connection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dealId, brandId: campaignUserId, creatorId })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setActiveDealInfo({ chatId: data.chatId } as any);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div className="h-full bg-white font-sans flex justify-center overflow-hidden">
@@ -196,7 +207,11 @@ export default function CampaignRequestsPage() {
                 ) : null}
 
                 <div className="flex gap-3">
-                  {req.status === 'NEGOTIATING' || req.status === 'negotiating' || req.status === 'applied' || req.status === 'pending' || req.status === 'PENDING' ? (
+                  {['BRAND_ACCEPTED_NEGOTIATION', 'ACCEPTED', 'accepted'].includes(req.status) ? (
+                    <button onClick={() => handleConnect(req.id, req.creatorId, req.campaign.userId)} className="flex-1 bg-green-500 text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-green-600 transition-colors">
+                      Let's Connect Together
+                    </button>
+                  ) : req.status === 'NEGOTIATING' || req.status === 'negotiating' || req.status === 'applied' || req.status === 'pending' || req.status === 'PENDING' ? (
                     <>
                       <button onClick={() => handleAction(req.id, 'ACCEPT', req.isPublicRequest)} className="flex-1 bg-[#EF4823] text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-[#e03d1b] transition-colors">
                         Accept Deal
@@ -223,9 +238,7 @@ export default function CampaignRequestsPage() {
 
       {activeDealInfo && (
         <PostDealChatbot 
-          dealId={activeDealInfo.dealId}
-          brandId={activeDealInfo.brandId}
-          creatorId={activeDealInfo.creatorId}
+          chatId={activeDealInfo.chatId}
           onComplete={() => setActiveDealInfo(null)}
           onClose={() => setActiveDealInfo(null)}
         />

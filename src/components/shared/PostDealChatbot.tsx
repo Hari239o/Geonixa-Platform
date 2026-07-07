@@ -5,9 +5,7 @@ import { X, Send, Bot, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ChatbotProps {
-  dealId: string;
-  brandId: string;
-  creatorId: string;
+  chatId: string;
   onComplete: () => void;
   onClose: () => void;
 }
@@ -25,7 +23,7 @@ const QUESTIONS = [
   "Any special requirements or notes before we connect you?"
 ];
 
-export default function PostDealChatbot({ dealId, brandId, creatorId, onComplete, onClose }: ChatbotProps) {
+export default function PostDealChatbot({ chatId, onComplete, onClose }: ChatbotProps) {
   const [messages, setMessages] = useState<Message[]>([
     { id: 'welcome', sender: 'bot', text: "Deal Accepted! 🎉 To help our team connect you faster, please answer 4 quick questions." },
     { id: 'q0', sender: 'bot', text: QUESTIONS[0] }
@@ -68,9 +66,7 @@ export default function PostDealChatbot({ dealId, brandId, creatorId, onComplete
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            dealId,
-            brandId,
-            creatorId,
+            chatId,
             answers: newAnswers
           })
         });

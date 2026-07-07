@@ -65,9 +65,15 @@ function CampaignDetailContent() {
       });
       const data = await res.json();
       if (data.success) {
-        if (status === 'accepted') {
-          setActiveDealInfo({ dealId: payload.inviteId || payload.campaignId, brandId: campaign.userId, creatorId: '' });
-          return;
+        if (status === 'accepted' || status === 'applied') {
+           setCampaign({
+             ...campaign,
+             [isPrivate ? 'campaignInvites' : 'requests']: [{
+               ...requestInfo,
+               status: data.status || 'ACCEPTED'
+             }]
+           });
+           return;
         }
         alert(`Campaign ${status}!`);
         if (status === 'negotiating') setNegotiateModalOpen(false);
@@ -84,138 +90,167 @@ function CampaignDetailContent() {
   };
 
   const applyNegotiation = () => {
-   handleAction('negotiating', `Negotiated to ₹${negotiateAmount || 8000}`);
- };
+    handleAction('negotiating', `Negotiated to ₹${negotiateAmount || 8000}`);
+  };
 
- if (loading) return <div className="min-h-screen flex justify-center items-center">Loading...</div>;
- if (!campaign) return <div className="min-h-screen flex justify-center items-center">Campaign not found</div>;
+  const requestInfo = isPublic ? campaign?.requests?.[0] : campaign?.campaignInvites?.[0];
+  const currentStatus = requestInfo?.status;
+  const isAccepted = ['BRAND_ACCEPTED_NEGOTIATION', 'ACCEPTED', 'accepted'].includes(currentStatus);
 
- const isPublic = campaign.visibility === 'Public';
+  const handleConnect = async () => {
+    try {
+      const dealId = requestInfo.id;
+      const creatorId = requestInfo.creatorId;
+      const brandId = campaign.userId;
+      
+      const res = await fetch('/api/chats/initiate-connection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dealId, brandId, creatorId })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setActiveDealInfo({ chatId: data.chatId } as any);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
- return (
- <>
- <div className="w-full max-w-md mx-auto min-h-screen bg-white pb-40 font-sans relative overflow-x-hidden">
- 
- {/* Header */}
- <div className="px-4 sm:px-6 pt-4 pb-6 flex justify-start">
- <button 
- onClick={() => router.back()}
- className="w-12 h-12 bg-orange-100/80 text-primary-red rounded-[16px] flex items-center justify-center transition-transform active:scale-95"
- >
- <ChevronLeft size={28} strokeWidth={2.5} />
- </button>
- </div>
+  if (loading) return <div className="min-h-screen flex justify-center items-center">Loading...</div>;
+  if (!campaign) return <div className="min-h-screen flex justify-center items-center">Campaign not found</div>;
 
- <div className="px-4 sm:px-6">
- {/* Campaign Info Header */}
- <div className="flex justify-between items-start mb-4">
- {campaign.user?.brandProfile?.profilePic ? (
-   <div className="w-12 h-12 rounded-[14px] overflow-hidden shrink-0">
-     <img src={campaign.user.brandProfile.profilePic} alt="Brand" className="w-full h-full object-cover" />
-   </div>
- ) : (
-   <div className="w-12 h-12 bg-[#f0f4ff] rounded-[14px] flex items-center justify-center shrink-0">
-     <div className="w-6 h-6 border-4 border-[#8ba4eb] rounded-sm transform rotate-45 border-t-transparent"></div>
-   </div>
- )}
- <span className="text-[11px] font-medium text-gray-400 mt-1">Just now</span>
- </div>
- 
- <div className="flex justify-between items-start mb-3">
- <div className="flex flex-col pr-4">
- <h1 className="text-[20px] font-extrabold text-[#1a1a2e] mb-0.5 tracking-tight">{campaign.title}</h1>
- <p className="text-[12px] font-medium text-gray-500 italic">{campaign.subtitle || 'Brand Campaign'}</p>
- </div>
- <div className="flex flex-col items-end shrink-0">
- <span className="text-[11px] font-bold uppercase tracking-wide text-gray-400 mb-0.5">Budget</span>
- <span className="text-[18px] font-extrabold text-[#EF4823]">{campaign.budget || 'Open'}</span>
- </div>
- </div>
-
- <div className="inline-block px-3 py-1.5 bg-[#fff7ed] text-[#ea580c] text-[11px] font-bold rounded-lg mb-8">
- {campaign.dateRange || 'TBD'}
- </div>
-
- {/* Detailed Sections */}
- <div className="flex flex-col gap-8 mb-12">
- 
- <section>
- <h2 className="text-[15px] font-extrabold text-[#1a1a2e] mb-3">Campaign Brief</h2>
- <p className="text-[13px] text-gray-500 leading-relaxed whitespace-pre-wrap">
- {campaign.description || "No description provided."}
- </p>
- </section>
-
- <section>
- <h2 className="text-[15px] font-extrabold text-[#1a1a2e] mb-3">Campaign Goal</h2>
- <ul className="list-disc pl-5 text-[13px] text-gray-500 leading-relaxed space-y-2">
- <li className="pl-1">Increase brand awareness among target audiences (18–30, skincare enthusiasts).</li>
- <li className="pl-1">Drive social engagement (likes, comments, shares, saves).</li>
- <li className="pl-1">Encourage website traffic & conversions using influencer discount codes.</li>
- </ul>
- </section>
-
- <section>
- <h2 className="text-[15px] font-extrabold text-[#1a1a2e] mb-3">Deliverables</h2>
- <ul className="list-disc pl-5 text-[13px] text-gray-500 leading-relaxed space-y-2">
- <li className="pl-1">1 Instagram Reel (30–60s): Product unboxing, routine demo, or before/after usage.</li>
- <li className="pl-1">2 Instagram Stories (with swipe-up link): Highlight product benefits & call-to-action.</li>
- <li className="pl-1">1 Instagram Post (static or carousel): High-quality photo showcasing product usage in daily routine.</li>
- <li className="pl-1">Tag @brandhandle and use campaign hashtags: <span className="font-semibold text-gray-700">#GlowWithRadiance #RadiancePartner</span></li>
- </ul>
- </section>
-
- </div>
-
-  {/* Action Buttons (Sticky) */}
-  <div className="fixed bottom-[72px] sm:bottom-[80px] left-1/2 -translate-x-1/2 w-full max-w-md px-4 sm:px-6 py-4 bg-white/90 backdrop-blur-md border-t border-gray-100 flex flex-wrap items-center gap-2 z-40 shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
- {isPublic ? (
-   campaign.requests && campaign.requests.length > 0 ? (
-     <div className="w-full py-3 bg-green-50 text-green-600 text-[13px] font-bold rounded-xl text-center border border-green-100 uppercase tracking-wide">
-       Applied
-     </div>
-   ) : (
-      <button 
-      disabled={actionLoading}
-      className={`w-full py-3 px-10 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
-      onClick={() => handleAction('applied')}
-      >
-        {actionLoading ? 'Working...' : 'Apply'}
-      </button>
-    )
-  ) : (
+  return (
   <>
-  {campaign.requests && campaign.requests.length > 0 ? (
-    <div className="w-full py-3 bg-gray-50 text-gray-600 text-[13px] font-bold rounded-xl text-center border border-gray-200 uppercase tracking-wide">
-      Status: {campaign.requests[0].status}
+  <div className="w-full max-w-md mx-auto min-h-screen bg-white pb-40 font-sans relative overflow-x-hidden">
+  
+  {/* Header */}
+  <div className="px-4 sm:px-6 pt-4 pb-6 flex justify-start">
+  <button 
+  onClick={() => router.back()}
+  className="w-12 h-12 bg-orange-100/80 text-primary-red rounded-[16px] flex items-center justify-center transition-transform active:scale-95"
+  >
+  <ChevronLeft size={28} strokeWidth={2.5} />
+  </button>
+  </div>
+
+  <div className="px-4 sm:px-6">
+  {/* Campaign Info Header */}
+  <div className="flex justify-between items-start mb-4">
+  {campaign.user?.brandProfile?.profilePic ? (
+    <div className="w-12 h-12 rounded-[14px] overflow-hidden shrink-0">
+      <img src={campaign.user.brandProfile.profilePic} alt="Brand" className="w-full h-full object-cover" />
     </div>
   ) : (
-    <>
-      <button 
-      disabled={actionLoading}
-      className={`flex-1 py-3 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
-      onClick={() => handleAction('accepted')}
-      >
-      {actionLoading ? '...' : 'Accept'}
-      </button>
-      <button 
-      disabled={actionLoading}
-      className={`flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-gray-200'}`}
-      onClick={() => handleAction('rejected')}
-      >
-      {actionLoading ? '...' : 'Reject'}
-      </button>
-      <button 
-      disabled={actionLoading}
-      className={`flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-gray-200'}`}
-      onClick={() => setNegotiateModalOpen(true)}
-      >
-      Negotiate
-      </button>
-    </>
+    <div className="w-12 h-12 bg-[#f0f4ff] rounded-[14px] flex items-center justify-center shrink-0">
+      <div className="w-6 h-6 border-4 border-[#8ba4eb] rounded-sm transform rotate-45 border-t-transparent"></div>
+    </div>
   )}
- </>
- )}
+  <span className="text-[11px] font-medium text-gray-400 mt-1">Just now</span>
+  </div>
+  
+  <div className="flex justify-between items-start mb-3">
+  <div className="flex flex-col pr-4">
+  <h1 className="text-[20px] font-extrabold text-[#1a1a2e] mb-0.5 tracking-tight">{campaign.title}</h1>
+  <p className="text-[12px] font-medium text-gray-500 italic">{campaign.subtitle || 'Brand Campaign'}</p>
+  </div>
+  <div className="flex flex-col items-end shrink-0">
+  <span className="text-[11px] font-bold uppercase tracking-wide text-gray-400 mb-0.5">Budget</span>
+  <span className="text-[18px] font-extrabold text-[#EF4823]">{campaign.budget || 'Open'}</span>
+  </div>
+  </div>
+
+  <div className="inline-block px-3 py-1.5 bg-[#fff7ed] text-[#ea580c] text-[11px] font-bold rounded-lg mb-8">
+  {campaign.dateRange || 'TBD'}
+  </div>
+
+  {/* Detailed Sections */}
+  <div className="flex flex-col gap-8 mb-12">
+  
+  <section>
+  <h2 className="text-[15px] font-extrabold text-[#1a1a2e] mb-3">Campaign Brief</h2>
+  <p className="text-[13px] text-gray-500 leading-relaxed whitespace-pre-wrap">
+  {campaign.description || "No description provided."}
+  </p>
+  </section>
+
+  <section>
+  <h2 className="text-[15px] font-extrabold text-[#1a1a2e] mb-3">Campaign Goal</h2>
+  <ul className="list-disc pl-5 text-[13px] text-gray-500 leading-relaxed space-y-2">
+  <li className="pl-1">Increase brand awareness among target audiences (18–30, skincare enthusiasts).</li>
+  <li className="pl-1">Drive social engagement (likes, comments, shares, saves).</li>
+  <li className="pl-1">Encourage website traffic & conversions using influencer discount codes.</li>
+  </ul>
+  </section>
+
+  <section>
+  <h2 className="text-[15px] font-extrabold text-[#1a1a2e] mb-3">Deliverables</h2>
+  <ul className="list-disc pl-5 text-[13px] text-gray-500 leading-relaxed space-y-2">
+  <li className="pl-1">1 Instagram Reel (30–60s): Product unboxing, routine demo, or before/after usage.</li>
+  <li className="pl-1">2 Instagram Stories (with swipe-up link): Highlight product benefits & call-to-action.</li>
+  <li className="pl-1">1 Instagram Post (static or carousel): High-quality photo showcasing product usage in daily routine.</li>
+  <li className="pl-1">Tag @brandhandle and use campaign hashtags: <span className="font-semibold text-gray-700">#GlowWithRadiance #RadiancePartner</span></li>
+  </ul>
+  </section>
+
+  </div>
+
+   {/* Action Buttons (Sticky) */}
+   <div className="fixed bottom-[72px] sm:bottom-[80px] left-1/2 -translate-x-1/2 w-full max-w-md px-4 sm:px-6 py-4 bg-white/90 backdrop-blur-md border-t border-gray-100 flex flex-wrap items-center gap-2 z-40 shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
+  {isAccepted ? (
+    <button 
+      onClick={handleConnect}
+      className="w-full py-3 px-10 bg-green-500 text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(34,197,94,0.2)] hover:bg-green-600 transition-colors"
+    >
+      Let's Connect Together
+    </button>
+  ) : isPublic ? (
+    requestInfo ? (
+      <div className="w-full py-3 bg-green-50 text-green-600 text-[13px] font-bold rounded-xl text-center border border-green-100 uppercase tracking-wide">
+        Status: {currentStatus}
+      </div>
+    ) : (
+       <button 
+       disabled={actionLoading}
+       className={`w-full py-3 px-10 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
+       onClick={() => handleAction('applied')}
+       >
+         {actionLoading ? 'Working...' : 'Apply'}
+       </button>
+     )
+   ) : (
+   <>
+   {requestInfo ? (
+     <div className="w-full py-3 bg-gray-50 text-gray-600 text-[13px] font-bold rounded-xl text-center border border-gray-200 uppercase tracking-wide">
+       Status: {currentStatus}
+     </div>
+   ) : (
+     <>
+       <button 
+       disabled={actionLoading}
+       className={`flex-1 py-3 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
+       onClick={() => handleAction('accepted')}
+       >
+       {actionLoading ? '...' : 'Accept'}
+       </button>
+       <button 
+       disabled={actionLoading}
+       className={`flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-gray-200'}`}
+       onClick={() => handleAction('rejected')}
+       >
+       {actionLoading ? '...' : 'Reject'}
+       </button>
+       <button 
+       disabled={actionLoading}
+       className={`flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-gray-200'}`}
+       onClick={() => setNegotiateModalOpen(true)}
+       >
+       Negotiate
+       </button>
+     </>
+   )}
+  </>
+  )}
  </div>
 
  </div>

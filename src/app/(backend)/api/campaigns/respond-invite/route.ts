@@ -121,13 +121,15 @@ export async function POST(request: Request) {
 
       // Notify Creator
       const notifMsg = `${invite.brand.fullName} has ${action.toLowerCase()}ed your negotiated price for ${invite.campaign.title}.`;
+      const actionUrl = `/campaigns/${invite.campaign.id}`;
+      
       await prisma.notification.create({
         data: {
           userId: invite.creator.userId,
           title: "Brand Responded to Negotiation",
           message: notifMsg,
-          actionUrl: "/creator",
-          actionLabel: "View Dashboard",
+          actionUrl: actionUrl,
+          actionLabel: "View Campaign",
           senderImage: invite.brand.profilePic || null
         }
       });
@@ -139,8 +141,8 @@ export async function POST(request: Request) {
             recipients: [invite.creator.userId],
             data: {
               message: notifMsg,
-              actionLabel: "View Dashboard",
-              actionUrl: "/creator",
+              actionLabel: "View Campaign",
+              actionUrl: actionUrl,
               type: 'info'
             },
             actor: invite.brand.userId

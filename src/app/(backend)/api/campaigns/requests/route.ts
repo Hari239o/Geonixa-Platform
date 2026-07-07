@@ -163,13 +163,15 @@ export async function PATCH(request: Request) {
     // Notify Creator
     const brandName = campReq.campaign.user.brandProfile?.fullName || "A Brand";
     const notifMsg = `${brandName} has ${action.toLowerCase()}ed your request/negotiation for ${campReq.campaign.title}.`;
+    const actionUrl = `/campaigns/${campReq.campaign.id}`;
+    
     await prisma.notification.create({
       data: {
         userId: campReq.creator.userId,
         title: "Brand Responded",
         message: notifMsg,
-        actionUrl: "/creator",
-        actionLabel: "View Dashboard",
+        actionUrl: actionUrl,
+        actionLabel: "View Campaign",
         senderImage: campReq.campaign.user.brandProfile?.profilePic || null
       }
     });
@@ -178,7 +180,7 @@ export async function PATCH(request: Request) {
         const knock = new Knock({ apiKey: process.env.KNOCK_SECRET_API_KEY });
         await knock.workflows.trigger('default-notification', {
           recipients: [campReq.creator.userId],
-          data: { message: notifMsg, actionLabel: "View Dashboard", actionUrl: "/creator", type: 'info' },
+          data: { message: notifMsg, actionLabel: "View Campaign", actionUrl: actionUrl, type: 'info' },
           actor: userId
         });
       } catch(e) { console.error("Knock trigger error:", e); }

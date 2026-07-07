@@ -11,23 +11,16 @@ const QUESTIONS = [
 
 export async function POST(req: Request) {
   try {
-    const { dealId, brandId, creatorId, answers } = await req.json();
+    const { chatId, answers } = await req.json();
 
-    if (!dealId || !answers || answers.length === 0) {
+    if (!chatId || !answers || answers.length === 0) {
       return NextResponse.json({ success: false, error: "Missing required fields" }, { status: 400 });
     }
 
-    // 1. Create DealChat
-    // Note: dealId is unique, so we use upsert in case it already exists (if both parties accept somehow, though unlikely)
-    const chat = await prisma.dealChat.upsert({
-      where: { dealId },
-      update: {},
-      create: {
-        dealId,
-        brandId,
-        creatorId,
-        status: 'bot'
-      }
+    // 1. Update existing DealChat
+    const chat = await prisma.dealChat.update({
+      where: { id: chatId },
+      data: { status: 'active' }
     });
 
     // 2. Insert chat messages for bot and user
@@ -44,7 +37,7 @@ export async function POST(req: Request) {
       // User answer
       messagesToInsert.push({
         chatId: chat.id,
-        senderId: brandId || creatorId || 'user', // Depending on who initiated, but we don't strictly need precise ID here
+        senderId: chat.brandId || chat.creatorId || 'user', // Depending on who initiated, but we don't strictly need precise ID here
         senderName: 'User',
         content: answers[i]
       });
@@ -69,7 +62,7 @@ export async function POST(req: Request) {
     try {
       const emailHtml = `
         <h2>New Successful Deal!</h2>
-        <p>A new deal (ID: ${dealId}) has just been accepted!</p>
+        <p>A new deal (ID: ${chat.dealId}) has just been accepted!</p>
         <p>Here are the preferences provided by the user in the automated chat:</p>
         <ul>
           ${answers.map((ans: string, i: number) => `<li><strong>${QUESTIONS[i]}:</strong> ${ans}</li>`).join('')}
