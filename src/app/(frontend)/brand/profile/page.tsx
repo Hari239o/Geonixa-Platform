@@ -14,26 +14,30 @@ export default function BrandDashboardPage() {
   const [profileData, setProfileData] = useState<any>(null)
   const [portfolioImages, setPortfolioImages] = useState<string[]>([])
   const [showVerifyModal, setShowVerifyModal] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     async function fetchProfile() {
+      // First try local storage for instant load
+      const saved = localStorage.getItem("kaling_brand_profile")
+      if (saved) {
+        setProfileData(JSON.parse(saved))
+        setIsLoading(false)
+      }
+
       try {
         const res = await fetch('/api/user/complete-profile');
         if (res.ok) {
           const data = await res.json();
           if (data.profile) {
             setProfileData(data.profile);
-            return; // Use DB data if available
+            localStorage.setItem("kaling_brand_profile", JSON.stringify(data.profile));
           }
         }
       } catch (e) {
         console.error(e);
-      }
-      
-      // Fallback to local storage
-      const saved = localStorage.getItem("kaling_brand_profile")
-      if (saved) {
-        setProfileData(JSON.parse(saved))
+      } finally {
+        setIsLoading(false);
       }
     }
     
@@ -110,6 +114,14 @@ export default function BrandDashboardPage() {
       console.error("Logo upload failed", err);
       alert("Upload failed: " + (err.message || String(err)));
     }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="h-full bg-[#F8F9FA] flex justify-center items-center font-sans">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EF4823]"></div>
+      </div>
+    )
   }
 
   return (
