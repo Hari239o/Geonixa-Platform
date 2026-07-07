@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { Search, Bell, Send, Bookmark, BadgeCheck } from "lucide-react"
+import { Search, Bell, Send, Bookmark, BadgeCheck, MessageCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import BottomNav from "@/components/brand/BottomNav"
@@ -111,10 +111,21 @@ export default function BrandHomeFeedPage() {
                 className="bg-transparent border-none outline-none text-sm w-full placeholder:text-gray-400 font-medium text-gray-700"
               />
             </div>
-            <button onClick={() => router.push('/brand/notifications')} className="relative w-11 h-11 rounded-full flex items-center justify-center bg-white shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-gray-100 shrink-0 hover:bg-gray-50 transition-colors">
-              <Bell className="w-5 h-5 text-gray-700" />
-              <span className="absolute top-2.5 right-3 w-2 h-2 bg-[#EF4823] rounded-full border-2 border-white"></span>
-            </button>
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={() => router.push('/chats')}
+                className="relative p-2.5 rounded-[12px] bg-gray-50 text-gray-600 hover:bg-gray-100 transition-colors"
+              >
+                <MessageCircle size={20} strokeWidth={2.5} />
+              </button>
+              <button 
+                onClick={() => router.push('/brand/notifications')}
+                className="relative p-2.5 rounded-[12px] bg-gray-50 text-gray-600 hover:bg-gray-100 transition-colors"
+              >
+                <Bell size={20} strokeWidth={2.5} />
+                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-[#EF4823] rounded-full border-2 border-white"></span>
+              </button>
+            </div>
           </div>
 
           <div className="flex items-center justify-between mb-4">

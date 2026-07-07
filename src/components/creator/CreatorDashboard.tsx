@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Bell, BadgeCheck } from 'lucide-react';
+import { Bell, BadgeCheck, MessageCircle } from 'lucide-react';
 import BottomNav from '../shared/BottomNav';
 import { getItem } from '@/utils/storage';
 
@@ -207,15 +207,20 @@ export default function CreatorDashboard() {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-
-            <button 
-              className="relative p-2 rounded-full hover:bg-gray-50 transition-colors"
-              onClick={() => router.push('/creator/notifications')}
+          <div className="absolute top-5 right-6 z-10 flex gap-3">
+            <div 
+              onClick={() => router.push('/chats')}
+              className="w-[42px] h-[42px] bg-white rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.05)] flex items-center justify-center cursor-pointer transition-transform active:scale-95"
             >
-              <Bell className="w-6 h-6 text-[#1a1a2e]" strokeWidth={2.5} />
-              <span className="absolute top-2 right-2.5 w-2.5 h-2.5 bg-primary-red rounded-full border-2 border-white"></span>
-            </button>
+              <MessageCircle className="w-[20px] h-[20px] text-gray-800" strokeWidth={2.5} />
+            </div>
+            <div 
+              onClick={() => router.push('/notifications')}
+              className="w-[42px] h-[42px] bg-white rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.05)] flex items-center justify-center cursor-pointer transition-transform active:scale-95 relative"
+            >
+              <Bell className="w-[20px] h-[20px] text-gray-800" strokeWidth={2.5} />
+              <div className="absolute top-3 right-3 w-2 h-2 bg-[#EF4823] rounded-full border-2 border-white"></div>
+            </div>
           </div>
         </div>
 
