@@ -215,7 +215,7 @@ export default function CreatorDashboard() {
               <MessageCircle className="w-[20px] h-[20px] text-gray-800" strokeWidth={2.5} />
             </div>
             <div 
-              onClick={() => router.push('/notifications')}
+              onClick={() => router.push('/creator/notifications')}
               className="w-[42px] h-[42px] bg-white rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.05)] flex items-center justify-center cursor-pointer transition-transform active:scale-95 relative"
             >
               <Bell className="w-[20px] h-[20px] text-gray-800" strokeWidth={2.5} />
