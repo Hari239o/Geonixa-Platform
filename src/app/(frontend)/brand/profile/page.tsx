@@ -178,7 +178,7 @@ export default function BrandDashboardPage() {
                 className="hover:text-[#EF4823] transition-colors" 
                 title="Settings"
               >
-                <Settings size={20} strokeWidth={2.5} />
+                <SlidersHorizontal size={20} strokeWidth={2.5} />
               </button>
             </div>
           </div>
@@ -216,27 +216,15 @@ export default function BrandDashboardPage() {
 
               {/* Authentication Prompt */}
               <div className="px-1">
-                <button
-                  disabled={profileData?.isVerified}
-                  onClick={() => !profileData?.isVerified && setShowVerifyModal(true)}
-                  className={`w-full font-bold py-3.5 rounded-[16px] transition-all flex items-center justify-center gap-2 ${
-                    profileData?.isVerified 
-                      ? 'bg-green-500 text-white cursor-default shadow-sm' 
-                      : 'bg-[#EF4823] hover:bg-[#d63d1c] text-white active:scale-[0.98] shadow-[0_4px_15px_rgba(239,72,35,0.25)]'
-                  }`}
-                >
-                  {profileData?.isVerified ? (
-                    <>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                      Account Authenticated
-                    </>
-                  ) : (
-                    <>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                      Authenticate Account
-                    </>
-                  )}
-                </button>
+                {!profileData?.isVerified && (
+                  <button
+                    onClick={() => setShowVerifyModal(true)}
+                    className="w-full font-bold py-3.5 rounded-[16px] transition-all flex items-center justify-center gap-2 bg-[#EF4823] hover:bg-[#d63d1c] text-white active:scale-[0.98] shadow-[0_4px_15px_rgba(239,72,35,0.25)]"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    Authenticate Account
+                  </button>
+                )}
               </div>
               
               {/* Profile Details Block */}
