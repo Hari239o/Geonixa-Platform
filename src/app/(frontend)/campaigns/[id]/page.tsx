@@ -27,13 +27,18 @@ function CampaignDetailContent() {
  }, [params.id]);
 
   const [actionLoading, setActionLoading] = useState(false);
-  const [activeDealInfo, setActiveDealInfo] = useState<{dealId: string, brandId: string, creatorId: string} | null>(null);
+  const [activeDealInfo, setActiveDealInfo] = useState<{chatId: string} | null>(null);
+
+  const isPublic = campaign?.visibility === 'Public';
+  const requestInfo = isPublic ? campaign?.requests?.[0] : campaign?.campaignInvites?.[0];
+  const currentStatus = requestInfo?.status;
+  const isAccepted = ['BRAND_ACCEPTED_NEGOTIATION', 'ACCEPTED', 'accepted'].includes(currentStatus);
 
   const handleAction = async (status: string, message?: string) => {
     if (!campaign) return;
     setActionLoading(true);
     try {
-      const isPrivate = campaign.visibility === 'Private';
+      const isPrivate = !isPublic;
       
       const endpoint = isPrivate ? '/api/campaigns/respond-invite' : '/api/campaigns/requests';
       let payload: any = {};
@@ -93,10 +98,6 @@ function CampaignDetailContent() {
     handleAction('negotiating', `Negotiated to ₹${negotiateAmount || 8000}`);
   };
 
-  const requestInfo = isPublic ? campaign?.requests?.[0] : campaign?.campaignInvites?.[0];
-  const currentStatus = requestInfo?.status;
-  const isAccepted = ['BRAND_ACCEPTED_NEGOTIATION', 'ACCEPTED', 'accepted'].includes(currentStatus);
-
   const handleConnect = async () => {
     try {
       const dealId = requestInfo.id;
@@ -110,7 +111,7 @@ function CampaignDetailContent() {
       });
       const data = await res.json();
       if (data.success) {
-        setActiveDealInfo({ chatId: data.chatId } as any);
+        setActiveDealInfo({ chatId: data.chatId });
       }
     } catch (e) {
       console.error(e);
@@ -304,9 +305,7 @@ function CampaignDetailContent() {
  
  {activeDealInfo && (
    <PostDealChatbot 
-     dealId={activeDealInfo.dealId}
-     brandId={activeDealInfo.brandId}
-     creatorId={activeDealInfo.creatorId}
+     chatId={activeDealInfo.chatId}
      onComplete={() => { setActiveDealInfo(null); router.push('/creator'); }}
      onClose={() => { setActiveDealInfo(null); router.push('/creator'); }}
    />
