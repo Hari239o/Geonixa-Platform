@@ -115,7 +115,11 @@ export default function CampaignDashboardPage() {
             </div>
           ) : (
             campaigns.map((camp) => (
-              <div key={camp.id} className="bg-white rounded-[20px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.02)] flex flex-col relative border border-gray-50/50">
+              <div 
+                key={camp.id} 
+                onClick={() => router.push(`/brand/campaigns/${camp.id}`)}
+                className="bg-white rounded-[20px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.02)] flex flex-col relative border border-gray-50/50 cursor-pointer hover:shadow-md transition-shadow"
+              >
                 <span className="absolute top-5 right-5 text-gray-300 text-[10px] font-medium">{camp.timeAgo}</span>
                 
                 <div className="w-10 h-10 rounded-[12px] bg-gray-100 flex items-center justify-center mb-4">
@@ -139,7 +143,7 @@ export default function CampaignDashboardPage() {
 
                 <p className="text-gray-500 text-[11.5px] leading-relaxed mb-1 pr-2">
                   {camp.desc}
-                  <span className="text-[#EF4823] font-bold cursor-pointer hover:underline">Read more</span>
+                  <span className="text-[#EF4823] font-bold cursor-pointer hover:underline ml-1">Read more</span>
                 </p>
 
                 {getStatusBadge(camp.status)}
@@ -195,32 +199,6 @@ export default function CampaignDashboardPage() {
                   <div className="flex flex-col items-start text-left">
                     <span className="font-bold text-[14px] text-gray-800 group-hover:text-gray-900">Create Manual</span>
                     <span className="text-[11px] text-gray-400 font-medium">Fill out the details yourself</span>
-                  </div>
-                </button>
-                
-                <button 
-                  onClick={() => router.push("/brand/campaigns/create/manual?type=private")}
-                  className="w-full bg-[#FAFAFA] border border-gray-100 p-3 rounded-[16px] flex items-center gap-4 hover:bg-orange-50/50 hover:border-orange-100 transition-colors group"
-                >
-                  <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-[#EF4823]/10">
-                    <Lock className="w-5 h-5 text-gray-500 group-hover:text-[#EF4823]" />
-                  </div>
-                  <div className="flex flex-col items-start text-left">
-                    <span className="font-bold text-[14px] text-gray-800 group-hover:text-gray-900">Private Campaign</span>
-                    <span className="text-[11px] text-gray-400 font-medium">Invite specific creators only</span>
-                  </div>
-                </button>
-
-                <button 
-                  onClick={() => router.push("/brand/campaigns/create/manual?type=public")}
-                  className="w-full bg-[#FAFAFA] border border-gray-100 p-3 rounded-[16px] flex items-center gap-4 hover:bg-orange-50/50 hover:border-orange-100 transition-colors group"
-                >
-                  <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-[#EF4823]/10">
-                    <Globe className="w-5 h-5 text-gray-500 group-hover:text-[#EF4823]" />
-                  </div>
-                  <div className="flex flex-col items-start text-left">
-                    <span className="font-bold text-[14px] text-gray-800 group-hover:text-gray-900">Public Campaign</span>
-                    <span className="text-[11px] text-gray-400 font-medium">Open to all eligible creators</span>
                   </div>
                 </button>
               </div>
