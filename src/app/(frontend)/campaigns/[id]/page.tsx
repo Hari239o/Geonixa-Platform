@@ -25,24 +25,48 @@ function CampaignDetailContent() {
      .catch(() => setLoading(false));
  }, [params.id]);
 
- const handleAction = async (status: string, message?: string) => {
-   if (!campaign) return;
-   try {
-     const res = await fetch('/api/campaigns/requests', {
-       method: 'POST',
-       headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify({ campaignId: campaign.id, status, message })
-     });
-     const data = await res.json();
-     if (data.success) {
-       alert(`Campaign ${status}!`);
-       if (status === 'negotiating') setNegotiateModalOpen(false);
-       router.push('/dashboard');
-     }
-   } catch(e) {
-     console.error(e);
-   }
- };
+  const handleAction = async (status: string, message?: string) => {
+    if (!campaign) return;
+    try {
+      const isPrivate = campaign.visibility === 'Private';
+      
+      const endpoint = isPrivate ? '/api/campaigns/respond-invite' : '/api/campaigns/requests';
+      let payload: any = {};
+      
+      if (isPrivate) {
+        if (!campaign.invite) {
+          alert('You do not have an invite for this private campaign.');
+          return;
+        }
+        // Map status to uppercase ACTION for respond-invite
+        let action = status.toUpperCase();
+        if (action === 'APPLIED') action = 'ACCEPT'; // For private, "apply" means "accept" invite
+        
+        payload = { 
+          inviteId: campaign.invite.id, 
+          action, 
+          negotiatedPrice: status === 'negotiating' ? negotiateAmount : undefined, 
+          message 
+        };
+      } else {
+        payload = { campaignId: campaign.id, status, message: status === 'negotiating' ? `Negotiated to ₹${negotiateAmount || 8000}` : undefined };
+      }
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert(`Campaign ${status}!`);
+        if (status === 'negotiating') setNegotiateModalOpen(false);
+        router.push('/creator/dashboard');
+      }
+    } catch(e) {
+      console.error(e);
+    }
+  };
 
   const applyNegotiation = () => {
    handleAction('negotiating', `Negotiated to ₹${negotiateAmount || 8000}`);

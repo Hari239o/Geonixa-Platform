@@ -30,7 +30,14 @@ export default function CampaignRequestsPage() {
             if (camp.campaignInvites) {
               camp.campaignInvites.forEach((inv: any) => {
                 if (inv.status === 'NEGOTIATING' || inv.status === 'PENDING') {
-                  allRequests.push({ ...inv, campaign: camp })
+                  allRequests.push({ ...inv, campaign: camp, isPublicRequest: false })
+                }
+              })
+            }
+            if (camp.requests) {
+              camp.requests.forEach((req: any) => {
+                if (req.status === 'negotiating' || req.status === 'pending' || req.status === 'applied') {
+                  allRequests.push({ ...req, campaign: camp, isPublicRequest: true })
                 }
               })
             }
@@ -46,15 +53,19 @@ export default function CampaignRequestsPage() {
     loadRequests()
   }, [])
 
-  const handleAction = async (inviteId: string, action: string) => {
+  const handleAction = async (id: string, action: string, isPublicRequest: boolean) => {
     try {
-      const res = await fetch('/api/campaigns/respond-invite', {
-        method: 'POST',
+      const endpoint = isPublicRequest ? '/api/campaigns/requests' : '/api/campaigns/respond-invite'
+      const method = isPublicRequest ? 'PATCH' : 'POST'
+      const payload = isPublicRequest ? { requestId: id, action } : { inviteId: id, action }
+
+      const res = await fetch(endpoint, {
+        method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ inviteId, action })
+        body: JSON.stringify(payload)
       });
       if (res.ok) {
-        setRequests(prev => prev.filter(req => req.id !== inviteId))
+        setRequests(prev => prev.filter(req => req.id !== id))
       }
     } catch (error) {
       console.error(error)
@@ -165,20 +176,20 @@ export default function CampaignRequestsPage() {
                   {req.campaign.description}
                 </p>
 
-                {req.status === 'NEGOTIATING' && (
+                {req.status === 'NEGOTIATING' || req.status === 'negotiating' ? (
                   <div className="mb-4 bg-orange-50 p-3 rounded-xl border border-orange-100">
-                    <p className="text-[#EF4823] text-sm font-bold mb-1">Creator Negotiated Price: {req.negotiatedPrice}</p>
+                    <p className="text-[#EF4823] text-sm font-bold mb-1">Creator Negotiated Price: {req.negotiatedPrice || 'See message'}</p>
                     {req.message && <p className="text-gray-600 text-xs italic">"{req.message}"</p>}
                   </div>
-                )}
+                ) : null}
 
                 <div className="flex gap-3">
-                  {req.status === 'NEGOTIATING' ? (
+                  {req.status === 'NEGOTIATING' || req.status === 'negotiating' || req.status === 'applied' || req.status === 'pending' || req.status === 'PENDING' ? (
                     <>
-                      <button onClick={() => handleAction(req.id, 'ACCEPT')} className="flex-1 bg-[#EF4823] text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-[#e03d1b] transition-colors">
+                      <button onClick={() => handleAction(req.id, 'ACCEPT', req.isPublicRequest)} className="flex-1 bg-[#EF4823] text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-[#e03d1b] transition-colors">
                         Accept Deal
                       </button>
-                      <button onClick={() => handleAction(req.id, 'REJECT')} className="flex-1 bg-gray-100 text-gray-500 text-[12px] font-bold py-3 rounded-[12px] hover:bg-gray-200 transition-colors">
+                      <button onClick={() => handleAction(req.id, 'REJECT', req.isPublicRequest)} className="flex-1 bg-gray-100 text-gray-500 text-[12px] font-bold py-3 rounded-[12px] hover:bg-gray-200 transition-colors">
                         Reject
                       </button>
                     </>
