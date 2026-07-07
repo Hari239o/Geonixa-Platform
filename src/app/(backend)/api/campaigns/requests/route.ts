@@ -168,7 +168,7 @@ export async function PATCH(request: Request) {
         userId: campReq.creator.userId,
         title: "Brand Responded",
         message: notifMsg,
-        actionUrl: "/creator/dashboard",
+        actionUrl: "/creator",
         actionLabel: "View Dashboard",
         senderImage: campReq.campaign.user.brandProfile?.profilePic || null
       }
@@ -178,7 +178,7 @@ export async function PATCH(request: Request) {
         const knock = new Knock({ apiKey: process.env.KNOCK_SECRET_API_KEY });
         await knock.workflows.trigger('default-notification', {
           recipients: [campReq.creator.userId],
-          data: { message: notifMsg, actionLabel: "View Dashboard", actionUrl: "/creator/dashboard", type: 'info' },
+          data: { message: notifMsg, actionLabel: "View Dashboard", actionUrl: "/creator", type: 'info' },
           actor: userId
         });
       } catch(e) { console.error("Knock trigger error:", e); }

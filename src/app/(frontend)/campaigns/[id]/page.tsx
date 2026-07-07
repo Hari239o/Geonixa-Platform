@@ -65,7 +65,7 @@ function CampaignDetailContent() {
       if (data.success) {
         alert(`Campaign ${status}!`);
         if (status === 'negotiating') setNegotiateModalOpen(false);
-        router.push('/creator/dashboard');
+        router.push('/creator');
       } else {
         alert(`Error: ${data.error}`);
       }
