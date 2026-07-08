@@ -353,27 +353,27 @@ export default function CreatorSignupStep1() {
               ))}
             </div>
             
-          </div>
-          {otpError && (
-            <p className="text-[#FF4D2D] text-sm text-center mt-4 font-medium">{otpError}</p>
-          )}
-          <Button 
-            onClick={handleVerifyOtp}
-            disabled={otp.join("").length !== 6 || isVerifyingOtp}
-            className="w-full mt-8 bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold"
-          >
-            {isVerifyingOtp ? "Verifying..." : "Verify Code"}
-          </Button>
-          <div className="mt-4 text-center">
-            <span className="text-[#A0A0A0] text-sm">Didn't receive the code? </span>
-            <button 
-              type="button"
-              disabled={isSendingOtp}
-              onClick={handleSendOtp}
-              className="text-[#333333] text-sm font-semibold hover:underline"
+            {otpError && (
+              <p className="text-[#FF4D2D] text-sm text-center mt-4 font-medium">{otpError}</p>
+            )}
+            <Button 
+              onClick={handleVerifyOtp}
+              disabled={otp.join("").length !== 6 || isVerifyingOtp}
+              className="w-full mt-8 bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold"
             >
-              {isSendingOtp ? "Sending..." : "Resend"}
-            </button>
+              {isVerifyingOtp ? "Verifying..." : "Verify Code"}
+            </Button>
+            <div className="mt-4 text-center">
+              <span className="text-[#A0A0A0] text-sm">Didn't receive the code? </span>
+              <button 
+                type="button"
+                disabled={isSendingOtp}
+                onClick={handleSendOtp}
+                className="text-[#333333] text-sm font-semibold hover:underline"
+              >
+                {isSendingOtp ? "Sending..." : "Resend"}
+              </button>
+            </div>
           </div>
         </div>
       )}
