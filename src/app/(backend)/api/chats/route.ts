@@ -94,7 +94,7 @@ export async function GET(req: Request) {
           type: 'request',
           id: req.id,
           campaignId: req.campaignId,
-          status: 'APPLIED',
+          status: req.status === 'pending' ? 'APPLIED' : req.status.toUpperCase(),
           updatedAt: req.updatedAt,
           title: `${req.campaign?.title || 'Unknown Campaign'}`,
           messagesCount: 0

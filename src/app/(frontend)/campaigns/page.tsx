@@ -87,13 +87,13 @@ export default function CampaignPage() {
           campaignId: campaign.id,
           action, 
           negotiatedPrice: status === 'negotiating' ? negotiateAmount : undefined, 
-          message 
+          message: status === 'negotiating' ? `Negotiated to ₹${negotiateAmount}` : message 
         };
       } else {
         payload = { 
           campaignId: campaign.id, 
           status, 
-          message: status === 'negotiating' ? `Negotiated to ₹${negotiateAmount || 8000}` : undefined 
+          message: status === 'negotiating' ? `Negotiated to ₹${negotiateAmount}` : undefined 
         };
       }
 
@@ -282,16 +282,36 @@ export default function CampaignPage() {
  </div>
 
  <div className="w-full mb-8">
- <div className="relative">
- <input 
- type="number" 
- placeholder="₹ 8000"
- value={negotiateAmount}
- onChange={(e) => setNegotiateAmount(e.target.value)}
- className="w-full bg-[#f9fafb] border border-transparent focus:border-gray-200 rounded-[16px] py-4 px-5 text-[15px] font-bold text-gray-900 placeholder:text-gray-600 outline-none"
- />
- </div>
- </div>
+    <div className="relative">
+      <input 
+        type="number" 
+        placeholder="Enter Amount"
+        value={negotiateAmount}
+        onChange={(e) => setNegotiateAmount(e.target.value)}
+        className="w-full bg-[#f9fafb] border border-transparent focus:border-gray-200 rounded-[16px] py-4 px-5 text-[15px] font-bold text-gray-900 placeholder:text-gray-400 outline-none"
+      />
+    </div>
+    <div className="flex justify-between gap-2 mt-4">
+      <button 
+        className="flex-1 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-[13px] font-bold rounded-[10px] transition-colors"
+        onClick={() => setNegotiateAmount((prev) => (parseInt(prev || "0") + 1000).toString())}
+      >
+        +1000
+      </button>
+      <button 
+        className="flex-1 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-[13px] font-bold rounded-[10px] transition-colors"
+        onClick={() => setNegotiateAmount((prev) => (parseInt(prev || "0") + 2000).toString())}
+      >
+        +2000
+      </button>
+      <button 
+        className="flex-1 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-[13px] font-bold rounded-[10px] transition-colors"
+        onClick={() => setNegotiateAmount((prev) => (parseInt(prev || "0") + 3000).toString())}
+      >
+        +3000
+      </button>
+    </div>
+  </div>
 
  <button 
  disabled={actionLoading === selectedCampaignId}

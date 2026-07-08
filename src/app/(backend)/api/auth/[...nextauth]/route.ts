@@ -106,21 +106,22 @@ export const authOptions: NextAuthOptions = {
         // Automatically save Google users to the database
         if (account?.provider === 'google' && user.email) {
           const existingUser = await prisma.user.findFirst({ where: { email: user.email } });
-          if (!existingUser) {
-            let isSignup = false;
-            let roleToAssign = "user";
-            try {
-              const cookieStore = await cookies();
-              const savedRole = cookieStore.get("signupRole")?.value;
-              if (savedRole === "brand" || savedRole === "partner" || savedRole === "creator") {
-                roleToAssign = savedRole;
-                isSignup = true;
-              }
-            } catch (e) {
-              console.error("Could not read cookies:", e);
+          
+          let roleToAssign = "user";
+          let hasSignupCookie = false;
+          try {
+            const cookieStore = await cookies();
+            const savedRole = cookieStore.get("signupRole")?.value;
+            if (savedRole === "brand" || savedRole === "partner" || savedRole === "creator") {
+              roleToAssign = savedRole;
+              hasSignupCookie = true;
             }
+          } catch (e) {
+            console.error("Could not read cookies:", e);
+          }
 
-            if (isSignup) {
+          if (!existingUser) {
+            if (hasSignupCookie) {
               await prisma.user.create({
                 data: {
                   email: user.email,
@@ -130,6 +131,15 @@ export const authOptions: NextAuthOptions = {
               });
             } else {
               throw new Error("You don't have an account, go to signup");
+            }
+          } else {
+            // If they already exist, but they are coming from a signup page 
+            // and haven't completed their profile, update their role to their new choice
+            if (hasSignupCookie && !existingUser.profileCompleted && existingUser.role !== roleToAssign) {
+              await prisma.user.update({
+                where: { id: existingUser.id },
+                data: { role: roleToAssign }
+              });
             }
           }
         }

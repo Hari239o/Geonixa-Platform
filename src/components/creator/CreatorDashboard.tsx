@@ -193,7 +193,7 @@ export default function CreatorDashboard() {
     <div className="w-full max-w-md mx-auto h-full flex flex-col bg-white font-sans overflow-hidden">
       <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24">
         {/* Top Header */}
-        <div className="flex justify-between items-center px-4 sm:px-6 pt-4 mb-8">
+        <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm flex justify-between items-center px-4 sm:px-6 pt-4 pb-4 mb-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
           <div className="flex items-center gap-4">
             <Image src={profile.profilePic || defaultProfilePic} alt="Profile" width={48} height={48} className="w-14 h-14 rounded-[18px] object-cover shadow-sm" />
             <div className="flex flex-col">
@@ -210,13 +210,13 @@ export default function CreatorDashboard() {
           <div className="flex gap-3">
             <div 
               onClick={() => router.push('/chats')}
-              className="w-[42px] h-[42px] bg-white rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.05)] flex items-center justify-center cursor-pointer transition-transform active:scale-95"
+              className="w-[42px] h-[42px] bg-white rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center justify-center cursor-pointer transition-transform active:scale-95"
             >
               <MessageCircle className="w-[20px] h-[20px] text-gray-800" strokeWidth={2.5} />
             </div>
             <div 
               onClick={() => router.push('/creator/notifications')}
-              className="w-[42px] h-[42px] bg-white rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.05)] flex items-center justify-center cursor-pointer transition-transform active:scale-95 relative"
+              className="w-[42px] h-[42px] bg-white rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center justify-center cursor-pointer transition-transform active:scale-95 relative"
             >
               <Bell className="w-[20px] h-[20px] text-gray-800" strokeWidth={2.5} />
               <div className="absolute top-3 right-3 w-2 h-2 bg-[#EF4823] rounded-full border-2 border-white"></div>

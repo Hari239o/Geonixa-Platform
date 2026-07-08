@@ -215,8 +215,39 @@ export default function KycPage() {
   const completeKyc = async () => {
     // Update Profile to isVerified: true locally and in backend
     try {
-      const role = localStorage.getItem('userRole');
-      const isBrand = role === 'brand';
+      // API
+      const response = await fetch("/api/user/complete-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          userId: localStorage.getItem("userId") || "temp-user-id",
+          isVerified: true 
+        })
+      });
+      
+      let isBrand = false;
+      try {
+        const res = await fetch("/api/user/complete-profile");
+        if (res.ok) {
+          const data = await res.json();
+          // The API returns the profile. We can check if it's a brand profile by checking brandType or the user role if it was included, but the API endpoint GET /api/user/complete-profile uses the user's role.
+          // Let's just check the current session or we can check the URL we came from, but fetching the profile is safer.
+          // Wait, the API GET /api/user/complete-profile returns `profile`. If it's a brand, it has `brandType` or `authorizedPerson` or similar fields, but Creator has `creatorType` or `category`.
+          // Even better, NextAuth session has the role.
+          if (data.profile && (data.profile.brandType || data.profile.type === 'company' || data.profile.type === 'individual' || data.profile.fullName !== undefined)) {
+            // Actually, both have fullName. Let's just check if they have a brandProfile in local storage first as a hint.
+          }
+        }
+      } catch (e) {}
+
+      const localRole = localStorage.getItem('userRole');
+      const signupCookie = document.cookie.split('; ').find(row => row.startsWith('signupRole='));
+      const cookieRole = signupCookie ? signupCookie.split('=')[1] : null;
+      
+      // Check local storage for brand profile
+      const hasBrandProfile = localStorage.getItem('kaling_brand_profile') !== null;
+      
+      isBrand = localRole === 'brand' || cookieRole === 'brand' || hasBrandProfile;
       
       // Local
       import("@/utils/storage").then(({ getItem, setItem }) => {
@@ -224,16 +255,6 @@ export default function KycPage() {
         getItem<any>(key).then(existing => {
           setItem(key, { ...(existing || {}), isVerified: true });
         });
-      });
-
-      // API
-      await fetch("/api/user/complete-profile", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          userId: localStorage.getItem("userId") || "temp-user-id",
-          isVerified: true 
-        })
       });
       
       router.push(isBrand ? "/brand/profile" : "/creator");
@@ -341,15 +362,15 @@ export default function KycPage() {
 
           {/* STEP 2: Selfie Capture */}
           {step === 2 && (
-            <div className="animate-in fade-in slide-in-from-right-4 duration-300 flex flex-col items-center">
+            <div className="animate-in fade-in slide-in-from-right-4 duration-300 flex flex-col items-center justify-center flex-1 w-full px-4 pt-2 pb-6">
               <div className="text-center w-full">
-                <h2 className="text-[22px] font-black text-[#1a1a2e] mb-1 tracking-tight">Selfie Verification</h2>
-                <p className="text-[13px] text-gray-500 font-medium mb-3">We'll compare your face with your Aadhar photo to verify your identity.</p>
+                <h2 className="text-[20px] sm:text-[22px] font-black text-[#1a1a2e] mb-1 tracking-tight">Selfie Verification</h2>
+                <p className="text-[12px] sm:text-[13px] text-gray-500 font-medium mb-2 sm:mb-3">We'll compare your face with your Aadhar photo.</p>
               </div>
               
-              <div className="bg-white rounded-[24px] p-2 shadow-sm border border-gray-100 mb-4 mx-auto w-full max-w-[260px]">
+              <div className="bg-white rounded-[24px] p-2 shadow-sm border border-gray-100 mb-4 mx-auto w-full max-w-[240px] sm:max-w-[260px]">
                 {!selfieFile ? (
-                  <div className="relative w-full aspect-[3/4] bg-black rounded-[20px] overflow-hidden flex items-center justify-center">
+                  <div className="relative w-full aspect-[4/5] bg-black rounded-[20px] overflow-hidden flex items-center justify-center">
                     <video 
                       ref={videoRef} 
                       autoPlay 
@@ -361,11 +382,11 @@ export default function KycPage() {
                     {/* Face Guide Overlay */}
                     <div className="absolute inset-0 border-[6px] border-black/30 rounded-[20px] pointer-events-none"></div>
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="w-[60%] h-[50%] border-2 border-white/50 border-dashed rounded-full" />
+                      <div className="w-[60%] h-[55%] border-2 border-white/50 border-dashed rounded-full" />
                     </div>
                   </div>
                 ) : (
-                  <div className="relative w-full aspect-[3/4] bg-gray-100 rounded-[20px] overflow-hidden">
+                  <div className="relative w-full aspect-[4/5] bg-gray-100 rounded-[20px] overflow-hidden">
                     <img 
                       src={URL.createObjectURL(selfieFile)} 
                       alt="Selfie" 
@@ -379,11 +400,10 @@ export default function KycPage() {
               <canvas ref={canvasRef} className="hidden" />
 
               {!selfieFile ? (
-                <div className="w-full mt-2">
+                <div className="w-full max-w-[280px] mx-auto mt-1">
                   <button 
                     onClick={capturePhoto}
-                    disabled={!cameraActive}
-                    className="w-full bg-[#EF4823] hover:bg-[#d63f1c] disabled:bg-gray-400 disabled:shadow-none disabled:cursor-not-allowed text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center gap-2"
+                    className={`w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-3.5 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center gap-2 ${!cameraActive ? 'opacity-90' : ''}`}
                   >
                     <Camera className="w-5 h-5" /> CAPTURE SELFIE
                   </button>
