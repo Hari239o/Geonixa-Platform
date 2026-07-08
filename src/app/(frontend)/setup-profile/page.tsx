@@ -74,13 +74,24 @@ const SetupProfilePage = () => {
 
 
   const handlePortfolioImagesUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    const files = Array.from(e.target.files);
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    
+    // Strict limits: 1 video, max 399MB
+    if (!file.type.startsWith('video/')) {
+      alert("Please upload a video file only.");
+      return;
+    }
+    
+    const maxSizeBytes = 399 * 1024 * 1024;
+    if (file.size > maxSizeBytes) {
+      alert("Total storage limit is 399 MB. Please upload a smaller video.");
+      return;
+    }
     
     try {
-      const uploadPromises = files.map(file => uploadFileToR2(file, 'public'));
-      const urls = await Promise.all(uploadPromises);
-      setPortfolioImages((prev: string[]) => [...prev, ...urls]);
+      const url = await uploadFileToR2(file, 'public');
+      setPortfolioImages([url]); // Replace with the single video
     } catch (err: any) {
       console.error("Portfolio upload failed", err);
       alert("Upload failed: " + (err.message || String(err)));
@@ -108,9 +119,9 @@ const SetupProfilePage = () => {
   const price10Reels = Math.round((basePrice * 10) * 0.85);
 
   const initialBudgets = [
-    { name: 'Collab Reel', price: `₹ ${basePrice || 'xxx'}` },
-    { name: 'YT Integration', price: `₹ ${Math.round(basePrice * 1.5) || 'xxx'}` },
-    { name: 'Timeline', price: `₹ ${Math.round(basePrice * 0.8) || 'xxx'}` },
+    { name: '1 Reel', price: `₹ ${basePrice || 'xxx'}` },
+    { name: '5 Reels', price: `₹ ${price5Reels || 'xxx'}` },
+    { name: '10 Reels', price: `₹ ${price10Reels || 'xxx'}` },
     { name: 'Custom', price: '₹ xxx' },
   ];
 
@@ -183,7 +194,7 @@ const SetupProfilePage = () => {
  <p className="text-primary-red/80 text-sm">Add your details to stand out to brands and partners.</p>
  </div>
 
- <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+ <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
  {/* Profile Picture Upload */}
  <div className="flex flex-col items-center justify-center mb-2">
  <label htmlFor="profile-upload" className="cursor-pointer relative group">
@@ -402,38 +413,37 @@ const SetupProfilePage = () => {
  ></textarea>
  </div>
  
- {/* Photos and Videos Section */}
- <div className="flex flex-col gap-2">
- <label className="text-sm font-bold text-primary-red">Photos & Videos</label>
- <p className="text-xs text-primary-red/60 font-medium -mt-1">Upload some of your best work</p>
- <div className="flex flex-wrap gap-3 mt-2">
- {portfolioImages.map((mediaSrc: string, index: number) => (
- <div key={index} className="relative w-20 h-20">
- {mediaSrc.startsWith('data:video') || mediaSrc.match(/\.(mp4|webm|ogg|mov)$/i) ? (
- <video src={mediaSrc} className="w-full h-full object-cover rounded-xl" muted />
- ) : (
- <img src={mediaSrc} alt={`Portfolio ${index}`} className="object-cover rounded-xl w-full h-full" />
- )}
- <button type="button" aria-label="Remove image" title="Remove image" className="absolute -top-2 -right-2 bg-red-500 w-6 h-6 rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition-colors" onClick={() => removePortfolioImage(index)}>
- <X size={14} color="white" />
- </button>
- </div>
- ))}
- 
- <label htmlFor="portfolio-upload" className="w-20 h-20 rounded-xl bg-orange-50 border-2 border-dashed border-orange-200 flex flex-col items-center justify-center text-[#EF4823] cursor-pointer hover:bg-orange-100 transition-colors">
- <ImagePlus size={24} />
- <span className="text-[10px] font-bold mt-1">Add</span>
- </label>
- <input 
- id="portfolio-upload" 
- type="file" 
- accept="image/*,video/*" 
- multiple
- onChange={handlePortfolioImagesUpload} 
- className="hidden"
- />
- </div>
- </div>
+ {/* Video Section */}
+  <div className="flex flex-col gap-2">
+  <label className="text-sm font-bold text-primary-red">Upload Introduction Video</label>
+  <p className="text-xs text-primary-red/60 font-medium -mt-1">Limit: 1 Video (Max 399 MB)</p>
+  <div className="flex flex-wrap gap-3 mt-1">
+  {portfolioImages.map((mediaSrc: string, index: number) => (
+  <div key={index} className="relative w-32 h-32">
+  <video src={mediaSrc} className="w-full h-full object-cover rounded-xl border border-gray-200 shadow-sm" muted controls />
+  <button type="button" aria-label="Remove video" title="Remove video" className="absolute -top-2 -right-2 bg-red-500 w-6 h-6 rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition-colors z-10" onClick={() => removePortfolioImage(index)}>
+  <X size={14} color="white" />
+  </button>
+  </div>
+  ))}
+  
+  {portfolioImages.length === 0 && (
+    <>
+      <label htmlFor="portfolio-upload" className="w-32 h-32 rounded-xl bg-orange-50 border-2 border-dashed border-orange-200 flex flex-col items-center justify-center text-[#EF4823] cursor-pointer hover:bg-orange-100 transition-colors">
+      <ImagePlus size={24} />
+      <span className="text-[10px] font-bold mt-1 text-center px-2">Add Video<br/>(Max 399 MB)</span>
+      </label>
+      <input 
+      id="portfolio-upload" 
+      type="file" 
+      accept="video/*" 
+      onChange={handlePortfolioImagesUpload} 
+      className="hidden"
+      />
+    </>
+  )}
+  </div>
+  </div>
 
  <button 
  type="submit" 
