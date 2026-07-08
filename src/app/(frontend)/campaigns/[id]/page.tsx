@@ -8,10 +8,12 @@ import PostDealChatbot from '@/components/shared/PostDealChatbot';
 function CampaignDetailContent() {
   const router = useRouter();
   const params = useParams();
- const [negotiateModalOpen, setNegotiateModalOpen] = useState(false);
- const [negotiateAmount, setNegotiateAmount] = useState('');
- const [campaign, setCampaign] = useState<any>(null);
- const [loading, setLoading] = useState(true);
+  const [negotiateModalOpen, setNegotiateModalOpen] = useState(false);
+  const [rejectModalOpen, setRejectModalOpen] = useState(false);
+  const [actionError, setActionError] = useState<{type: 'accept' | 'negotiate' | 'reject' | null, message: string}>({ type: null, message: '' });
+  const [negotiateAmount, setNegotiateAmount] = useState('');
+  const [campaign, setCampaign] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
  React.useEffect(() => {
    fetch(`/api/campaigns?role=creator&t=${Date.now()}`)
@@ -37,14 +39,23 @@ function CampaignDetailContent() {
   const handleAction = async (status: string, message?: string) => {
     if (!campaign) return;
     setActionLoading(true);
+    setActionError({ type: null, message: '' });
+    
+    // Determine the error type for UI based on status
+    const getErrorType = () => {
+      if (status === 'accepted' || status === 'applied') return 'accept';
+      if (status === 'negotiating') return 'negotiate';
+      if (status === 'rejected') return 'reject';
+      return null;
+    };
+    const errorType = getErrorType();
+
     try {
       const isPrivate = !isPublic;
-      
       const endpoint = isPrivate ? '/api/campaigns/respond-invite' : '/api/campaigns/requests';
       let payload: any = {};
       
       if (isPrivate) {
-        // Map status to uppercase ACTION for respond-invite
         let action = status.toUpperCase();
         if (action === 'APPLIED' || action === 'ACCEPTED') action = 'ACCEPT';
         else if (action === 'REJECTED') action = 'REJECT';
@@ -69,6 +80,7 @@ function CampaignDetailContent() {
         body: JSON.stringify(payload)
       });
       const data = await res.json();
+      
       if (data.success) {
         if (status === 'accepted' || status === 'applied') {
            setCampaign({
@@ -80,15 +92,17 @@ function CampaignDetailContent() {
            });
            return;
         }
-        alert(`Campaign ${status}!`);
+        
         if (status === 'negotiating') setNegotiateModalOpen(false);
+        if (status === 'rejected') setRejectModalOpen(false);
+        
         router.push('/creator');
       } else {
-        alert(`Error: ${data.error}`);
+        setActionError({ type: errorType, message: data.error || 'An unexpected error occurred.' });
       }
     } catch(e: any) {
       console.error(e);
-      alert(`Network Error: ${e.message}`);
+      setActionError({ type: errorType, message: e.message || 'Network error occurred.' });
     } finally {
       setActionLoading(false);
     }
@@ -237,7 +251,7 @@ function CampaignDetailContent() {
        <button 
        disabled={actionLoading}
        className={`flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-gray-200'}`}
-       onClick={() => handleAction('rejected')}
+       onClick={() => setRejectModalOpen(true)}
        >
        {actionLoading ? '...' : 'Reject'}
        </button>
@@ -300,7 +314,73 @@ function CampaignDetailContent() {
  </div>
  )}
 
- <BottomNav />
+  {/* Rejection Modal Overlay */}
+  {rejectModalOpen && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+  <div 
+  className="absolute inset-0 bg-[#1a1a2e]/60 backdrop-blur-[2px]"
+  onClick={() => setRejectModalOpen(false)}
+  ></div>
+  
+  <div className="relative bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl z-10 animate-in fade-in zoom-in duration-200 text-center">
+  <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+    <X size={32} strokeWidth={2.5} />
+  </div>
+  <h2 className="text-[20px] font-black text-[#1a1a2e] mb-2">Reject Campaign?</h2>
+  <p className="text-[13px] font-medium text-gray-500 mb-8">
+    Are you sure you want to reject this campaign? It will be permanently removed from your private list.
+  </p>
+  
+  <div className="flex gap-3 w-full">
+    <button 
+    disabled={actionLoading}
+    className="flex-1 py-3.5 bg-gray-100 text-gray-600 text-[13px] font-bold rounded-[14px] hover:bg-gray-200 transition-colors"
+    onClick={() => setRejectModalOpen(false)}
+    >
+    Cancel
+    </button>
+    <button 
+    disabled={actionLoading}
+    className="flex-1 py-3.5 bg-red-500 text-white text-[13px] font-bold rounded-[14px] shadow-[0_4px_12px_rgba(239,68,68,0.25)] hover:bg-red-600 transition-colors flex items-center justify-center"
+    onClick={() => handleAction('rejected')}
+    >
+    {actionLoading ? 'Working...' : 'Confirm Reject'}
+    </button>
+  </div>
+  </div>
+  </div>
+  )}
+
+  {/* Action Error Modal (Failure States) */}
+  {actionError.type && (
+  <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6">
+  <div 
+  className="absolute inset-0 bg-[#1a1a2e]/60 backdrop-blur-[2px]"
+  onClick={() => setActionError({ type: null, message: '' })}
+  ></div>
+  
+  <div className="relative bg-white w-full max-w-sm rounded-[24px] p-6 shadow-2xl z-10 animate-in fade-in zoom-in duration-200 text-center">
+  <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+    <X size={32} strokeWidth={2.5} />
+  </div>
+  <h2 className="text-[20px] font-black text-[#1a1a2e] mb-2">
+    {actionError.type === 'accept' ? 'Accept Failure' : actionError.type === 'negotiate' ? 'Negotiation Send Failure' : 'Action Failed'}
+  </h2>
+  <p className="text-[13px] font-medium text-gray-500 mb-8">
+    {actionError.message}
+  </p>
+  
+  <button 
+  className="w-full py-4 bg-[#EF4823] text-white text-[14px] font-bold tracking-wide rounded-[14px] shadow-[0_6px_16px_rgba(239,72,35,0.25)] transition-all duration-300 hover:-translate-y-0.5"
+  onClick={() => setActionError({ type: null, message: '' })}
+  >
+  TRY AGAIN
+  </button>
+  </div>
+  </div>
+  )}
+
+  <BottomNav />
  </div>
  
  {activeDealInfo && (
