@@ -31,7 +31,6 @@ export default function BrandCompanySetupPage() {
   const [registrationDoc, setRegistrationDoc] = useState<string | null>(null)
   const [panDoc, setPanDoc] = useState<string | null>(null)
   const [gstDoc, setGstDoc] = useState<string | null>(null)
-  const [showSuccess, setShowSuccess] = useState(false)
 
   useEffect(() => {
     async function fetchProfile() {
@@ -121,7 +120,8 @@ export default function BrandCompanySetupPage() {
       registrationDoc,
       panDoc,
       gstDoc,
-      type: 'company'
+      type: 'company',
+      isVerified: true
     }
     localStorage.setItem("kaling_brand_profile", JSON.stringify(profileData))
     localStorage.setItem("kaling_company_profile", JSON.stringify(profileData))
@@ -144,28 +144,8 @@ export default function BrandCompanySetupPage() {
       console.error(e);
     }
     
-    // Instead of routing to KYC, show success tick mark for companies
-    setShowSuccess(true)
-  }
-
-  if (showSuccess) {
-    return (
-      <div className="h-screen bg-[#F8F9FA] font-sans flex flex-col justify-center items-center px-6">
-        <div className="bg-white p-8 rounded-3xl shadow-sm flex flex-col items-center text-center max-w-sm w-full">
-          <div className="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center text-green-500 mb-6">
-            <CheckCircle2 className="w-12 h-12" />
-          </div>
-          <h2 className="text-[26px] font-black text-[#1a1a2e] mb-2 tracking-tight">Verified!</h2>
-          <p className="text-[14px] text-gray-500 font-medium mb-10">Your company has been successfully verified. You now have the official tick mark.</p>
-          <button 
-            onClick={() => router.push("/brand")}
-            className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)]"
-          >
-            ENTER KALINQ
-          </button>
-        </div>
-      </div>
-    )
+    // Route to brand dashboard with verified parameter
+    router.push("/brand/company?verified=true")
   }
 
   return (

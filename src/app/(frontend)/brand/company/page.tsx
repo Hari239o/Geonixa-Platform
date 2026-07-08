@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react"
 import Image from "next/image"
-import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe, BadgeCheck, Settings } from "lucide-react"
+import { Send, SlidersHorizontal, Plus, Link as LinkIcon, Phone, Globe, BadgeCheck, Settings, CheckCircle2 } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 import { signOut } from "next-auth/react"
 import { uploadFileToR2 } from "@/utils/upload"
@@ -14,9 +14,17 @@ export default function BrandCompanyDashboardPage() {
   const [profileData, setProfileData] = useState<any>(null)
   const [portfolioImages, setPortfolioImages] = useState<string[]>([])
   const [showVerifyModal, setShowVerifyModal] = useState(false)
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    // Check if we just completed verification
+    if (typeof window !== 'undefined' && window.location.search.includes('verified=true')) {
+      setShowSuccessPopup(true)
+      // Clean up URL to avoid showing it on refresh
+      window.history.replaceState({}, document.title, window.location.pathname)
+    }
+
     async function fetchProfile() {
       // First try local storage for instant load
       const saved = localStorage.getItem("kaling_company_profile")
@@ -419,6 +427,26 @@ export default function BrandCompanyDashboardPage() {
           </div>
         </div>
       )}
+
+      {/* Success Verification Popup */}
+      {showSuccessPopup && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white p-8 rounded-3xl shadow-sm flex flex-col items-center text-center max-w-sm w-full animate-in fade-in zoom-in duration-300">
+            <div className="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center text-green-500 mb-6 shadow-sm">
+              <CheckCircle2 className="w-12 h-12" />
+            </div>
+            <h2 className="text-[26px] font-black text-[#1a1a2e] mb-2 tracking-tight">Verified!</h2>
+            <p className="text-[14px] text-gray-500 font-medium mb-10">Your company has been successfully verified. You now have the official tick mark.</p>
+            <button 
+              onClick={() => setShowSuccessPopup(false)}
+              className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)]"
+            >
+              CONTINUE TO DASHBOARD
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }
