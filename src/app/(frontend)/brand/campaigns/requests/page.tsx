@@ -19,7 +19,7 @@ export default function CampaignRequestsPage() {
   const router = useRouter()
   const [requests, setRequests] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
-  const [activeDealInfo, setActiveDealInfo] = React.useState<{dealId: string, brandId: string, creatorId: string} | null>(null)
+  const [activeDealInfo, setActiveDealInfo] = React.useState<{dealId?: string, brandId?: string, creatorId?: string, chatId: string} | null>(null)
 
   React.useEffect(() => {
     async function loadRequests() {
