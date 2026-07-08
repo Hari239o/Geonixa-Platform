@@ -32,31 +32,32 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-start py-4 lg:py-6 flex-1 min-h-0 relative overflow-y-auto no-scrollbar">
+    <div className="w-full h-full flex flex-col items-center justify-start py-2 lg:py-6 flex-1 min-h-0 relative overflow-hidden">
       {/* Split Background (White Bottom) */}
       <div className="fixed bottom-0 left-0 right-0 h-[45dvh] bg-[#FAFAFA] -z-10 pointer-events-none" />
       
       {/* Top Header Section */}
-      <div className="w-full flex flex-col items-center justify-center relative mb-4 lg:mb-2 px-2 pt-4 shrink-0">
-        <img src="/logo.png" alt="Kalinq Logo" className="w-8 h-8 lg:hidden object-contain filter brightness-0 invert mb-1" />
+      <div className="w-full flex flex-col items-center justify-center relative mb-1 lg:mb-2 px-2 pt-2 shrink-0">
+        <div className="lg:hidden mb-1 flex items-center justify-center text-white">
+          <Logo large={false} showText={false} />
+        </div>
       </div>
       
-      <h1 className="text-[32px] sm:text-[36px] font-bold text-white lg:text-text-dark mb-1 lg:mb-1 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight leading-tight">
+      <h1 className="text-[28px] sm:text-[36px] font-bold text-white lg:text-text-dark mb-0.5 lg:mb-1 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight leading-tight shrink-0">
         Sign Up
       </h1>
       
-      <p className="text-white/95 lg:text-text-light text-[12px] sm:text-[13px] lg:text-sm font-normal mb-4 lg:mb-2 text-center px-4 leading-tight">
+      <p className="text-white/95 lg:text-text-light text-[11px] sm:text-[13px] lg:text-sm font-normal mb-2 lg:mb-2 text-center px-4 leading-tight shrink-0">
         Already have an account? <Link href="/auth/login" className="font-bold underline decoration-white/50 lg:decoration-text-light/50 underline-offset-4 hover:text-white lg:hover:text-text-dark transition-colors">Log In</Link>
       </p>
 
       {/* Yellow Pill */}
-      <div className="bg-[#E5DF72] rounded-full px-4 py-1.5 mb-6 lg:mb-4 shadow-sm">
-        <span className="text-primary-red font-bold text-[11px] sm:text-[12px] lg:text-sm leading-none tracking-wide">Select your category!</span>
+      <div className="bg-[#E5DF72] rounded-full px-3 py-1 mb-3 lg:mb-4 shadow-sm shrink-0">
+        <span className="text-primary-red font-bold text-[10px] sm:text-[12px] lg:text-sm leading-none tracking-wide">Select your category!</span>
       </div>
 
       {/* Card Section: Solid White */}
-      {/* Constrain max-width strongly to prevent excessive height on mobile, mirroring Figma's 266px width logic */}
-      <div className="w-full max-w-[290px] sm:max-w-[340px] md:max-w-[400px] lg:max-w-[480px] bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-3 sm:p-5 lg:p-8 mx-auto flex flex-col justify-center shrink-0 mb-8">
+      <div className="w-full max-w-[280px] sm:max-w-[340px] md:max-w-[400px] lg:max-w-[480px] bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-2.5 sm:p-5 lg:p-8 mx-auto flex flex-col justify-center shrink min-h-0 mb-2">
         
         {/* Alternating Masonry Grid */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6 w-full">

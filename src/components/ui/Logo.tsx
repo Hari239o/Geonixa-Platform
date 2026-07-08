@@ -25,13 +25,18 @@ export function Logo({ className, showText = true, large = false }: LogoProps) {
           }}
         />
       ) : (
-        <img 
-          src="/logo.png" 
-          alt="Kalinq Logo" 
-          className={cn(
-            "object-contain drop-shadow-sm", 
-            large ? "w-[160px] h-auto" : "w-28 h-auto"
-          )} 
+        <div 
+          className={cn("bg-current", large ? "w-[160px] h-[52px]" : "w-[40px] h-[40px]", className)}
+          style={{
+            WebkitMaskImage: 'url(/logo.png)',
+            WebkitMaskSize: 'contain',
+            WebkitMaskRepeat: 'no-repeat',
+            WebkitMaskPosition: 'center',
+            maskImage: 'url(/logo.png)',
+            maskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            maskPosition: 'center'
+          }}
         />
       )}
     </div>
