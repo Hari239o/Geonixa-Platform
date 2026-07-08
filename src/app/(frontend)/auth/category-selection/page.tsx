@@ -32,7 +32,10 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center py-2 lg:py-6 flex-1 min-h-0">
+    <div className="w-full h-full flex flex-col items-center justify-center py-2 lg:py-6 flex-1 min-h-0 relative">
+      {/* Mobile Split Background (White Bottom) */}
+      <div className="fixed bottom-0 left-0 right-0 h-[45dvh] bg-[#FAFAFA] -z-10 lg:hidden pointer-events-none" />
+      
       {/* Top Header Section */}
       <div className="w-full flex items-center justify-center relative mb-1 lg:mb-2 px-2 pt-2 lg:pt-4">
         <img src="/logo.png" alt="Kalinq Logo" className="w-8 h-8 sm:w-12 sm:h-12 lg:hidden object-contain filter brightness-0 invert" />
@@ -52,7 +55,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Card Section: Solid White */}
-      <div className="w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[480px] bg-white rounded-[20px] lg:rounded-[32px] shadow-sm p-2 lg:p-8 mx-auto flex flex-col justify-center shrink-0">
+      <div className="w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[480px] bg-white rounded-[20px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-2 lg:p-8 mx-auto flex flex-col justify-center shrink-0">
         
         {/* Alternating Masonry Grid */}
         <div className="grid grid-cols-2 gap-2 lg:gap-6 w-full">
