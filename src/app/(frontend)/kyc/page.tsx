@@ -114,7 +114,7 @@ export default function KycPage() {
       // 1. Textract/OCR using Tesseract.js
       const Tesseract = (await import("tesseract.js")).default;
       const tesseractResult = await Tesseract.recognize(aadharFile, 'eng', {
-        logger: m => console.log(m)
+        logger: (m: any) => console.log(m)
       });
       const text = tesseractResult.data.text.toLowerCase();
       
