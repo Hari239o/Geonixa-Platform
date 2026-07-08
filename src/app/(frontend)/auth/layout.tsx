@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 import { KalinqBackground } from "@/components/auth/KalinqBackground"
 import { SignupProvider } from "@/components/auth/SignupContext"
@@ -12,6 +12,23 @@ export default function AuthFlowLayout({
  children: React.ReactNode
 }) {
  const router = useRouter()
+ const pathname = usePathname()
+
+ const handleBack = () => {
+   if (pathname.includes('/auth/signup/creator/')) {
+     router.push('/auth/signup/creator')
+   } else if (pathname.includes('/auth/signup/brand/')) {
+     router.push('/auth/signup/brand')
+   } else if (pathname.includes('/auth/signup/partner/')) {
+     router.push('/auth/signup/partner')
+   } else if (pathname.includes('/auth/signup/')) {
+     router.push('/auth/category-selection')
+   } else if (pathname.includes('/auth/category-selection')) {
+     router.push('/auth/login')
+   } else {
+     router.push('/')
+   }
+ }
 
   return (
     <SignupProvider>
@@ -23,7 +40,7 @@ export default function AuthFlowLayout({
           
           {/* Back button */}
           <button 
-            onClick={() => router.back()}
+            onClick={handleBack}
             className="absolute top-8 left-6 text-white hover:opacity-80 transition-opacity z-50"
           >
             <ArrowLeft className="w-5 h-5" strokeWidth={2} />
@@ -43,8 +60,8 @@ export default function AuthFlowLayout({
 
         {/* Form Content Area */}
         {/* Mobile: Sits directly over the fixed red background. Desktop: Sits on the right half. */}
-        <div className="relative z-10 w-full lg:w-1/2 flex flex-col items-center justify-center flex-1 h-full px-4 py-8 lg:py-12 bg-transparent lg:bg-white overflow-y-auto overscroll-none touch-pan-y">
-          <div className="w-full flex justify-center max-w-md">
+        <div className="relative z-10 w-full lg:w-1/2 flex flex-col items-center justify-start lg:justify-center flex-1 min-h-[100dvh] lg:min-h-0 px-4 py-8 lg:py-12 bg-transparent lg:bg-white overflow-y-auto overscroll-none touch-pan-y">
+          <div className="w-full flex justify-center max-w-md my-auto">
             {children}
           </div>
         </div>

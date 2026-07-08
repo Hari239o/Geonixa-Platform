@@ -32,7 +32,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="w-full flex flex-col items-center justify-center h-full min-h-[100dvh] py-4 sm:py-8">
+    <div className="w-full flex flex-col items-center justify-center h-full py-2 sm:py-8">
       {/* Top Header Section */}
       <div className="w-full flex items-center justify-center relative mb-2 px-4 pt-4 sm:pt-6">
         <img src="/logo.png" alt="Kalinq Logo" className="w-10 h-10 sm:w-12 sm:h-12 lg:hidden object-contain filter brightness-0 invert" />
@@ -52,7 +52,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Card Section: Solid White */}
-      <div className="w-[90%] max-w-[340px] sm:max-w-[380px] lg:max-w-[480px] bg-white rounded-[20px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-3 sm:p-4 lg:p-8 mx-auto">
+      <div className="w-[92%] max-w-[340px] sm:max-w-[380px] lg:max-w-[480px] bg-white rounded-[20px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-3 sm:p-4 lg:p-8 mx-auto">
         
         {/* Alternating Masonry Grid */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
@@ -63,7 +63,7 @@ export default function RegisterPage() {
             {/* 1. Join as a Creator (Red Block) */}
             <div 
               onClick={() => handleSelect('creator')}
-              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
+              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[6/7] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
             >
               <div className="absolute -top-6 -right-6 w-24 h-24 opacity-[0.15] pointer-events-none transform rotate-12">
                 <img src="/logo.png" alt="watermark" className="w-full h-full object-contain" />
@@ -90,7 +90,7 @@ export default function RegisterPage() {
             {/* 3. Join as Partners (Red Block) */}
             <div 
               onClick={() => handleSelect('partner')}
-              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
+              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[6/7] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
             >
               <div className="absolute -top-6 -right-6 w-24 h-24 opacity-[0.15] pointer-events-none transform rotate-12">
                 <img src="/logo.png" alt="watermark" className="w-full h-full object-contain" />
@@ -121,7 +121,7 @@ export default function RegisterPage() {
             {/* 2. Join as a Brand (Red Block) */}
             <div 
               onClick={() => handleSelect('brand')}
-              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
+              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[6/7] p-2 sm:p-3 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
             >
               <div className="absolute -top-6 -right-6 w-24 h-24 opacity-[0.15] pointer-events-none transform rotate-12">
                 <img src="/logo.png" alt="watermark" className="w-full h-full object-contain" />
