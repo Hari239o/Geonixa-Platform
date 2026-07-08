@@ -10,7 +10,7 @@ export default function CreatorSignupLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="w-full h-full flex flex-col items-center flex-1 min-h-0">
+    <div className="w-full flex flex-col items-center">
       
       {/* Header (Logo + Title) */}
       <div className="w-full relative flex flex-col items-center justify-start mb-2 px-2 shrink-0">
@@ -25,7 +25,7 @@ export default function CreatorSignupLayout({
       </div>
 
       {/* White Bottom Container */}
-      <div className="w-full flex-1 min-h-0 bg-white rounded-[20px] lg:rounded-[32px] shadow-sm relative overflow-hidden flex flex-col border border-gray-100 lg:border-none">
+      <div className="w-full bg-white rounded-[20px] lg:rounded-[32px] shadow-sm relative flex flex-col border border-gray-100 lg:border-none">
         {children}
       </div>
       

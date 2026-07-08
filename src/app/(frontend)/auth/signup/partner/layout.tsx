@@ -9,7 +9,7 @@ export default function PartnerSignupLayout({
  children: React.ReactNode;
 }) {
   return (
-    <div className="w-full h-full flex flex-col items-center flex-1 min-h-0">
+    <div className="w-full flex flex-col items-center">
       
       {/* Header (Logo + Title) */}
       <div className="w-full relative flex flex-col items-center justify-start mb-2 px-2 shrink-0">
@@ -19,12 +19,12 @@ export default function PartnerSignupLayout({
           Already have an account? <a href="/auth/login" className="underline font-medium hover:text-white lg:hover:text-text-dark">Log In</a>
         </p>
         <div className="mt-2 px-3 py-1 bg-[#DCE26A] text-black font-semibold rounded-full text-[9px] sm:text-[10px] shadow-sm uppercase tracking-wider">
-          Partners
+          Partner
         </div>
       </div>
 
       {/* White Bottom Container */}
-      <div className="w-full flex-1 min-h-0 bg-white rounded-[20px] lg:rounded-[32px] shadow-sm relative overflow-hidden flex flex-col border border-gray-100 lg:border-none">
+      <div className="w-full bg-white rounded-[20px] lg:rounded-[32px] shadow-sm relative flex flex-col border border-gray-100 lg:border-none">
         {children}
       </div>
       
