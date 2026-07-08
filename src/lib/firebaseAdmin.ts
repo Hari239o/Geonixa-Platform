@@ -9,9 +9,21 @@ if (!admin.apps.length) {
   // Actually, for just generating custom tokens, we MUST have a service account JSON or
   // the client email and private key set in environment variables!
   
-  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+  let projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+  let clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+  let privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+
+  if (!projectId || !clientEmail || !privateKey) {
+    try {
+      // Try to load from the local json file if env vars are missing
+      const serviceAccount = require('../../kalinq-f996a-firebase-adminsdk-fbsvc-257abe11f7.json');
+      projectId = serviceAccount.project_id;
+      clientEmail = serviceAccount.client_email;
+      privateKey = serviceAccount.private_key;
+    } catch (e) {
+      console.warn("Could not load local firebase service account JSON file");
+    }
+  }
 
   if (projectId && clientEmail && privateKey) {
     admin.initializeApp({
