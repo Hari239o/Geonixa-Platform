@@ -207,7 +207,7 @@ export default function CreatorDashboard() {
               </div>
             </div>
           </div>
-          <div className="absolute top-5 right-6 z-10 flex gap-3">
+          <div className="flex gap-3">
             <div 
               onClick={() => router.push('/chats')}
               className="w-[42px] h-[42px] bg-white rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.05)] flex items-center justify-center cursor-pointer transition-transform active:scale-95"
