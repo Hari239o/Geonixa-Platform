@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Wallet, X, AlertCircle, ArrowRight } from 'lucide-react';
 
+import { useSession } from 'next-auth/react';
+
 export default function WalletCheckModal({ 
   isOpen, 
   onClose, 
@@ -12,9 +14,14 @@ export default function WalletCheckModal({
   onProceed: () => void;
   budget: string;
 }) {
-  // Mock current balance
-  const [balance, setBalance] = useState(5000); 
-  const requiredAmount = 13000; // Mock minimum from budget "₹13k - ₹25k"
+  const { data: session } = useSession();
+  const credits = (session?.user as any)?.credits || 0;
+  const balance = credits * 10;
+  
+  // Try to parse max budget from string like "₹13k - ₹25k", default to 13000
+  const maxBudgetStr = budget.split('-')[1] || budget;
+  const maxBudgetNum = parseInt(maxBudgetStr.replace(/\D/g, '')) || 13;
+  const requiredAmount = maxBudgetNum * 1000;
 
   if (!isOpen) return null;
 

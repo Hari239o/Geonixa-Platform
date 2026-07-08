@@ -5,17 +5,19 @@ import { useRouter } from "next/navigation"
 import { ChevronLeft, ChevronDown, Wand2 } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 import DualRangeSlider from "@/components/ui/DualRangeSlider"
+import { useSession } from "next-auth/react"
 
 export default function ManualCampaignCreatePage() {
   const router = useRouter()
   const [step, setStep] = useState(1) // 1: Form, 2: Select Creators, 3: Wallet
   const [visibility, setVisibility] = useState("Private")
   
+  const { data: session } = useSession()
+  const credits = (session?.user as any)?.credits || 0
+  const balance = credits * 10
+  
   // Wallet State
   const [walletAmount, setWalletAmount] = useState("")
-  const [balance, setBalance] = useState(5000)
-  const requiredAmount = 13000
-  
   // Form State
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
@@ -24,6 +26,7 @@ export default function ManualCampaignCreatePage() {
   const [category, setCategory] = useState("Content Creator")
   const [minBudget, setMinBudget] = useState(13)
   const [maxBudget, setMaxBudget] = useState(25)
+  const requiredAmount = maxBudget * 1000
   const [creators, setCreators] = useState<any[]>([])
   const [selectedCreators, setSelectedCreators] = useState<string[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -300,7 +303,9 @@ export default function ManualCampaignCreatePage() {
             <div className="flex flex-col items-center pt-8 gap-6 animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="text-center w-full">
                 <p className="text-gray-500 text-[14px] font-medium mb-1">Enter your amount</p>
-                <p className="text-red-500 text-[11px] font-bold mb-4 uppercase">INSUFFICIENT FUNDS</p>
+                {Number(walletAmount || 0) > balance && (
+                  <p className="text-red-500 text-[11px] font-bold mb-4 uppercase">INSUFFICIENT FUNDS</p>
+                )}
                 
                 <div className="bg-[#FAFAFA] border border-[#EF4823] rounded-[16px] py-4 px-6 w-full text-left relative shadow-sm">
                   <span className="text-gray-900 font-bold text-[24px]">₹</span>
@@ -308,15 +313,15 @@ export default function ManualCampaignCreatePage() {
                     type="number" 
                     value={walletAmount}
                     onChange={e => setWalletAmount(e.target.value)}
-                    placeholder="5000"
+                    placeholder={requiredAmount.toString()}
                     className="bg-transparent border-none outline-none font-bold text-[24px] text-gray-900 ml-1 placeholder:text-gray-300 w-[150px]"
                   />
                 </div>
                 
-                <p className="text-gray-400 text-[13px] font-medium mt-4 text-left px-2">Net Balance : ₹{balance}</p>
+                <p className="text-gray-400 text-[13px] font-medium mt-4 text-left px-2">Net Balance : ₹{balance.toLocaleString()}</p>
               </div>
 
-              {balance >= requiredAmount ? (
+              {balance >= Number(walletAmount || requiredAmount) ? (
                 <button 
                   onClick={handleSubmit} 
                   disabled={isSubmitting}
