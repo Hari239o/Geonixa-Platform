@@ -51,28 +51,38 @@ export default function ChatsPage() {
             <p>No active chats yet</p>
           </div>
         ) : (
-          chats.map((chat) => (
+          chats.map((chat, idx) => (
             <div 
-              key={chat.id}
-              onClick={() => router.push(`/chats/${chat.id}`)}
+              key={`${chat.type || 'chat'}-${chat.id}-${idx}`}
+              onClick={() => {
+                if (chat.type === 'chat' || !chat.type) {
+                  router.push(`/chats/${chat.id}`);
+                } else {
+                  router.push(`/campaigns/${chat.campaignId}`);
+                }
+              }}
               className="bg-white p-4 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col gap-2 border border-gray-100"
             >
               <div className="flex justify-between items-center">
-                <span className="text-xs font-bold text-[#EF4823] uppercase tracking-wide">
-                  Deal: {chat.dealId.slice(0, 8)}...
+                <span className="text-xs font-bold text-[#EF4823] uppercase tracking-wide truncate max-w-[70%]">
+                  {chat.title || `Deal: ${chat.dealId?.slice(0, 8)}...`}
                 </span>
-                <span className="text-[10px] text-gray-400 font-medium">
+                <span className="text-[10px] text-gray-400 font-medium whitespace-nowrap">
                   {new Date(chat.updatedAt).toLocaleDateString()}
                 </span>
               </div>
               
               <div className="flex justify-between items-center">
                 <span className="text-sm font-semibold text-gray-800">
-                  {chat.status === 'bot' ? 'Waiting for Admin' : chat.status === 'admin_joined' ? 'Admin Joined' : 'Resolved'}
+                  {chat.type === 'chat' || !chat.type
+                    ? (chat.status === 'bot' ? 'Waiting for Admin' : chat.status === 'admin_joined' ? 'Admin Joined' : 'Resolved') 
+                    : chat.status}
                 </span>
-                <span className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full font-medium">
-                  {chat.messages?.length || 0} msgs
-                </span>
+                {(!chat.type || chat.type === 'chat') && (
+                  <span className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full font-medium">
+                    {chat.messagesCount ?? (chat.messages?.length || 0)} msgs
+                  </span>
+                )}
               </div>
             </div>
           ))
