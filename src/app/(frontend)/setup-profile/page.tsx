@@ -27,7 +27,10 @@ const SetupProfilePage = () => {
       followers: '',
       viewership: '',
       engagement: '',
-      pricePerReel: '',
+      price1Reel: '',
+      price5Reels: '',
+      price10Reels: '',
+      customPrice: '',
       bio: '',
       creatorType: 'Influencer'
     };
@@ -111,16 +114,16 @@ const SetupProfilePage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
-  const basePrice = parseInt(formData.pricePerReel) || 0;
-  // Apply bulk discount: 10% off for 5 reels, 15% off for 10 reels
-  const price5Reels = Math.round((basePrice * 5) * 0.9);
-  const price10Reels = Math.round((basePrice * 10) * 0.85);
+  const price1 = parseInt(formData.price1Reel) || 0;
+  const price5 = parseInt(formData.price5Reels) || 0;
+  const price10 = parseInt(formData.price10Reels) || 0;
+  const priceCustom = parseInt(formData.customPrice) || 0;
 
   const initialBudgets = [
-    { name: '1 Reel', price: `₹ ${basePrice || 'xxx'}` },
-    { name: '5 Reels', price: `₹ ${price5Reels || 'xxx'}` },
-    { name: '10 Reels', price: `₹ ${price10Reels || 'xxx'}` },
-    { name: 'Custom', price: '₹ xxx' },
+    { name: '1 Reel', price: `₹ ${price1 || 'xxx'}` },
+    { name: '5 Reels', price: `₹ ${price5 || 'xxx'}` },
+    { name: '10 Reels', price: `₹ ${price10 || 'xxx'}` },
+    { name: 'Custom', price: `₹ ${priceCustom || 'xxx'}` },
   ];
 
   // Create profile object with initial stats
@@ -371,17 +374,73 @@ const SetupProfilePage = () => {
   </div>
 
   <div className="flex flex-col gap-2">
-    <label htmlFor="pricePerReel" className="text-sm font-bold text-primary-red">Base Price Per Reel (₹)</label>
-    <input 
-      type="number" 
-      id="pricePerReel"
-      name="pricePerReel" 
-      placeholder="e.g. 2000"
-      value={formData.pricePerReel}
-      onChange={handleInputChange}
-      required
-      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
-    />
+    <label className="text-sm font-bold text-primary-red">Pricing & Packages</label>
+    <div className="grid grid-cols-2 gap-3">
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="price1Reel" className="text-xs font-semibold text-gray-500">1 Reel</label>
+        <div className="relative">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
+          <input 
+            type="number" 
+            id="price1Reel"
+            name="price1Reel" 
+            placeholder="e.g. 2000"
+            value={formData.price1Reel}
+            onChange={handleInputChange}
+            required
+            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+          />
+        </div>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="price5Reels" className="text-xs font-semibold text-gray-500">5 Reels</label>
+        <div className="relative">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
+          <input 
+            type="number" 
+            id="price5Reels"
+            name="price5Reels" 
+            placeholder="e.g. 9000"
+            value={formData.price5Reels}
+            onChange={handleInputChange}
+            required
+            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+          />
+        </div>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="price10Reels" className="text-xs font-semibold text-gray-500">10 Reels</label>
+        <div className="relative">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
+          <input 
+            type="number" 
+            id="price10Reels"
+            name="price10Reels" 
+            placeholder="e.g. 17000"
+            value={formData.price10Reels}
+            onChange={handleInputChange}
+            required
+            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+          />
+        </div>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="customPrice" className="text-xs font-semibold text-gray-500">Custom Amount</label>
+        <div className="relative">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
+          <input 
+            type="number" 
+            id="customPrice"
+            name="customPrice" 
+            placeholder="e.g. 3999"
+            value={formData.customPrice}
+            onChange={handleInputChange}
+            required
+            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+          />
+        </div>
+      </div>
+    </div>
   </div>
  
  <div className="flex flex-col gap-2">
