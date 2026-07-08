@@ -231,13 +231,16 @@ export default function ProfileSettingsPage() {
                   placeholder="1 Reel"
                   className="w-full bg-[#fcfcfd] border border-gray-100 rounded-2xl px-5 py-4 outline-none text-[13px] text-gray-500 font-medium placeholder-gray-400 text-center"
                 />
-                <input 
-                  type="text" 
-                  value={budget.price}
-                  onChange={(e) => handleBudgetChange(index, 'price', e.target.value)}
-                  placeholder="₹ xxx"
-                  className="w-full bg-[#fcfcfd] border border-gray-100 rounded-2xl px-5 py-4 outline-none text-[13px] text-gray-500 font-medium placeholder-gray-400 text-center"
-                />
+                <div className="relative">
+                  <span className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500 font-bold text-[13px]">₹</span>
+                  <input 
+                    type="text" 
+                    value={budget.price.replace(/^₹\s*/, '')}
+                    onChange={(e) => handleBudgetChange(index, 'price', `₹ ${e.target.value}`)}
+                    placeholder="xxx"
+                    className="w-full bg-[#fcfcfd] border border-gray-100 rounded-2xl pl-9 pr-5 py-4 outline-none text-[13px] text-gray-500 font-medium placeholder-gray-400 text-left"
+                  />
+                </div>
               </div>
             ))}
             <div>
