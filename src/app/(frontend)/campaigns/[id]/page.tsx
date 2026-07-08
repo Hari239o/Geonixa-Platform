@@ -306,6 +306,7 @@ function CampaignDetailContent() {
  {activeDealInfo && (
    <PostDealChatbot 
      chatId={activeDealInfo.chatId}
+     userRole="creator"
      onComplete={() => { setActiveDealInfo(null); router.push('/creator'); }}
      onClose={() => { setActiveDealInfo(null); router.push('/creator'); }}
    />

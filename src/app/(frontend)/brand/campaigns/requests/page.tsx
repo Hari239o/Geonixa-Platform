@@ -239,6 +239,7 @@ export default function CampaignRequestsPage() {
       {activeDealInfo && (
         <PostDealChatbot 
           chatId={activeDealInfo.chatId}
+          userRole="brand"
           onComplete={() => setActiveDealInfo(null)}
           onClose={() => setActiveDealInfo(null)}
         />

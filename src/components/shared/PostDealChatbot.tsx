@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 interface ChatbotProps {
   chatId: string;
+  userRole?: 'creator' | 'brand';
   onComplete: () => void;
   onClose: () => void;
 }
@@ -16,14 +17,23 @@ interface Message {
   text: string;
 }
 
-const QUESTIONS = [
+const CREATOR_QUESTIONS = [
   "What is the best time for our team to connect with you?",
-  "Do you have any strict deadlines for this campaign?",
-  "Are there any specific deliverables you'd like to highlight?",
-  "Any special requirements or notes before we connect you?"
+  "Do you have any specific requirements before starting this campaign?",
+  "Do you need any products/assets shipped to you?",
+  "Any other questions or notes for the brand before we connect you?"
 ];
 
-export default function PostDealChatbot({ chatId, onComplete, onClose }: ChatbotProps) {
+const BRAND_QUESTIONS = [
+  "What is the best time for our team to connect with you?",
+  "Are there strict deadlines the creator must follow?",
+  "What are the key deliverables you expect?",
+  "Any other instructions or notes for the creator before we connect you?"
+];
+
+export default function PostDealChatbot({ chatId, userRole = 'creator', onComplete, onClose }: ChatbotProps) {
+  const QUESTIONS = userRole === 'brand' ? BRAND_QUESTIONS : CREATOR_QUESTIONS;
+
   const [messages, setMessages] = useState<Message[]>([
     { id: 'welcome', sender: 'bot', text: "Deal Accepted! 🎉 To help our team connect you faster, please answer 4 quick questions." },
     { id: 'q0', sender: 'bot', text: QUESTIONS[0] }
