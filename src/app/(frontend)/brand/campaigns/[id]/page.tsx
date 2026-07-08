@@ -33,17 +33,23 @@ export default function CampaignTrackingPage() {
   let approveStatus = "active"
   let workVerStatus = "pending"
   let paymentStatus = "pending"
+  let isRejected = false;
 
   if (campaign) {
     const requests = campaign.requests || [];
     const hasAccepted = requests.some((r: any) => r.status?.toLowerCase() === "accepted");
     const hasWorkVerified = requests.some((r: any) => r.workVerified);
     const hasPaymentDone = requests.some((r: any) => r.paymentDone);
+    
+    isRejected = requests.length > 0 && requests.every((r: any) => r.status?.toLowerCase() === "rejected");
 
     if (hasAccepted) {
       approveStatus = "completed";
       workVerStatus = "active";
+    } else if (isRejected) {
+      approveStatus = "rejected";
     }
+
     if (hasWorkVerified) {
       workVerStatus = "completed";
       paymentStatus = "active";
@@ -62,6 +68,7 @@ export default function CampaignTrackingPage() {
   ]
 
   const getStatusText = () => {
+    if (isRejected) return "Rejected by Creator(s)";
     if (paymentStatus === "completed") return "Campaign Completed";
     if (paymentStatus === "active") return "Pending Payments";
     if (workVerStatus === "active") return "Verifying Work";
@@ -121,6 +128,7 @@ export default function CampaignTrackingPage() {
             {steps.map((step, index) => {
               const isCompleted = step.status === "completed"
               const isActive = step.status === "active"
+              const isRejectedStep = step.status === "rejected"
               const showAction = isActive && (step.id === 4 || step.id === 5);
               
               return (
@@ -128,10 +136,12 @@ export default function CampaignTrackingPage() {
                   {/* Icon Node */}
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-4 border-[#F8F9FA] ${
                     isCompleted ? "bg-[#EF4823] text-white" :
+                    isRejectedStep ? "bg-red-500 text-white" :
                     isActive ? "bg-[#1E1B4B] text-white" :
                     "bg-white border-gray-200 text-gray-300 border-2"
                   }`}>
                     {isCompleted ? <CheckCircle2 className="w-5 h-5" /> : 
+                     isRejectedStep ? <span className="font-bold text-sm">X</span> :
                      isActive ? <Clock className="w-5 h-5 animate-pulse" /> : 
                      <div className="w-2.5 h-2.5 rounded-full bg-gray-300"></div>}
                   </div>
@@ -140,6 +150,7 @@ export default function CampaignTrackingPage() {
                   <div className="flex flex-col pt-2.5 w-full">
                     <span className={`font-bold text-[15px] ${
                       isCompleted ? "text-gray-900" :
+                      isRejectedStep ? "text-red-500" :
                       isActive ? "text-[#1E1B4B]" :
                       "text-gray-400"
                     }`}>
@@ -148,6 +159,11 @@ export default function CampaignTrackingPage() {
                     {isActive && (
                       <p className="text-[#EF4823] text-[12px] font-medium mt-1">
                         Currently waiting on your action
+                      </p>
+                    )}
+                    {isRejectedStep && (
+                      <p className="text-red-500 text-[12px] font-medium mt-1">
+                        Creator rejected this campaign
                       </p>
                     )}
                     {showAction && (
