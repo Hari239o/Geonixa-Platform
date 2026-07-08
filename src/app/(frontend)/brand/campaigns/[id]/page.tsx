@@ -36,7 +36,7 @@ export default function CampaignTrackingPage() {
 
   if (campaign) {
     const requests = campaign.requests || [];
-    const hasAccepted = requests.some((r: any) => r.status === "accepted");
+    const hasAccepted = requests.some((r: any) => r.status?.toLowerCase() === "accepted");
     const hasWorkVerified = requests.some((r: any) => r.workVerified);
     const hasPaymentDone = requests.some((r: any) => r.paymentDone);
 
