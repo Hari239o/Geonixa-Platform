@@ -32,30 +32,30 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="w-full flex flex-col items-center justify-center h-full py-2 sm:py-8">
+    <div className="w-full h-full flex flex-col items-center justify-center py-2 lg:py-6 flex-1 min-h-0">
       {/* Top Header Section */}
-      <div className="w-full flex items-center justify-center relative mb-2 px-4 pt-4 sm:pt-6">
-        <img src="/logo.png" alt="Kalinq Logo" className="w-10 h-10 sm:w-12 sm:h-12 lg:hidden object-contain filter brightness-0 invert" />
+      <div className="w-full flex items-center justify-center relative mb-1 lg:mb-2 px-2 pt-2 lg:pt-4">
+        <img src="/logo.png" alt="Kalinq Logo" className="w-8 h-8 sm:w-12 sm:h-12 lg:hidden object-contain filter brightness-0 invert" />
       </div>
       
-      <h1 className="text-[24px] font-bold text-white lg:text-text-dark mb-1 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight">
+      <h1 className="text-[20px] sm:text-[24px] font-bold text-white lg:text-text-dark mb-0.5 lg:mb-1 text-center drop-shadow-sm lg:drop-shadow-none tracking-tight leading-tight">
         Sign Up
       </h1>
       
-      <p className="text-white/95 lg:text-text-light text-[11px] lg:text-sm font-normal mb-2 text-center px-4">
+      <p className="text-white/95 lg:text-text-light text-[10px] sm:text-[11px] lg:text-sm font-normal mb-1.5 lg:mb-2 text-center px-4 leading-tight">
         Already have an account? <Link href="/auth/login" className="font-bold underline decoration-white/50 lg:decoration-text-light/50 underline-offset-4 hover:text-white lg:hover:text-text-dark transition-colors">Log In</Link>
       </p>
 
       {/* Yellow Pill */}
-      <div className="bg-[#E5DF72] rounded-full px-3 py-1 mb-3 shadow-sm">
-        <span className="text-primary-red font-bold text-[10px] sm:text-[12px] lg:text-sm">Select your category!</span>
+      <div className="bg-[#E5DF72] rounded-full px-3 py-1 mb-2 lg:mb-3 shadow-sm">
+        <span className="text-primary-red font-bold text-[9px] sm:text-[10px] lg:text-sm leading-none">Select your category!</span>
       </div>
 
       {/* Card Section: Solid White */}
-      <div className="w-[92%] max-w-[340px] sm:max-w-[380px] lg:max-w-[480px] bg-white rounded-[20px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-3 sm:p-4 lg:p-8 mx-auto">
+      <div className="w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[480px] bg-white rounded-[20px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-2.5 sm:p-4 lg:p-8 mx-auto flex-1 min-h-0 flex flex-col justify-center">
         
         {/* Alternating Masonry Grid */}
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:gap-6 w-full">
           
           {/* LEFT COLUMN */}
           <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6">

@@ -34,11 +34,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-[#F8F9FB]`}>
-      <body className="flex flex-col items-center justify-center min-h-[100dvh] w-full overflow-hidden">
+      <body className="flex flex-col min-h-[100dvh] w-full overflow-hidden bg-white">
         <NextAuthProvider>
           <KnockClientProvider>
-            {/* Main scrollable container for the entire app, restricted to mobile width on large screens */}
-            <main className="w-full h-[100dvh] max-w-[480px] bg-white overflow-hidden relative flex flex-col sm:border-x sm:border-gray-100 sm:shadow-2xl">
+            {/* Main container for the entire app, fills screen fully */}
+            <main className="w-full h-[100dvh] bg-white overflow-hidden relative flex flex-col flex-1">
               {children}
             </main>
           </KnockClientProvider>

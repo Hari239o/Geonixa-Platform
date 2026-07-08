@@ -32,7 +32,7 @@ export default function AuthFlowLayout({
 
   return (
     <SignupProvider>
-      <div className="min-h-[100dvh] w-full flex flex-col lg:flex-row relative bg-primary-red lg:bg-white lg:overflow-hidden">
+      <div className="h-[100dvh] w-full flex flex-col lg:flex-row relative bg-primary-red lg:bg-white overflow-hidden">
         
         {/* Back button - Moved outside z-0 so it's clickable on mobile */}
         <button 
@@ -44,7 +44,7 @@ export default function AuthFlowLayout({
 
         {/* Top/Left Red Section */}
         {/* Mobile: Full screen background. Desktop: 50% width fixed side panel */}
-        <div className="absolute lg:relative top-0 left-0 w-full lg:w-1/2 min-h-[100dvh] h-full bg-primary-red z-0 overflow-hidden flex flex-col shadow-none lg:shadow-2xl">
+        <div className="absolute lg:relative top-0 left-0 w-full lg:w-1/2 h-full bg-primary-red z-0 flex flex-col shadow-none lg:shadow-2xl">
           
           {/* Desktop Branding Content */}
           <div className="hidden lg:flex flex-col items-center justify-center h-full relative z-10 text-white p-12">
@@ -60,8 +60,8 @@ export default function AuthFlowLayout({
 
         {/* Form Content Area */}
         {/* Mobile: Sits directly over the fixed red background. Desktop: Sits on the right half. */}
-        <div className="relative z-10 w-full lg:w-1/2 flex flex-col items-center justify-start lg:justify-center flex-1 min-h-[100dvh] px-2 py-12 lg:py-12 bg-transparent lg:bg-white">
-          <div className="w-full flex justify-center max-w-md mt-6 lg:mt-0 lg:my-auto pb-8">
+        <div className="relative z-10 w-full lg:w-1/2 flex flex-col items-center justify-start lg:justify-center flex-1 h-[100dvh] bg-transparent lg:bg-white pt-16 lg:pt-0">
+          <div className="w-full flex flex-col justify-start lg:justify-center max-w-md h-full flex-1 overflow-y-auto no-scrollbar pb-8 px-4 lg:my-auto">
             {children}
           </div>
         </div>
