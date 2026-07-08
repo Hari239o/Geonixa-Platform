@@ -60,7 +60,7 @@ export default function AuthFlowLayout({
 
         {/* Form Content Area */}
         {/* Mobile: Sits directly over the fixed red background. Desktop: Sits on the right half. */}
-        <div className="relative z-10 w-full lg:w-1/2 flex flex-col items-center justify-start lg:justify-center flex-1 h-[100dvh] bg-transparent lg:bg-white pt-16 lg:pt-0">
+        <div className="relative z-10 w-full lg:w-1/2 flex flex-col items-center justify-start lg:justify-center flex-1 h-[100dvh] bg-transparent lg:bg-white pt-10 lg:pt-0">
           <div className="w-full flex flex-col justify-start lg:justify-center max-w-md h-full flex-1 overflow-y-auto no-scrollbar pb-8 px-4 lg:my-auto">
             {children}
           </div>
