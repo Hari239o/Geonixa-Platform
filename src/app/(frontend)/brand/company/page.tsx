@@ -62,6 +62,22 @@ export default function BrandCompanyDashboardPage() {
     
     return () => window.removeEventListener("showVerifyModal", handleShowVerify)
   }, [])
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: profileData?.fullName || 'Brand Profile',
+          text: `Check out ${profileData?.fullName || 'this brand'} on Kalinq!`,
+          url: window.location.href,
+        });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Profile link copied to clipboard!");
+      }
+    } catch (err) {
+      console.error("Error sharing", err);
+    }
+  };
 
   const handleDeletePortfolioImage = (index: number) => {
     const updatedImages = portfolioImages.filter((_, i) => i !== index)

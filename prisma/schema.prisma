@@ -98,6 +98,8 @@ model CampaignRequest {
   creator         CreatorProfile @relation(fields: [creatorId], references: [id], onDelete: Cascade)
   status          String   @default("pending") // "accepted", "rejected", "negotiating"
   message         String?  // Optional negotiation message
+  workVerified    Boolean  @default(false)
+  paymentDone     Boolean  @default(false)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 

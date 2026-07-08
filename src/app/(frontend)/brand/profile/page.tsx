@@ -55,22 +55,6 @@ export default function BrandDashboardPage() {
     return () => window.removeEventListener("showVerifyModal", handleShowVerify)
   }, [])
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: profileData?.fullName || "Brand Profile",
-          text: "Check out my brand profile!",
-          url: window.location.href,
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    } else {
-      alert("Sharing is not supported on this device.");
-    }
-  }
-
   const handlePortfolioUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
     const files = Array.from(e.target.files)
@@ -87,6 +71,22 @@ export default function BrandDashboardPage() {
       alert("Upload failed: " + (err.message || String(err)))
     }
   }
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: profileData?.fullName || 'Brand Profile',
+          text: `Check out ${profileData?.fullName || 'this brand'} on Kalinq!`,
+          url: window.location.href,
+        });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Profile link copied to clipboard!");
+      }
+    } catch (err) {
+      console.error("Error sharing", err);
+    }
+  };
 
   const handleDeletePortfolioImage = (index: number) => {
     const updatedImages = portfolioImages.filter((_, i) => i !== index)
@@ -253,12 +253,12 @@ export default function BrandDashboardPage() {
                 <div className="flex flex-col gap-4">
                   <div className="flex items-start gap-8">
                     <p className="text-xs text-gray-400 font-bold w-16">Website</p>
-                    <p className="text-sm text-gray-800 font-medium">{profileData?.website || "Not provided"}</p>
+                    <p className="text-sm text-gray-800 font-medium break-all">{profileData?.website || "Not provided"}</p>
                   </div>
                   
                   <div className="flex items-start gap-8">
                     <p className="text-xs text-gray-400 font-bold w-16">Phone</p>
-                    <p className="text-sm text-gray-800 font-medium">{profileData?.phone || "Not provided"}</p>
+                    <p className="text-sm text-gray-800 font-medium break-all">{profileData?.phone || "Not provided"}</p>
                   </div>
                 </div>
               </div>
