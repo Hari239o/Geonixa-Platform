@@ -101,6 +101,9 @@ export async function POST(request: Request) {
     }
 
     const brand = await prisma.brandProfile.findUnique({ where: { userId } });
+    if (!brand) {
+      return NextResponse.json({ success: false, error: "Brand profile not found. Please complete your profile." }, { status: 400 });
+    }
 
     const body = await request.json();
     const { title, subtitle, budget, dateRange, description, daysLeft, category, tags, visibility, invitedCreators } = body;

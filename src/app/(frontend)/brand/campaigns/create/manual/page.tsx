@@ -46,7 +46,10 @@ export default function ManualCampaignCreatePage() {
   }, [step])
 
   const handleSubmit = async () => {
-    if (!title) return;
+    if (!title) {
+      alert("Campaign title is missing! Please go back to step 1 and fill out the details again.");
+      return;
+    }
     setIsSubmitting(true);
     
     try {
@@ -70,9 +73,12 @@ export default function ManualCampaignCreatePage() {
       const data = await res.json();
       if (data.success) {
         router.push('/brand');
+      } else {
+        alert(data.error || "Failed to publish campaign");
       }
     } catch (error) {
       console.error(error);
+      alert("An error occurred while publishing.");
     } finally {
       setIsSubmitting(false);
     }
