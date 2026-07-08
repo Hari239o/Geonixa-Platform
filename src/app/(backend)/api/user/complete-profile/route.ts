@@ -106,6 +106,13 @@ export async function POST(req: Request) {
               // @ts-ignore
               portfolioImages: profileData.portfolioImages !== undefined ? profileData.portfolioImages : undefined,
               isVerified: profileData.isVerified !== undefined ? profileData.isVerified : undefined,
+              registrationNumber: profileData.registrationNumber !== undefined ? profileData.registrationNumber : undefined,
+              registrationDoc: profileData.registrationDoc !== undefined ? profileData.registrationDoc : undefined,
+              panNumber: profileData.panNumber !== undefined ? profileData.panNumber : undefined,
+              panDoc: profileData.panDoc !== undefined ? profileData.panDoc : undefined,
+              gstNumber: profileData.gstNumber !== undefined ? profileData.gstNumber : undefined,
+              gstDoc: profileData.gstDoc !== undefined ? profileData.gstDoc : undefined,
+              authorizedPerson: profileData.authorizedPerson !== undefined ? profileData.authorizedPerson : undefined,
             },
             create: {
               userId: user.id,
@@ -124,6 +131,13 @@ export async function POST(req: Request) {
               // @ts-ignore
               portfolioImages: profileData.portfolioImages || [],
               isVerified: profileData.isVerified || false,
+              registrationNumber: profileData.registrationNumber || null,
+              registrationDoc: profileData.registrationDoc || null,
+              panNumber: profileData.panNumber || null,
+              panDoc: profileData.panDoc || null,
+              gstNumber: profileData.gstNumber || null,
+              gstDoc: profileData.gstDoc || null,
+              authorizedPerson: profileData.authorizedPerson || null,
             }
           });
         } else {

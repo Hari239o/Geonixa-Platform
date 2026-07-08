@@ -233,6 +233,41 @@ export default function BrandCompanyDashboardPage() {
                 </div>
               </div>
 
+              {/* Registration Block */}
+              {(profileData?.registrationNumber || profileData?.panNumber || profileData?.gstNumber || profileData?.authorizedPerson) && (
+                <div className="bg-white rounded-[24px] p-6 shadow-sm flex flex-col gap-4">
+                  <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Registration Details</h3>
+                  
+                  {profileData?.authorizedPerson && (
+                    <div className="flex flex-col gap-1">
+                      <p className="text-xs text-gray-400 font-bold">Authorized Person</p>
+                      <p className="text-sm text-gray-800 font-medium">{profileData.authorizedPerson}</p>
+                    </div>
+                  )}
+
+                  {profileData?.registrationNumber && (
+                    <div className="flex flex-col gap-1">
+                      <p className="text-xs text-gray-400 font-bold">Registration Number</p>
+                      <p className="text-sm text-gray-800 font-medium">{profileData.registrationNumber}</p>
+                    </div>
+                  )}
+
+                  {profileData?.panNumber && (
+                    <div className="flex flex-col gap-1">
+                      <p className="text-xs text-gray-400 font-bold">Company PAN</p>
+                      <p className="text-sm text-gray-800 font-medium uppercase">{profileData.panNumber}</p>
+                    </div>
+                  )}
+
+                  {profileData?.gstNumber && (
+                    <div className="flex flex-col gap-1">
+                      <p className="text-xs text-gray-400 font-bold">GST Number</p>
+                      <p className="text-sm text-gray-800 font-medium uppercase">{profileData.gstNumber}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Social Block */}
               <div className="bg-white rounded-[24px] p-6 shadow-sm">
                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">On The Web</h3>

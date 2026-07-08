@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { Trash2, ChevronLeft } from "lucide-react"
+import { Trash2, ChevronLeft, CheckCircle2, Upload, FileCheck2 } from "lucide-react"
 import BottomNav from "@/components/brand/BottomNav"
 
 import { uploadFileToR2 } from "@/utils/upload"
@@ -20,8 +20,18 @@ export default function BrandCompanySetupPage() {
     facebook: "",
     instagram: "",
     x: "",
-    linkedin: ""
+    instagram: "",
+    x: "",
+    linkedin: "",
+    registrationNumber: "",
+    panNumber: "",
+    gstNumber: "",
+    authorizedPerson: ""
   })
+  const [registrationDoc, setRegistrationDoc] = useState<string | null>(null)
+  const [panDoc, setPanDoc] = useState<string | null>(null)
+  const [gstDoc, setGstDoc] = useState<string | null>(null)
+  const [showSuccess, setShowSuccess] = useState(false)
 
   useEffect(() => {
     async function fetchProfile() {
@@ -39,11 +49,17 @@ export default function BrandCompanySetupPage() {
               phone: data.profile.phone || "",
               facebook: data.profile.facebook || "",
               instagram: data.profile.instagram || "",
-              x: data.profile.x || ""
+              x: data.profile.x || "",
+              linkedin: data.profile.linkedin || "",
+              registrationNumber: data.profile.registrationNumber || "",
+              panNumber: data.profile.panNumber || "",
+              gstNumber: data.profile.gstNumber || "",
+              authorizedPerson: data.profile.authorizedPerson || ""
             }));
-            if (data.profile.profilePic) {
-              setProfilePic(data.profile.profilePic);
-            }
+            if (data.profile.profilePic) setProfilePic(data.profile.profilePic);
+            if (data.profile.registrationDoc) setRegistrationDoc(data.profile.registrationDoc);
+            if (data.profile.panDoc) setPanDoc(data.profile.panDoc);
+            if (data.profile.gstDoc) setGstDoc(data.profile.gstDoc);
             return;
           }
         }
@@ -57,6 +73,9 @@ export default function BrandCompanySetupPage() {
           const parsed = JSON.parse(saved);
           setFormData(prev => ({...prev, ...parsed}));
           if (parsed.profilePic) setProfilePic(parsed.profilePic);
+          if (parsed.registrationDoc) setRegistrationDoc(parsed.registrationDoc);
+          if (parsed.panDoc) setPanDoc(parsed.panDoc);
+          if (parsed.gstDoc) setGstDoc(parsed.gstDoc);
         } catch(e) {}
       }
     }
@@ -76,6 +95,19 @@ export default function BrandCompanySetupPage() {
     }
   }
 
+  const handleDocUpload = async (e: React.ChangeEvent<HTMLInputElement>, setter: React.Dispatch<React.SetStateAction<string | null>>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      try {
+        const url = await uploadFileToR2(file, 'public')
+        setter(url)
+      } catch (err: any) {
+        console.error("Upload failed", err)
+        alert("Upload failed: " + (err.message || String(err)))
+      }
+    }
+  }
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
@@ -86,6 +118,9 @@ export default function BrandCompanySetupPage() {
     const profileData = {
       ...formData,
       profilePic,
+      registrationDoc,
+      panDoc,
+      gstDoc,
       type: 'company'
     }
     localStorage.setItem("kaling_brand_profile", JSON.stringify(profileData))
@@ -109,7 +144,28 @@ export default function BrandCompanySetupPage() {
       console.error(e);
     }
     
-    router.push("/kyc")
+    // Instead of routing to KYC, show success tick mark for companies
+    setShowSuccess(true)
+  }
+
+  if (showSuccess) {
+    return (
+      <div className="h-screen bg-[#F8F9FA] font-sans flex flex-col justify-center items-center px-6">
+        <div className="bg-white p-8 rounded-3xl shadow-sm flex flex-col items-center text-center max-w-sm w-full">
+          <div className="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center text-green-500 mb-6">
+            <CheckCircle2 className="w-12 h-12" />
+          </div>
+          <h2 className="text-[26px] font-black text-[#1a1a2e] mb-2 tracking-tight">Verified!</h2>
+          <p className="text-[14px] text-gray-500 font-medium mb-10">Your company has been successfully verified. You now have the official tick mark.</p>
+          <button 
+            onClick={() => router.push("/brand")}
+            className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)]"
+          >
+            ENTER KALINQ
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -262,6 +318,95 @@ export default function BrandCompanySetupPage() {
               onChange={handleInputChange}
               className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
+          </div>
+
+          <hr className="border-gray-100 my-2" />
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Authorized Person</label>
+            <input 
+              type="text" 
+              name="authorizedPerson"
+              placeholder="John Doe"
+              value={formData.authorizedPerson}
+              onChange={handleInputChange}
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+            />
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Company Registration Number</label>
+            <input 
+              type="text" 
+              name="registrationNumber"
+              placeholder="CIN / Reg No."
+              value={formData.registrationNumber}
+              onChange={handleInputChange}
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5 mb-2">
+            <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Upload Registration Document</label>
+            <label className="cursor-pointer">
+              <div className="w-full h-16 bg-gray-50 hover:bg-gray-100 border border-dashed border-gray-300 rounded-2xl flex items-center justify-center gap-2 transition-colors">
+                {registrationDoc ? (
+                  <><FileCheck2 className="w-5 h-5 text-green-500" /> <span className="text-sm font-medium text-green-600">Document Uploaded</span></>
+                ) : (
+                  <><Upload className="w-5 h-5 text-gray-400" /> <span className="text-sm font-medium text-gray-500">Tap to upload Registration</span></>
+                )}
+              </div>
+              <input type="file" accept="image/*,.pdf" onChange={(e) => handleDocUpload(e, setRegistrationDoc)} className="hidden" />
+            </label>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Company PAN Number</label>
+            <input 
+              type="text" 
+              name="panNumber"
+              placeholder="ABCDE1234F"
+              value={formData.panNumber}
+              onChange={handleInputChange}
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400 uppercase"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5 mb-2">
+            <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Upload Company PAN Document</label>
+            <label className="cursor-pointer">
+              <div className="w-full h-16 bg-gray-50 hover:bg-gray-100 border border-dashed border-gray-300 rounded-2xl flex items-center justify-center gap-2 transition-colors">
+                {panDoc ? (
+                  <><FileCheck2 className="w-5 h-5 text-green-500" /> <span className="text-sm font-medium text-green-600">Document Uploaded</span></>
+                ) : (
+                  <><Upload className="w-5 h-5 text-gray-400" /> <span className="text-sm font-medium text-gray-500">Tap to upload PAN</span></>
+                )}
+              </div>
+              <input type="file" accept="image/*,.pdf" onChange={(e) => handleDocUpload(e, setPanDoc)} className="hidden" />
+            </label>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">GST Number</label>
+            <input 
+              type="text" 
+              name="gstNumber"
+              placeholder="22AAAAA0000A1Z5"
+              value={formData.gstNumber}
+              onChange={handleInputChange}
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400 uppercase"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5 mb-2">
+            <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Upload GST Document</label>
+            <label className="cursor-pointer">
+              <div className="w-full h-16 bg-gray-50 hover:bg-gray-100 border border-dashed border-gray-300 rounded-2xl flex items-center justify-center gap-2 transition-colors">
+                {gstDoc ? (
+                  <><FileCheck2 className="w-5 h-5 text-green-500" /> <span className="text-sm font-medium text-green-600">Document Uploaded</span></>
+                ) : (
+                  <><Upload className="w-5 h-5 text-gray-400" /> <span className="text-sm font-medium text-gray-500">Tap to upload GST</span></>
+                )}
+              </div>
+              <input type="file" accept="image/*,.pdf" onChange={(e) => handleDocUpload(e, setGstDoc)} className="hidden" />
+            </label>
           </div>
 
           <button 

@@ -124,6 +124,14 @@ model BrandProfile {
   portfolioImages String[] @default([])
   isVerified      Boolean  @default(false)
   
+  registrationNumber String?
+  registrationDoc    String?
+  panNumber          String?
+  panDoc             String?
+  gstNumber          String?
+  gstDoc             String?
+  authorizedPerson   String?
+  
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   
