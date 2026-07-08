@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { auth } from "@/lib/firebase";
-import { signInWithCustomToken } from "firebase/auth";
+import { RecaptchaVerifier, signInWithPhoneNumber, ConfirmationResult } from "firebase/auth";
 
 export default function BrandSignupStep1() {
   const router = useRouter();
@@ -20,6 +20,7 @@ export default function BrandSignupStep1() {
   const [isSendingOtp, setIsSendingOtp] = useState(false);
   const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
   const [otpError, setOtpError] = useState("");
+  const [confirmationResult, setConfirmationResult] = useState<ConfirmationResult | null>(null);
 
   const [formData, setFormData] = useState({
     category: "Brand",
@@ -50,30 +51,35 @@ export default function BrandSignupStep1() {
     });
   };
 
+  const setupRecaptcha = () => {
+    if (!(window as any).recaptchaVerifier) {
+      (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        'size': 'invisible',
+      });
+    }
+  };
+
   const handleSendOtp = async () => {
     if (!formData.phoneNumber) return;
     setOtpError("");
     setIsSendingOtp(true);
     
     try {
+      setupRecaptcha();
       const formattedPhone = "+91" + formData.phoneNumber.replace(/\D/g, '');
+      const appVerifier = (window as any).recaptchaVerifier;
       
-      const res = await fetch("/api/auth/send-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: formattedPhone })
-      });
-
-      const data = await res.json();
-      
-      if (res.ok && data.success) {
-        setShowOtpModal(true);
-      } else {
-        alert("Failed to send OTP: " + (data.error || "Unknown error"));
-      }
+      const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
+      setConfirmationResult(confirmation);
+      setShowOtpModal(true);
     } catch (error: any) {
       console.error("Error sending OTP:", error);
       alert("Failed to send OTP: " + (error.message || "Unknown error"));
+      // Reset recaptcha if error
+      if ((window as any).recaptchaVerifier) {
+        (window as any).recaptchaVerifier.clear();
+        (window as any).recaptchaVerifier = null;
+      }
     } finally {
       setIsSendingOtp(false);
     }
@@ -116,29 +122,16 @@ export default function BrandSignupStep1() {
 
   const handleVerifyOtp = async () => {
     const otpCode = otp.join("");
-    if (otpCode.length === 6) {
+    if (otpCode.length === 6 && confirmationResult) {
       setIsVerifyingOtp(true);
       setOtpError("");
       try {
-        const formattedPhone = "+91" + formData.phoneNumber.replace(/\D/g, '');
-        const res = await fetch("/api/auth/verify-otp", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone: formattedPhone, otp: otpCode })
-        });
-        
-        const data = await res.json();
-        
-        if (res.ok && data.success && data.customToken) {
-          await signInWithCustomToken(auth, data.customToken);
-          setIsPhoneVerified(true);
-          setShowOtpModal(false);
-        } else {
-          setOtpError(data.error || "Invalid OTP. Please try again.");
-        }
-      } catch (error) {
+        await confirmationResult.confirm(otpCode);
+        setIsPhoneVerified(true);
+        setShowOtpModal(false);
+      } catch (error: any) {
         console.error("Error verifying OTP:", error);
-        setOtpError("Error connecting to server. Please try again.");
+        setOtpError("Invalid OTP. Please try again.");
       } finally {
         setIsVerifyingOtp(false);
       }
