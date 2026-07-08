@@ -32,7 +32,6 @@ export default function RegisterPage() {
   }
 
   return (
-  return (
     <div className="w-full h-full flex flex-col items-center justify-start py-4 lg:py-6 flex-1 min-h-0 relative overflow-y-auto no-scrollbar">
       {/* Split Background (White Bottom) */}
       <div className="fixed bottom-0 left-0 right-0 h-[45dvh] bg-[#FAFAFA] -z-10 pointer-events-none" />
