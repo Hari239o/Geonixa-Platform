@@ -185,12 +185,34 @@ export default function ProfilePage() {
     }
   };
 
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${profile.fullName}'s Profile on Kalinq`,
+          text: `Check out ${profile.fullName}'s creator profile on Kalinq!`,
+          url: window.location.href,
+        });
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      navigator.clipboard.writeText(window.location.href);
+      alert("Profile link copied to clipboard!");
+    }
+  };
+
   return (
     <div className="w-full max-w-md mx-auto h-full bg-white relative flex flex-col font-sans overflow-hidden">
       <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 relative">
       {/* Header */}
       <div className="px-6 pt-4 pb-4 flex justify-end gap-4 z-10">
-        <button className="p-2 text-[#808b98] hover:text-gray-900 transition-colors">
+        <button 
+          className="p-2 text-[#808b98] hover:text-gray-900 transition-colors"
+          onClick={handleShare}
+          title="Share Profile"
+        >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 3L3 10.5l7.5 3 3 7.5L21 3z" />
             <path d="M10.5 13.5l4.5-4.5" />
