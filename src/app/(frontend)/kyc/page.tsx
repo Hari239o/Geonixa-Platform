@@ -327,7 +327,7 @@ export default function KycPage() {
               <button 
                 onClick={handleNextStep1}
                 disabled={isLoading}
-                className="w-full bg-[#1a1a2e] hover:bg-black text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(26,26,46,0.15)] mt-2 flex justify-center items-center"
+                className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] mt-2 flex justify-center items-center"
               >
                 {isLoading ? (
                   <span className="flex items-center gap-2">
@@ -380,7 +380,7 @@ export default function KycPage() {
                 <button 
                   onClick={capturePhoto}
                   disabled={!cameraActive}
-                  className="w-full bg-[#1a1a2e] hover:bg-black text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(26,26,46,0.15)] flex justify-center items-center gap-2"
+                  className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center gap-2"
                 >
                   <Camera className="w-5 h-5" /> CAPTURE SELFIE
                 </button>
@@ -413,7 +413,7 @@ export default function KycPage() {
           {/* STEP 3: Success */}
           {step === 3 && (
             <div className="animate-in fade-in zoom-in duration-500 flex flex-col items-center text-center h-full justify-center pb-20">
-              <div className="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6 shadow-sm">
+              <div className="w-24 h-24 bg-orange-100 text-[#EF4823] rounded-full flex items-center justify-center mb-6 shadow-sm">
                 <CheckCircle2 className="w-12 h-12" />
               </div>
               <h2 className="text-[26px] font-black text-[#1a1a2e] mb-2 tracking-tight">Verified!</h2>
@@ -421,7 +421,7 @@ export default function KycPage() {
               
               <button 
                 onClick={completeKyc}
-                className="w-full bg-[#1a1a2e] hover:bg-black text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(26,26,46,0.15)]"
+                className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)]"
               >
                 GO TO DASHBOARD
               </button>
