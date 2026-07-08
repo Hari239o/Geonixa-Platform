@@ -75,9 +75,16 @@ export default function CreatorDashboard() {
               socials: parsed.socials || {},
               budgets: parsed.budgets || []
             }));
+            
+            if (!parsed.isVerified) {
+              setShowVerifyModal(true);
+            }
+          } else {
+            setShowVerifyModal(true);
           }
         } catch (error) {
           console.error("Failed to load profile from local DB:", error);
+          setShowVerifyModal(true);
         }
       }
 
