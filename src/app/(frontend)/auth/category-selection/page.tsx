@@ -57,18 +57,19 @@ export default function RegisterPage() {
       </div>
 
       {/* Card Section: Solid White */}
-      <div className="w-full max-w-[280px] sm:max-w-[340px] md:max-w-[400px] lg:max-w-[480px] bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-2.5 sm:p-5 lg:p-8 mx-auto flex flex-col justify-center shrink min-h-0 mb-2">
+      <div className="w-full max-w-[280px] sm:max-w-[340px] md:max-w-[400px] lg:max-w-[480px] bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-2.5 sm:p-5 lg:p-8 mx-auto flex flex-col shrink min-h-0 mb-2 flex-1">
         
-        {/* Alternating Masonry Grid */}
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6 w-full">
+        {/* Responsive Masonry Grid using Flex Ratios instead of Aspect Ratios */}
+        <div className="flex flex-row w-full h-full min-h-0">
           
           {/* LEFT COLUMN */}
-          <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6">
+          <div className="flex flex-col w-1/2 pr-1.5 sm:pr-2 lg:pr-3 h-full">
             
-            {/* 1. Join as a Creator (Red Block) */}
+            {/* 1. Join as a Creator (Red Block - Tall) */}
             <div 
               onClick={() => handleSelect('creator')}
-              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
+              className="flex flex-col items-center justify-center bg-primary-red rounded-[16px] lg:rounded-[24px] cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group mb-3 sm:mb-4 lg:mb-6"
+              style={{ flex: 160 }}
             >
               <div className="absolute -top-6 -right-6 w-20 h-20 opacity-[0.15] pointer-events-none transform rotate-12">
                 <img src="/logo.png" alt="watermark" className="w-full h-full object-contain" />
@@ -79,10 +80,11 @@ export default function RegisterPage() {
               <p className="text-button-yellow text-[15px] sm:text-[18px] lg:text-lg font-black relative z-10 leading-none">Creator</p>
             </div>
 
-            {/* 2. Brand Logos (White Block) */}
+            {/* 2. Brand Logos (White Block - Short) */}
             <div 
               onClick={() => handleSelect('brand')}
-              className="bg-white rounded-[20px] lg:rounded-[28px] aspect-square flex flex-col p-2 sm:p-3 lg:p-4 items-center justify-center shadow-sm border border-gray-100 cursor-pointer hover:border-gray-300 transition-colors"
+              className="bg-white rounded-[16px] lg:rounded-[24px] flex flex-col p-2 sm:p-3 lg:p-4 items-center justify-center shadow-sm border border-gray-100 cursor-pointer hover:border-gray-300 transition-colors mb-3 sm:mb-4 lg:mb-6"
+              style={{ flex: 125 }}
             >
               <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4 w-full h-full items-center justify-items-center opacity-80">
                 <span className="font-serif font-black text-[10px] sm:text-[12px] lg:text-sm tracking-tighter">CHANEL</span>
@@ -92,10 +94,11 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* 3. Join as Partners (Red Block) */}
+            {/* 3. Join as Partners (Red Block - Tall) */}
             <div 
               onClick={() => handleSelect('partner')}
-              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
+              className="flex flex-col items-center justify-center bg-primary-red rounded-[16px] lg:rounded-[24px] cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
+              style={{ flex: 160 }}
             >
               <div className="absolute -top-6 -right-6 w-20 h-20 opacity-[0.15] pointer-events-none transform rotate-12">
                 <img src="/logo.png" alt="watermark" className="w-full h-full object-contain" />
@@ -109,12 +112,13 @@ export default function RegisterPage() {
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6">
+          <div className="flex flex-col w-1/2 pl-1.5 sm:pl-2 lg:pl-3 h-full">
             
-            {/* 1. Creator Photo */}
+            {/* 1. Creator Photo (Short) */}
             <div 
               onClick={() => handleSelect('creator')}
-              className="rounded-[20px] lg:rounded-[28px] overflow-hidden aspect-square relative shadow-sm cursor-pointer hover:opacity-90 transition-opacity"
+              className="rounded-[16px] lg:rounded-[24px] overflow-hidden relative shadow-sm cursor-pointer hover:opacity-90 transition-opacity mb-3 sm:mb-4 lg:mb-6 bg-gray-100"
+              style={{ flex: 125 }}
             >
               <img 
                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80" 
@@ -123,10 +127,11 @@ export default function RegisterPage() {
               />
             </div>
 
-            {/* 2. Join as a Brand (Red Block) */}
+            {/* 2. Join as a Brand (Red Block - Tall) */}
             <div 
               onClick={() => handleSelect('brand')}
-              className="flex flex-col items-center justify-center bg-primary-red rounded-[20px] lg:rounded-[28px] aspect-[4/5] p-2 cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group"
+              className="flex flex-col items-center justify-center bg-primary-red rounded-[16px] lg:rounded-[24px] cursor-pointer hover:scale-[1.02] active:scale-95 transition-all shadow-sm relative overflow-hidden group mb-3 sm:mb-4 lg:mb-6"
+              style={{ flex: 160 }}
             >
               <div className="absolute -top-6 -right-6 w-20 h-20 opacity-[0.15] pointer-events-none transform rotate-12">
                 <img src="/logo.png" alt="watermark" className="w-full h-full object-contain" />
@@ -137,10 +142,11 @@ export default function RegisterPage() {
               <p className="text-button-yellow text-[15px] sm:text-[18px] lg:text-lg font-black relative z-10 leading-none">Brand</p>
             </div>
 
-            {/* 3. Partner Photo */}
+            {/* 3. Partner Photo (Short) */}
             <div 
               onClick={() => handleSelect('partner')}
-              className="rounded-[20px] lg:rounded-[28px] overflow-hidden aspect-square relative shadow-sm cursor-pointer hover:opacity-90 transition-opacity"
+              className="rounded-[16px] lg:rounded-[24px] overflow-hidden relative shadow-sm cursor-pointer hover:opacity-90 transition-opacity bg-gray-100"
+              style={{ flex: 125 }}
             >
               <img 
                 src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=400&q=80" 
@@ -148,6 +154,9 @@ export default function RegisterPage() {
                 className="object-cover w-full h-full"
               />
             </div>
+
+            {/* Invisible Spacer to align gaps vertically perfectly */}
+            <div style={{ flex: 35 }} />
           </div>
         </div>
       </div>
