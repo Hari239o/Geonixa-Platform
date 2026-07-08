@@ -249,15 +249,32 @@ export default function KycPage() {
       
       isBrand = localRole === 'brand' || cookieRole === 'brand' || hasBrandProfile;
       
-      // Local
-      import("@/utils/storage").then(({ getItem, setItem }) => {
-        const key = isBrand ? "kaling_brand_profile" : "kaling_user_profile";
-        getItem<any>(key).then(existing => {
-          setItem(key, { ...(existing || {}), isVerified: true });
-        });
-      });
+      const isCompany = localStorage.getItem('brandType') === 'company' || localStorage.getItem('kaling_company_profile') !== null;
       
-      router.push(isBrand ? "/brand/profile" : "/creator");
+      // Local
+      try {
+        if (isBrand) {
+          const bStr = localStorage.getItem("kaling_brand_profile");
+          if (bStr) {
+            localStorage.setItem("kaling_brand_profile", JSON.stringify({ ...JSON.parse(bStr), isVerified: true }));
+          }
+          if (isCompany) {
+            const cStr = localStorage.getItem("kaling_company_profile");
+            if (cStr) {
+              localStorage.setItem("kaling_company_profile", JSON.stringify({ ...JSON.parse(cStr), isVerified: true }));
+            }
+          }
+        } else {
+          const uStr = localStorage.getItem("kaling_user_profile");
+          if (uStr) {
+            localStorage.setItem("kaling_user_profile", JSON.stringify({ ...JSON.parse(uStr), isVerified: true }));
+          }
+        }
+      } catch(err) {
+        console.error("Local storage update error", err);
+      }
+      
+      router.push(isBrand ? (isCompany ? "/brand/company?verified=true" : "/brand/profile?verified=true") : "/creator?verified=true");
     } catch (e) {
       console.error(e);
       router.push("/creator");
