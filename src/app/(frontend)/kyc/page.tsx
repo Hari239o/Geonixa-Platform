@@ -341,13 +341,13 @@ export default function KycPage() {
 
           {/* STEP 2: Selfie Capture */}
           {step === 2 && (
-            <div className="animate-in fade-in slide-in-from-right-4 duration-300 flex flex-col justify-between h-full">
-              <div>
+            <div className="animate-in fade-in slide-in-from-right-4 duration-300 flex flex-col items-center">
+              <div className="text-center w-full">
                 <h2 className="text-[22px] font-black text-[#1a1a2e] mb-1 tracking-tight">Selfie Verification</h2>
                 <p className="text-[13px] text-gray-500 font-medium mb-3">We'll compare your face with your Aadhar photo to verify your identity.</p>
               </div>
               
-              <div className="bg-white rounded-[24px] p-2 shadow-sm border border-gray-100 mb-3 mx-auto w-full max-w-[320px]">
+              <div className="bg-white rounded-[24px] p-2 shadow-sm border border-gray-100 mb-4 mx-auto w-full max-w-[260px]">
                 {!selfieFile ? (
                   <div className="relative w-full aspect-[3/4] bg-black rounded-[20px] overflow-hidden flex items-center justify-center">
                     <video 
@@ -379,19 +379,21 @@ export default function KycPage() {
               <canvas ref={canvasRef} className="hidden" />
 
               {!selfieFile ? (
-                <button 
-                  onClick={capturePhoto}
-                  disabled={!cameraActive}
-                  className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center gap-2"
-                >
-                  <Camera className="w-5 h-5" /> CAPTURE SELFIE
-                </button>
+                <div className="w-full mt-2">
+                  <button 
+                    onClick={capturePhoto}
+                    disabled={!cameraActive}
+                    className="w-full bg-[#EF4823] hover:bg-[#d63f1c] disabled:bg-gray-400 disabled:shadow-none disabled:cursor-not-allowed text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center gap-2"
+                  >
+                    <Camera className="w-5 h-5" /> CAPTURE SELFIE
+                  </button>
+                </div>
               ) : (
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3 w-full mt-2">
                   <button 
                     onClick={handleVerifyFace}
                     disabled={isLoading}
-                    className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center disabled:opacity-70"
+                    className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {isLoading ? (
                       <span className="flex items-center gap-2">
@@ -403,7 +405,7 @@ export default function KycPage() {
                   <button 
                     onClick={() => { setSelfieFile(null); startCamera(); }}
                     disabled={isLoading}
-                    className="w-full bg-white border-2 border-gray-200 hover:bg-gray-50 text-gray-600 font-bold py-3.5 rounded-[16px] transition-all disabled:opacity-50"
+                    className="w-full bg-white border-2 border-gray-200 hover:bg-gray-50 text-gray-600 font-bold py-3.5 rounded-[16px] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     RETAKE SELFIE
                   </button>
