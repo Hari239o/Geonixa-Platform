@@ -20,8 +20,6 @@ export default function BrandCompanySetupPage() {
     facebook: "",
     instagram: "",
     x: "",
-    instagram: "",
-    x: "",
     linkedin: "",
     registrationNumber: "",
     panNumber: "",
@@ -120,8 +118,7 @@ export default function BrandCompanySetupPage() {
       registrationDoc,
       panDoc,
       gstDoc,
-      type: 'company',
-      isVerified: true
+      type: 'company'
     }
     localStorage.setItem("kaling_brand_profile", JSON.stringify(profileData))
     localStorage.setItem("kaling_company_profile", JSON.stringify(profileData))
@@ -144,8 +141,8 @@ export default function BrandCompanySetupPage() {
       console.error(e);
     }
     
-    // Route to brand dashboard with verified parameter
-    router.push("/brand/company?verified=true")
+    // Route to brand dashboard unverified
+    router.push("/brand/company")
   }
 
   return (

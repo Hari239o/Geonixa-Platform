@@ -34,28 +34,33 @@ export default function BrandCompanyDashboardPage() {
       }
 
       try {
-        const res = await fetch('/api/user/complete-profile');
+        const res = await fetch('/api/user/complete-profile')
         if (res.ok) {
-          const data = await res.json();
+          const data = await res.json()
           if (data.profile) {
-            setProfileData(data.profile);
-            localStorage.setItem("kaling_company_profile", JSON.stringify(data.profile));
-            localStorage.setItem("kaling_brand_profile", JSON.stringify(data.profile));
+            setProfileData(data.profile)
+            localStorage.setItem("kaling_company_profile", JSON.stringify(data.profile))
+            localStorage.setItem("kaling_brand_profile", JSON.stringify(data.profile))
           }
         }
-      } catch (e) {
-        console.error(e);
+      } catch (err) {
+        console.error("Failed to fetch profile", err)
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
     }
-    
-    fetchProfile();
+    fetchProfile()
+
+    // Listen for custom event from BottomNav to show verification modal
+    const handleShowVerify = () => setShowVerifyModal(true)
+    window.addEventListener("showVerifyModal", handleShowVerify)
     
     const savedImages = localStorage.getItem("kaling_company_portfolio")
     if (savedImages) {
       setPortfolioImages(JSON.parse(savedImages))
     }
+    
+    return () => window.removeEventListener("showVerifyModal", handleShowVerify)
   }, [])
 
   const handleDeletePortfolioImage = (index: number) => {
@@ -176,7 +181,13 @@ export default function BrandCompanyDashboardPage() {
               About
             </button>
             <button 
-              onClick={() => setActiveTab('portfolio')}
+              onClick={() => {
+                if (!profileData?.isVerified) {
+                  setShowVerifyModal(true);
+                  return;
+                }
+                setActiveTab('portfolio')
+              }}
               className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${
                 activeTab === 'portfolio' 
                 ? 'bg-[#EF4823] text-white shadow-md' 

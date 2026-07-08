@@ -42,11 +42,17 @@ export default function BrandDashboardPage() {
     }
     
     fetchProfile();
+
+    // Listen for custom event from BottomNav to show verification modal
+    const handleShowVerify = () => setShowVerifyModal(true)
+    window.addEventListener("showVerifyModal", handleShowVerify)
     
     const savedImages = localStorage.getItem("kaling_brand_portfolio")
     if (savedImages) {
       setPortfolioImages(JSON.parse(savedImages))
     }
+
+    return () => window.removeEventListener("showVerifyModal", handleShowVerify)
   }, [])
 
   const handleShare = async () => {
@@ -196,7 +202,13 @@ export default function BrandDashboardPage() {
               About
             </button>
             <button 
-              onClick={() => setActiveTab('portfolio')}
+              onClick={() => {
+                if (!profileData?.isVerified) {
+                  setShowVerifyModal(true);
+                  return;
+                }
+                setActiveTab('portfolio')
+              }}
               className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${
                 activeTab === 'portfolio' 
                 ? 'bg-[#EF4823] text-white shadow-md' 
