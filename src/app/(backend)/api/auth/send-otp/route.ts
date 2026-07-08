@@ -1,77 +1,61 @@
 import { NextResponse } from 'next/server';
+import prisma from '@/lib/prisma';
 
-// Global cache to store OTPs temporarily during development
-// In production, this should be Redis or a Database!
-const globalAny: any = global;
-if (!globalAny.otpStore) {
-  globalAny.otpStore = new Map<string, { otp: string, expiresAt: number }>();
-}
-
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const { phoneNumber } = await request.json();
+    const { phone } = await req.json();
 
-    if (!phoneNumber) {
-      return NextResponse.json(
-        { error: 'Phone number is required' },
-        { status: 400 }
-      );
+    if (!phone) {
+      return NextResponse.json({ error: 'Phone number is required' }, { status: 400 });
     }
 
-    const apiKey = process.env.BREVO_API_KEY;
-    if (!apiKey) {
-      console.log(`[BYPASS] BREVO_API_KEY missing. Allowing OTP flow anyway for dev.`);
-      return NextResponse.json({ success: true, message: 'OTP bypassed (No API Key)' });
-    }
+    // Generate a 6-digit OTP
+    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
 
-    // Clean phone number: remove all non-digits, ensure it has country code
-    let cleanPhone = phoneNumber.replace(/\D/g, '');
-    if (!cleanPhone.startsWith('91')) {
-      cleanPhone = '91' + cleanPhone;
-    }
-    const formattedPhone = '+' + cleanPhone;
-
-    // Generate a secure 6-digit OTP
-    const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-
-    // Store OTP in memory (valid for 5 minutes)
-    globalAny.otpStore.set(formattedPhone, {
-      otp: generatedOtp,
-      expiresAt: Date.now() + 5 * 60 * 1000
+    // Upsert the OTP in the database
+    await prisma.otpRequest.upsert({
+      where: { phone },
+      update: { otp: otpCode, expiresAt },
+      create: { phone, otp: otpCode, expiresAt },
     });
 
-    // Send SMS using Brevo REST API
-    const brevoResponse = await fetch('https://api.brevo.com/v3/transactionalSMS/sms', {
+    // Send the OTP via Fast2SMS
+    const fast2SmsKey = process.env.FAST2SMS_API_KEY;
+    if (!fast2SmsKey) {
+      console.error('FAST2SMS_API_KEY is missing');
+      return NextResponse.json({ error: 'SMS Provider not configured' }, { status: 500 });
+    }
+
+    const response = await fetch('https://www.fast2sms.com/dev/bulkV2', {
       method: 'POST',
       headers: {
-        'accept': 'application/json',
-        'api-key': apiKey,
-        'content-type': 'application/json'
+        'authorization': fast2SmsKey,
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        sender: "Kalinq",
-        recipient: formattedPhone,
-        content: `Your Kalinq verification code is ${generatedOtp}. This code will expire in 5 minutes.`,
+        route: 'v3',
+        sender_id: 'TXTIND', // or your Fast2SMS approved sender ID
+        message: `Your Kalinq verification code is ${otpCode}. Please do not share this with anyone.`,
+        language: 'english',
+        flash: 0,
+        numbers: phone.replace('+', '')
       })
     });
 
-    if (!brevoResponse.ok) {
-      const errorData = await brevoResponse.json();
-      console.error("Brevo API Error:", errorData);
-      
-      // Temporary bypass for insufficient credits
-      console.log(`[BYPASS] Allowing OTP flow despite Brevo error. Use 1234 or 123456 to login.`);
-      return NextResponse.json({ success: true, message: 'OTP bypassed for dev' });
+    const result = await response.json();
+
+    if (result.return) {
+      return NextResponse.json({ success: true, message: 'OTP sent successfully' });
+    } else {
+      console.error('Fast2SMS Error:', result.message);
+      return NextResponse.json({ error: 'Failed to send OTP via SMS Provider' }, { status: 500 });
     }
 
-    console.log(`[BREVO] Sent OTP ${generatedOtp} via SMS to ${formattedPhone}`);
-
-    return NextResponse.json({ success: true, message: 'OTP sent successfully' });
-  } catch (error: any) {
-    console.error('OTP Send Error:', error);
-    return NextResponse.json(
-      { error: error.message || 'Internal server error' },
-      { status: 500 }
-    );
+  } catch (error) {
+    console.error('Error in send-otp:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
   }
 }
