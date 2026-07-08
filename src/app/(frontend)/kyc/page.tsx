@@ -256,11 +256,11 @@ export default function KycPage() {
           <div className="w-6" /> {/* Spacer */}
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 py-8">
+        <div className="flex-1 overflow-y-auto px-6 py-4">
           
           {/* Progress Bar */}
           {step < 3 && (
-            <div className="flex gap-2 mb-8">
+            <div className="flex gap-2 mb-6">
               <div className={`h-1.5 flex-1 rounded-full ${step >= 1 ? "bg-[#EF4823]" : "bg-gray-200"}`} />
               <div className={`h-1.5 flex-1 rounded-full ${step >= 2 ? "bg-[#EF4823]" : "bg-gray-200"}`} />
             </div>
@@ -341,11 +341,13 @@ export default function KycPage() {
 
           {/* STEP 2: Selfie Capture */}
           {step === 2 && (
-            <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="text-[22px] font-black text-[#1a1a2e] mb-2 tracking-tight">Selfie Verification</h2>
-              <p className="text-[13px] text-gray-500 font-medium mb-6">We'll compare your face with your Aadhar photo to verify your identity.</p>
+            <div className="animate-in fade-in slide-in-from-right-4 duration-300 flex flex-col justify-between h-full">
+              <div>
+                <h2 className="text-[22px] font-black text-[#1a1a2e] mb-1 tracking-tight">Selfie Verification</h2>
+                <p className="text-[13px] text-gray-500 font-medium mb-3">We'll compare your face with your Aadhar photo to verify your identity.</p>
+              </div>
               
-              <div className="bg-white rounded-[24px] p-2 shadow-sm border border-gray-100 mb-6">
+              <div className="bg-white rounded-[24px] p-2 shadow-sm border border-gray-100 mb-3 mx-auto w-full max-w-[320px]">
                 {!selfieFile ? (
                   <div className="relative w-full aspect-[3/4] bg-black rounded-[20px] overflow-hidden flex items-center justify-center">
                     <video 
