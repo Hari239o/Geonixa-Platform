@@ -256,7 +256,10 @@ export default function BrandHomeFeedPage() {
               <span className="text-white/90 text-[12px] font-semibold leading-none mb-1">Find</span>
               <span className="text-white text-[22px] font-bold leading-none tracking-tight">Partners</span>
             </div>
-            <button className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-7 py-2.5 rounded-[12px] text-[15px] font-bold shadow-sm transition-transform active:scale-95">
+            <button 
+              onClick={() => router.push('/studios')}
+              className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-7 py-2.5 rounded-[12px] text-[15px] font-bold shadow-sm transition-transform active:scale-95"
+            >
               View
             </button>
           </div>
