@@ -69,7 +69,7 @@ export default function BottomNav() {
     { name: "Home", href: "/brand", icon: "/HOME.png" },
     { name: "Wallet", href: "/brand/wallet", icon: "/WALLET.png" },
     { name: "Campaigns", href: "/brand/campaigns", icon: "/CAMPAIGNS.png" },
-    { name: "Experts", href: "/brand/experts", icon: "/PARTNERS.png" },
+    { name: "Studios", href: "/studios", icon: "/PARTNERS.png" },
     { name: "Profile", href: profileUrl, icon: User },
   ];
 

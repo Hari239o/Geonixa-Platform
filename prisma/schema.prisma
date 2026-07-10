@@ -25,9 +25,11 @@ model User {
   // Relations
   creatorProfile CreatorProfile?
   brandProfile   BrandProfile?
+  partnerProfile PartnerProfile?
   campaigns      Campaign[]
   unlockedProfiles UnlockedProfile[]
   notifications  Notification[]
+  studioBookings StudioBooking[]
 }
 
 model CreatorProfile {
@@ -213,10 +215,45 @@ model ChatMessage {
   createdAt  DateTime @default(now())
 }
 
-model OtpRequest {
-  id        String   @id @default(uuid())
-  phone     String   @unique
-  otp       String
-  expiresAt DateTime
-  createdAt DateTime @default(now())
+model PartnerProfile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  partnerType     String   // "cameraman", "editor", "dop", "studio"
+  fullName        String?
+  bio             String?
+  profilePic      String?
+  rating          Float    @default(0)
+  reviews         Int      @default(0)
+  isVerified      Boolean  @default(false)
+  portfolioImages String[] @default([])
+  equipment       String[] @default([])
+  hourlyRate      String?
+  dailyRate       String?
+  
+  bookings        StudioBooking[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model StudioBooking {
+  id              String   @id @default(uuid())
+  brandId         String
+  brand           User     @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  
+  partnerId       String
+  partner         PartnerProfile @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  
+  bookingMode     String   // "instant", "schedule"
+  date            String?
+  timeSlot        String?
+  duration        String?
+  location        String?
+  contentBrief    String?
+  status          String   @default("pending") // "pending", "accepted", "completed", "cancelled"
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }

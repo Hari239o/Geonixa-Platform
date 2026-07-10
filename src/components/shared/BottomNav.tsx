@@ -102,7 +102,7 @@ export default function BottomNav({ profilePic }: BottomNavProps) {
     { name: 'Home', path: '/creator', icon: HomeIcon },
     { name: 'Wallet', path: '/wallet', icon: WalletIcon },
     { name: 'Campaign', path: '/campaigns', icon: CampaignIcon },
-    { name: 'AI', path: '/ai', icon: AIIcon },
+    { name: 'Studios', path: '/studios', icon: AIIcon },
   ];
 
  return (

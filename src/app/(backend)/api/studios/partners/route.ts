@@ -1,0 +1,56 @@
+import { NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const partnerType = searchParams.get("type") || "Cameraman";
+
+    const partners = await prisma.partnerProfile.findMany({
+      where: {
+        partnerType: {
+          equals: partnerType,
+          mode: 'insensitive',
+        },
+      },
+      select: {
+        id: true,
+        fullName: true,
+        profilePic: true,
+        rating: true,
+        reviews: true,
+        isVerified: true,
+        partnerType: true,
+      },
+    });
+
+    if (partners.length === 0) {
+      // Return dummy data if DB is empty so the UI still looks like the design
+      return NextResponse.json({
+        success: true,
+        partners: [
+          { id: "mock-1", name: "Lorem Ipsum", isVerified: true, rating: 4, reviews: 10, type: partnerType, image: "/placeholder-user.jpg" },
+          { id: "mock-2", name: "Lorem Ipsum", isVerified: true, rating: 4.5, reviews: 20, type: partnerType, image: "/placeholder-user.jpg" },
+        ]
+      });
+    }
+
+    return NextResponse.json({
+      success: true,
+      partners: partners.map((p) => ({
+        id: p.id,
+        name: p.fullName || "Lorem Ipsum",
+        isVerified: p.isVerified,
+        rating: p.rating,
+        reviews: p.reviews,
+        type: p.partnerType,
+        image: p.profilePic || "/placeholder-user.jpg",
+      }))
+    });
+  } catch (error) {
+    console.error("Error fetching partners:", error);
+    return NextResponse.json({ success: false, error: "Failed to fetch partners" }, { status: 500 });
+  }
+}
