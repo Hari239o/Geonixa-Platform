@@ -30,6 +30,8 @@ model User {
   unlockedProfiles UnlockedProfile[]
   notifications  Notification[]
   studioBookings StudioBooking[]
+  kalakaarBookingsAsBrand UserKalakaarBooking[] @relation("BrandKalakaarBooking")
+  kalakaarBookingsAsKalakaar UserKalakaarBooking[] @relation("KalakaarUserBooking")
 }
 
 model CreatorProfile {
@@ -253,6 +255,24 @@ model StudioBooking {
   location        String?
   contentBrief    String?
   status          String   @default("pending") // "pending", "accepted", "completed", "cancelled"
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model UserKalakaarBooking {
+  id              String   @id @default(uuid())
+  brandId         String
+  brand           User     @relation("BrandKalakaarBooking", fields: [brandId], references: [id], onDelete: Cascade)
+  
+  kalakaarId      String
+  kalakaar        User     @relation("KalakaarUserBooking", fields: [kalakaarId], references: [id], onDelete: Cascade)
+  
+  bookingMode     String   // "instant", "schedule"
+  status          String   @default("PENDING") // PENDING, DECLINED, ON_MY_WAY, LIVE_RECORDING, COMPLETED, EXPIRED, CANCELLED
+  declineReason   String?
+  expiresAt       DateTime?
+  invoiceId       String?
   
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

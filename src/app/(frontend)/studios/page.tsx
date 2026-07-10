@@ -14,18 +14,30 @@ export default function StudiosPage() {
   const [bookingMode, setBookingMode] = useState("Instant"); // "Instant" | "Schedule"
   
   const [partners, setPartners] = useState<any[]>([]);
+  const [kalakaars, setKalakaars] = useState<any[]>([]);
   const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Mock data for initial development (can be replaced by real API)
   const mockPartners = [
-    { id: "1", name: "Lorem Ipsum", isVerified: true, rating: 4, reviews: 10, type: "Cameraman", image: "/placeholder-user.jpg" },
-    { id: "2", name: "Lorem Ipsum", isVerified: true, rating: 4.5, reviews: 20, type: "Cameraman", image: "/placeholder-user.jpg" },
+    { id: "1", name: "Studio XYZ", isVerified: true, rating: 4, reviews: 10, type: "Cameraman", image: "/placeholder-user.jpg" },
+    { id: "2", name: "Cine Lenses", isVerified: true, rating: 4.5, reviews: 20, type: "Cameraman", image: "/placeholder-user.jpg" },
+  ];
+
+  const mockKalakaars = [
+    { id: "mock-k-1", name: "Aarav Sharma", isVerified: true, rating: 4.9, reviews: 150, type: "Kalakaar", image: "/placeholder-user.jpg" },
+    { id: "mock-k-2", name: "Priya Singh", isVerified: true, rating: 4.8, reviews: 120, type: "Kalakaar", image: "/placeholder-user.jpg" },
   ];
 
   useEffect(() => {
     async function fetchPartners() {
       setIsLoading(true);
+      if (mainTab === "Our Experts") {
+        setKalakaars(mockKalakaars); // Future: Fetch from /api/kalakaars/list
+        setIsLoading(false);
+        return;
+      }
+      
       try {
         const res = await fetch(`/api/studios/partners?type=${partnerType}`);
         const data = await res.json();
@@ -41,14 +53,39 @@ export default function StudiosPage() {
       }
     }
     fetchPartners();
-  }, [partnerType]);
+  }, [partnerType, mainTab]);
 
   const handleBookNow = async () => {
     if (!selectedPartnerId) {
-      alert("Please select a partner first!");
+      alert("Please select someone first!");
       return;
     }
     
+    if (mainTab === "Our Experts") {
+      // Kalakaar Booking Flow
+      try {
+        const res = await fetch('/api/kalakaars/book', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            kalakaarId: selectedPartnerId,
+            bookingMode: bookingMode,
+            brandId: "mock-brand-id", // To be replaced with actual session user id
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          router.push(`/studios/booking/${data.booking.id || data.bookingId}`);
+        } else {
+          alert("Failed to create Kalakaar booking: " + data.error);
+        }
+      } catch (e) {
+        alert("Error initiating Kalakaar booking.");
+      }
+      return;
+    }
+
+    // Studio Booking Flow
     try {
       const res = await fetch('/api/studios/bookings', {
         method: 'POST',
@@ -115,8 +152,8 @@ export default function StudiosPage() {
           </div>
         )}
 
-        {/* Mode Tabs (Instant | Schedule) - Only if Cameraman/Editors is selected */}
-        {mainTab === "Partners" && (
+        {/* Mode Tabs (Instant | Schedule) - Shows for both Experts and Partners (if Cameraman/Editor) */}
+        {(mainTab === "Our Experts" || mainTab === "Partners") && (
           <div className="flex bg-white rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] p-1 border border-gray-50">
             {["Instant", "Schedule"].map((tab) => (
               <button
@@ -134,63 +171,61 @@ export default function StudiosPage() {
           </div>
         )}
 
-        {/* List of Partners */}
-        {mainTab === "Partners" && (
-          <div className="flex flex-col gap-3 mt-4">
-            {partners.map((partner) => {
-              const isSelected = selectedPartnerId === partner.id;
-              
-              return (
-                <div 
-                  key={partner.id}
-                  onClick={() => setSelectedPartnerId(partner.id)}
-                  className={`flex items-center justify-between p-3 rounded-[16px] transition-all cursor-pointer border ${
-                    isSelected 
-                    ? "border-[#FF4D2D] shadow-[0_4px_15px_rgba(255,77,45,0.1)] bg-white" 
-                    : "border-gray-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)]"
-                  }`}
-                >
-                  <div className="flex items-center gap-4">
-                    <div 
-                      className="w-[60px] h-[60px] bg-gradient-to-br from-[#E2E8F0] to-[#94A3B8] rounded-[12px] flex-shrink-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${partner.image})` }}
-                    />
-                    
-                    <div className="flex flex-col">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[15px] font-bold text-[#111111]">{partner.name}</span>
-                        {partner.isVerified && (
-                          <div className="w-3.5 h-3.5 bg-[#FF4D2D] text-white flex items-center justify-center rounded-sm mask mask-hexagon" style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
-                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="w-2 h-2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-1 mt-1">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <svg 
-                            key={star} 
-                            className={`w-3.5 h-3.5 ${star <= Math.floor(partner.rating) ? 'text-[#FFD700]' : 'text-gray-200'}`} 
-                            fill="currentColor" 
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                          </svg>
-                        ))}
-                      </div>
+        {/* List of Profiles */}
+        <div className="flex flex-col gap-3 mt-4">
+          {(mainTab === "Our Experts" ? kalakaars : partners).map((partner) => {
+            const isSelected = selectedPartnerId === partner.id;
+            
+            return (
+              <div 
+                key={partner.id}
+                onClick={() => setSelectedPartnerId(partner.id)}
+                className={`flex items-center justify-between p-3 rounded-[16px] transition-all cursor-pointer border ${
+                  isSelected 
+                  ? "border-[#FF4D2D] shadow-[0_4px_15px_rgba(255,77,45,0.1)] bg-white" 
+                  : "border-gray-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)]"
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <div 
+                    className="w-[60px] h-[60px] bg-gradient-to-br from-[#E2E8F0] to-[#94A3B8] rounded-[12px] flex-shrink-0 bg-cover bg-center"
+                    style={{ backgroundImage: `url(${partner.image})` }}
+                  />
+                  
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[15px] font-bold text-[#111111]">{partner.name}</span>
+                      {partner.isVerified && (
+                        <div className="w-3.5 h-3.5 bg-[#FF4D2D] text-white flex items-center justify-center rounded-sm mask mask-hexagon" style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
+                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="w-2 h-2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1 mt-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <svg 
+                          key={star} 
+                          className={`w-3.5 h-3.5 ${star <= Math.floor(partner.rating) ? 'text-[#FFD700]' : 'text-gray-200'}`} 
+                          fill="currentColor" 
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
                     </div>
                   </div>
-                  
-                  {/* Radio Button */}
-                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-2 transition-colors ${
-                    isSelected ? "border-[#FF4D2D]" : "border-gray-300"
-                  }`}>
-                    {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#FF4D2D]" />}
-                  </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
+                
+                {/* Radio Button */}
+                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-2 transition-colors ${
+                  isSelected ? "border-[#FF4D2D]" : "border-gray-300"
+                }`}>
+                  {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#FF4D2D]" />}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Book Now Button (Sticky to bottom above nav) */}
