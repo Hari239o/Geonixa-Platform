@@ -79,6 +79,16 @@ export default function StudiosPage() {
     }
 
     if (step === 1) {
+      if (partnerType === "Cameraman" && bookingMode === "Schedule") {
+        if (!scheduleHours || !scheduleDate || !scheduleTime) {
+          alert("Please fill in all schedule details.");
+          return;
+        }
+        // Go straight to budget for schedule
+        setStep(3);
+        return;
+      }
+
       if (!selectedPartnerId) {
         alert("Please select a partner first!");
         return;
@@ -93,12 +103,6 @@ export default function StudiosPage() {
       }
     } else if (step === 2) {
       // Validate form
-      if (partnerType === "Cameraman" && bookingMode === "Schedule") {
-        if (!scheduleHours || !scheduleDate || !scheduleTime) {
-          alert("Please fill in all schedule details.");
-          return;
-        }
-      }
       if (partnerType === "Editors") {
         if (!editorInstructions || !editorReference) {
           alert("Please fill in editor details.");
@@ -119,7 +123,7 @@ export default function StudiosPage() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            partnerId: selectedPartnerId,
+            partnerId: selectedPartnerId || "unassigned-schedule-booking",
             bookingMode,
             quoteAmount,
             // Pass extra details if they exist
@@ -407,9 +411,8 @@ export default function StudiosPage() {
               </div>
             ) : (
               <>
-                {step === 1 && renderList()}
+                {step === 1 && (partnerType === "Cameraman" && bookingMode === "Schedule" ? renderScheduleForm() : renderList())}
                 
-                {step === 2 && partnerType === "Cameraman" && bookingMode === "Schedule" && renderScheduleForm()}
                 {step === 2 && partnerType === "Editors" && renderEditorForm()}
                 
                 {step === 3 && renderBudgetForm()}

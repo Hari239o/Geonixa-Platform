@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     // Set expiration to 2 hours from now
     const expiresAt = new Date(Date.now() + 2 * 60 * 60 * 1000);
 
-    const booking = await prisma.userKalakaarBooking.create({
+    const booking = await (prisma as any).userKalakaarBooking.create({
       data: {
         brandId: resolvedBrandId,
         kalakaarId,

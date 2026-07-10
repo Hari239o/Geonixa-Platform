@@ -24,7 +24,7 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ success: false, error: "Invalid status" }, { status: 400 });
     }
 
-    const booking = await prisma.userKalakaarBooking.update({
+    const booking = await (prisma as any).userKalakaarBooking.update({
       where: { id: bookingId },
       data: {
         status,

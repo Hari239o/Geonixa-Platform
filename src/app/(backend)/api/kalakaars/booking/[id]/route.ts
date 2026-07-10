@@ -31,7 +31,7 @@ export async function GET(
       });
     }
 
-    const booking = await prisma.userKalakaarBooking.findUnique({
+    const booking = await (prisma as any).userKalakaarBooking.findUnique({
       where: { id },
       include: {
         kalakaar: {
