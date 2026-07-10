@@ -283,6 +283,8 @@ export default function BrandSignupStep1() {
             </svg>
             Sign up with Google
           </Button>
+
+          <div id="recaptcha-container"></div>
         </div>
       </form>
 

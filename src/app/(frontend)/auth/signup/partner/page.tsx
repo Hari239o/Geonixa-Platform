@@ -310,6 +310,8 @@ export default function PartnerSignupStep1() {
             </svg>
             Sign up with Google
           </Button>
+
+          <div id="recaptcha-container"></div>
         </div>
       </form>
 
