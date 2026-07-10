@@ -32,6 +32,7 @@ export async function POST(request: Request) {
         brandId: resolvedBrandId,
         kalakaarId,
         bookingMode,
+        quoteAmount: body.quoteAmount, // NEW
         status: "PENDING",
         expiresAt
       }

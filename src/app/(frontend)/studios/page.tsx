@@ -4,40 +4,50 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import BottomNav from "@/components/brand/BottomNav";
 import { Logo } from "@/components/ui/Logo";
+import { ChevronLeft } from "lucide-react";
 
 export default function StudiosPage() {
   const router = useRouter();
   
-  // Tabs state
+  // High-level Tabs
   const [mainTab, setMainTab] = useState("Partners"); // "Our Experts" | "Partners"
+  
+  // Partner Settings
   const [partnerType, setPartnerType] = useState("Cameraman"); // "Cameraman" | "Editors"
   const [bookingMode, setBookingMode] = useState("Instant"); // "Instant" | "Schedule"
   
+  // Step Management
+  // step 1: Select Partner List (or "Our Experts" screen)
+  // step 2: Schedule Form (Cameraman->Schedule) or Editor Form (Editors)
+  // step 3: Enter Amount (Quote)
+  const [step, setStep] = useState(1);
+  
+  // Data
   const [partners, setPartners] = useState<any[]>([]);
-  const [kalakaars, setKalakaars] = useState<any[]>([]);
   const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Mock data for initial development (can be replaced by real API)
-  const mockPartners = [
-    { id: "1", name: "Studio XYZ", isVerified: true, rating: 4, reviews: 10, type: "Cameraman", image: "/placeholder-user.jpg" },
-    { id: "2", name: "Cine Lenses", isVerified: true, rating: 4.5, reviews: 20, type: "Cameraman", image: "/placeholder-user.jpg" },
-  ];
+  // Form States
+  const [quoteAmount, setQuoteAmount] = useState("");
+  
+  // Schedule Form
+  const [scheduleHours, setScheduleHours] = useState("");
+  const [scheduleDate, setScheduleDate] = useState("");
+  const [scheduleTime, setScheduleTime] = useState("");
 
-  const mockKalakaars = [
-    { id: "mock-k-1", name: "Aarav Sharma", isVerified: true, rating: 4.9, reviews: 150, type: "Kalakaar", image: "/placeholder-user.jpg" },
-    { id: "mock-k-2", name: "Priya Singh", isVerified: true, rating: 4.8, reviews: 120, type: "Kalakaar", image: "/placeholder-user.jpg" },
+  // Editor Form
+  const [editorInstructions, setEditorInstructions] = useState("");
+  const [editorReference, setEditorReference] = useState("");
+
+  // Mock data
+  const mockPartners = [
+    { id: "1", name: "Lorem Ipsum", isVerified: true, rating: 4, reviews: 10, type: "Cameraman", image: "/placeholder-user.jpg" },
+    { id: "2", name: "Lorem Ipsum", isVerified: true, rating: 5, reviews: 20, type: "Cameraman", image: "/placeholder-user.jpg" },
   ];
 
   useEffect(() => {
     async function fetchPartners() {
       setIsLoading(true);
-      if (mainTab === "Our Experts") {
-        setKalakaars(mockKalakaars); // Future: Fetch from /api/kalakaars/list
-        setIsLoading(false);
-        return;
-      }
-      
       try {
         const res = await fetch(`/api/studios/partners?type=${partnerType}`);
         const data = await res.json();
@@ -53,194 +63,378 @@ export default function StudiosPage() {
       }
     }
     fetchPartners();
-  }, [partnerType, mainTab]);
+  }, [partnerType]);
 
-  const handleBookNow = async () => {
-    if (!selectedPartnerId) {
-      alert("Please select someone first!");
+  // Reset steps when changing main tabs
+  useEffect(() => {
+    setStep(1);
+    setSelectedPartnerId(null);
+  }, [mainTab, partnerType, bookingMode]);
+
+  const handleNextOrBook = async () => {
+    if (mainTab === "Our Experts") {
+      // Just a CTA button for "Our Experts"
+      window.location.href = "tel:+910000000000";
       return;
     }
-    
-    if (mainTab === "Our Experts") {
-      // Kalakaar Booking Flow
+
+    if (step === 1) {
+      if (!selectedPartnerId) {
+        alert("Please select a partner first!");
+        return;
+      }
+      
+      if (partnerType === "Cameraman" && bookingMode === "Instant") {
+        // Skip step 2, go straight to budget
+        setStep(3);
+      } else {
+        // Go to schedule form or editor form
+        setStep(2);
+      }
+    } else if (step === 2) {
+      // Validate form
+      if (partnerType === "Cameraman" && bookingMode === "Schedule") {
+        if (!scheduleHours || !scheduleDate || !scheduleTime) {
+          alert("Please fill in all schedule details.");
+          return;
+        }
+      }
+      if (partnerType === "Editors") {
+        if (!editorInstructions || !editorReference) {
+          alert("Please fill in editor details.");
+          return;
+        }
+      }
+      // Proceed to budget
+      setStep(3);
+    } else if (step === 3) {
+      // Final Submit
+      if (!quoteAmount) {
+        alert("Please enter an amount.");
+        return;
+      }
+
       try {
-        const res = await fetch('/api/kalakaars/book', {
+        const res = await fetch('/api/studios/bookings', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            kalakaarId: selectedPartnerId,
-            bookingMode: bookingMode,
-            brandId: "mock-brand-id", // To be replaced with actual session user id
+            partnerId: selectedPartnerId,
+            bookingMode,
+            quoteAmount,
+            // Pass extra details if they exist
+            ...(partnerType === "Cameraman" && bookingMode === "Schedule" && {
+              scheduleHours, scheduleDate, scheduleTime
+            }),
+            ...(partnerType === "Editors" && {
+              editorInstructions, editorReference
+            })
           })
         });
         const data = await res.json();
         if (data.success) {
-          router.push(`/studios/booking/${data.booking.id || data.bookingId}`);
+          alert("Booking requested successfully!");
+          // Reset
+          setStep(1);
+          setQuoteAmount("");
+          setSelectedPartnerId(null);
+          // router.push to tracking page in real app
         } else {
-          alert("Failed to create Kalakaar booking: " + data.error);
+          alert("Failed to create booking: " + data.error);
         }
       } catch (e) {
-        alert("Error initiating Kalakaar booking.");
+        alert("Error initiating booking.");
       }
-      return;
-    }
-
-    // Studio Booking Flow
-    try {
-      const res = await fetch('/api/studios/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          partnerId: selectedPartnerId,
-          bookingMode: bookingMode,
-        })
-      });
-      const data = await res.json();
-      if (data.success) {
-        alert("Booking requested successfully!");
-        // In the future, this will open the detailed booking form popup
-      } else {
-        alert("Failed to create booking: " + data.error);
-      }
-    } catch (e) {
-      alert("Error initiating booking.");
     }
   };
+
+  const renderOurExperts = () => (
+    <div className="flex flex-col items-center justify-center pt-20 pb-10 text-center">
+      <h2 className="text-xl font-bold mb-2">Speak to our experts</h2>
+      <p className="text-sm text-gray-500 mb-6">Call us now or WhatsApp on</p>
+      <p className="text-2xl font-bold text-gray-800 mb-10 tracking-wider">+91 000 000 0000</p>
+      <button 
+        onClick={() => window.location.href = "tel:+910000000000"}
+        className="w-full bg-[#FF4D2D] text-white font-bold h-12 rounded-[14px]"
+      >
+        CALL NOW
+      </button>
+    </div>
+  );
+
+  const renderList = () => (
+    <div className="flex flex-col gap-3 mt-4">
+      {partners.map((partner) => {
+        const isSelected = selectedPartnerId === partner.id;
+        return (
+          <div 
+            key={partner.id}
+            onClick={() => setSelectedPartnerId(partner.id)}
+            className={`flex items-center justify-between p-3 rounded-[16px] transition-all cursor-pointer border ${
+              isSelected 
+              ? "border-[#FF4D2D] shadow-[0_4px_15px_rgba(255,77,45,0.1)] bg-white" 
+              : "border-gray-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)]"
+            }`}
+          >
+            <div className="flex items-center gap-4">
+              <div 
+                className="w-[60px] h-[60px] bg-gradient-to-br from-[#E2E8F0] to-[#94A3B8] rounded-[12px] flex-shrink-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${partner.image})` }}
+              />
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[15px] font-bold text-[#111111]">{partner.name}</span>
+                  {partner.isVerified && (
+                    <div className="w-3.5 h-3.5 bg-[#FF4D2D] text-white flex items-center justify-center rounded-sm mask mask-hexagon" style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
+                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="w-2 h-2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                  )}
+                </div>
+                <div className="flex items-center gap-1 mt-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <svg 
+                      key={star} 
+                      className={`w-3.5 h-3.5 ${star <= Math.floor(partner.rating) ? 'text-[#FFD700]' : 'text-gray-200'}`} 
+                      fill="currentColor" 
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-2 transition-colors ${
+              isSelected ? "border-[#FF4D2D]" : "border-gray-300"
+            }`}>
+              {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#FF4D2D]" />}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  const renderScheduleForm = () => (
+    <div className="mt-8 space-y-5">
+      <div>
+        <label className="text-xs text-gray-500 mb-1 block">Hours</label>
+        <div className="relative">
+          <input 
+            type="text" 
+            placeholder="0 Hours"
+            value={scheduleHours}
+            onChange={(e) => setScheduleHours(e.target.value)}
+            className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-[#FF4D2D] text-sm"
+          />
+        </div>
+      </div>
+      <div>
+        <label className="text-xs text-gray-500 mb-1 block">Date</label>
+        <div className="relative">
+          <input 
+            type="date" 
+            value={scheduleDate}
+            onChange={(e) => setScheduleDate(e.target.value)}
+            className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-[#FF4D2D] text-sm bg-transparent"
+          />
+        </div>
+      </div>
+      <div>
+        <label className="text-xs text-gray-500 mb-1 block">Time</label>
+        <div className="relative">
+          <input 
+            type="time" 
+            value={scheduleTime}
+            onChange={(e) => setScheduleTime(e.target.value)}
+            className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-[#FF4D2D] text-sm bg-transparent"
+          />
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderEditorForm = () => (
+    <div className="mt-6 flex flex-col items-center">
+      <h3 className="font-bold text-lg mb-1">Editors form</h3>
+      <p className="text-xs text-gray-400 mb-6">Please provide the details</p>
+
+      <div className="w-full space-y-6">
+        <div>
+          <label className="text-xs font-semibold text-gray-800 mb-2 block">Instructions</label>
+          <textarea
+            placeholder="enter details here..."
+            value={editorInstructions}
+            onChange={(e) => setEditorInstructions(e.target.value)}
+            className="w-full border border-gray-200 rounded-xl p-3 text-sm min-h-[100px] focus:outline-none focus:border-[#FF4D2D]"
+          />
+        </div>
+
+        <div>
+          <label className="text-xs font-semibold text-gray-800 mb-2 block">Reference link</label>
+          <input
+            type="text"
+            placeholder="https://"
+            value={editorReference}
+            onChange={(e) => setEditorReference(e.target.value)}
+            className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-[#FF4D2D]"
+          />
+        </div>
+
+        <button className="w-full border border-dashed border-[#FF4D2D] text-[#FF4D2D] rounded-xl p-4 text-sm font-bold flex items-center justify-center gap-2 bg-[#FFF6F5]">
+          + upload files
+        </button>
+      </div>
+    </div>
+  );
+
+  const renderBudgetForm = () => (
+    <div className="mt-12 flex flex-col items-center">
+      <h3 className="font-bold text-lg mb-1">{partnerType === "Editors" ? "Editor" : "Partners"}</h3>
+      <p className="text-xs text-gray-400 mb-8">Enter your amount</p>
+      
+      <div className="w-full">
+        <label className="text-xs text-gray-500 mb-2 block">₹500</label>
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Your quote (₹1000)"
+            value={quoteAmount}
+            onChange={(e) => setQuoteAmount(e.target.value)}
+            className="w-full border-b border-gray-200 py-3 text-sm focus:outline-none focus:border-[#FF4D2D]"
+          />
+        </div>
+      </div>
+    </div>
+  );
+
+  const isUnavailable = partners.length === 0 && !isLoading && mainTab === "Partners";
 
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col pb-24">
       {/* Header */}
-      <div className="pt-4 px-5 pb-2 bg-white flex justify-center sticky top-0 z-20">
+      <div className="pt-4 px-5 pb-2 bg-white flex justify-center sticky top-0 z-20 relative">
+        {step > 1 && (
+          <button 
+            onClick={() => setStep(step - 1)} 
+            className="absolute left-5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-[#FFF6F5] text-[#FF4D2D] rounded-full"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+        )}
         <Logo showText={true} />
       </div>
 
       <div className="px-5 mt-4 space-y-6">
         
-        {/* Main Tabs (Our Experts | Partners) */}
-        <div className="flex bg-white rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.04)] p-1 border border-gray-100">
-          {["Our Experts", "Partners"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setMainTab(tab)}
-              className={`flex-1 py-3 rounded-[12px] text-[14px] font-bold transition-colors ${
-                mainTab === tab 
-                ? "bg-[#FF4D2D] text-white shadow-sm" 
-                : "text-gray-400 hover:text-gray-600 bg-transparent"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+        {/* Only show tabs if we are on step 1 */}
+        {step === 1 && (
+          <>
+            {/* Main Tabs (Our Experts | Partners) */}
+            <div className="flex bg-white rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.04)] p-1 border border-gray-100">
+              {["Our Experts", "Partners"].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setMainTab(tab)}
+                  className={`flex-1 py-3 rounded-[12px] text-[14px] font-bold transition-colors ${
+                    mainTab === tab 
+                    ? "bg-[#FF4D2D] text-white shadow-sm" 
+                    : "text-gray-400 hover:text-gray-600 bg-transparent"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
 
-        {/* Sub Tabs (Cameraman | Editors) - Only if Partners is selected */}
-        {mainTab === "Partners" && (
-          <div className="flex bg-white rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] p-1 border border-gray-50">
-            {["Cameraman", "Editors"].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setPartnerType(tab)}
-                className={`flex-1 py-2.5 rounded-[10px] text-[13px] font-bold transition-colors ${
-                  partnerType === tab 
-                  ? "bg-[#FF4D2D] text-white shadow-sm" 
-                  : "text-gray-400 hover:text-gray-600 bg-transparent"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Mode Tabs (Instant | Schedule) - Shows for both Experts and Partners (if Cameraman/Editor) */}
-        {(mainTab === "Our Experts" || mainTab === "Partners") && (
-          <div className="flex bg-white rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] p-1 border border-gray-50">
-            {["Instant", "Schedule"].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setBookingMode(tab)}
-                className={`flex-1 py-2.5 rounded-[10px] text-[13px] font-bold transition-colors ${
-                  bookingMode === tab 
-                  ? "bg-[#FF4D2D] text-white shadow-sm" 
-                  : "text-gray-400 hover:text-gray-600 bg-transparent"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* List of Profiles */}
-        <div className="flex flex-col gap-3 mt-4">
-          {(mainTab === "Our Experts" ? kalakaars : partners).map((partner) => {
-            const isSelected = selectedPartnerId === partner.id;
-            
-            return (
-              <div 
-                key={partner.id}
-                onClick={() => setSelectedPartnerId(partner.id)}
-                className={`flex items-center justify-between p-3 rounded-[16px] transition-all cursor-pointer border ${
-                  isSelected 
-                  ? "border-[#FF4D2D] shadow-[0_4px_15px_rgba(255,77,45,0.1)] bg-white" 
-                  : "border-gray-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)]"
-                }`}
-              >
-                <div className="flex items-center gap-4">
-                  <div 
-                    className="w-[60px] h-[60px] bg-gradient-to-br from-[#E2E8F0] to-[#94A3B8] rounded-[12px] flex-shrink-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${partner.image})` }}
-                  />
-                  
-                  <div className="flex flex-col">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[15px] font-bold text-[#111111]">{partner.name}</span>
-                      {partner.isVerified && (
-                        <div className="w-3.5 h-3.5 bg-[#FF4D2D] text-white flex items-center justify-center rounded-sm mask mask-hexagon" style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
-                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="w-2 h-2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-1 mt-1">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <svg 
-                          key={star} 
-                          className={`w-3.5 h-3.5 ${star <= Math.floor(partner.rating) ? 'text-[#FFD700]' : 'text-gray-200'}`} 
-                          fill="currentColor" 
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Radio Button */}
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-2 transition-colors ${
-                  isSelected ? "border-[#FF4D2D]" : "border-gray-300"
-                }`}>
-                  {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#FF4D2D]" />}
-                </div>
+            {/* Sub Tabs (Cameraman | Editors) */}
+            {mainTab === "Partners" && (
+              <div className="flex bg-white rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] p-1 border border-gray-50">
+                {["Cameraman", "Editors"].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setPartnerType(tab)}
+                    className={`flex-1 py-2.5 rounded-[10px] text-[13px] font-bold transition-colors ${
+                      partnerType === tab 
+                      ? "bg-[#FF4D2D] text-white shadow-sm" 
+                      : "text-gray-400 hover:text-gray-600 bg-transparent"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
               </div>
-            );
-          })}
-        </div>
+            )}
+
+            {/* Mode Tabs (Instant | Schedule) */}
+            {mainTab === "Partners" && partnerType === "Cameraman" && (
+              <div className="flex bg-white rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] p-1 border border-gray-50">
+                {["Instant", "Schedule"].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setBookingMode(tab)}
+                    className={`flex-1 py-2.5 rounded-[10px] text-[13px] font-bold transition-colors ${
+                      bookingMode === tab 
+                      ? "bg-[#FF4D2D] text-white shadow-sm" 
+                      : "text-gray-400 hover:text-gray-600 bg-transparent"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Content based on Step & Tab */}
+        {mainTab === "Our Experts" && renderOurExperts()}
+
+        {mainTab === "Partners" && (
+          <>
+            {isUnavailable && step === 1 ? (
+              <div className="flex flex-col items-center justify-center pt-20 pb-10 text-center">
+                <h2 className="text-xl font-bold mb-2">Unavailable</h2>
+                <p className="text-sm text-gray-500 mb-6">Call source or WhatsApp on</p>
+                <p className="text-2xl font-bold text-gray-800 mb-10 tracking-wider">+91 000 000 0000</p>
+                <button 
+                  onClick={() => window.location.href = "tel:+910000000000"}
+                  className="w-full bg-[#FF4D2D] text-white font-bold h-12 rounded-[14px]"
+                >
+                  CALL NOW
+                </button>
+              </div>
+            ) : (
+              <>
+                {step === 1 && renderList()}
+                
+                {step === 2 && partnerType === "Cameraman" && bookingMode === "Schedule" && renderScheduleForm()}
+                {step === 2 && partnerType === "Editors" && renderEditorForm()}
+                
+                {step === 3 && renderBudgetForm()}
+              </>
+            )}
+          </>
+        )}
+
       </div>
 
-      {/* Book Now Button (Sticky to bottom above nav) */}
-      <div className="fixed bottom-[80px] left-0 w-full px-5 z-40">
-        <div className="max-w-md mx-auto">
-          <button 
-            onClick={handleBookNow}
-            className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-bold shadow-[0_4px_15px_rgba(255,77,45,0.4)] transition-all active:scale-[0.98]"
-          >
-            BOOK NOW
-          </button>
+      {/* Action Button (Sticky to bottom above nav) */}
+      {(!isUnavailable && !(mainTab === "Our Experts")) && (
+        <div className="fixed bottom-[80px] left-0 w-full px-5 z-40">
+          <div className="max-w-md mx-auto">
+            <button 
+              onClick={handleNextOrBook}
+              className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-bold shadow-[0_4px_15px_rgba(255,77,45,0.4)] transition-all active:scale-[0.98]"
+            >
+              {step === 1 && partnerType === "Editors" ? "NEXT" : (step === 2 && partnerType === "Editors" ? "NEXT" : "BOOK NOW")}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
-      <BottomNav />
+      {step === 1 && <BottomNav />}
     </div>
   );
 }
