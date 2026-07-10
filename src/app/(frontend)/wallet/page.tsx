@@ -91,22 +91,22 @@ export default function WalletPage() {
         {/* Transactions Header */}
         <div className="px-4 sm:px-6 flex justify-between items-center mb-6 relative shrink-0">
           <h2 className="text-[15px] font-extrabold text-[#1a1a2e]">Transactions</h2>
-          <button 
-            className="text-gray-500 hover:text-primary-red transition-colors relative"
-            onClick={() => setFilterOpen(!filterOpen)}
-          >
-            <Filter className={`w-5 h-5 ${filterOpen ? 'text-primary-red' : ''}`} />
-          </button>
-
-          {/* Filter Dropdown */}
-          {filterOpen && (
-            <div className="absolute top-8 right-6 bg-white border border-primary-red rounded-xl shadow-lg w-32 overflow-hidden z-20 flex flex-col p-1">
-              <button className="px-4 py-2.5 text-left text-xs font-medium text-gray-500 hover:bg-gray-50">Pending</button>
-              <button className="px-4 py-2.5 text-left text-xs font-medium text-gray-500 hover:bg-gray-50">Recived</button>
-              <button className="px-4 py-2.5 text-left text-xs font-medium text-gray-500 hover:bg-gray-50">last month</button>
-              <button className="px-4 py-2.5 text-left text-xs font-medium text-gray-500 hover:bg-gray-50">Clear</button>
-            </div>
-          )}
+          <div className="relative">
+            <button 
+              className="text-gray-500 hover:text-primary-red transition-colors relative"
+              onClick={() => setFilterOpen(!filterOpen)}
+            >
+              <Filter className={`w-5 h-5 ${filterOpen ? 'text-primary-red' : ''}`} />
+            </button>
+            {filterOpen && (
+              <div className="absolute right-0 top-8 bg-white border border-[#EF4823] rounded-lg shadow-xl w-28 overflow-hidden z-20 flex flex-col p-1">
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4823]">Pending</button>
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4823]">Received</button>
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4823]">last month</button>
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4823] border-t border-gray-100">Clear</button>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Transactions List */}
