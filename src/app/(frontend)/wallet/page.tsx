@@ -40,7 +40,7 @@ export default function WalletPage() {
 
   return (
     <div className="w-full max-w-md mx-auto h-full flex flex-col bg-white font-sans overflow-hidden">
-      <div className="flex-1 overflow-y-auto overflow-x-hidden pb-10 relative flex flex-col">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden pb-32 relative flex flex-col">
         {/* Header */}
         <div className="px-4 sm:px-6 pt-4 pb-4 flex justify-between items-start shrink-0">
           <div className="flex flex-col truncate pr-2">
