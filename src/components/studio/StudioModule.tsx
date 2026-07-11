@@ -7,7 +7,7 @@ import BottomNav from '../shared/BottomNav';
 export default function StudioModule() {
   const router = useRouter();
   const [inputText, setInputText] = useState('');
-  const [profilePic, setProfilePic] = useState<string>('/profile_pic.png');
+  const [profilePic, setProfilePic] = useState<string>('');
   const [chatState, setChatState] = useState<'main' | 'generating' | 'generated'>('main');
   const [showShare, setShowShare] = useState(false);
   const [generatedText, setGeneratedText] = useState('');

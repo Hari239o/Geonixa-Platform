@@ -6,7 +6,7 @@ import { Bell, BadgeCheck, MessageCircle } from 'lucide-react';
 import BottomNav from '../shared/BottomNav';
 import { getItem } from '@/utils/storage';
 
-const defaultProfilePic = '/profile_pic.png';
+const defaultProfilePic = '';
 
 interface ProfileData {
  fullName: string;
