@@ -14,7 +14,7 @@ interface Budget {
 
 export default function ProfileSettingsPage() {
   const router = useRouter();
-  const [profilePic, setProfilePic] = useState<string>('/profile_pic.png');
+  const [profilePic, setProfilePic] = useState<string>('');
   const [fullName, setFullName] = useState('');
   const [bio, setBio] = useState('');
   
@@ -65,7 +65,7 @@ export default function ProfileSettingsPage() {
   };
 
   const removeProfilePic = () => {
-    setProfilePic('/profile_pic.png');
+    setProfilePic('');
   };
 
   const handleBudgetChange = (index: number, field: 'name' | 'price', value: string) => {

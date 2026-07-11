@@ -12,7 +12,7 @@ export default function WalletPage() {
  const [filterOpen, setFilterOpen] = useState(false);
  const [profile, setProfile] = useState({
  fullName: 'Lorem Ipsum',
- profilePic: '/profile_pic.png'
+ profilePic: ''
  });
 
  useEffect(() => {
@@ -22,7 +22,7 @@ export default function WalletPage() {
         if (parsed) {
           setProfile({
             fullName: parsed.fullName || 'Lorem Ipsum',
-            profilePic: parsed.profilePic || '/profile_pic.png'
+            profilePic: parsed.profilePic || ''
           });
         }
       }

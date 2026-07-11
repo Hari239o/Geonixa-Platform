@@ -27,7 +27,7 @@ export default function CampaignPage() {
  const [negotiateModalOpen, setNegotiateModalOpen] = useState(false);
  const [negotiateAmount, setNegotiateAmount] = useState('');
  const [selectedCampaignId, setSelectedCampaignId] = useState<string | null>(null);
- const [profilePic, setProfilePic] = useState<string>('/profile_pic.png');
+ const [profilePic, setProfilePic] = useState<string>('');
  const [actionLoading, setActionLoading] = useState<string | null>(null);
  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 

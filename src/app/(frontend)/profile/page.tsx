@@ -62,7 +62,7 @@ export default function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile>({
     fullName: '',
     bio: '',
-    profilePic: '/profile_pic.png',
+    profilePic: '',
     category: '',
     followers: '0',
     viewership: '0',
