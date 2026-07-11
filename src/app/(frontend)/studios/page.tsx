@@ -27,6 +27,38 @@ export default function StudiosPage() {
   const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    // Redirect if partner or creator
+    if (status === "authenticated" && session?.user) {
+      const userRole = (session.user as any).role;
+      if (userRole === "partner") {
+        router.replace("/partner");
+        return;
+      } else if (userRole === "creator") {
+        router.replace("/creator");
+        return;
+      }
+    }
+
+    async function fetchPartners() {
+      setIsLoading(true);
+      try {
+        const res = await fetch(`/api/studios/partners?type=${partnerType}`);
+        const data = await res.json();
+        if (data.success) {
+          setPartners(data.partners);
+        } else {
+          setPartners(mockPartners);
+        }
+      } catch (e) {
+        setPartners(mockPartners);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchPartners();
+  }, [partnerType, status, session]);
+
   // Form States
   const [quoteAmount, setQuoteAmount] = useState("");
   

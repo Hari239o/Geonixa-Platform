@@ -32,6 +32,18 @@ export default function BrandHomeFeedPage() {
   const [brandProfile, setBrandProfile] = useState<any>(null)
 
   useEffect(() => {
+    // Redirect if partner or creator
+    if (status === "authenticated" && session?.user) {
+      const userRole = (session.user as any).role;
+      if (userRole === "partner") {
+        router.replace("/partner");
+        return;
+      } else if (userRole === "creator") {
+        router.replace("/creator");
+        return;
+      }
+    }
+
     // Check if the brand is verified and get their profile
     const savedBrand = localStorage.getItem("kaling_brand_profile") || localStorage.getItem("kaling_company_profile")
     if (savedBrand) {
