@@ -48,6 +48,8 @@ export default function AuthCallbackPage() {
           router.replace(hasProfile ? "/partner" : "/partner/setup-profile");
         } else if (role === "creator") {
           router.replace(hasProfile ? "/creator" : "/setup-profile");
+        } else if (role === "admin") {
+          router.replace("/admin");
         } else {
           router.replace("/auth/category-selection");
         }
