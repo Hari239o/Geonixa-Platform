@@ -125,7 +125,7 @@ export default function BrandDashboardPage() {
   if (isLoading) {
     return (
       <div className="h-full bg-[#F8F9FA] flex justify-center items-center font-sans">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EF4823]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EF4423]"></div>
       </div>
     )
   }
@@ -138,7 +138,7 @@ export default function BrandDashboardPage() {
         <div className="pt-5 px-6 pb-6 bg-white rounded-b-[40px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] z-10 shrink-0 relative">
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-4">
-              <label className="w-24 h-24 bg-[#EF4823] rounded-2xl flex items-center justify-center overflow-hidden relative shadow-md cursor-pointer group">
+              <label className="w-24 h-24 bg-[#EF4423] rounded-2xl flex items-center justify-center overflow-hidden relative shadow-md cursor-pointer group">
                 {profileData?.profilePic ? (
                   <img src={profileData.profilePic} alt="Brand Logo" className="w-full h-full object-cover group-hover:opacity-80 transition-opacity" />
                 ) : (
@@ -156,7 +156,7 @@ export default function BrandDashboardPage() {
                   </h1>
                   {profileData?.isVerified && (
                     <div className="flex items-center mt-1">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="#EF4823" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="#EF4423" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
                         <path d="m9 12 2 2 4-4" />
                       </svg>
@@ -167,7 +167,7 @@ export default function BrandDashboardPage() {
             </div>
             
             <div className="flex gap-3 text-gray-400 mt-2 items-center">
-              <button onClick={handleShare} className="hover:text-[#EF4823] transition-colors" title="Share Profile">
+              <button onClick={handleShare} className="hover:text-[#EF4423] transition-colors" title="Share Profile">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 3L3 10.5l7.5 3 3 7.5L21 3z" />
                   <path d="M10.5 13.5l4.5-4.5" />
@@ -181,7 +181,7 @@ export default function BrandDashboardPage() {
                     router.push("/brand/setup-company")
                   }
                 }} 
-                className="hover:text-[#EF4823] transition-colors" 
+                className="hover:text-[#EF4423] transition-colors" 
                 title="Settings"
               >
                 <SlidersHorizontal size={20} strokeWidth={2.5} />
@@ -195,7 +195,7 @@ export default function BrandDashboardPage() {
               onClick={() => setActiveTab('about')}
               className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${
                 activeTab === 'about' 
-                ? 'bg-[#EF4823] text-white shadow-md' 
+                ? 'bg-[#EF4423] text-white shadow-md' 
                 : 'text-gray-500 hover:bg-gray-100'
               }`}
             >
@@ -211,7 +211,7 @@ export default function BrandDashboardPage() {
               }}
               className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${
                 activeTab === 'portfolio' 
-                ? 'bg-[#EF4823] text-white shadow-md' 
+                ? 'bg-[#EF4423] text-white shadow-md' 
                 : 'text-gray-500 hover:bg-gray-100'
               }`}
             >
@@ -231,7 +231,7 @@ export default function BrandDashboardPage() {
                 {!profileData?.isVerified && (
                   <button
                     onClick={() => router.push('/kyc')}
-                    className="w-full font-bold py-3.5 rounded-[16px] transition-all flex items-center justify-center gap-2 bg-[#EF4823] hover:bg-[#d63d1c] text-white active:scale-[0.98] shadow-[0_4px_15px_rgba(239,72,35,0.25)]"
+                    className="w-full font-bold py-3.5 rounded-[16px] transition-all flex items-center justify-center gap-2 bg-[#EF4423] hover:bg-[#d63d1c] text-white active:scale-[0.98] shadow-[0_4px_15px_rgba(239,72,35,0.25)]"
                   >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                     Authenticate Account
@@ -347,7 +347,7 @@ export default function BrandDashboardPage() {
                       )}
                       <button 
                         onClick={() => handleDeletePortfolioImage(i)}
-                        className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow-md text-[#EF4823]"
+                        className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow-md text-[#EF4423]"
                       >
                         <Trash2 size={14} />
                       </button>
@@ -357,7 +357,7 @@ export default function BrandDashboardPage() {
               )}
 
               {/* Add Button Below Grid */}
-              <label className="w-12 h-12 bg-[#EF4823] hover:bg-[#d63d1c] rounded-full shadow-lg flex items-center justify-center text-white cursor-pointer active:scale-95 transition-transform shrink-0 mb-6">
+              <label className="w-12 h-12 bg-[#EF4423] hover:bg-[#d63d1c] rounded-full shadow-lg flex items-center justify-center text-white cursor-pointer active:scale-95 transition-transform shrink-0 mb-6">
                 <Plus size={24} strokeWidth={2} />
                 <input 
                   type="file" 
@@ -409,24 +409,24 @@ export default function BrandDashboardPage() {
             </button>
 
             <div className="flex flex-col items-center mt-2">
-              <BadgeCheck className="w-[42px] h-[42px] text-[#EF4823] fill-[#EF4823] text-white mb-3" />
-              <h2 className="text-[20px] font-black text-[#EF4823] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
+              <BadgeCheck className="w-[42px] h-[42px] text-[#EF4423] fill-[#EF4423] text-white mb-3" />
+              <h2 className="text-[20px] font-black text-[#EF4423] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
               <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
                 With Aadhar
               </p>
 
               <button 
                 onClick={() => router.push('/kyc')}
-                className="w-full py-3.5 border-2 border-dashed border-[#EF4823]/40 rounded-[14px] flex items-center justify-center gap-3 mb-6 hover:bg-[#EF4823]/5 transition-colors"
+                className="w-full py-3.5 border-2 border-dashed border-[#EF4423]/40 rounded-[14px] flex items-center justify-center gap-3 mb-6 hover:bg-[#EF4423]/5 transition-colors"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#EF4823]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#EF4423]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
                 <span className="text-[#1a1a2e] font-semibold text-[14px]">Camera</span>
               </button>
 
               <button 
-                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
+                className="w-full py-3.5 bg-[#EF4423] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
                 onClick={() => router.push('/kyc')}
               >
                 VERIFY

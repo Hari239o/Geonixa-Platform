@@ -23,14 +23,14 @@ export function WelcomeScreen() {
       <div className="flex flex-col w-full max-w-[240px] gap-3">
         <Link 
           href="/auth/login" 
-          className="w-full bg-[#DFEA50] text-[#EF4823] hover:bg-[#D4E03B] h-11 rounded-[10px] flex items-center justify-center font-bold text-[15px] shadow-sm transition-colors"
+          className="w-full bg-[#DFEA50] text-[#EF4423] hover:bg-[#D4E03B] h-11 rounded-[10px] flex items-center justify-center font-bold text-[15px] shadow-sm transition-colors"
         >
           Sign In
         </Link>
         
         <Link 
           href="/auth/category-selection" 
-          className="w-full bg-[#FAF1DF] text-[#EF4823] hover:bg-[#EBE2D3] h-11 rounded-[10px] flex items-center justify-center font-bold text-[15px] shadow-sm transition-colors"
+          className="w-full bg-[#FAF1DF] text-[#EF4423] hover:bg-[#EBE2D3] h-11 rounded-[10px] flex items-center justify-center font-bold text-[15px] shadow-sm transition-colors"
         >
           Sign Up
         </Link>

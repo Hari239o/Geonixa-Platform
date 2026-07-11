@@ -19,9 +19,9 @@ export default function BrandChooseTypePage() {
         <div className="flex flex-col gap-4 w-full">
           <button 
             onClick={() => router.push("/brand/setup-individual")}
-            className="flex items-center gap-4 p-5 rounded-2xl border-2 border-gray-100 hover:border-[#EF4823] hover:bg-orange-50/50 transition-all group text-left"
+            className="flex items-center gap-4 p-5 rounded-2xl border-2 border-gray-100 hover:border-[#EF4423] hover:bg-orange-50/50 transition-all group text-left"
           >
-            <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-gray-500 group-hover:bg-[#EF4823] group-hover:text-white transition-colors shrink-0">
+            <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-gray-500 group-hover:bg-[#EF4423] group-hover:text-white transition-colors shrink-0">
               <User size={24} strokeWidth={2} />
             </div>
             <div>
@@ -32,9 +32,9 @@ export default function BrandChooseTypePage() {
 
           <button 
             onClick={() => router.push("/brand/setup-company")}
-            className="flex items-center gap-4 p-5 rounded-2xl border-2 border-gray-100 hover:border-[#EF4823] hover:bg-orange-50/50 transition-all group text-left"
+            className="flex items-center gap-4 p-5 rounded-2xl border-2 border-gray-100 hover:border-[#EF4423] hover:bg-orange-50/50 transition-all group text-left"
           >
-            <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-gray-500 group-hover:bg-[#EF4823] group-hover:text-white transition-colors shrink-0">
+            <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-gray-500 group-hover:bg-[#EF4423] group-hover:text-white transition-colors shrink-0">
               <Building2 size={24} strokeWidth={2} />
             </div>
             <div>

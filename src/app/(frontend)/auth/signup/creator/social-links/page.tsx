@@ -55,25 +55,25 @@ export default function CreatorSignupStep3Socials() {
             placeholder="Instagram" 
             value={formData.instagram || ""}
             onChange={(e) => updateFormData({ instagram: e.target.value })}
-            className="bg-[#F5F5F5] border-slate-200 rounded-xl h-12 shadow-sm focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D]"
+            className="bg-[#F5F5F5] border-slate-200 rounded-xl h-12 shadow-sm focus-visible:ring-[#EF4423]/20 focus-visible:border-[#EF4423]"
           />
           <Input 
             placeholder="X (Twitter)" 
             value={formData.x || ""}
             onChange={(e) => updateFormData({ x: e.target.value })}
-            className="bg-[#F5F5F5] border-slate-200 rounded-xl h-12 shadow-sm focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D]"
+            className="bg-[#F5F5F5] border-slate-200 rounded-xl h-12 shadow-sm focus-visible:ring-[#EF4423]/20 focus-visible:border-[#EF4423]"
           />
           <Input 
             placeholder="Behance" 
             value={formData.behance || ""}
             onChange={(e) => updateFormData({ behance: e.target.value })}
-            className="bg-[#F5F5F5] border-slate-200 rounded-xl h-12 shadow-sm focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D]"
+            className="bg-[#F5F5F5] border-slate-200 rounded-xl h-12 shadow-sm focus-visible:ring-[#EF4423]/20 focus-visible:border-[#EF4423]"
           />
           <Input 
             placeholder="Portfolio URL" 
             value={formData.portfolioUrl || ""}
             onChange={(e) => updateFormData({ portfolioUrl: e.target.value })}
-            className="bg-[#F5F5F5] border-slate-200 rounded-xl h-12 shadow-sm focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D]"
+            className="bg-[#F5F5F5] border-slate-200 rounded-xl h-12 shadow-sm focus-visible:ring-[#EF4423]/20 focus-visible:border-[#EF4423]"
           />
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function CreatorSignupStep3Socials() {
       <div className="pt-2">
         <Button 
           type="submit" 
-          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-xl h-12 text-base font-semibold shadow-md shadow-[#FF4D2D]/20"
+          className="w-full bg-[#EF4423] hover:bg-[#EF4423]/90 text-white rounded-xl h-12 text-base font-semibold shadow-md shadow-[#EF4423]/20"
         >
           Next
         </Button>

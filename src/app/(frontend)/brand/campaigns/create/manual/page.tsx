@@ -95,7 +95,7 @@ export default function ManualCampaignCreatePage() {
               if (step > 1) setStep(step - 1)
               else router.back()
             }}
-            className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4823] hover:opacity-80 transition-opacity"
+            className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4423] hover:opacity-80 transition-opacity"
           >
             <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
           </button>
@@ -105,7 +105,7 @@ export default function ManualCampaignCreatePage() {
           </h1>
           
           {step === 1 ? (
-            <button onClick={() => router.push("/brand/campaigns/create/ai")} className="w-10 h-10 flex items-center justify-center text-[#EF4823] hover:bg-orange-50 rounded-full transition-colors">
+            <button onClick={() => router.push("/brand/campaigns/create/ai")} className="w-10 h-10 flex items-center justify-center text-[#EF4423] hover:bg-orange-50 rounded-full transition-colors">
                <Wand2 className="w-5 h-5" />
             </button>
           ) : (
@@ -125,7 +125,7 @@ export default function ManualCampaignCreatePage() {
                     onClick={() => setVisibility(tab)}
                     className={`flex-1 py-2.5 rounded-[10px] text-[13px] font-bold transition-colors ${
                       visibility === tab 
-                      ? "bg-[#EF4823] text-white shadow-sm" 
+                      ? "bg-[#EF4423] text-white shadow-sm" 
                       : "text-gray-400 hover:text-gray-600"
                     }`}
                   >
@@ -234,7 +234,7 @@ export default function ManualCampaignCreatePage() {
               <button 
                 onClick={() => setStep(2)} 
                 disabled={!title}
-                className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-2 disabled:opacity-50"
+                className="w-full bg-[#EF4423] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-2 disabled:opacity-50"
               >
                 FIND CREATORS
               </button>
@@ -255,11 +255,11 @@ export default function ManualCampaignCreatePage() {
                        setSelectedCreators([...selectedCreators, creator.id])
                     }
                   }}
-                  className={`bg-white rounded-[20px] p-4 border shadow-sm relative cursor-pointer transition-colors ${selectedCreators.includes(creator.id) ? 'border-[#EF4823] bg-orange-50/10' : 'border-gray-100'}`}
+                  className={`bg-white rounded-[20px] p-4 border shadow-sm relative cursor-pointer transition-colors ${selectedCreators.includes(creator.id) ? 'border-[#EF4423] bg-orange-50/10' : 'border-gray-100'}`}
                 >
                   {selectedCreators.includes(creator.id) && (
-                    <div className="absolute top-4 right-4 w-5 h-5 rounded-full border-2 border-[#EF4823] flex items-center justify-center">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#EF4823]"></div>
+                    <div className="absolute top-4 right-4 w-5 h-5 rounded-full border-2 border-[#EF4423] flex items-center justify-center">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#EF4423]"></div>
                     </div>
                   )}
                   
@@ -279,17 +279,17 @@ export default function ManualCampaignCreatePage() {
 
                   <div className="flex justify-between items-center px-2 py-3 bg-[#FAFAFA] rounded-[12px] border border-gray-100">
                     <div className="flex flex-col items-center">
-                      <span className="text-[#EF4823] font-bold text-[14px]">{creator.followers || '0'}</span>
+                      <span className="text-[#EF4423] font-bold text-[14px]">{creator.followers || '0'}</span>
                       <span className="text-gray-400 text-[10px] font-medium">Followers</span>
                     </div>
                     <div className="w-[1px] h-6 bg-gray-200"></div>
                     <div className="flex flex-col items-center">
-                      <span className="text-[#EF4823] font-bold text-[14px]">{creator.viewership || '0'}</span>
+                      <span className="text-[#EF4423] font-bold text-[14px]">{creator.viewership || '0'}</span>
                       <span className="text-gray-400 text-[10px] font-medium">Avg View</span>
                     </div>
                     <div className="w-[1px] h-6 bg-gray-200"></div>
                     <div className="flex flex-col items-center">
-                      <span className="text-[#EF4823] font-bold text-[14px]">{creator.engagement || '0'}</span>
+                      <span className="text-[#EF4423] font-bold text-[14px]">{creator.engagement || '0'}</span>
                       <span className="text-gray-400 text-[10px] font-medium">Avg Eng</span>
                     </div>
                   </div>
@@ -298,7 +298,7 @@ export default function ManualCampaignCreatePage() {
 
               <button 
                 onClick={() => setStep(3)} 
-                className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-4"
+                className="w-full bg-[#EF4423] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-4"
               >
                 NEXT
               </button>
@@ -313,7 +313,7 @@ export default function ManualCampaignCreatePage() {
                   <p className="text-red-500 text-[11px] font-bold mb-4 uppercase">INSUFFICIENT FUNDS</p>
                 )}
                 
-                <div className="bg-[#FAFAFA] border border-[#EF4823] rounded-[16px] py-4 px-6 w-full text-left relative shadow-sm">
+                <div className="bg-[#FAFAFA] border border-[#EF4423] rounded-[16px] py-4 px-6 w-full text-left relative shadow-sm">
                   <span className="text-gray-900 font-bold text-[24px]">₹</span>
                   <input 
                     type="number" 
@@ -331,14 +331,14 @@ export default function ManualCampaignCreatePage() {
                 <button 
                   onClick={handleSubmit} 
                   disabled={isSubmitting}
-                  className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-6 disabled:opacity-50"
+                  className="w-full bg-[#EF4423] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-6 disabled:opacity-50"
                 >
                   {isSubmitting ? "PUBLISHING..." : "PUBLISH"}
                 </button>
               ) : (
                 <button 
                   onClick={() => {}} 
-                  className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-6"
+                  className="w-full bg-[#EF4423] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-6"
                 >
                   ADD MONEY
                 </button>

@@ -5,8 +5,8 @@
   --color-foreground: var(--foreground);
 
   /* Kalinq Colors */
-  --color-primary-red: #FF4D2D;
-  --color-secondary-red: #FF4D2D; /* Will map correctly for gradients */
+  --color-primary-red: #EF4423;
+  --color-secondary-red: #EF4423; /* Will map correctly for gradients */
   --color-light-red: #FF7A5D;
   --color-button-yellow: #FFF36B;
   --color-text-dark: #1F2937;

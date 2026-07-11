@@ -64,7 +64,7 @@ export default function WalletPage() {
           </button>
           <button 
             onClick={() => router.push('/wallet/withdraw')}
-            className="flex-1 bg-[#EF4823] text-white py-3 rounded-[12px] font-bold text-sm shadow-sm hover:opacity-90 transition-opacity"
+            className="flex-1 bg-[#EF4423] text-white py-3 rounded-[12px] font-bold text-sm shadow-sm hover:opacity-90 transition-opacity"
           >
             Withdraw
           </button>
@@ -72,7 +72,7 @@ export default function WalletPage() {
 
         {/* Stats Card */}
         <div className="px-4 sm:px-6 mb-8 shrink-0">
-          <div className="bg-[#EF4823] rounded-[16px] p-4 flex justify-between items-center shadow-md relative overflow-hidden">
+          <div className="bg-[#EF4423] rounded-[16px] p-4 flex justify-between items-center shadow-md relative overflow-hidden">
             <div className="flex flex-col items-center flex-1 border-r border-white/20">
               <span className="text-[18px] font-bold text-white mb-0.5">₹{pending.toLocaleString()}</span>
               <span className="text-[11px] text-white/90 font-medium">Pending</span>
@@ -99,11 +99,11 @@ export default function WalletPage() {
               <Filter className={`w-5 h-5 ${filterOpen ? 'text-primary-red' : ''}`} />
             </button>
             {filterOpen && (
-              <div className="absolute right-0 top-8 bg-white border border-[#EF4823] rounded-lg shadow-xl w-28 overflow-hidden z-20 flex flex-col p-1">
-                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4823]">Pending</button>
-                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4823]">Received</button>
-                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4823]">last month</button>
-                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4823] border-t border-gray-100">Clear</button>
+              <div className="absolute right-0 top-8 bg-white border border-[#EF4423] rounded-lg shadow-xl w-28 overflow-hidden z-20 flex flex-col p-1">
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4423]">Pending</button>
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4423]">Received</button>
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4423]">last month</button>
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4423] border-t border-gray-100">Clear</button>
               </div>
             )}
           </div>
@@ -140,7 +140,7 @@ export default function WalletPage() {
 
         {/* Floating Banner (Relative to stay in flow, avoiding Nav overlap) */}
         <div className="w-full px-5 z-30 shrink-0 mt-auto pb-4">
-          <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-[18px] p-4 flex items-center justify-between shadow-xl relative overflow-hidden">
+          <div className="w-full max-w-[335px] mx-auto bg-[#EF4423] rounded-[18px] p-4 flex items-center justify-between shadow-xl relative overflow-hidden">
             <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
             <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-xl pointer-events-none"></div>
             

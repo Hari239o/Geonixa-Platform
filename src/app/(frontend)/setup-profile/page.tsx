@@ -202,7 +202,7 @@ const SetupProfilePage = () => {
  {profilePic ? (
  <Image src={profilePic as string} alt="Profile Preview" width={112} height={112} className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md" />
  ) : (
- <div className="w-28 h-28 rounded-full bg-orange-50 border-2 border-dashed border-orange-200 flex flex-col items-center justify-center text-[#EF4823] transition-colors group-hover:bg-orange-100 group-hover:border-[#EF4823]">
+ <div className="w-28 h-28 rounded-full bg-orange-50 border-2 border-dashed border-orange-200 flex flex-col items-center justify-center text-[#EF4423] transition-colors group-hover:bg-orange-100 group-hover:border-[#EF4423]">
  <Camera size={32} />
  <span className="text-xs font-semibold mt-2">Upload</span>
  </div>
@@ -228,7 +228,7 @@ const SetupProfilePage = () => {
  value={formData.fullName}
  onChange={handleInputChange}
  required 
- className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+ className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
  />
  </div>
 
@@ -242,7 +242,7 @@ const SetupProfilePage = () => {
  value={formData.category}
  onChange={handleInputChange}
  required
- className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 appearance-none text-gray-900 custom-select"
+ className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 appearance-none text-gray-900 custom-select"
  >
  <option value="" disabled>Select your category</option>
  <option value="Content Creator">Content Creator</option>
@@ -274,7 +274,7 @@ const SetupProfilePage = () => {
         value={formData.customCategory}
         onChange={handleInputChange}
         required 
-        className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+        className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
       />
     </div>
   )}
@@ -288,7 +288,7 @@ const SetupProfilePage = () => {
       placeholder="https://instagram.com/yourhandle"
       value={formData.instagramLink}
       onChange={handleInputChange}
-      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
     />
   </div>
 
@@ -301,7 +301,7 @@ const SetupProfilePage = () => {
       placeholder="https://facebook.com/yourhandle"
       value={formData.facebookLink}
       onChange={handleInputChange}
-      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
     />
   </div>
 
@@ -314,7 +314,7 @@ const SetupProfilePage = () => {
       placeholder="https://x.com/yourhandle"
       value={formData.twitterLink}
       onChange={handleInputChange}
-      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
     />
   </div>
 
@@ -327,7 +327,7 @@ const SetupProfilePage = () => {
       placeholder="https://linkedin.com/in/yourhandle"
       value={formData.linkedinLink}
       onChange={handleInputChange}
-      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
     />
   </div>
 
@@ -341,7 +341,7 @@ const SetupProfilePage = () => {
       value={formData.followers}
       onChange={handleInputChange}
       required
-      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
     />
   </div>
 
@@ -355,7 +355,7 @@ const SetupProfilePage = () => {
       value={formData.viewership}
       onChange={handleInputChange}
       required
-      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
     />
   </div>
 
@@ -369,7 +369,7 @@ const SetupProfilePage = () => {
       value={formData.engagement}
       onChange={handleInputChange}
       required
-      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
     />
   </div>
 
@@ -388,7 +388,7 @@ const SetupProfilePage = () => {
             value={formData.price1Reel}
             onChange={handleInputChange}
             required
-            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
           />
         </div>
       </div>
@@ -404,7 +404,7 @@ const SetupProfilePage = () => {
             value={formData.price5Reels}
             onChange={handleInputChange}
             required
-            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
           />
         </div>
       </div>
@@ -420,7 +420,7 @@ const SetupProfilePage = () => {
             value={formData.price10Reels}
             onChange={handleInputChange}
             required
-            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
           />
         </div>
       </div>
@@ -436,7 +436,7 @@ const SetupProfilePage = () => {
             value={formData.customPrice}
             onChange={handleInputChange}
             required
-            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
           />
         </div>
       </div>
@@ -452,7 +452,7 @@ const SetupProfilePage = () => {
  placeholder="https://yourwebsite.com"
  value={formData.portfolioLink}
  onChange={handleInputChange}
- className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+ className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
  />
  </div>
 
@@ -466,7 +466,7 @@ const SetupProfilePage = () => {
  value={formData.bio}
  onChange={handleInputChange}
  required
- className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400 resize-y min-h-[100px]"
+ className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400 resize-y min-h-[100px]"
  ></textarea>
  </div>
  
@@ -488,7 +488,7 @@ const SetupProfilePage = () => {
  </div>
  ))}
  
- <label htmlFor="portfolio-upload" className="w-24 h-24 rounded-xl bg-orange-50 border-2 border-dashed border-orange-200 flex flex-col items-center justify-center text-[#EF4823] cursor-pointer hover:bg-orange-100 transition-colors">
+ <label htmlFor="portfolio-upload" className="w-24 h-24 rounded-xl bg-orange-50 border-2 border-dashed border-orange-200 flex flex-col items-center justify-center text-[#EF4423] cursor-pointer hover:bg-orange-100 transition-colors">
  <ImagePlus size={24} />
  <span className="text-[10px] font-bold mt-1 text-center px-2">Add Media</span>
  </label>
@@ -505,7 +505,7 @@ const SetupProfilePage = () => {
 
  <button 
  type="submit" 
- className="mt-4 w-full p-4 bg-[#EF4823] text-white text-base font-bold rounded-2xl cursor-pointer transition-all hover:bg-[#d63d1c] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_15px_rgba(239,72,35,0.2)]" 
+ className="mt-4 w-full p-4 bg-[#EF4423] text-white text-base font-bold rounded-2xl cursor-pointer transition-all hover:bg-[#d63d1c] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_15px_rgba(239,72,35,0.2)]" 
  disabled={!isFormValid()}
  >
  Complete Profile

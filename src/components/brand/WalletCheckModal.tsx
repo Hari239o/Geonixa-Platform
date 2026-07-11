@@ -31,7 +31,7 @@ export default function WalletCheckModal({
       <div className="bg-white rounded-t-[24px] p-6 pb-8 w-full relative z-10 animate-in slide-in-from-bottom-full duration-300">
         <div className="flex justify-between items-start mb-6">
           <div className="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center shrink-0">
-             <Wallet className="w-6 h-6 text-[#EF4823]" />
+             <Wallet className="w-6 h-6 text-[#EF4423]" />
           </div>
           <button onClick={onClose} className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-200">
             <X className="w-5 h-5" />
@@ -66,7 +66,7 @@ export default function WalletCheckModal({
         {balance >= requiredAmount ? (
           <button 
             onClick={onProceed}
-            className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors flex items-center justify-center gap-2"
+            className="w-full bg-[#EF4423] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors flex items-center justify-center gap-2"
           >
             PROCEED TO PUBLISH <ArrowRight className="w-4 h-4" />
           </button>

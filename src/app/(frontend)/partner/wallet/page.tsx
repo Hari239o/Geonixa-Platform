@@ -135,7 +135,7 @@ export default function PartnerWalletPage() {
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100 flex flex-col">
               <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center mb-3">
-                <span className="text-[#EF4823] font-bold text-lg">₹</span>
+                <span className="text-[#EF4423] font-bold text-lg">₹</span>
               </div>
               <span className="text-[12px] text-gray-500 font-medium mb-1">Pending Clearance</span>
               <span className="text-[20px] font-bold text-[#1a1a2e]">₹{pending.toLocaleString()}</span>
@@ -159,13 +159,13 @@ export default function PartnerWalletPage() {
                 className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center hover:bg-gray-100 transition-colors"
                 onClick={() => setFilterOpen(!filterOpen)}
               >
-                <Filter className={`w-4 h-4 ${filterOpen ? 'text-[#EF4823]' : 'text-gray-600'}`} />
+                <Filter className={`w-4 h-4 ${filterOpen ? 'text-[#EF4423]' : 'text-gray-600'}`} />
               </button>
               {filterOpen && (
                 <div className="absolute right-0 top-10 bg-white border border-gray-100 rounded-xl shadow-xl w-36 overflow-hidden z-20 flex flex-col py-2">
-                  <button className="px-4 py-2 text-left text-[13px] font-medium text-gray-600 hover:bg-gray-50 hover:text-[#EF4823]">All</button>
-                  <button className="px-4 py-2 text-left text-[13px] font-medium text-gray-600 hover:bg-gray-50 hover:text-[#EF4823]">Received</button>
-                  <button className="px-4 py-2 text-left text-[13px] font-medium text-gray-600 hover:bg-gray-50 hover:text-[#EF4823]">Withdrawn</button>
+                  <button className="px-4 py-2 text-left text-[13px] font-medium text-gray-600 hover:bg-gray-50 hover:text-[#EF4423]">All</button>
+                  <button className="px-4 py-2 text-left text-[13px] font-medium text-gray-600 hover:bg-gray-50 hover:text-[#EF4423]">Received</button>
+                  <button className="px-4 py-2 text-left text-[13px] font-medium text-gray-600 hover:bg-gray-50 hover:text-[#EF4423]">Withdrawn</button>
                 </div>
               )}
             </div>

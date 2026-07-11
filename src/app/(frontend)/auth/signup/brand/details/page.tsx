@@ -53,7 +53,7 @@ export default function BrandSignupStep3Details() {
             placeholder="5" 
             value={formData.teamSize}
             onChange={(e) => updateFormData({ teamSize: e.target.value })}
-            className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm"
+            className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm"
           />
         </div>
 
@@ -65,7 +65,7 @@ export default function BrandSignupStep3Details() {
             placeholder="Enter the address" 
             value={formData.location}
             onChange={(e) => updateFormData({ location: e.target.value })}
-            className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm"
+            className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm"
           />
         </div>
 
@@ -77,7 +77,7 @@ export default function BrandSignupStep3Details() {
               required
               value={formData.category}
               onChange={(e) => updateFormData({ category: e.target.value })}
-              className="w-full bg-[#F8F8F8] border border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium appearance-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#FF4D2D] focus:border-[#FF4D2D] shadow-sm cursor-pointer"
+              className="w-full bg-[#F8F8F8] border border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium appearance-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#EF4423] focus:border-[#EF4423] shadow-sm cursor-pointer"
             >
               <option value="" disabled hidden>Drop Down</option>
               <option value="ecommerce">E-commerce</option>
@@ -94,7 +94,7 @@ export default function BrandSignupStep3Details() {
       <div className="mt-2 flex flex-col">
         <Button 
           type="submit" 
-          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98]"
+          className="w-full bg-[#EF4423] hover:bg-[#EF4423]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98]"
         >
           Next
         </Button>

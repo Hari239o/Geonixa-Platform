@@ -191,7 +191,7 @@ export default function StudiosPage() {
       <p className="text-2xl font-bold text-gray-800 mb-10 tracking-wider">+91 000 000 0000</p>
       <button 
         onClick={() => window.location.href = "tel:+910000000000"}
-        className="w-full bg-[#FF4D2D] text-white font-bold h-12 rounded-[14px]"
+        className="w-full bg-[#EF4423] text-white font-bold h-12 rounded-[14px]"
       >
         CALL NOW
       </button>
@@ -208,7 +208,7 @@ export default function StudiosPage() {
             onClick={() => setSelectedPartnerId(partner.id)}
             className={`flex items-center justify-between p-3 rounded-[16px] transition-all cursor-pointer border ${
               isSelected 
-              ? "border-[#FF4D2D] shadow-[0_4px_15px_rgba(255,77,45,0.1)] bg-white" 
+              ? "border-[#EF4423] shadow-[0_4px_15px_rgba(255,77,45,0.1)] bg-white" 
               : "border-gray-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)]"
             }`}
           >
@@ -221,7 +221,7 @@ export default function StudiosPage() {
                 <div className="flex items-center gap-1.5">
                   <span className="text-[15px] font-bold text-[#111111]">{partner.name}</span>
                   {partner.isVerified && (
-                    <div className="w-3.5 h-3.5 bg-[#FF4D2D] text-white flex items-center justify-center rounded-sm mask mask-hexagon" style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
+                    <div className="w-3.5 h-3.5 bg-[#EF4423] text-white flex items-center justify-center rounded-sm mask mask-hexagon" style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="w-2 h-2"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
                   )}
@@ -242,9 +242,9 @@ export default function StudiosPage() {
             </div>
             
             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-2 transition-colors ${
-              isSelected ? "border-[#FF4D2D]" : "border-gray-300"
+              isSelected ? "border-[#EF4423]" : "border-gray-300"
             }`}>
-              {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#FF4D2D]" />}
+              {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#EF4423]" />}
             </div>
           </div>
         );
@@ -262,7 +262,7 @@ export default function StudiosPage() {
             placeholder="0 Hours"
             value={scheduleHours}
             onChange={(e) => setScheduleHours(e.target.value)}
-            className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-[#FF4D2D] text-sm"
+            className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-[#EF4423] text-sm"
           />
         </div>
       </div>
@@ -273,7 +273,7 @@ export default function StudiosPage() {
             type="date" 
             value={scheduleDate}
             onChange={(e) => setScheduleDate(e.target.value)}
-            className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-[#FF4D2D] text-sm bg-transparent"
+            className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-[#EF4423] text-sm bg-transparent"
           />
         </div>
       </div>
@@ -284,7 +284,7 @@ export default function StudiosPage() {
             type="time" 
             value={scheduleTime}
             onChange={(e) => setScheduleTime(e.target.value)}
-            className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-[#FF4D2D] text-sm bg-transparent"
+            className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-[#EF4423] text-sm bg-transparent"
           />
         </div>
       </div>
@@ -303,7 +303,7 @@ export default function StudiosPage() {
             placeholder="enter details here..."
             value={editorInstructions}
             onChange={(e) => setEditorInstructions(e.target.value)}
-            className="w-full border border-gray-200 rounded-xl p-3 text-sm min-h-[100px] focus:outline-none focus:border-[#FF4D2D]"
+            className="w-full border border-gray-200 rounded-xl p-3 text-sm min-h-[100px] focus:outline-none focus:border-[#EF4423]"
           />
         </div>
 
@@ -314,11 +314,11 @@ export default function StudiosPage() {
             placeholder="https://"
             value={editorReference}
             onChange={(e) => setEditorReference(e.target.value)}
-            className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-[#FF4D2D]"
+            className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-[#EF4423]"
           />
         </div>
 
-        <button className="w-full border border-dashed border-[#FF4D2D] text-[#FF4D2D] rounded-xl p-4 text-sm font-bold flex items-center justify-center gap-2 bg-[#FFF6F5]">
+        <button className="w-full border border-dashed border-[#EF4423] text-[#EF4423] rounded-xl p-4 text-sm font-bold flex items-center justify-center gap-2 bg-[#FFF6F5]">
           + upload files
         </button>
       </div>
@@ -338,7 +338,7 @@ export default function StudiosPage() {
             placeholder="Your quote (₹1000)"
             value={quoteAmount}
             onChange={(e) => setQuoteAmount(e.target.value)}
-            className="w-full border-b border-gray-200 py-3 text-sm focus:outline-none focus:border-[#FF4D2D]"
+            className="w-full border-b border-gray-200 py-3 text-sm focus:outline-none focus:border-[#EF4423]"
           />
         </div>
       </div>
@@ -354,7 +354,7 @@ export default function StudiosPage() {
         {step > 1 && (
           <button 
             onClick={() => setStep(step - 1)} 
-            className="absolute left-5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-[#FFF6F5] text-[#FF4D2D] rounded-full"
+            className="absolute left-5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-[#FFF6F5] text-[#EF4423] rounded-full"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -375,7 +375,7 @@ export default function StudiosPage() {
                   onClick={() => setMainTab(tab)}
                   className={`flex-1 py-3 rounded-[12px] text-[14px] font-bold transition-colors ${
                     mainTab === tab 
-                    ? "bg-[#FF4D2D] text-white shadow-sm" 
+                    ? "bg-[#EF4423] text-white shadow-sm" 
                     : "text-gray-400 hover:text-gray-600 bg-transparent"
                   }`}
                 >
@@ -393,7 +393,7 @@ export default function StudiosPage() {
                     onClick={() => setPartnerType(tab)}
                     className={`flex-1 py-2.5 rounded-[10px] text-[13px] font-bold transition-colors ${
                       partnerType === tab 
-                      ? "bg-[#FF4D2D] text-white shadow-sm" 
+                      ? "bg-[#EF4423] text-white shadow-sm" 
                       : "text-gray-400 hover:text-gray-600 bg-transparent"
                     }`}
                   >
@@ -412,7 +412,7 @@ export default function StudiosPage() {
                     onClick={() => setBookingMode(tab)}
                     className={`flex-1 py-2.5 rounded-[10px] text-[13px] font-bold transition-colors ${
                       bookingMode === tab 
-                      ? "bg-[#FF4D2D] text-white shadow-sm" 
+                      ? "bg-[#EF4423] text-white shadow-sm" 
                       : "text-gray-400 hover:text-gray-600 bg-transparent"
                     }`}
                   >
@@ -436,7 +436,7 @@ export default function StudiosPage() {
                 <p className="text-2xl font-bold text-gray-800 mb-10 tracking-wider">+91 000 000 0000</p>
                 <button 
                   onClick={() => window.location.href = "tel:+910000000000"}
-                  className="w-full bg-[#FF4D2D] text-white font-bold h-12 rounded-[14px]"
+                  className="w-full bg-[#EF4423] text-white font-bold h-12 rounded-[14px]"
                 >
                   CALL NOW
                 </button>
@@ -461,7 +461,7 @@ export default function StudiosPage() {
           <div className="max-w-md mx-auto">
             <button 
               onClick={handleNextOrBook}
-              className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-bold shadow-[0_4px_15px_rgba(255,77,45,0.4)] transition-all active:scale-[0.98]"
+              className="w-full bg-[#EF4423] hover:bg-[#EF4423]/90 text-white rounded-[14px] h-[52px] text-[15px] font-bold shadow-[0_4px_15px_rgba(255,77,45,0.4)] transition-all active:scale-[0.98]"
             >
               {step === 1 && partnerType === "Editors" ? "NEXT" : (step === 2 && partnerType === "Editors" ? "NEXT" : "BOOK NOW")}
             </button>

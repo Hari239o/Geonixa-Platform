@@ -90,7 +90,7 @@ export default function ChatDetailPage() {
   if (!chat) {
     return <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
       <p>Chat not found</p>
-      <button onClick={() => router.back()} className="mt-4 text-[#EF4823]">Go back</button>
+      <button onClick={() => router.back()} className="mt-4 text-[#EF4423]">Go back</button>
     </div>;
   }
 
@@ -100,7 +100,7 @@ export default function ChatDetailPage() {
       <div className="bg-white pt-5 px-5 pb-4 shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex items-center justify-between z-20">
         <button 
           onClick={() => router.back()}
-          className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4823] hover:opacity-80 transition-opacity"
+          className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4423] hover:opacity-80 transition-opacity"
         >
           <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
         </button>
@@ -129,7 +129,7 @@ export default function ChatDetailPage() {
               className={`flex gap-3 max-w-[85%] ${alignRight ? 'self-end flex-row-reverse' : 'self-start'}`}
             >
               <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-auto 
-                ${isBot ? 'bg-gray-200' : isAdmin ? 'bg-blue-100' : 'bg-[#EF4823]'}`}
+                ${isBot ? 'bg-gray-200' : isAdmin ? 'bg-blue-100' : 'bg-[#EF4423]'}`}
               >
                 {isBot ? <Bot size={16} className="text-gray-600" /> : 
                  isAdmin ? <ShieldCheck size={16} className="text-blue-600" /> : 
@@ -139,7 +139,7 @@ export default function ChatDetailPage() {
                 {!alignRight && <span className="text-[10px] text-gray-400 font-medium ml-1">{msg.senderName}</span>}
                 <div className={`p-3.5 text-[14px] leading-relaxed shadow-sm
                   ${alignRight 
-                    ? 'bg-[#EF4823] text-white rounded-2xl rounded-br-sm' 
+                    ? 'bg-[#EF4423] text-white rounded-2xl rounded-br-sm' 
                     : isAdmin 
                       ? 'bg-blue-500 text-white rounded-2xl rounded-bl-sm' 
                       : 'bg-white text-gray-700 border border-gray-100 rounded-2xl rounded-bl-sm'
@@ -164,12 +164,12 @@ export default function ChatDetailPage() {
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Type your message..."
             disabled={sending}
-            className="w-full bg-gray-100 border-transparent focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-[#EF4823]/20 rounded-full py-3.5 pl-5 pr-14 text-[14px] font-medium transition-all outline-none disabled:opacity-50"
+            className="w-full bg-gray-100 border-transparent focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-[#EF4423]/20 rounded-full py-3.5 pl-5 pr-14 text-[14px] font-medium transition-all outline-none disabled:opacity-50"
           />
           <button 
             onClick={handleSend}
             disabled={!inputValue.trim() || sending}
-            className="absolute right-1.5 w-10 h-10 bg-[#EF4823] hover:bg-[#d83e1c] disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-colors"
+            className="absolute right-1.5 w-10 h-10 bg-[#EF4423] hover:bg-[#d83e1c] disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-colors"
           >
             <Send size={18} className="ml-0.5" />
           </button>

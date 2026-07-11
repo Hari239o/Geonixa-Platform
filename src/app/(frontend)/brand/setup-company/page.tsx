@@ -153,7 +153,7 @@ export default function BrandCompanySetupPage() {
         <div className="flex items-center justify-between px-6 mb-8 shrink-0">
           <button 
             onClick={() => router.back()} 
-            className="w-10 h-10 bg-orange-50 rounded-2xl flex items-center justify-center text-[#EF4823] hover:bg-orange-100 transition-colors"
+            className="w-10 h-10 bg-orange-50 rounded-2xl flex items-center justify-center text-[#EF4423] hover:bg-orange-100 transition-colors"
           >
             <ChevronLeft size={20} strokeWidth={3} />
           </button>
@@ -172,7 +172,7 @@ export default function BrandCompanySetupPage() {
                   <img src={profilePic} alt="Profile" className="w-full h-full object-cover" />
                 </div>
               ) : (
-                <div className="w-24 h-24 rounded-2xl bg-[#EF4823] flex items-center justify-center text-white font-bold text-2xl shadow-sm hover:bg-[#d63d1c] transition-colors">
+                <div className="w-24 h-24 rounded-2xl bg-[#EF4423] flex items-center justify-center text-white font-bold text-2xl shadow-sm hover:bg-[#d63d1c] transition-colors">
                   LOGO
                 </div>
               )}
@@ -197,7 +197,7 @@ export default function BrandCompanySetupPage() {
               placeholder="Lorem ipsum"
               value={formData.fullName}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -209,7 +209,7 @@ export default function BrandCompanySetupPage() {
               placeholder="e.g. 10-50"
               value={formData.teamMembers}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -221,7 +221,7 @@ export default function BrandCompanySetupPage() {
               rows={4}
               value={formData.bio}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400 resize-y min-h-[120px]"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400 resize-y min-h-[120px]"
             ></textarea>
           </div>
 
@@ -233,7 +233,7 @@ export default function BrandCompanySetupPage() {
               placeholder="www.portfolio.com"
               value={formData.website}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -245,7 +245,7 @@ export default function BrandCompanySetupPage() {
               placeholder="000-000-0000"
               value={formData.phone}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -257,7 +257,7 @@ export default function BrandCompanySetupPage() {
               placeholder="https://"
               value={formData.facebook}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -269,7 +269,7 @@ export default function BrandCompanySetupPage() {
               placeholder="https://"
               value={formData.instagram}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -281,7 +281,7 @@ export default function BrandCompanySetupPage() {
               placeholder="https://"
               value={formData.x}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -293,7 +293,7 @@ export default function BrandCompanySetupPage() {
               placeholder="https://"
               value={formData.linkedin}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -307,7 +307,7 @@ export default function BrandCompanySetupPage() {
               placeholder="John Doe"
               value={formData.authorizedPerson}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -319,7 +319,7 @@ export default function BrandCompanySetupPage() {
               placeholder="CIN / Reg No."
               value={formData.registrationNumber}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
           <div className="flex flex-col gap-1.5 mb-2">
@@ -344,7 +344,7 @@ export default function BrandCompanySetupPage() {
               placeholder="ABCDE1234F"
               value={formData.panNumber}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400 uppercase"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400 uppercase"
             />
           </div>
           <div className="flex flex-col gap-1.5 mb-2">
@@ -369,7 +369,7 @@ export default function BrandCompanySetupPage() {
               placeholder="22AAAAA0000A1Z5"
               value={formData.gstNumber}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400 uppercase"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400 uppercase"
             />
           </div>
           <div className="flex flex-col gap-1.5 mb-2">
@@ -388,7 +388,7 @@ export default function BrandCompanySetupPage() {
 
           <button 
             onClick={handleSave}
-            className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white py-4 rounded-2xl font-bold tracking-wider mt-4 shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98]"
+            className="w-full bg-[#EF4423] hover:bg-[#d63d1c] text-white py-4 rounded-2xl font-bold tracking-wider mt-4 shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98]"
           >
             SAVE
           </button>

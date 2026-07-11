@@ -126,12 +126,12 @@ export default function BottomNav() {
                     src={localProfilePic || session?.user?.image!} 
                     alt="Profile" 
                     className={`w-[32px] h-[32px] rounded-full object-cover transition-all ${
-                      isActive ? "border-[2.5px] border-[#EF4823]" : "opacity-80 group-hover:opacity-100"
+                      isActive ? "border-[2.5px] border-[#EF4423]" : "opacity-80 group-hover:opacity-100"
                     }`}
                   />
                 ) : (
                   <item.icon 
-                    className={`w-[30px] h-[30px] transition-colors ${isActive ? "text-[#EF4823]" : "text-gray-400 group-hover:text-[#EF4823]"}`} 
+                    className={`w-[30px] h-[30px] transition-colors ${isActive ? "text-[#EF4423]" : "text-gray-400 group-hover:text-[#EF4423]"}`} 
                     strokeWidth={isActive ? 2.5 : 2} 
                   />
                 )}

@@ -148,8 +148,8 @@ export default function PartnerSignupStep2OTP() {
             onKeyDown={(e) => handleKeyDown(index, e)}
             disabled={isSending}
             className={`w-10 h-12 sm:w-[52px] sm:h-[52px] rounded-xl sm:rounded-[14px] border border-[#EEEEEE] text-center text-lg sm:text-xl font-semibold outline-none transition-all
-              ${digit ? 'border-[#FF4D2D] text-[#333333]' : 'bg-transparent text-[#333333]'}
-              focus:border-[#FF4D2D] focus:ring-1 focus:ring-[#FF4D2D] disabled:opacity-50 shadow-sm
+              ${digit ? 'border-[#EF4423] text-[#333333]' : 'bg-transparent text-[#333333]'}
+              focus:border-[#EF4423] focus:ring-1 focus:ring-[#EF4423] disabled:opacity-50 shadow-sm
             `}
           />
         ))}
@@ -164,7 +164,7 @@ export default function PartnerSignupStep2OTP() {
           type="button" 
           variant="link" 
           onClick={() => sendOTP(phoneNumber)}
-          className="text-[#FF4D2D] mb-4 -mt-4 text-[13px]"
+          className="text-[#EF4423] mb-4 -mt-4 text-[13px]"
         >
           Resend Code
         </Button>
@@ -176,7 +176,7 @@ export default function PartnerSignupStep2OTP() {
         <Button 
           type="submit" 
           disabled={otp.join("").length !== 4 || isSending || loading}
-          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98] disabled:opacity-50"
+          className="w-full bg-[#EF4423] hover:bg-[#EF4423]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98] disabled:opacity-50"
         >
           {loading ? "Verifying..." : "Next"}
         </Button>

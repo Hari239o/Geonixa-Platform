@@ -72,7 +72,7 @@ export default function PartnerSignupStep3Account() {
             placeholder="loisbecket@gmail.com" 
             value={formData.username || ""}
             onChange={(e) => updateFormData({ username: e.target.value })}
-            className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm"
+            className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm"
           />
         </div>
 
@@ -86,12 +86,12 @@ export default function PartnerSignupStep3Account() {
               placeholder="********" 
               value={formData.password || ""}
               onChange={(e) => updateFormData({ password: e.target.value })}
-              className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 pr-10 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm tracking-widest"
+              className="bg-[#F8F8F8] border-transparent rounded-[14px] h-[52px] px-4 pr-10 text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm tracking-widest"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-[#FF4D2D] hover:text-[#FF4D2D]/80 focus:outline-none"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-[#EF4423] hover:text-[#EF4423]/80 focus:outline-none"
             >
               {showPassword ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
             </button>
@@ -103,7 +103,7 @@ export default function PartnerSignupStep3Account() {
       <div className="mt-2 flex flex-col">
         <Button 
           type="submit" 
-          className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98]"
+          className="w-full bg-[#EF4423] hover:bg-[#EF4423]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98]"
         >
           Sign Up
         </Button>

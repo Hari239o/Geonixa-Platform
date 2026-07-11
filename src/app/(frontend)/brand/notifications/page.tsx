@@ -66,7 +66,7 @@ export default function BrandNotificationsPage() {
         >
           <ChevronLeft size={28} strokeWidth={2.5} />
         </button>
-        <h1 className="text-[#1E1B4B] font-extrabold text-[18px]">Notifications {unreadNotifs.length > 0 && <span className="bg-[#EF4823] text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1">{unreadNotifs.length}</span>}</h1>
+        <h1 className="text-[#1E1B4B] font-extrabold text-[18px]">Notifications {unreadNotifs.length > 0 && <span className="bg-[#EF4423] text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1">{unreadNotifs.length}</span>}</h1>
         
         <button 
           onClick={() => markAsRead()}
@@ -93,7 +93,7 @@ export default function BrandNotificationsPage() {
               {/* Mark as read button */}
               <button 
                 onClick={(e) => { e.stopPropagation(); markAsRead(notif.id); }}
-                className="absolute top-4 right-4 text-xs font-bold text-gray-400 hover:text-[#EF4823] flex items-center gap-1 transition-colors"
+                className="absolute top-4 right-4 text-xs font-bold text-gray-400 hover:text-[#EF4423] flex items-center gap-1 transition-colors"
               >
                 <Check size={14} strokeWidth={2.5} /> Read
               </button>

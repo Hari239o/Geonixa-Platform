@@ -33,7 +33,7 @@ export default function ChatsPage() {
       <div className="bg-white pt-5 px-5 pb-4 shrink-0 shadow-sm flex items-center justify-between sticky top-0 z-20">
         <button 
           onClick={() => router.back()}
-          className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4823] hover:opacity-80 transition-opacity"
+          className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4423] hover:opacity-80 transition-opacity"
         >
           <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
         </button>
@@ -64,7 +64,7 @@ export default function ChatsPage() {
               className="bg-white p-4 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col gap-2 border border-gray-100"
             >
               <div className="flex justify-between items-center">
-                <span className="text-xs font-bold text-[#EF4823] uppercase tracking-wide truncate max-w-[70%]">
+                <span className="text-xs font-bold text-[#EF4423] uppercase tracking-wide truncate max-w-[70%]">
                   {chat.title || `Deal: ${chat.dealId?.slice(0, 8)}...`}
                 </span>
                 <span className="text-[10px] text-gray-400 font-medium whitespace-nowrap">

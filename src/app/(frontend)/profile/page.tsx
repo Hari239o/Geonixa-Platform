@@ -248,7 +248,7 @@ export default function ProfilePage() {
             <div className="flex items-center gap-2">
               <h1 className="text-[26px] font-bold text-gray-600 tracking-tight">{profile.fullName}</h1>
               {profile.isVerified && (
-                <BadgeCheck className="text-[#EF4823] w-6 h-6 fill-[#EF4823] text-white" />
+                <BadgeCheck className="text-[#EF4423] w-6 h-6 fill-[#EF4423] text-white" />
               )}
             </div>
           </div>
@@ -257,15 +257,15 @@ export default function ProfilePage() {
         {/* Stats */}
         <div className="flex justify-between items-center mb-10 px-2">
           <div className="flex flex-col items-center">
-            <span className="text-[20px] font-bold text-[#EF4823]">{profile.followers}</span>
+            <span className="text-[20px] font-bold text-[#EF4423]">{profile.followers}</span>
             <span className="text-[10px] text-gray-400 font-bold mt-1">Followers</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-[20px] font-bold text-[#EF4823]">{profile.viewership}</span>
+            <span className="text-[20px] font-bold text-[#EF4423]">{profile.viewership}</span>
             <span className="text-[10px] text-gray-400 font-bold mt-1">Avg Viewership</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-[20px] font-bold text-[#EF4823]">{profile.engagement}</span>
+            <span className="text-[20px] font-bold text-[#EF4423]">{profile.engagement}</span>
             <span className="text-[10px] text-gray-400 font-bold mt-1">Avg Engagement</span>
           </div>
         </div>
@@ -273,13 +273,13 @@ export default function ProfilePage() {
         {/* Tabs */}
         <div className="flex gap-4 mb-8">
           <button 
-            className={`flex-1 py-3.5 rounded-2xl text-[13px] font-bold transition-all shadow-sm ${activeTab === 'About' ? 'bg-[#EF4823] text-white' : 'bg-white text-gray-500 border border-gray-100'}`}
+            className={`flex-1 py-3.5 rounded-2xl text-[13px] font-bold transition-all shadow-sm ${activeTab === 'About' ? 'bg-[#EF4423] text-white' : 'bg-white text-gray-500 border border-gray-100'}`}
             onClick={() => setActiveTab('About')}
           >
             About
           </button>
           <button 
-            className={`flex-1 py-3.5 rounded-2xl text-[13px] font-bold transition-all shadow-sm ${activeTab === 'Portfolio' ? 'bg-[#EF4823] text-white' : 'bg-white text-gray-500 border border-gray-100'}`}
+            className={`flex-1 py-3.5 rounded-2xl text-[13px] font-bold transition-all shadow-sm ${activeTab === 'Portfolio' ? 'bg-[#EF4423] text-white' : 'bg-white text-gray-500 border border-gray-100'}`}
             onClick={() => setActiveTab('Portfolio')}
           >
             Portfolio
@@ -316,7 +316,7 @@ export default function ProfilePage() {
                 {profile.budgets.map((b, i) => (
                   <div key={i} className="bg-gray-50 border border-gray-100 rounded-2xl p-4 flex flex-col items-center justify-center text-center">
                     <span className="text-[12px] text-gray-500 font-medium mb-1.5">{b.name}</span>
-                    <span className="text-[15px] font-extrabold text-[#EF4823]">{b.price}</span>
+                    <span className="text-[15px] font-extrabold text-[#EF4423]">{b.price}</span>
                   </div>
                 ))}
               </div>
@@ -327,7 +327,7 @@ export default function ProfilePage() {
               <h3 className="text-[13px] font-bold text-gray-500 mb-4">Badges</h3>
               <div className="flex gap-3">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className="w-[34px] h-[34px] bg-[#EF4823] rounded-full flex items-center justify-center relative overflow-hidden">
+                  <div key={i} className="w-[34px] h-[34px] bg-[#EF4423] rounded-full flex items-center justify-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent"></div>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
@@ -421,7 +421,7 @@ export default function ProfilePage() {
 
       {activeTab === 'Portfolio' && (
         <div className="fixed bottom-[100px] left-1/2 -translate-x-1/2 z-20">
-          <label className="w-14 h-14 bg-[#EF4823] text-white rounded-full flex items-center justify-center shadow-lg shadow-orange-500/30 hover:-translate-y-1 transition-transform cursor-pointer">
+          <label className="w-14 h-14 bg-[#EF4423] text-white rounded-full flex items-center justify-center shadow-lg shadow-orange-500/30 hover:-translate-y-1 transition-transform cursor-pointer">
             <Plus size={28} strokeWidth={2.5} />
             <input 
               type="file" 
@@ -449,28 +449,28 @@ export default function ProfilePage() {
 
             <div className="flex flex-col items-center mt-2">
               <div className="w-[42px] h-[42px] mb-3">
-                <svg viewBox="0 0 24 24" fill="#EF4823" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
+                <svg viewBox="0 0 24 24" fill="#EF4423" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
                   <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
                   <path d="m9 12 2 2 4-4" />
                 </svg>
               </div>
-              <h2 className="text-[20px] font-black text-[#EF4823] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
+              <h2 className="text-[20px] font-black text-[#EF4423] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
               <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
                 With Aadhar
               </p>
 
               <button 
                 onClick={() => router.push('/kyc')}
-                className="w-full py-3.5 border-2 border-dashed border-[#EF4823]/40 rounded-[14px] flex items-center justify-center gap-3 mb-6 hover:bg-[#EF4823]/5 transition-colors"
+                className="w-full py-3.5 border-2 border-dashed border-[#EF4423]/40 rounded-[14px] flex items-center justify-center gap-3 mb-6 hover:bg-[#EF4423]/5 transition-colors"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#EF4823]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#EF4423]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
                 <span className="text-[#1a1a2e] font-semibold text-[14px]">Camera</span>
               </button>
 
               <button 
-                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
+                className="w-full py-3.5 bg-[#EF4423] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
                 onClick={() => router.push('/kyc')}
               >
                 VERIFY
@@ -528,7 +528,7 @@ export default function ProfilePage() {
               <button 
                 onClick={confirmUpload}
                 disabled={isUploading}
-                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-all shadow-[0_4px_14px_rgba(239,72,35,0.25)] flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full py-3.5 bg-[#EF4423] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-all shadow-[0_4px_14px_rgba(239,72,35,0.25)] flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isUploading ? (
                   <span className="flex items-center gap-2">

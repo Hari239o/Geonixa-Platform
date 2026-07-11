@@ -44,10 +44,10 @@ export default function PartnerNotificationsPage() {
           onClick={() => router.back()}
           className="w-10 h-10 flex items-center justify-center bg-orange-50 hover:bg-orange-100 rounded-[12px] transition-colors"
         >
-          <ChevronLeft className="w-6 h-6 text-[#EF4823]" />
+          <ChevronLeft className="w-6 h-6 text-[#EF4423]" />
         </button>
         <h1 className="text-[18px] font-extrabold text-[#1a1a2e]">Notifications</h1>
-        <button className="text-[13px] font-bold text-[#EF4823] hover:underline">
+        <button className="text-[13px] font-bold text-[#EF4423] hover:underline">
           Read all
         </button>
       </div>
@@ -70,7 +70,7 @@ export default function PartnerNotificationsPage() {
             </p>
             
             <div className="flex justify-between items-center">
-              <button className="bg-[#EF4823] hover:bg-[#d63f1c] text-white text-[12px] font-bold px-5 py-2.5 rounded-[10px] shadow-sm transition-all active:scale-95">
+              <button className="bg-[#EF4423] hover:bg-[#d63f1c] text-white text-[12px] font-bold px-5 py-2.5 rounded-[10px] shadow-sm transition-all active:scale-95">
                 {notification.actionText}
               </button>
               <span className="text-[11px] font-medium text-gray-400">

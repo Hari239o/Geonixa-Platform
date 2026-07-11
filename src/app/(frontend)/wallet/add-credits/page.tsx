@@ -49,11 +49,11 @@ export default function AddCreditsPage() {
               <div className="absolute top-1/2 -left-6 w-1.5 h-1.5 bg-[#DCE26A] rounded-full"></div>
               <div className="absolute top-1/3 -right-6 w-2 h-2 bg-[#DCE26A] rounded-full"></div>
             </div>
-            <div className="w-28 h-28 bg-[#EF4823] rounded-full flex items-center justify-center shadow-lg relative z-10 animate-in zoom-in duration-300">
+            <div className="w-28 h-28 bg-[#EF4423] rounded-full flex items-center justify-center shadow-lg relative z-10 animate-in zoom-in duration-300">
               <Check size={50} strokeWidth={4} className="text-white" />
             </div>
           </div>
-          <h2 className="text-[20px] font-extrabold text-[#EF4823] mt-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <h2 className="text-[20px] font-extrabold text-[#EF4423] mt-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
             Payment Successful!
           </h2>
         </div>
@@ -84,22 +84,22 @@ export default function AddCreditsPage() {
             placeholder="₹500"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="w-full bg-white border border-[#EF4823] rounded-[12px] py-4 px-5 text-base font-medium text-gray-900 placeholder:text-gray-400 outline-none"
+            className="w-full bg-white border border-[#EF4423] rounded-[12px] py-4 px-5 text-base font-medium text-gray-900 placeholder:text-gray-400 outline-none"
           />
         </div>
 
         <div className="w-full mb-4 flex justify-start pl-2">
-          <span className="text-[11px] font-bold text-[#EF4823]">Your balance : ₹{balance}</span>
+          <span className="text-[11px] font-bold text-[#EF4423]">Your balance : ₹{balance}</span>
         </div>
 
         <div className="flex gap-3 mb-10 pl-2">
-          <button onClick={() => addAmount(500)} className="bg-orange-50 text-[#EF4823] px-3 py-1.5 rounded-md text-[11px] font-bold">
+          <button onClick={() => addAmount(500)} className="bg-orange-50 text-[#EF4423] px-3 py-1.5 rounded-md text-[11px] font-bold">
             + ₹500
           </button>
-          <button onClick={() => addAmount(1000)} className="bg-orange-50 text-[#EF4823] px-3 py-1.5 rounded-md text-[11px] font-bold">
+          <button onClick={() => addAmount(1000)} className="bg-orange-50 text-[#EF4423] px-3 py-1.5 rounded-md text-[11px] font-bold">
             + ₹1000
           </button>
-          <button onClick={() => addAmount(2000)} className="bg-orange-50 text-[#EF4823] px-3 py-1.5 rounded-md text-[11px] font-bold">
+          <button onClick={() => addAmount(2000)} className="bg-orange-50 text-[#EF4423] px-3 py-1.5 rounded-md text-[11px] font-bold">
             + ₹2000
           </button>
         </div>
@@ -111,7 +111,7 @@ export default function AddCreditsPage() {
             onClick={() => setMethod('bank')}
             className={`flex items-center gap-4 py-4 px-2 border-b border-gray-100 cursor-pointer ${method === 'bank' ? 'bg-orange-50/50 rounded-lg border-transparent' : ''}`}
           >
-            <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center text-[#EF4823]">
+            <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center text-[#EF4423]">
               <Building2 size={20} strokeWidth={2} />
             </div>
             <span className="text-sm font-semibold text-gray-800">Bank Transfer</span>
@@ -120,7 +120,7 @@ export default function AddCreditsPage() {
             onClick={() => setMethod('upi')}
             className={`flex items-center gap-4 py-4 px-2 border-b border-gray-100 cursor-pointer ${method === 'upi' ? 'bg-orange-50/50 rounded-lg border-transparent' : ''}`}
           >
-            <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center text-[#EF4823]">
+            <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center text-[#EF4423]">
               <Smartphone size={20} strokeWidth={2} />
             </div>
             <span className="text-sm font-semibold text-gray-800">UPI</span>
@@ -129,7 +129,7 @@ export default function AddCreditsPage() {
             onClick={() => setMethod('card')}
             className={`flex items-center gap-4 py-4 px-2 border-b border-gray-100 cursor-pointer ${method === 'card' ? 'bg-orange-50/50 rounded-lg border-transparent' : ''}`}
           >
-            <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center text-[#EF4823]">
+            <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center text-[#EF4423]">
               <CreditCard size={20} strokeWidth={2} />
             </div>
             <span className="text-sm font-semibold text-gray-800">Credit/Debit Card</span>
@@ -137,7 +137,7 @@ export default function AddCreditsPage() {
         </div>
 
         <button 
-          className="w-full mt-auto py-4 bg-[#EF4823] text-white text-[15px] font-bold rounded-[14px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:hover:translate-y-0"
+          className="w-full mt-auto py-4 bg-[#EF4423] text-white text-[15px] font-bold rounded-[14px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:hover:translate-y-0"
           disabled={!amount || !method}
           onClick={handleAddFunds}
         >

@@ -38,7 +38,7 @@ export default function BrandWalletPage() {
               <h1 className="text-gray-800 font-extrabold text-[18px]">Hello {session?.user?.name?.split(' ')[0] || 'Lorem'},</h1>
               <p className="text-gray-400 text-[13px] font-medium mb-0.5">Your available balance</p>
             </div>
-            <div className="text-[#EF4823] font-extrabold text-[32px] tracking-tight leading-none mt-1">
+            <div className="text-[#EF4423] font-extrabold text-[32px] tracking-tight leading-none mt-1">
               ₹{balance.toLocaleString()}
             </div>
           </div>
@@ -47,13 +47,13 @@ export default function BrandWalletPage() {
             <button onClick={() => router.push("/brand/wallet/add-funds")} className="flex-1 bg-[#2ECC71] text-white py-3 rounded-[12px] font-bold text-[14px] shadow-sm hover:opacity-90 transition-opacity">
               Add Funds
             </button>
-            <button onClick={() => router.push("/brand/wallet/withdraw")} className="flex-1 bg-[#EF4823] text-white py-3 rounded-[12px] font-bold text-[14px] shadow-sm hover:opacity-90 transition-opacity">
+            <button onClick={() => router.push("/brand/wallet/withdraw")} className="flex-1 bg-[#EF4423] text-white py-3 rounded-[12px] font-bold text-[14px] shadow-sm hover:opacity-90 transition-opacity">
               Withdraw
             </button>
           </div>
 
           {/* Red Dashboard Card */}
-          <div className="bg-[#EF4823] rounded-[14px] text-white py-[18px] px-4 flex justify-between items-center shadow-md">
+          <div className="bg-[#EF4423] rounded-[14px] text-white py-[18px] px-4 flex justify-between items-center shadow-md">
             <div className="flex flex-col items-center flex-1">
               <span className="text-[18px] font-bold leading-none mb-1.5 mt-0.5">₹0</span>
               <span className="text-[11px] font-medium opacity-90">Pending</span>
@@ -81,12 +81,12 @@ export default function BrandWalletPage() {
                 onClick={() => setShowFilter(!showFilter)} 
                 className="p-1 hover:bg-gray-50 rounded-full transition-colors"
               >
-                <Filter className="w-5 h-5" color="#EF4823" strokeWidth={2} />
+                <Filter className="w-5 h-5" color="#EF4423" strokeWidth={2} />
               </button>
               
               {/* Dropdown Options */}
               {showFilter && (
-                <div className="absolute right-0 top-9 bg-white border border-[#EF4823] rounded-[10px] p-1.5 flex flex-col shadow-[0_4px_20px_rgba(0,0,0,0.08)] z-50 w-28">
+                <div className="absolute right-0 top-9 bg-white border border-[#EF4423] rounded-[10px] p-1.5 flex flex-col shadow-[0_4px_20px_rgba(0,0,0,0.08)] z-50 w-28">
                   <button onClick={() => setShowFilter(false)} className="text-[11px] text-gray-500 font-medium py-2 px-2.5 text-left hover:bg-gray-50 rounded-md">Pending</button>
                   <button onClick={() => setShowFilter(false)} className="text-[11px] text-gray-500 font-medium py-2 px-2.5 text-left hover:bg-gray-50 rounded-md">Received</button>
                   <button onClick={() => setShowFilter(false)} className="text-[11px] text-gray-500 font-medium py-2 px-2.5 text-left hover:bg-gray-50 rounded-md">last month</button>
@@ -104,7 +104,7 @@ export default function BrandWalletPage() {
 
         {/* Floating Banner */}
         <div className="absolute bottom-20 left-0 w-full px-5 z-30 pointer-events-none">
-          <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-[18px] p-4 flex items-center justify-between shadow-xl pointer-events-auto relative overflow-hidden">
+          <div className="w-full max-w-[335px] mx-auto bg-[#EF4423] rounded-[18px] p-4 flex items-center justify-between shadow-xl pointer-events-auto relative overflow-hidden">
             <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-xl"></div>
             

@@ -180,7 +180,7 @@ export default function BrandSignupStep1() {
               placeholder="Lois" 
               value={formData.brandName}
               onChange={(e) => updateFormData({ brandName: e.target.value })}
-              className="bg-[#F8F8F8] border-transparent rounded-[12px] lg:rounded-[14px] h-10 sm:h-12 lg:h-[52px] px-3 sm:px-4 text-[13px] sm:text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm"
+              className="bg-[#F8F8F8] border-transparent rounded-[12px] lg:rounded-[14px] h-10 sm:h-12 lg:h-[52px] px-3 sm:px-4 text-[13px] sm:text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm"
             />
           </div>
 
@@ -193,7 +193,7 @@ export default function BrandSignupStep1() {
               placeholder="loisbecket@gmail.com" 
               value={formData.email}
               onChange={(e) => updateFormData({ email: e.target.value })}
-              className="bg-[#F8F8F8] border-transparent rounded-[12px] lg:rounded-[14px] h-10 sm:h-12 lg:h-[52px] px-3 sm:px-4 text-[13px] sm:text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm"
+              className="bg-[#F8F8F8] border-transparent rounded-[12px] lg:rounded-[14px] h-10 sm:h-12 lg:h-[52px] px-3 sm:px-4 text-[13px] sm:text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm"
             />
           </div>
 
@@ -207,12 +207,12 @@ export default function BrandSignupStep1() {
                 placeholder="••••••••" 
                 value={formData.password}
                 onChange={(e) => updateFormData({ password: e.target.value })}
-                className="bg-[#F8F8F8] border-transparent rounded-[12px] lg:rounded-[14px] h-10 sm:h-12 lg:h-[52px] px-3 sm:px-4 text-[13px] sm:text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#FF4D2D] focus-visible:border-[#FF4D2D] shadow-sm pr-10 lg:pr-12"
+                className="bg-[#F8F8F8] border-transparent rounded-[12px] lg:rounded-[14px] h-10 sm:h-12 lg:h-[52px] px-3 sm:px-4 text-[13px] sm:text-[14px] text-[#333333] font-medium placeholder:text-[#333333] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm pr-10 lg:pr-12"
               />
               <button 
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-[#A0A0A0] hover:text-[#FF4D2D] focus:outline-none transition-colors"
+                className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-[#A0A0A0] hover:text-[#EF4423] focus:outline-none transition-colors"
               >
                 {showPassword ? <Eye className="w-4 h-4 sm:w-[18px] sm:h-[18px]" /> : <EyeOff className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />}
               </button>
@@ -222,7 +222,7 @@ export default function BrandSignupStep1() {
           {/* Phone Number */}
           <div className="flex flex-col gap-1">
             <Label className="text-[10px] sm:text-[11px] text-[#A0A0A0] font-medium ml-1">Phone Number</Label>
-            <div className="flex w-full bg-[#F8F8F8] border border-transparent rounded-[12px] lg:rounded-[14px] overflow-hidden focus-within:ring-1 focus-within:ring-[#FF4D2D] focus-within:border-[#FF4D2D] focus-within:bg-white transition-all shadow-sm h-10 sm:h-12 lg:h-[52px]">
+            <div className="flex w-full bg-[#F8F8F8] border border-transparent rounded-[12px] lg:rounded-[14px] overflow-hidden focus-within:ring-1 focus-within:ring-[#EF4423] focus-within:border-[#EF4423] focus-within:bg-white transition-all shadow-sm h-10 sm:h-12 lg:h-[52px]">
               <div className="flex items-center justify-center pl-3 sm:pl-4 pr-1.5 sm:pr-2 gap-1 sm:gap-1.5 border-r border-transparent">
                 <span className="text-[16px] sm:text-[18px]">🇮🇳</span>
                 <ChevronDown className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#A0A0A0]" />
@@ -259,7 +259,7 @@ export default function BrandSignupStep1() {
         <div className="mt-3 sm:mt-5 lg:mt-6 flex flex-col gap-2 sm:gap-3 lg:gap-4">
           <Button 
             type="submit" 
-            className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[12px] lg:rounded-[14px] h-10 sm:h-12 lg:h-[52px] text-[13px] sm:text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98]"
+            className="w-full bg-[#EF4423] hover:bg-[#EF4423]/90 text-white rounded-[12px] lg:rounded-[14px] h-10 sm:h-12 lg:h-[52px] text-[13px] sm:text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98]"
           >
             Sign Up
           </Button>
@@ -318,19 +318,19 @@ export default function BrandSignupStep1() {
                   value={digit}
                   onChange={(e) => handleOtpChange(idx, e.target.value.replace(/\D/g, ''))}
                   onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                  className="w-10 h-11 sm:w-11 sm:h-12 text-center text-xl font-semibold text-[#111111] rounded-[10px] border border-[#E0E0E0] bg-transparent focus:border-[#FF4D2D] focus:ring-1 focus:ring-[#FF4D2D] focus:outline-none transition-all shadow-sm"
+                  className="w-10 h-11 sm:w-11 sm:h-12 text-center text-xl font-semibold text-[#111111] rounded-[10px] border border-[#E0E0E0] bg-transparent focus:border-[#EF4423] focus:ring-1 focus:ring-[#EF4423] focus:outline-none transition-all shadow-sm"
                 />
               ))}
             </div>
             
             {otpError && (
-              <p className="text-[#FF4D2D] text-sm text-center mt-4 font-medium">{otpError}</p>
+              <p className="text-[#EF4423] text-sm text-center mt-4 font-medium">{otpError}</p>
             )}
             <Button 
               type="button"
               onClick={handleVerifyOtp}
               disabled={otp.join("").length !== 6 || isVerifyingOtp}
-              className="w-full mt-8 bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-[14px] h-[52px] text-[15px] font-semibold"
+              className="w-full mt-8 bg-[#EF4423] hover:bg-[#EF4423]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-[14px] h-[52px] text-[15px] font-semibold"
             >
               {isVerifyingOtp ? "Verifying..." : "Verify Code"}
             </Button>

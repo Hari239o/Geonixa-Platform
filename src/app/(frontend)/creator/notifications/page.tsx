@@ -64,14 +64,14 @@ export default function NotificationsPage() {
  <div className="px-4 sm:px-6 pt-4 pb-8 flex items-center justify-between sticky top-0 z-10 bg-[#fafbfc]">
  <button 
  onClick={() => router.back()}
- className="w-12 h-12 bg-orange-100/80 text-[#EF4823] rounded-[16px] flex items-center justify-center transition-transform active:scale-95 shrink-0"
+ className="w-12 h-12 bg-orange-100/80 text-[#EF4423] rounded-[16px] flex items-center justify-center transition-transform active:scale-95 shrink-0"
  >
  <ChevronLeft size={28} strokeWidth={2.5} />
  </button>
- <h1 className="text-[20px] font-extrabold text-[#1a1a2e] tracking-tight">Notifications {unreadNotifs.length > 0 && <span className="bg-[#EF4823] text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1">{unreadNotifs.length}</span>}</h1>
+ <h1 className="text-[20px] font-extrabold text-[#1a1a2e] tracking-tight">Notifications {unreadNotifs.length > 0 && <span className="bg-[#EF4423] text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1">{unreadNotifs.length}</span>}</h1>
  <button 
   onClick={() => markAsRead()}
-  className="text-[13px] font-bold text-[#EF4823] shrink-0 disabled:opacity-50"
+  className="text-[13px] font-bold text-[#EF4423] shrink-0 disabled:opacity-50"
   disabled={unreadNotifs.length === 0}
  >
  Read all
@@ -95,7 +95,7 @@ export default function NotificationsPage() {
       {/* Mark as read button */}
       <button 
         onClick={(e) => { e.stopPropagation(); markAsRead(notif.id); }}
-        className="absolute top-4 right-4 text-xs font-bold text-gray-400 hover:text-[#EF4823] flex items-center gap-1 transition-colors"
+        className="absolute top-4 right-4 text-xs font-bold text-gray-400 hover:text-[#EF4423] flex items-center gap-1 transition-colors"
       >
         <Check size={14} strokeWidth={2.5} /> Read
       </button>
@@ -127,7 +127,7 @@ export default function NotificationsPage() {
       <div className="flex justify-between items-end">
       <button 
         onClick={() => { if(notif.actionUrl) router.push(notif.actionUrl) }}
-        className="py-2.5 px-6 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:-translate-y-0.5 transition-transform">
+        className="py-2.5 px-6 bg-[#EF4423] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:-translate-y-0.5 transition-transform">
       {notif.actionLabel || "See Details"}
       </button>
       <span className="text-[11px] font-medium text-gray-400 mb-1">{formatTime(notif.createdAt)}</span>

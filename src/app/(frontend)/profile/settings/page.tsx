@@ -165,7 +165,7 @@ export default function ProfileSettingsPage() {
       <div className="px-6 pt-4 pb-6 flex items-center relative">
         <button 
           onClick={() => router.back()}
-          className="w-11 h-11 bg-[#fff0e5] text-[#EF4823] rounded-[16px] flex items-center justify-center transition-transform active:scale-95 absolute left-6"
+          className="w-11 h-11 bg-[#fff0e5] text-[#EF4423] rounded-[16px] flex items-center justify-center transition-transform active:scale-95 absolute left-6"
         >
           <ChevronLeft size={28} strokeWidth={2.5} />
         </button>
@@ -246,7 +246,7 @@ export default function ProfileSettingsPage() {
             <div>
               <button 
                 onClick={addBudget}
-                className="w-8 h-8 bg-[#EF4823] text-white rounded-xl flex items-center justify-center shadow-sm"
+                className="w-8 h-8 bg-[#EF4423] text-white rounded-xl flex items-center justify-center shadow-sm"
               >
                 <Plus size={20} strokeWidth={2.5} />
               </button>
@@ -320,7 +320,7 @@ export default function ProfileSettingsPage() {
       <div className="absolute bottom-0 left-0 right-0 max-w-md mx-auto p-6 pt-10 bg-gradient-to-t from-white via-white to-transparent z-20 flex flex-col gap-2">
         <button 
           onClick={handleSave}
-          className="w-full py-4 bg-[#EF4823] text-white rounded-[20px] font-bold shadow-lg hover:-translate-y-1 transition-transform"
+          className="w-full py-4 bg-[#EF4423] text-white rounded-[20px] font-bold shadow-lg hover:-translate-y-1 transition-transform"
         >
           Save Changes
         </button>

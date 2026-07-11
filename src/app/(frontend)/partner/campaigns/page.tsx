@@ -160,13 +160,13 @@ export default function CampaignPage() {
  <div className="px-4 sm:px-6 mb-6 mt-4 shrink-0">
  <div className="flex bg-[#f3f4f6] rounded-[20px] p-1.5">
  <button 
- className={`flex-1 py-3 text-[14px] font-bold rounded-[16px] transition-all duration-300 ${activeTab === 'Private' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
+ className={`flex-1 py-3 text-[14px] font-bold rounded-[16px] transition-all duration-300 ${activeTab === 'Private' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
  onClick={() => setActiveTab('Private')}
  >
  Private
  </button>
  <button 
- className={`flex-1 py-3 text-[14px] font-bold rounded-[16px] transition-all duration-300 ${activeTab === 'Public' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
+ className={`flex-1 py-3 text-[14px] font-bold rounded-[16px] transition-all duration-300 ${activeTab === 'Public' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
  onClick={() => setActiveTab('Public')}
  >
  Public
@@ -181,7 +181,7 @@ export default function CampaignPage() {
  ) : filteredCampaigns.map((campaign) => (
  <div 
  key={campaign.id} 
- className={`bg-white rounded-[24px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.03)] cursor-pointer transition-all duration-300 ${campaign.creatorStatus === 'negotiating' ? 'border-2 border-[#EF4823]' : 'border border-gray-100'}`}
+ className={`bg-white rounded-[24px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.03)] cursor-pointer transition-all duration-300 ${campaign.creatorStatus === 'negotiating' ? 'border-2 border-[#EF4423]' : 'border border-gray-100'}`}
  onClick={() => router.push(`/partner/campaigns/${campaign.id}`)}
  >
  <div className="flex justify-between items-start mb-4">
@@ -198,7 +198,7 @@ export default function CampaignPage() {
  </div>
  <div className="flex flex-col items-end shrink-0">
  <span className="text-[10px] font-bold uppercase tracking-wide text-gray-400 mb-0.5">Budget</span>
- <span className="text-[16px] font-extrabold text-[#EF4823]">{campaign.budget || 'Open'}</span>
+ <span className="text-[16px] font-extrabold text-[#EF4423]">{campaign.budget || 'Open'}</span>
  </div>
  </div>
 
@@ -207,7 +207,7 @@ export default function CampaignPage() {
  </div>
 
  <p className="text-[13px] text-gray-500 leading-relaxed mb-6 line-clamp-2">
- {campaign.description} <span className="text-[#EF4823] font-semibold hover:underline cursor-pointer">Read more</span>
+ {campaign.description} <span className="text-[#EF4423] font-semibold hover:underline cursor-pointer">Read more</span>
  </p>
 
  {/* Action Buttons */}
@@ -227,7 +227,7 @@ export default function CampaignPage() {
  ) : activeTab === 'Public' ? (
  <button 
  disabled={actionLoading === campaign.id}
- className={`py-2.5 px-10 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading === campaign.id ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
+ className={`py-2.5 px-10 bg-[#EF4423] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading === campaign.id ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
  onClick={(e) => handleAction(e, campaign.id, 'applied')}
  >
  {actionLoading === campaign.id ? 'Working...' : 'Apply'}
@@ -237,7 +237,7 @@ export default function CampaignPage() {
  <button 
  disabled={actionLoading === campaign.id}
  onClick={(e) => handleAction(e, campaign.id, 'accepted')}
- className={`flex-1 min-w-[80px] py-3 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading === campaign.id ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}>
+ className={`flex-1 min-w-[80px] py-3 bg-[#EF4423] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading === campaign.id ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}>
  {actionLoading === campaign.id ? '...' : 'Accept'}
  </button>
  <button 
@@ -277,7 +277,7 @@ export default function CampaignPage() {
  </button>
 
  <div className="flex flex-col items-center mt-6 mb-8 text-center">
- <h2 className="text-[18px] font-black text-[#EF4823] mb-1.5 uppercase tracking-wide">YOUR NEGOTIATION</h2>
+ <h2 className="text-[18px] font-black text-[#EF4423] mb-1.5 uppercase tracking-wide">YOUR NEGOTIATION</h2>
  <p className="text-[12px] font-medium text-gray-400">Enter Your Negotiation Amount</p>
  </div>
 
@@ -315,7 +315,7 @@ export default function CampaignPage() {
 
  <button 
  disabled={actionLoading === selectedCampaignId}
- className={`w-full py-4 bg-[#EF4823] text-white text-[14px] font-bold tracking-wide rounded-[14px] shadow-[0_6px_16px_rgba(239,72,35,0.25)] transition-all duration-300 ${actionLoading === selectedCampaignId ? 'opacity-50' : 'hover:-translate-y-0.5'}`}
+ className={`w-full py-4 bg-[#EF4423] text-white text-[14px] font-bold tracking-wide rounded-[14px] shadow-[0_6px_16px_rgba(239,72,35,0.25)] transition-all duration-300 ${actionLoading === selectedCampaignId ? 'opacity-50' : 'hover:-translate-y-0.5'}`}
  onClick={applyNegotiation}
  >
  {actionLoading === selectedCampaignId ? 'WORKING...' : 'APPLY'}

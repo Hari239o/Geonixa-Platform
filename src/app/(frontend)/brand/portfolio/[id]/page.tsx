@@ -201,7 +201,7 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
       <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 relative">
       {/* Header */}
       <div className="px-6 pt-4 pb-4 flex justify-end gap-4 z-10">
-        <button onClick={() => setShowInviteModal(true)} className="px-4 py-2 bg-[#EF4823] text-white text-[13px] font-bold rounded-[12px] shadow-sm hover:bg-[#d63f1c] transition-colors">
+        <button onClick={() => setShowInviteModal(true)} className="px-4 py-2 bg-[#EF4423] text-white text-[13px] font-bold rounded-[12px] shadow-sm hover:bg-[#d63f1c] transition-colors">
           Invite to Campaign
         </button>
         <button className="p-2 text-[#808b98] hover:text-gray-900 transition-colors">
@@ -228,7 +228,7 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
             <div className="flex items-center gap-2">
               <h1 className="text-[26px] font-bold text-gray-600 tracking-tight">{profile.fullName}</h1>
               {profile.isVerified && (
-                <BadgeCheck className="text-[#EF4823] w-6 h-6 fill-[#EF4823] text-white" />
+                <BadgeCheck className="text-[#EF4423] w-6 h-6 fill-[#EF4423] text-white" />
               )}
             </div>
           </div>
@@ -237,15 +237,15 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
         {/* Stats */}
         <div className="flex justify-between items-center mb-10 px-2">
           <div className="flex flex-col items-center">
-            <span className="text-[20px] font-bold text-[#EF4823]">{profile.followers}</span>
+            <span className="text-[20px] font-bold text-[#EF4423]">{profile.followers}</span>
             <span className="text-[10px] text-gray-400 font-bold mt-1">Followers</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-[20px] font-bold text-[#EF4823]">{profile.viewership}</span>
+            <span className="text-[20px] font-bold text-[#EF4423]">{profile.viewership}</span>
             <span className="text-[10px] text-gray-400 font-bold mt-1">Avg Viewership</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-[20px] font-bold text-[#EF4823]">{profile.engagement}</span>
+            <span className="text-[20px] font-bold text-[#EF4423]">{profile.engagement}</span>
             <span className="text-[10px] text-gray-400 font-bold mt-1">Avg Engagement</span>
           </div>
         </div>
@@ -253,13 +253,13 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
         {/* Tabs */}
         <div className="flex gap-4 mb-8">
           <button 
-            className={`flex-1 py-3.5 rounded-2xl text-[13px] font-bold transition-all shadow-sm ${activeTab === 'About' ? 'bg-[#EF4823] text-white' : 'bg-white text-gray-500 border border-gray-100'}`}
+            className={`flex-1 py-3.5 rounded-2xl text-[13px] font-bold transition-all shadow-sm ${activeTab === 'About' ? 'bg-[#EF4423] text-white' : 'bg-white text-gray-500 border border-gray-100'}`}
             onClick={() => setActiveTab('About')}
           >
             About
           </button>
           <button 
-            className={`flex-1 py-3.5 rounded-2xl text-[13px] font-bold transition-all shadow-sm ${activeTab === 'Portfolio' ? 'bg-[#EF4823] text-white' : 'bg-white text-gray-500 border border-gray-100'}`}
+            className={`flex-1 py-3.5 rounded-2xl text-[13px] font-bold transition-all shadow-sm ${activeTab === 'Portfolio' ? 'bg-[#EF4423] text-white' : 'bg-white text-gray-500 border border-gray-100'}`}
             onClick={() => setActiveTab('Portfolio')}
           >
             Portfolio
@@ -307,7 +307,7 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
               <h3 className="text-[13px] font-bold text-gray-500 mb-4">Badges</h3>
               <div className="flex gap-3">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className="w-[34px] h-[34px] bg-[#EF4823] rounded-full flex items-center justify-center relative overflow-hidden">
+                  <div key={i} className="w-[34px] h-[34px] bg-[#EF4423] rounded-full flex items-center justify-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent"></div>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
@@ -397,7 +397,7 @@ export default function CreatorPortfolioPage({ params }: { params: Promise<{ id:
                   <button 
                     key={c.id} 
                     onClick={() => handleInvite(c.id)}
-                    className="text-left p-3 rounded-[12px] border border-gray-200 hover:border-[#EF4823] hover:bg-orange-50 transition-colors"
+                    className="text-left p-3 rounded-[12px] border border-gray-200 hover:border-[#EF4423] hover:bg-orange-50 transition-colors"
                   >
                     <div className="font-bold text-[14px] text-gray-900">{c.title}</div>
                     <div className="text-[12px] text-gray-500 line-clamp-1">{c.description}</div>

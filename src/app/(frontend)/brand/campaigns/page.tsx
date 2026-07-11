@@ -96,11 +96,11 @@ export default function CampaignDashboardPage() {
             </div>
             <button onClick={() => router.push('/brand/campaigns/requests')} className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
               <MessageSquare className="w-6 h-6" />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-[#EF4823] rounded-full border border-white"></span>
+              <span className="absolute top-2 right-2 w-2 h-2 bg-[#EF4423] rounded-full border border-white"></span>
             </button>
             <button onClick={() => router.push('/brand/notifications')} className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
               <Bell className="w-6 h-6" />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-[#EF4823] rounded-full border border-white"></span>
+              <span className="absolute top-2 right-2 w-2 h-2 bg-[#EF4423] rounded-full border border-white"></span>
             </button>
           </div>
 
@@ -112,7 +112,7 @@ export default function CampaignDashboardPage() {
                 onClick={() => setActiveTab(tab)}
                 className={`flex-1 py-2.5 rounded-[12px] text-[13px] font-bold transition-colors ${
                   activeTab === tab 
-                  ? "bg-[#EF4823] text-white shadow-sm" 
+                  ? "bg-[#EF4423] text-white shadow-sm" 
                   : "text-gray-400 hover:text-gray-600"
                 }`}
               >
@@ -153,7 +153,7 @@ export default function CampaignDashboardPage() {
                   </div>
                   <div className="flex flex-col items-end pt-1">
                     <span className="text-gray-400 text-[10px] font-bold">Budget</span>
-                    <span className="text-[#EF4823] font-bold text-[15px]">{camp.budget}</span>
+                    <span className="text-[#EF4423] font-bold text-[15px]">{camp.budget}</span>
                   </div>
                 </div>
 
@@ -163,7 +163,7 @@ export default function CampaignDashboardPage() {
 
                 <p className="text-gray-500 text-[11.5px] leading-relaxed mb-1 pr-2">
                   {camp.desc}
-                  <span className="text-[#EF4823] font-bold cursor-pointer hover:underline ml-1">Read more</span>
+                  <span className="text-[#EF4423] font-bold cursor-pointer hover:underline ml-1">Read more</span>
                 </p>
 
                 {getStatusBadge(camp.status)}
@@ -177,7 +177,7 @@ export default function CampaignDashboardPage() {
         <div className="absolute bottom-20 left-0 w-full flex justify-center z-30 pointer-events-none">
           <button 
             onClick={() => setShowCreateMenu(true)}
-            className="w-12 h-12 bg-[#EF4823] rounded-full flex items-center justify-center text-white shadow-[0_4px_15px_rgba(239,72,35,0.3)] hover:scale-105 transition-transform pointer-events-auto"
+            className="w-12 h-12 bg-[#EF4423] rounded-full flex items-center justify-center text-white shadow-[0_4px_15px_rgba(239,72,35,0.3)] hover:scale-105 transition-transform pointer-events-auto"
           >
             <Plus className="w-6 h-6" strokeWidth={2.5} />
           </button>
@@ -200,11 +200,11 @@ export default function CampaignDashboardPage() {
                   onClick={() => router.push("/brand/campaigns/create/ai")}
                   className="w-full bg-[#FAFAFA] border border-gray-100 p-3 rounded-[16px] flex items-center gap-4 hover:bg-orange-50/50 hover:border-orange-100 transition-colors group"
                 >
-                  <div className="w-10 h-10 rounded-full bg-[#EF4823]/10 flex items-center justify-center shrink-0">
-                    <Wand2 className="w-5 h-5 text-[#EF4823]" />
+                  <div className="w-10 h-10 rounded-full bg-[#EF4423]/10 flex items-center justify-center shrink-0">
+                    <Wand2 className="w-5 h-5 text-[#EF4423]" />
                   </div>
                   <div className="flex flex-col items-start text-left">
-                    <span className="font-bold text-[14px] text-gray-800 group-hover:text-[#EF4823] transition-colors">Create with AI</span>
+                    <span className="font-bold text-[14px] text-gray-800 group-hover:text-[#EF4423] transition-colors">Create with AI</span>
                     <span className="text-[11px] text-gray-400 font-medium">Use our smart assistant to build it</span>
                   </div>
                 </button>
@@ -213,8 +213,8 @@ export default function CampaignDashboardPage() {
                   onClick={() => router.push("/brand/campaigns/create/manual")}
                   className="w-full bg-[#FAFAFA] border border-gray-100 p-3 rounded-[16px] flex items-center gap-4 hover:bg-orange-50/50 hover:border-orange-100 transition-colors group"
                 >
-                  <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-[#EF4823]/10">
-                    <Edit3 className="w-5 h-5 text-gray-500 group-hover:text-[#EF4823]" />
+                  <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-[#EF4423]/10">
+                    <Edit3 className="w-5 h-5 text-gray-500 group-hover:text-[#EF4423]" />
                   </div>
                   <div className="flex flex-col items-start text-left">
                     <span className="font-bold text-[14px] text-gray-800 group-hover:text-gray-900">Create Manual</span>

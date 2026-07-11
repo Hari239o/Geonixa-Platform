@@ -77,26 +77,26 @@ export default function PartnerDashboardPage() {
               <X size={20} />
             </button>
             
-            <div className="w-14 h-14 bg-[#EF4823]/10 rounded-full flex items-center justify-center mb-4 mt-2">
-              <svg viewBox="0 0 24 24" className="w-7 h-7 text-[#EF4823]" fill="currentColor">
+            <div className="w-14 h-14 bg-[#EF4423]/10 rounded-full flex items-center justify-center mb-4 mt-2">
+              <svg viewBox="0 0 24 24" className="w-7 h-7 text-[#EF4423]" fill="currentColor">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
               </svg>
             </div>
             
-            <h2 className="text-[#EF4823] text-lg font-black tracking-wide mb-1">VERIFY YOUR ACCOUNT</h2>
+            <h2 className="text-[#EF4423] text-lg font-black tracking-wide mb-1">VERIFY YOUR ACCOUNT</h2>
             <div className="flex flex-col items-center mb-6">
               <span className="text-[13px] text-gray-500 font-medium">Take A</span>
               <span className="text-[13px] text-gray-500 font-medium">Live Selfie Video</span>
             </div>
             
-            <div className="w-full border-2 border-dashed border-[#EF4823]/40 rounded-[14px] py-4 flex items-center justify-center gap-2 text-[#EF4823] mb-6 cursor-pointer hover:bg-orange-50 transition-colors">
+            <div className="w-full border-2 border-dashed border-[#EF4423]/40 rounded-[14px] py-4 flex items-center justify-center gap-2 text-[#EF4423] mb-6 cursor-pointer hover:bg-orange-50 transition-colors">
               <Camera size={20} strokeWidth={2.5} />
               <span className="font-bold text-sm">Camera</span>
             </div>
             
             <button 
               onClick={() => setShowVerificationModal(false)}
-              className="w-full bg-[#EF4823] text-white font-bold py-3.5 rounded-[12px] shadow-lg shadow-orange-500/30 hover:bg-[#d63f1c] hover:-translate-y-0.5 transition-all active:scale-[0.98]"
+              className="w-full bg-[#EF4423] text-white font-bold py-3.5 rounded-[12px] shadow-lg shadow-orange-500/30 hover:bg-[#d63f1c] hover:-translate-y-0.5 transition-all active:scale-[0.98]"
             >
               SUBMIT
             </button>
@@ -112,7 +112,7 @@ export default function PartnerDashboardPage() {
               <Image src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop" alt="Profile" width={44} height={44} className="w-full h-full object-cover" />
             </div>
             <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-0.5">
-              <svg viewBox="0 0 24 24" className="w-4 h-4 text-[#EF4823]" fill="currentColor">
+              <svg viewBox="0 0 24 24" className="w-4 h-4 text-[#EF4423]" fill="currentColor">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
               </svg>
             </div>
@@ -130,7 +130,7 @@ export default function PartnerDashboardPage() {
           className="relative w-10 h-10 flex items-center justify-center hover:bg-gray-50 rounded-full transition-colors"
         >
           <Bell className="w-6 h-6 text-[#1a1a2e]" strokeWidth={2} />
-          <span className="absolute top-2 right-2.5 w-2 h-2 bg-[#EF4823] rounded-full border-2 border-white"></span>
+          <span className="absolute top-2 right-2.5 w-2 h-2 bg-[#EF4423] rounded-full border-2 border-white"></span>
         </button>
       </div>
 
@@ -152,13 +152,13 @@ export default function PartnerDashboardPage() {
         {/* Tabs */}
         <div className="flex bg-white rounded-full p-1 shadow-sm mb-6">
           <button 
-            className={`flex-1 py-3 text-[13px] font-bold rounded-full transition-all duration-300 ${activeTab === 'active' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 py-3 text-[13px] font-bold rounded-full transition-all duration-300 ${activeTab === 'active' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
             onClick={() => setActiveTab('active')}
           >
             Active
           </button>
           <button 
-            className={`flex-1 py-3 text-[13px] font-bold rounded-full transition-all duration-300 ${activeTab === 'completed' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 py-3 text-[13px] font-bold rounded-full transition-all duration-300 ${activeTab === 'completed' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
             onClick={() => setActiveTab('completed')}
           >
             Completed
@@ -184,7 +184,7 @@ export default function PartnerDashboardPage() {
                 </div>
                 <div className="flex flex-col items-end shrink-0">
                   <span className="text-[11px] font-medium text-gray-400 mb-0.5">Budget</span>
-                  <span className="text-[16px] font-extrabold text-[#EF4823] leading-none">₹{project.budget}</span>
+                  <span className="text-[16px] font-extrabold text-[#EF4423] leading-none">₹{project.budget}</span>
                 </div>
               </div>
               
@@ -193,12 +193,12 @@ export default function PartnerDashboardPage() {
               </div>
               
               <p className="text-[12px] text-gray-500 font-medium leading-relaxed mb-4">
-                {project.description} <span className="text-[#EF4823] font-bold cursor-pointer hover:underline">Read more</span>
+                {project.description} <span className="text-[#EF4423] font-bold cursor-pointer hover:underline">Read more</span>
               </p>
               
               <div>
                 {activeTab === 'active' ? (
-                  <span className="inline-block bg-[#EF4823] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg shadow-sm">
+                  <span className="inline-block bg-[#EF4423] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg shadow-sm">
                     {project.daysLeft} days left
                   </span>
                 ) : (
@@ -214,7 +214,7 @@ export default function PartnerDashboardPage() {
       
       {/* Floating Banner */}
       <div className="w-full px-5 z-30 shrink-0 mt-auto pb-4">
-        <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-[18px] p-4 flex items-center justify-between shadow-xl relative overflow-hidden">
+        <div className="w-full max-w-[335px] mx-auto bg-[#EF4423] rounded-[18px] p-4 flex items-center justify-between shadow-xl relative overflow-hidden">
           <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
           <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-xl pointer-events-none"></div>
           

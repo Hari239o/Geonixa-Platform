@@ -121,7 +121,7 @@ export default function BrandIndividualSetupPage() {
                   <img src={profilePic} alt="Profile" className="w-full h-full object-cover" />
                 </div>
               ) : (
-                <div className="w-24 h-24 rounded-2xl bg-[#EF4823] flex items-center justify-center text-white font-bold text-2xl shadow-sm hover:bg-[#d63d1c] transition-colors">
+                <div className="w-24 h-24 rounded-2xl bg-[#EF4423] flex items-center justify-center text-white font-bold text-2xl shadow-sm hover:bg-[#d63d1c] transition-colors">
                   LOGO
                 </div>
               )}
@@ -145,7 +145,7 @@ export default function BrandIndividualSetupPage() {
               placeholder="Lorem ipsum"
               value={formData.fullName}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -157,7 +157,7 @@ export default function BrandIndividualSetupPage() {
               rows={4}
               value={formData.bio}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400 resize-y min-h-[120px]"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400 resize-y min-h-[120px]"
             ></textarea>
           </div>
 
@@ -169,7 +169,7 @@ export default function BrandIndividualSetupPage() {
               placeholder="www.portfolio.com"
               value={formData.website}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -181,7 +181,7 @@ export default function BrandIndividualSetupPage() {
               placeholder="000-000-0000"
               value={formData.phone}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -193,7 +193,7 @@ export default function BrandIndividualSetupPage() {
               placeholder="https://"
               value={formData.facebook}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -205,7 +205,7 @@ export default function BrandIndividualSetupPage() {
               placeholder="https://"
               value={formData.instagram}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -217,7 +217,7 @@ export default function BrandIndividualSetupPage() {
               placeholder="https://"
               value={formData.x}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
@@ -229,13 +229,13 @@ export default function BrandIndividualSetupPage() {
               placeholder="https://"
               value={formData.linkedin}
               onChange={handleInputChange}
-              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4823] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
             />
           </div>
 
           <button 
             onClick={handleSave}
-            className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white py-4 rounded-2xl font-bold tracking-wider mt-4 shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98]"
+            className="w-full bg-[#EF4423] hover:bg-[#d63d1c] text-white py-4 rounded-2xl font-bold tracking-wider mt-4 shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98]"
           >
             SAVE
           </button>

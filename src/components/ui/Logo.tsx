@@ -12,7 +12,7 @@ export function Logo({ className, showText = true, large = false }: LogoProps) {
     <div className={cn("flex flex-row items-center justify-center", className)}>
       {showText ? (
         <div 
-          className={cn("bg-[#EF4823]", large ? "w-[180px] h-[60px]" : "w-[140px] h-[46px]", className)}
+          className={cn("bg-[#EF4423]", large ? "w-[180px] h-[60px]" : "w-[140px] h-[46px]", className)}
           style={{
             WebkitMaskImage: 'url(/kalinq-company-name-profile.png)',
             WebkitMaskSize: 'contain',

@@ -64,7 +64,7 @@ Transformation posts (designs, edits, projects, fitness, or even workspace makeo
         <div className="px-6 pt-4 pb-4 z-20 shrink-0 bg-white">
           <button 
             onClick={() => router.back()}
-            className="w-12 h-12 bg-[#fff0e5] text-[#EF4823] rounded-[16px] flex items-center justify-center transition-transform active:scale-95"
+            className="w-12 h-12 bg-[#fff0e5] text-[#EF4423] rounded-[16px] flex items-center justify-center transition-transform active:scale-95"
           >
             <ChevronLeft size={28} strokeWidth={2.5} />
           </button>
@@ -94,7 +94,7 @@ Transformation posts (designs, edits, projects, fitness, or even workspace makeo
               {/* AI Response */}
               <div className="w-full flex flex-col">
                 <div className="flex justify-between items-start mb-4">
-                  <div className="w-10 h-10 rounded-[12px] bg-[#EF4823] flex items-center justify-center text-white shrink-0 shadow-md">
+                  <div className="w-10 h-10 rounded-[12px] bg-[#EF4423] flex items-center justify-center text-white shrink-0 shadow-md">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g transform="rotate(45 12 12)">
                         <path fillRule="evenodd" clipRule="evenodd" d="M8.5 5C8.5 4.44772 8.94772 4 9.5 4H14.5C15.0523 4 15.5 4.44772 15.5 5V19C15.5 19.5523 15.0523 20 14.5 20H9.5C8.94772 20 8.5 19.5523 8.5 19V5ZM10 5.5H14V9.5H10V5.5Z" fill="currentColor" />
@@ -111,14 +111,14 @@ Transformation posts (designs, edits, projects, fitness, or even workspace makeo
                     </button>
                     <button 
                       onClick={() => setShowShare(!showShare)}
-                      className="text-gray-400 hover:text-[#EF4823] transition-colors p-1"
+                      className="text-gray-400 hover:text-[#EF4423] transition-colors p-1"
                     >
                       <Share2 size={16} />
                     </button>
                     
                     {/* Share Popover */}
                     {showShare && (
-                      <div className="absolute right-0 top-8 bg-white border border-[#EF4823]/20 shadow-[0_8px_30px_rgba(239,72,35,0.12)] rounded-[16px] py-2 w-32 z-50 animate-in fade-in zoom-in duration-200">
+                      <div className="absolute right-0 top-8 bg-white border border-[#EF4423]/20 shadow-[0_8px_30px_rgba(239,72,35,0.12)] rounded-[16px] py-2 w-32 z-50 animate-in fade-in zoom-in duration-200">
                         <button className="w-full px-4 py-2 flex items-center gap-3 hover:bg-orange-50 text-[11px] font-bold text-gray-700 transition-colors">
                           <img src="/facebook.png" alt="FB" className="w-4 h-4 object-contain" onError={(e) => e.currentTarget.style.display = 'none'} /> Facebook
                         </button>
@@ -132,7 +132,7 @@ Transformation posts (designs, edits, projects, fitness, or even workspace makeo
                           <img src="/youtube.png" alt="YT" className="w-4 h-4 object-contain" onError={(e) => e.currentTarget.style.display = 'none'} /> Youtube
                         </button>
                         <div className="h-[1px] w-full bg-gray-100 my-1"></div>
-                        <button className="w-full px-4 py-2 flex items-center gap-3 hover:bg-orange-50 text-[11px] font-bold text-[#EF4823] transition-colors">
+                        <button className="w-full px-4 py-2 flex items-center gap-3 hover:bg-orange-50 text-[11px] font-bold text-[#EF4423] transition-colors">
                           <Share2 size={14} /> Copylink
                         </button>
                       </div>
@@ -142,7 +142,7 @@ Transformation posts (designs, edits, projects, fitness, or even workspace makeo
                 
                 <div className="text-[12.5px] leading-relaxed text-gray-700 font-medium whitespace-pre-wrap">
                   {generatedText}
-                  {chatState === 'generating' && <span className="inline-block w-1.5 h-4 ml-1 bg-[#EF4823] animate-pulse align-middle"></span>}
+                  {chatState === 'generating' && <span className="inline-block w-1.5 h-4 ml-1 bg-[#EF4423] animate-pulse align-middle"></span>}
                 </div>
               </div>
             </div>
@@ -178,7 +178,7 @@ Transformation posts (designs, edits, projects, fitness, or even workspace makeo
                 onClick={stopGenerating}
                 className="flex items-center gap-2 px-6 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:bg-gray-50 active:scale-95 transition-all"
               >
-                <div className="w-3 h-3 bg-[#EF4823] rounded-sm"></div>
+                <div className="w-3 h-3 bg-[#EF4423] rounded-sm"></div>
                 <span className="text-[12px] font-bold text-gray-500">Stop generating...</span>
               </button>
             </div>
@@ -188,9 +188,9 @@ Transformation posts (designs, edits, projects, fitness, or even workspace makeo
             <div className="flex justify-center mb-6">
               <button 
                 onClick={() => setChatState('generating')}
-                className="flex items-center gap-2 px-6 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:bg-gray-50 active:scale-95 transition-all text-gray-500 hover:text-[#EF4823]"
+                className="flex items-center gap-2 px-6 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm hover:bg-gray-50 active:scale-95 transition-all text-gray-500 hover:text-[#EF4423]"
               >
-                <RefreshCcw size={14} className="text-[#EF4823]" />
+                <RefreshCcw size={14} className="text-[#EF4423]" />
                 <span className="text-[12px] font-bold">Regenerate Response</span>
               </button>
             </div>
@@ -210,7 +210,7 @@ Transformation posts (designs, edits, projects, fitness, or even workspace makeo
             <button 
               onClick={() => handleSend()}
               disabled={!inputText.trim() || chatState === 'generating'}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-[#EF4823] p-1 active:scale-95 transition-transform disabled:opacity-50"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-[#EF4423] p-1 active:scale-95 transition-transform disabled:opacity-50"
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z" />

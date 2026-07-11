@@ -9,7 +9,7 @@ import PostDealChatbot from "@/components/shared/PostDealChatbot"
 
 // SVG for Verified Badge
 const VerifiedBadge = ({ className }: { className?: string }) => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="#EF4823" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="#EF4423" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
     <path d="m9 12 2 2 4-4" />
   </svg>
@@ -103,7 +103,7 @@ export default function CampaignRequestsPage() {
         <div className="pt-5 px-5 pb-6 shrink-0 z-20 bg-white flex items-center justify-between">
           <button 
             onClick={() => router.back()}
-            className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4823] hover:opacity-80 transition-opacity"
+            className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4423] hover:opacity-80 transition-opacity"
           >
             <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
           </button>
@@ -160,15 +160,15 @@ export default function CampaignRequestsPage() {
 
                 <div className="bg-[#FEF5ED] flex-1 flex items-center justify-around py-4">
                   <div className="flex flex-col items-center gap-0.5">
-                    <span className="text-[#EF4823] font-black text-[15px]">{req.creator.followers || '0'}</span>
+                    <span className="text-[#EF4423] font-black text-[15px]">{req.creator.followers || '0'}</span>
                     <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Followers</span>
                   </div>
                   <div className="flex flex-col items-center gap-0.5">
-                    <span className="text-[#EF4823] font-black text-[15px]">{req.creator.viewership || '0'}</span>
+                    <span className="text-[#EF4423] font-black text-[15px]">{req.creator.viewership || '0'}</span>
                     <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Avg Viewership</span>
                   </div>
                   <div className="flex flex-col items-center gap-0.5">
-                    <span className="text-[#EF4823] font-black text-[15px]">{req.creator.engagement || '0'}</span>
+                    <span className="text-[#EF4423] font-black text-[15px]">{req.creator.engagement || '0'}</span>
                     <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Avg Engagement</span>
                   </div>
                 </div>
@@ -187,7 +187,7 @@ export default function CampaignRequestsPage() {
                   </div>
                   <div className="flex flex-col items-end pt-1">
                     <span className="text-gray-400 text-[10px] font-bold">Budget</span>
-                    <span className="text-[#EF4823] font-bold text-[15px]">{req.campaign.budget || 'Open'}</span>
+                    <span className="text-[#EF4423] font-bold text-[15px]">{req.campaign.budget || 'Open'}</span>
                   </div>
                 </div>
 
@@ -201,7 +201,7 @@ export default function CampaignRequestsPage() {
 
                 {req.status === 'NEGOTIATING' || req.status === 'negotiating' ? (
                   <div className="mb-4 bg-orange-50 p-3 rounded-xl border border-orange-100">
-                    <p className="text-[#EF4823] text-sm font-bold mb-1">Creator Negotiated Price: {req.negotiatedPrice || 'See message'}</p>
+                    <p className="text-[#EF4423] text-sm font-bold mb-1">Creator Negotiated Price: {req.negotiatedPrice || 'See message'}</p>
                     {req.message && <p className="text-gray-600 text-xs italic">"{req.message}"</p>}
                   </div>
                 ) : null}
@@ -213,7 +213,7 @@ export default function CampaignRequestsPage() {
                     </button>
                   ) : req.status === 'NEGOTIATING' || req.status === 'negotiating' || req.status === 'applied' || req.status === 'pending' || req.status === 'PENDING' ? (
                     <>
-                      <button onClick={() => handleAction(req.id, 'ACCEPT', req.isPublicRequest)} className="flex-1 bg-[#EF4823] text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-[#e03d1b] transition-colors">
+                      <button onClick={() => handleAction(req.id, 'ACCEPT', req.isPublicRequest)} className="flex-1 bg-[#EF4423] text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-[#e03d1b] transition-colors">
                         Accept Deal
                       </button>
                       <button onClick={() => handleAction(req.id, 'REJECT', req.isPublicRequest)} className="flex-1 bg-gray-100 text-gray-500 text-[12px] font-bold py-3 rounded-[12px] hover:bg-gray-200 transition-colors">

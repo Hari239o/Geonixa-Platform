@@ -107,7 +107,7 @@ export default function PostDealChatbot({ chatId, userRole = 'creator', onComple
         className="bg-white w-full max-w-md h-[80vh] max-h-[600px] rounded-[24px] shadow-2xl flex flex-col overflow-hidden relative"
       >
         {/* Header */}
-        <div className="bg-[#EF4823] p-4 flex items-center justify-between shrink-0">
+        <div className="bg-[#EF4423] p-4 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
               <Bot className="text-white w-6 h-6" />
@@ -132,12 +132,12 @@ export default function PostDealChatbot({ chatId, userRole = 'creator', onComple
                 animate={{ opacity: 1, y: 0 }}
                 className={`flex gap-3 max-w-[85%] ${msg.sender === 'user' ? 'self-end flex-row-reverse' : 'self-start'}`}
               >
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-auto ${msg.sender === 'user' ? 'bg-[#EF4823]' : 'bg-gray-200'}`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-auto ${msg.sender === 'user' ? 'bg-[#EF4423]' : 'bg-gray-200'}`}>
                   {msg.sender === 'user' ? <User size={16} className="text-white" /> : <Bot size={16} className="text-gray-600" />}
                 </div>
                 <div className={`p-3.5 rounded-2xl text-[14px] leading-relaxed shadow-sm ${
                   msg.sender === 'user' 
-                    ? 'bg-[#EF4823] text-white rounded-br-sm' 
+                    ? 'bg-[#EF4423] text-white rounded-br-sm' 
                     : 'bg-white text-gray-700 rounded-bl-sm border border-gray-100'
                 }`}>
                   {msg.text}
@@ -158,12 +158,12 @@ export default function PostDealChatbot({ chatId, userRole = 'creator', onComple
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Type your answer..."
               disabled={isSubmitting || currentQuestionIndex >= QUESTIONS.length}
-              className="w-full bg-gray-100 border-transparent focus:bg-white focus:border-[#EF4823] focus:ring-2 focus:ring-[#EF4823]/20 rounded-full py-3.5 pl-5 pr-14 text-[14px] font-medium transition-all outline-none disabled:opacity-50"
+              className="w-full bg-gray-100 border-transparent focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-[#EF4423]/20 rounded-full py-3.5 pl-5 pr-14 text-[14px] font-medium transition-all outline-none disabled:opacity-50"
             />
             <button 
               onClick={handleSend}
               disabled={!inputValue.trim() || isSubmitting || currentQuestionIndex >= QUESTIONS.length}
-              className="absolute right-1.5 w-10 h-10 bg-[#EF4823] hover:bg-[#d83e1c] disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-colors"
+              className="absolute right-1.5 w-10 h-10 bg-[#EF4423] hover:bg-[#d83e1c] disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-colors"
             >
               <Send size={18} className="ml-0.5" />
             </button>

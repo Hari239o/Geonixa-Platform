@@ -7,7 +7,7 @@ import BottomNav from "@/components/brand/BottomNav"
 
 // SVG for Verified Badge
 const VerifiedBadge = ({ className }: { className?: string }) => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="#EF4823" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="#EF4423" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
     <path d="m9 12 2 2 4-4" />
   </svg>
@@ -30,7 +30,7 @@ export default function RequestDetailPage() {
           </button>
 
           <div className="flex gap-2 w-full max-w-[220px]">
-            <button className="flex-1 bg-[#EF4823] text-white text-[11px] font-bold py-2.5 rounded-full hover:bg-[#e03d1b] transition-colors shadow-sm">
+            <button className="flex-1 bg-[#EF4423] text-white text-[11px] font-bold py-2.5 rounded-full hover:bg-[#e03d1b] transition-colors shadow-sm">
               Accept
             </button>
             <button className="flex-1 bg-gray-100 text-gray-400 text-[11px] font-bold py-2.5 rounded-full hover:bg-gray-200 transition-colors">
@@ -69,15 +69,15 @@ export default function RequestDetailPage() {
 
               <div className="bg-[#FEF5ED] flex items-center justify-around py-4 mt-2">
                 <div className="flex flex-col items-center gap-0.5">
-                  <span className="text-[#EF4823] font-black text-[16px]">44.5k</span>
+                  <span className="text-[#EF4423] font-black text-[16px]">44.5k</span>
                   <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Followers</span>
                 </div>
                 <div className="flex flex-col items-center gap-0.5">
-                  <span className="text-[#EF4823] font-black text-[16px]">22.8k</span>
+                  <span className="text-[#EF4423] font-black text-[16px]">22.8k</span>
                   <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Avg Viewership</span>
                 </div>
                 <div className="flex flex-col items-center gap-0.5">
-                  <span className="text-[#EF4823] font-black text-[16px]">38.9k</span>
+                  <span className="text-[#EF4423] font-black text-[16px]">38.9k</span>
                   <span className="text-gray-400 text-[9px] font-semibold tracking-wide">Avg Engagement</span>
                 </div>
               </div>
@@ -87,7 +87,7 @@ export default function RequestDetailPage() {
           {/* Tabs */}
           <div className="px-5 mt-6 mb-4">
             <div className="flex bg-gray-50 rounded-full p-1">
-              <button className="flex-1 bg-[#EF4823] text-white text-[12px] font-bold py-2.5 rounded-full shadow-sm">
+              <button className="flex-1 bg-[#EF4423] text-white text-[12px] font-bold py-2.5 rounded-full shadow-sm">
                 About
               </button>
               <button className="flex-1 text-gray-400 text-[12px] font-bold py-2.5 rounded-full hover:text-gray-600">
@@ -142,7 +142,7 @@ export default function RequestDetailPage() {
               <h4 className="text-gray-800 font-extrabold text-[13px] mb-3">Badges</h4>
               <div className="flex gap-2">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="w-8 h-8 rounded-full bg-[#EF4823] flex items-center justify-center shadow-sm">
+                  <div key={i} className="w-8 h-8 rounded-full bg-[#EF4423] flex items-center justify-center shadow-sm">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="white" className="mt-0.5">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                     </svg>

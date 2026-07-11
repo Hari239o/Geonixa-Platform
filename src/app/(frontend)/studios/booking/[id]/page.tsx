@@ -117,7 +117,7 @@ export default function BookingStatusPage({ params }: { params: { id: string } }
           
           return (
             <div key={state.id} className="flex items-center mb-8 relative z-10 last:mb-0">
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${isCompleted ? 'bg-[#FF4D2D]' : 'bg-gray-200'}`}>
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${isCompleted ? 'bg-[#EF4423]' : 'bg-gray-200'}`}>
                 {isCompleted && <Check className="w-4 h-4 text-white" />}
               </div>
               <div className="ml-4">
@@ -125,7 +125,7 @@ export default function BookingStatusPage({ params }: { params: { id: string } }
                   {state.label}
                 </p>
                 {state.id === "PENDING" && isCurrent && (
-                  <p className="text-sm text-[#FF4D2D] font-medium flex items-center gap-1 mt-1">
+                  <p className="text-sm text-[#EF4423] font-medium flex items-center gap-1 mt-1">
                     <Clock className="w-3.5 h-3.5" /> Auto-expires in {timeLeft}
                   </p>
                 )}
@@ -154,7 +154,7 @@ export default function BookingStatusPage({ params }: { params: { id: string } }
           <div>
             <h2 className="font-bold text-lg">{booking.kalakaar.name}</h2>
             <div className="flex items-center text-sm text-gray-500 mt-1">
-              <span className="bg-[#FFF4F2] text-[#FF4D2D] px-2 py-0.5 rounded-md font-medium text-xs">
+              <span className="bg-[#FFF4F2] text-[#EF4423] px-2 py-0.5 rounded-md font-medium text-xs">
                 Instant Reel Booking
               </span>
             </div>
@@ -188,7 +188,7 @@ export default function BookingStatusPage({ params }: { params: { id: string } }
               )}
 
               {booking.status === "LIVE_RECORDING" && (
-                <button onClick={() => updateStatus("COMPLETED", undefined)} className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[12px] h-[50px] font-bold flex items-center justify-center gap-2 transition-all">
+                <button onClick={() => updateStatus("COMPLETED", undefined)} className="w-full bg-[#EF4423] hover:bg-[#EF4423]/90 text-white rounded-[12px] h-[50px] font-bold flex items-center justify-center gap-2 transition-all">
                   <CheckCircle className="w-5 h-5" /> Mark Complete
                 </button>
               )}
@@ -200,10 +200,10 @@ export default function BookingStatusPage({ params }: { params: { id: string } }
         {/* Completed Invoice State */}
         {booking.status === "COMPLETED" && (
           <div className="mt-6 bg-[#FEF5ED] border border-[#FBE3CC] rounded-2xl p-5 flex flex-col items-center justify-center text-center">
-            <Receipt className="w-12 h-12 text-[#FF4D2D] mb-3" />
+            <Receipt className="w-12 h-12 text-[#EF4423] mb-3" />
             <h3 className="font-bold text-lg text-gray-900">Invoice Generated</h3>
             <p className="text-sm text-gray-600 mt-1">The reel recording is complete. Payment has been securely processed.</p>
-            <button className="mt-4 bg-white border border-[#FF4D2D] text-[#FF4D2D] font-bold py-2 px-6 rounded-full text-sm">
+            <button className="mt-4 bg-white border border-[#EF4423] text-[#EF4423] font-bold py-2 px-6 rounded-full text-sm">
               View Invoice
             </button>
           </div>
@@ -218,7 +218,7 @@ export default function BookingStatusPage({ params }: { params: { id: string } }
             <h3 className="font-bold text-lg mb-2">Decline Request</h3>
             <p className="text-gray-500 text-sm mb-4">Please provide a reason for declining this Instant Reel booking.</p>
             <textarea 
-              className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-[#FF4D2D]"
+              className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-[#EF4423]"
               rows={3}
               placeholder="E.g., I am currently unavailable..."
               value={declineReason}

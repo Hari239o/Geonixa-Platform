@@ -9,7 +9,7 @@ import { Logo } from "@/components/ui/Logo"
 
 // SVG for Verified Badge matching Image 2
 const VerifiedBadge = ({ className }: { className?: string }) => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="#EF4823" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="#EF4423" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
     <path d="m9 12 2 2 4-4" />
   </svg>
@@ -135,7 +135,7 @@ export default function BrandHomeFeedPage() {
                 className="relative p-2.5 rounded-[12px] bg-gray-50 text-gray-600 hover:bg-gray-100 transition-colors"
               >
                 <Bell size={20} strokeWidth={2.5} />
-                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-[#EF4823] rounded-full border-2 border-white"></span>
+                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-[#EF4423] rounded-full border-2 border-white"></span>
               </button>
             </div>
           </div>
@@ -157,7 +157,7 @@ export default function BrandHomeFeedPage() {
                 onClick={() => setActiveTab(tab)}
                 className={`px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-colors ${
                   activeTab === tab 
-                  ? "bg-orange-50 text-[#EF4823]" 
+                  ? "bg-orange-50 text-[#EF4423]" 
                   : "text-gray-600 hover:bg-gray-50"
                 }`}
               >
@@ -210,7 +210,7 @@ export default function BrandHomeFeedPage() {
                   
                   {/* Category */}
                   {creator.category && (
-                    <div className="text-[12px] font-medium text-[#EF4823] mb-2 capitalize">
+                    <div className="text-[12px] font-medium text-[#EF4423] mb-2 capitalize">
                       {creator.category} Creator
                     </div>
                   )}
@@ -236,15 +236,15 @@ export default function BrandHomeFeedPage() {
               {/* Bottom Stats Section */}
               <div className="flex items-center justify-between px-6 py-4 bg-[#FEF5ED] rounded-b-[24px]">
                 <div className="flex flex-col items-center">
-                  <span className="text-[#EF4823] font-bold text-[15px]">{creator.followers || "0"}</span>
+                  <span className="text-[#EF4423] font-bold text-[15px]">{creator.followers || "0"}</span>
                   <span className="text-gray-500 text-[10px] font-medium mt-0.5">Followers</span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <span className="text-[#EF4823] font-bold text-[15px]">{creator.viewership || "0"}</span>
+                  <span className="text-[#EF4423] font-bold text-[15px]">{creator.viewership || "0"}</span>
                   <span className="text-gray-500 text-[10px] font-medium mt-0.5">Avg Viewership</span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <span className="text-[#EF4823] font-bold text-[15px]">{creator.engagement || "0"}</span>
+                  <span className="text-[#EF4423] font-bold text-[15px]">{creator.engagement || "0"}</span>
                   <span className="text-gray-500 text-[10px] font-medium mt-0.5">Avg Engagement</span>
                 </div>
               </div>
@@ -253,7 +253,7 @@ export default function BrandHomeFeedPage() {
 
         {/* Fixed Banner */}
         <div className="fixed bottom-[88px] left-0 w-full px-5 z-40 pointer-events-none">
-          <div className="w-full max-w-[335px] mx-auto bg-[#EF4823] rounded-[20px] p-4 flex items-center justify-between shadow-[0_8px_30px_rgba(239,72,35,0.25)] relative overflow-hidden pointer-events-auto">
+          <div className="w-full max-w-[335px] mx-auto bg-[#EF4423] rounded-[20px] p-4 flex items-center justify-between shadow-[0_8px_30px_rgba(239,72,35,0.25)] relative overflow-hidden pointer-events-auto">
             <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-xl"></div>
             
@@ -300,7 +300,7 @@ export default function BrandHomeFeedPage() {
 
             <div className="flex flex-col items-center mt-2 text-center">
               <div className="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EF4823" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EF4423" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a8 8 0 0 1-5.45 7.59c-.36.12-.76.15-1.15.15h-11a2 2 0 0 1-2-2v-3"/>
                   <path d="M3 11v3"/>
                   <path d="M21 11v4"/>
@@ -405,7 +405,7 @@ export default function BrandHomeFeedPage() {
                       setIsUnlocking(false);
                     }
                   }}
-                  className="w-full bg-[#EF4823] text-white font-bold py-3.5 rounded-[16px] hover:bg-[#d63d1c] active:scale-[0.98] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex items-center justify-center gap-2"
+                  className="w-full bg-[#EF4423] text-white font-bold py-3.5 rounded-[16px] hover:bg-[#d63d1c] active:scale-[0.98] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex items-center justify-center gap-2"
                 >
                   Permanent Unlock (-50 Credits)
                 </button>

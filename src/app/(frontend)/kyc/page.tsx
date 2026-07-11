@@ -299,8 +299,8 @@ export default function KycPage() {
           {/* Progress Bar */}
           {step < 3 && (
             <div className="flex gap-2 mb-6">
-              <div className={`h-1.5 flex-1 rounded-full ${step >= 1 ? "bg-[#EF4823]" : "bg-gray-200"}`} />
-              <div className={`h-1.5 flex-1 rounded-full ${step >= 2 ? "bg-[#EF4823]" : "bg-gray-200"}`} />
+              <div className={`h-1.5 flex-1 rounded-full ${step >= 1 ? "bg-[#EF4423]" : "bg-gray-200"}`} />
+              <div className={`h-1.5 flex-1 rounded-full ${step >= 2 ? "bg-[#EF4423]" : "bg-gray-200"}`} />
             </div>
           )}
 
@@ -324,14 +324,14 @@ export default function KycPage() {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. Rahul Sharma"
-                  className="w-full bg-white border-2 border-gray-100 rounded-[16px] px-5 py-4 text-[15px] font-bold text-[#1a1a2e] outline-none focus:border-[#EF4823] transition-colors shadow-sm"
+                  className="w-full bg-white border-2 border-gray-100 rounded-[16px] px-5 py-4 text-[15px] font-bold text-[#1a1a2e] outline-none focus:border-[#EF4423] transition-colors shadow-sm"
                   disabled={isLoading}
                 />
               </div>
 
               <div className="mb-6">
                 <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2 block">Aadhar Card Photo</label>
-                <label className="border-2 border-dashed border-gray-200 bg-white hover:border-[#EF4823] hover:bg-orange-50 transition-colors rounded-[24px] p-6 flex flex-col items-center justify-center cursor-pointer shadow-sm min-h-[160px]">
+                <label className="border-2 border-dashed border-gray-200 bg-white hover:border-[#EF4423] hover:bg-orange-50 transition-colors rounded-[24px] p-6 flex flex-col items-center justify-center cursor-pointer shadow-sm min-h-[160px]">
                   <input 
                     type="file" 
                     accept="image/*" 
@@ -352,7 +352,7 @@ export default function KycPage() {
                     </div>
                   ) : (
                     <>
-                      <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-3 text-[#EF4823]">
+                      <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-3 text-[#EF4423]">
                         <UploadCloud className="w-5 h-5" />
                       </div>
                       <span className="text-[14px] font-bold text-[#1a1a2e] mb-1">Tap to Upload Aadhar</span>
@@ -365,7 +365,7 @@ export default function KycPage() {
               <button 
                 onClick={handleNextStep1}
                 disabled={isLoading}
-                className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] mt-2 flex justify-center items-center"
+                className="w-full bg-[#EF4423] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] mt-2 flex justify-center items-center"
               >
                 {isLoading ? (
                   <span className="flex items-center gap-2">
@@ -420,7 +420,7 @@ export default function KycPage() {
                 <div className="w-full max-w-[280px] mx-auto mt-1">
                   <button 
                     onClick={capturePhoto}
-                    className={`w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-3.5 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center gap-2 ${!cameraActive ? 'opacity-90' : ''}`}
+                    className={`w-full bg-[#EF4423] hover:bg-[#d63f1c] text-white font-bold py-3.5 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center gap-2 ${!cameraActive ? 'opacity-90' : ''}`}
                   >
                     <Camera className="w-5 h-5" /> CAPTURE SELFIE
                   </button>
@@ -430,7 +430,7 @@ export default function KycPage() {
                   <button 
                     onClick={handleVerifyFace}
                     disabled={isLoading}
-                    className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full bg-[#EF4423] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)] flex justify-center items-center disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {isLoading ? (
                       <span className="flex items-center gap-2">
@@ -454,7 +454,7 @@ export default function KycPage() {
           {/* STEP 3: Success */}
           {step === 3 && (
             <div className="animate-in fade-in zoom-in duration-500 flex flex-col items-center text-center h-full justify-center pb-20">
-              <div className="w-24 h-24 bg-orange-100 text-[#EF4823] rounded-full flex items-center justify-center mb-6 shadow-sm">
+              <div className="w-24 h-24 bg-orange-100 text-[#EF4423] rounded-full flex items-center justify-center mb-6 shadow-sm">
                 <CheckCircle2 className="w-12 h-12" />
               </div>
               <h2 className="text-[26px] font-black text-[#1a1a2e] mb-2 tracking-tight">Verified!</h2>
@@ -462,7 +462,7 @@ export default function KycPage() {
               
               <button 
                 onClick={completeKyc}
-                className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)]"
+                className="w-full bg-[#EF4423] hover:bg-[#d63f1c] text-white font-bold py-4 rounded-[16px] transition-all shadow-[0_4px_15px_rgba(239,72,35,0.25)]"
               >
                 GO TO DASHBOARD
               </button>

@@ -226,7 +226,7 @@ export default function CreatorDashboard() {
               className="w-[42px] h-[42px] bg-white rounded-[16px] shadow-[0_2px_15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center justify-center cursor-pointer transition-transform active:scale-95 relative"
             >
               <Bell className="w-[20px] h-[20px] text-gray-800" strokeWidth={2.5} />
-              <div className="absolute top-3 right-3 w-2 h-2 bg-[#EF4823] rounded-full border-2 border-white"></div>
+              <div className="absolute top-3 right-3 w-2 h-2 bg-[#EF4423] rounded-full border-2 border-white"></div>
             </div>
           </div>
         </div>
@@ -236,7 +236,7 @@ export default function CreatorDashboard() {
           <div className="mb-8 px-4 sm:px-6">
             <button
               onClick={() => setShowVerifyModal(true)}
-              className="w-full bg-[#EF4823] hover:bg-[#d63d1c] text-white font-bold py-3.5 rounded-[16px] shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+              className="w-full bg-[#EF4423] hover:bg-[#d63d1c] text-white font-bold py-3.5 rounded-[16px] shadow-[0_4px_15px_rgba(239,72,35,0.25)] transition-all active:scale-[0.98] flex items-center justify-center gap-2"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
               Authenticate Account
@@ -277,13 +277,13 @@ export default function CreatorDashboard() {
         {/* Tabs */}
         <div className="flex gap-2 mx-4 sm:mx-6 mb-6 bg-[#f9fafb] rounded-[18px] p-1 border border-gray-100/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]">
           <button 
-            className={`flex-1 py-3 text-[13px] font-bold rounded-xl transition-all ${activeTab === 'Private' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
+            className={`flex-1 py-3 text-[13px] font-bold rounded-xl transition-all ${activeTab === 'Private' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
             onClick={() => setActiveTab('Private')}
           >
             Private
           </button>
           <button 
-            className={`flex-1 py-3 text-[13px] font-bold rounded-xl transition-all ${activeTab === 'Public' ? 'bg-[#EF4823] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
+            className={`flex-1 py-3 text-[13px] font-bold rounded-xl transition-all ${activeTab === 'Public' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
             onClick={() => setActiveTab('Public')}
           >
             Public
@@ -333,14 +333,14 @@ export default function CreatorDashboard() {
                       </div>
                       <div className="flex flex-col items-end">
                         <span className="text-[10px] text-gray-500 font-semibold mb-0.5">Budget</span>
-                        <span className="text-sm font-black text-[#EF4823]">{campaign.budget}</span>
+                        <span className="text-sm font-black text-[#EF4423]">{campaign.budget}</span>
                       </div>
                     </div>
                     <div className="inline-block px-3 py-1 bg-orange-50 text-orange-400 text-[10px] font-bold rounded-md mb-3">
                       {campaign.dateRange}
                     </div>
                     <p className="text-[12px] text-gray-500 font-medium leading-relaxed mb-4 pr-4">
-                      {campaign.description} <span className="text-[#EF4823] font-bold cursor-pointer hover:underline">Read more</span>
+                      {campaign.description} <span className="text-[#EF4423] font-bold cursor-pointer hover:underline">Read more</span>
                     </p>
                     
                     {['accepted', 'brand_accepted_negotiation'].includes(campaign.privateState || '') ? (
@@ -349,7 +349,7 @@ export default function CreatorDashboard() {
                       </div>
                     ) : campaign.privateState === 'negotiating' ? (
                       <div className="flex flex-col gap-2 mt-2">
-                        <p className="text-[#EF4823] text-[12px] font-bold">Message: {campaign.requests?.[0]?.message || 'Negotiating amount...'}</p>
+                        <p className="text-[#EF4423] text-[12px] font-bold">Message: {campaign.requests?.[0]?.message || 'Negotiating amount...'}</p>
                         <div className="w-full py-3 bg-orange-50 text-orange-500 text-[12px] font-bold rounded-[12px] text-center border border-orange-100 uppercase tracking-wide">
                           STATUS: NEGOTIATING
                         </div>
@@ -401,14 +401,14 @@ export default function CreatorDashboard() {
                       </div>
                       <div className="flex flex-col items-end">
                         <span className="text-[10px] text-gray-500 font-semibold mb-0.5">Budget</span>
-                        <span className="text-sm font-black text-[#EF4823]">{campaign.budget}</span>
+                        <span className="text-sm font-black text-[#EF4423]">{campaign.budget}</span>
                       </div>
                     </div>
                     <div className="inline-block px-3 py-1 bg-orange-50 text-orange-400 text-[10px] font-bold rounded-md mb-3">
                       {campaign.dateRange}
                     </div>
                     <p className="text-[12px] text-gray-500 font-medium leading-relaxed mb-4 pr-4">
-                      {campaign.description} <span className="text-[#EF4823] font-bold cursor-pointer hover:underline">Read more</span>
+                      {campaign.description} <span className="text-[#EF4423] font-bold cursor-pointer hover:underline">Read more</span>
                     </p>
                     
                     {['brand_accepted_negotiation', 'BRAND_ACCEPTED_NEGOTIATION', 'ACCEPTED', 'accepted', 'applied'].includes(campaign.privateState || '') ? (
@@ -444,8 +444,8 @@ export default function CreatorDashboard() {
             </button>
 
             <div className="flex flex-col items-center mt-2">
-              <BadgeCheck className="w-[42px] h-[42px] text-[#EF4823] fill-[#EF4823] text-white mb-3" />
-              <h2 className="text-[20px] font-black text-[#EF4823] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
+              <BadgeCheck className="w-[42px] h-[42px] text-[#EF4423] fill-[#EF4423] text-white mb-3" />
+              <h2 className="text-[20px] font-black text-[#EF4423] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
               <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
                 With Aadhar
               </p>
@@ -453,7 +453,7 @@ export default function CreatorDashboard() {
 
 
               <button 
-                className="w-full py-3.5 bg-[#EF4823] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
+                className="w-full py-3.5 bg-[#EF4423] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
                 onClick={() => router.push('/kyc')}
               >
                 VERIFY

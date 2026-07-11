@@ -8,7 +8,7 @@ import { Logo } from "@/components/ui/Logo"
 
 // SVG for Verified Badge
 const VerifiedBadge = ({ className }: { className?: string }) => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="#EF4823" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="#EF4423" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
     <path d="m9 12 2 2 4-4" />
   </svg>
@@ -48,7 +48,7 @@ export default function ExpertsPartnersPage() {
           <div className="absolute top-0 left-5">
             <button 
               onClick={() => setView("main")}
-              className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4823] hover:opacity-80 transition-opacity"
+              className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4423] hover:opacity-80 transition-opacity"
             >
               <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
             </button>
@@ -69,7 +69,7 @@ export default function ExpertsPartnersPage() {
           
           <p className="text-gray-400 text-[11px] font-medium mb-8">Your balance : ₹10950</p>
           
-          <button className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors">
+          <button className="w-full bg-[#EF4423] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors">
             BOOK NOW
           </button>
         </div>
@@ -83,7 +83,7 @@ export default function ExpertsPartnersPage() {
           <div className="absolute top-2 left-5 z-20">
             <button 
               onClick={() => setView("main")}
-              className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4823] hover:opacity-80 transition-opacity"
+              className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4423] hover:opacity-80 transition-opacity"
             >
               <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
             </button>
@@ -120,7 +120,7 @@ export default function ExpertsPartnersPage() {
               title="Upload Files"
             />
             <div className="w-full border-2 border-dashed border-orange-200 bg-orange-50/50 rounded-[16px] py-8 flex flex-col items-center justify-center transition-colors">
-              <span className="text-[#EF4823] text-[13px] font-bold flex items-center gap-2">
+              <span className="text-[#EF4423] text-[13px] font-bold flex items-center gap-2">
                 <span className="text-xl leading-none">+</span> Upload Files
               </span>
               {uploadedFiles.length > 0 && (
@@ -137,7 +137,7 @@ export default function ExpertsPartnersPage() {
 
           <button 
             onClick={() => setView("amount")}
-            className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-auto mb-32"
+            className="w-full bg-[#EF4423] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-auto mb-32"
           >
             NEXT
           </button>
@@ -158,7 +158,7 @@ export default function ExpertsPartnersPage() {
             +91 000 000 0000
           </h1>
           
-          <button className="w-full max-w-sm bg-[#EF4823] text-white font-bold text-[14px] tracking-widest uppercase py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors">
+          <button className="w-full max-w-sm bg-[#EF4423] text-white font-bold text-[14px] tracking-widest uppercase py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors">
             Call Now
           </button>
         </div>
@@ -174,13 +174,13 @@ export default function ExpertsPartnersPage() {
             <div className="flex bg-white rounded-[14px] p-1 border border-gray-50 shadow-sm">
               <button 
                 onClick={() => setRoleTab("cameraman")}
-                className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${roleTab === "cameraman" ? "bg-[#EF4823] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
+                className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${roleTab === "cameraman" ? "bg-[#EF4423] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
               >
                 Cameraman
               </button>
               <button 
                 onClick={() => setRoleTab("editors")}
-                className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${roleTab === "editors" ? "bg-[#EF4823] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
+                className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${roleTab === "editors" ? "bg-[#EF4423] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
               >
                 Editors
               </button>
@@ -191,13 +191,13 @@ export default function ExpertsPartnersPage() {
               <div className="flex bg-white rounded-[14px] p-1 border border-gray-50 shadow-sm">
                 <button 
                   onClick={() => setTypeTab("instant")}
-                  className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${typeTab === "instant" ? "bg-[#EF4823] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
+                  className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${typeTab === "instant" ? "bg-[#EF4423] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
                 >
                   Instant
                 </button>
                 <button 
                   onClick={() => setTypeTab("schedule")}
-                  className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${typeTab === "schedule" ? "bg-[#EF4823] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
+                  className={`flex-1 py-3 rounded-[12px] text-[13px] font-extrabold transition-colors ${typeTab === "schedule" ? "bg-[#EF4423] text-white shadow-sm" : "text-gray-400 hover:text-gray-600"}`}
                 >
                   Schedule
                 </button>
@@ -209,7 +209,7 @@ export default function ExpertsPartnersPage() {
             {roleTab === "editors" || typeTab === "instant" ? (
               <div className="flex flex-col gap-4">
                 {[1, 2].map(i => (
-                  <div key={i} className={`bg-white rounded-[16px] p-4 flex gap-4 items-center shadow-sm border ${i === 1 ? 'border-[#EF4823]' : 'border-gray-50'}`}>
+                  <div key={i} className={`bg-white rounded-[16px] p-4 flex gap-4 items-center shadow-sm border ${i === 1 ? 'border-[#EF4423]' : 'border-gray-50'}`}>
                     <div className="w-16 h-16 rounded-[12px] bg-gray-200 overflow-hidden shrink-0">
                       <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Dummy" className="object-cover w-full h-full" />
                     </div>
@@ -224,13 +224,13 @@ export default function ExpertsPartnersPage() {
                       </div>
                     </div>
                     <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 border-gray-300">
-                      {i === 1 && <div className="w-2.5 h-2.5 bg-[#EF4823] rounded-full" />}
+                      {i === 1 && <div className="w-2.5 h-2.5 bg-[#EF4423] rounded-full" />}
                     </div>
                   </div>
                 ))}
                 <button 
                   onClick={handleBookNow}
-                  className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-4"
+                  className="w-full bg-[#EF4423] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-4"
                 >
                   {roleTab === "editors" ? "NEXT" : "BOOK NOW"}
                 </button>
@@ -263,7 +263,7 @@ export default function ExpertsPartnersPage() {
                 </div>
                 <button 
                   onClick={handleBookNow}
-                  className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-6"
+                  className="w-full bg-[#EF4423] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-6"
                 >
                   BOOK NOW
                 </button>
@@ -296,13 +296,13 @@ export default function ExpertsPartnersPage() {
             <div className="flex bg-white rounded-[14px] p-1 shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-gray-50 mb-2 shrink-0 mx-auto w-full max-w-sm">
               <button 
                 onClick={() => setMainTab("experts")}
-                className={`flex-1 py-3.5 rounded-[12px] text-[13px] font-extrabold transition-colors ${mainTab === "experts" ? "bg-[#EF4823] text-white shadow-sm" : "text-gray-400 hover:text-gray-700"}`}
+                className={`flex-1 py-3.5 rounded-[12px] text-[13px] font-extrabold transition-colors ${mainTab === "experts" ? "bg-[#EF4423] text-white shadow-sm" : "text-gray-400 hover:text-gray-700"}`}
               >
                 Our Experts
               </button>
               <button 
                 onClick={() => setMainTab("partners")}
-                className={`flex-1 py-3.5 rounded-[12px] text-[13px] font-extrabold transition-colors ${mainTab === "partners" ? "bg-[#EF4823] text-white shadow-sm" : "text-gray-400 hover:text-gray-700"}`}
+                className={`flex-1 py-3.5 rounded-[12px] text-[13px] font-extrabold transition-colors ${mainTab === "partners" ? "bg-[#EF4423] text-white shadow-sm" : "text-gray-400 hover:text-gray-700"}`}
               >
                 Partners
               </button>

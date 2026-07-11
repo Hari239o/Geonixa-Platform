@@ -58,7 +58,7 @@ export default function DualRangeSlider({ min, max, value, onChange }: DualRange
       <div className="absolute left-0 right-0 h-1 bg-gray-200 rounded-full mx-1">
         {/* Active Range */}
         <div
-          className="absolute h-full bg-[#EF4823] rounded-full"
+          className="absolute h-full bg-[#EF4423] rounded-full"
           style={{
             left: `${getPercent(value[0])}%`,
             width: `${getPercent(value[1]) - getPercent(value[0])}%`,
@@ -75,7 +75,7 @@ export default function DualRangeSlider({ min, max, value, onChange }: DualRange
           setIsDragging('min');
         }}
       >
-        <div className="w-5 h-5 bg-white border-2 border-[#EF4823] rounded-full shadow-md z-10 hover:scale-110 transition-transform"></div>
+        <div className="w-5 h-5 bg-white border-2 border-[#EF4423] rounded-full shadow-md z-10 hover:scale-110 transition-transform"></div>
         <span className="text-[#1E1B4B] font-bold text-[11px] mt-2 absolute top-full">₹{value[0]}k</span>
       </div>
 
@@ -88,7 +88,7 @@ export default function DualRangeSlider({ min, max, value, onChange }: DualRange
           setIsDragging('max');
         }}
       >
-        <div className="w-5 h-5 bg-white border-2 border-[#EF4823] rounded-full shadow-md z-10 hover:scale-110 transition-transform"></div>
+        <div className="w-5 h-5 bg-white border-2 border-[#EF4423] rounded-full shadow-md z-10 hover:scale-110 transition-transform"></div>
         <span className="text-[#1E1B4B] font-bold text-[11px] mt-2 absolute top-full">₹{value[1]}k</span>
       </div>
     </div>

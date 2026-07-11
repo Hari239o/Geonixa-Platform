@@ -171,7 +171,7 @@ function CampaignDetailContent() {
   </div>
   <div className="flex flex-col items-end shrink-0">
   <span className="text-[11px] font-bold uppercase tracking-wide text-gray-400 mb-0.5">Budget</span>
-  <span className="text-[18px] font-extrabold text-[#EF4823]">{campaign.budget || 'Open'}</span>
+  <span className="text-[18px] font-extrabold text-[#EF4423]">{campaign.budget || 'Open'}</span>
   </div>
   </div>
 
@@ -227,7 +227,7 @@ function CampaignDetailContent() {
     ) : (
        <button 
        disabled={actionLoading}
-       className={`w-full py-3 px-10 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
+       className={`w-full py-3 px-10 bg-[#EF4423] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
        onClick={() => handleAction('applied')}
        >
          {actionLoading ? 'Working...' : 'Apply'}
@@ -243,7 +243,7 @@ function CampaignDetailContent() {
      <>
        <button 
        disabled={actionLoading}
-       className={`flex-1 py-3 bg-[#EF4823] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
+       className={`flex-1 py-3 bg-[#EF4423] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
        onClick={() => handleAction('accepted')}
        >
        {actionLoading ? '...' : 'Accept'}
@@ -287,7 +287,7 @@ function CampaignDetailContent() {
  </button>
 
  <div className="flex flex-col items-center mt-6 mb-8 text-center">
- <h2 className="text-[18px] font-black text-[#EF4823] mb-1.5 uppercase tracking-wide">YOUR NEGOTIATION</h2>
+ <h2 className="text-[18px] font-black text-[#EF4423] mb-1.5 uppercase tracking-wide">YOUR NEGOTIATION</h2>
  <p className="text-[12px] font-medium text-gray-400">Enter Your Negotiation Amount</p>
  </div>
 
@@ -325,7 +325,7 @@ function CampaignDetailContent() {
 
  <button 
  disabled={actionLoading}
- className={`w-full py-4 bg-[#EF4823] text-white text-[14px] font-bold tracking-wide rounded-[14px] shadow-[0_6px_16px_rgba(239,72,35,0.25)] transition-all duration-300 ${actionLoading ? 'opacity-50' : 'hover:-translate-y-0.5'}`}
+ className={`w-full py-4 bg-[#EF4423] text-white text-[14px] font-bold tracking-wide rounded-[14px] shadow-[0_6px_16px_rgba(239,72,35,0.25)] transition-all duration-300 ${actionLoading ? 'opacity-50' : 'hover:-translate-y-0.5'}`}
  onClick={applyNegotiation}
  >
  {actionLoading ? 'WORKING...' : 'APPLY'}
@@ -391,7 +391,7 @@ function CampaignDetailContent() {
   </p>
   
   <button 
-  className="w-full py-4 bg-[#EF4823] text-white text-[14px] font-bold tracking-wide rounded-[14px] shadow-[0_6px_16px_rgba(239,72,35,0.25)] transition-all duration-300 hover:-translate-y-0.5"
+  className="w-full py-4 bg-[#EF4423] text-white text-[14px] font-bold tracking-wide rounded-[14px] shadow-[0_6px_16px_rgba(239,72,35,0.25)] transition-all duration-300 hover:-translate-y-0.5"
   onClick={() => setActionError({ type: null, message: '' })}
   >
   TRY AGAIN

@@ -192,7 +192,7 @@ export default function PartnerSignupFlow() {
                 required
                 value={formData.category}
                 onChange={(e) => updateFormData({ category: e.target.value })}
-                className="w-full bg-[#F8F8F8] border border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold appearance-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#EF4823] focus:border-[#EF4823] shadow-sm cursor-pointer"
+                className="w-full bg-[#F8F8F8] border border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold appearance-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#EF4423] focus:border-[#EF4423] shadow-sm cursor-pointer"
               >
                 <option value="Partners">Partners</option>
                 <option value="Agency">Agency</option>
@@ -208,7 +208,7 @@ export default function PartnerSignupFlow() {
               placeholder="Enter your name" 
               value={formData.name}
               onChange={(e) => updateFormData({ name: e.target.value })}
-              className="bg-[#F8F8F8] border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4823] focus-visible:border-[#EF4823] shadow-sm"
+              className="bg-[#F8F8F8] border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm"
             />
           </div>
 
@@ -219,7 +219,7 @@ export default function PartnerSignupFlow() {
               placeholder="Enter your Role" 
               value={formData.role}
               onChange={(e) => updateFormData({ role: e.target.value })}
-              className="bg-[#F8F8F8] border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4823] focus-visible:border-[#EF4823] shadow-sm"
+              className="bg-[#F8F8F8] border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm"
             />
           </div>
 
@@ -231,13 +231,13 @@ export default function PartnerSignupFlow() {
               placeholder="Enter the address" 
               value={formData.email}
               onChange={(e) => updateFormData({ email: e.target.value })}
-              className="bg-[#F8F8F8] border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4823] focus-visible:border-[#EF4823] shadow-sm"
+              className="bg-[#F8F8F8] border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
             <Label className="text-[11px] text-[#A0A0A0] font-medium ml-1">Phone Number</Label>
-            <div className="flex w-full bg-[#F8F8F8] border border-transparent rounded-[12px] overflow-hidden focus-within:ring-1 focus-within:ring-[#EF4823] focus-within:border-[#EF4823] focus-within:bg-white transition-all shadow-sm h-[52px]">
+            <div className="flex w-full bg-[#F8F8F8] border border-transparent rounded-[12px] overflow-hidden focus-within:ring-1 focus-within:ring-[#EF4423] focus-within:border-[#EF4423] focus-within:bg-white transition-all shadow-sm h-[52px]">
               <div className="flex items-center justify-center pl-4 pr-2 gap-1.5 border-r border-transparent">
                 <span className="text-[18px]">🇮🇳</span>
                 <ChevronDown className="w-3 h-3 text-[#A0A0A0]" />
@@ -257,7 +257,7 @@ export default function PartnerSignupFlow() {
             <Button 
               type="submit" 
               disabled={isSendingOtp}
-              className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white rounded-[12px] h-[52px] text-[15px] font-bold shadow-md transition-all active:scale-[0.98]"
+              className="w-full bg-[#EF4423] hover:bg-[#d63f1c] text-white rounded-[12px] h-[52px] text-[15px] font-bold shadow-md transition-all active:scale-[0.98]"
             >
               {isSendingOtp ? "Sending OTP..." : "Next"}
             </Button>
@@ -306,7 +306,7 @@ export default function PartnerSignupFlow() {
                 value={digit}
                 onChange={(e) => handleOtpChange(idx, e.target.value.replace(/\D/g, ''))}
                 onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                className="w-12 h-14 text-center text-xl font-bold text-[#EF4823] rounded-[12px] border border-[#E0E0E0] bg-transparent focus:border-[#EF4823] focus:ring-1 focus:ring-[#EF4823] focus:outline-none transition-all shadow-sm"
+                className="w-12 h-14 text-center text-xl font-bold text-[#EF4423] rounded-[12px] border border-[#E0E0E0] bg-transparent focus:border-[#EF4423] focus:ring-1 focus:ring-[#EF4423] focus:outline-none transition-all shadow-sm"
               />
             ))}
           </div>
@@ -316,13 +316,13 @@ export default function PartnerSignupFlow() {
           </p>
           
           {otpError && (
-            <p className="text-[#FF4D2D] text-sm text-center mb-4 font-medium">{otpError}</p>
+            <p className="text-[#EF4423] text-sm text-center mb-4 font-medium">{otpError}</p>
           )}
 
           <Button 
             onClick={handleVerifyOtp}
             disabled={otp.join("").length !== 4 || isVerifyingOtp}
-            className="w-full bg-[#EF4823] hover:bg-[#d63f1c] text-white rounded-[12px] h-[52px] text-[15px] font-bold shadow-md transition-all active:scale-[0.98]"
+            className="w-full bg-[#EF4423] hover:bg-[#d63f1c] text-white rounded-[12px] h-[52px] text-[15px] font-bold shadow-md transition-all active:scale-[0.98]"
           >
             {isVerifyingOtp ? "Verifying..." : "Next"}
           </Button>
@@ -338,7 +338,7 @@ export default function PartnerSignupFlow() {
               required
               readOnly
               value={formData.email}
-              className="bg-[#F8F8F8] border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4823] focus-visible:border-[#EF4823] shadow-sm opacity-80"
+              className="bg-[#F8F8F8] border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm opacity-80"
             />
           </div>
 
@@ -351,12 +351,12 @@ export default function PartnerSignupFlow() {
                 placeholder="••••••••" 
                 value={formData.password}
                 onChange={(e) => updateFormData({ password: e.target.value })}
-                className="bg-[#F8F8F8] border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4823] focus-visible:border-[#EF4823] shadow-sm pr-12"
+                className="bg-[#F8F8F8] border-transparent rounded-[12px] h-[52px] px-4 text-[14px] text-[#333333] font-semibold placeholder:text-[#A0A0A0] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#EF4423] focus-visible:border-[#EF4423] shadow-sm pr-12"
               />
               <button 
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#EF4823] hover:text-[#d63f1c] focus:outline-none transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#EF4423] hover:text-[#d63f1c] focus:outline-none transition-colors"
               >
                 {showPassword ? <Eye className="w-[18px] h-[18px]" /> : <EyeOff className="w-[18px] h-[18px]" />}
               </button>
@@ -365,7 +365,7 @@ export default function PartnerSignupFlow() {
 
           <Button 
             type="submit" 
-            className="w-full mt-4 bg-[#EF4823] hover:bg-[#d63f1c] text-white rounded-[12px] h-[52px] text-[15px] font-bold shadow-md transition-all active:scale-[0.98]"
+            className="w-full mt-4 bg-[#EF4423] hover:bg-[#d63f1c] text-white rounded-[12px] h-[52px] text-[15px] font-bold shadow-md transition-all active:scale-[0.98]"
           >
             Sign Up
           </Button>

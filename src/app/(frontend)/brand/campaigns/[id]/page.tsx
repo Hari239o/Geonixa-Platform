@@ -88,7 +88,7 @@ export default function CampaignTrackingPage() {
   if (loading) {
     return (
       <div className="h-full bg-[#F8F9FA] flex justify-center items-center font-sans">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EF4823]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EF4423]"></div>
       </div>
     )
   }
@@ -101,7 +101,7 @@ export default function CampaignTrackingPage() {
         <div className="pt-5 px-5 pb-4 shrink-0 bg-white z-20 flex items-center justify-between border-b border-gray-50">
           <button 
             onClick={() => router.push('/brand/campaigns')}
-            className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4823] hover:opacity-80 transition-opacity"
+            className="w-10 h-10 bg-[#FEF5ED] rounded-[12px] flex items-center justify-center text-[#EF4423] hover:opacity-80 transition-opacity"
           >
             <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
           </button>
@@ -116,7 +116,7 @@ export default function CampaignTrackingPage() {
           
           <div className="bg-white rounded-[24px] p-6 shadow-sm border border-gray-50 mb-6">
             <h2 className="font-extrabold text-[20px] text-gray-900 mb-2">{campaign?.title || "Campaign"}</h2>
-            <p className="text-gray-500 text-[13px]">Status: <span className="text-[#EF4823] font-bold">{getStatusText()}</span></p>
+            <p className="text-gray-500 text-[13px]">Status: <span className="text-[#EF4423] font-bold">{getStatusText()}</span></p>
           </div>
 
           <h3 className="font-extrabold text-[16px] text-gray-800 mb-6 px-1">Progress</h3>
@@ -135,7 +135,7 @@ export default function CampaignTrackingPage() {
                 <div key={step.id} className="flex gap-4 relative z-10 mb-8 last:mb-0">
                   {/* Icon Node */}
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-4 border-[#F8F9FA] ${
-                    isCompleted ? "bg-[#EF4823] text-white" :
+                    isCompleted ? "bg-[#EF4423] text-white" :
                     isRejectedStep ? "bg-red-500 text-white" :
                     isActive ? "bg-[#1E1B4B] text-white" :
                     "bg-white border-gray-200 text-gray-300 border-2"
@@ -157,7 +157,7 @@ export default function CampaignTrackingPage() {
                       {step.name}
                     </span>
                     {isActive && (
-                      <p className="text-[#EF4823] text-[12px] font-medium mt-1">
+                      <p className="text-[#EF4423] text-[12px] font-medium mt-1">
                         Currently waiting on your action
                       </p>
                     )}
@@ -169,7 +169,7 @@ export default function CampaignTrackingPage() {
                     {showAction && (
                       <button 
                         onClick={() => handleActionClick(step.id)}
-                        className="mt-3 bg-[#FEF5ED] text-[#EF4823] py-2 px-4 rounded-xl text-xs font-bold text-left self-start"
+                        className="mt-3 bg-[#FEF5ED] text-[#EF4423] py-2 px-4 rounded-xl text-xs font-bold text-left self-start"
                       >
                         {step.id === 4 ? "Verify Work Now" : "Make Payment Now"}
                       </button>

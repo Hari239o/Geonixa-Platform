@@ -122,12 +122,12 @@ export default function BottomNav({ profilePic }: BottomNavProps) {
  return (
  <div 
  key={item.name}
- className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${isActive ? 'text-[#EF4823]' : 'text-gray-400 hover:text-gray-600'}`}
+ className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${isActive ? 'text-[#EF4423]' : 'text-gray-400 hover:text-gray-600'}`}
  onClick={() => router.push(item.path)}
  >
  {isActive ? (
- <div className="bg-[#EF4823]/10 p-3 rounded-2xl">
- <Icon size={24} strokeWidth={2.5} className="text-[#EF4823]" />
+ <div className="bg-[#EF4423]/10 p-3 rounded-2xl">
+ <Icon size={24} strokeWidth={2.5} className="text-[#EF4423]" />
  </div>
  ) : (
  <Icon size={24} strokeWidth={2} />
@@ -137,7 +137,7 @@ export default function BottomNav({ profilePic }: BottomNavProps) {
  })}
  
  <div 
-        className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${pathname.startsWith('/profile') ? 'ring-2 ring-offset-2 ring-[#EF4823] rounded-full' : ''}`}
+        className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${pathname.startsWith('/profile') ? 'ring-2 ring-offset-2 ring-[#EF4423] rounded-full' : ''}`}
         onClick={() => router.push('/profile')}
       >
  {profilePic ? (

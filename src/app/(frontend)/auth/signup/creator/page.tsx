@@ -182,7 +182,7 @@ export default function CreatorSignupStep1() {
                 placeholder="First Name" 
                 value={formData.firstName}
                 onChange={(e) => updateFormData({ firstName: e.target.value })}
-                className="bg-[#F5F5F5] border-slate-200 rounded-lg sm:rounded-xl h-10 lg:h-12 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D] text-[13px] sm:text-[14px]"
+                className="bg-[#F5F5F5] border-slate-200 rounded-lg sm:rounded-xl h-10 lg:h-12 focus-visible:ring-[#EF4423]/20 focus-visible:border-[#EF4423] text-[13px] sm:text-[14px]"
               />
             </div>
             <div className="flex-1 flex flex-col gap-1">
@@ -192,7 +192,7 @@ export default function CreatorSignupStep1() {
                 placeholder="Last Name" 
                 value={formData.lastName}
                 onChange={(e) => updateFormData({ lastName: e.target.value })}
-                className="bg-[#F5F5F5] border-slate-200 rounded-lg sm:rounded-xl h-10 lg:h-12 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D] text-[13px] sm:text-[14px]"
+                className="bg-[#F5F5F5] border-slate-200 rounded-lg sm:rounded-xl h-10 lg:h-12 focus-visible:ring-[#EF4423]/20 focus-visible:border-[#EF4423] text-[13px] sm:text-[14px]"
               />
             </div>
           </div>
@@ -206,7 +206,7 @@ export default function CreatorSignupStep1() {
               placeholder="Loisbecket@gmail.com" 
               value={formData.email}
               onChange={(e) => updateFormData({ email: e.target.value })}
-              className="bg-[#F5F5F5] border-slate-200 rounded-lg sm:rounded-xl h-10 lg:h-12 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D] text-[13px] sm:text-[14px]"
+              className="bg-[#F5F5F5] border-slate-200 rounded-lg sm:rounded-xl h-10 lg:h-12 focus-visible:ring-[#EF4423]/20 focus-visible:border-[#EF4423] text-[13px] sm:text-[14px]"
             />
           </div>
 
@@ -218,7 +218,7 @@ export default function CreatorSignupStep1() {
                 required
                 value={formData.category}
                 onChange={(e) => updateFormData({ category: e.target.value })}
-                className="w-full bg-[#F5F5F5] border border-slate-200 rounded-lg sm:rounded-xl h-10 lg:h-12 px-3 text-[13px] sm:text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#FF4D2D]/20 focus:border-[#FF4D2D]"
+                className="w-full bg-[#F5F5F5] border border-slate-200 rounded-lg sm:rounded-xl h-10 lg:h-12 px-3 text-[13px] sm:text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#EF4423]/20 focus:border-[#EF4423]"
               >
                 <option value="" disabled hidden>Select Category</option>
                 <option value="fashion">Fashion & Style</option>
@@ -242,12 +242,12 @@ export default function CreatorSignupStep1() {
                 placeholder="••••••••" 
                 value={formData.password}
                 onChange={(e) => updateFormData({ password: e.target.value })}
-                className="bg-[#F5F5F5] border-slate-200 rounded-lg sm:rounded-xl h-10 lg:h-12 pr-10 focus-visible:ring-[#FF4D2D]/20 focus-visible:border-[#FF4D2D] text-[13px] sm:text-[14px]"
+                className="bg-[#F5F5F5] border-slate-200 rounded-lg sm:rounded-xl h-10 lg:h-12 pr-10 focus-visible:ring-[#EF4423]/20 focus-visible:border-[#EF4423] text-[13px] sm:text-[14px]"
               />
               <button 
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#FF4D2D] focus:outline-none transition-colors"
+                className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#EF4423] focus:outline-none transition-colors"
               >
                 {showPassword ? <Eye className="w-4 h-4 sm:w-[18px] sm:h-[18px]" /> : <EyeOff className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />}
               </button>
@@ -257,7 +257,7 @@ export default function CreatorSignupStep1() {
           {/* Phone Number */}
           <div className="flex flex-col gap-1">
             <Label className="text-[10px] sm:text-[11px] text-slate-500 font-normal ml-1">Phone Number</Label>
-            <div className="flex w-full bg-[#F5F5F5] border border-slate-200 rounded-lg sm:rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#FF4D2D]/20 focus-within:border-[#FF4D2D] transition-all h-10 lg:h-12">
+            <div className="flex w-full bg-[#F5F5F5] border border-slate-200 rounded-lg sm:rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#EF4423]/20 focus-within:border-[#EF4423] transition-all h-10 lg:h-12">
               <div className="flex items-center justify-center px-2.5 sm:px-3 border-r border-slate-200 gap-1 sm:gap-1.5">
                 <span className="text-[14px] sm:text-base">🇮🇳</span>
                 <ChevronDown className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-slate-500" />
@@ -292,7 +292,7 @@ export default function CreatorSignupStep1() {
         <div className="mt-3 sm:mt-5 lg:mt-6 flex flex-col gap-2 sm:gap-3 lg:gap-4">
           <Button 
             type="submit" 
-            className="w-full bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-lg sm:rounded-[14px] h-10 sm:h-12 lg:h-[52px] text-[13px] sm:text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98]"
+            className="w-full bg-[#EF4423] hover:bg-[#EF4423]/90 text-white rounded-lg sm:rounded-[14px] h-10 sm:h-12 lg:h-[52px] text-[13px] sm:text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(255,77,45,0.39)] transition-all active:scale-[0.98]"
           >
             Sign Up
           </Button>
@@ -349,18 +349,18 @@ export default function CreatorSignupStep1() {
                   value={digit}
                   onChange={(e) => handleOtpChange(idx, e.target.value.replace(/\D/g, ''))}
                   onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                  className="w-10 h-11 sm:w-11 sm:h-12 text-center text-xl font-semibold text-[#111111] rounded-[10px] border border-[#E0E0E0] bg-transparent focus:border-[#FF4D2D] focus:ring-1 focus:ring-[#FF4D2D] focus:outline-none transition-all shadow-sm"
+                  className="w-10 h-11 sm:w-11 sm:h-12 text-center text-xl font-semibold text-[#111111] rounded-[10px] border border-[#E0E0E0] bg-transparent focus:border-[#EF4423] focus:ring-1 focus:ring-[#EF4423] focus:outline-none transition-all shadow-sm"
                 />
               ))}
             </div>
             
             {otpError && (
-              <p className="text-[#FF4D2D] text-sm text-center mt-4 font-medium">{otpError}</p>
+              <p className="text-[#EF4423] text-sm text-center mt-4 font-medium">{otpError}</p>
             )}
             <Button 
               onClick={handleVerifyOtp}
               disabled={otp.join("").length !== 6 || isVerifyingOtp}
-              className="w-full mt-8 bg-[#FF4D2D] hover:bg-[#FF4D2D]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold"
+              className="w-full mt-8 bg-[#EF4423] hover:bg-[#EF4423]/90 text-white rounded-[14px] h-[52px] text-[15px] font-semibold"
             >
               {isVerifyingOtp ? "Verifying..." : "Verify Code"}
             </Button>

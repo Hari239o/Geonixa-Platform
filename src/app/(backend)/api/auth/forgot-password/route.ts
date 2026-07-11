@@ -60,7 +60,7 @@ export async function POST(req: Request) {
           <h2>Password Reset</h2>
           <p>You requested to reset your Kalinq password.</p>
           <p>Click the link below to set a new password:</p>
-          <a href="${resetUrl}" style="display: inline-block; padding: 10px 20px; background-color: #EF4823; color: #ffffff; text-decoration: none; border-radius: 5px;">Reset Password</a>
+          <a href="${resetUrl}" style="display: inline-block; padding: 10px 20px; background-color: #EF4423; color: #ffffff; text-decoration: none; border-radius: 5px;">Reset Password</a>
           <p style="margin-top: 20px; font-size: 12px; color: #666;">If you didn't request this, please ignore this email. This link will expire in 1 hour.</p>
         </div>
       `,
