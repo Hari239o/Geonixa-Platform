@@ -23,7 +23,16 @@ export async function GET(
     const campaign = await prisma.campaign.findUnique({
       where: { id: campaignId },
       include: {
-        requests: true
+        requests: {
+          include: {
+            creator: true
+          }
+        },
+        campaignInvites: {
+          include: {
+            creator: true
+          }
+        }
       }
     });
 

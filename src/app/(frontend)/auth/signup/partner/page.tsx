@@ -16,7 +16,7 @@ export default function PartnerSignupFlow() {
   const [showPassword, setShowPassword] = useState(false);
   
   // OTP state
-  const [otp, setOtp] = useState(["", "", "", ""]);
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [isPhoneVerified, setIsPhoneVerified] = useState(false);
   const [isSendingOtp, setIsSendingOtp] = useState(false);
@@ -99,7 +99,7 @@ export default function PartnerSignupFlow() {
 
   const handleVerifyOtp = async () => {
     const otpCode = otp.join("");
-    if (otpCode.length === 4 && confirmationResult) {
+    if (otpCode.length === 6 && confirmationResult) {
       setIsVerifyingOtp(true);
       setOtpError("");
       try {

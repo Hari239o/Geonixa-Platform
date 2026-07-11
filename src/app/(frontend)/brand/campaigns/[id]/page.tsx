@@ -59,6 +59,37 @@ export default function CampaignTrackingPage() {
     }
   }
 
+  // Extract all creators from both public requests and private invites
+  const allCreators: any[] = [];
+  if (campaign) {
+    if (campaign.requests) {
+      campaign.requests.forEach((r: any) => {
+        if (r.creator) {
+          allCreators.push({
+            id: r.creator.id,
+            name: r.creator.fullName || "Unknown Creator",
+            profilePic: r.creator.profilePic || "/placeholder.png",
+            status: r.status,
+            type: "Public Request"
+          });
+        }
+      });
+    }
+    if (campaign.campaignInvites) {
+      campaign.campaignInvites.forEach((r: any) => {
+        if (r.creator) {
+          allCreators.push({
+            id: r.creator.id,
+            name: r.creator.fullName || "Unknown Creator",
+            profilePic: r.creator.profilePic || "/placeholder.png",
+            status: r.status,
+            type: "Private Invite"
+          });
+        }
+      });
+    }
+  }
+
   const steps = [
     { id: 1, name: "Fill Form", status: "completed" },
     { id: 2, name: "Send Invites", status: "completed" },
@@ -179,6 +210,43 @@ export default function CampaignTrackingPage() {
               )
             })}
           </div>
+
+          {allCreators.length > 0 && (
+            <>
+              <h3 className="font-extrabold text-[16px] text-gray-800 mb-4 px-1 mt-6 border-t border-gray-100 pt-6">Creator Responses</h3>
+              <div className="flex flex-col gap-3">
+                {allCreators.map((c: any, i: number) => (
+                  <div key={i} className="bg-white p-4 rounded-[16px] border border-gray-100 flex items-center justify-between shadow-sm">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-gray-100 overflow-hidden shrink-0">
+                        {c.profilePic && c.profilePic !== "/placeholder.png" ? (
+                          <img src={c.profilePic} alt={c.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm font-bold bg-[#FEF5ED]">
+                            {c.name.charAt(0).toUpperCase()}
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-[14px] font-bold text-gray-900 line-clamp-1">{c.name}</span>
+                        <span className="text-[11px] text-gray-400">{c.type}</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-end shrink-0 ml-2">
+                      <span className={`text-[12px] font-bold px-2.5 py-1 rounded-full ${
+                        c.status?.toLowerCase() === 'accepted' ? 'bg-green-50 text-green-600' :
+                        c.status?.toLowerCase() === 'rejected' ? 'bg-red-50 text-red-600' :
+                        c.status?.toLowerCase() === 'negotiating' ? 'bg-orange-50 text-orange-600' :
+                        'bg-gray-100 text-gray-600'
+                      }`}>
+                        {c.status ? c.status.charAt(0).toUpperCase() + c.status.slice(1).toLowerCase() : 'Pending'}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
 
         </div>
 
