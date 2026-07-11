@@ -131,10 +131,9 @@ export default function ProfilePage() {
                 });
               });
 
-              if (!mergedProfile.isVerified) {
-                setShowVerifyModal(true);
-              }
-              
+              // if (!mergedProfile.isVerified) {
+              //   setShowVerifyModal(true);
+              // }
               return { ...prev, ...mergedProfile };
             });
           }

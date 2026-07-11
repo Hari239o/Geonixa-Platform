@@ -77,14 +77,14 @@ export default function CreatorDashboard() {
             }));
             
             if (!parsed.isVerified) {
-              setShowVerifyModal(true);
+              // setShowVerifyModal(true);
             }
           } else {
-            setShowVerifyModal(true);
+            // setShowVerifyModal(true);
           }
         } catch (error) {
           console.error("Failed to load profile from local DB:", error);
-          setShowVerifyModal(true);
+          // setShowVerifyModal(true);
         }
       }
 
@@ -126,7 +126,7 @@ export default function CreatorDashboard() {
             });
 
             if (!data.profile.isVerified && !localProfile?.isVerified) {
-              setShowVerifyModal(true);
+              // setShowVerifyModal(true);
             }
           }
         }
