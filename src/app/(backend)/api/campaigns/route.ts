@@ -47,7 +47,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ success: true, campaigns: brandCampaigns });
     }
 
-    if (!creator || !creator.isVerified) {
+    if (!creator) {
       return NextResponse.json({ success: true, campaigns: [] });
     }
 

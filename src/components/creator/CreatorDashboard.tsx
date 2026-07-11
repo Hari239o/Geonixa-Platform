@@ -56,39 +56,7 @@ export default function CreatorDashboard() {
 
   useEffect(() => {
     async function loadProfile() {
-      // 1. First immediately load from local storage
-      let localProfile = null;
-      if (typeof window !== 'undefined') {
-        try {
-          const parsed = await getItem<any>('kaling_user_profile');
-          if (parsed) {
-            localProfile = parsed;
-            setProfile(prev => ({ 
-              ...prev, 
-              ...parsed,
-              followers: parsed.followers || '0',
-              viewership: parsed.viewership || '0',
-              engagement: parsed.engagement || '0',
-              projects: parsed.projects || '0',
-              successRate: parsed.successRate || '0%',
-              isVerified: parsed.isVerified || false,
-              socials: parsed.socials || {},
-              budgets: parsed.budgets || []
-            }));
-            
-            if (!parsed.isVerified) {
-              // setShowVerifyModal(true);
-            }
-          } else {
-            // setShowVerifyModal(true);
-          }
-        } catch (error) {
-          console.error("Failed to load profile from local DB:", error);
-          // setShowVerifyModal(true);
-        }
-      }
-
-      // 2. Fetch fresh data from database
+      // Fetch fresh data from database
       try {
         const res = await fetch('/api/user/complete-profile');
         if (res.ok) {
@@ -104,30 +72,19 @@ export default function CreatorDashboard() {
               projects: data.profile.projects || '0',
               successRate: data.profile.successRate || '0%',
               isVerified: data.profile.isVerified || false,
-              socials: data.profile.socials || localProfile?.socials || {
+              socials: data.profile.socials || {
                 instagram: data.profile.instagram || '',
                 facebook: data.profile.facebook || '',
                 x: data.profile.x || '',
                 linkedin: data.profile.linkedin || ''
               },
-              budgets: data.profile.budgets || localProfile?.budgets || []
+              budgets: data.profile.budgets || []
             };
             
             setProfile(prev => ({ 
               ...prev, 
               ...mergedProfile
             }));
-            
-            // Cache to IndexedDB for next load
-            import('@/utils/storage').then(({ setItem, getItem }) => {
-              getItem<any>('kaling_user_profile').then(existing => {
-                setItem('kaling_user_profile', { ...(existing || {}), ...mergedProfile });
-              });
-            });
-
-            if (!data.profile.isVerified && !localProfile?.isVerified) {
-              // setShowVerifyModal(true);
-            }
           }
         }
       } catch (error) {
@@ -202,7 +159,7 @@ export default function CreatorDashboard() {
         {/* Top Header */}
         <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm flex justify-between items-center px-4 sm:px-6 pt-4 pb-4 mb-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
           <div className="flex items-center gap-4">
-            <Image src={profile.profilePic || defaultProfilePic} alt="Profile" width={48} height={48} className="w-14 h-14 rounded-[18px] object-cover shadow-sm" />
+            <img src={profile.profilePic || defaultProfilePic} alt="Profile" className="w-14 h-14 rounded-[18px] object-cover shadow-sm" />
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5 mt-1">
                 <h1 className="text-xl font-extrabold text-[#1a1a2e] tracking-tight">{profile.fullName}</h1>
