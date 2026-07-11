@@ -106,12 +106,12 @@ export default function BottomNav({ profilePic }: BottomNavProps) {
     { name: 'Home', path: '/partner', icon: HomeIcon },
     { name: 'Wallet', path: '/partner/wallet', icon: WalletIcon },
     { name: 'Campaign', path: '/partner/campaigns', icon: CampaignIcon },
-    { name: 'Studios', path: '/studios', icon: AIIcon },
+    { name: 'AI', path: '/ai', icon: AIIcon },
   ] : [
     { name: 'Home', path: '/creator', icon: HomeIcon },
     { name: 'Wallet', path: '/wallet', icon: WalletIcon },
     { name: 'Campaign', path: '/campaigns', icon: CampaignIcon },
-    { name: 'Studios', path: '/studios', icon: AIIcon },
+    { name: 'AI', path: '/ai', icon: AIIcon },
   ];
 
  return (
