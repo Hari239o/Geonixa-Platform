@@ -148,13 +148,15 @@ export default function WithdrawPage() {
           </div>
         </div>
 
-        <button 
-          className="w-full mt-auto py-4 bg-[#EF4423] text-white text-[15px] font-bold rounded-[14px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:hover:translate-y-0"
-          disabled={!amount || !method}
-          onClick={handleWithdraw}
-        >
-          WITHDRAW FUNDS
-        </button>
+        <div className="fixed bottom-[80px] left-0 right-0 max-w-md mx-auto px-6 z-40 bg-gradient-to-t from-white via-white to-transparent pt-4 pb-2">
+          <button 
+            className="w-full py-4 bg-[#EF4423] text-white text-[15px] font-bold rounded-[14px] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:hover:translate-y-0"
+            disabled={!amount || !method}
+            onClick={handleWithdraw}
+          >
+            WITHDRAW FUNDS
+          </button>
+        </div>
       </div>
 
       {/* Verify Account Modal */}
