@@ -39,19 +39,19 @@ export default function AdminDashboard() {
       {/* Main Content Area */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Chart Area */}
-        <div className="col-span-2 bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.02)] border border-gray-100/50 p-8">
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.02)] border border-gray-100/50 p-6 lg:p-8">
           <h2 className="text-lg font-bold text-gray-900 mb-2">New Users Overview</h2>
           <p className="text-[13px] text-gray-400 mb-8">Showing new user sign-ups for the last 6 months.</p>
           
           {/* Mock Chart */}
-          <div className="flex items-end h-[280px] gap-8 mt-10">
+          <div className="flex items-end h-[200px] lg:h-[280px] gap-2 sm:gap-4 lg:gap-8 mt-10">
             {['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'].map((month, i) => {
               const height = [40, 60, 30, 80, 100, 50][i]
               const isHigh = i === 4
               return (
-                <div key={month} className="flex-1 flex flex-col items-center gap-4 group">
-                  <div className={`w-full rounded-t-xl transition-all duration-300 ${isHigh ? 'bg-[#EF4423]' : 'bg-[#F1F3F5] group-hover:bg-[#E5E7EB]'}`} style={{ height: `${height}%` }}></div>
-                  <span className="text-[12px] font-medium text-gray-400">{month}</span>
+                <div key={month} className="flex-1 flex flex-col items-center gap-2 lg:gap-4 group">
+                  <div className={`w-full rounded-t-lg lg:rounded-t-xl transition-all duration-300 ${isHigh ? 'bg-[#EF4423]' : 'bg-[#F1F3F5] group-hover:bg-[#E5E7EB]'}`} style={{ height: `${height}%` }}></div>
+                  <span className="text-[10px] lg:text-[12px] font-medium text-gray-400">{month}</span>
                 </div>
               )
             })}

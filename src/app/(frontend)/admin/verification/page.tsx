@@ -10,11 +10,11 @@ export default function VerificationPage() {
   ]
 
   return (
-    <div className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.02)] border border-gray-100/50 p-8">
-      <h2 className="text-xl font-bold text-gray-900 mb-8">Verification (KYC/KYB)</h2>
+    <div className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.02)] border border-gray-100/50 p-4 sm:p-6 lg:p-8">
+      <h2 className="text-lg lg:text-xl font-bold text-gray-900 mb-6 lg:mb-8">Verification (KYC/KYB)</h2>
       
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
+        <table className="w-full text-left border-collapse min-w-[700px]">
           <thead>
             <tr className="border-b border-gray-100 text-[12px] font-bold text-gray-400 uppercase tracking-wider">
               <th className="pb-4 font-bold">User</th>
