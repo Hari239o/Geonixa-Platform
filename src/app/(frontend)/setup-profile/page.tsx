@@ -187,6 +187,7 @@ const SetupProfilePage = () => {
  const isFormValid = () => {
  if (!formData.fullName || !formData.category) return false;
  if (formData.category === 'Others' && !formData.customCategory) return false;
+ if (formData.creatorType === 'Influencer' && !formData.instagramLink) return false;
  return true;
  };
 
@@ -235,7 +236,7 @@ const SetupProfilePage = () => {
          className="hidden peer"
        />
        <div className="text-center p-3 rounded-xl border border-gray-200 peer-checked:bg-[#EF4423] peer-checked:text-white peer-checked:border-[#EF4423] font-bold text-gray-700 transition-all">
-         UGC Creator
+         UGC
        </div>
      </label>
      <label className="flex-1 cursor-pointer">
@@ -317,7 +318,9 @@ const SetupProfilePage = () => {
   )}
 
   <div className="flex flex-col gap-2">
-    <label htmlFor="instagramLink" className="text-sm font-bold text-primary-red">Instagram Profile Link (Optional)</label>
+    <label htmlFor="instagramLink" className="text-sm font-bold text-primary-red">
+      Instagram Profile Link {formData.creatorType === 'Influencer' ? <span className="text-red-500">*</span> : '(Optional)'}
+    </label>
     <input 
       type="url" 
       id="instagramLink"
@@ -325,6 +328,7 @@ const SetupProfilePage = () => {
       placeholder="https://instagram.com/yourhandle"
       value={formData.instagramLink}
       onChange={handleInputChange}
+      required={formData.creatorType === 'Influencer'}
       className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
     />
   </div>
