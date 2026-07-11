@@ -29,35 +29,7 @@ export default function CampaignTrackingPage() {
     fetchCampaign();
   }, []);
   
-  // Calculate statuses based on real data
-  let approveStatus = "active"
-  let workVerStatus = "pending"
-  let paymentStatus = "pending"
-  let isRejected = false;
 
-  if (campaign) {
-    const requests = campaign.requests || [];
-    const hasAccepted = requests.some((r: any) => r.status?.toLowerCase() === "accepted");
-    const hasWorkVerified = requests.some((r: any) => r.workVerified);
-    const hasPaymentDone = requests.some((r: any) => r.paymentDone);
-    
-    isRejected = requests.length > 0 && requests.every((r: any) => r.status?.toLowerCase() === "rejected");
-
-    if (hasAccepted) {
-      approveStatus = "completed";
-      workVerStatus = "active";
-    } else if (isRejected) {
-      approveStatus = "rejected";
-    }
-
-    if (hasWorkVerified) {
-      workVerStatus = "completed";
-      paymentStatus = "active";
-    }
-    if (hasPaymentDone) {
-      paymentStatus = "completed";
-    }
-  }
 
   // Extract all creators from both public requests and private invites
   const allCreators: any[] = [];
@@ -94,6 +66,36 @@ export default function CampaignTrackingPage() {
     }
   }
 
+  // Calculate statuses based on all creators
+  let approveStatus = "active"
+  let workVerStatus = "pending"
+  let paymentStatus = "pending"
+  let isRejected = false;
+
+  if (campaign) {
+    const hasAccepted = allCreators.some((r: any) => ['accepted', 'brand_accepted_negotiation'].includes(r.status?.toLowerCase()));
+    
+    // Fallback: these might need to be fetched from specific request models in the future
+    const hasWorkVerified = campaign.requests?.some((r: any) => r.workVerified) || false;
+    const hasPaymentDone = campaign.requests?.some((r: any) => r.paymentDone) || false;
+    
+    isRejected = allCreators.length > 0 && allCreators.every((r: any) => r.status?.toLowerCase() === "rejected" || r.status?.toLowerCase() === "brand_rejected_negotiation");
+
+    if (hasAccepted) {
+      approveStatus = "completed";
+      workVerStatus = "active";
+    } else if (isRejected) {
+      approveStatus = "rejected";
+    }
+
+    if (hasWorkVerified) {
+      workVerStatus = "completed";
+      paymentStatus = "active";
+    }
+    if (hasPaymentDone) {
+      paymentStatus = "completed";
+    }
+  }
   const steps = [
     { id: 1, name: "Fill Form", status: "completed" },
     { id: 2, name: "Send Invites", status: "completed" },
