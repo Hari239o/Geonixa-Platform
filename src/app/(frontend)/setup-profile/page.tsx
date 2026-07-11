@@ -31,8 +31,11 @@ const SetupProfilePage = () => {
       price5Reels: '',
       price10Reels: '',
       customPrice: '',
+      collabReel: '',
+      ytIntegration: '',
+      timeline: '',
       bio: '',
-      creatorType: 'Influencer'
+      creatorType: 'UGC' // Default to UGC
     };
   });
 
@@ -43,7 +46,7 @@ const SetupProfilePage = () => {
         const parsed = JSON.parse(savedSignupData);
         if (parsed.creatorType) {
           // Normalize to match tabs: 'UGC', 'Influencer', 'Partners'
-          let mappedType = 'Influencer';
+          let mappedType = parsed.creatorType === 'Influencer' ? 'Influencer' : 'UGC';
           
           setFormData((prev: any) => ({ ...prev, creatorType: mappedType }));
         }
@@ -114,29 +117,30 @@ const SetupProfilePage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
-  const price1 = parseInt(formData.price1Reel) || 0;
-  const price5 = parseInt(formData.price5Reels) || 0;
-  const price10 = parseInt(formData.price10Reels) || 0;
-  const priceCustom = parseInt(formData.customPrice) || 0;
-
-  const initialBudgets = [
-    { name: '1 Reel', price: `₹ ${price1 || 'xxx'}` },
-    { name: '5 Reels', price: `₹ ${price5 || 'xxx'}` },
-    { name: '10 Reels', price: `₹ ${price10 || 'xxx'}` },
-    { name: 'Custom', price: `₹ ${priceCustom || 'xxx'}` },
+  // Construct budgets array based on creatorType
+  const initialBudgets = formData.creatorType === 'UGC' ? [
+    { name: '1 Reel', price: `₹ ${formData.price1Reel}` },
+    { name: '5 Reels', price: `₹ ${formData.price5Reels}` },
+    { name: '10 Reels', price: `₹ ${formData.price10Reels}` },
+    { name: 'Custom', price: `₹ ${formData.customPrice}` }
+  ] : [
+    { name: 'Collab Reel', price: `₹ ${formData.collabReel}` },
+    { name: 'YT Integration', price: `₹ ${formData.ytIntegration}` },
+    { name: 'Timeline', price: `₹ ${formData.timeline}` },
+    { name: 'Custom', price: `₹ ${formData.customPrice}` }
   ];
 
   // Create profile object with initial stats
   const userProfile = {
-  ...formData,
+  fullName: formData.fullName,
   category: formData.category === 'Others' ? formData.customCategory : formData.category,
-  profilePic: profilePic, // data URL
-  portfolioImages: portfolioImages,
-  followers: formData.followers || '0',
-  viewership: formData.viewership || '0',
-  engagement: formData.engagement || '0',
-  projects: '0',
-  successRate: '0%',
+  portfolioImages,
+  bio: formData.bio,
+  profilePic,
+  followers: formData.followers,
+  viewership: formData.viewership,
+  engagement: formData.engagement,
+  creatorType: formData.creatorType,
   budgets: initialBudgets,
   socials: {
     instagram: formData.instagramLink || '',
@@ -215,6 +219,39 @@ const SetupProfilePage = () => {
  onChange={handleImageUpload} 
  className="hidden"
  />
+ </div>
+
+ {/* Creator Type Toggle */}
+ <div className="flex flex-col gap-2 mb-4">
+   <label className="text-sm font-bold text-primary-red">I am a...</label>
+   <div className="flex gap-4">
+     <label className="flex-1 cursor-pointer">
+       <input 
+         type="radio" 
+         name="creatorType" 
+         value="UGC" 
+         checked={formData.creatorType === 'UGC'}
+         onChange={handleInputChange}
+         className="hidden peer"
+       />
+       <div className="text-center p-3 rounded-xl border border-gray-200 peer-checked:bg-[#EF4423] peer-checked:text-white peer-checked:border-[#EF4423] font-bold text-gray-700 transition-all">
+         UGC Creator
+       </div>
+     </label>
+     <label className="flex-1 cursor-pointer">
+       <input 
+         type="radio" 
+         name="creatorType" 
+         value="Influencer" 
+         checked={formData.creatorType === 'Influencer'}
+         onChange={handleInputChange}
+         className="hidden peer"
+       />
+       <div className="text-center p-3 rounded-xl border border-gray-200 peer-checked:bg-[#EF4423] peer-checked:text-white peer-checked:border-[#EF4423] font-bold text-gray-700 transition-all">
+         Influencer
+       </div>
+     </label>
+   </div>
  </div>
 
  {/* Form Fields */}
@@ -375,55 +412,110 @@ const SetupProfilePage = () => {
 
   <div className="flex flex-col gap-2">
     <label className="text-sm font-bold text-primary-red">Pricing & Packages</label>
-    <div className="grid grid-cols-2 gap-3">
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="price1Reel" className="text-xs font-semibold text-gray-500">1 Reel</label>
-        <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
-          <input 
-            type="number" 
-            id="price1Reel"
-            name="price1Reel" 
-            placeholder="e.g. 2000"
-            value={formData.price1Reel}
-            onChange={handleInputChange}
-            required
-            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
-          />
-        </div>
-      </div>
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="price5Reels" className="text-xs font-semibold text-gray-500">5 Reels</label>
-        <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
-          <input 
-            type="number" 
-            id="price5Reels"
-            name="price5Reels" 
-            placeholder="e.g. 9000"
-            value={formData.price5Reels}
-            onChange={handleInputChange}
-            required
-            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
-          />
-        </div>
-      </div>
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="price10Reels" className="text-xs font-semibold text-gray-500">10 Reels</label>
-        <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
-          <input 
-            type="number" 
-            id="price10Reels"
-            name="price10Reels" 
-            placeholder="e.g. 17000"
-            value={formData.price10Reels}
-            onChange={handleInputChange}
-            required
-            className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
-          />
-        </div>
-      </div>
+    <div className="grid grid-cols-2 gap-4">
+        {formData.creatorType === 'UGC' ? (
+          <>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="price1Reel" className="text-xs font-semibold text-gray-500">1 Reel</label>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
+                <input 
+                  type="number" 
+                  id="price1Reel"
+                  name="price1Reel" 
+                  placeholder="e.g. 2000"
+                  value={formData.price1Reel}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="price5Reels" className="text-xs font-semibold text-gray-500">5 Reels</label>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
+                <input 
+                  type="number" 
+                  id="price5Reels"
+                  name="price5Reels" 
+                  placeholder="e.g. 9000"
+                  value={formData.price5Reels}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="price10Reels" className="text-xs font-semibold text-gray-500">10 Reels</label>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
+                <input 
+                  type="number" 
+                  id="price10Reels"
+                  name="price10Reels" 
+                  placeholder="e.g. 17000"
+                  value={formData.price10Reels}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+                />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="collabReel" className="text-xs font-semibold text-gray-500">Collab Reel</label>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
+                <input 
+                  type="number" 
+                  id="collabReel"
+                  name="collabReel" 
+                  placeholder="e.g. 15000"
+                  value={formData.collabReel}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="ytIntegration" className="text-xs font-semibold text-gray-500">YT Integration</label>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
+                <input 
+                  type="number" 
+                  id="ytIntegration"
+                  name="ytIntegration" 
+                  placeholder="e.g. 25000"
+                  value={formData.ytIntegration}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="timeline" className="text-xs font-semibold text-gray-500">Timeline</label>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-bold">₹</span>
+                <input 
+                  type="number" 
+                  id="timeline"
+                  name="timeline" 
+                  placeholder="e.g. 5000"
+                  value={formData.timeline}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full p-4 pl-8 bg-gray-50 border border-gray-200 rounded-xl text-base outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-2 focus:ring-orange-100 placeholder:text-gray-400"
+                />
+              </div>
+            </div>
+          </>
+        )}
       <div className="flex flex-col gap-1.5">
         <label htmlFor="customPrice" className="text-xs font-semibold text-gray-500">Custom Amount</label>
         <div className="relative">
