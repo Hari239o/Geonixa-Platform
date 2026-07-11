@@ -61,20 +61,9 @@ export default function CampaignTrackingPage() {
 
   // Extract all creators from both public requests and private invites
   const allCreators: any[] = [];
+  const addedCreatorIds = new Set();
+  
   if (campaign) {
-    if (campaign.requests) {
-      campaign.requests.forEach((r: any) => {
-        if (r.creator) {
-          allCreators.push({
-            id: r.creator.id,
-            name: r.creator.fullName || "Unknown Creator",
-            profilePic: r.creator.profilePic || "/placeholder.png",
-            status: r.status,
-            type: "Public Request"
-          });
-        }
-      });
-    }
     if (campaign.campaignInvites) {
       campaign.campaignInvites.forEach((r: any) => {
         if (r.creator) {
@@ -85,6 +74,21 @@ export default function CampaignTrackingPage() {
             status: r.status,
             type: "Private Invite"
           });
+          addedCreatorIds.add(r.creator.id);
+        }
+      });
+    }
+    if (campaign.requests) {
+      campaign.requests.forEach((r: any) => {
+        if (r.creator && !addedCreatorIds.has(r.creator.id)) {
+          allCreators.push({
+            id: r.creator.id,
+            name: r.creator.fullName || "Unknown Creator",
+            profilePic: r.creator.profilePic || "/placeholder.png",
+            status: r.status,
+            type: "Public Request"
+          });
+          addedCreatorIds.add(r.creator.id);
         }
       });
     }

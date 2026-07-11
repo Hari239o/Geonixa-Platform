@@ -60,26 +60,6 @@ export async function POST(request: Request) {
         }
       });
 
-      // Also upsert a CampaignRequest so it appears in the Brand's requests dashboard
-      await prisma.campaignRequest.upsert({
-        where: {
-          campaignId_creatorId: {
-            campaignId: invite.campaign.id,
-            creatorId: invite.creator.id
-          }
-        },
-        update: {
-          status: newStatus,
-          message: action === "NEGOTIATE" ? message : invite.message
-        },
-        create: {
-          campaignId: invite.campaign.id,
-          creatorId: invite.creator.id,
-          status: newStatus,
-          message: action === "NEGOTIATE" ? message : invite.message
-        }
-      });
-
       // Notify Brand
       const notifMsg = `${invite.creator.fullName} has ${newStatus.toLowerCase()} your invite for ${invite.campaign.title}.`;
       await prisma.notification.create({
