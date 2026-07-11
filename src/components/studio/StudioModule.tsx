@@ -3,11 +3,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, Edit3, Copy, Share2, Square, RefreshCcw } from 'lucide-react';
 import BottomNav from '../shared/BottomNav';
+import { getItem } from '@/utils/storage';
 
 export default function StudioModule() {
   const router = useRouter();
   const [inputText, setInputText] = useState('');
   const [profilePic, setProfilePic] = useState<string>('');
+  
+  useEffect(() => {
+    async function loadProfile() {
+      if (typeof window !== 'undefined') {
+        const parsed = await getItem<any>('kaling_user_profile');
+        if (parsed && parsed.profilePic) {
+          setProfilePic(parsed.profilePic);
+        }
+      }
+    }
+    loadProfile();
+  }, []);
   const [chatState, setChatState] = useState<'main' | 'generating' | 'generated'>('main');
   const [showShare, setShowShare] = useState(false);
   const [generatedText, setGeneratedText] = useState('');
