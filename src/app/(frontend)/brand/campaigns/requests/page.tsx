@@ -211,7 +211,7 @@ export default function CampaignRequestsPage() {
                     <button onClick={() => handleConnect(req.id, req.creatorId, req.campaign.userId)} className="flex-1 bg-green-500 text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-green-600 transition-colors">
                       Let's Connect Together
                     </button>
-                  ) : req.status === 'NEGOTIATING' || req.status === 'negotiating' || req.status === 'applied' || req.status === 'pending' || req.status === 'PENDING' ? (
+                  ) : req.status === 'NEGOTIATING' || req.status === 'negotiating' || req.status === 'applied' || (req.status?.toUpperCase() === 'PENDING' && req.isPublicRequest) ? (
                     <>
                       <button onClick={() => handleAction(req.id, 'ACCEPT', req.isPublicRequest)} className="flex-1 bg-[#EF4423] text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-[#e03d1b] transition-colors">
                         Accept Deal
