@@ -219,6 +219,36 @@ function CampaignDetailContent() {
     >
       Let's Connect Together
     </button>
+  ) : requestInfo && currentStatus === 'BRAND_NEGOTIATING' ? (
+    <div className="flex flex-col w-full gap-2">
+      <div className="w-full py-2 bg-orange-50 text-orange-600 text-[12px] font-bold rounded-xl text-center border border-orange-100">
+        Brand Counter Offer: {requestInfo.negotiatedPrice || 'See message'}<br/>
+        <span className="text-[10px] text-gray-500 italic">"{requestInfo.message}"</span>
+      </div>
+      <div className="flex gap-2 w-full">
+        <button 
+        disabled={actionLoading}
+        className={`flex-1 py-3 bg-[#EF4423] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
+        onClick={() => handleAction('accepted')}
+        >
+        {actionLoading ? '...' : 'Accept Offer'}
+        </button>
+        <button 
+        disabled={actionLoading}
+        className={`flex-1 py-3 bg-[#f3f4f6] text-gray-500 text-[13px] font-bold rounded-xl transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-gray-200'}`}
+        onClick={() => setRejectModalOpen(true)}
+        >
+        Reject
+        </button>
+        <button 
+        disabled={actionLoading}
+        className={`flex-1 py-3 bg-orange-100 text-[#D9873E] text-[13px] font-bold rounded-xl transition-colors ${actionLoading ? 'opacity-50' : 'hover:bg-orange-200'}`}
+        onClick={() => setNegotiateModalOpen(true)}
+        >
+        Negotiate
+        </button>
+      </div>
+    </div>
   ) : isPublic ? (
     requestInfo ? (
       <div className="w-full py-3 bg-green-50 text-green-600 text-[13px] font-bold rounded-xl text-center border border-green-100 uppercase tracking-wide">
@@ -235,7 +265,7 @@ function CampaignDetailContent() {
      )
    ) : (
    <>
-   {requestInfo ? (
+   {requestInfo && currentStatus !== 'PENDING' ? (
      <div className="w-full py-3 bg-gray-50 text-gray-600 text-[13px] font-bold rounded-xl text-center border border-gray-200 uppercase tracking-wide">
        Status: {currentStatus}
      </div>

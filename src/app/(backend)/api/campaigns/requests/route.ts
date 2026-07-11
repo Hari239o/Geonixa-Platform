@@ -153,7 +153,7 @@ export async function PATCH(request: Request) {
     }
     if (!userId) return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
 
-    const { requestId, action } = await request.json(); // action = "ACCEPT" | "REJECT"
+    const { requestId, action, negotiatedPrice, message } = await request.json(); 
     if (!requestId || !action) return NextResponse.json({ success: false, error: "Missing parameters" }, { status: 400 });
 
     const campReq = await prisma.campaignRequest.findUnique({
@@ -165,12 +165,20 @@ export async function PATCH(request: Request) {
     if (campReq.campaign.userId !== userId) return NextResponse.json({ success: false, error: "Forbidden" }, { status: 403 });
 
     let newStatus = campReq.status;
+    let newPrice = campReq.negotiatedPrice;
+    let newMessage = campReq.message;
+
     if (action === "ACCEPT") newStatus = "BRAND_ACCEPTED_NEGOTIATION";
     else if (action === "REJECT") newStatus = "BRAND_REJECTED_NEGOTIATION";
+    else if (action === "BRAND_NEGOTIATE") {
+      newStatus = "BRAND_NEGOTIATING";
+      newPrice = negotiatedPrice;
+      newMessage = message;
+    }
 
     await prisma.campaignRequest.update({
       where: { id: requestId },
-      data: { status: newStatus }
+      data: { status: newStatus, negotiatedPrice: newPrice, message: newMessage }
     });
 
     // Notify Creator

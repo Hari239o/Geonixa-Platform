@@ -20,6 +20,10 @@ export default function CampaignRequestsPage() {
   const [requests, setRequests] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
   const [activeDealInfo, setActiveDealInfo] = React.useState<{dealId?: string, brandId?: string, creatorId?: string, chatId: string} | null>(null)
+  
+  const [negotiatingId, setNegotiatingId] = React.useState<string | null>(null);
+  const [negotiatedPrice, setNegotiatedPrice] = React.useState<string>('');
+  const [negotiationMessage, setNegotiationMessage] = React.useState<string>('');
 
   React.useEffect(() => {
     async function loadRequests() {
@@ -59,7 +63,9 @@ export default function CampaignRequestsPage() {
     try {
       const endpoint = isPublicRequest ? '/api/campaigns/requests' : '/api/campaigns/respond-invite'
       const method = isPublicRequest ? 'PATCH' : 'POST'
-      const payload = isPublicRequest ? { requestId: id, action } : { inviteId: id, action }
+      const payload = isPublicRequest 
+         ? { requestId: id, action, negotiatedPrice, message: negotiationMessage } 
+         : { inviteId: id, action, negotiatedPrice, message: negotiationMessage }
 
       const res = await fetch(endpoint, {
         method,
@@ -71,8 +77,11 @@ export default function CampaignRequestsPage() {
         if (action === 'REJECT' || action === 'rejected') {
           setRequests(prev => prev.filter(req => req.id !== id))
         } else {
-          setRequests(prev => prev.map(req => req.id === id ? { ...req, status: data.status || 'ACCEPTED' } : req))
+          setRequests(prev => prev.map(req => req.id === id ? { ...req, status: data.status || 'ACCEPTED', negotiatedPrice: action === 'BRAND_NEGOTIATE' ? negotiatedPrice : req.negotiatedPrice, message: action === 'BRAND_NEGOTIATE' ? negotiationMessage : req.message } : req))
         }
+        setNegotiatingId(null);
+        setNegotiatedPrice('');
+        setNegotiationMessage('');
       }
     } catch (error) {
       console.error(error)
@@ -206,22 +215,49 @@ export default function CampaignRequestsPage() {
                   </div>
                 ) : null}
 
-                <div className="flex gap-3">
-                  {['BRAND_ACCEPTED_NEGOTIATION', 'ACCEPTED', 'accepted'].includes(req.status) ? (
-                    <button onClick={() => handleConnect(req.id, req.creatorId, req.campaign.userId)} className="flex-1 bg-green-500 text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-green-600 transition-colors">
+                <div className="flex flex-col gap-3">
+                  {negotiatingId === req.id ? (
+                    <div className="bg-orange-50/50 p-4 rounded-xl border border-orange-100/50 flex flex-col gap-3">
+                      <input 
+                        type="number" 
+                        placeholder="Your Offer (₹)" 
+                        value={negotiatedPrice}
+                        onChange={(e) => setNegotiatedPrice(e.target.value)}
+                        className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#EF4423]"
+                      />
+                      <textarea 
+                        placeholder="Add a message..." 
+                        value={negotiationMessage}
+                        onChange={(e) => setNegotiationMessage(e.target.value)}
+                        className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm min-h-[60px] focus:outline-none focus:border-[#EF4423]"
+                      />
+                      <div className="flex gap-2 mt-1">
+                        <button onClick={() => setNegotiatingId(null)} className="flex-1 bg-gray-100 text-gray-500 text-[12px] font-bold py-2.5 rounded-lg">Cancel</button>
+                        <button onClick={() => handleAction(req.id, 'BRAND_NEGOTIATE', req.isPublicRequest)} className="flex-1 bg-[#EF4423] text-white text-[12px] font-bold py-2.5 rounded-lg">Send Offer</button>
+                      </div>
+                    </div>
+                  ) : ['BRAND_ACCEPTED_NEGOTIATION', 'ACCEPTED', 'accepted'].includes(req.status) ? (
+                    <button onClick={() => handleConnect(req.id, req.creatorId, req.campaign.userId)} className="w-full bg-green-500 text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-green-600 transition-colors">
                       Let's Connect Together
                     </button>
+                  ) : req.status === 'BRAND_NEGOTIATING' ? (
+                    <div className="w-full bg-gray-100 text-gray-500 text-[12px] font-bold py-3 text-center rounded-[12px]">
+                      Waiting for Creator's Response
+                    </div>
                   ) : req.status === 'NEGOTIATING' || req.status === 'negotiating' || req.status === 'applied' || (req.status?.toUpperCase() === 'PENDING' && req.isPublicRequest) ? (
-                    <>
+                    <div className="flex gap-2">
                       <button onClick={() => handleAction(req.id, 'ACCEPT', req.isPublicRequest)} className="flex-1 bg-[#EF4423] text-white text-[12px] font-bold py-3 rounded-[12px] hover:bg-[#e03d1b] transition-colors">
                         Accept Deal
+                      </button>
+                      <button onClick={() => setNegotiatingId(req.id)} className="flex-1 bg-orange-100 text-[#D9873E] text-[12px] font-bold py-3 rounded-[12px] hover:bg-orange-200 transition-colors">
+                        Negotiate
                       </button>
                       <button onClick={() => handleAction(req.id, 'REJECT', req.isPublicRequest)} className="flex-1 bg-gray-100 text-gray-500 text-[12px] font-bold py-3 rounded-[12px] hover:bg-gray-200 transition-colors">
                         Reject
                       </button>
-                    </>
+                    </div>
                   ) : (
-                    <div className="flex-1 bg-gray-100 text-gray-500 text-[12px] font-bold py-3 text-center rounded-[12px]">
+                    <div className="w-full bg-gray-100 text-gray-500 text-[12px] font-bold py-3 text-center rounded-[12px]">
                       Waiting for Creator
                     </div>
                   )}

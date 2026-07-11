@@ -91,12 +91,20 @@ export async function POST(request: Request) {
     }
 
     if (isBrand) {
+      let newPrice = invite.negotiatedPrice;
+      let newMessage = invite.message;
+
       if (action === "ACCEPT") newStatus = "BRAND_ACCEPTED_NEGOTIATION";
       else if (action === "REJECT") newStatus = "BRAND_REJECTED_NEGOTIATION";
+      else if (action === "BRAND_NEGOTIATE") {
+        newStatus = "BRAND_NEGOTIATING";
+        newPrice = negotiatedPrice;
+        newMessage = message;
+      }
 
       await prisma.campaignInvite.update({
         where: { id: invite.id },
-        data: { status: newStatus }
+        data: { status: newStatus, negotiatedPrice: newPrice, message: newMessage }
       });
 
       // Notify Creator
