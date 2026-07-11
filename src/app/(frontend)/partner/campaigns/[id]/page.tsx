@@ -147,6 +147,7 @@ function CampaignDetailContent() {
   >
   <ChevronLeft size={28} strokeWidth={2.5} />
   </button>
+  </div>
 
   <div className="px-4 sm:px-6">
   {/* Campaign Info Header */}
