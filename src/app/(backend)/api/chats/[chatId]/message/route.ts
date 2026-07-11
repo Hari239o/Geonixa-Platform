@@ -3,8 +3,13 @@ import prisma from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/(backend)/api/auth/[...nextauth]/route';
 
-export async function POST(req: Request, { params }: { params: { chatId: string } }) {
+export async function POST(
+  req: Request,
+  context: { params: Promise<{ chatId: string }> }
+) {
   try {
+    const params = await context.params;
+    const { chatId } = params;
     const session = await getServerSession(authOptions);
     let userId = (session?.user as any)?.id;
     let email = session?.user?.email;

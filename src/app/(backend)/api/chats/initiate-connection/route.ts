@@ -45,7 +45,7 @@ export async function POST(request: Request) {
       let initiatorName = "A user";
       if (userIsBrand) {
         const brandProfile = await prisma.brandProfile.findUnique({ where: { userId: brandId }});
-        if (brandProfile) initiatorName = brandProfile.fullName || brandProfile.companyName || "A Brand";
+        if (brandProfile) initiatorName = brandProfile.fullName || "A Brand";
       } else {
         const creatorProfile = await prisma.creatorProfile.findUnique({ where: { userId: creatorId }});
         if (creatorProfile) initiatorName = creatorProfile.fullName || "A Creator";

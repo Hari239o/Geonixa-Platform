@@ -75,7 +75,7 @@ export async function POST(req: Request) {
       await transporter.sendMail({
         from: '"Kalinq Admin" <hello@kalinq.com>',
         to: 'admin@kalinq.com',
-        subject: `[Action Required] New Deal Accepted - ${dealId}`,
+        subject: `[Action Required] New Deal Accepted - ${chat.dealId}`,
         html: emailHtml
       });
     } catch (emailError) {

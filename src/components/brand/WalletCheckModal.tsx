@@ -74,7 +74,7 @@ export default function WalletCheckModal({
           <button 
             onClick={() => {
               // Mock adding money
-              setBalance(balance + 10000);
+              alert("Please add money to your wallet from the Wallet page.");
             }}
             className="w-full bg-[#1E1B4B] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:opacity-90 transition-colors"
           >

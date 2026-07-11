@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import BottomNav from "@/components/brand/BottomNav";
 import { Logo } from "@/components/ui/Logo";
 import { ChevronLeft } from "lucide-react";
 
 export default function StudiosPage() {
   const router = useRouter();
+  const { data: session, status } = useSession();
   
   // High-level Tabs
   const [mainTab, setMainTab] = useState("Partners"); // "Our Experts" | "Partners"
