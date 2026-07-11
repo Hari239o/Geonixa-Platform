@@ -21,17 +21,34 @@ export default function CampaignDashboardPage() {
         const res = await fetch('/api/campaigns?role=brand')
         const data = await res.json()
         if (data.success && data.campaigns) {
-          setCampaigns(data.campaigns.map((c: any) => ({
-             id: c.id,
-             title: c.title,
-             subtitle: c.subtitle || `${c.visibility || 'Public'} Campaign`,
-             date: c.dateRange || 'TBD',
-             desc: c.description || 'No description provided.',
-             budget: c.budget || 'Open',
-             timeAgo: 'Just now',
-             status: 'Accepted', // Mock status for demonstration based on user images
-             visibility: c.visibility || 'Public'
-          })))
+          setCampaigns(data.campaigns.map((c: any) => {
+             // Realistically compute status based on active requests or dates
+             let computedStatus = 'Pending';
+             const hasAcceptedRequests = c.requests?.some((r: any) => r.status === 'ACCEPTED' || r.status === 'brand_accepted_negotiation');
+             const hasPendingRequests = c.requests?.some((r: any) => r.status === 'PENDING' || r.status === 'applied');
+             
+             if (hasAcceptedRequests) {
+               computedStatus = 'Active';
+             } else if (hasPendingRequests) {
+               computedStatus = 'Pending';
+             } else if (c.visibility === 'Private' && c.campaignInvites?.length > 0) {
+               computedStatus = 'Invited';
+             } else {
+               computedStatus = 'Open';
+             }
+
+             return {
+               id: c.id,
+               title: c.title,
+               subtitle: c.subtitle || `${c.visibility || 'Public'} Campaign`,
+               date: c.dateRange || 'TBD',
+               desc: c.description || 'No description provided.',
+               budget: c.budget || 'Open',
+               timeAgo: 'Just now',
+               status: computedStatus,
+               visibility: c.visibility || 'Public'
+             }
+          }))
         }
       } catch (e) {
         console.error("Failed to fetch campaigns", e)
@@ -45,12 +62,14 @@ export default function CampaignDashboardPage() {
 
   const getStatusBadge = (status: string) => {
     switch(status) {
-      case 'Accepted':
-        return <div className="bg-[#10B981] text-white text-[11px] font-bold px-5 py-1.5 rounded-full inline-block mt-3">Accepted</div>
-      case 'Rejected':
-        return <div className="bg-[#EF4823] text-white text-[11px] font-bold px-5 py-1.5 rounded-full inline-block mt-3">Rejected</div>
+      case 'Active':
+        return <div className="bg-[#10B981] text-white text-[11px] font-bold px-5 py-1.5 rounded-full inline-block mt-3">Active</div>
+      case 'Open':
+        return <div className="bg-[#3B82F6] text-white text-[11px] font-bold px-5 py-1.5 rounded-full inline-block mt-3">Open</div>
       case 'Pending':
-        return <div className="bg-[#F59E0B] text-white text-[11px] font-bold px-5 py-1.5 rounded-full inline-block mt-3">Pending</div>
+        return <div className="bg-[#F59E0B] text-white text-[11px] font-bold px-5 py-1.5 rounded-full inline-block mt-3">Pending Requests</div>
+      case 'Invited':
+        return <div className="bg-[#8B5CF6] text-white text-[11px] font-bold px-5 py-1.5 rounded-full inline-block mt-3">Invited</div>
       default:
         return null
     }

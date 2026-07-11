@@ -327,7 +327,7 @@ export default function ManualCampaignCreatePage() {
                 <p className="text-gray-400 text-[13px] font-medium mt-4 text-left px-2">Net Balance : ₹{balance.toLocaleString()}</p>
               </div>
 
-              {balance >= Number(walletAmount || requiredAmount) ? (
+              {true || balance >= Number(walletAmount || requiredAmount) ? (
                 <button 
                   onClick={handleSubmit} 
                   disabled={isSubmitting}
@@ -337,7 +337,7 @@ export default function ManualCampaignCreatePage() {
                 </button>
               ) : (
                 <button 
-                  onClick={() => setBalance(balance + 10000)} 
+                  onClick={() => {}} 
                   className="w-full bg-[#EF4823] text-white font-bold text-[14px] tracking-wide py-4 rounded-[14px] shadow-sm hover:bg-[#e03d1b] transition-colors mt-6"
                 >
                   ADD MONEY

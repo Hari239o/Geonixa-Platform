@@ -88,6 +88,7 @@ const AIIcon = (props: IconProps) => (
   </svg>
 );
 
+import { useSession } from 'next-auth/react';
 import { User } from 'lucide-react';
 
 interface BottomNavProps {
@@ -97,8 +98,16 @@ interface BottomNavProps {
 export default function BottomNav({ profilePic }: BottomNavProps) {
  const router = useRouter();
  const pathname = usePathname();
-
-  const navItems = [
+ const { data: session } = useSession();
+ 
+  const isPartner = pathname.startsWith('/partner') || (session?.user as any)?.role === 'partner';
+  
+  const navItems = isPartner ? [
+    { name: 'Home', path: '/partner', icon: HomeIcon },
+    { name: 'Wallet', path: '/partner/wallet', icon: WalletIcon },
+    { name: 'Campaign', path: '/partner/campaigns', icon: CampaignIcon },
+    { name: 'Studios', path: '/studios', icon: AIIcon },
+  ] : [
     { name: 'Home', path: '/creator', icon: HomeIcon },
     { name: 'Wallet', path: '/wallet', icon: WalletIcon },
     { name: 'Campaign', path: '/campaigns', icon: CampaignIcon },

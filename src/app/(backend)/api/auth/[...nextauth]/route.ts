@@ -64,15 +64,6 @@ export const authOptions: NextAuthOptions = {
           };
         }
 
-        // Fallback for mock setup where no password exists yet
-        if (credentials.otp === "1234" || credentials.otp === "123456") {
-           return {
-             id: user.id,
-             name: user.name || "Kalinq User",
-             email: user.email || `${formattedPhone.replace('+', '')}@kalinq.auth`,
-           }
-        }
-
         // Verify OTP from global store for OTP based login
         const store = globalAny.otpStore;
         if (store) {
@@ -83,8 +74,21 @@ export const authOptions: NextAuthOptions = {
                 id: user.id,
                 name: user.name || "Kalinq User",
                 email: user.email || `${formattedPhone.replace('+', '')}@kalinq.auth`,
+                role: user.role,
+                profileCompleted: user.profileCompleted
               }
           }
+        }
+
+        // Mock setup fallback
+        if (credentials.otp === "1234" || credentials.otp === "123456") {
+           return {
+             id: user.id,
+             name: user.name || "Kalinq User",
+             email: user.email || `${formattedPhone.replace('+', '')}@kalinq.auth`,
+             role: user.role,
+             profileCompleted: user.profileCompleted
+           }
         }
 
         return null
@@ -134,8 +138,8 @@ export const authOptions: NextAuthOptions = {
             }
           } else {
             // If they already exist, but they are coming from a signup page 
-            // and haven't completed their profile, update their role to their new choice
-            if (hasSignupCookie && !existingUser.profileCompleted && existingUser.role !== roleToAssign) {
+            // update their role to their new choice
+            if (hasSignupCookie && existingUser.role !== roleToAssign) {
               await prisma.user.update({
                 where: { id: existingUser.id },
                 data: { role: roleToAssign }
@@ -149,8 +153,18 @@ export const authOptions: NextAuthOptions = {
         return `/auth/login?error=${encodeURIComponent(error.message || "Unknown Database Error")}`;
       }
     },
-    async jwt({ token, user }) {
-      if (user) token.id = user.id;
+    async jwt({ token, user, account, trigger, session }) {
+      if (user) {
+        token.id = user.id;
+        token.role = (user as any).role;
+        token.profileCompleted = (user as any).profileCompleted;
+      }
+      
+      // Allow updating session
+      if (trigger === "update" && session) {
+        if (session.role) token.role = session.role;
+        if (session.profileCompleted !== undefined) token.profileCompleted = session.profileCompleted;
+      }
       return token;
     },
     async session({ session, token }) {
@@ -158,8 +172,12 @@ export const authOptions: NextAuthOptions = {
         if (session.user) {
           let dbUser = null;
           if (session.user.email && !session.user.email.endsWith('@kalinq.auth')) {
+            const { PrismaClient } = require('@prisma/client');
+            const prisma = new PrismaClient();
             dbUser = await prisma.user.findFirst({ where: { email: session.user.email }});
           } else if (token.id) {
+            const { PrismaClient } = require('@prisma/client');
+            const prisma = new PrismaClient();
             dbUser = await prisma.user.findFirst({ where: { id: token.id as string }});
           }
           
@@ -167,8 +185,12 @@ export const authOptions: NextAuthOptions = {
             (session.user as any).id = dbUser.id;
             (session.user as any).role = dbUser.role;
             (session.user as any).phone = dbUser.phone;
-            (session.user as any).profileCompleted = (dbUser as any).profileCompleted;
+            (session.user as any).profileCompleted = dbUser.profileCompleted;
             (session.user as any).credits = dbUser.credits;
+          } else {
+            (session.user as any).id = token.id;
+            (session.user as any).role = token.role;
+            (session.user as any).profileCompleted = token.profileCompleted;
           }
         }
       } catch (error: any) {
