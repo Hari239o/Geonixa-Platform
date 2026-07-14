@@ -242,6 +242,10 @@ model PartnerProfile {
   dailyRate       String?
   availableSlots  String[] @default([])
   
+  isInstantAvailable Boolean @default(false)
+  availableDays      Json?   // e.g. {"monday": ["09:00", "10:00"], ...}
+  availableDates     Json?   // e.g. {"2026-07-20": ["14:00", "15:00"], ...}
+  
   bookings        StudioBooking[]
   
   createdAt       DateTime @default(now())
