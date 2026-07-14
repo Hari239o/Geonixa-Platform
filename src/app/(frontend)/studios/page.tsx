@@ -30,6 +30,7 @@ export default function StudiosPage() {
   const [selectedPartner, setSelectedPartner] = useState<any>(null);
   const [showPartnerSheet, setShowPartnerSheet] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+  const [selectedScheduleDate, setSelectedScheduleDate] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -203,60 +204,75 @@ export default function StudiosPage() {
     </div>
   );
 
-  const renderList = () => (
-    <div className="flex flex-col gap-3 mt-4">
-      {partners.map((partner) => {
-        const isSelected = selectedPartnerId === partner.id;
-        return (
-          <div 
-            key={partner.id}
-            onClick={() => {
-              setSelectedPartnerId(partner.id);
-              setSelectedPartner(partner);
-              setSelectedSlot(null);
-              setShowPartnerSheet(true);
-            }}
-            className={`flex items-center justify-between p-3 rounded-[16px] transition-all cursor-pointer border border-gray-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-[#EF4423]`}
-          >
-            <div className="flex items-center gap-4">
-              <div 
-                className="w-[60px] h-[60px] bg-gradient-to-br from-[#E2E8F0] to-[#94A3B8] rounded-[12px] flex-shrink-0 bg-cover bg-center"
-                style={{ backgroundImage: `url(${partner.image})` }}
-              />
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[15px] font-bold text-[#111111]">{partner.name}</span>
-                  {partner.isVerified && (
-                    <div className="w-3.5 h-3.5 bg-[#EF4423] text-white flex items-center justify-center rounded-sm mask mask-hexagon" style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
-                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="w-2 h-2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </div>
-                  )}
-                </div>
-                <div className="flex items-center gap-1 mt-1">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg 
-                      key={star} 
-                      className={`w-3.5 h-3.5 ${star <= Math.floor(partner.rating) ? 'text-[#FFD700]' : 'text-gray-200'}`} 
-                      fill="currentColor" 
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
+  const renderList = () => {
+    const filteredPartners = (mainTab === "Partners" && partnerType === "Cameraman" && bookingMode === "Instant")
+      ? partners.filter(p => p.isInstantAvailable)
+      : partners;
+
+    if (filteredPartners.length === 0) {
+      return (
+        <div className="flex flex-col items-center justify-center pt-10 pb-10 text-center">
+          <p className="text-sm text-gray-500">No partners available for this mode.</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex flex-col gap-3 mt-4">
+        {filteredPartners.map((partner) => {
+          const isSelected = selectedPartnerId === partner.id;
+          return (
+            <div 
+              key={partner.id}
+              onClick={() => {
+                setSelectedPartnerId(partner.id);
+                setSelectedPartner(partner);
+                setSelectedSlot(null);
+                setSelectedScheduleDate("");
+                setShowPartnerSheet(true);
+              }}
+              className={`flex items-center justify-between p-3 rounded-[16px] transition-all cursor-pointer border border-gray-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-[#EF4423]`}
+            >
+              <div className="flex items-center gap-4">
+                <div 
+                  className="w-[60px] h-[60px] bg-gradient-to-br from-[#E2E8F0] to-[#94A3B8] rounded-[12px] flex-shrink-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${partner.image})` }}
+                />
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[15px] font-bold text-[#111111]">{partner.name}</span>
+                    {partner.isVerified && (
+                      <div className="w-3.5 h-3.5 bg-[#EF4423] text-white flex items-center justify-center rounded-sm mask mask-hexagon" style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
+                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="w-2 h-2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1 mt-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <svg 
+                        key={star} 
+                        className={`w-3.5 h-3.5 ${star <= Math.floor(partner.rating) ? 'text-[#FFD700]' : 'text-gray-200'}`} 
+                        fill="currentColor" 
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
                 </div>
               </div>
+              
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-2 transition-colors ${
+                isSelected ? "border-[#EF4423]" : "border-gray-300"
+              }`}>
+                {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#EF4423]" />}
+              </div>
             </div>
-            
-            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-2 transition-colors ${
-              isSelected ? "border-[#EF4423]" : "border-gray-300"
-            }`}>
-              {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#EF4423]" />}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
+          );
+        })}
+      </div>
+    );
+  };
 
   const renderScheduleForm = () => (
     <div className="mt-8 space-y-5">
@@ -449,7 +465,7 @@ export default function StudiosPage() {
               </div>
             ) : (
               <>
-                {step === 1 && (partnerType === "Cameraman" && bookingMode === "Schedule" ? renderScheduleForm() : renderList())}
+                {step === 1 && renderList()}
                 
                 {step === 2 && partnerType === "Editors" && renderEditorForm()}
                 
@@ -527,32 +543,63 @@ export default function StudiosPage() {
             </div>
 
             <div className="mb-6">
-              <h4 className="text-[14px] font-bold text-gray-900 mb-3">Daily Available Slots</h4>
-              {(!selectedPartner.availableSlots || selectedPartner.availableSlots.length === 0) ? (
-                <p className="text-sm text-gray-500">No slots available today.</p>
-              ) : (
-                <div className="grid grid-cols-3 gap-2">
-                  {selectedPartner.availableSlots.map((slot: string) => (
-                    <button
-                      key={slot}
-                      onClick={() => setSelectedSlot(slot)}
-                      className={`py-2 px-2 text-[12px] font-bold rounded-xl border transition-all ${
-                        selectedSlot === slot
-                        ? "bg-[#FFF6F5] border-[#EF4423] text-[#EF4423]"
-                        : "border-gray-200 text-gray-600 hover:border-gray-300"
-                      }`}
-                    >
-                      {slot}
-                    </button>
-                  ))}
+              {bookingMode === "Instant" ? (
+                <div className="flex items-center gap-2 p-3 bg-[#E8F8EE] rounded-xl text-[#2ECC71] justify-center border border-[#2ECC71]/20">
+                  <div className="w-2.5 h-2.5 bg-[#2ECC71] rounded-full animate-pulse" />
+                  <span className="font-bold text-sm">Instantly Available</span>
                 </div>
+              ) : (
+                <>
+                  <h4 className="text-[14px] font-bold text-gray-900 mb-3">Select Date & Time</h4>
+                  <div className="mb-4">
+                    <input 
+                      type="date"
+                      value={selectedScheduleDate}
+                      onChange={(e) => {
+                        setSelectedScheduleDate(e.target.value);
+                        setSelectedSlot(null);
+                      }}
+                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#EF4423]/20 focus:border-[#EF4423]"
+                      min={new Date().toISOString().split('T')[0]}
+                    />
+                  </div>
+                  
+                  {(() => {
+                    if (!selectedScheduleDate) return <p className="text-sm text-gray-500 text-center py-2">Please select a date to view slots.</p>;
+                    
+                    const dayOfWeek = new Date(selectedScheduleDate).toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+                    const datesSlots = selectedPartner.availableDates?.[selectedScheduleDate];
+                    const daysSlots = selectedPartner.availableDays?.[dayOfWeek];
+                    const slots = datesSlots || daysSlots || [];
+
+                    if (slots.length === 0) return <p className="text-sm text-gray-500 text-center py-2">No slots available on this date.</p>;
+
+                    return (
+                      <div className="grid grid-cols-3 gap-2 max-h-[200px] overflow-y-auto">
+                        {slots.map((slot: string) => (
+                          <button
+                            key={slot}
+                            onClick={() => setSelectedSlot(slot)}
+                            className={`py-2 px-2 text-[12px] font-bold rounded-xl border transition-all ${
+                              selectedSlot === slot
+                              ? "bg-[#FFF6F5] border-[#EF4423] text-[#EF4423]"
+                              : "border-gray-200 text-gray-600 hover:border-gray-300"
+                            }`}
+                          >
+                            {slot}
+                          </button>
+                        ))}
+                      </div>
+                    );
+                  })()}
+                </>
               )}
             </div>
             
             <button 
               onClick={() => {
-                if (!selectedSlot && selectedPartner.availableSlots?.length > 0) {
-                  alert("Please select a slot");
+                if (bookingMode === "Schedule" && !selectedSlot) {
+                  alert("Please select a time slot");
                   return;
                 }
                 setShowPartnerSheet(false);

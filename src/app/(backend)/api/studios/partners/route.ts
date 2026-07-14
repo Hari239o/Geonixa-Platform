@@ -27,6 +27,9 @@ export async function GET(request: Request) {
         hourlyRate: true,
         dailyRate: true,
         availableSlots: true,
+        isInstantAvailable: true,
+        availableDays: true,
+        availableDates: true,
       } as any,
     });
 
@@ -55,6 +58,9 @@ export async function GET(request: Request) {
         hourlyRate: p.hourlyRate,
         dailyRate: p.dailyRate,
         availableSlots: p.availableSlots || [],
+        isInstantAvailable: p.isInstantAvailable || false,
+        availableDays: p.availableDays || {},
+        availableDates: p.availableDates || {},
       }))
     });
   } catch (error) {
