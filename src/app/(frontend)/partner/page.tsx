@@ -101,7 +101,7 @@ export default function PartnerDashboardPage() {
   const projectsToDisplay = activeTab === "active" ? activeProjects : completedProjects;
 
   return (
-    <div className="w-full max-w-md mx-auto min-h-screen bg-[#F8F9FA] pb-28 relative font-sans flex flex-col">
+    <div className="w-full max-w-md mx-auto h-[100dvh] bg-[#F8F9FA] relative font-sans flex flex-col overflow-hidden">
       {/* Verification Modal */}
       {showVerificationModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300">
@@ -140,8 +140,9 @@ export default function PartnerDashboardPage() {
         </div>
       )}
 
-      {/* Header */}
-      <div className="bg-white px-6 pt-6 pb-4 flex justify-between items-center rounded-b-[24px] shadow-sm relative z-10">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col pb-24">
+        {/* Header */}
+        <div className="bg-white px-6 pt-6 pb-4 flex justify-between items-center rounded-b-[24px] shadow-sm relative z-10 shrink-0">
         <div className="flex items-center gap-3">
           <div className="relative">
             <div className="w-11 h-11 rounded-full bg-gray-200 overflow-hidden border border-gray-100 flex items-center justify-center">
@@ -279,8 +280,9 @@ export default function PartnerDashboardPage() {
           </button>
         </div>
       </div>
+      </div>
 
-      <BottomNav />
+      <BottomNav profilePic={profileImage || undefined} />
     </div>
   );
 }

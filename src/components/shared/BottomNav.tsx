@@ -141,11 +141,9 @@ export default function BottomNav({ profilePic }: BottomNavProps) {
         onClick={() => router.push('/profile')}
       >
  {profilePic ? (
-   <Image 
+   <img 
      src={profilePic} 
      alt="Profile" 
-     width={40}
-     height={40}
      className="w-10 h-10 rounded-full object-cover border border-gray-200" 
    />
  ) : (
