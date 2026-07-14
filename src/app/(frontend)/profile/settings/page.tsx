@@ -118,27 +118,25 @@ export default function ProfileSettingsPage() {
         };
         await setItem('kaling_user_profile', updatedProfile);
         
-        // Sync to database if userRole is creator
+        // Sync to database for all roles
         const role = localStorage.getItem('userRole');
-        if (!role || role === 'creator') {
-          await fetch('/api/user/complete-profile', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              userId: localStorage.getItem('userId') || 'temp-user-id', // Assuming temp-user-id for now
-              ...updatedProfile,
-              category: updatedProfile.category || undefined,
-              followers: updatedProfile.followers || undefined,
-              viewership: updatedProfile.viewership || undefined,
-              engagement: updatedProfile.engagement || undefined,
-              projects: updatedProfile.projects || undefined,
-              successRate: updatedProfile.successRate || undefined,
-              isVerified: updatedProfile.isVerified || undefined
-            })
-          });
-        }
+        await fetch('/api/user/complete-profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId: localStorage.getItem('userId') || 'temp-user-id',
+            ...updatedProfile,
+            category: updatedProfile.category || undefined,
+            followers: updatedProfile.followers || undefined,
+            viewership: updatedProfile.viewership || undefined,
+            engagement: updatedProfile.engagement || undefined,
+            projects: updatedProfile.projects || undefined,
+            successRate: updatedProfile.successRate || undefined,
+            isVerified: updatedProfile.isVerified || undefined
+          })
+        });
         
         router.back();
       } catch (error) {

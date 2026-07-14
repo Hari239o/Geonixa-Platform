@@ -262,7 +262,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Stats */}
-        {role !== 'PARTNER' && (
+        {role !== 'partner' && (
           <div className="flex justify-between items-center mb-10 px-2">
             <div className="flex flex-col items-center">
               <span className="text-[20px] font-bold text-[#EF4423]">{profile.followers}</span>
@@ -307,7 +307,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Partner specific info */}
-            {role === 'PARTNER' && (
+            {role === 'partner' && (
               <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-[13px] font-bold text-gray-500">Website</span>
@@ -333,7 +333,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Partner Rating Card */}
-            {role === 'PARTNER' && (
+            {role === 'partner' && (
               <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
                 <h3 className="text-[13px] font-bold text-gray-500 mb-4">Rating</h3>
                 <div className="flex gap-2">
@@ -347,7 +347,7 @@ export default function ProfilePage() {
             )}
 
             {/* Creator specific cards */}
-            {role !== 'PARTNER' && (
+            {role !== 'partner' && (
               <>
                 {/* Budgets Card */}
                 <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
