@@ -25,7 +25,7 @@ export default function RegisterPage() {
     } else if (category === "brand") {
       router.push("/auth/signup/brand")
     } else if (category === "partner") {
-      router.push("/auth/signup/partner")
+      alert("Coming Soon! This section is being integrated.")
     } else {
       router.push(`/onboarding?type=${category}`)
     }

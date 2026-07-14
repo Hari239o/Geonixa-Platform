@@ -1,0 +1,102 @@
+"use client"
+
+import React, { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
+import { KalinqBackground } from "@/components/auth/KalinqBackground"
+import { Button } from "@/components/ui/button"
+
+export default function PartnerJoinScreen() {
+  const router = useRouter()
+  const { data: session, status } = useSession()
+  const [showSplash, setShowSplash] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false)
+    }, 2500)
+    
+    return () => clearTimeout(timer)
+  }, [status, session, router])
+
+  return (
+    <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center overflow-hidden bg-primary-red z-50" style={{ backgroundColor: '#EF4423' }}>
+      {/* Background shapes */}
+      <KalinqBackground />
+
+      <AnimatePresence mode="wait">
+        {showSplash ? (
+          /* --- SPLASH SCREEN --- */
+          <motion.div
+            key="splash"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="relative z-10 flex items-center justify-center min-h-[100dvh] w-full"
+          >
+            <img 
+              src="/kalinq-company-name-profile.png" 
+              alt="Kalinq Logo" 
+              className="w-48 sm:w-64 h-auto object-contain drop-shadow-md" 
+            />
+          </motion.div>
+        ) : (
+          /* --- WELCOME SCREEN --- */
+          <motion.div
+            key="welcome"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="relative z-10 w-full max-w-sm px-8 flex flex-col items-center justify-center min-h-[100dvh]"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="flex flex-col items-center justify-center w-full mb-8"
+            >
+              <img 
+                src="/logo.png" 
+                alt="Kalinq Partner" 
+                className="w-40 h-40 md:w-48 md:h-48 object-contain drop-shadow-2xl" 
+              />
+              
+              <h1 className="text-white mt-6 font-extrabold text-[24px] tracking-tight text-center">
+                Partner Portal
+              </h1>
+              <p className="text-white/90 mt-2 font-medium text-[13px] leading-relaxed tracking-wide text-center max-w-[280px]">
+                Join our exclusive partner network and collaborate with top brands and creators.
+              </p>
+            </motion.div>
+
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              className="w-full flex flex-col gap-4"
+            >
+              {/* Primary CTA = Sign In (Yellow) */}
+              <Button 
+                onClick={() => router.push("/auth/login")}
+                className="w-full h-14 bg-button-yellow text-text-dark hover:bg-button-yellow/90 text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              >
+                Sign In
+              </Button>
+
+              {/* Secondary CTA = Sign Up (White) */}
+              <Button 
+                onClick={() => router.push("/auth/signup/partner")}
+                className="w-full h-14 bg-white text-primary-red hover:bg-white/90 text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              >
+                Sign Up as Partner
+              </Button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
