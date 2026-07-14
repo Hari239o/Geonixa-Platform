@@ -53,10 +53,10 @@ export default function StudiosPage() {
         if (data.success) {
           setPartners(data.partners);
         } else {
-          setPartners(mockPartners);
+          setPartners([]);
         }
       } catch (e) {
-        setPartners(mockPartners);
+        setPartners([]);
       } finally {
         setIsLoading(false);
       }
@@ -92,10 +92,10 @@ export default function StudiosPage() {
         if (data.success) {
           setPartners(data.partners);
         } else {
-          setPartners(mockPartners);
+          setPartners([]);
         }
       } catch (e) {
-        setPartners(mockPartners);
+        setPartners([]);
       } finally {
         setIsLoading(false);
       }

@@ -41,13 +41,9 @@ export async function GET(request: Request) {
     });
 
     if (partners.length === 0) {
-      // Return dummy data if DB is empty so the UI still looks like the design
       return NextResponse.json({
         success: true,
-        partners: [
-          { id: "mock-1", name: "Ravi Kumar", isVerified: true, rating: 4, reviews: 10, type: partnerType, image: "/placeholder-user.jpg" },
-          { id: "mock-2", name: "Aditya Singh", isVerified: true, rating: 4.5, reviews: 20, type: partnerType, image: "/placeholder-user.jpg" },
-        ]
+        partners: []
       });
     }
 
