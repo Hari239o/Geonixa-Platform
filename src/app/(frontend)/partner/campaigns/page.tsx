@@ -307,18 +307,16 @@ export default function CampaignPage() {
             >
               {actionLoading === job.id ? 'Working...' : 'Apply for Job'}
             </button>
-          ) : job.status === "brand_accepted" ? (
+          ) : job.status === "accepted" ? (
             <button 
-              disabled={actionLoading === job.id}
-              className={`w-full py-3 bg-[#2ECC71] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(46,204,113,0.2)] transition-colors ${actionLoading === job.id ? 'opacity-50' : 'hover:bg-green-600'}`}
-              onClick={(e) => handleConfirmJob(e, job.applicationId, job.id)}
+              className={`w-full py-3 bg-[#1a1a2e] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(26,26,46,0.2)] transition-colors hover:bg-gray-800`}
+              onClick={() => router.push(`/partner/campaigns/${job.id}`)}
             >
-              {actionLoading === job.id ? 'Working...' : 'Confirm Booking'}
+              VIEW TRACKER
             </button>
           ) : (
             <div className={`w-full py-3 text-[13px] font-bold rounded-xl text-center border uppercase tracking-wide
               ${job.status === "pending" ? "bg-orange-50 text-orange-500 border-orange-100" : 
-                job.status === "partner_confirmed" ? "bg-green-50 text-green-600 border-green-100" :
                 "bg-gray-50 text-gray-500 border-gray-100"}`}>
               {job.status === "pending" ? "Applied" : job.status.replace("_", " ")}
             </div>

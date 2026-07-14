@@ -39,16 +39,8 @@ export default function JobDetailsPage() {
       });
       const data = await res.json();
       if (data.success) {
-        alert("Application accepted! Waiting for partner to confirm.");
-        setJob((prev: any) => {
-          if (!prev) return prev;
-          return {
-            ...prev,
-            applications: prev.applications.map((app: any) => 
-              app.id === applicationId ? { ...app, status: "brand_accepted" } : app
-            )
-          };
-        });
+        alert("Application accepted! Booking created. Redirecting to tracker...");
+        router.push(`/brand/jobs/tracker/${id}`);
       } else {
         alert(data.error || "Failed to accept");
       }
@@ -146,19 +138,15 @@ export default function JobDetailsPage() {
                   {app.coverLetter && <p className="mt-1"><strong>Note:</strong> {app.coverLetter}</p>}
                 </div>
 
-                {app.status === "pending" ? (
+                {app.status === "pending" && job.status === "open" ? (
                   <button 
                     onClick={() => handleAccept(app.id)}
                     className="w-full mt-2 bg-[#EF4423] text-white font-bold py-2.5 rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:bg-[#d63f1c] transition-all flex items-center justify-center gap-2"
                   >
                     <CheckCircle className="w-4 h-4" />
-                    ACCEPT PARTNER
+                    ACCEPT & BOOK
                   </button>
-                ) : app.status === "brand_accepted" ? (
-                  <div className="w-full mt-2 py-2.5 bg-orange-50 text-orange-500 text-[12px] font-bold rounded-xl text-center border border-orange-100 uppercase tracking-wide">
-                    WAITING FOR PARTNER CONFIRMATION
-                  </div>
-                ) : app.status === "partner_confirmed" ? (
+                ) : app.status === "accepted" ? (
                   <button 
                     onClick={() => router.push(`/brand/jobs/tracker/${job.id}`)}
                     className="w-full mt-2 bg-[#1a1a2e] text-white font-bold py-2.5 rounded-xl shadow-[0_4px_12px_rgba(26,26,46,0.2)] hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
@@ -167,7 +155,7 @@ export default function JobDetailsPage() {
                   </button>
                 ) : (
                   <div className="w-full mt-2 py-2.5 bg-gray-50 text-gray-400 text-[12px] font-bold rounded-xl text-center border border-gray-100 uppercase tracking-wide">
-                    {app.status}
+                    {app.status === "rejected" ? "REJECTED" : "APPLIED"}
                   </div>
                 )}
               </div>
