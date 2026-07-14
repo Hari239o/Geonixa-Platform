@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     // Combine editor info into contentBrief
     const contentBrief = editorInstructions ? `${editorInstructions}${editorReference ? ' | Ref: ' + editorReference : ''}` : null;
 
-    const booking = await prisma.studioBooking.create({
+    const booking = await (prisma as any).studioBooking.create({
       data: {
         brandId,
         partnerId,
