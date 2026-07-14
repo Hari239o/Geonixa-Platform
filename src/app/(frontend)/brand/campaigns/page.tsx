@@ -18,38 +18,68 @@ export default function CampaignDashboardPage() {
   React.useEffect(() => {
     async function fetchCampaigns() {
       try {
-        const res = await fetch('/api/campaigns?role=brand')
-        const data = await res.json()
-        if (data.success && data.campaigns) {
-          setCampaigns(data.campaigns.map((c: any) => {
-             // Realistically compute status based on active requests or dates
-             let computedStatus = 'Pending';
-             const hasAcceptedRequests = c.requests?.some((r: any) => r.status === 'ACCEPTED' || r.status === 'brand_accepted_negotiation');
-             const hasPendingRequests = c.requests?.some((r: any) => r.status === 'PENDING' || r.status === 'applied');
-             
-             if (hasAcceptedRequests) {
-               computedStatus = 'Active';
-             } else if (hasPendingRequests) {
-               computedStatus = 'Pending';
-             } else if (c.visibility === 'Private' && c.campaignInvites?.length > 0) {
-               computedStatus = 'Invited';
-             } else {
-               computedStatus = 'Open';
-             }
+        const [res, jobsRes] = await Promise.all([
+          fetch('/api/campaigns?role=brand'),
+          fetch('/api/studios/jobs?role=brand')
+        ]);
+        
+        let allItems: any[] = [];
 
-             return {
-               id: c.id,
-               title: c.title,
-               subtitle: c.subtitle || `${c.visibility || 'Public'} Campaign`,
-               date: c.dateRange || 'TBD',
-               desc: c.description || 'No description provided.',
-               budget: c.budget || 'Open',
-               timeAgo: 'Just now',
-               status: computedStatus,
-               visibility: c.visibility || 'Public'
-             }
-          }))
+        if (res.ok) {
+          const data = await res.json()
+          if (data.success && data.campaigns) {
+            allItems = [...allItems, ...data.campaigns.map((c: any) => {
+               let computedStatus = 'Pending';
+               const hasAcceptedRequests = c.requests?.some((r: any) => r.status === 'ACCEPTED' || r.status === 'brand_accepted_negotiation');
+               const hasPendingRequests = c.requests?.some((r: any) => r.status === 'PENDING' || r.status === 'applied');
+               
+               if (hasAcceptedRequests) {
+                 computedStatus = 'Active';
+               } else if (hasPendingRequests) {
+                 computedStatus = 'Pending';
+               } else if (c.visibility === 'Private' && c.campaignInvites?.length > 0) {
+                 computedStatus = 'Invited';
+               } else {
+                 computedStatus = 'Open';
+               }
+
+               return {
+                 id: c.id,
+                 title: c.title,
+                 subtitle: c.subtitle || `${c.visibility || 'Public'} Campaign`,
+                 date: c.dateRange || 'TBD',
+                 desc: c.description || 'No description provided.',
+                 budget: c.budget || 'Open',
+                 timeAgo: 'Just now',
+                 status: computedStatus,
+                 visibility: c.visibility || 'Public',
+                 type: 'campaign'
+               }
+            })];
+          }
         }
+
+        if (jobsRes.ok) {
+          const jobsData = await jobsRes.json();
+          if (jobsData.success && jobsData.jobs) {
+            allItems = [...allItems, ...jobsData.jobs.map((j: any) => ({
+              id: j.id,
+              title: j.contentBrief ? j.contentBrief.substring(0, 30) + "..." : "Studio Job",
+              subtitle: j.partnerType,
+              date: `${j.date} | ${j.timeSlot}`,
+              desc: j.contentBrief || 'No description',
+              budget: j.location || 'Any',
+              timeAgo: new Date(j.createdAt).toLocaleDateString(),
+              status: j.status === 'open' && j.applications?.length > 0 ? 'Pending' : j.status === 'open' ? 'Open' : 'Active',
+              visibility: 'Studio Jobs',
+              type: 'studioJob',
+              applications: j.applications
+            }))]
+          }
+        }
+
+        setCampaigns(allItems);
+
       } catch (e) {
         console.error("Failed to fetch campaigns", e)
       } finally {
@@ -106,7 +136,7 @@ export default function CampaignDashboardPage() {
 
           {/* Tabs */}
           <div className="flex bg-gray-50 rounded-[14px] p-1">
-            {["Private", "Public"].map((tab) => (
+            {["Private", "Public", "Studio Jobs"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -137,7 +167,13 @@ export default function CampaignDashboardPage() {
             campaigns.filter(c => c.visibility === activeTab).map((camp) => (
               <div 
                 key={camp.id} 
-                onClick={() => router.push(`/brand/campaigns/${camp.id}`)}
+                onClick={() => {
+                  if (camp.type === 'studioJob') {
+                    router.push(`/brand/jobs/${camp.id}`);
+                  } else {
+                    router.push(`/brand/campaigns/${camp.id}`);
+                  }
+                }}
                 className="bg-white rounded-[20px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.02)] flex flex-col relative border border-gray-50/50 cursor-pointer hover:shadow-md transition-shadow"
               >
                 <span className="absolute top-5 right-5 text-gray-300 text-[10px] font-medium">{camp.timeAgo}</span>

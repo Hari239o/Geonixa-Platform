@@ -54,10 +54,10 @@ export default function StudiosPage() {
         if (data.success) {
           setPartners(data.partners);
         } else {
-          setPartners(mockPartners);
+          setPartners([]);
         }
       } catch (e) {
-        setPartners(mockPartners);
+        setPartners([]);
       } finally {
         setIsLoading(false);
       }
@@ -87,21 +87,22 @@ export default function StudiosPage() {
     async function fetchPartners() {
       setIsLoading(true);
       try {
-        const res = await fetch(`/api/studios/partners?type=${partnerType}`);
+        const isOnlineParam = bookingMode === "Instant" ? "&isOnline=true" : "";
+        const res = await fetch(`/api/studios/partners?type=${partnerType}${isOnlineParam}`);
         const data = await res.json();
         if (data.success) {
           setPartners(data.partners);
         } else {
-          setPartners(mockPartners);
+          setPartners([]);
         }
       } catch (e) {
-        setPartners(mockPartners);
+        setPartners([]);
       } finally {
         setIsLoading(false);
       }
     }
     fetchPartners();
-  }, [partnerType]);
+  }, [partnerType, bookingMode]);
 
   // Reset steps when changing main tabs
   useEffect(() => {
@@ -122,8 +123,34 @@ export default function StudiosPage() {
           alert("Please fill in all schedule details.");
           return;
         }
-        // Go straight to budget for schedule
-        setStep(3);
+        
+        setIsLoading(true);
+        try {
+          const res = await fetch("/api/studios/jobs", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              partnerType,
+              date: scheduleDate,
+              timeSlot: scheduleTime,
+              duration: scheduleHours,
+            })
+          });
+          const data = await res.json();
+          if (data.success) {
+            alert("Job posted successfully! Cameramen will apply to your job soon. Check 'My Posted Jobs' in your dashboard.");
+            // Reset form
+            setScheduleHours("");
+            setScheduleDate("");
+            setScheduleTime("");
+          } else {
+            alert("Failed to post job.");
+          }
+        } catch (e) {
+          alert("Error posting job.");
+        } finally {
+          setIsLoading(false);
+        }
         return;
       }
 
@@ -451,6 +478,7 @@ export default function StudiosPage() {
 
         {mainTab === "Partners" && (
           <>
+<<<<<<< HEAD
             {isUnavailable && step === 1 ? (
               <div className="flex flex-col items-center justify-center pt-20 pb-10 text-center">
                 <h2 className="text-xl font-bold mb-2">Unavailable</h2>
@@ -466,12 +494,13 @@ export default function StudiosPage() {
             ) : (
               <>
                 {step === 1 && renderList()}
+=======
+            {step === 1 && (partnerType === "Cameraman" && bookingMode === "Schedule" ? renderScheduleForm() : renderList())}
+>>>>>>> 7dce5079149686bcd37a13a0499025e36db3a07b
                 
-                {step === 2 && partnerType === "Editors" && renderEditorForm()}
+            {step === 2 && partnerType === "Editors" && renderEditorForm()}
                 
-                {step === 3 && renderBudgetForm()}
-              </>
-            )}
+            {step === 3 && renderBudgetForm()}
           </>
         )}
 
@@ -542,6 +571,7 @@ export default function StudiosPage() {
               )}
             </div>
 
+<<<<<<< HEAD
             <div className="mb-6">
               {bookingMode === "Instant" ? (
                 <div className="flex items-center gap-2 p-3 bg-[#E8F8EE] rounded-xl text-[#2ECC71] justify-center border border-[#2ECC71]/20">
@@ -600,6 +630,38 @@ export default function StudiosPage() {
               onClick={() => {
                 if (bookingMode === "Schedule" && !selectedSlot) {
                   alert("Please select a time slot");
+=======
+            {!(partnerType === "Cameraman" && bookingMode === "Instant") && (
+              <div className="mb-6">
+                <h4 className="text-[14px] font-bold text-gray-900 mb-3">Daily Available Slots</h4>
+                {(!selectedPartner.availableSlots || selectedPartner.availableSlots.length === 0) ? (
+                  <p className="text-sm text-gray-500">No slots available today.</p>
+                ) : (
+                  <div className="grid grid-cols-3 gap-2">
+                    {selectedPartner.availableSlots.map((slot: string) => (
+                      <button
+                        key={slot}
+                        onClick={() => setSelectedSlot(slot)}
+                        className={`py-2 px-2 text-[12px] font-bold rounded-xl border transition-all ${
+                          selectedSlot === slot
+                          ? "bg-[#FFF6F5] border-[#EF4423] text-[#EF4423]"
+                          : "border-gray-200 text-gray-600 hover:border-gray-300"
+                        }`}
+                      >
+                        {slot}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+            
+            <button 
+              onClick={() => {
+                const needsSlot = !(partnerType === "Cameraman" && bookingMode === "Instant");
+                if (needsSlot && !selectedSlot && selectedPartner.availableSlots?.length > 0) {
+                  alert("Please select a slot");
+>>>>>>> 7dce5079149686bcd37a13a0499025e36db3a07b
                   return;
                 }
                 setShowPartnerSheet(false);

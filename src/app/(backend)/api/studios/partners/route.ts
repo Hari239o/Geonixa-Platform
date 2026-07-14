@@ -8,13 +8,22 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const partnerType = searchParams.get("type") || "Cameraman";
 
-    const partners = await prisma.partnerProfile.findMany({
-      where: {
-        partnerType: {
-          equals: partnerType,
-          mode: 'insensitive',
-        },
+    const isOnlineStr = searchParams.get("isOnline");
+    const isOnline = isOnlineStr === "true";
+
+    const whereClause: any = {
+      partnerType: {
+        equals: partnerType,
+        mode: 'insensitive',
       },
+    };
+
+    if (isOnline) {
+      whereClause.isOnline = true;
+    }
+
+    const partners = await prisma.partnerProfile.findMany({
+      where: whereClause,
       select: {
         id: true,
         fullName: true,
@@ -27,20 +36,20 @@ export async function GET(request: Request) {
         hourlyRate: true,
         dailyRate: true,
         availableSlots: true,
+<<<<<<< HEAD
         isInstantAvailable: true,
         availableDays: true,
         availableDates: true,
+=======
+        isOnline: true,
+>>>>>>> 7dce5079149686bcd37a13a0499025e36db3a07b
       } as any,
     });
 
     if (partners.length === 0) {
-      // Return dummy data if DB is empty so the UI still looks like the design
       return NextResponse.json({
         success: true,
-        partners: [
-          { id: "mock-1", name: "Ravi Kumar", isVerified: true, rating: 4, reviews: 10, type: partnerType, image: "/placeholder-user.jpg" },
-          { id: "mock-2", name: "Aditya Singh", isVerified: true, rating: 4.5, reviews: 20, type: partnerType, image: "/placeholder-user.jpg" },
-        ]
+        partners: []
       });
     }
 
@@ -58,9 +67,13 @@ export async function GET(request: Request) {
         hourlyRate: p.hourlyRate,
         dailyRate: p.dailyRate,
         availableSlots: p.availableSlots || [],
+<<<<<<< HEAD
         isInstantAvailable: p.isInstantAvailable || false,
         availableDays: p.availableDays || {},
         availableDates: p.availableDates || {},
+=======
+        isOnline: p.isOnline || false,
+>>>>>>> 7dce5079149686bcd37a13a0499025e36db3a07b
       }))
     });
   } catch (error) {

@@ -168,6 +168,7 @@ export async function POST(req: Request) {
               hourlyRate: profileData.hourlyRate !== undefined ? profileData.hourlyRate : undefined,
               dailyRate: profileData.dailyRate !== undefined ? profileData.dailyRate : undefined,
               isVerified: profileData.isVerified !== undefined ? profileData.isVerified : undefined,
+              isOnline: profileData.isOnline !== undefined ? profileData.isOnline : undefined,
             },
             create: {
               userId: user.id,
@@ -188,6 +189,7 @@ export async function POST(req: Request) {
               hourlyRate: profileData.hourlyRate || null,
               dailyRate: profileData.dailyRate || null,
               isVerified: profileData.isVerified || false,
+              isOnline: profileData.isOnline || false,
             }
           } as any);
         } else {

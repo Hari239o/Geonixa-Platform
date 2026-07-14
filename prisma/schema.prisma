@@ -30,6 +30,7 @@ model User {
   unlockedProfiles UnlockedProfile[]
   notifications  Notification[]
   studioBookings StudioBooking[]
+  studioOpenJobs StudioOpenJob[]
   kalakaarBookingsAsBrand UserKalakaarBooking[] @relation("BrandKalakaarBooking")
   kalakaarBookingsAsKalakaar UserKalakaarBooking[] @relation("KalakaarUserBooking")
 }
@@ -241,12 +242,49 @@ model PartnerProfile {
   hourlyRate      String?
   dailyRate       String?
   availableSlots  String[] @default([])
+  isOnline        Boolean  @default(false)
   
   isInstantAvailable Boolean @default(false)
   availableDays      Json?   // e.g. {"monday": ["09:00", "10:00"], ...}
   availableDates     Json?   // e.g. {"2026-07-20": ["14:00", "15:00"], ...}
   
   bookings        StudioBooking[]
+  jobApplications StudioJobApplication[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model StudioOpenJob {
+  id              String   @id @default(uuid())
+  brandId         String
+  brand           User     @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  
+  partnerType     String   // "Cameraman", "Editors", etc
+  date            String
+  timeSlot        String
+  duration        String
+  location        String?
+  contentBrief    String?
+  status          String   @default("open") // "open", "filled", "cancelled"
+  
+  applications    StudioJobApplication[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model StudioJobApplication {
+  id              String   @id @default(uuid())
+  jobId           String
+  job             StudioOpenJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  
+  partnerId       String
+  partner         PartnerProfile @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  
+  status          String   @default("pending") // "pending", "accepted", "rejected"
+  quoteAmount     String?
+  coverLetter     String?
   
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

@@ -14,11 +14,14 @@ export default function PartnerDashboardPage() {
   const [displayName, setDisplayName] = useState("");
   const [profileImage, setProfileImage] = useState<string | null>(null);
   
-  const [activeTab, setActiveTab] = useState<"active" | "completed">("active");
+  const [activeTab, setActiveTab] = useState<"active" | "completed" | "jobBoard">("active");
   const [showVerificationModal, setShowVerificationModal] = useState(true);
 
   const [activeProjects, setActiveProjects] = useState<any[]>([]);
   const [completedProjects, setCompletedProjects] = useState<any[]>([]);
+  const [jobBoard, setJobBoard] = useState<any[]>([]);
+  const [isOnline, setIsOnline] = useState(false);
+  const [isOnlineLoading, setIsOnlineLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState({ projectsDone: 0, successRate: "0%" });
 
@@ -92,13 +95,76 @@ export default function PartnerDashboardPage() {
       }
     }
 
+    async function fetchJobs() {
+      try {
+        const res = await fetch('/api/studios/jobs?role=partner&partnerType=Cameraman');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.jobs) {
+            const formattedJobs = data.jobs.map((j: any) => ({
+              id: j.id,
+              title: j.contentBrief ? j.contentBrief.substring(0, 30) + "..." : "Open Job",
+              subtitle: j.brand?.name ? `${j.brand.name} Campaign` : "Brand Campaign",
+              dateRange: `${j.date} | ${j.timeSlot} (${j.duration})`,
+              description: j.contentBrief || "No specific instructions provided.",
+              budget: j.location || "Any Location",
+              status: j.status,
+              timeAgo: new Date(j.createdAt).toLocaleDateString()
+            }));
+            setJobBoard(formattedJobs);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch jobs", err);
+      }
+    }
+
     loadProfile();
     fetchBookings();
+    fetchJobs();
   }, []);
+
+  const handleToggleOnline = async () => {
+    setIsOnlineLoading(true);
+    try {
+      const res = await fetch('/api/user/complete-profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: 'partner', isOnline: !isOnline })
+      });
+      if (res.ok) {
+        setIsOnline(!isOnline);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsOnlineLoading(false);
+    }
+  };
+
+  const handleApplyToJob = async (jobId: string) => {
+    try {
+      const res = await fetch('/api/studios/jobs/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jobId })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("Applied to job successfully!");
+      } else {
+        alert(data.error || "Failed to apply");
+      }
+    } catch (e) {
+      alert("Error applying to job");
+    }
+  };
 
   const displayUserName = displayName || session?.user?.name || "Karthik";
 
-  const projectsToDisplay = activeTab === "active" ? activeProjects : completedProjects;
+  let projectsToDisplay = activeProjects;
+  if (activeTab === "completed") projectsToDisplay = completedProjects;
+  if (activeTab === "jobBoard") projectsToDisplay = jobBoard;
 
   return (
     <div className="w-full max-w-md mx-auto h-[100dvh] bg-[#F8F9FA] relative font-sans flex flex-col overflow-hidden">
@@ -191,18 +257,39 @@ export default function PartnerDashboardPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex bg-white rounded-full p-1 shadow-sm mb-6">
+        <div className="flex bg-white rounded-full p-1 shadow-sm mb-6 overflow-x-auto no-scrollbar">
           <button 
-            className={`flex-1 py-3 text-[13px] font-bold rounded-full transition-all duration-300 ${activeTab === 'active' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 py-3 px-4 text-[13px] font-bold rounded-full transition-all duration-300 whitespace-nowrap ${activeTab === 'active' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
             onClick={() => setActiveTab('active')}
           >
             Active
           </button>
           <button 
-            className={`flex-1 py-3 text-[13px] font-bold rounded-full transition-all duration-300 ${activeTab === 'completed' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 py-3 px-4 text-[13px] font-bold rounded-full transition-all duration-300 whitespace-nowrap ${activeTab === 'completed' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
             onClick={() => setActiveTab('completed')}
           >
             Completed
+          </button>
+          <button 
+            className={`flex-1 py-3 px-4 text-[13px] font-bold rounded-full transition-all duration-300 whitespace-nowrap ${activeTab === 'jobBoard' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
+            onClick={() => setActiveTab('jobBoard')}
+          >
+            Job Board
+          </button>
+        </div>
+
+        {/* Online Toggle */}
+        <div className="flex justify-between items-center bg-white rounded-[20px] p-4 mb-6 shadow-sm border border-gray-100">
+          <div>
+            <h3 className="text-[15px] font-bold text-gray-900">Available for Instant</h3>
+            <p className="text-[12px] text-gray-500">Toggle to appear in Instant Bookings</p>
+          </div>
+          <button 
+            onClick={handleToggleOnline}
+            disabled={isOnlineLoading}
+            className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors focus:outline-none ${isOnline ? 'bg-[#EF4423]' : 'bg-gray-200'}`}
+          >
+            <span className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${isOnline ? 'translate-x-6' : 'translate-x-1'}`} />
           </button>
         </div>
 
@@ -229,8 +316,8 @@ export default function PartnerDashboardPage() {
                   <p className="text-[11px] font-medium text-gray-400">- {project.subtitle}</p>
                 </div>
                 <div className="flex flex-col items-end shrink-0">
-                  <span className="text-[11px] font-medium text-gray-400 mb-0.5">Budget</span>
-                  <span className="text-[16px] font-extrabold text-[#EF4423] leading-none">₹{project.budget}</span>
+                  <span className="text-[11px] font-medium text-gray-400 mb-0.5">{activeTab === "jobBoard" ? "Location" : "Budget"}</span>
+                  <span className="text-[16px] font-extrabold text-[#EF4423] leading-none">{activeTab === "jobBoard" ? project.budget : `₹${project.budget}`}</span>
                 </div>
               </div>
               
@@ -243,13 +330,20 @@ export default function PartnerDashboardPage() {
               </p>
               
               {activeTab === "active" ? (
-                <div className="inline-block bg-[#EF4423] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg">
+                <div className="inline-block bg-[#EF4423] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg w-fit">
                   Active
                 </div>
-              ) : (
-                <div className="inline-block bg-[#2ECC71] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg">
+              ) : activeTab === "completed" ? (
+                <div className="inline-block bg-[#2ECC71] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg w-fit">
                   Completed
                 </div>
+              ) : (
+                <button 
+                  onClick={() => handleApplyToJob(project.id)}
+                  className="w-full bg-[#EF4423] text-white font-bold py-2 rounded-xl shadow-md hover:bg-[#d63f1c] transition-all"
+                >
+                  APPLY FOR THIS JOB
+                </button>
               )}
             </div>
             ))
