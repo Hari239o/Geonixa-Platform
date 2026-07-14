@@ -86,7 +86,8 @@ export default function StudiosPage() {
     async function fetchPartners() {
       setIsLoading(true);
       try {
-        const res = await fetch(`/api/studios/partners?type=${partnerType}`);
+        const isOnlineParam = bookingMode === "Instant" ? "&isOnline=true" : "";
+        const res = await fetch(`/api/studios/partners?type=${partnerType}${isOnlineParam}`);
         const data = await res.json();
         if (data.success) {
           setPartners(data.partners);
@@ -100,7 +101,7 @@ export default function StudiosPage() {
       }
     }
     fetchPartners();
-  }, [partnerType]);
+  }, [partnerType, bookingMode]);
 
   // Reset steps when changing main tabs
   useEffect(() => {
@@ -121,8 +122,34 @@ export default function StudiosPage() {
           alert("Please fill in all schedule details.");
           return;
         }
-        // Go straight to budget for schedule
-        setStep(3);
+        
+        setIsLoading(true);
+        try {
+          const res = await fetch("/api/studios/jobs", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              partnerType,
+              date: scheduleDate,
+              timeSlot: scheduleTime,
+              duration: scheduleHours,
+            })
+          });
+          const data = await res.json();
+          if (data.success) {
+            alert("Job posted successfully! Cameramen will apply to your job soon. Check 'My Posted Jobs' in your dashboard.");
+            // Reset form
+            setScheduleHours("");
+            setScheduleDate("");
+            setScheduleTime("");
+          } else {
+            alert("Failed to post job.");
+          }
+        } catch (e) {
+          alert("Error posting job.");
+        } finally {
+          setIsLoading(false);
+        }
         return;
       }
 

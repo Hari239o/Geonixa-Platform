@@ -8,13 +8,22 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const partnerType = searchParams.get("type") || "Cameraman";
 
-    const partners = await prisma.partnerProfile.findMany({
-      where: {
-        partnerType: {
-          equals: partnerType,
-          mode: 'insensitive',
-        },
+    const isOnlineStr = searchParams.get("isOnline");
+    const isOnline = isOnlineStr === "true";
+
+    const whereClause: any = {
+      partnerType: {
+        equals: partnerType,
+        mode: 'insensitive',
       },
+    };
+
+    if (isOnline) {
+      whereClause.isOnline = true;
+    }
+
+    const partners = await prisma.partnerProfile.findMany({
+      where: whereClause,
       select: {
         id: true,
         fullName: true,
@@ -27,6 +36,7 @@ export async function GET(request: Request) {
         hourlyRate: true,
         dailyRate: true,
         availableSlots: true,
+        isOnline: true,
       } as any,
     });
 
@@ -55,6 +65,7 @@ export async function GET(request: Request) {
         hourlyRate: p.hourlyRate,
         dailyRate: p.dailyRate,
         availableSlots: p.availableSlots || [],
+        isOnline: p.isOnline || false,
       }))
     });
   } catch (error) {

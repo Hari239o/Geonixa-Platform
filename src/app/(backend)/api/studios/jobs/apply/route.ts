@@ -1,0 +1,50 @@
+import { NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+export async function POST(request: Request) {
+  try {
+    const data = await request.json();
+    let { jobId, partnerId, quoteAmount, coverLetter } = data;
+
+    if (!partnerId) {
+      // For mock purposes if not authenticated
+      const partner = await prisma.partnerProfile.findFirst();
+      if (!partner) {
+        return NextResponse.json({ success: false, error: "No partner found to apply" }, { status: 400 });
+      }
+      partnerId = partner.id;
+    }
+
+    if (!jobId) {
+      return NextResponse.json({ success: false, error: "Job ID is required" }, { status: 400 });
+    }
+
+    // Check if already applied
+    const existing = await prisma.studioJobApplication.findFirst({
+      where: {
+        jobId,
+        partnerId,
+      }
+    });
+
+    if (existing) {
+      return NextResponse.json({ success: false, error: "Already applied to this job" }, { status: 400 });
+    }
+
+    const application = await prisma.studioJobApplication.create({
+      data: {
+        jobId,
+        partnerId,
+        quoteAmount: quoteAmount || "",
+        coverLetter: coverLetter || "",
+      }
+    });
+
+    return NextResponse.json({ success: true, application });
+  } catch (error: any) {
+    console.error("Error applying to job:", error);
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}
