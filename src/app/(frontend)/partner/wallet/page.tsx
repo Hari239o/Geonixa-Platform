@@ -85,118 +85,123 @@ export default function PartnerWalletPage() {
   ];
 
   return (
-    <div className="w-full max-w-md mx-auto h-full flex flex-col bg-[#F8F9FA] font-sans overflow-hidden">
-      <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 relative flex flex-col">
-        
-        {/* Header & Balance Card */}
-        <div className="bg-white rounded-b-[32px] px-6 pt-8 pb-10 shadow-sm relative z-10 shrink-0">
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-100 shadow-sm">
-                <img src={profile.profilePic} alt={profile.fullName} className="w-full h-full object-cover" />
-              </div>
-              <div className="flex flex-col">
-                <p className="text-[12px] text-gray-500 font-medium">Agency Wallet</p>
-                <h1 className="text-[16px] font-extrabold text-[#1a1a2e] tracking-tight truncate max-w-[150px]">
-                  {profile.fullName}
-                </h1>
-              </div>
-            </div>
-            
-            <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center border border-gray-100 cursor-pointer">
-              <Building2 className="w-5 h-5 text-gray-600" />
-            </div>
+    <div className="w-full max-w-md mx-auto h-full flex flex-col bg-white font-sans overflow-hidden">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden pb-32 relative flex flex-col">
+        {/* Header */}
+        <div className="px-4 sm:px-6 pt-4 pb-4 flex justify-between items-start shrink-0">
+          <div className="flex flex-col truncate pr-2">
+            <h1 className="text-[18px] font-extrabold text-[#1a1a2e] tracking-tight mb-1">
+              Hello {profile.fullName.split(' ')[0]},
+            </h1>
+            <p className="text-[13px] text-gray-400 font-medium mb-1">Your available balance</p>
           </div>
-
-          <div className="flex flex-col items-center mb-6">
-            <span className="text-[14px] text-gray-500 font-medium mb-1">Total Available Balance</span>
-            <span className="text-[36px] font-extrabold text-[#1a1a2e] tracking-tight">₹{balance.toLocaleString()}</span>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex gap-4 w-full">
-            <button 
-              onClick={() => router.push('/wallet/add-credits')}
-              className="flex-1 bg-white border-2 border-[#1a1a2e] text-[#1a1a2e] py-3.5 rounded-[16px] font-bold text-[14px] shadow-sm hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
-            >
-              <ArrowDownLeft className="w-4 h-4" /> Add Funds
-            </button>
-            <button 
-              onClick={() => router.push('/wallet/withdraw')}
-              className="flex-1 bg-[#1a1a2e] text-white py-3.5 rounded-[16px] font-bold text-[14px] shadow-sm hover:bg-[#2a2a3e] transition-colors flex items-center justify-center gap-2"
-            >
-              Withdraw <ArrowUpRight className="w-4 h-4" />
-            </button>
+          <div className="text-[28px] font-extrabold text-primary-red tracking-tight mt-1">
+            ₹{balance.toLocaleString()}
           </div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="px-5 mt-6 mb-8 shrink-0">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100 flex flex-col">
-              <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center mb-3">
-                <span className="text-[#EF4423] font-bold text-lg">₹</span>
-              </div>
-              <span className="text-[12px] text-gray-500 font-medium mb-1">Pending Clearance</span>
-              <span className="text-[20px] font-bold text-[#1a1a2e]">₹{pending.toLocaleString()}</span>
+        {/* Action Buttons */}
+        <div className="flex gap-4 px-4 sm:px-6 mb-6 shrink-0">
+          <button 
+            onClick={() => router.push('/partner/wallet/add-credits')}
+            className="flex-1 bg-[#2ECC71] text-white py-3 rounded-[12px] font-bold text-sm shadow-sm hover:opacity-90 transition-opacity"
+          >
+            Add Funds
+          </button>
+          <button 
+            onClick={() => router.push('/partner/wallet/withdraw')}
+            className="flex-1 bg-[#EF4423] text-white py-3 rounded-[12px] font-bold text-sm shadow-sm hover:opacity-90 transition-opacity"
+          >
+            Withdraw
+          </button>
+        </div>
+
+        {/* Stats Card */}
+        <div className="px-4 sm:px-6 mb-8 shrink-0">
+          <div className="bg-[#EF4423] rounded-[16px] p-4 flex justify-between items-center shadow-md relative overflow-hidden">
+            <div className="flex flex-col items-center flex-1 border-r border-white/20">
+              <span className="text-[18px] font-bold text-white mb-0.5">₹{pending.toLocaleString()}</span>
+              <span className="text-[11px] text-white/90 font-medium">Pending</span>
             </div>
-            <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100 flex flex-col">
-              <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center mb-3">
-                <ArrowDownLeft className="w-5 h-5 text-[#2ECC71]" />
-              </div>
-              <span className="text-[12px] text-gray-500 font-medium mb-1">Total Received</span>
-              <span className="text-[20px] font-bold text-[#1a1a2e]">₹{received.toLocaleString()}</span>
+            <div className="flex flex-col items-center flex-1 border-r border-white/20">
+              <span className="text-[18px] font-bold text-white mb-0.5">₹{received.toLocaleString()}</span>
+              <span className="text-[11px] text-white/90 font-medium">Received</span>
             </div>
+            <div className="flex flex-col items-center flex-1">
+              <span className="text-[18px] font-bold text-white mb-0.5">{credits.toLocaleString()}</span>
+              <span className="text-[11px] text-white/90 font-medium">Credit Coins</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Transactions Header */}
+        <div className="px-4 sm:px-6 flex justify-between items-center mb-6 relative shrink-0">
+          <h2 className="text-[15px] font-extrabold text-[#1a1a2e]">Transactions</h2>
+          <div className="relative">
+            <button 
+              className="text-gray-500 hover:text-primary-red transition-colors relative"
+              onClick={() => setFilterOpen(!filterOpen)}
+            >
+              <Filter className={`w-5 h-5 ${filterOpen ? 'text-primary-red' : ''}`} />
+            </button>
+            {filterOpen && (
+              <div className="absolute right-0 top-8 bg-white border border-[#EF4423] rounded-lg shadow-xl w-28 overflow-hidden z-20 flex flex-col p-1">
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4423]">Pending</button>
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4423]">Received</button>
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4423]">last month</button>
+                <button className="px-3 py-2 text-left text-[11px] font-medium text-gray-500 hover:bg-orange-50 hover:text-[#EF4423] border-t border-gray-100">Clear</button>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Transactions List */}
-        <div className="px-5 flex flex-col flex-1 bg-white rounded-t-[32px] pt-6 shadow-[0_-4px_20px_rgba(0,0,0,0.02)] min-h-[400px]">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-[18px] font-extrabold text-[#1a1a2e]">Recent Transactions</h2>
-            <div className="relative">
-              <button 
-                className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center hover:bg-gray-100 transition-colors"
-                onClick={() => setFilterOpen(!filterOpen)}
-              >
-                <Filter className={`w-4 h-4 ${filterOpen ? 'text-[#EF4423]' : 'text-gray-600'}`} />
-              </button>
-              {filterOpen && (
-                <div className="absolute right-0 top-10 bg-white border border-gray-100 rounded-xl shadow-xl w-36 overflow-hidden z-20 flex flex-col py-2">
-                  <button className="px-4 py-2 text-left text-[13px] font-medium text-gray-600 hover:bg-gray-50 hover:text-[#EF4423]">All</button>
-                  <button className="px-4 py-2 text-left text-[13px] font-medium text-gray-600 hover:bg-gray-50 hover:text-[#EF4423]">Received</button>
-                  <button className="px-4 py-2 text-left text-[13px] font-medium text-gray-600 hover:bg-gray-50 hover:text-[#EF4423]">Withdrawn</button>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            {transactions.map((tx) => (
-              <div key={tx.id} className="flex justify-between items-center group cursor-pointer">
-                <div className="flex items-center gap-4 min-w-0">
-                  <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0 bg-gray-100">
-                    <img src={tx.image} alt={tx.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                  <div className="flex flex-col min-w-0">
-                    <span className="text-[15px] font-bold text-[#1a1a2e] mb-0.5 truncate">{tx.name}</span>
-                    <span className="text-[11px] font-medium text-gray-400">{tx.date}</span>
-                  </div>
-                </div>
-                <div className="flex flex-col items-end shrink-0 pl-3">
-                  <span className={`text-[15px] font-bold tracking-tight ${
-                    tx.type === 'withdraw' ? 'text-[#1a1a2e]' : 'text-[#2ECC71]'
-                  }`}>{tx.amount}</span>
-                  <span className="text-[11px] font-medium text-gray-400 mt-0.5">{tx.status}</span>
+        <div className="px-4 sm:px-6 flex flex-col gap-6 flex-1">
+          {transactions.length > 0 ? transactions.map((tx) => (
+            <div key={tx.id} className="flex justify-between items-center">
+              <div className="flex items-center gap-3 min-w-0">
+                <Image src={tx.image} alt={tx.name} width={40} height={40} className="w-11 h-11 rounded-full object-cover shrink-0" />
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[14px] font-bold text-[#1a1a2e] mb-0.5 truncate pr-2">{tx.name}</span>
+                  <span className="text-[10px] font-medium text-gray-400 truncate">{tx.date}</span>
                 </div>
               </div>
-            ))}
-          </div>
+              <div className="flex flex-col items-end shrink-0">
+                <span className={`text-[14px] font-bold ${
+                  tx.type === 'withdraw' ? 'text-primary-red' : 
+                  tx.type === 'received' ? 'text-[#2ECC71]' : 
+                  'text-[#fbc02d]'
+                }`}>{tx.amount}</span>
+                {tx.status && (
+                  <span className="text-[10px] font-medium text-gray-400 mt-0.5">{tx.status}</span>
+                )}
+              </div>
+            </div>
+          )) : (
+            <div className="flex flex-col items-center justify-center pt-8 pb-10">
+              <span className="text-gray-400 font-medium text-sm">No transactions yet</span>
+            </div>
+          )}
         </div>
 
+        {/* Floating Banner */}
+        <div className="w-full px-5 z-30 shrink-0 mt-auto pb-4 pt-10">
+          <div className="w-full max-w-[335px] mx-auto bg-[#EF4423] rounded-[18px] p-4 flex items-center justify-between shadow-xl relative overflow-hidden">
+            <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-xl pointer-events-none"></div>
+            
+            <div className="relative z-10 flex flex-col pointer-events-none">
+              <span className="text-white/90 text-[11px] font-medium leading-none mb-1">Find More</span>
+              <span className="text-white text-xl font-bold leading-none tracking-tight">campaigns</span>
+            </div>
+            <button onClick={() => router.push('/partner/campaigns')} className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-6 py-2 rounded-xl text-sm font-bold shadow-sm transition-transform active:scale-95">
+              View
+            </button>
+          </div>
+        </div>
       </div>
 
-      <BottomNav />
+      <BottomNav profilePic={profile.profilePic} />
     </div>
   );
 }
