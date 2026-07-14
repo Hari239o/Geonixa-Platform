@@ -40,6 +40,37 @@ export async function POST(request: Request) {
       }
     });
 
+    // Send notifications to all partners of this type
+    const matchingPartners = await prisma.partnerProfile.findMany({
+      where: {
+        partnerType: {
+          equals: partnerType,
+          mode: "insensitive"
+        }
+      }
+    });
+
+    if (matchingPartners.length > 0) {
+      const brand = await prisma.user.findUnique({ where: { id: brandId }});
+      
+      const notifications = matchingPartners.map(p => ({
+        userId: p.userId,
+        title: "New Work Schedule Posted",
+        message: `${brand?.name || 'A brand'} is looking for a ${partnerType}. Check your Work Schedule tab to apply.`,
+        type: "job_alert",
+        actionUrl: "/partner/campaigns",
+        actionLabel: "View Job"
+      }));
+
+      try {
+        await (prisma as any).notification.createMany({
+          data: notifications
+        });
+      } catch (notifErr) {
+        console.error("Failed to create notifications:", notifErr);
+      }
+    }
+
     return NextResponse.json({ success: true, job });
   } catch (error: any) {
     console.error("Error creating open job:", error);
@@ -68,7 +99,7 @@ export async function GET(request: Request) {
         if (partnerProfile) {
           whereClause = {
             OR: [
-              { status: "open", ...(partnerType ? { partnerType } : {}) },
+              { status: "open", partnerType: partnerProfile.partnerType },
               {
                 applications: {
                   some: { partnerId: partnerProfile.id }

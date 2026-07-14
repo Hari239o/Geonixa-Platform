@@ -58,6 +58,26 @@ export async function POST(request: Request) {
       }
     });
 
+    // Notify the accepted partner
+    try {
+      const brand = await (prisma as any).user.findUnique({ where: { id: application.job.brandId } });
+      const partnerProfile = await (prisma as any).partnerProfile.findUnique({ where: { id: application.partnerId }});
+      if (partnerProfile) {
+        await (prisma as any).notification.create({
+          data: {
+            userId: partnerProfile.userId,
+            title: "Application Accepted!",
+            message: `${brand?.name || 'A brand'} accepted your application for the Work Schedule!`,
+            type: "job_alert",
+            actionUrl: "/partner/campaigns",
+            actionLabel: "View Details"
+          }
+        });
+      }
+    } catch (notifErr) {
+      console.error("Failed to notify partner:", notifErr);
+    }
+
     return NextResponse.json({ success: true, booking });
   } catch (error: any) {
     console.error("Error accepting job application:", error);
