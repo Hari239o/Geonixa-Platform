@@ -15,7 +15,9 @@ export default function PartnerSetupProfilePage() {
     bio: "",
     website: "",
     phone: "",
-    linkedin: "",
+    facebook: "",
+    instagram: "",
+    x: "",
   })
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,12 +151,36 @@ export default function PartnerSetupProfilePage() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-[#EF4423] uppercase tracking-wide">LinkedIn</label>
+              <label className="text-xs font-bold text-[#EF4423] uppercase tracking-wide">Facebook</label>
               <input 
                 type="url" 
-                name="linkedin"
-                placeholder="https://linkedin.com/..."
-                value={formData.linkedin}
+                name="facebook"
+                placeholder="https://facebook.com/..."
+                value={formData.facebook}
+                onChange={handleInputChange}
+                className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold text-[#EF4423] uppercase tracking-wide">Instagram</label>
+              <input 
+                type="url" 
+                name="instagram"
+                placeholder="https://instagram.com/..."
+                value={formData.instagram}
+                onChange={handleInputChange}
+                className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold text-[#EF4423] uppercase tracking-wide">X</label>
+              <input 
+                type="url" 
+                name="x"
+                placeholder="https://x.com/..."
+                value={formData.x}
                 onChange={handleInputChange}
                 className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
               />

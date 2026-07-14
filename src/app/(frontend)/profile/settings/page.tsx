@@ -17,6 +17,8 @@ export default function ProfileSettingsPage() {
   const [profilePic, setProfilePic] = useState<string>('');
   const [fullName, setFullName] = useState('');
   const [bio, setBio] = useState('');
+  const [website, setWebsite] = useState('');
+  const [phone, setPhone] = useState('');
   
   const [budgets, setBudgets] = useState<Budget[]>([
     { name: '1 Reel', price: '₹ xxx' },
@@ -39,6 +41,8 @@ export default function ProfileSettingsPage() {
             if (parsed.profilePic) setProfilePic(parsed.profilePic);
             if (parsed.fullName) setFullName(parsed.fullName);
             if (parsed.bio) setBio(parsed.bio);
+            if (parsed.website) setWebsite(parsed.website);
+            if (parsed.phone) setPhone(parsed.phone);
             if (parsed.socials) setSocials(parsed.socials);
             if (parsed.budgets && parsed.budgets.length > 0) setBudgets(parsed.budgets);
             if (parsed.portfolioImages) setPortfolioImages(parsed.portfolioImages);
@@ -106,6 +110,8 @@ export default function ProfileSettingsPage() {
           profilePic,
           fullName,
           bio,
+          website,
+          phone,
           budgets,
           socials,
           portfolioImages
@@ -217,6 +223,28 @@ export default function ProfileSettingsPage() {
               onChange={(e) => setBio(e.target.value)}
               rows={4}
               className="w-full bg-[#fcfcfd] border border-gray-100 rounded-2xl px-5 py-4 outline-none text-[13px] text-gray-500 font-medium placeholder-gray-400 resize-none leading-relaxed"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-[13px] text-gray-500 font-medium">Website</label>
+            <input 
+              type="text" 
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+              placeholder="www.portfolio.com"
+              className="w-full bg-[#fcfcfd] border border-gray-100 rounded-2xl px-5 py-4 outline-none text-[13px] text-gray-600 font-medium placeholder-gray-400"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-[13px] text-gray-500 font-medium">Phone</label>
+            <input 
+              type="text" 
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="000-000-0000"
+              className="w-full bg-[#fcfcfd] border border-gray-100 rounded-2xl px-5 py-4 outline-none text-[13px] text-gray-600 font-medium placeholder-gray-400"
             />
           </div>
 

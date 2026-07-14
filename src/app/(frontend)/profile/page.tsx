@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { BadgeCheck, Send, Settings2, Plus } from 'lucide-react';
 import { getItem, setItem } from '@/utils/storage';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { uploadFileToR2 } from '@/utils/upload';
 
 const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
@@ -42,6 +42,9 @@ interface UserProfile {
   engagement: string;
   projects: string;
   successRate: string;
+  website?: string;
+  phone?: string;
+  rating?: number;
   portfolioImages: string[];
   budgets: { name: string; price: string }[];
   isVerified?: boolean;
@@ -55,6 +58,8 @@ interface UserProfile {
 
 export default function ProfilePage() {
   const router = useRouter();
+  const { data: session } = useSession();
+  const role = (session?.user as any)?.role;
   const [activeTab, setActiveTab] = useState<'About' | 'Portfolio'>('About');
   const [showVerifyModal, setShowVerifyModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -113,6 +118,9 @@ export default function ProfilePage() {
                 engagement: data.profile.engagement || prev.engagement || '0',
                 projects: data.profile.projects || prev.projects || '0',
                 successRate: data.profile.successRate || prev.successRate || '0%',
+                website: data.profile.website || localProfile?.website || '',
+                phone: data.profile.phone || localProfile?.phone || '',
+                rating: data.profile.rating || localProfile?.rating || 4,
                 portfolioImages: (data.profile.portfolioImages && data.profile.portfolioImages.length > 0) ? data.profile.portfolioImages : prev.portfolioImages,
                 budgets: (data.profile.budgets && data.profile.budgets.length > 0) ? data.profile.budgets : prev.budgets,
                 isVerified: data.profile.isVerified || false,
@@ -254,20 +262,22 @@ export default function ProfilePage() {
         </div>
 
         {/* Stats */}
-        <div className="flex justify-between items-center mb-10 px-2">
-          <div className="flex flex-col items-center">
-            <span className="text-[20px] font-bold text-[#EF4423]">{profile.followers}</span>
-            <span className="text-[10px] text-gray-400 font-bold mt-1">Followers</span>
+        {role !== 'PARTNER' && (
+          <div className="flex justify-between items-center mb-10 px-2">
+            <div className="flex flex-col items-center">
+              <span className="text-[20px] font-bold text-[#EF4423]">{profile.followers}</span>
+              <span className="text-[10px] text-gray-400 font-bold mt-1">Followers</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="text-[20px] font-bold text-[#EF4423]">{profile.viewership}</span>
+              <span className="text-[10px] text-gray-400 font-bold mt-1">Avg Viewership</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="text-[20px] font-bold text-[#EF4423]">{profile.engagement}</span>
+              <span className="text-[10px] text-gray-400 font-bold mt-1">Avg Engagement</span>
+            </div>
           </div>
-          <div className="flex flex-col items-center">
-            <span className="text-[20px] font-bold text-[#EF4423]">{profile.viewership}</span>
-            <span className="text-[10px] text-gray-400 font-bold mt-1">Avg Viewership</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-[20px] font-bold text-[#EF4423]">{profile.engagement}</span>
-            <span className="text-[10px] text-gray-400 font-bold mt-1">Avg Engagement</span>
-          </div>
-        </div>
+        )}
 
         {/* Tabs */}
         <div className="flex gap-4 mb-8">
@@ -296,6 +306,20 @@ export default function ProfilePage() {
               </p>
             </div>
 
+            {/* Partner specific info */}
+            {role === 'PARTNER' && (
+              <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-[13px] font-bold text-gray-500">Website</span>
+                  <a href={profile.website?.startsWith('http') ? profile.website : `https://${profile.website}`} target="_blank" rel="noreferrer" className="text-[13px] text-gray-400 font-medium hover:text-[#EF4423] transition-colors">{profile.website || 'Not provided'}</a>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-[13px] font-bold text-gray-500">Phone</span>
+                  <span className="text-[13px] text-gray-400 font-medium">{profile.phone || 'Not provided'}</span>
+                </div>
+              </div>
+            )}
+
             {/* Success Rate Card */}
             <div className="bg-white rounded-[24px] px-6 py-5 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -308,33 +332,52 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* Budgets Card */}
-            <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
-              <h3 className="text-[14px] font-bold text-[#1a1a2e] mb-4">Budgets</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {profile.budgets.map((b, i) => (
-                  <div key={i} className="bg-gray-50 border border-gray-100 rounded-2xl p-4 flex flex-col items-center justify-center text-center">
-                    <span className="text-[12px] text-gray-500 font-medium mb-1.5">{b.name}</span>
-                    <span className="text-[15px] font-extrabold text-[#EF4423]">{b.price}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Badges Card */}
-            <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
-              <h3 className="text-[13px] font-bold text-gray-500 mb-4">Badges</h3>
-              <div className="flex gap-3">
-                {[1, 2, 3].map(i => (
-                  <div key={i} className="w-[34px] h-[34px] bg-[#EF4423] rounded-full flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent"></div>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+            {/* Partner Rating Card */}
+            {role === 'PARTNER' && (
+              <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
+                <h3 className="text-[13px] font-bold text-gray-500 mb-4">Rating</h3>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <svg key={star} width="20" height="20" viewBox="0 0 24 24" fill={star <= (profile.rating || 4) ? "#FBC02D" : "#E0E0E0"} xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                     </svg>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Creator specific cards */}
+            {role !== 'PARTNER' && (
+              <>
+                {/* Budgets Card */}
+                <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
+                  <h3 className="text-[14px] font-bold text-[#1a1a2e] mb-4">Budgets</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {profile.budgets.map((b, i) => (
+                      <div key={i} className="bg-gray-50 border border-gray-100 rounded-2xl p-4 flex flex-col items-center justify-center text-center">
+                        <span className="text-[12px] text-gray-500 font-medium mb-1.5">{b.name}</span>
+                        <span className="text-[15px] font-extrabold text-[#EF4423]">{b.price}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Badges Card */}
+                <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
+                  <h3 className="text-[13px] font-bold text-gray-500 mb-4">Badges</h3>
+                  <div className="flex gap-3">
+                    {[1, 2, 3].map(i => (
+                      <div key={i} className="w-[34px] h-[34px] bg-[#EF4423] rounded-full flex items-center justify-center relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent"></div>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                        </svg>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
 
             {/* On The Web */}
             <div className="bg-white rounded-[24px] p-6 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50">
