@@ -125,6 +125,7 @@ export default function StudiosPage() {
             setScheduleHours("");
             setScheduleDate("");
             setScheduleTime("");
+            router.push("/brand/profile?tab=jobs");
           } else {
             alert("Failed to post job.");
           }
@@ -472,7 +473,7 @@ export default function StudiosPage() {
               </div>
             ) : (
               <>
-                {step === 1 && renderList()}
+                {step === 1 && (partnerType === "Cameraman" && bookingMode === "Schedule" ? renderScheduleForm() : renderList())}
                 
             {step === 2 && partnerType === "Editors" && renderEditorForm()}
                 

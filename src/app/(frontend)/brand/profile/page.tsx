@@ -17,6 +17,16 @@ export default function BrandDashboardPage() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tabParam = urlParams.get('tab');
+      if (tabParam === 'jobs' || tabParam === 'portfolio' || tabParam === 'about') {
+        setActiveTab(tabParam);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     async function fetchProfile() {
       // First try local storage for instant load
       const saved = localStorage.getItem("kaling_brand_profile")
