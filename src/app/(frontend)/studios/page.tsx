@@ -59,6 +59,9 @@ export default function StudiosPage() {
   const [editorInstructions, setEditorInstructions] = useState("");
   const [editorReference, setEditorReference] = useState("");
 
+  // Data
+  const [jobs, setJobs] = useState<any[]>([]);
+
   // Mock data
   const mockPartners = [
     { id: "1", name: "Vikram Studio", isVerified: true, rating: 4, reviews: 10, type: "Cameraman", image: "/placeholder-user.jpg" },
@@ -68,6 +71,23 @@ export default function StudiosPage() {
   useEffect(() => {
     async function fetchPartners() {
       setIsLoading(true);
+      if (bookingMode === "Work Schedule") {
+        try {
+          const res = await fetch("/api/studios/jobs?role=brand");
+          const data = await res.json();
+          if (data.success && data.jobs) {
+            setJobs(data.jobs);
+          } else {
+            setJobs([]);
+          }
+        } catch (e) {
+          setJobs([]);
+        } finally {
+          setIsLoading(false);
+        }
+        return;
+      }
+
       try {
         const isInstantParam = bookingMode === "Instant" ? "&isInstantAvailable=true" : "";
         const res = await fetch(`/api/studios/partners?type=${partnerType}${isInstantParam}`);
@@ -215,6 +235,52 @@ export default function StudiosPage() {
   );
 
   const renderList = () => {
+    if (bookingMode === "Work Schedule") {
+      return (
+        <div className="flex flex-col gap-4 mt-4 pb-20">
+          {jobs.length === 0 ? (
+            <div className="bg-white rounded-[24px] p-8 shadow-sm flex flex-col items-center justify-center text-center">
+              <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+              </div>
+              <h3 className="text-[15px] font-bold text-gray-800 mb-1">No Jobs Posted</h3>
+              <p className="text-[13px] text-gray-500 font-medium">When you schedule a partner, it will appear here.</p>
+            </div>
+          ) : (
+            jobs.map(job => (
+              <div 
+                key={job.id} 
+                onClick={() => router.push(`/brand/jobs/${job.id}`)}
+                className="bg-white rounded-[24px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.04)] border border-gray-50 cursor-pointer hover:shadow-md transition-shadow flex flex-col gap-3"
+              >
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-[15px] font-bold text-gray-900">{job.partnerType}</h3>
+                    <p className="text-[12px] text-gray-500 font-medium mt-0.5">{job.date} • {job.timeSlot}</p>
+                  </div>
+                  <span className={`px-2.5 py-1 text-[10px] font-bold rounded-md ${
+                    job.status === 'open' ? 'bg-orange-50 text-orange-600' : 'bg-gray-100 text-gray-600'
+                  }`}>
+                    {job.status.toUpperCase()}
+                  </span>
+                </div>
+                <div className="h-px bg-gray-50 w-full"></div>
+                <div className="flex justify-between items-center">
+                  <span className="text-[13px] font-bold text-gray-700">Applicants</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[14px] font-extrabold text-[#EF4423]">
+                      {job.applications?.length || 0}
+                    </span>
+                    <ChevronLeft className="w-4 h-4 text-gray-400 rotate-180" />
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      );
+    }
+
     const filteredPartners = partners;
 
     if (filteredPartners.length === 0) {
@@ -433,10 +499,10 @@ export default function StudiosPage() {
               </div>
             )}
 
-            {/* Mode Tabs (Instant | Schedule) */}
+            {/* Mode Tabs (Instant | Schedule | Work Schedule) */}
             {mainTab === "Partners" && partnerType === "Cameraman" && (
               <div className="flex bg-white rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] p-1 border border-gray-50">
-                {["Instant", "Schedule"].map((tab) => (
+                {["Instant", "Schedule", "Work Schedule"].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setBookingMode(tab)}
@@ -468,7 +534,7 @@ export default function StudiosPage() {
       </div>
 
       {/* Action Button (Sticky to bottom above nav) */}
-      {(!(mainTab === "Our Experts")) && (
+      {(!(mainTab === "Our Experts") && bookingMode !== "Work Schedule") && (
         <div className="fixed bottom-[80px] left-0 w-full px-5 z-40">
           <div className="max-w-md mx-auto">
             <button 

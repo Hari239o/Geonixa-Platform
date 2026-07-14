@@ -274,7 +274,7 @@ export default function PartnerDashboardPage() {
             className={`flex-1 py-3 px-4 text-[13px] font-bold rounded-full transition-all duration-300 whitespace-nowrap ${activeTab === 'jobBoard' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
             onClick={() => setActiveTab('jobBoard')}
           >
-            Job Board
+            Work Schedule
           </button>
         </div>
 

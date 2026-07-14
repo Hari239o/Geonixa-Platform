@@ -18,10 +18,7 @@ export default function CampaignDashboardPage() {
   React.useEffect(() => {
     async function fetchCampaigns() {
       try {
-        const [res, jobsRes] = await Promise.all([
-          fetch('/api/campaigns?role=brand'),
-          fetch('/api/studios/jobs?role=brand')
-        ]);
+        const res = await fetch('/api/campaigns?role=brand');
         
         let allItems: any[] = [];
 
@@ -59,24 +56,6 @@ export default function CampaignDashboardPage() {
           }
         }
 
-        if (jobsRes.ok) {
-          const jobsData = await jobsRes.json();
-          if (jobsData.success && jobsData.jobs) {
-            allItems = [...allItems, ...jobsData.jobs.map((j: any) => ({
-              id: j.id,
-              title: j.contentBrief ? j.contentBrief.substring(0, 30) + "..." : "Studio Job",
-              subtitle: j.partnerType,
-              date: `${j.date} | ${j.timeSlot}`,
-              desc: j.contentBrief || 'No description',
-              budget: j.location || 'Any',
-              timeAgo: new Date(j.createdAt).toLocaleDateString(),
-              status: j.status === 'open' && j.applications?.length > 0 ? 'Pending' : j.status === 'open' ? 'Open' : 'Active',
-              visibility: 'Studio Jobs',
-              type: 'studioJob',
-              applications: j.applications
-            }))]
-          }
-        }
 
         setCampaigns(allItems);
 
@@ -136,7 +115,7 @@ export default function CampaignDashboardPage() {
 
           {/* Tabs */}
           <div className="flex bg-gray-50 rounded-[14px] p-1">
-            {["Private", "Public", "Studio Jobs"].map((tab) => (
+            {["Private", "Public"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
