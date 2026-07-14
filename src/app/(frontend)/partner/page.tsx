@@ -10,7 +10,8 @@ import { useSession } from "next-auth/react";
 export default function PartnerDashboardPage() {
   const router = useRouter();
   const { data: session } = useSession();
-  const userName = session?.user?.name || "Karthik";
+  const [displayName, setDisplayName] = useState("");
+  const [profileImage, setProfileImage] = useState<string | null>(null);
   
   const [activeTab, setActiveTab] = useState<"active" | "completed">("active");
   const [showVerificationModal, setShowVerificationModal] = useState(true);
@@ -79,12 +80,20 @@ export default function PartnerDashboardPage() {
           if (p.projects && p.successRate) {
             setStats({ projectsDone: parseInt(p.projects), successRate: p.successRate });
           }
+          if (p.fullName) {
+            setDisplayName(p.fullName);
+          }
+          if (p.profilePic) {
+            setProfileImage(p.profilePic);
+          }
         } catch (e) {}
       }
     }
 
     fetchBookings();
   }, []);
+
+  const displayUserName = displayName || session?.user?.name || "Karthik";
 
   const projectsToDisplay = activeTab === "active" ? activeProjects : completedProjects;
 
@@ -132,8 +141,12 @@ export default function PartnerDashboardPage() {
       <div className="bg-white px-6 pt-6 pb-4 flex justify-between items-center rounded-b-[24px] shadow-sm relative z-10">
         <div className="flex items-center gap-3">
           <div className="relative">
-            <div className="w-11 h-11 rounded-full bg-gray-200 overflow-hidden border border-gray-100">
-              <Image src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop" alt="Profile" width={44} height={44} className="w-full h-full object-cover" />
+            <div className="w-11 h-11 rounded-full bg-gray-200 overflow-hidden border border-gray-100 flex items-center justify-center">
+              {profileImage ? (
+                <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
+              ) : (
+                <span className="text-gray-500 font-bold text-lg">{displayUserName.charAt(0).toUpperCase()}</span>
+              )}
             </div>
             <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-0.5">
               <svg viewBox="0 0 24 24" className="w-4 h-4 text-[#EF4423]" fill="currentColor">
@@ -143,7 +156,7 @@ export default function PartnerDashboardPage() {
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
-              <h1 className="text-[17px] font-extrabold text-[#1a1a2e] leading-tight">Hello {userName.split(' ')[0]},</h1>
+              <h1 className="text-[17px] font-extrabold text-[#1a1a2e] leading-tight">Hello {displayUserName.split(' ')[0]},</h1>
             </div>
             <p className="text-[11px] text-gray-400 font-medium">Welcome to your dashboard</p>
           </div>
