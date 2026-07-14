@@ -462,27 +462,11 @@ export default function StudiosPage() {
 
         {mainTab === "Partners" && (
           <>
-            {isUnavailable && step === 1 ? (
-              <div className="flex flex-col items-center justify-center pt-20 pb-10 text-center">
-                <h2 className="text-xl font-bold mb-2">Unavailable</h2>
-                <p className="text-sm text-gray-500 mb-6">Call source or WhatsApp on</p>
-                <p className="text-2xl font-bold text-gray-800 mb-10 tracking-wider">+91 000 000 0000</p>
-                <button 
-                  onClick={() => window.location.href = "tel:+910000000000"}
-                  className="w-full bg-[#EF4423] text-white font-bold h-12 rounded-[14px]"
-                >
-                  CALL NOW
-                </button>
-              </div>
-            ) : (
-              <>
-                {step === 1 && (partnerType === "Cameraman" && bookingMode === "Schedule" ? renderScheduleForm() : renderList())}
+            {step === 1 && (partnerType === "Cameraman" && bookingMode === "Schedule" ? renderScheduleForm() : renderList())}
                 
-                {step === 2 && partnerType === "Editors" && renderEditorForm()}
+            {step === 2 && partnerType === "Editors" && renderEditorForm()}
                 
-                {step === 3 && renderBudgetForm()}
-              </>
-            )}
+            {step === 3 && renderBudgetForm()}
           </>
         )}
 
