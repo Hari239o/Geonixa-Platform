@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Bell, Camera, X } from "lucide-react";
 import BottomNav from "@/components/shared/BottomNav";
 import { useSession } from "next-auth/react";
+import { getItem } from "@/utils/storage";
 
 export default function PartnerDashboardPage() {
   const router = useRouter();
@@ -70,26 +71,28 @@ export default function PartnerDashboardPage() {
         setIsLoading(false);
       }
     }
-    
-    // Check if we have the profile stats cached from when we fixed the profile page
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('kaling_user_profile');
-      if (stored) {
+    async function loadProfile() {
+      if (typeof window !== 'undefined') {
         try {
-          const p = JSON.parse(stored);
-          if (p.projects && p.successRate) {
-            setStats({ projectsDone: parseInt(p.projects), successRate: p.successRate });
+          const p = await getItem<any>('kaling_user_profile');
+          if (p) {
+            if (p.projects && p.successRate) {
+              setStats({ projectsDone: parseInt(p.projects), successRate: p.successRate });
+            }
+            if (p.fullName) {
+              setDisplayName(p.fullName);
+            }
+            if (p.profilePic) {
+              setProfileImage(p.profilePic);
+            }
           }
-          if (p.fullName) {
-            setDisplayName(p.fullName);
-          }
-          if (p.profilePic) {
-            setProfileImage(p.profilePic);
-          }
-        } catch (e) {}
+        } catch (e) {
+          console.error("Failed to load profile", e);
+        }
       }
     }
 
+    loadProfile();
     fetchBookings();
   }, []);
 
