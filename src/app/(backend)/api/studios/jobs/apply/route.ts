@@ -30,7 +30,7 @@ export async function POST(request: Request) {
           }
         });
       }
-      partnerId = partner.id;
+      partnerId = partner!.id;
     }
 
     if (!jobId) {
