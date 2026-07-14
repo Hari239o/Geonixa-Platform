@@ -482,7 +482,8 @@ export default function StudiosPage() {
             )}
           </>
         )}
-
+          </>
+        )}
       </div>
 
       {/* Action Button (Sticky to bottom above nav) */}
