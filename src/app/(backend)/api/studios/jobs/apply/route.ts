@@ -17,7 +17,7 @@ export async function POST(request: Request) {
           mockUser = await prisma.user.create({
             data: {
               email: "mockpartner@example.com",
-              fullName: "Mock Partner",
+              name: "Mock Partner",
               role: "partner",
               password: "mock",
             }
@@ -27,6 +27,7 @@ export async function POST(request: Request) {
           data: {
             fullName: "Mock Partner",
             userId: mockUser.id,
+            partnerType: "Cameraman",
           }
         });
       }
