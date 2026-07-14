@@ -8,8 +8,8 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const partnerType = searchParams.get("type") || "Cameraman";
 
-    const isOnlineStr = searchParams.get("isOnline");
-    const isOnline = isOnlineStr === "true";
+    const isInstantStr = searchParams.get("isInstantAvailable");
+    const isInstant = isInstantStr === "true";
 
     const whereClause: any = {
       partnerType: {
@@ -18,8 +18,8 @@ export async function GET(request: Request) {
       },
     };
 
-    if (isOnline) {
-      whereClause.isOnline = true;
+    if (isInstant) {
+      whereClause.isInstantAvailable = true;
     }
 
     const partners = await prisma.partnerProfile.findMany({

@@ -69,8 +69,8 @@ export default function StudiosPage() {
     async function fetchPartners() {
       setIsLoading(true);
       try {
-        const isOnlineParam = bookingMode === "Instant" ? "&isOnline=true" : "";
-        const res = await fetch(`/api/studios/partners?type=${partnerType}${isOnlineParam}`);
+        const isInstantParam = bookingMode === "Instant" ? "&isInstantAvailable=true" : "";
+        const res = await fetch(`/api/studios/partners?type=${partnerType}${isInstantParam}`);
         const data = await res.json();
         if (data.success) {
           setPartners(data.partners);
