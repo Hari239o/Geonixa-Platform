@@ -31,6 +31,22 @@ export default function PartnerSchedulePage() {
     "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"
   ];
 
+  const getUpcomingDateForDay = (dayName: string) => {
+    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const targetDay = days.indexOf(dayName);
+    const today = new Date();
+    const todayDay = today.getDay();
+    let daysUntil = targetDay - todayDay;
+    if (daysUntil < 0) {
+      daysUntil += 7;
+    }
+    const targetDate = new Date(today);
+    targetDate.setDate(today.getDate() + daysUntil);
+    return targetDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  };
+
+  const [saveMessage, setSaveMessage] = useState({ text: '', type: '' });
+
   useEffect(() => {
     async function loadData() {
       try {
@@ -59,8 +75,9 @@ export default function PartnerSchedulePage() {
 
   const saveSchedule = async () => {
     setIsSaving(true);
+    setSaveMessage({ text: '', type: '' });
     try {
-      await fetch('/api/partner/schedule', {
+      const res = await fetch('/api/partner/schedule', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -69,11 +86,17 @@ export default function PartnerSchedulePage() {
           availableDates
         })
       });
-      // Could show a toast here
+      if (res.ok) {
+        setSaveMessage({ text: 'Schedule saved successfully!', type: 'success' });
+      } else {
+        setSaveMessage({ text: 'Database error. Please run npx prisma db push locally.', type: 'error' });
+      }
     } catch (e) {
       console.error(e);
+      setSaveMessage({ text: 'Failed to save schedule.', type: 'error' });
     } finally {
       setIsSaving(false);
+      setTimeout(() => setSaveMessage({ text: '', type: '' }), 5000);
     }
   };
 
@@ -204,7 +227,10 @@ export default function PartnerSchedulePage() {
                       <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${isActive ? 'bg-[#EF4423] border-[#EF4423]' : 'border-gray-300'}`}>
                         {isActive && <Check size={12} className="text-white" strokeWidth={3} />}
                       </div>
-                      <span className={`font-bold capitalize ${isActive ? 'text-gray-900' : 'text-gray-500'}`}>{day}</span>
+                      <div className="flex flex-col">
+                        <span className={`font-bold capitalize ${isActive ? 'text-gray-900' : 'text-gray-500'}`}>{day}</span>
+                        <span className="text-[11px] text-gray-400">{getUpcomingDateForDay(day)}</span>
+                      </div>
                     </div>
                     <div className="flex items-center gap-2">
                       {isActive && (
@@ -248,12 +274,15 @@ export default function PartnerSchedulePage() {
         {/* Specific Dates Content */}
         {activeTab === 'dates' && (
           <div className="flex flex-col gap-4">
-            <div className="flex gap-2">
+            <div className="flex gap-2 relative">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+                <Calendar size={18} />
+              </div>
               <input 
                 type="date" 
                 value={newDateInput}
                 onChange={(e) => setNewDateInput(e.target.value)}
-                className="flex-1 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#EF4423]/20 focus:border-[#EF4423]"
+                className="flex-1 border border-gray-200 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#EF4423]/20 focus:border-[#EF4423]"
                 min={new Date().toISOString().split('T')[0]}
               />
               <button 
@@ -340,11 +369,16 @@ export default function PartnerSchedulePage() {
       </div>
 
       {/* Save Button (Fixed at bottom above nav) */}
-      <div className="fixed bottom-[76px] left-1/2 -translate-x-1/2 w-full max-w-md px-5 z-20">
+      <div className="fixed bottom-[76px] left-1/2 -translate-x-1/2 w-full max-w-md px-5 z-20 flex flex-col items-center">
+        {saveMessage.text && (
+          <div className={`mb-3 px-4 py-2 rounded-lg text-sm font-bold shadow-lg animate-fade-in-up ${saveMessage.type === 'error' ? 'bg-red-500 text-white' : 'bg-[#2ECC71] text-white'}`}>
+            {saveMessage.text}
+          </div>
+        )}
         <button 
           onClick={saveSchedule}
           disabled={isSaving}
-          className="w-full bg-[#1a1a2e] text-white py-3.5 rounded-xl font-bold shadow-lg flex justify-center items-center gap-2 hover:bg-gray-900 active:scale-[0.98] transition-all"
+          className="w-full bg-[#1a1a2e] text-white py-3.5 rounded-xl font-bold shadow-lg flex justify-center items-center gap-2 hover:bg-gray-900 active:scale-[0.98] transition-all disabled:opacity-70"
         >
           {isSaving ? (
             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
