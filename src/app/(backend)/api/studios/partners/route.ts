@@ -36,13 +36,9 @@ export async function GET(request: Request) {
         hourlyRate: true,
         dailyRate: true,
         availableSlots: true,
-<<<<<<< HEAD
         isInstantAvailable: true,
         availableDays: true,
         availableDates: true,
-=======
-        isOnline: true,
->>>>>>> 7dce5079149686bcd37a13a0499025e36db3a07b
       } as any,
     });
 
@@ -67,13 +63,9 @@ export async function GET(request: Request) {
         hourlyRate: p.hourlyRate,
         dailyRate: p.dailyRate,
         availableSlots: p.availableSlots || [],
-<<<<<<< HEAD
         isInstantAvailable: p.isInstantAvailable || false,
         availableDays: p.availableDays || {},
         availableDates: p.availableDates || {},
-=======
-        isOnline: p.isOnline || false,
->>>>>>> 7dce5079149686bcd37a13a0499025e36db3a07b
       }))
     });
   } catch (error) {
