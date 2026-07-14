@@ -41,48 +41,11 @@ export default function PartnerWalletPage() {
   
   // Make it realistic by computing based on dummy data simulating real API logic
   const credits = (session?.user as any)?.credits || 0;
-  const balance = credits > 0 ? credits * 10 : 85400; // Realistic Agency Balance
-  const pending = 12500;
-  const received = 345000;
+  const balance = credits * 10;
+  const pending = 0;
+  const received = 0;
 
-  const transactions = [
-    {
-      id: 'tx-1',
-      name: 'Glow With Radiance Campaign',
-      date: '10 Sep 2025 • 02:45 PM',
-      amount: '+₹25,000',
-      type: 'received',
-      status: 'Completed',
-      image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=100&h=100&fit=crop'
-    },
-    {
-      id: 'tx-2',
-      name: 'Urban Style Walk Agency Fee',
-      date: '08 Sep 2025 • 11:20 AM',
-      amount: '+₹15,400',
-      type: 'received',
-      status: 'Completed',
-      image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=100&h=100&fit=crop'
-    },
-    {
-      id: 'tx-3',
-      name: 'Bank Transfer (Withdrawal)',
-      date: '05 Sep 2025 • 09:15 AM',
-      amount: '-₹50,000',
-      type: 'withdraw',
-      status: 'Processed',
-      image: 'https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?w=100&h=100&fit=crop' // Bank icon metaphor
-    },
-    {
-      id: 'tx-4',
-      name: 'Summer Vibes Commission',
-      date: '01 Sep 2025 • 04:30 PM',
-      amount: '+₹45,000',
-      type: 'received',
-      status: 'Completed',
-      image: 'https://images.unsplash.com/photo-1513346940221-6f673d962e97?w=100&h=100&fit=crop'
-    }
-  ];
+  const transactions: any[] = [];
 
   return (
     <div className="w-full max-w-md mx-auto h-full flex flex-col bg-white font-sans overflow-hidden">
