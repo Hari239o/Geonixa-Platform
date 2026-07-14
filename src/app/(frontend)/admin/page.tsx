@@ -59,7 +59,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Recent Activity */}
-        <div className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.02)] border border-gray-100/50 p-8">
+        <div className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.02)] border border-gray-100/50 p-6 lg:p-8">
           <h2 className="text-lg font-bold text-gray-900 mb-8">Recent Activity</h2>
           
           <div className="space-y-8">

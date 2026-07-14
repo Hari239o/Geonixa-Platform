@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { LayoutDashboard, Users, ShieldCheck, AlertTriangle, FileText, Megaphone, DollarSign, Search, Bell, Settings, Menu, X } from 'lucide-react'
+import BottomNav from '@/components/admin/BottomNav'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -121,6 +122,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {children}
         </main>
       </div>
+      
+      <BottomNav />
     </div>
   )
 }
