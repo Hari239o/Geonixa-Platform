@@ -23,11 +23,10 @@ export async function POST(request: Request) {
             }
           });
         }
-        partner = await prisma.partnerProfile.create({
+        partner = await (prisma as any).partnerProfile.create({
           data: {
-            fullName: "Mock Partner",
             userId: mockUser.id,
-            partnerType: "Cameraman",
+            partnerType: "General",
           }
         });
       }

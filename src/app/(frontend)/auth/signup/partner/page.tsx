@@ -120,7 +120,7 @@ export default function PartnerSignupFlow() {
     }
   };
 
-  const handleFinalSubmit = async (e: React.FormEvent) => {
+    const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const res = await fetch("/api/auth/register", {
@@ -129,6 +129,7 @@ export default function PartnerSignupFlow() {
         body: JSON.stringify({
           phone: "+91" + formData.phoneNumber.replace(/\D/g, ''),
           role: "partner",
+          partnerType: formData.role.trim(),
           name: formData.name.trim(),
           email: formData.email,
           password: formData.password,

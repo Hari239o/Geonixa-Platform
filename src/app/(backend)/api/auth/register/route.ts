@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 
 export async function POST(req: Request) {
   try {
-    const { phone, role, email, name, password } = await req.json();
+    const { phone, role, email, name, password, partnerType } = await req.json();
     
     if (!phone) {
       return NextResponse.json({ error: 'Phone number is required' }, { status: 400 });
@@ -34,6 +34,18 @@ export async function POST(req: Request) {
         ...(hashedPassword && { password: hashedPassword })
       }
     });
+
+    if (userRole === 'partner' && partnerType) {
+      await prisma.partnerProfile.upsert({
+        where: { userId: user.id },
+        update: { partnerType, fullName: name },
+        create: {
+          userId: user.id,
+          partnerType,
+          fullName: name || "",
+        }
+      });
+    }
 
     return NextResponse.json({ message: 'User registered successfully', user }, { status: 200 });
   } catch (error) {

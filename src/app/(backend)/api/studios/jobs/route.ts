@@ -99,7 +99,15 @@ export async function GET(request: Request) {
         if (partnerProfile) {
           whereClause = {
             OR: [
-              { status: "open", partnerType: partnerProfile.partnerType },
+              { 
+                status: "open", 
+                ...(partnerProfile.partnerType === "General" ? {} : {
+                  partnerType: {
+                    equals: partnerProfile.partnerType,
+                    mode: "insensitive"
+                  }
+                })
+              },
               {
                 applications: {
                   some: { partnerId: partnerProfile.id }
