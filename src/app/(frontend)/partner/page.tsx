@@ -14,12 +14,11 @@ export default function PartnerDashboardPage() {
   const [displayName, setDisplayName] = useState("");
   const [profileImage, setProfileImage] = useState<string | null>(null);
   
-  const [activeTab, setActiveTab] = useState<"active" | "completed" | "jobBoard">("active");
+  const [activeTab, setActiveTab] = useState<"active" | "completed">("active");
   const [showVerificationModal, setShowVerificationModal] = useState(true);
 
   const [activeProjects, setActiveProjects] = useState<any[]>([]);
   const [completedProjects, setCompletedProjects] = useState<any[]>([]);
-  const [jobBoard, setJobBoard] = useState<any[]>([]);
   const [isOnline, setIsOnline] = useState(false);
   const [isOnlineLoading, setIsOnlineLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -95,33 +94,8 @@ export default function PartnerDashboardPage() {
       }
     }
 
-    async function fetchJobs() {
-      try {
-        const res = await fetch('/api/studios/jobs?role=partner&partnerType=Cameraman');
-        if (res.ok) {
-          const data = await res.json();
-          if (data.jobs) {
-            const formattedJobs = data.jobs.map((j: any) => ({
-              id: j.id,
-              title: j.contentBrief ? j.contentBrief.substring(0, 30) + "..." : "Open Job",
-              subtitle: j.brand?.name ? `${j.brand.name} Campaign` : "Brand Campaign",
-              dateRange: `${j.date} | ${j.timeSlot} (${j.duration})`,
-              description: j.contentBrief || "No specific instructions provided.",
-              budget: j.location || "Any Location",
-              status: j.status,
-              timeAgo: new Date(j.createdAt).toLocaleDateString()
-            }));
-            setJobBoard(formattedJobs);
-          }
-        }
-      } catch (err) {
-        console.error("Failed to fetch jobs", err);
-      }
-    }
-
     loadProfile();
     fetchBookings();
-    fetchJobs();
   }, []);
 
   const handleToggleOnline = async () => {
@@ -142,29 +116,10 @@ export default function PartnerDashboardPage() {
     }
   };
 
-  const handleApplyToJob = async (jobId: string) => {
-    try {
-      const res = await fetch('/api/studios/jobs/apply', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ jobId })
-      });
-      const data = await res.json();
-      if (data.success) {
-        alert("Applied to job successfully!");
-      } else {
-        alert(data.error || "Failed to apply");
-      }
-    } catch (e) {
-      alert("Error applying to job");
-    }
-  };
-
   const displayUserName = displayName || session?.user?.name || "Karthik";
 
   let projectsToDisplay = activeProjects;
   if (activeTab === "completed") projectsToDisplay = completedProjects;
-  if (activeTab === "jobBoard") projectsToDisplay = jobBoard;
 
   return (
     <div className="w-full max-w-md mx-auto h-[100dvh] bg-[#F8F9FA] relative font-sans flex flex-col overflow-hidden">
@@ -231,12 +186,6 @@ export default function PartnerDashboardPage() {
             onClick={() => setActiveTab('completed')}
           >
             Completed
-          </button>
-          <button 
-            className={`flex-1 py-3 px-4 text-[13px] font-bold rounded-full transition-all duration-300 whitespace-nowrap ${activeTab === 'jobBoard' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
-            onClick={() => setActiveTab('jobBoard')}
-          >
-            Work Schedule
           </button>
         </div>
 

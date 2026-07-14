@@ -23,13 +23,14 @@ type Campaign = {
 
 export default function CampaignPage() {
  const router = useRouter();
- const [activeTab, setActiveTab] = useState<'Private' | 'Public'>('Private');
+ const [activeTab, setActiveTab] = useState<'Private' | 'Public' | 'Work Schedule'>('Private');
  const [negotiateModalOpen, setNegotiateModalOpen] = useState(false);
  const [negotiateAmount, setNegotiateAmount] = useState('');
  const [selectedCampaignId, setSelectedCampaignId] = useState<string | null>(null);
  const [profilePic, setProfilePic] = useState<string>('');
  const [actionLoading, setActionLoading] = useState<string | null>(null);
  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+ const [jobBoard, setJobBoard] = useState<any[]>([]);
 
  useEffect(() => {
    async function loadProfile() {
@@ -57,7 +58,33 @@ export default function CampaignPage() {
         console.error("Error fetching campaigns:", err);
       }
     }
+
+    async function fetchJobs() {
+      try {
+        const res = await fetch('/api/studios/jobs?role=partner');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.jobs) {
+            const formattedJobs = data.jobs.map((j: any) => ({
+              id: j.id,
+              title: j.contentBrief ? j.contentBrief.substring(0, 30) + "..." : "Open Job",
+              subtitle: j.brand?.name ? `${j.brand.name} Campaign` : "Brand Campaign",
+              dateRange: `${j.date} | ${j.timeSlot} (${j.duration})`,
+              description: j.contentBrief || "No specific instructions provided.",
+              budget: j.location || "Any Location",
+              status: j.status,
+              timeAgo: new Date(j.createdAt).toLocaleDateString()
+            }));
+            setJobBoard(formattedJobs);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch jobs", err);
+      }
+    }
+
     fetchCampaigns();
+    fetchJobs();
   }, []);
 
  const handleNegotiateClick = (e: React.MouseEvent, id: string) => {
@@ -131,7 +158,29 @@ export default function CampaignPage() {
    }
  };
 
- const filteredCampaigns = campaigns.filter(c => (c.visibility || 'Public') === activeTab);
+  const filteredCampaigns = campaigns.filter(c => (c.visibility || 'Public') === activeTab);
+
+  const handleApplyToJob = async (e: React.MouseEvent, jobId: string) => {
+    e.stopPropagation();
+    setActionLoading(jobId);
+    try {
+      const res = await fetch('/api/studios/jobs/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jobId })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("Applied to job successfully!");
+      } else {
+        alert(data.error || "Failed to apply");
+      }
+    } catch (err) {
+      alert("Error applying to job");
+    } finally {
+      setActionLoading(null);
+    }
+  };
 
  return (
  <div className="w-full max-w-md mx-auto h-full flex flex-col bg-[#fafbfc] font-sans overflow-hidden">
@@ -171,12 +220,63 @@ export default function CampaignPage() {
  >
  Public
  </button>
+ <button 
+ className={`flex-1 py-3 text-[14px] font-bold rounded-[16px] transition-all duration-300 ${activeTab === 'Work Schedule' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
+ onClick={() => setActiveTab('Work Schedule')}
+ >
+ Work Schedule
+ </button>
  </div>
  </div>
 
  {/* Campaign List */}
  <div className="px-4 sm:px-6 flex flex-col gap-5 flex-1 overflow-y-auto no-scrollbar pb-24 touch-pan-y">
- {filteredCampaigns.length === 0 ? (
+  {activeTab === 'Work Schedule' ? (
+    jobBoard.length === 0 ? (
+      <div className="text-center text-gray-400 py-10">No jobs available right now.</div>
+    ) : jobBoard.map((job) => (
+      <div 
+        key={job.id} 
+        className="bg-white rounded-[24px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.03)] cursor-pointer border border-gray-100"
+      >
+        <div className="flex justify-between items-start mb-4">
+          <div className="w-12 h-12 bg-[#f0f4ff] rounded-[14px] flex items-center justify-center shrink-0">
+            <div className="w-6 h-6 border-4 border-[#8ba4eb] rounded-sm transform rotate-45 border-t-transparent"></div>
+          </div>
+          <span className="text-[11px] font-medium text-gray-400 mt-1">{job.timeAgo || 'Just now'}</span>
+        </div>
+        
+        <div className="flex justify-between items-start mb-3">
+          <div className="flex flex-col pr-4">
+            <h3 className="text-base font-extrabold text-[#1a1a2e] mb-0.5 tracking-tight">{job.title}</h3>
+            <p className="text-[11px] font-medium text-gray-500 italic">{job.subtitle || 'Brand Campaign'}</p>
+          </div>
+          <div className="flex flex-col items-end shrink-0">
+            <span className="text-[10px] font-bold uppercase tracking-wide text-gray-400 mb-0.5">Location</span>
+            <span className="text-[16px] font-extrabold text-[#EF4423]">{job.budget || 'Any'}</span>
+          </div>
+        </div>
+
+        <div className="inline-block px-3 py-1.5 bg-[#fff7ed] text-[#ea580c] text-[11px] font-bold rounded-lg mb-4">
+          {job.dateRange || 'TBD'}
+        </div>
+
+        <p className="text-[13px] text-gray-500 leading-relaxed mb-6 line-clamp-2">
+          {job.description}
+        </p>
+
+        <div className="flex flex-wrap items-center gap-2" onClick={(e) => e.stopPropagation()}>
+          <button 
+            disabled={actionLoading === job.id}
+            className={`w-full py-3 bg-[#EF4423] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading === job.id ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
+            onClick={(e) => handleApplyToJob(e, job.id)}
+          >
+            {actionLoading === job.id ? 'Working...' : 'Apply for Job'}
+          </button>
+        </div>
+      </div>
+    ))
+  ) : filteredCampaigns.length === 0 ? (
     <div className="text-center text-gray-400 py-10">No {activeTab} campaigns found.</div>
  ) : filteredCampaigns.map((campaign) => (
  <div 
