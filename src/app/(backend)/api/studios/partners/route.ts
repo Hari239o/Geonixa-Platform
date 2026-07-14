@@ -27,7 +27,7 @@ export async function GET(request: Request) {
         hourlyRate: true,
         dailyRate: true,
         availableSlots: true,
-      },
+      } as any,
     });
 
     if (partners.length === 0) {
@@ -43,7 +43,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       success: true,
-      partners: partners.map((p) => ({
+      partners: partners.map((p: any) => ({
         id: p.id,
         name: p.fullName || "Partner",
         isVerified: p.isVerified,
