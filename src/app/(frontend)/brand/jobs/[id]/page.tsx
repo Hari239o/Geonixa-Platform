@@ -39,13 +39,39 @@ export default function JobDetailsPage() {
       });
       const data = await res.json();
       if (data.success) {
-        alert("Application accepted! Booking created. Redirecting to payment...");
-        router.push("/brand/wallet");
+        alert("Application accepted! Waiting for partner to confirm.");
+        setJob((prev: any) => {
+          if (!prev) return prev;
+          return {
+            ...prev,
+            applications: prev.applications.map((app: any) => 
+              app.id === applicationId ? { ...app, status: "brand_accepted" } : app
+            )
+          };
+        });
       } else {
         alert(data.error || "Failed to accept");
       }
     } catch (err) {
       alert("Error accepting application");
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!confirm("Are you sure you want to delete this work schedule?")) return;
+    try {
+      const res = await fetch(`/api/studios/jobs/${id}`, {
+        method: "DELETE"
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("Job deleted successfully");
+        router.back();
+      } else {
+        alert(data.error || "Failed to delete");
+      }
+    } catch (err) {
+      alert("Error deleting job");
     }
   };
 
@@ -59,14 +85,24 @@ export default function JobDetailsPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] flex flex-col font-sans">
-      <div className="bg-white px-5 pt-6 pb-4 flex items-center shadow-sm relative z-10 shrink-0">
-        <button onClick={() => router.back()} className="mr-3 text-gray-800">
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        <div>
-          <h1 className="text-[17px] font-extrabold text-[#1a1a2e] leading-tight">Job Applicants</h1>
-          <p className="text-[11px] text-gray-400 font-medium">{job.partnerType} • {job.date}</p>
+      <div className="bg-white px-5 pt-6 pb-4 flex items-center justify-between shadow-sm relative z-10 shrink-0">
+        <div className="flex items-center">
+          <button onClick={() => router.back()} className="mr-3 text-gray-800">
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <div>
+            <h1 className="text-[17px] font-extrabold text-[#1a1a2e] leading-tight">Job Applicants</h1>
+            <p className="text-[11px] text-gray-400 font-medium">{job.partnerType} • {job.date}</p>
+          </div>
         </div>
+        {job.status === "open" && (
+          <button 
+            onClick={handleDelete}
+            className="text-red-500 text-[12px] font-bold bg-red-50 px-3 py-1.5 rounded-lg border border-red-100"
+          >
+            DELETE
+          </button>
+        )}
       </div>
 
       <div className="p-5 flex-1 overflow-y-auto">
@@ -110,16 +146,28 @@ export default function JobDetailsPage() {
                   {app.coverLetter && <p className="mt-1"><strong>Note:</strong> {app.coverLetter}</p>}
                 </div>
 
-                {job.status === "open" && app.status !== "rejected" ? (
+                {app.status === "pending" ? (
                   <button 
                     onClick={() => handleAccept(app.id)}
-                    className="w-full mt-1 bg-[#EF4423] text-white font-bold py-2.5 rounded-xl shadow-md hover:bg-[#d63f1c] transition-all flex items-center justify-center gap-2"
+                    className="w-full mt-2 bg-[#EF4423] text-white font-bold py-2.5 rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] hover:bg-[#d63f1c] transition-all flex items-center justify-center gap-2"
                   >
-                    <CheckCircle className="w-4 h-4" /> ACCEPT & BOOK
+                    <CheckCircle className="w-4 h-4" />
+                    ACCEPT PARTNER
+                  </button>
+                ) : app.status === "brand_accepted" ? (
+                  <div className="w-full mt-2 py-2.5 bg-orange-50 text-orange-500 text-[12px] font-bold rounded-xl text-center border border-orange-100 uppercase tracking-wide">
+                    WAITING FOR PARTNER CONFIRMATION
+                  </div>
+                ) : app.status === "partner_confirmed" ? (
+                  <button 
+                    onClick={() => router.push(`/brand/jobs/tracker/${job.id}`)}
+                    className="w-full mt-2 bg-[#1a1a2e] text-white font-bold py-2.5 rounded-xl shadow-[0_4px_12px_rgba(26,26,46,0.2)] hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
+                  >
+                    VIEW TRACKER
                   </button>
                 ) : (
-                  <div className="w-full mt-1 text-center py-2.5 rounded-xl font-bold text-[13px] bg-gray-100 text-gray-500">
-                    {app.status === "accepted" ? "ACCEPTED" : "NOT ACCEPTED"}
+                  <div className="w-full mt-2 py-2.5 bg-gray-50 text-gray-400 text-[12px] font-bold rounded-xl text-center border border-gray-100 uppercase tracking-wide">
+                    {app.status}
                   </div>
                 )}
               </div>

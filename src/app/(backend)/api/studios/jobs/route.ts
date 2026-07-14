@@ -59,9 +59,30 @@ export async function GET(request: Request) {
     if (role === "brand") {
       if (userId) whereClause.brandId = userId;
     } else if (role === "partner") {
-      whereClause.status = "open";
-      if (partnerType) {
-        whereClause.partnerType = partnerType;
+      if (userId) {
+        // Find partner profile for this user
+        const partnerProfile = await prisma.partnerProfile.findUnique({
+          where: { userId }
+        });
+        
+        if (partnerProfile) {
+          whereClause = {
+            OR: [
+              { status: "open", ...(partnerType ? { partnerType } : {}) },
+              {
+                applications: {
+                  some: { partnerId: partnerProfile.id }
+                }
+              }
+            ]
+          };
+        } else {
+          whereClause.status = "open";
+          if (partnerType) whereClause.partnerType = partnerType;
+        }
+      } else {
+        whereClause.status = "open";
+        if (partnerType) whereClause.partnerType = partnerType;
       }
     }
 

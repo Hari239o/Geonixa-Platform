@@ -24,13 +24,7 @@ export async function POST(request: Request) {
     // Accept application
     await (prisma as any).studioJobApplication.update({
       where: { id: applicationId },
-      data: { status: "accepted" }
-    });
-
-    // Mark job as filled
-    await (prisma as any).studioOpenJob.update({
-      where: { id: application.jobId },
-      data: { status: "filled" }
+      data: { status: "brand_accepted" }
     });
 
     // Reject other applications
@@ -42,23 +36,7 @@ export async function POST(request: Request) {
       data: { status: "rejected" }
     });
 
-    // Create the actual StudioBooking
-    const booking = await (prisma as any).studioBooking.create({
-      data: {
-        brandId: application.job.brandId,
-        partnerId: application.partnerId,
-        bookingMode: "Schedule",
-        date: application.job.date,
-        timeSlot: application.job.timeSlot,
-        duration: application.job.duration,
-        location: application.job.location,
-        contentBrief: application.job.contentBrief,
-        quoteAmount: application.quoteAmount,
-        status: "pending_payment", // Waiting for brand to pay
-      }
-    });
-
-    return NextResponse.json({ success: true, booking });
+    return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error("Error accepting job application:", error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

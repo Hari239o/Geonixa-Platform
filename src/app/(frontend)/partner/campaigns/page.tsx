@@ -31,18 +31,22 @@ export default function CampaignPage() {
  const [actionLoading, setActionLoading] = useState<string | null>(null);
  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
  const [jobBoard, setJobBoard] = useState<any[]>([]);
+ const [userId, setUserId] = useState<string>('');
 
  useEffect(() => {
    async function loadProfile() {
-     if (typeof window !== 'undefined') {
-       const parsed = await getItem<any>('kaling_user_profile');
-       if (parsed && parsed.profilePic) {
-         setProfilePic(parsed.profilePic);
-       }
-     }
-   }
-   loadProfile();
- }, []);
+      if (typeof window !== 'undefined') {
+        const parsed = await getItem<any>('kaling_user_profile');
+        if (parsed && parsed.profilePic) {
+          setProfilePic(parsed.profilePic);
+        }
+        if (parsed && parsed.id) {
+          setUserId(parsed.id);
+        }
+      }
+    }
+    loadProfile();
+  }, []);
 
   useEffect(() => {
     async function fetchCampaigns() {
@@ -60,21 +64,26 @@ export default function CampaignPage() {
     }
 
     async function fetchJobs() {
+      if (!userId) return;
       try {
-        const res = await fetch('/api/studios/jobs?role=partner');
+        const res = await fetch(`/api/studios/jobs?role=partner&userId=${userId}`);
         if (res.ok) {
           const data = await res.json();
           if (data.jobs) {
-            const formattedJobs = data.jobs.map((j: any) => ({
-              id: j.id,
-              title: j.contentBrief ? j.contentBrief.substring(0, 30) + "..." : "Open Job",
-              subtitle: j.brand?.name ? `${j.brand.name} Campaign` : "Brand Campaign",
-              dateRange: `${j.date} | ${j.timeSlot} (${j.duration})`,
-              description: j.contentBrief || "No specific instructions provided.",
-              budget: j.location || "Any Location",
-              status: j.status,
-              timeAgo: new Date(j.createdAt).toLocaleDateString()
-            }));
+            const formattedJobs = data.jobs.map((j: any) => {
+              const myApp = j.applications?.find((app: any) => app.partner?.user?.id === userId || app.partner?.userId === userId);
+              return {
+                id: j.id,
+                title: j.contentBrief ? j.contentBrief.substring(0, 30) + "..." : "Open Job",
+                subtitle: j.brand?.name ? `${j.brand.name} Campaign` : "Brand Campaign",
+                dateRange: `${j.date} | ${j.timeSlot} (${j.duration})`,
+                description: j.contentBrief || "No specific instructions provided.",
+                budget: j.location || "Any Location",
+                status: myApp ? myApp.status : j.status,
+                applicationId: myApp?.id,
+                timeAgo: new Date(j.createdAt).toLocaleDateString()
+              };
+            });
             setJobBoard(formattedJobs);
           }
         }
@@ -84,8 +93,8 @@ export default function CampaignPage() {
     }
 
     fetchCampaigns();
-    fetchJobs();
-  }, []);
+    if (userId) fetchJobs();
+  }, [userId]);
 
  const handleNegotiateClick = (e: React.MouseEvent, id: string) => {
    e.stopPropagation();
@@ -172,11 +181,35 @@ export default function CampaignPage() {
       const data = await res.json();
       if (data.success) {
         alert("Applied to job successfully!");
+        setJobBoard(prev => prev.map(j => j.id === jobId ? { ...j, status: "pending" } : j));
       } else {
         alert(data.error || "Failed to apply");
       }
     } catch (err) {
       alert("Error applying to job");
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleConfirmJob = async (e: React.MouseEvent, applicationId: string, jobId: string) => {
+    e.stopPropagation();
+    setActionLoading(jobId);
+    try {
+      const res = await fetch('/api/studios/jobs/confirm', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ applicationId })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("Booking confirmed successfully!");
+        setJobBoard(prev => prev.map(j => j.id === jobId ? { ...j, status: "partner_confirmed" } : j));
+      } else {
+        alert(data.error || "Failed to confirm booking");
+      }
+    } catch (err) {
+      alert("Error confirming booking");
     } finally {
       setActionLoading(null);
     }
@@ -237,7 +270,7 @@ export default function CampaignPage() {
     ) : jobBoard.map((job) => (
       <div 
         key={job.id} 
-        className="bg-white rounded-[24px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.03)] cursor-pointer border border-gray-100"
+        className="bg-white rounded-[24px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-100"
       >
         <div className="flex justify-between items-start mb-4">
           <div className="w-12 h-12 bg-[#f0f4ff] rounded-[14px] flex items-center justify-center shrink-0">
@@ -266,13 +299,30 @@ export default function CampaignPage() {
         </p>
 
         <div className="flex flex-wrap items-center gap-2" onClick={(e) => e.stopPropagation()}>
-          <button 
-            disabled={actionLoading === job.id}
-            className={`w-full py-3 bg-[#EF4423] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading === job.id ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
-            onClick={(e) => handleApplyToJob(e, job.id)}
-          >
-            {actionLoading === job.id ? 'Working...' : 'Apply for Job'}
-          </button>
+          {job.status === "open" ? (
+            <button 
+              disabled={actionLoading === job.id}
+              className={`w-full py-3 bg-[#EF4423] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(239,72,35,0.2)] transition-colors ${actionLoading === job.id ? 'opacity-50' : 'hover:bg-[#d83e1c]'}`}
+              onClick={(e) => handleApplyToJob(e, job.id)}
+            >
+              {actionLoading === job.id ? 'Working...' : 'Apply for Job'}
+            </button>
+          ) : job.status === "brand_accepted" ? (
+            <button 
+              disabled={actionLoading === job.id}
+              className={`w-full py-3 bg-[#2ECC71] text-white text-[13px] font-bold rounded-xl shadow-[0_4px_12px_rgba(46,204,113,0.2)] transition-colors ${actionLoading === job.id ? 'opacity-50' : 'hover:bg-green-600'}`}
+              onClick={(e) => handleConfirmJob(e, job.applicationId, job.id)}
+            >
+              {actionLoading === job.id ? 'Working...' : 'Confirm Booking'}
+            </button>
+          ) : (
+            <div className={`w-full py-3 text-[13px] font-bold rounded-xl text-center border uppercase tracking-wide
+              ${job.status === "pending" ? "bg-orange-50 text-orange-500 border-orange-100" : 
+                job.status === "partner_confirmed" ? "bg-green-50 text-green-600 border-green-100" :
+                "bg-gray-50 text-gray-500 border-gray-100"}`}>
+              {job.status === "pending" ? "Applied" : job.status.replace("_", " ")}
+            </div>
+          )}
         </div>
       </div>
     ))
