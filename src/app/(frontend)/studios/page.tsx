@@ -78,8 +78,8 @@ export default function StudiosPage() {
 
   // Mock data
   const mockPartners = [
-    { id: "1", name: "Vikram Studio", isVerified: true, rating: 4, reviews: 10, type: "Cameraman", image: "/placeholder-user.jpg", availableSlots: ["10:00 AM", "01:00 PM", "04:00 PM"] },
-    { id: "2", name: "Kiran Edits", isVerified: true, rating: 5, reviews: 20, type: "Cameraman", image: "/placeholder-user.jpg", availableSlots: ["11:00 AM", "02:00 PM", "05:00 PM"] },
+    { id: "1", name: "Vikram Studio", isVerified: true, rating: 4, reviews: 10, type: "Cameraman", image: "/placeholder-user.jpg" },
+    { id: "2", name: "Kiran Edits", isVerified: true, rating: 5, reviews: 20, type: "Cameraman", image: "/placeholder-user.jpg" },
   ];
 
   useEffect(() => {
@@ -479,10 +479,10 @@ export default function StudiosPage() {
       {showPartnerSheet && selectedPartner && (
         <>
           <div 
-            className="fixed inset-0 bg-black/40 z-50 transition-opacity" 
+            className="fixed inset-0 bg-black/40 z-[100] transition-opacity" 
             onClick={() => setShowPartnerSheet(false)}
           />
-          <div className="fixed bottom-0 left-0 w-full bg-white rounded-t-[24px] z-50 p-6 shadow-xl transform transition-transform overflow-y-auto max-h-[85vh]">
+          <div className="fixed bottom-0 left-0 w-full bg-white rounded-t-[24px] z-[110] p-6 pb-10 shadow-xl transform transition-transform overflow-y-auto max-h-[85vh]">
             <button 
               onClick={() => setShowPartnerSheet(false)}
               className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 hover:text-black"
