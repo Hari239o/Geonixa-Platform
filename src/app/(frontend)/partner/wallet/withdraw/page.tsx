@@ -161,8 +161,8 @@ export default function WithdrawPage() {
 
       {/* Verify Account Modal */}
       {showVerifyModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white w-full max-w-[320px] rounded-[24px] p-6 relative shadow-2xl animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-white rounded-[24px] p-6 w-full max-w-[320px] relative shadow-2xl flex flex-col items-center animate-in zoom-in-95 duration-300">
             <button 
               onClick={() => setShowVerifyModal(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
@@ -171,21 +171,30 @@ export default function WithdrawPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-
-            <div className="flex flex-col items-center mt-2">
-              <BadgeCheck className="w-[42px] h-[42px] text-[#EF4423] fill-[#EF4423] text-white mb-3" />
-              <h2 className="text-[20px] font-black text-[#EF4423] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
-              <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
-                With Aadhar
-              </p>
-
-              <button 
-                className="w-full py-3.5 bg-[#EF4423] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
-                onClick={() => router.push('/kyc')}
-              >
-                VERIFY
-              </button>
+            
+            <div className="w-14 h-14 bg-[#EF4423]/10 rounded-full flex items-center justify-center mb-4 mt-2">
+              <svg viewBox="0 0 24 24" className="w-7 h-7 text-[#EF4423]" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
             </div>
+            
+            <h2 className="text-[#EF4423] text-lg font-black tracking-wide mb-1">VERIFY YOUR ACCOUNT</h2>
+            <div className="flex flex-col items-center mb-6">
+              <span className="text-[13px] text-gray-500 font-medium">Take A</span>
+              <span className="text-[13px] text-gray-500 font-medium">Live Selfie Video</span>
+            </div>
+            
+            <div className="w-full border-2 border-dashed border-[#EF4423]/40 rounded-[14px] py-4 flex items-center justify-center gap-2 text-[#EF4423] mb-6 cursor-pointer hover:bg-orange-50 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-camera"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+              <span className="font-bold text-sm">Camera</span>
+            </div>
+            
+            <button 
+              onClick={() => setShowVerifyModal(false)}
+              className="w-full bg-[#EF4423] text-white font-bold py-3.5 rounded-[12px] shadow-lg shadow-orange-500/30 hover:bg-[#d63f1c] hover:-translate-y-0.5 transition-all active:scale-[0.98]"
+            >
+              SUBMIT
+            </button>
           </div>
         </div>
       )}

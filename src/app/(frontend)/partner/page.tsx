@@ -168,44 +168,6 @@ export default function PartnerDashboardPage() {
 
   return (
     <div className="w-full max-w-md mx-auto h-[100dvh] bg-[#F8F9FA] relative font-sans flex flex-col overflow-hidden">
-      {/* Verification Modal */}
-      {showVerificationModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-white rounded-[24px] p-6 w-full max-w-[320px] relative shadow-2xl flex flex-col items-center animate-in zoom-in-95 duration-300">
-            <button 
-              onClick={() => setShowVerificationModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <X size={20} />
-            </button>
-            
-            <div className="w-14 h-14 bg-[#EF4423]/10 rounded-full flex items-center justify-center mb-4 mt-2">
-              <svg viewBox="0 0 24 24" className="w-7 h-7 text-[#EF4423]" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-            </div>
-            
-            <h2 className="text-[#EF4423] text-lg font-black tracking-wide mb-1">VERIFY YOUR ACCOUNT</h2>
-            <div className="flex flex-col items-center mb-6">
-              <span className="text-[13px] text-gray-500 font-medium">Take A</span>
-              <span className="text-[13px] text-gray-500 font-medium">Live Selfie Video</span>
-            </div>
-            
-            <div className="w-full border-2 border-dashed border-[#EF4423]/40 rounded-[14px] py-4 flex items-center justify-center gap-2 text-[#EF4423] mb-6 cursor-pointer hover:bg-orange-50 transition-colors">
-              <Camera size={20} strokeWidth={2.5} />
-              <span className="font-bold text-sm">Camera</span>
-            </div>
-            
-            <button 
-              onClick={() => setShowVerificationModal(false)}
-              className="w-full bg-[#EF4423] text-white font-bold py-3.5 rounded-[12px] shadow-lg shadow-orange-500/30 hover:bg-[#d63f1c] hover:-translate-y-0.5 transition-all active:scale-[0.98]"
-            >
-              SUBMIT
-            </button>
-          </div>
-        </div>
-      )}
-
       <div className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col pb-24">
         {/* Header */}
         <div className="bg-white px-6 pt-6 pb-4 flex justify-between items-center rounded-b-[24px] shadow-sm relative z-10 shrink-0">
