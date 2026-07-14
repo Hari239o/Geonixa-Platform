@@ -537,32 +537,35 @@ export default function StudiosPage() {
               )}
             </div>
 
-            <div className="mb-6">
-              <h4 className="text-[14px] font-bold text-gray-900 mb-3">Daily Available Slots</h4>
-              {(!selectedPartner.availableSlots || selectedPartner.availableSlots.length === 0) ? (
-                <p className="text-sm text-gray-500">No slots available today.</p>
-              ) : (
-                <div className="grid grid-cols-3 gap-2">
-                  {selectedPartner.availableSlots.map((slot: string) => (
-                    <button
-                      key={slot}
-                      onClick={() => setSelectedSlot(slot)}
-                      className={`py-2 px-2 text-[12px] font-bold rounded-xl border transition-all ${
-                        selectedSlot === slot
-                        ? "bg-[#FFF6F5] border-[#EF4423] text-[#EF4423]"
-                        : "border-gray-200 text-gray-600 hover:border-gray-300"
-                      }`}
-                    >
-                      {slot}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            {!(partnerType === "Cameraman" && bookingMode === "Instant") && (
+              <div className="mb-6">
+                <h4 className="text-[14px] font-bold text-gray-900 mb-3">Daily Available Slots</h4>
+                {(!selectedPartner.availableSlots || selectedPartner.availableSlots.length === 0) ? (
+                  <p className="text-sm text-gray-500">No slots available today.</p>
+                ) : (
+                  <div className="grid grid-cols-3 gap-2">
+                    {selectedPartner.availableSlots.map((slot: string) => (
+                      <button
+                        key={slot}
+                        onClick={() => setSelectedSlot(slot)}
+                        className={`py-2 px-2 text-[12px] font-bold rounded-xl border transition-all ${
+                          selectedSlot === slot
+                          ? "bg-[#FFF6F5] border-[#EF4423] text-[#EF4423]"
+                          : "border-gray-200 text-gray-600 hover:border-gray-300"
+                        }`}
+                      >
+                        {slot}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
             
             <button 
               onClick={() => {
-                if (!selectedSlot && selectedPartner.availableSlots?.length > 0) {
+                const needsSlot = !(partnerType === "Cameraman" && bookingMode === "Instant");
+                if (needsSlot && !selectedSlot && selectedPartner.availableSlots?.length > 0) {
                   alert("Please select a slot");
                   return;
                 }
