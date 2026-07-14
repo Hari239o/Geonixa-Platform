@@ -241,29 +241,7 @@ export default function BrandDashboardPage() {
                 </div>
               </div>
 
-              {/* Stats Block */}
-              <div className="bg-white rounded-[24px] p-6 shadow-sm flex items-center justify-between px-8">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl font-bold text-gray-900">17</span>
-                  <span className="text-xs text-gray-400 font-bold leading-tight">Projects<br/>Done</span>
-                </div>
-                <div className="w-px h-8 bg-gray-100"></div>
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl font-bold text-gray-900">92%</span>
-                  <span className="text-xs text-gray-400 font-bold leading-tight">Success<br/>Rate</span>
-                </div>
-              </div>
 
-              {/* Rating Block */}
-              <div className="bg-white rounded-[24px] p-6 shadow-sm">
-                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Rating</h3>
-                <div className="flex gap-1.5">
-                  {[1, 2, 3, 4].map(star => (
-                    <Star key={star} size={22} className="fill-[#FBBF24] text-[#FBBF24]" />
-                  ))}
-                  <Star size={22} className="fill-gray-200 text-gray-200" />
-                </div>
-              </div>
 
               {/* Social Block */}
               <div className="bg-white rounded-[24px] p-6 shadow-sm">
