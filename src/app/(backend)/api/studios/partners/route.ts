@@ -31,8 +31,8 @@ export async function GET(request: Request) {
       return NextResponse.json({
         success: true,
         partners: [
-          { id: "mock-1", name: "Lorem Ipsum", isVerified: true, rating: 4, reviews: 10, type: partnerType, image: "/placeholder-user.jpg" },
-          { id: "mock-2", name: "Lorem Ipsum", isVerified: true, rating: 4.5, reviews: 20, type: partnerType, image: "/placeholder-user.jpg" },
+          { id: "mock-1", name: "Ravi Kumar", isVerified: true, rating: 4, reviews: 10, type: partnerType, image: "/placeholder-user.jpg" },
+          { id: "mock-2", name: "Aditya Singh", isVerified: true, rating: 4.5, reviews: 20, type: partnerType, image: "/placeholder-user.jpg" },
         ]
       });
     }
@@ -41,7 +41,7 @@ export async function GET(request: Request) {
       success: true,
       partners: partners.map((p) => ({
         id: p.id,
-        name: p.fullName || "Lorem Ipsum",
+        name: p.fullName || "Partner",
         isVerified: p.isVerified,
         rating: p.rating,
         reviews: p.reviews,

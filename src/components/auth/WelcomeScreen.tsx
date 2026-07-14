@@ -17,7 +17,7 @@ export function WelcomeScreen() {
       <Logo large={true} showText={false} className="mb-10" />
       
       <p className="text-white text-center text-[12px] font-medium mb-10 leading-tight tracking-wide">
-        Lorem ipsum dolor sit amet, consectetur<br/>adipiscing elit, sed do eiusmod.
+        Welcome to Kalinq, the ultimate platform<br/>for creators and brands to collaborate.
       </p>
 
       <div className="flex flex-col w-full max-w-[240px] gap-3">

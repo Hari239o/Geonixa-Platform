@@ -61,7 +61,7 @@ export default function RequestDetailPage() {
                     <button><Bookmark className="w-[15px] h-[15px] text-gray-400 hover:text-gray-600" /></button>
                   </div>
                   <div className="flex items-center gap-1.5 mt-2">
-                    <h3 className="text-[20px] font-extrabold text-gray-700 leading-none">Lorem Ipsum</h3>
+                    <h3 className="text-[20px] font-extrabold text-gray-700 leading-none">Creator Name</h3>
                     <VerifiedBadge className="shrink-0 mt-0.5" />
                   </div>
                 </div>
@@ -103,7 +103,7 @@ export default function RequestDetailPage() {
             <div>
               <h4 className="text-gray-800 font-extrabold text-[13px] mb-2">Bio</h4>
               <p className="text-gray-400 text-[11px] leading-relaxed">
-                Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit. Tortor Turpis Sodales Nulla Velit. Nunc Cum Vitae, Rhoncus Leo Id. Volutpat Duis Tincunt Pretium Luctus Pulvinar Pretium.
+                This is the bio or description for this request.
               </p>
             </div>
 

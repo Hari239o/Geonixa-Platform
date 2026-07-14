@@ -215,7 +215,7 @@ export default function ExpertsPartnersPage() {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-1.5 mb-1">
-                        <h3 className="text-[16px] font-extrabold text-gray-700">Lorem Ipsum</h3>
+                        <h3 className="text-[16px] font-extrabold text-gray-700">Expert Name</h3>
                         <VerifiedBadge />
                       </div>
                       <div className="flex gap-1">

@@ -75,8 +75,8 @@ export default function StudiosPage() {
 
   // Mock data
   const mockPartners = [
-    { id: "1", name: "Lorem Ipsum", isVerified: true, rating: 4, reviews: 10, type: "Cameraman", image: "/placeholder-user.jpg" },
-    { id: "2", name: "Lorem Ipsum", isVerified: true, rating: 5, reviews: 20, type: "Cameraman", image: "/placeholder-user.jpg" },
+    { id: "1", name: "Vikram Studio", isVerified: true, rating: 4, reviews: 10, type: "Cameraman", image: "/placeholder-user.jpg" },
+    { id: "2", name: "Kiran Edits", isVerified: true, rating: 5, reviews: 20, type: "Cameraman", image: "/placeholder-user.jpg" },
   ];
 
   useEffect(() => {

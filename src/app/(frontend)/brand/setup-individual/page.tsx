@@ -150,7 +150,7 @@ export default function BrandIndividualSetupPage() {
             <input 
               type="text" 
               name="fullName"
-              placeholder="Lorem ipsum"
+              placeholder="Your Name"
               value={formData.fullName}
               onChange={handleInputChange}
               className="w-full p-4 bg-gray-50/50 border border-transparent rounded-2xl text-sm font-medium outline-none transition-all focus:bg-white focus:border-[#EF4423] focus:ring-4 focus:ring-orange-50 placeholder:text-gray-400"
@@ -161,7 +161,7 @@ export default function BrandIndividualSetupPage() {
             <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Bio</label>
             <textarea 
               name="bio"
-              placeholder="Lorem ipsum dolor sit amet..."
+              placeholder="Tell us about yourself..."
               rows={4}
               value={formData.bio}
               onChange={handleInputChange}

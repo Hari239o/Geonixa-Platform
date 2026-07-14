@@ -35,7 +35,7 @@ export default function BrandWalletPage() {
         <div className="pt-5 px-5 pb-6 shrink-0 z-20 bg-white">
           <div className="flex justify-between items-start mb-6">
             <div className="flex flex-col">
-              <h1 className="text-gray-800 font-extrabold text-[18px]">Hello {session?.user?.name?.split(' ')[0] || 'Lorem'},</h1>
+              <h1 className="text-gray-800 font-extrabold text-[18px]">Hello {session?.user?.name?.split(' ')[0] || 'Brand'},</h1>
               <p className="text-gray-400 text-[13px] font-medium mb-0.5">Your available balance</p>
             </div>
             <div className="text-[#EF4423] font-extrabold text-[32px] tracking-tight leading-none mt-1">

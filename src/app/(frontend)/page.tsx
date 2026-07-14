@@ -66,7 +66,7 @@ export default function WelcomeAndSplashScreen() {
  />
  
  <p className="text-white mt-6 font-medium text-[13px] leading-relaxed tracking-wide text-center max-w-[280px]">
- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+          Welcome to Kalinq, the ultimate platform for creators and brands to collaborate and grow together.
  </p>
  </motion.div>
 

@@ -21,7 +21,6 @@ export default function BrandHomeFeedPage() {
   const [activeTab, setActiveTab] = useState("All")
   const [tabs, setTabs] = useState(["All", "UGC", "Influencer", "Partners"])
   const [isVerified, setIsVerified] = useState(false)
-  const [showVerifyModal, setShowVerifyModal] = useState(false)
   
   // Wallet Unlock States
   const [selectedCreator, setSelectedCreator] = useState<any | null>(null)
@@ -412,37 +411,6 @@ export default function BrandHomeFeedPage() {
                   Permanent Unlock (-50 Credits)
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Verify Account Modal */}
-      {showVerifyModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white w-full max-w-[320px] rounded-[24px] p-6 relative shadow-2xl animate-in fade-in zoom-in duration-200">
-            <button 
-              onClick={() => setShowVerifyModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            <div className="flex flex-col items-center mt-2">
-              <BadgeCheck className="w-[42px] h-[42px] text-[#EF4423] fill-[#EF4423] text-white mb-3" />
-              <h2 className="text-[20px] font-black text-[#EF4423] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
-              <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
-                With Aadhar
-              </p>
-
-              <button 
-                className="w-full py-3.5 bg-[#EF4423] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
-                onClick={() => router.push('/kyc')}
-              >
-                VERIFY
-              </button>
             </div>
           </div>
         </div>

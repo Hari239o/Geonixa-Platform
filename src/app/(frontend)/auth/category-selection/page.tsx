@@ -106,7 +106,7 @@ export default function RegisterPage() {
               
               <h3 className="text-white text-[24px] sm:text-[28px] lg:text-3xl font-black relative z-10 leading-none mb-0.5">Join</h3>
               <p className="text-button-yellow text-[10px] sm:text-[11px] font-bold uppercase tracking-widest relative z-10 mb-0.5">as a</p>
-              <p className="text-button-yellow text-[12px] sm:text-[14px] lg:text-[15px] font-black relative z-10 leading-tight text-center mt-0.5">Partners /<br/>Agency</p>
+              <p className="text-button-yellow text-[12px] sm:text-[14px] lg:text-[15px] font-black relative z-10 leading-tight text-center mt-0.5">Studios</p>
             </div>
 
           </div>

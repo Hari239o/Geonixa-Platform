@@ -13,7 +13,6 @@ export default function BrandCompanyDashboardPage() {
   const [activeTab, setActiveTab] = useState<'about' | 'portfolio'>('about')
   const [profileData, setProfileData] = useState<any>(null)
   const [portfolioImages, setPortfolioImages] = useState<string[]>([])
-  const [showVerifyModal, setShowVerifyModal] = useState(false)
   const [showSuccessPopup, setShowSuccessPopup] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -50,17 +49,11 @@ export default function BrandCompanyDashboardPage() {
       }
     }
     fetchProfile()
-
-    // Listen for custom event from BottomNav to show verification modal
-    const handleShowVerify = () => setShowVerifyModal(true)
-    window.addEventListener("showVerifyModal", handleShowVerify)
     
     const savedImages = localStorage.getItem("kaling_company_portfolio")
     if (savedImages) {
       setPortfolioImages(JSON.parse(savedImages))
     }
-    
-    return () => window.removeEventListener("showVerifyModal", handleShowVerify)
   }, [])
   const handleShare = async () => {
     try {
@@ -397,53 +390,6 @@ export default function BrandCompanyDashboardPage() {
       </div>
       
       <BottomNav />
-
-      {/* Verify Account Modal */}
-      {showVerifyModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white w-full max-w-[320px] rounded-[24px] p-6 relative shadow-2xl animate-in fade-in zoom-in duration-200">
-            <button 
-              onClick={() => setShowVerifyModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            <div className="flex flex-col items-center mt-2">
-              <div className="w-[42px] h-[42px] mb-3">
-                <svg viewBox="0 0 24 24" fill="#EF4423" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
-                  <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
-                  <path d="m9 12 2 2 4-4" />
-                </svg>
-              </div>
-              <h2 className="text-[20px] font-black text-[#EF4423] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
-              <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
-                With Aadhar
-              </p>
-
-              <button 
-                onClick={() => router.push('/kyc')}
-                className="w-full py-3.5 border-2 border-dashed border-[#EF4423]/40 rounded-[14px] flex items-center justify-center gap-3 mb-6 hover:bg-[#EF4423]/5 transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#EF4423]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-                <span className="text-[#1a1a2e] font-semibold text-[14px]">Camera</span>
-              </button>
-
-              <button 
-                className="w-full py-3.5 bg-[#EF4423] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
-                onClick={() => router.push('/kyc')}
-              >
-                VERIFY
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Success Verification Popup */}
       {showSuccessPopup && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">

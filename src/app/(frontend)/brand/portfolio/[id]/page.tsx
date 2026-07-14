@@ -56,7 +56,6 @@ interface UserProfile {
 export default function CreatorPortfolioPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'About' | 'Portfolio'>('About');
-  const [showVerifyModal, setShowVerifyModal] = useState(false);
   const [profile, setProfile] = useState<UserProfile>({
     fullName: '',
     bio: '',

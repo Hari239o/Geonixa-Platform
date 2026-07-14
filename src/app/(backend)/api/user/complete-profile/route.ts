@@ -189,7 +189,7 @@ export async function POST(req: Request) {
               dailyRate: profileData.dailyRate || null,
               isVerified: profileData.isVerified || false,
             }
-          });
+          } as any);
         } else {
           // Build tags array
           let tags: string[] = [];

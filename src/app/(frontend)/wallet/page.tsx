@@ -11,7 +11,7 @@ export default function WalletPage() {
  const router = useRouter();
  const [filterOpen, setFilterOpen] = useState(false);
  const [profile, setProfile] = useState({
- fullName: 'Lorem Ipsum',
+ fullName: 'User',
  profilePic: ''
  });
 
@@ -21,7 +21,7 @@ export default function WalletPage() {
         const parsed = await getItem<any>('kaling_user_profile');
         if (parsed) {
           setProfile({
-            fullName: parsed.fullName || 'Lorem Ipsum',
+            fullName: parsed.fullName || 'User',
             profilePic: parsed.profilePic || ''
           });
         }
