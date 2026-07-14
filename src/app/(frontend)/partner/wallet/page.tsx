@@ -5,32 +5,35 @@ import Image from 'next/image';
 import { Filter, ArrowUpRight, ArrowDownLeft, Building2 } from 'lucide-react';
 import BottomNav from '@/components/shared/BottomNav';
 import { useSession } from 'next-auth/react';
+import { getItem } from '@/utils/storage';
 
 export default function PartnerWalletPage() {
  const router = useRouter();
  const [filterOpen, setFilterOpen] = useState(false);
  const [profile, setProfile] = useState({
-   fullName: 'Partner Agency',
-   profilePic: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=200&fit=crop'
+   fullName: '',
+   profilePic: ''
  });
 
  useEffect(() => {
     async function loadProfile() {
       if (typeof window !== 'undefined') {
-        const saved = localStorage.getItem('kaling_partner_profile');
-        if (saved) {
-          try {
-            const parsed = JSON.parse(saved);
+        try {
+          const parsed = await getItem<any>('kaling_user_profile');
+          if (parsed) {
             if (parsed.fullName) setProfile(prev => ({ ...prev, fullName: parsed.fullName }));
             if (parsed.profilePic) setProfile(prev => ({ ...prev, profilePic: parsed.profilePic }));
-          } catch(e) {}
-        } else {
-           fetch('/api/user/complete-profile').then(res => res.json()).then(data => {
-             if (data.profile) {
-               if (data.profile.fullName) setProfile(prev => ({ ...prev, fullName: data.profile.fullName }));
-               if (data.profile.profilePic) setProfile(prev => ({ ...prev, profilePic: data.profile.profilePic }));
-             }
-           }).catch(console.error);
+          } else {
+             // Fallback if IndexedDB is empty
+             fetch('/api/user/complete-profile').then(res => res.json()).then(data => {
+               if (data.profile) {
+                 if (data.profile.fullName) setProfile(prev => ({ ...prev, fullName: data.profile.fullName }));
+                 if (data.profile.profilePic) setProfile(prev => ({ ...prev, profilePic: data.profile.profilePic }));
+               }
+             }).catch(console.error);
+          }
+        } catch(e) {
+          console.error("Failed to load profile", e);
         }
       }
     }
@@ -54,7 +57,7 @@ export default function PartnerWalletPage() {
         <div className="px-4 sm:px-6 pt-4 pb-4 flex justify-between items-start shrink-0">
           <div className="flex flex-col truncate pr-2">
             <h1 className="text-[18px] font-extrabold text-[#1a1a2e] tracking-tight mb-1">
-              Hello {profile.fullName.split(' ')[0]},
+              Hello {profile.fullName ? profile.fullName.split(' ')[0] : (session?.user?.name || 'Partner')},
             </h1>
             <p className="text-[13px] text-gray-400 font-medium mb-1">Your available balance</p>
           </div>
@@ -164,7 +167,7 @@ export default function PartnerWalletPage() {
         </div>
       </div>
 
-      <BottomNav profilePic={profile.profilePic} />
+      <BottomNav profilePic={profile.profilePic || undefined} />
     </div>
   );
 }
