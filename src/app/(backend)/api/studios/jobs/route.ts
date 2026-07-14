@@ -13,9 +13,16 @@ export async function POST(request: Request) {
     
     if (!brandId) {
       // find first user
-      const user = await prisma.user.findFirst();
+      let user = await prisma.user.findFirst({ where: { role: "brand" } });
       if (!user) {
-        return NextResponse.json({ success: false, error: "No user found to create job" }, { status: 400 });
+        user = await prisma.user.create({
+          data: {
+            email: "mockbrand@example.com",
+            fullName: "Mock Brand",
+            role: "brand",
+            password: "mock",
+          }
+        });
       }
       brandId = user.id;
     }

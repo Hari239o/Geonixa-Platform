@@ -10,9 +10,25 @@ export async function POST(request: Request) {
 
     if (!partnerId) {
       // For mock purposes if not authenticated
-      const partner = await prisma.partnerProfile.findFirst();
+      let partner = await prisma.partnerProfile.findFirst();
       if (!partner) {
-        return NextResponse.json({ success: false, error: "No partner found to apply" }, { status: 400 });
+        let mockUser = await prisma.user.findFirst({ where: { role: "partner" } });
+        if (!mockUser) {
+          mockUser = await prisma.user.create({
+            data: {
+              email: "mockpartner@example.com",
+              fullName: "Mock Partner",
+              role: "partner",
+              password: "mock",
+            }
+          });
+        }
+        partner = await prisma.partnerProfile.create({
+          data: {
+            fullName: "Mock Partner",
+            userId: mockUser.id,
+          }
+        });
       }
       partnerId = partner.id;
     }
