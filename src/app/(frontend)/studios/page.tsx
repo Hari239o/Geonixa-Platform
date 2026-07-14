@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import BottomNav from "@/components/brand/BottomNav";
 import { Logo } from "@/components/ui/Logo";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, X } from "lucide-react";
 
 export default function StudiosPage() {
   const router = useRouter();
@@ -27,6 +27,9 @@ export default function StudiosPage() {
   // Data
   const [partners, setPartners] = useState<any[]>([]);
   const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(null);
+  const [selectedPartner, setSelectedPartner] = useState<any>(null);
+  const [showPartnerSheet, setShowPartnerSheet] = useState(false);
+  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -75,8 +78,8 @@ export default function StudiosPage() {
 
   // Mock data
   const mockPartners = [
-    { id: "1", name: "Vikram Studio", isVerified: true, rating: 4, reviews: 10, type: "Cameraman", image: "/placeholder-user.jpg" },
-    { id: "2", name: "Kiran Edits", isVerified: true, rating: 5, reviews: 20, type: "Cameraman", image: "/placeholder-user.jpg" },
+    { id: "1", name: "Vikram Studio", isVerified: true, rating: 4, reviews: 10, type: "Cameraman", image: "/placeholder-user.jpg", availableSlots: ["10:00 AM", "01:00 PM", "04:00 PM"] },
+    { id: "2", name: "Kiran Edits", isVerified: true, rating: 5, reviews: 20, type: "Cameraman", image: "/placeholder-user.jpg", availableSlots: ["11:00 AM", "02:00 PM", "05:00 PM"] },
   ];
 
   useEffect(() => {
@@ -207,12 +210,13 @@ export default function StudiosPage() {
         return (
           <div 
             key={partner.id}
-            onClick={() => setSelectedPartnerId(partner.id)}
-            className={`flex items-center justify-between p-3 rounded-[16px] transition-all cursor-pointer border ${
-              isSelected 
-              ? "border-[#EF4423] shadow-[0_4px_15px_rgba(255,77,45,0.1)] bg-white" 
-              : "border-gray-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)]"
-            }`}
+            onClick={() => {
+              setSelectedPartnerId(partner.id);
+              setSelectedPartner(partner);
+              setSelectedSlot(null);
+              setShowPartnerSheet(true);
+            }}
+            className={`flex items-center justify-between p-3 rounded-[16px] transition-all cursor-pointer border border-gray-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-[#EF4423]`}
           >
             <div className="flex items-center gap-4">
               <div 
@@ -469,6 +473,103 @@ export default function StudiosPage() {
             </button>
           </div>
         </div>
+      )}
+
+      {/* Partner Popup / Bottom Sheet */}
+      {showPartnerSheet && selectedPartner && (
+        <>
+          <div 
+            className="fixed inset-0 bg-black/40 z-50 transition-opacity" 
+            onClick={() => setShowPartnerSheet(false)}
+          />
+          <div className="fixed bottom-0 left-0 w-full bg-white rounded-t-[24px] z-50 p-6 shadow-xl transform transition-transform overflow-y-auto max-h-[85vh]">
+            <button 
+              onClick={() => setShowPartnerSheet(false)}
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 hover:text-black"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <div className="flex flex-col items-center mt-2">
+              <div 
+                className="w-20 h-20 rounded-[18px] bg-cover bg-center mb-4 border border-gray-100 shadow-sm"
+                style={{ backgroundImage: `url(${selectedPartner.image})` }}
+              />
+              <h3 className="text-[18px] font-bold text-gray-900 flex items-center gap-1.5">
+                {selectedPartner.name}
+                {selectedPartner.isVerified && (
+                  <div className="w-4 h-4 bg-[#EF4423] text-white flex items-center justify-center rounded-sm mask mask-hexagon" style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="w-2.5 h-2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                )}
+              </h3>
+              <p className="text-[13px] text-gray-500 font-medium capitalize mt-1">{selectedPartner.type}</p>
+              
+              <div className="flex items-center gap-1 mt-2 mb-6">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <svg 
+                    key={star} 
+                    className={`w-4 h-4 ${star <= Math.floor(selectedPartner.rating) ? 'text-[#FFD700]' : 'text-gray-200'}`} 
+                    fill="currentColor" 
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+                <span className="text-[12px] text-gray-400 ml-1">({selectedPartner.reviews} reviews)</span>
+              </div>
+              
+              {selectedPartner.bio && (
+                <p className="text-sm text-gray-600 text-center mb-6 line-clamp-3 px-2">
+                  {selectedPartner.bio}
+                </p>
+              )}
+            </div>
+
+            <div className="mb-6">
+              <h4 className="text-[14px] font-bold text-gray-900 mb-3">Daily Available Slots</h4>
+              {(!selectedPartner.availableSlots || selectedPartner.availableSlots.length === 0) ? (
+                <p className="text-sm text-gray-500">No slots available today.</p>
+              ) : (
+                <div className="grid grid-cols-3 gap-2">
+                  {selectedPartner.availableSlots.map((slot: string) => (
+                    <button
+                      key={slot}
+                      onClick={() => setSelectedSlot(slot)}
+                      className={`py-2 px-2 text-[12px] font-bold rounded-xl border transition-all ${
+                        selectedSlot === slot
+                        ? "bg-[#FFF6F5] border-[#EF4423] text-[#EF4423]"
+                        : "border-gray-200 text-gray-600 hover:border-gray-300"
+                      }`}
+                    >
+                      {slot}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            
+            <button 
+              onClick={() => {
+                if (!selectedSlot && selectedPartner.availableSlots?.length > 0) {
+                  alert("Please select a slot");
+                  return;
+                }
+                setShowPartnerSheet(false);
+                // The main flow uses `selectedPartnerId` which is already set. 
+                // We proceed to booking automatically.
+                if (partnerType === "Cameraman" && bookingMode === "Instant") {
+                  setStep(3);
+                } else {
+                  setStep(2);
+                }
+              }}
+              className="w-full bg-[#EF4423] text-white rounded-[14px] h-[52px] text-[15px] font-bold shadow-[0_4px_15px_rgba(255,77,45,0.4)]"
+            >
+              PROCEED TO BOOK
+            </button>
+          </div>
+        </>
       )}
 
       {step === 1 && <BottomNav />}

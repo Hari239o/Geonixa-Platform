@@ -240,6 +240,7 @@ model PartnerProfile {
   linkedin        String?
   hourlyRate      String?
   dailyRate       String?
+  availableSlots  String[] @default(["10:00 AM", "01:00 PM", "04:00 PM"])
   
   bookings        StudioBooking[]
   
