@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "Application ID is required" }, { status: 400 });
     }
 
-    const application = await prisma.studioJobApplication.findUnique({
+    const application = await (prisma as any).studioJobApplication.findUnique({
       where: { id: applicationId },
       include: { job: true }
     });
@@ -22,19 +22,19 @@ export async function POST(request: Request) {
     }
 
     // Accept application
-    await prisma.studioJobApplication.update({
+    await (prisma as any).studioJobApplication.update({
       where: { id: applicationId },
       data: { status: "accepted" }
     });
 
     // Mark job as filled
-    await prisma.studioOpenJob.update({
+    await (prisma as any).studioOpenJob.update({
       where: { id: application.jobId },
       data: { status: "filled" }
     });
 
     // Reject other applications
-    await prisma.studioJobApplication.updateMany({
+    await (prisma as any).studioJobApplication.updateMany({
       where: { 
         jobId: application.jobId,
         id: { not: applicationId }
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     });
 
     // Create the actual StudioBooking
-    const booking = await prisma.studioBooking.create({
+    const booking = await (prisma as any).studioBooking.create({
       data: {
         brandId: application.job.brandId,
         partnerId: application.partnerId,

@@ -93,6 +93,8 @@ export default function PartnerDashboardPage() {
           console.error("Failed to load profile", e);
         }
       }
+    }
+
     async function fetchJobs() {
       try {
         const res = await fetch('/api/studios/jobs?role=partner&partnerType=Cameraman');
