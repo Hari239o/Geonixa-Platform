@@ -478,6 +478,8 @@ export default function StudiosPage() {
             {step === 2 && partnerType === "Editors" && renderEditorForm()}
                 
             {step === 3 && renderBudgetForm()}
+              </>
+            )}
           </>
         )}
 
