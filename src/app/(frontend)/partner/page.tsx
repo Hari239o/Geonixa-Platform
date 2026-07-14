@@ -227,8 +227,8 @@ export default function PartnerDashboardPage() {
                   <p className="text-[11px] font-medium text-gray-400">- {project.subtitle}</p>
                 </div>
                 <div className="flex flex-col items-end shrink-0">
-                  <span className="text-[11px] font-medium text-gray-400 mb-0.5">{activeTab === "jobBoard" ? "Location" : "Budget"}</span>
-                  <span className="text-[16px] font-extrabold text-[#EF4423] leading-none">{activeTab === "jobBoard" ? project.budget : `₹${project.budget}`}</span>
+                  <span className="text-[11px] font-medium text-gray-400 mb-0.5">Budget</span>
+                  <span className="text-[16px] font-extrabold text-[#EF4423] leading-none">₹{project.budget}</span>
                 </div>
               </div>
               
@@ -244,17 +244,10 @@ export default function PartnerDashboardPage() {
                 <div className="inline-block bg-[#EF4423] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg w-fit">
                   Active
                 </div>
-              ) : activeTab === "completed" ? (
+              ) : (
                 <div className="inline-block bg-[#2ECC71] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg w-fit">
                   Completed
                 </div>
-              ) : (
-                <button 
-                  onClick={() => handleApplyToJob(project.id)}
-                  className="w-full bg-[#EF4423] text-white font-bold py-2 rounded-xl shadow-md hover:bg-[#d63f1c] transition-all"
-                >
-                  APPLY FOR THIS JOB
-                </button>
               )}
             </div>
             ))
