@@ -375,7 +375,7 @@ export default function StudiosPage() {
     </div>
   );
 
-  const isUnavailable = partners.length === 0 && !isLoading && mainTab === "Partners";
+
 
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col pb-24">
@@ -456,38 +456,19 @@ export default function StudiosPage() {
 
         {/* Content based on Step & Tab */}
         {mainTab === "Our Experts" && renderOurExperts()}
-
         {mainTab === "Partners" && (
           <>
-            {isUnavailable && step === 1 ? (
-              <div className="flex flex-col items-center justify-center pt-20 pb-10 text-center">
-                <h2 className="text-xl font-bold mb-2">Unavailable</h2>
-                <p className="text-sm text-gray-500 mb-6">Call source or WhatsApp on</p>
-                <p className="text-2xl font-bold text-gray-800 mb-10 tracking-wider">+91 000 000 0000</p>
-                <button 
-                  onClick={() => window.location.href = "tel:+910000000000"}
-                  className="w-full bg-[#EF4423] text-white font-bold h-12 rounded-[14px]"
-                >
-                  CALL NOW
-                </button>
-              </div>
-            ) : (
-              <>
-                {step === 1 && (partnerType === "Cameraman" && bookingMode === "Schedule" ? renderScheduleForm() : renderList())}
+            {step === 1 && (partnerType === "Cameraman" && bookingMode === "Schedule" ? renderScheduleForm() : renderList())}
                 
             {step === 2 && partnerType === "Editors" && renderEditorForm()}
                 
             {step === 3 && renderBudgetForm()}
-              </>
-            )}
-          </>
-        )}
           </>
         )}
       </div>
 
       {/* Action Button (Sticky to bottom above nav) */}
-      {(!isUnavailable && !(mainTab === "Our Experts")) && (
+      {(!(mainTab === "Our Experts")) && (
         <div className="fixed bottom-[80px] left-0 w-full px-5 z-40">
           <div className="max-w-md mx-auto">
             <button 
