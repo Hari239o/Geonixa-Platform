@@ -142,7 +142,10 @@ export const authOptions: NextAuthOptions = {
             if (hasSignupCookie && existingUser.role !== roleToAssign) {
               await prisma.user.update({
                 where: { id: existingUser.id },
-                data: { role: roleToAssign }
+                data: { 
+                  role: roleToAssign,
+                  profileCompleted: false
+                }
               });
             }
           }

@@ -18,12 +18,12 @@ export async function GET(req: Request) {
     if (userId) {
        user = await prisma.user.findUnique({ 
          where: { id: userId },
-         include: { creatorProfile: true, brandProfile: true }
+         include: { creatorProfile: true, brandProfile: true, partnerProfile: true }
        });
     } else if (userEmail) {
        user = await prisma.user.findFirst({ 
          where: { email: userEmail },
-         include: { creatorProfile: true, brandProfile: true }
+         include: { creatorProfile: true, brandProfile: true, partnerProfile: true }
        });
     }
 
@@ -31,7 +31,14 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const profile = user.role === 'brand' ? user.brandProfile : user.creatorProfile;
+    let profile;
+    if (user.role === 'brand') {
+      profile = user.brandProfile;
+    } else if (user.role === 'partner') {
+      profile = user.partnerProfile;
+    } else {
+      profile = user.creatorProfile;
+    }
 
     return NextResponse.json({ success: true, profile: profile });
   } catch (error) {
