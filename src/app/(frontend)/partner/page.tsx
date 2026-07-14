@@ -15,52 +15,76 @@ export default function PartnerDashboardPage() {
   const [activeTab, setActiveTab] = useState<"active" | "completed">("active");
   const [showVerificationModal, setShowVerificationModal] = useState(true);
 
-  // Realistic mock data for projects
-  const activeProjects = [
-    {
-      id: 1,
-      title: "Glow With Radiance",
-      subtitle: "Skincare Brand Campaign",
-      dateRange: "04 September - 10 September 2025",
-      description: "We're looking for lifestyle and beauty influencers to showcase our new Radiance Glow Serum.",
-      budget: 6000,
-      daysLeft: 2,
-      timeAgo: "25 minute ago"
-    },
-    {
-      id: 2,
-      title: "Urban Style Walk",
-      subtitle: "Fashion Brand Campaign",
-      dateRange: "15 September - 22 September 2025",
-      description: "Looking for trendy influencers to promote our upcoming autumn collection in urban settings.",
-      budget: 8500,
-      daysLeft: 5,
-      timeAgo: "1 hour ago"
-    }
-  ];
+  const [activeProjects, setActiveProjects] = useState<any[]>([]);
+  const [completedProjects, setCompletedProjects] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [stats, setStats] = useState({ projectsDone: 0, successRate: "0%" });
 
-  const completedProjects = [
-    {
-      id: 3,
-      title: "Summer Fresh Vibes",
-      subtitle: "Beverage Brand Campaign",
-      dateRange: "01 August - 07 August 2025",
-      description: "A successful campaign promoting our new line of iced teas for summer.",
-      budget: 5000,
-      daysLeft: 0,
-      timeAgo: "1 month ago"
-    },
-    {
-      id: 4,
-      title: "Tech Gadget Review",
-      subtitle: "Electronics Brand Campaign",
-      dateRange: "10 July - 20 July 2025",
-      description: "Review and showcase the latest smart watch features to your audience.",
-      budget: 12000,
-      daysLeft: 0,
-      timeAgo: "2 months ago"
+  useEffect(() => {
+    async function fetchBookings() {
+      try {
+        const res = await fetch('/api/studios/bookings/partner');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.bookings) {
+            const active: any[] = [];
+            const completed: any[] = [];
+            
+            data.bookings.forEach((b: any) => {
+              // Map the DB booking to the UI card format
+              const formatted = {
+                id: b.id,
+                title: b.contentBrief ? b.contentBrief.substring(0, 30) + "..." : "New Project",
+                subtitle: b.brand?.name ? `${b.brand.name} Campaign` : "Brand Campaign",
+                dateRange: b.date || "Date TBD",
+                description: b.contentBrief || "No specific instructions provided.",
+                budget: b.quoteAmount || 0,
+                status: b.status,
+                // Simple time ago simulation
+                timeAgo: new Date(b.createdAt).toLocaleDateString()
+              };
+
+              if (b.status === "completed") {
+                completed.push(formatted);
+              } else {
+                active.push(formatted);
+              }
+            });
+
+            setActiveProjects(active);
+            setCompletedProjects(completed);
+            
+            // Generate basic stats based on completed projects vs total
+            const total = active.length + completed.length;
+            const successRate = total > 0 ? Math.round((completed.length / total) * 100) : 0;
+            setStats({
+              projectsDone: completed.length,
+              successRate: `${successRate}%`
+            });
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch bookings", err);
+      } finally {
+        setIsLoading(false);
+      }
     }
-  ];
+    
+    // Check if we have the profile stats cached from when we fixed the profile page
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('kaling_user_profile');
+      if (stored) {
+        try {
+          const p = JSON.parse(stored);
+          if (p.projects && p.successRate) {
+            setStats({ projectsDone: parseInt(p.projects), successRate: p.successRate });
+          }
+        } catch (e) {}
+      }
+    }
+
+    fetchBookings();
+  }, []);
 
   const projectsToDisplay = activeTab === "active" ? activeProjects : completedProjects;
 
@@ -140,11 +164,11 @@ export default function PartnerDashboardPage() {
         {/* Stats */}
         <div className="flex justify-between items-center px-4 mb-6">
           <div className="flex items-baseline gap-1.5">
-            <span className="text-[22px] font-extrabold text-[#1a1a2e]">17</span>
+            <span className="text-[22px] font-extrabold text-[#1a1a2e]">{stats.projectsDone}</span>
             <span className="text-[12px] font-medium text-gray-400">Projects Done</span>
           </div>
           <div className="flex items-baseline gap-1.5">
-            <span className="text-[22px] font-extrabold text-[#1a1a2e]">92%</span>
+            <span className="text-[22px] font-extrabold text-[#1a1a2e]">{stats.successRate}</span>
             <span className="text-[12px] font-medium text-gray-400">Success Rate</span>
           </div>
         </div>
@@ -165,9 +189,14 @@ export default function PartnerDashboardPage() {
           </button>
         </div>
 
-        {/* Projects List */}
-        <div className="flex flex-col gap-4 mb-8">
-          {projectsToDisplay.map((project) => (
+        {/* Cards */}
+        <div className="flex flex-col gap-4 mt-6">
+          {isLoading ? (
+            <div className="flex justify-center items-center py-10">
+              <div className="w-8 h-8 border-4 border-gray-200 border-t-[#EF4423] rounded-full animate-spin"></div>
+            </div>
+          ) : projectsToDisplay.length > 0 ? (
+            projectsToDisplay.map((project) => (
             <div key={project.id} className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 relative flex flex-col">
               <span className="absolute top-5 right-5 text-[10px] font-semibold text-gray-300">{project.timeAgo}</span>
               
@@ -193,22 +222,29 @@ export default function PartnerDashboardPage() {
               </div>
               
               <p className="text-[12px] text-gray-500 font-medium leading-relaxed mb-4">
-                {project.description} <span className="text-[#EF4423] font-bold cursor-pointer hover:underline">Read more</span>
+                {project.description} <button className="text-[13px] font-bold text-[#EF4423] hover:underline">Read more</button>
               </p>
               
-              <div>
-                {activeTab === 'active' ? (
-                  <span className="inline-block bg-[#EF4423] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg shadow-sm">
-                    {project.daysLeft} days left
-                  </span>
-                ) : (
-                  <span className="inline-block bg-[#2ECC71] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg shadow-sm">
-                    Completed
-                  </span>
-                )}
-              </div>
+              {activeTab === "active" ? (
+                <div className="inline-block bg-[#EF4423] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg">
+                  Active
+                </div>
+              ) : (
+                <div className="inline-block bg-[#2ECC71] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg">
+                  Completed
+                </div>
+              )}
             </div>
-          ))}
+            ))
+          ) : (
+            <div className="bg-white rounded-[24px] p-8 text-center shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center">
+              <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4 text-gray-400">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <h3 className="text-[15px] font-bold text-gray-800 mb-1">No {activeTab} projects</h3>
+              <p className="text-[13px] text-gray-500">When you book new projects, they will appear here.</p>
+            </div>
+          )}
         </div>
       </div>
       
