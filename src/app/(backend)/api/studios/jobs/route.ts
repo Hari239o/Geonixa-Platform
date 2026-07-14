@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     });
 
     // Send notifications to all partners of this type
-    const matchingPartners = await prisma.partnerProfile.findMany({
+    const matchingPartners: any[] = await (prisma as any).partnerProfile.findMany({
       where: {
         partnerType: {
           equals: partnerType,
@@ -50,10 +50,10 @@ export async function POST(request: Request) {
       }
     });
 
-    if (matchingPartners.length > 0) {
+    if (matchingPartners && matchingPartners.length > 0) {
       const brand = await prisma.user.findUnique({ where: { id: brandId }});
       
-      const notifications = matchingPartners.map(p => ({
+      const notifications = matchingPartners.map((p: any) => ({
         userId: p.userId,
         title: "New Work Schedule Posted",
         message: `${brand?.name || 'A brand'} is looking for a ${partnerType}. Check your Work Schedule tab to apply.`,
