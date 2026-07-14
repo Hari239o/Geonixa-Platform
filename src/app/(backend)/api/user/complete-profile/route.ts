@@ -147,13 +147,56 @@ export async function POST(req: Request) {
               authorizedPerson: profileData.authorizedPerson || null,
             }
           });
+        } else if (roleToUpdate === 'partner') {
+          await prisma.partnerProfile.upsert({
+            where: { userId: user.id },
+            update: {
+              fullName: profileData.fullName || profileData.name || undefined,
+              bio: profileData.bio !== undefined ? profileData.bio : undefined,
+              profilePic: profileData.profilePic !== undefined ? profileData.profilePic : undefined,
+              partnerType: profileData.partnerType || profileData.type || 'cameraman', // Default if missing
+              rating: profileData.rating !== undefined ? profileData.rating : undefined,
+              reviews: profileData.reviews !== undefined ? profileData.reviews : undefined,
+              portfolioImages: profileData.portfolioImages !== undefined ? profileData.portfolioImages : undefined,
+              equipment: profileData.equipment !== undefined ? profileData.equipment : undefined,
+              website: profileData.website !== undefined ? profileData.website : undefined,
+              phone: profileData.phone !== undefined ? profileData.phone : undefined,
+              facebook: facebook !== undefined ? facebook : undefined,
+              instagram: instagram !== undefined ? instagram : undefined,
+              x: x !== undefined ? x : undefined,
+              linkedin: linkedin !== undefined ? linkedin : undefined,
+              hourlyRate: profileData.hourlyRate !== undefined ? profileData.hourlyRate : undefined,
+              dailyRate: profileData.dailyRate !== undefined ? profileData.dailyRate : undefined,
+              isVerified: profileData.isVerified !== undefined ? profileData.isVerified : undefined,
+            },
+            create: {
+              userId: user.id,
+              fullName: profileData.fullName || profileData.name || null,
+              bio: profileData.bio || null,
+              profilePic: profileData.profilePic || null,
+              partnerType: profileData.partnerType || profileData.type || 'cameraman',
+              rating: profileData.rating || 0,
+              reviews: profileData.reviews || 0,
+              portfolioImages: profileData.portfolioImages || [],
+              equipment: profileData.equipment || [],
+              website: profileData.website || null,
+              phone: profileData.phone || null,
+              facebook,
+              instagram,
+              x,
+              linkedin,
+              hourlyRate: profileData.hourlyRate || null,
+              dailyRate: profileData.dailyRate || null,
+              isVerified: profileData.isVerified || false,
+            }
+          });
         } else {
           // Build tags array
           let tags: string[] = [];
           if (profileData.creatorType) {
             tags.push(profileData.creatorType);
           }
-          if (roleToUpdate === 'partner' || profileData.isPartner) {
+          if (profileData.isPartner) {
             tags.push('Partners');
           }
 

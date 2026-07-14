@@ -232,6 +232,12 @@ model PartnerProfile {
   isVerified      Boolean  @default(false)
   portfolioImages String[] @default([])
   equipment       String[] @default([])
+  website         String?
+  phone           String?
+  facebook        String?
+  instagram       String?
+  x               String?
+  linkedin        String?
   hourlyRate      String?
   dailyRate       String?
   
