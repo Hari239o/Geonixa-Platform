@@ -45,25 +45,7 @@ export default function StudiosPage() {
         return;
       }
     }
-
-    async function fetchPartners() {
-      setIsLoading(true);
-      try {
-        const res = await fetch(`/api/studios/partners?type=${partnerType}`);
-        const data = await res.json();
-        if (data.success) {
-          setPartners(data.partners);
-        } else {
-          setPartners([]);
-        }
-      } catch (e) {
-        setPartners([]);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchPartners();
-  }, [partnerType, status, session]);
+  }, [status, session, router]);
 
   // Form States
   const [quoteAmount, setQuoteAmount] = useState("");
@@ -232,9 +214,7 @@ export default function StudiosPage() {
   );
 
   const renderList = () => {
-    const filteredPartners = (mainTab === "Partners" && partnerType === "Cameraman" && bookingMode === "Instant")
-      ? partners.filter(p => p.isInstantAvailable)
-      : partners;
+    const filteredPartners = partners;
 
     if (filteredPartners.length === 0) {
       return (

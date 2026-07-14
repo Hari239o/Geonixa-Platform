@@ -39,6 +39,7 @@ export async function GET(request: Request) {
         isInstantAvailable: true,
         availableDays: true,
         availableDates: true,
+        isOnline: true,
       } as any,
     });
 
@@ -66,6 +67,7 @@ export async function GET(request: Request) {
         isInstantAvailable: p.isInstantAvailable || false,
         availableDays: p.availableDays || {},
         availableDates: p.availableDates || {},
+        isOnline: p.isOnline || false,
       }))
     });
   } catch (error) {
