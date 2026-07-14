@@ -6,7 +6,18 @@ const prisma = new PrismaClient();
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { kalakaarId, bookingMode, brandId } = body;
+    const { 
+      kalakaarId, 
+      bookingMode, 
+      brandId, 
+      quoteAmount,
+      date,
+      timeSlot,
+      location,
+      contentBrief,
+      moodStyle,
+      serviceSelection
+    } = body;
 
     if (!kalakaarId || !bookingMode) {
       return NextResponse.json({ success: false, error: "Missing required fields" }, { status: 400 });
@@ -32,9 +43,15 @@ export async function POST(request: Request) {
         brandId: resolvedBrandId,
         kalakaarId,
         bookingMode,
-        quoteAmount: body.quoteAmount, // NEW
+        quoteAmount: quoteAmount || null,
         status: "PENDING",
-        expiresAt
+        expiresAt,
+        date: date || null,
+        timeSlot: timeSlot || null,
+        location: location || null,
+        contentBrief: contentBrief || null,
+        moodStyle: moodStyle || null,
+        serviceSelection: serviceSelection || null
       }
     });
 

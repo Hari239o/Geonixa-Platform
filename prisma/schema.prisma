@@ -101,6 +101,7 @@ model CampaignRequest {
   creatorId       String
   creator         CreatorProfile @relation(fields: [creatorId], references: [id], onDelete: Cascade)
   status          String   @default("pending") // "accepted", "rejected", "negotiating"
+  negotiatedPrice String?  // Price proposed by the creator during negotiation
   message         String?  // Optional negotiation message
   workVerified    Boolean  @default(false)
   paymentDone     Boolean  @default(false)
@@ -275,6 +276,13 @@ model UserKalakaarBooking {
   expiresAt       DateTime?
   invoiceId       String?
   quoteAmount     String?
+  
+  date            String?
+  timeSlot        String?
+  location        String?
+  contentBrief    String?
+  moodStyle       String?
+  serviceSelection String? // e.g., "30s short", "60s short"
   
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

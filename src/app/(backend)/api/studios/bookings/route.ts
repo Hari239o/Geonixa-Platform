@@ -6,7 +6,17 @@ const prisma = new PrismaClient();
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { partnerId, bookingMode, brandId } = body;
+    const { 
+      partnerId, 
+      bookingMode, 
+      brandId, 
+      quoteAmount, 
+      scheduleHours, 
+      scheduleDate, 
+      scheduleTime, 
+      editorInstructions, 
+      editorReference 
+    } = body;
 
     if (!partnerId || !bookingMode) {
       return NextResponse.json({ success: false, error: "Missing required fields" }, { status: 400 });
@@ -25,13 +35,21 @@ export async function POST(request: Request) {
     if (!brandId) {
       return NextResponse.json({ success: false, error: "Unauthorized: Missing brandId" }, { status: 401 });
     }
+    
+    // Combine editor info into contentBrief
+    const contentBrief = editorInstructions ? `${editorInstructions}${editorReference ? ' | Ref: ' + editorReference : ''}` : null;
 
     const booking = await prisma.studioBooking.create({
       data: {
         brandId,
         partnerId,
         bookingMode,
-        status: "pending"
+        status: "pending",
+        quoteAmount: quoteAmount || null,
+        date: scheduleDate || null,
+        timeSlot: scheduleTime || null,
+        duration: scheduleHours || null,
+        contentBrief: contentBrief || null
       }
     });
 
