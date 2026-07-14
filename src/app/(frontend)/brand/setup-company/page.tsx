@@ -400,8 +400,6 @@ export default function BrandCompanySetupPage() {
           </button>
         </div>
       </div>
-      </div>
-      </div>
       
       {/* Verify Account Modal */}
       {showVerifyModal && (
@@ -448,6 +446,7 @@ export default function BrandCompanySetupPage() {
       )}
       
       <BottomNav />
+      </div>
     </div>
   )
 }
