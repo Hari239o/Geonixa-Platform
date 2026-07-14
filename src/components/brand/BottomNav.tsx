@@ -92,21 +92,8 @@ export default function BottomNav() {
               key={item.name} 
               href={item.href}
               onClick={(e) => {
-                const saved = localStorage.getItem("kaling_company_profile") || localStorage.getItem("kaling_brand_profile");
-                let isVerified = false;
-                if (saved) {
-                  try {
-                    const parsed = JSON.parse(saved);
-                    isVerified = parsed.isVerified === true;
-                  } catch (err) {}
-                }
-                
-                // Allow them to go to their own profile page even if unverified
-                if (!isVerified && item.name !== "Profile") {
-                  e.preventDefault();
-                  // Dispatch a custom event that the dashboard page can listen to and show the modal
-                  window.dispatchEvent(new Event("showVerifyModal"));
-                }
+                // Users can navigate freely without verification popup interrupting them
+                // Verification is now handled at payment and profile creation steps
               }}
               className={`inline-flex flex-col items-center justify-center group`}
             >

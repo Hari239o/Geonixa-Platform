@@ -2,13 +2,14 @@
 
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
-import { ChevronLeft, Building2, CreditCard, Check, ShieldCheck } from "lucide-react"
+import { ChevronLeft, Building2, CreditCard, Check, ShieldCheck, BadgeCheck } from "lucide-react"
 import { useSession } from "next-auth/react"
 
 export default function AddFundsPage() {
   const router = useRouter()
   const [amount, setAmount] = useState("₹500")
   const [showSuccess, setShowSuccess] = useState(false)
+  const [showVerifyModal, setShowVerifyModal] = useState(false)
   const [selectedMethod, setSelectedMethod] = useState("bank")
   const [loading, setLoading] = useState(false)
   
@@ -17,6 +18,19 @@ export default function AddFundsPage() {
   const balance = credits * 10
 
   const handleAddFunds = async () => {
+    const saved = localStorage.getItem("kaling_company_profile") || localStorage.getItem("kaling_brand_profile");
+    let isVerified = false;
+    if (saved) {
+      try {
+        isVerified = JSON.parse(saved).isVerified === true;
+      } catch (err) {}
+    }
+
+    if (!isVerified) {
+      setShowVerifyModal(true);
+      return;
+    }
+
     try {
       setLoading(true)
       const numericAmount = parseInt(amount.replace(/\D/g, "")) || 0
@@ -132,6 +146,47 @@ export default function AddFundsPage() {
           </div>
         </div>
       </div>
+      
+      {/* Verify Account Modal */}
+      {showVerifyModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-[320px] rounded-[24px] p-6 relative shadow-2xl animate-in fade-in zoom-in duration-200">
+            <button 
+              onClick={() => setShowVerifyModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="flex flex-col items-center mt-2">
+              <BadgeCheck className="w-[42px] h-[42px] text-[#EF4423] fill-[#EF4423] text-white mb-3" />
+              <h2 className="text-[20px] font-black text-[#EF4423] text-center mb-1 tracking-tight">VERIFY YOUR ACCOUNT</h2>
+              <p className="text-[13px] text-gray-500 font-medium text-center mb-6 leading-tight">
+                With Aadhar
+              </p>
+
+              <button 
+                onClick={() => router.push('/kyc')}
+                className="w-full py-3.5 border-2 border-dashed border-[#EF4423]/40 rounded-[14px] flex items-center justify-center gap-3 mb-6 hover:bg-[#EF4423]/5 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#EF4423]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span className="text-[#1a1a2e] font-semibold text-[14px]">Camera</span>
+              </button>
+
+              <button 
+                className="w-full py-3.5 bg-[#EF4423] text-white text-[14px] font-bold rounded-[14px] hover:bg-[#d63f1c] transition-colors shadow-[0_4px_14px_rgba(239,72,35,0.3)]"
+                onClick={() => router.push('/kyc')}
+              >
+                VERIFY
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

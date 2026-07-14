@@ -203,10 +203,6 @@ export default function BrandDashboardPage() {
             </button>
             <button 
               onClick={() => {
-                if (!profileData?.isVerified) {
-                  setShowVerifyModal(true);
-                  return;
-                }
                 setActiveTab('portfolio')
               }}
               className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${

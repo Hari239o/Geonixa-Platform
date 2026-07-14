@@ -174,10 +174,6 @@ export default function BrandHomeFeedPage() {
             <div 
               key={creator.id} 
               onClick={() => {
-                if (!isVerified) {
-                  setShowVerifyModal(true);
-                  return;
-                }
                 if (creator.isUnlocked) {
                   router.push(`/brand/portfolio/${creator.id}`);
                 } else {
@@ -274,10 +270,6 @@ export default function BrandHomeFeedPage() {
             </div>
             <button 
               onClick={() => {
-                if (!isVerified) {
-                  setShowVerifyModal(true);
-                  return;
-                }
                 router.push('/studios')
               }}
               className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-7 py-2.5 rounded-[12px] text-[15px] font-bold shadow-sm transition-transform active:scale-95"
