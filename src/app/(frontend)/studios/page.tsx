@@ -263,6 +263,7 @@ export default function StudiosPage() {
   const renderList = () => {
     return (
       <motion.div 
+        key={`jobs-${bookingMode}-${jobs.length}`}
         className="flex flex-col gap-4 mt-4 pb-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -340,6 +341,7 @@ export default function StudiosPage() {
 
     return (
       <motion.div 
+        key={`partners-${bookingMode}-${filteredPartners.length}`}
         className="flex flex-col gap-3 mt-4"
         initial="hidden"
         animate="visible"

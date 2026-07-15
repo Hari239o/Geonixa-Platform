@@ -217,68 +217,78 @@ export default function PartnerDashboardPage() {
         </div>
 
         {/* Cards */}
-        <motion.div 
-          key={activeTab}
-          className="flex flex-col gap-4 mt-6"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-          }}
-        >
+        <div className="flex flex-col gap-4 mt-6">
           {isLoading ? (
             <div className="flex justify-center items-center py-10">
               <div className="w-8 h-8 border-4 border-gray-200 border-t-[#EF4423] rounded-full animate-spin"></div>
             </div>
           ) : projectsToDisplay.length > 0 ? (
-            projectsToDisplay.map((project) => (
             <motion.div 
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              key={project.id} 
-              className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 relative flex flex-col"
+              key={`list-${activeTab}-${projectsToDisplay.length}`}
+              className="flex flex-col gap-4"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+              }}
             >
-              <span className="absolute top-5 right-5 text-[10px] font-semibold text-gray-300">{project.timeAgo}</span>
-              
-              <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center mb-3 text-indigo-500">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                </svg>
-              </div>
-              
-              <div className="flex justify-between items-start mb-2">
-                <div className="flex flex-col pr-4">
-                  <h3 className="text-[17px] font-bold text-[#1a1a2e] leading-tight mb-0.5">{project.title}</h3>
-                  <p className="text-[11px] font-medium text-gray-400">- {project.subtitle}</p>
-                </div>
-                <div className="flex flex-col items-end shrink-0">
-                  <span className="text-[11px] font-medium text-gray-400 mb-0.5">Budget</span>
-                  <span className="text-[16px] font-extrabold text-[#EF4423] leading-none">₹{project.budget}</span>
-                </div>
-              </div>
-              
-              <div className="text-[11px] font-bold text-orange-400/90 mb-3 bg-orange-50 w-fit px-2 py-0.5 rounded-md">
-                {project.dateRange}
-              </div>
-              
-              <p className="text-[12px] text-gray-500 font-medium leading-relaxed mb-4">
-                {project.description} <button className="text-[13px] font-bold text-[#EF4423] hover:underline">Read more</button>
-              </p>
-              
-              {activeTab === "active" ? (
-                <div className="inline-block bg-[#EF4423] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg w-fit">
-                  Active
-                </div>
-              ) : (
-                <div className="inline-block bg-[#2ECC71] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg w-fit">
-                  Completed
-                </div>
-              )}
+              {projectsToDisplay.map((project) => (
+                <motion.div 
+                  variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                  key={project.id} 
+                  className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 relative flex flex-col"
+                >
+                  <span className="absolute top-5 right-5 text-[10px] font-semibold text-gray-300">{project.timeAgo}</span>
+                  
+                  <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center mb-3 text-indigo-500">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                  </div>
+                  
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="flex flex-col pr-4">
+                      <h3 className="text-[17px] font-bold text-[#1a1a2e] leading-tight mb-0.5">{project.title}</h3>
+                      <p className="text-[11px] font-medium text-gray-400">- {project.subtitle}</p>
+                    </div>
+                    <div className="flex flex-col items-end shrink-0">
+                      <span className="text-[11px] font-medium text-gray-400 mb-0.5">{activeTab === "jobBoard" ? "Location" : "Budget"}</span>
+                      <span className="text-[16px] font-extrabold text-[#EF4423] leading-none">{activeTab === "jobBoard" ? project.budget : `₹${project.budget}`}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="text-[11px] font-bold text-orange-400/90 mb-3 bg-orange-50 w-fit px-2 py-0.5 rounded-md">
+                    {project.dateRange}
+                  </div>
+                  
+                  <p className="text-[12px] text-gray-500 font-medium leading-relaxed mb-4">
+                    {project.description} <button className="text-[13px] font-bold text-[#EF4423] hover:underline">Read more</button>
+                  </p>
+                  
+                  {activeTab === "active" ? (
+                    <div className="inline-block bg-[#EF4423] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg w-fit">
+                      Active
+                    </div>
+                  ) : activeTab === "completed" ? (
+                    <div className="inline-block bg-[#2ECC71] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg w-fit">
+                      Completed
+                    </div>
+                  ) : (
+                    <button 
+                      onClick={() => handleApplyToJob(project.id)}
+                      className="w-full bg-[#EF4423] text-white font-bold py-2 rounded-xl shadow-md hover:bg-[#d63f1c] transition-all"
+                    >
+                      APPLY FOR THIS JOB
+                    </button>
+                  )}
+                </motion.div>
+              ))}
             </motion.div>
-            ))
           ) : (
             <motion.div 
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               className="bg-white rounded-[24px] p-8 text-center shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center"
             >
               <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4 text-gray-400">
@@ -288,7 +298,7 @@ export default function PartnerDashboardPage() {
               <p className="text-[13px] text-gray-500">When you book new projects, they will appear here.</p>
             </motion.div>
           )}
-        </motion.div>
+        </div>
       </div>
       
       {/* Floating Banner */}
