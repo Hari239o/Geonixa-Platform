@@ -56,8 +56,8 @@ export default function CampaignPage() {
         if (parsed && parsed.profilePic) {
           setProfilePic(parsed.profilePic);
         }
-        if (parsed && (parsed.id || parsed.userId)) {
-          setUserId(parsed.id || parsed.userId);
+        if (parsed && (parsed.userId || parsed.id)) {
+          setUserId(parsed.userId || parsed.id);
         }
       }
     }

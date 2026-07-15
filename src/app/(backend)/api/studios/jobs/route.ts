@@ -40,15 +40,8 @@ export async function POST(request: Request) {
       }
     });
 
-    // Send notifications to all partners of this type
-    const matchingPartners: any[] = await (prisma as any).partnerProfile.findMany({
-      where: {
-        partnerType: {
-          equals: partnerType,
-          mode: "insensitive"
-        }
-      }
-    });
+    // Send notifications to all partners
+    const matchingPartners: any[] = await (prisma as any).partnerProfile.findMany();
 
     if (matchingPartners && matchingPartners.length > 0) {
       const brand = await prisma.user.findUnique({ where: { id: brandId }});
@@ -100,13 +93,7 @@ export async function GET(request: Request) {
           whereClause = {
             OR: [
               { 
-                status: "open", 
-                ...(partnerProfile.partnerType === "General" ? {} : {
-                  partnerType: {
-                    equals: partnerProfile.partnerType,
-                    mode: "insensitive"
-                  }
-                })
+                status: "open"
               },
               {
                 applications: {
