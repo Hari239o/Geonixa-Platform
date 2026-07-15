@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/(backend)/api/auth/[...nextauth]/route";
 
 const prisma = new PrismaClient();
 
@@ -7,24 +9,27 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
     
-    // In a real app we would get the user ID from the session.
-    // For now we assume brandId is passed or we find a mock user.
     let { brandId, partnerType, date, timeSlot, duration, location, contentBrief } = data;
     
     if (!brandId) {
-      // find first user
-      let user = await prisma.user.findFirst({ where: { role: "brand" } });
-      if (!user) {
-        user = await prisma.user.create({
-          data: {
-            email: "mockbrand@example.com",
-            name: "Mock Brand",
-            role: "brand",
-            password: "mock",
-          }
-        });
+      const session = await getServerSession(authOptions);
+      if (session?.user && (session.user as any).id) {
+        brandId = (session.user as any).id;
+      } else {
+        // Fallback to first brand for tests if no session
+        let user = await prisma.user.findFirst({ where: { role: "brand" } });
+        if (!user) {
+          user = await prisma.user.create({
+            data: {
+              email: "mockbrand@example.com",
+              name: "Mock Brand",
+              role: "brand",
+              password: "mock",
+            }
+          });
+        }
+        brandId = user.id;
       }
-      brandId = user.id;
     }
 
     const job = await prisma.studioOpenJob.create({
