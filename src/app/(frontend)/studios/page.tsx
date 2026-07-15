@@ -230,7 +230,7 @@ export default function StudiosPage() {
     e.stopPropagation();
     if (confirm("Are you sure you want to delete this work schedule?")) {
       try {
-        const res = await fetch(`/api/studios/jobs/${id}`, {
+        const res = await fetch(`/api/studios/jobs/${id}?t=${Date.now()}`, {
           method: 'DELETE'
         });
         const data = await res.json();
