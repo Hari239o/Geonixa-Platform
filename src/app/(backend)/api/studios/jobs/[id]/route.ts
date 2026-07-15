@@ -21,10 +21,7 @@ export async function DELETE(
       return NextResponse.json({ success: false, error: "Job not found" }, { status: 404 });
     }
 
-    // Allow deleting only if it hasn't been filled yet
-    if (job.status === "filled") {
-      return NextResponse.json({ success: false, error: "Cannot delete a filled job" }, { status: 400 });
-    }
+    // Allow deleting filled jobs as requested
 
     await (prisma as any).studioOpenJob.delete({
       where: { id }
