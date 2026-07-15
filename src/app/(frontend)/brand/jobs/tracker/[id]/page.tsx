@@ -39,23 +39,25 @@ export default function JobTrackingPage() {
     fetchTrackerInfo();
   }, [id]);
 
-  let paymentStatus = "pending";
   let agreementStatus = "pending";
+  let paymentStatus = "pending";
 
   if (booking) {
     if (booking.status === "pending_payment") {
+      agreementStatus = "completed";
       paymentStatus = "active";
     } else if (booking.status === "paid" || booking.status === "completed") {
+      agreementStatus = "completed";
       paymentStatus = "completed";
-      agreementStatus = "active"; // Next step after payment
     }
   }
 
   const steps = [
-    { id: 1, name: "Job Created", status: "completed" },
+    { id: 1, name: "Work Created", status: "completed" },
     { id: 2, name: "Partner Confirmed", status: partner ? "completed" : "active" },
-    { id: 3, name: "Payment", status: partner ? paymentStatus : "pending" },
-    { id: 4, name: "Agreement", status: agreementStatus }
+    { id: 3, name: "Work Details", status: partner ? "completed" : "pending" },
+    { id: 4, name: "Agreement", status: partner ? agreementStatus : "pending" },
+    { id: 5, name: "Payment", status: partner ? paymentStatus : "pending" }
   ];
 
   if (loading) {
@@ -69,7 +71,7 @@ export default function JobTrackingPage() {
           <ChevronLeft className="w-6 h-6" />
         </button>
         <div>
-          <h1 className="text-[17px] font-extrabold text-[#1a1a2e] leading-tight">Job Tracker</h1>
+          <h1 className="text-[17px] font-extrabold text-[#1a1a2e] leading-tight">{job?.partnerType ? `${job.partnerType} Schedule Tracker` : "Schedule Tracker"}</h1>
           <p className="text-[11px] text-gray-400 font-medium">Work Schedule</p>
         </div>
       </div>
@@ -106,7 +108,7 @@ export default function JobTrackingPage() {
                   }`}>
                     {step.name}
                   </h3>
-                  {step.status === "active" && step.id === 3 && (
+                  {step.status === "active" && step.id === 5 && (
                     <button 
                       onClick={() => router.push('/brand/wallet')}
                       className="mt-2 text-[11px] font-bold bg-[#EF4423] text-white px-3 py-1.5 rounded-lg"
