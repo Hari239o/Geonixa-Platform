@@ -51,13 +51,20 @@ export default function PartnerSetupProfilePage() {
       if (serverPayload.profilePic && serverPayload.profilePic.startsWith('data:image/')) {
         delete serverPayload.profilePic;
       }
-      await fetch("/api/user/complete-profile", { 
+      const res = await fetch("/api/user/complete-profile", { 
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(serverPayload)
       });
+      
+      if (res.ok) {
+        const data = await res.json();
+        if (data.profile) {
+          localStorage.setItem('kaling_user_profile', JSON.stringify(data.profile));
+        }
+      }
     } catch (e) {
       console.error(e);
     }

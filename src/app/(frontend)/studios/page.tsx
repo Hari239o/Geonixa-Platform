@@ -220,6 +220,26 @@ export default function StudiosPage() {
     }
   };
 
+  const handleDeleteJob = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    if (confirm("Are you sure you want to delete this work schedule?")) {
+      try {
+        const res = await fetch(`/api/studios/jobs/${id}`, {
+          method: 'DELETE'
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert("Work schedule deleted successfully");
+          fetchJobs();
+        } else {
+          alert(data.error || "Failed to delete work schedule");
+        }
+      } catch (err) {
+        alert("Error deleting work schedule");
+      }
+    }
+  };
+
   const renderOurExperts = () => (
     <div className="flex flex-col items-center justify-center pt-20 pb-10 text-center">
       <h2 className="text-xl font-bold mb-2">Speak to our experts</h2>
@@ -258,11 +278,20 @@ export default function StudiosPage() {
                     <h3 className="text-[15px] font-bold text-gray-900">{job.partnerType}</h3>
                     <p className="text-[12px] text-gray-500 font-medium mt-0.5">{job.date} • {job.timeSlot}</p>
                   </div>
-                  <span className={`px-2.5 py-1 text-[10px] font-bold rounded-md ${
-                    job.status === 'open' ? 'bg-orange-50 text-orange-600' : 'bg-gray-100 text-gray-600'
-                  }`}>
-                    {job.status.toUpperCase()}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={(e) => handleDeleteJob(e, job.id)}
+                      className="p-1.5 text-red-500 bg-red-50 rounded-md hover:bg-red-100 transition-colors"
+                      title="Delete Work Schedule"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </button>
+                    <span className={`px-2.5 py-1 text-[10px] font-bold rounded-md ${
+                      job.status === 'open' ? 'bg-orange-50 text-orange-600' : 'bg-gray-100 text-gray-600'
+                    }`}>
+                      {job.status.toUpperCase()}
+                    </span>
+                  </div>
                 </div>
                 <div className="h-px bg-gray-50 w-full"></div>
                 <div className="flex justify-between items-center">

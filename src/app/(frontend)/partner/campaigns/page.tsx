@@ -33,15 +33,31 @@ export default function CampaignPage() {
  const [jobBoard, setJobBoard] = useState<any[]>([]);
  const [userId, setUserId] = useState<string>('');
 
- useEffect(() => {
-   async function loadProfile() {
+  useEffect(() => {
+    async function loadProfile() {
       if (typeof window !== 'undefined') {
-        const parsed = await getItem<any>('kaling_user_profile');
+        let parsed = await getItem<any>('kaling_user_profile');
+        if (!parsed || !parsed.id) {
+          try {
+            const res = await fetch('/api/user/complete-profile');
+            if (res.ok) {
+              const data = await res.json();
+              if (data.profile) {
+                parsed = data.profile;
+                // Save it for future use
+                localStorage.setItem('kaling_user_profile', JSON.stringify(parsed));
+              }
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        }
+        
         if (parsed && parsed.profilePic) {
           setProfilePic(parsed.profilePic);
         }
-        if (parsed && parsed.id) {
-          setUserId(parsed.id);
+        if (parsed && (parsed.id || parsed.userId)) {
+          setUserId(parsed.id || parsed.userId);
         }
       }
     }
