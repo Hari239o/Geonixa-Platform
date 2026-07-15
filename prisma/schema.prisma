@@ -307,6 +307,12 @@ model StudioBooking {
   quoteAmount     String?
   status          String   @default("pending") // "pending", "accepted", "completed", "cancelled"
   
+  workDetailsAdminAccepted Boolean @default(false)
+  workDetailsBrandAccepted Boolean @default(false)
+  workDetailsPartnerAccepted Boolean @default(false)
+  agreementUploadedByBrand Boolean @default(false)
+  agreementAcceptedByPartner Boolean @default(false)
+  
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }

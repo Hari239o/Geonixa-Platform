@@ -39,23 +39,56 @@ export default function JobTrackingPage() {
     fetchTrackerInfo();
   }, [id]);
 
+  const handleTrackerAction = async (action: string) => {
+    try {
+      if (!booking) return;
+      const res = await fetch(`/api/studios/jobs/${id}/tracker/action`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bookingId: booking.id, action })
+      });
+      const data = await res.json();
+      if (data.success) {
+        window.location.reload();
+      } else {
+        alert(data.error || "Failed to complete action");
+      }
+    } catch (err) {
+      alert("Error performing action");
+    }
+  };
+
+  let workDetailsStatus = "pending";
   let agreementStatus = "pending";
   let paymentStatus = "pending";
+  let workDetailsComplete = false;
+  let agreementComplete = false;
 
   if (booking) {
-    if (booking.status === "pending_payment") {
-      agreementStatus = "completed";
-      paymentStatus = "active";
-    } else if (booking.status === "paid" || booking.status === "completed") {
-      agreementStatus = "completed";
-      paymentStatus = "completed";
+    workDetailsComplete = booking.workDetailsAdminAccepted && booking.workDetailsBrandAccepted && booking.workDetailsPartnerAccepted;
+    agreementComplete = booking.agreementUploadedByBrand && booking.agreementAcceptedByPartner;
+
+    if (workDetailsComplete) {
+      workDetailsStatus = "completed";
+      if (agreementComplete) {
+        agreementStatus = "completed";
+        if (booking.status === "paid" || booking.status === "completed") {
+          paymentStatus = "completed";
+        } else {
+          paymentStatus = "active";
+        }
+      } else {
+        agreementStatus = "active";
+      }
+    } else {
+      workDetailsStatus = "active";
     }
   }
 
   const steps = [
     { id: 1, name: "Work Created", status: "completed" },
     { id: 2, name: "Partner Confirmed", status: partner ? "completed" : "active" },
-    { id: 3, name: "Work Details", status: partner ? "completed" : "pending" },
+    { id: 3, name: "Work Details", status: partner ? workDetailsStatus : "pending" },
     { id: 4, name: "Agreement", status: partner ? agreementStatus : "pending" },
     { id: 5, name: "Payment", status: partner ? paymentStatus : "pending" }
   ];
@@ -108,6 +141,30 @@ export default function JobTrackingPage() {
                   }`}>
                     {step.name}
                   </h3>
+                  {step.status === "active" && step.id === 3 && !booking?.workDetailsBrandAccepted && (
+                    <button 
+                      onClick={() => handleTrackerAction("ACCEPT_WORK_DETAILS")}
+                      className="mt-2 text-[11px] font-bold bg-[#EF4423] text-white px-3 py-1.5 rounded-lg"
+                    >
+                      ACCEPT WORK DETAILS
+                    </button>
+                  )}
+                  {step.status === "active" && step.id === 3 && booking?.workDetailsBrandAccepted && (
+                    <p className="mt-2 text-[11px] font-medium text-gray-500">Waiting for Partner and Admin to accept...</p>
+                  )}
+
+                  {step.status === "active" && step.id === 4 && !booking?.agreementUploadedByBrand && (
+                    <button 
+                      onClick={() => handleTrackerAction("UPLOAD_AGREEMENT")}
+                      className="mt-2 text-[11px] font-bold bg-[#EF4423] text-white px-3 py-1.5 rounded-lg"
+                    >
+                      UPLOAD AGREEMENT
+                    </button>
+                  )}
+                  {step.status === "active" && step.id === 4 && booking?.agreementUploadedByBrand && (
+                    <p className="mt-2 text-[11px] font-medium text-gray-500">Waiting for Partner to accept agreement...</p>
+                  )}
+
                   {step.status === "active" && step.id === 5 && (
                     <button 
                       onClick={() => router.push('/brand/wallet')}
