@@ -187,18 +187,20 @@ export default function PartnerDashboardPage() {
 
         {/* Tabs */}
         <div className="flex bg-white rounded-full p-1 shadow-sm mb-6 overflow-x-auto no-scrollbar">
-          <button 
-            className={`flex-1 py-3 px-4 text-[13px] font-bold rounded-full transition-all duration-300 whitespace-nowrap ${activeTab === 'active' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
+          <motion.button 
+            whileTap={{ scale: 0.95 }}
+            className={`flex-1 py-3 px-4 text-[13px] font-bold rounded-full transition-colors whitespace-nowrap ${activeTab === 'active' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
             onClick={() => setActiveTab('active')}
           >
             Active
-          </button>
-          <button 
-            className={`flex-1 py-3 px-4 text-[13px] font-bold rounded-full transition-all duration-300 whitespace-nowrap ${activeTab === 'completed' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
+          </motion.button>
+          <motion.button 
+            whileTap={{ scale: 0.95 }}
+            className={`flex-1 py-3 px-4 text-[13px] font-bold rounded-full transition-colors whitespace-nowrap ${activeTab === 'completed' ? 'bg-[#EF4423] text-white shadow-md' : 'text-gray-500 hover:text-gray-700'}`}
             onClick={() => setActiveTab('completed')}
           >
             Completed
-          </button>
+          </motion.button>
         </div>
 
         {/* Online Toggle */}
@@ -230,12 +232,15 @@ export default function PartnerDashboardPage() {
               animate="visible"
               variants={{
                 hidden: { opacity: 0 },
-                visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+                visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
               }}
             >
               {projectsToDisplay.map((project) => (
                 <motion.div 
-                  variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                  variants={{ 
+                    hidden: { opacity: 0, x: -30, scale: 0.95 }, 
+                    visible: { opacity: 1, x: 0, scale: 1, transition: { type: "spring", stiffness: 260, damping: 20 } } 
+                  }}
                   key={project.id} 
                   className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 relative flex flex-col"
                 >
@@ -275,12 +280,14 @@ export default function PartnerDashboardPage() {
                       Completed
                     </div>
                   ) : (
-                    <button 
+                    <motion.button 
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                       onClick={() => handleApplyToJob(project.id)}
-                      className="w-full bg-[#EF4423] text-white font-bold py-2 rounded-xl shadow-md hover:bg-[#d63f1c] transition-all"
+                      className="w-full bg-[#EF4423] text-white font-bold py-2 rounded-xl shadow-md hover:bg-[#d63f1c] transition-colors"
                     >
                       APPLY FOR THIS JOB
-                    </button>
+                    </motion.button>
                   )}
                 </motion.div>
               ))}
@@ -315,9 +322,14 @@ export default function PartnerDashboardPage() {
             <span className="text-white/90 text-[11px] font-medium leading-none mb-1">Find More</span>
             <span className="text-white text-xl font-bold leading-none tracking-tight">campaigns</span>
           </div>
-          <button onClick={() => router.push('/campaigns')} className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-6 py-2 rounded-xl text-sm font-bold shadow-sm transition-transform active:scale-95">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => router.push('/campaigns')} 
+            className="relative z-10 bg-[#D4E865] hover:bg-[#c2d655] text-gray-800 px-6 py-2 rounded-xl text-sm font-bold shadow-sm transition-colors"
+          >
             View
-          </button>
+          </motion.button>
         </div>
       </motion.div>
       </div>
