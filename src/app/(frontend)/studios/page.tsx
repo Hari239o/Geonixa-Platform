@@ -68,26 +68,31 @@ export default function StudiosPage() {
     { id: "2", name: "Kiran Edits", isVerified: true, rating: 5, reviews: 20, type: "Cameraman", image: "/placeholder-user.jpg" },
   ];
 
+  const fetchBrandJobs = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/studios/jobs?role=brand");
+      const data = await res.json();
+      if (data.success && data.jobs) {
+        setJobs(data.jobs);
+      } else {
+        setJobs([]);
+      }
+    } catch (e) {
+      setJobs([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     async function fetchPartners() {
-      setIsLoading(true);
       if (bookingMode === "Work Schedule") {
-        try {
-          const res = await fetch("/api/studios/jobs?role=brand");
-          const data = await res.json();
-          if (data.success && data.jobs) {
-            setJobs(data.jobs);
-          } else {
-            setJobs([]);
-          }
-        } catch (e) {
-          setJobs([]);
-        } finally {
-          setIsLoading(false);
-        }
+        await fetchBrandJobs();
         return;
       }
 
+      setIsLoading(true);
       try {
         const isInstantParam = bookingMode === "Instant" ? "&isInstantAvailable=true" : "";
         const res = await fetch(`/api/studios/partners?type=${partnerType}${isInstantParam}`);
@@ -230,7 +235,7 @@ export default function StudiosPage() {
         const data = await res.json();
         if (data.success) {
           alert("Work schedule deleted successfully");
-          fetchJobs();
+          fetchBrandJobs();
         } else {
           alert(data.error || "Failed to delete work schedule");
         }
