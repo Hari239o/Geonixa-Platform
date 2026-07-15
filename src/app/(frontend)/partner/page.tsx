@@ -7,6 +7,18 @@ import { Bell, Camera, X } from "lucide-react";
 import BottomNav from "@/components/shared/BottomNav";
 import { useSession } from "next-auth/react";
 import { getItem } from "@/utils/storage";
+import { motion, AnimatePresence, useSpring, useTransform } from "framer-motion";
+
+const Counter = ({ value }: { value: number }) => {
+  const spring = useSpring(0, { bounce: 0, duration: 1000 });
+  const display = useTransform(spring, (current) => Math.round(current));
+  
+  useEffect(() => {
+    spring.set(value);
+  }, [value, spring]);
+
+  return <motion.span>{display}</motion.span>;
+};
 
 export default function PartnerDashboardPage() {
   const router = useRouter();
@@ -164,7 +176,7 @@ export default function PartnerDashboardPage() {
         {/* Stats */}
         <div className="flex justify-between items-center px-4 mb-6">
           <div className="flex items-baseline gap-1.5">
-            <span className="text-[22px] font-extrabold text-[#1a1a2e]">{stats.projectsDone}</span>
+            <span className="text-[22px] font-extrabold text-[#1a1a2e]"><Counter value={stats.projectsDone} /></span>
             <span className="text-[12px] font-medium text-gray-400">Projects Done</span>
           </div>
           <div className="flex items-baseline gap-1.5">
@@ -205,14 +217,27 @@ export default function PartnerDashboardPage() {
         </div>
 
         {/* Cards */}
-        <div className="flex flex-col gap-4 mt-6">
+        <motion.div 
+          key={activeTab}
+          className="flex flex-col gap-4 mt-6"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+          }}
+        >
           {isLoading ? (
             <div className="flex justify-center items-center py-10">
               <div className="w-8 h-8 border-4 border-gray-200 border-t-[#EF4423] rounded-full animate-spin"></div>
             </div>
           ) : projectsToDisplay.length > 0 ? (
             projectsToDisplay.map((project) => (
-            <div key={project.id} className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 relative flex flex-col">
+            <motion.div 
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              key={project.id} 
+              className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 relative flex flex-col"
+            >
               <span className="absolute top-5 right-5 text-[10px] font-semibold text-gray-300">{project.timeAgo}</span>
               
               <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center mb-3 text-indigo-500">
@@ -249,22 +274,29 @@ export default function PartnerDashboardPage() {
                   Completed
                 </div>
               )}
-            </div>
+            </motion.div>
             ))
           ) : (
-            <div className="bg-white rounded-[24px] p-8 text-center shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center">
+            <motion.div 
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="bg-white rounded-[24px] p-8 text-center shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center"
+            >
               <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4 text-gray-400">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
               </div>
               <h3 className="text-[15px] font-bold text-gray-800 mb-1">No {activeTab} projects</h3>
               <p className="text-[13px] text-gray-500">When you book new projects, they will appear here.</p>
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </div>
       
       {/* Floating Banner */}
-      <div className="w-full px-5 z-30 shrink-0 mt-auto pb-4">
+      <motion.div 
+        className="w-full px-5 z-30 shrink-0 mt-auto pb-4"
+        animate={{ y: [0, -5, 0] }}
+        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+      >
         <div className="w-full max-w-[335px] mx-auto bg-[#EF4423] rounded-[18px] p-4 flex items-center justify-between shadow-xl relative overflow-hidden">
           <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
           <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-xl pointer-events-none"></div>
@@ -277,7 +309,7 @@ export default function PartnerDashboardPage() {
             View
           </button>
         </div>
-      </div>
+      </motion.div>
       </div>
 
       <BottomNav profilePic={profileImage || undefined} />

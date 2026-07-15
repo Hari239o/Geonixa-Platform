@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import BottomNav from "@/components/brand/BottomNav";
+import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "@/components/ui/Logo";
 import { ChevronLeft, X } from "lucide-react";
 
@@ -260,21 +261,33 @@ export default function StudiosPage() {
   );
 
   const renderList = () => {
-    if (bookingMode === "Work Schedule") {
-      return (
-        <div className="flex flex-col gap-4 mt-4 pb-20">
+    return (
+      <motion.div 
+        className="flex flex-col gap-4 mt-4 pb-20"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ staggerChildren: 0.1 }}
+      >
+        <AnimatePresence>
           {jobs.length === 0 ? (
-            <div className="bg-white rounded-[24px] p-8 shadow-sm flex flex-col items-center justify-center text-center">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-[24px] p-8 shadow-sm flex flex-col items-center justify-center text-center"
+            >
               <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
               </div>
               <h3 className="text-[15px] font-bold text-gray-800 mb-1">No Jobs Posted</h3>
               <p className="text-[13px] text-gray-500 font-medium">When you schedule a partner, it will appear here.</p>
-            </div>
+            </motion.div>
           ) : (
             jobs.map(job => (
-              <div 
+              <motion.div 
                 key={job.id} 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
                 onClick={() => router.push(`/brand/jobs/${job.id}`)}
                 className="bg-white rounded-[24px] p-5 shadow-[0_2px_15px_rgba(0,0,0,0.04)] border border-gray-50 cursor-pointer hover:shadow-md transition-shadow flex flex-col gap-3"
               >
@@ -308,12 +321,12 @@ export default function StudiosPage() {
                     <ChevronLeft className="w-4 h-4 text-gray-400 rotate-180" />
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))
           )}
-        </div>
-      );
-    }
+        </AnimatePresence>
+      </motion.div>
+    );
 
     const filteredPartners = partners;
 
@@ -326,12 +339,29 @@ export default function StudiosPage() {
     }
 
     return (
-      <div className="flex flex-col gap-3 mt-4">
+      <motion.div 
+        className="flex flex-col gap-3 mt-4"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.08 }
+          }
+        }}
+      >
         {filteredPartners.map((partner) => {
           const isSelected = selectedPartnerId === partner.id;
           return (
-            <div 
+            <motion.div 
               key={partner.id}
+              variants={{
+                hidden: { opacity: 0, y: 15 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => {
                 setSelectedPartnerId(partner.id);
                 setSelectedPartner(partner);
@@ -339,7 +369,7 @@ export default function StudiosPage() {
                 setSelectedScheduleDate("");
                 setShowPartnerSheet(true);
               }}
-              className={`flex items-center justify-between p-3 rounded-[16px] transition-all cursor-pointer border border-gray-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-[#EF4423]`}
+              className={`flex items-center justify-between p-3 rounded-[16px] transition-all cursor-pointer border border-gray-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] ${isSelected ? 'border-[#EF4423]' : 'hover:border-[#EF4423]'}`}
             >
               <div className="flex items-center gap-4">
                 <div 
@@ -373,12 +403,12 @@ export default function StudiosPage() {
               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-2 transition-colors ${
                 isSelected ? "border-[#EF4423]" : "border-gray-300"
               }`}>
-                {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#EF4423]" />}
+                {isSelected && <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-2.5 h-2.5 rounded-full bg-[#EF4423]" />}
               </div>
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     );
   };
 
@@ -582,132 +612,141 @@ export default function StudiosPage() {
       )}
 
       {/* Partner Popup / Bottom Sheet */}
-      {showPartnerSheet && selectedPartner && (
-        <>
-          <div 
-            className="fixed inset-0 bg-black/40 z-[100] transition-opacity" 
-            onClick={() => setShowPartnerSheet(false)}
-          />
-          <div className="fixed bottom-0 left-0 w-full bg-white rounded-t-[24px] z-[110] p-6 pb-10 shadow-xl transform transition-transform overflow-y-auto max-h-[85vh]">
-            <button 
+      <AnimatePresence>
+        {showPartnerSheet && selectedPartner && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/40 z-[100] transition-opacity" 
               onClick={() => setShowPartnerSheet(false)}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 hover:text-black"
+            />
+            <motion.div 
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed bottom-0 left-0 w-full bg-white rounded-t-[24px] z-[110] p-6 pb-10 shadow-xl overflow-y-auto max-h-[85vh]"
             >
-              <X className="w-5 h-5" />
-            </button>
-            
-            <div className="flex flex-col items-center mt-2">
-              <div 
-                className="w-20 h-20 rounded-[18px] bg-cover bg-center mb-4 border border-gray-100 shadow-sm"
-                style={{ backgroundImage: `url(${selectedPartner.image})` }}
-              />
-              <h3 className="text-[18px] font-bold text-gray-900 flex items-center gap-1.5">
-                {selectedPartner.name}
-                {selectedPartner.isVerified && (
-                  <div className="w-4 h-4 bg-[#EF4423] text-white flex items-center justify-center rounded-sm mask mask-hexagon" style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="w-2.5 h-2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </div>
-                )}
-              </h3>
-              <p className="text-[13px] text-gray-500 font-medium capitalize mt-1">{selectedPartner.type}</p>
+              <button 
+                onClick={() => setShowPartnerSheet(false)}
+                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 hover:text-black"
+              >
+                <X className="w-5 h-5" />
+              </button>
               
-              <div className="flex items-center gap-1 mt-2 mb-6">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <svg 
-                    key={star} 
-                    className={`w-4 h-4 ${star <= Math.floor(selectedPartner.rating) ? 'text-[#FFD700]' : 'text-gray-200'}`} 
-                    fill="currentColor" 
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-                <span className="text-[12px] text-gray-400 ml-1">({selectedPartner.reviews} reviews)</span>
+              <div className="flex flex-col items-center mt-2">
+                <div 
+                  className="w-20 h-20 rounded-[18px] bg-cover bg-center mb-4 border border-gray-100 shadow-sm"
+                  style={{ backgroundImage: `url(${selectedPartner.image})` }}
+                />
+                <h3 className="text-[18px] font-bold text-gray-900 flex items-center gap-1.5">
+                  {selectedPartner.name}
+                  {selectedPartner.isVerified && (
+                    <div className="w-4 h-4 bg-[#EF4423] text-white flex items-center justify-center rounded-sm mask mask-hexagon" style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="w-2.5 h-2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                  )}
+                </h3>
+                <p className="text-[13px] text-gray-500 font-medium capitalize mt-1">{selectedPartner.type}</p>
+                
+                <div className="flex items-center gap-1 mt-2 mb-6">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <svg 
+                      key={star} 
+                      className={`w-4 h-4 ${star <= Math.floor(selectedPartner.rating) ? 'text-[#FFD700]' : 'text-gray-200'}`} 
+                      fill="currentColor" 
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                  <span className="text-[12px] text-gray-400 ml-1">({selectedPartner.reviews} reviews)</span>
+                </div>
+                
+                {selectedPartner.bio && (
+                  <p className="text-sm text-gray-600 text-center mb-6 line-clamp-3 px-2">
+                    {selectedPartner.bio}
+                  </p>
+                )}
+              </div>
+
+              <div className="mb-6">
+                {bookingMode === "Instant" ? (
+                  <div className="flex items-center gap-2 p-3 bg-[#E8F8EE] rounded-xl text-[#2ECC71] justify-center border border-[#2ECC71]/20">
+                    <div className="w-2.5 h-2.5 bg-[#2ECC71] rounded-full animate-pulse" />
+                    <span className="font-bold text-sm">Instantly Available</span>
+                  </div>
+                ) : (
+                  <>
+                    <h4 className="text-[14px] font-bold text-gray-900 mb-3">Select Date & Time</h4>
+                    <div className="mb-4">
+                      <input 
+                        type="date"
+                        value={selectedScheduleDate}
+                        onChange={(e) => {
+                          setSelectedScheduleDate(e.target.value);
+                          setSelectedSlot(null);
+                        }}
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#EF4423]/20 focus:border-[#EF4423]"
+                        min={new Date().toISOString().split('T')[0]}
+                      />
+                    </div>
+                    
+                    {(() => {
+                      if (!selectedScheduleDate) return <p className="text-sm text-gray-500 text-center py-2">Please select a date to view slots.</p>;
+                      
+                      const dayOfWeek = new Date(selectedScheduleDate).toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+                      const datesSlots = selectedPartner.availableDates?.[selectedScheduleDate];
+                      const daysSlots = selectedPartner.availableDays?.[dayOfWeek];
+                      const slots = datesSlots || daysSlots || [];
+
+                      if (slots.length === 0) return <p className="text-sm text-gray-500 text-center py-2">No slots available on this date.</p>;
+
+                      return (
+                        <div className="grid grid-cols-3 gap-2 max-h-[200px] overflow-y-auto">
+                          {slots.map((slot: string) => (
+                            <button
+                              key={slot}
+                              onClick={() => setSelectedSlot(slot)}
+                              className={`py-2 px-2 text-[12px] font-bold rounded-xl border transition-all ${
+                                selectedSlot === slot
+                                ? "bg-[#FFF6F5] border-[#EF4423] text-[#EF4423]"
+                                : "border-gray-200 text-gray-600 hover:border-gray-300"
+                              }`}
+                            >
+                              {slot}
+                            </button>
+                          ))}
+                        </div>
+                      );
+                    })()}
+                  </>
+                )}
               </div>
               
-              {selectedPartner.bio && (
-                <p className="text-sm text-gray-600 text-center mb-6 line-clamp-3 px-2">
-                  {selectedPartner.bio}
-                </p>
-              )}
-            </div>
-
-            <div className="mb-6">
-              {bookingMode === "Instant" ? (
-                <div className="flex items-center gap-2 p-3 bg-[#E8F8EE] rounded-xl text-[#2ECC71] justify-center border border-[#2ECC71]/20">
-                  <div className="w-2.5 h-2.5 bg-[#2ECC71] rounded-full animate-pulse" />
-                  <span className="font-bold text-sm">Instantly Available</span>
-                </div>
-              ) : (
-                <>
-                  <h4 className="text-[14px] font-bold text-gray-900 mb-3">Select Date & Time</h4>
-                  <div className="mb-4">
-                    <input 
-                      type="date"
-                      value={selectedScheduleDate}
-                      onChange={(e) => {
-                        setSelectedScheduleDate(e.target.value);
-                        setSelectedSlot(null);
-                      }}
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#EF4423]/20 focus:border-[#EF4423]"
-                      min={new Date().toISOString().split('T')[0]}
-                    />
-                  </div>
-                  
-                  {(() => {
-                    if (!selectedScheduleDate) return <p className="text-sm text-gray-500 text-center py-2">Please select a date to view slots.</p>;
-                    
-                    const dayOfWeek = new Date(selectedScheduleDate).toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
-                    const datesSlots = selectedPartner.availableDates?.[selectedScheduleDate];
-                    const daysSlots = selectedPartner.availableDays?.[dayOfWeek];
-                    const slots = datesSlots || daysSlots || [];
-
-                    if (slots.length === 0) return <p className="text-sm text-gray-500 text-center py-2">No slots available on this date.</p>;
-
-                    return (
-                      <div className="grid grid-cols-3 gap-2 max-h-[200px] overflow-y-auto">
-                        {slots.map((slot: string) => (
-                          <button
-                            key={slot}
-                            onClick={() => setSelectedSlot(slot)}
-                            className={`py-2 px-2 text-[12px] font-bold rounded-xl border transition-all ${
-                              selectedSlot === slot
-                              ? "bg-[#FFF6F5] border-[#EF4423] text-[#EF4423]"
-                              : "border-gray-200 text-gray-600 hover:border-gray-300"
-                            }`}
-                          >
-                            {slot}
-                          </button>
-                        ))}
-                      </div>
-                    );
-                  })()}
-                </>
-              )}
-            </div>
-            
-            <button 
-              onClick={() => {
-                if (bookingMode === "Schedule" && !selectedSlot) {
-                  alert("Please select a time slot");
-                  return;
-                }
-                setShowPartnerSheet(false);
-                // The main flow uses `selectedPartnerId` which is already set. 
-                // We proceed to booking automatically.
-                if (partnerType === "Cameraman" && bookingMode === "Instant") {
-                  setStep(3);
-                } else {
-                  setStep(2);
-                }
-              }}
-              className="w-full bg-[#EF4423] text-white rounded-[14px] h-[52px] text-[15px] font-bold shadow-[0_4px_15px_rgba(255,77,45,0.4)]"
-            >
-              PROCEED TO BOOK
-            </button>
-          </div>
-        </>
-      )}
+              <button 
+                onClick={() => {
+                  if (bookingMode === "Schedule" && !selectedSlot) {
+                    alert("Please select a time slot");
+                    return;
+                  }
+                  setShowPartnerSheet(false);
+                  if (partnerType === "Cameraman" && bookingMode === "Instant") {
+                    setStep(3);
+                  } else {
+                    setStep(2);
+                  }
+                }}
+                className="w-full bg-[#EF4423] text-white rounded-[14px] h-[52px] text-[15px] font-bold shadow-[0_4px_15px_rgba(255,77,45,0.4)]"
+              >
+                PROCEED TO BOOK
+              </button>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {step === 1 && <BottomNav />}
     </div>
