@@ -75,6 +75,9 @@ class EmailService {
             user: smtpUser,
             pass: smtpPass,
           },
+          tls: {
+            rejectUnauthorized: false,
+          },
           pool: true,
           maxConnections: 5,
           maxMessages: 100,
