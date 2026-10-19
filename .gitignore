@@ -31,3 +31,5 @@ dist/
 
 # IDE settings
 .eslintcache
+
+.vercel

@@ -26,17 +26,14 @@ interface CodeEditorProps {
   language: string;
   testCases: TestCase[];
   initialResults?: TestResult[];
-  onTestsStatusChange?: (passed: boolean) => void;
-  onIntegrityCheck?: (code: string, results: TestResult[]) => void;
-  onFinalSubmit?: (code: string, results: any[]) => void;
-  onSubmitSolution?: (code: string, language: string) => void;
-  onUpdate?: (data: { code: string, language: string, results: TestResult[] }) => void;
-  onRunMode?: (mode: "RUN" | "SUBMIT") => void; // Added to fix ghost TS error
+  onTestsStatusChange?: (_passed: boolean) => void;
+  onIntegrityCheck?: (_code: string, _results: TestResult[]) => void;
+  onFinalSubmit?: (_code: string, _results: any[]) => void;
+  onSubmitSolution?: (_code: string, _language: string) => void;
+  onUpdate?: (_data: { code: string, language: string, results: TestResult[] }) => void;
+  onRunMode?: (_mode: "RUN" | "SUBMIT") => void;
   isExamMode?: boolean;
 }
-
-const PISTON_API = "https://emkc.org/api/v2/piston/execute";
-const PISTON_FALLBACK = "https://piston.engineer/api/v2/execute";
 
 const LANGUAGE_MAP: Record<string, { name: string, version: string, monaco: string, boilerplate: string }> = {
   javascript: {
@@ -64,12 +61,6 @@ const LANGUAGE_MAP: Record<string, { name: string, version: string, monaco: stri
     boilerplate: `public class Solution {\n    public int Solve(int[] nums) {\n        return 0;\n    }\n}`
   }
 };
-
-const THEMES = [
-  { id: "vs-dark", name: "VS Code Dark" },
-  { id: "hc-black", name: "High Contrast" },
-  { id: "light", name: "Classic Light" }
-];
 
 interface TestResult {
   id: number;
@@ -270,11 +261,8 @@ export default function CodeEditor({
   initialResults = [],
   onTestsStatusChange, 
   onIntegrityCheck, 
-  onFinalSubmit,
   onSubmitSolution,
   onUpdate,
-  onRunMode,
-  isExamMode = false
 }: CodeEditorProps) {
   const [code, setCode] = useState(initialCode);
   const [selectedLanguage, setSelectedLanguage] = useState(initialLanguage);
@@ -296,12 +284,6 @@ export default function CodeEditor({
 
   const visibleTests = testCases.filter((t) => !t.isHidden);
   const displayTestCases = runMode === "SUBMIT" ? testCases : visibleTests;
-  const executedTestCount = runMode === "SUBMIT"
-    ? testCases.length
-    : Math.max(testResults.length || visibleTests.length, visibleTests.length);
-  const hiddenExecutionCount = runMode === "RUN" && testResults.length > displayTestCases.length
-    ? testResults.length - displayTestCases.length
-    : 0;
 
   useEffect(() => {
     if (activeTestIndex >= displayTestCases.length) {
@@ -356,7 +338,7 @@ export default function CodeEditor({
       }
     }, 1000);
     return () => clearTimeout(timeout);
-  }, [code, selectedLanguage, questionId, testResults]);
+  }, [code, selectedLanguage, questionId, testResults, onUpdate]);
 
   const handleEditorDidMount: OnMount = (editor, monaco) => {
     editorRef.current = editor;
@@ -466,6 +448,7 @@ export default function CodeEditor({
 
     window.addEventListener("keydown", handleShortcuts);
     return () => window.removeEventListener("keydown", handleShortcuts);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionId, selectedLanguage, code]);
 
   const executeSubmitSolution = async () => {
@@ -531,7 +514,7 @@ export default function CodeEditor({
       if (onSubmitSolution) {
         onSubmitSolution(code, selectedLanguage);
       }
-    } catch (err) {
+    } catch {
        alert("Network timeout. Progress saved locally.");
     } finally {
       setIsFinalSubmitting(false);
@@ -680,83 +663,6 @@ export default function CodeEditor({
     }
   };
 
-  const handleRunTests = async () => {
-    if (isRunning) return;
-    setIsRunning(true);
-    setRunMode("RUN");
-    setExecutionSummary(null);
-    setActiveTab("TESTS");
-
-    try {
-      const { results, summary, error } = await runBatchTests(code, selectedLanguage, testCases, false);
-      if (error) {
-        setOutput(`⚠ EXECUTION FAILED:\n\n${error}`);
-        setActiveTab("OUTPUT");
-        return;
-      }
-
-      if (!results || results.length === 0) {
-        setOutput(error ? `⚠ EXECUTION FAILED:\n\n${error}` : "Execution returned no results. Check your code logic.");
-        setActiveTab("OUTPUT");
-        return;
-      }
-
-      const typedResults = results as Array<TestResult & { isHidden?: boolean }>;
-      setTestResults(typedResults);
-      setActiveTestIndex(0);
-      setExecutionSummary(summary || null);
-
-      const compileError = typedResults.find((r: TestResult) => r.status === "COMPILATION_ERROR");
-      const runtimeError = typedResults.find((r: TestResult) => r.status === "RUNTIME_ERROR");
-      const wrongAnswer = typedResults.find((r: TestResult) => r.status === "WRONG_ANSWER");
-      const firstFailure = typedResults.find((r: TestResult) => !r.passed);
-      const allPassed = typedResults.length > 0 && typedResults.every((r: TestResult) => r.passed);
-      const passedCount = typedResults.filter((r: TestResult) => r.passed).length;
-
-      const totalCount = summary?.total ?? typedResults.length ?? testCases.length;
-
-      let lines = [
-        "Run Tests Result",
-        `Passed: ${passedCount}/${totalCount}`,
-        `Failed: ${Math.max(0, totalCount - passedCount)}/${totalCount}`,
-      ];
-
-      const hiddenCount = typedResults.filter((r) => r.isHidden).length;
-      if (hiddenCount > 0) lines.push(`Hidden testcases executed: ${hiddenCount}`);
-
-      let mainOutput = lines.join("\n");
-
-      if (compileError) {
-        setOutput(`⚠ COMPILATION ERROR:\n\n${compileError.stderr || "Compilation failed"}\n\n---\n${mainOutput}`);
-        setActiveTab("OUTPUT");
-      } else if (runtimeError) {
-        setOutput(`⚠ RUNTIME ERROR:\n\n${runtimeError.stderr || "Runtime failure occurred"}\n\n---\n${mainOutput}`);
-        setActiveTab("OUTPUT");
-      } else if (wrongAnswer || firstFailure) {
-        const failedTest = wrongAnswer || firstFailure;
-        mainOutput += `\n\nFirst failed testcase: ${failedTest?.id}\nExpected output: ${failedTest?.isHidden ? "[HIDDEN]" : (failedTest?.expected || "")}\nActual output: ${failedTest?.isHidden ? "[HIDDEN]" : (failedTest?.actual || "No output")}`;
-        setOutput(`❌ Wrong Answer\n\nReview expected vs actual output.\n\n---\n${mainOutput}`);
-        setActiveTab("TESTS");
-      } else if (allPassed) {
-        setOutput(`✅ All testcases passed. Submit to validate hidden enterprise cases.\n\n---\n${mainOutput}`);
-        setActiveTab("OUTPUT");
-      } else {
-        setOutput(`⚠ Execution completed with unexpected status. Inspect diagnostics below.\n\n---\n${mainOutput}`);
-        setActiveTab("TESTS");
-      }
-
-      if (onIntegrityCheck) onIntegrityCheck(code, results);
-      if (onTestsStatusChange) onTestsStatusChange(summary?.status === "ACCEPTED");
-    } catch (err) {
-      console.error("Critical test runner failure:", err);
-      setOutput("⚠ Execution system failure. Check network or service availability.");
-      setActiveTab("OUTPUT");
-    } finally {
-      setIsRunning(false);
-      setIsResultPanelOpen(true);
-    }
-  };
-
   const handleReset = () => {
     if (confirm("Restore boilerplate code for this language? Current changes will be lost.")) {
       setCode(selectedLanguage === initialLanguage ? (initialCode || LANGUAGE_MAP[selectedLanguage]?.boilerplate || "") : (LANGUAGE_MAP[selectedLanguage]?.boilerplate || ""));
@@ -800,7 +706,7 @@ export default function CodeEditor({
           <div className="flex items-center gap-0.5">
             <button onClick={() => navigator.clipboard.writeText(code)} className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-lg transition-all" title="Copy Code"><Copy size={15} /></button>
             <button onClick={handleReset} className="p-1.5 text-slate-500 hover:text-orange-600 hover:bg-orange-500/10 rounded-lg transition-all" title="Reset Boilerplate"><RotateCcw size={15} /></button>
-            <button onClick={toggleFullscreen} className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-lg transition-all" title="Toggle Fullscreen"><Maximize2 size={15} /></button>
+            <button onClick={toggleFullscreen} className={`p-1.5 rounded-lg transition-all ${isFullscreen ? 'text-blue-600 bg-blue-50' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-200'}`} title={isFullscreen ? "Exit Fullscreen" : "Toggle Fullscreen"}><Maximize2 size={15} /></button>
             <button onClick={() => setTheme((prev) => (prev === "vs-dark" ? "light" : "vs-dark"))} className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-200 rounded-lg transition-all" title="Toggle Theme">
               <Palette size={15} />
             </button>
@@ -981,11 +887,11 @@ export default function CodeEditor({
                    </div>
                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                      <div className="text-[10px] font-bold uppercase text-slate-500 mb-1 tracking-widest">Time</div>
-                     <div className="text-2xl font-black text-blue-600">{execTime ? `${execTime}ms` : '-'}</div>
+                     <div className="text-2xl font-black text-blue-600">{execTime ? `${execTime}ms` : (executionSummary?.time ? `${executionSummary.time}ms` : '-')}</div>
                    </div>
                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                      <div className="text-[10px] font-bold uppercase text-slate-500 mb-1 tracking-widest">Memory</div>
-                     <div className="text-2xl font-black text-purple-600">{memoryUsage ? `${(memoryUsage / 1024 / 1024).toFixed(1)}MB` : '-'}</div>
+                     <div className="text-2xl font-black text-purple-600">{memoryUsage ? `${(memoryUsage / 1024 / 1024).toFixed(1)}MB` : (executionSummary?.memory ? `${(executionSummary.memory / 1024 / 1024).toFixed(1)}MB` : '-')}</div>
                    </div>
                  </div>
                  
