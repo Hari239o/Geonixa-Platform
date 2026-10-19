@@ -19,7 +19,6 @@ interface TestCase {
   isHidden?: boolean;
 }
 
-/* eslint-disable no-unused-vars */
 interface CodeEditorProps {
   questionId: string;
   questionTitle?: string;
@@ -35,7 +34,6 @@ interface CodeEditorProps {
   onRunMode?: (mode: "RUN" | "SUBMIT") => void;
   isExamMode?: boolean;
 }
-/* eslint-enable no-unused-vars */
 
 const LANGUAGE_MAP: Record<string, { name: string, version: string, monaco: string, boilerplate: string }> = {
   javascript: {
