@@ -1,14 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Editor, { OnMount, loader } from "@monaco-editor/react";
 import {
-  Play, RotateCcw, Terminal, ShieldCheck, Loader2, CheckCircle2, Check,
-  XCircle, Code2, Cpu, Copy, Download, Maximize2, Palette, AlertCircle, Clock, Zap, X, ChevronUp, ChevronDown, ListChecks
+  Play, RotateCcw, ShieldCheck, Loader2, CheckCircle2,
+  XCircle, Code2, Cpu, Copy, Maximize2, Palette, ChevronDown, ListChecks
 } from "lucide-react";
 import axios from "axios";
 import SimpleCodeEditor from "react-simple-code-editor";
-import ProfessionalTestcasePanel from "./ProfessionalTestcasePanel";
 
 // Configure Monaco Loader to use CDN for stability and speed
 loader.config({ paths: { vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs" } });
