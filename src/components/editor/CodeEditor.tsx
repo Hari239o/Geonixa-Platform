@@ -19,6 +19,7 @@ interface TestCase {
   isHidden?: boolean;
 }
 
+/* eslint-disable no-unused-vars */
 interface CodeEditorProps {
   questionId: string;
   questionTitle?: string;
@@ -26,14 +27,15 @@ interface CodeEditorProps {
   language: string;
   testCases: TestCase[];
   initialResults?: TestResult[];
-  onTestsStatusChange?: (_passed: boolean) => void;
-  onIntegrityCheck?: (_code: string, _results: TestResult[]) => void;
-  onFinalSubmit?: (_code: string, _results: any[]) => void;
-  onSubmitSolution?: (_code: string, _language: string) => void;
-  onUpdate?: (_data: { code: string, language: string, results: TestResult[] }) => void;
-  onRunMode?: (_mode: "RUN" | "SUBMIT") => void;
+  onTestsStatusChange?: (passed: boolean) => void;
+  onIntegrityCheck?: (code: string, results: TestResult[]) => void;
+  onFinalSubmit?: (code: string, results: any[]) => void;
+  onSubmitSolution?: (code: string, language: string) => void;
+  onUpdate?: (data: { code: string, language: string, results: TestResult[] }) => void;
+  onRunMode?: (mode: "RUN" | "SUBMIT") => void;
   isExamMode?: boolean;
 }
+/* eslint-enable no-unused-vars */
 
 const LANGUAGE_MAP: Record<string, { name: string, version: string, monaco: string, boilerplate: string }> = {
   javascript: {
@@ -260,7 +262,6 @@ export default function CodeEditor({
   testCases, 
   initialResults = [],
   onTestsStatusChange, 
-  onIntegrityCheck, 
   onSubmitSolution,
   onUpdate,
 }: CodeEditorProps) {
