@@ -977,6 +977,39 @@ export const fetchAllDashboardData = async () => {
   return { submissions, logins, profiles };
 };
 
+const normalizeDateKey = (raw?: string): string => {
+  if (!raw) return new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+  const trimmed = String(raw).trim();
+  const match = trimmed.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/);
+  if (match) {
+    const [, day, month, year] = match;
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
+  return trimmed;
+};
+
+const normalizeSlotId = (slot?: string): string => {
+  if (!slot) return "SLOT_1";
+  const slotMap: Record<string, string> = {
+    "10:00 AM - 11:15 AM": "SLOT_1",
+    "11:45 AM - 01:00 PM": "SLOT_2",
+    "02:45 PM - 04:00 PM": "SLOT_3",
+    "05:30 PM - 06:45 PM": "SLOT_4",
+    "07:00 PM - 08:15 PM": "SLOT_5",
+    "08:30 PM - 10:00 PM": "SLOT_6"
+  };
+  return slotMap[slot] || (SLOT_CONFIG as any)[slot]?.id || slot;
+};
+
+const DEFAULT_SLOT_COUNTS: Record<string, number> = {
+  "SLOT_1": 0,
+  "SLOT_2": 0,
+  "SLOT_3": 0,
+  "SLOT_4": 0,
+  "SLOT_5": 0,
+  "SLOT_6": 0
+};
+
 export const deleteCandidateFirebase = async (email: string) => {
   if (!email) return;
   if (firebaseConfig.projectId === "dummy" && typeof window !== "undefined") {
@@ -1000,17 +1033,8 @@ export const deleteCandidateFirebase = async (email: string) => {
     
     if (profileDoc.exists()) {
       const slotLabel = profileDoc.data().slot;
-      const slotMap: Record<string, string> = {
-        "10:00 AM - 11:15 AM": "SLOT_1",
-        "11:45 AM - 01:00 PM": "SLOT_2",
-        "02:45 PM - 04:00 PM": "SLOT_3",
-        "05:30 PM - 06:45 PM": "SLOT_4",
-        "07:00 PM - 08:15 PM": "SLOT_5",
-        "08:30 PM - 10:00 PM": "SLOT_6"
-      };
-      
-      const internalSlotId = slotMap[slotLabel] || "SLOT_1";
-      const profileDay = profileDoc.data().day || new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+      const internalSlotId = normalizeSlotId(slotLabel);
+      const profileDay = normalizeDateKey(profileDoc.data().day);
       const slotDocRef = doc(db, "meta", `slots_${profileDay}`);
       
       // Use Transaction to safely restore slot capacity
@@ -1038,6 +1062,7 @@ export const deleteCandidateFirebase = async (email: string) => {
     console.error("Delete & Slot Restore failed:", e);
   }
 };
+
 export const SLOT_CONFIG = {
   "SLOT_1": { id: "SLOT_1", label: "10:00 AM - 11:15 AM", start: "10:00", end: "11:15" },
   "SLOT_2": { id: "SLOT_2", label: "11:45 AM - 01:00 PM", start: "11:45", end: "13:00" },
@@ -1048,17 +1073,16 @@ export const SLOT_CONFIG = {
 };
 
 export const getSlotAvailability = async (date: string = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' })) => {
+  const normalizedDate = normalizeDateKey(date);
   if (firebaseConfig.projectId === "dummy" && typeof window !== "undefined") {
-    return JSON.parse(localStorage.getItem(`geonixa_slots_${date}`) || JSON.stringify({
-      "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0
-    }));
+    return JSON.parse(localStorage.getItem(`geonixa_slots_${normalizedDate}`) || JSON.stringify(DEFAULT_SLOT_COUNTS));
   }
   try {
-    const d = await getDoc(doc(db, "meta", `slots_${date}`));
-    if (!d.exists()) return { "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0 };
-    return d.data();
+    const d = await getDoc(doc(db, "meta", `slots_${normalizedDate}`));
+    if (!d.exists()) return { ...DEFAULT_SLOT_COUNTS };
+    return { ...DEFAULT_SLOT_COUNTS, ...d.data() };
   } catch (e) {
-    return { "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0 };
+    return { ...DEFAULT_SLOT_COUNTS };
   }
 };
 
@@ -1068,34 +1092,41 @@ export const allocateSlotWithTransaction = async (
   profileData: any, 
   passKey: string
 ) => {
-  const profileDay = profileData.day || new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+  const profileDay = normalizeDateKey(profileData.day);
+  const targetSlotId = normalizeSlotId(slotId);
 
   if (firebaseConfig.projectId === "dummy" && typeof window !== "undefined") {
-    const slots = JSON.parse(localStorage.getItem(`geonixa_slots_${profileDay}`) || JSON.stringify({
-      "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0
-    }));
-    if (slots[slotId] >= 25) throw new Error("SLOT_FULL");
-    slots[slotId]++;
+    const slots = JSON.parse(localStorage.getItem(`geonixa_slots_${profileDay}`) || JSON.stringify(DEFAULT_SLOT_COUNTS));
+    if ((slots[targetSlotId] || 0) >= 25) throw new Error("SLOT_FULL");
+    slots[targetSlotId] = (slots[targetSlotId] || 0) + 1;
     localStorage.setItem(`geonixa_slots_${profileDay}`, JSON.stringify(slots));
-    await registerCandidateFirebase(email, passKey, { ...profileData, slot: slotId });
+    await registerCandidateFirebase(email, passKey, { ...profileData, day: profileDay, slot: profileData.slot || targetSlotId });
     return true;
   }
 
   const slotRef = doc(db, "meta", `slots_${profileDay}`);
   const validLoginsRef = doc(db, "valid_logins", email);
   const profileRef = doc(db, "student_profiles", email);
-  const plannedProfileData = enrichProfileWithDomainPlan({ ...profileData, slot: slotId });
+  const plannedProfileData = enrichProfileWithDomainPlan({ 
+    ...profileData, 
+    day: profileDay,
+    slot: profileData.slot || targetSlotId 
+  });
 
   await runTransaction(db, async (transaction) => {
     const slotDoc = await transaction.get(slotRef);
-    const currentData = slotDoc.exists() ? slotDoc.data() : {};
-    const currentCount = currentData[slotId] || 0;
+    const currentData = slotDoc.exists() ? (slotDoc.data() as Record<string, number>) : { ...DEFAULT_SLOT_COUNTS };
+    const currentCount = currentData[targetSlotId] || 0;
 
     if (currentCount >= 25) {
       throw new Error("SLOT_FULL");
     }
 
-    transaction.set(slotRef, { ...currentData, [slotId]: currentCount + 1 }, { merge: true });
+    transaction.set(slotRef, { 
+      ...DEFAULT_SLOT_COUNTS, 
+      ...currentData, 
+      [targetSlotId]: currentCount + 1 
+    }, { merge: true });
 
     transaction.set(validLoginsRef, {
       email,
@@ -1112,49 +1143,41 @@ export const allocateSlotWithTransaction = async (
 export const updateSlotTransferTransaction = async (oldSlotLabel: string, newSlotLabel: string, date: string = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' })) => {
   if (firebaseConfig.projectId === "dummy") return;
   
-  const slotMap: Record<string, string> = {
-    "10:00 AM - 11:15 AM": "SLOT_1",
-    "11:45 AM - 01:00 PM": "SLOT_2",
-    "02:45 PM - 04:00 PM": "SLOT_3",
-    "05:30 PM - 06:45 PM": "SLOT_4",
-    "07:00 PM - 08:15 PM": "SLOT_5",
-    "08:30 PM - 10:00 PM": "SLOT_6"
-  };
-  
-  const oldId = slotMap[oldSlotLabel];
-  const newId = slotMap[newSlotLabel];
+  const normalizedDate = normalizeDateKey(date);
+  const oldId = normalizeSlotId(oldSlotLabel);
+  const newId = normalizeSlotId(newSlotLabel);
   
   if (!oldId || !newId || oldId === newId) return;
 
-  const slotRef = doc(db, "meta", `slots_${date}`);
+  const slotRef = doc(db, "meta", `slots_${normalizedDate}`);
   
   await runTransaction(db, async (transaction) => {
     const slotDoc = await transaction.get(slotRef);
-    if (slotDoc.exists()) {
-      const currentData = slotDoc.data();
-      const oldVal = currentData[oldId] || 0;
-      const newVal = currentData[newId] || 0;
-      
-      if (newVal >= 25) {
-        throw new Error("NEW_SLOT_FULL");
-      }
-      
-      transaction.set(slotRef, {
-        ...currentData,
-        [oldId]: Math.max(0, oldVal - 1),
-        [newId]: newVal + 1
-      }, { merge: true });
+    const currentData = slotDoc.exists() ? (slotDoc.data() as Record<string, number>) : { ...DEFAULT_SLOT_COUNTS };
+    const oldVal = currentData[oldId] || 0;
+    const newVal = currentData[newId] || 0;
+    
+    if (newVal >= 25) {
+      throw new Error("NEW_SLOT_FULL");
     }
+    
+    transaction.set(slotRef, {
+      ...DEFAULT_SLOT_COUNTS,
+      ...currentData,
+      [oldId]: Math.max(0, oldVal - 1),
+      [newId]: newVal + 1
+    }, { merge: true });
   });
 };
 
 export const recalibrateSlotCapacities = async (date: string = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' })) => {
   if (firebaseConfig.projectId === "dummy") return;
+  const normalizedDate = normalizeDateKey(date);
   
-  console.log(`[SYSTEM] Starting Deep Data Recalibration for ${date}...`);
+  console.log(`[SYSTEM] Starting Deep Data Recalibration for ${normalizedDate}...`);
   
-  const profilesSnap = await getDocs(query(collection(db, "student_profiles"), where("day", "==", date)));
-  const counts: Record<string, number> = { "SLOT_1": 0, "SLOT_2": 0, "SLOT_3": 0, "SLOT_4": 0, "SLOT_5": 0, "SLOT_6": 0 };
+  const profilesSnap = await getDocs(query(collection(db, "student_profiles"), where("day", "==", normalizedDate)));
+  const counts: Record<string, number> = { ...DEFAULT_SLOT_COUNTS };
   
   const slotMap: Record<string, string> = {
     "10:00 AM - 11:15 AM": "SLOT_1",
@@ -1177,7 +1200,7 @@ export const recalibrateSlotCapacities = async (date: string = new Date().toLoca
   });
 
   // Update the master slot document for the specific date
-  await setDoc(doc(db, "meta", `slots_${date}`), counts);
+  await setDoc(doc(db, "meta", `slots_${normalizedDate}`), counts);
   
   console.log("[SYSTEM] Recalibration complete. New counts:", counts);
   return counts;

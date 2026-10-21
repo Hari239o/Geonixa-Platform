@@ -712,7 +712,7 @@ export default function AdminDashboard() {
       // If the admin changed the slot, perform a capacity transfer transaction
       if (originalStudent && originalStudent.slot !== editingStudent.slot) {
          try {
-           await updateSlotTransferTransaction(originalStudent.slot, editingStudent.slot);
+           await updateSlotTransferTransaction(originalStudent.slot, editingStudent.slot, editingStudent.day || originalStudent?.day);
          } catch (transferErr: any) {
            if (transferErr.message === "NEW_SLOT_FULL") {
              alert("Cannot transfer candidate: The new slot is completely full (25/25).");
@@ -791,7 +791,7 @@ export default function AdminDashboard() {
         "07:00 PM - 08:15 PM": "SLOT_5",
         "08:30 PM - 10:00 PM": "SLOT_6"
       };
-      const internalSlotId = slotMap[newStudent.slot] || "SLOT_1";
+      const internalSlotId = slotMap[newStudent.slot] || newStudent.slot || "SLOT_1";
       
       console.log("[Admin Dashboard] Starting slot allocation for:", studentEmail);
       
@@ -838,7 +838,14 @@ export default function AdminDashboard() {
       
       fetchData();
       setActiveTab('registered');
-      setNewStudent({ name: "", email: "", college: "", domain: "Java", slot: "10:00 AM - 11:15 AM", day: new Date().toISOString().split('T')[0] });
+      setNewStudent(prev => ({ 
+        name: "", 
+        email: "", 
+        college: "", 
+        domain: prev.domain, 
+        slot: prev.slot, 
+        day: prev.day 
+      }));
     } catch (err: any) {
       console.error("[Admin Dashboard] Student Registration Error:", err);
       const errorMsg = err?.message || JSON.stringify(err);
@@ -994,7 +1001,7 @@ export default function AdminDashboard() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {["SLOT_1", "SLOT_2", "SLOT_3", "SLOT_4", "SLOT_5"].map((id) => {
+                {["SLOT_1", "SLOT_2", "SLOT_3", "SLOT_4", "SLOT_5", "SLOT_6"].map((id) => {
                   const { SLOT_CONFIG } = require('@/lib/firebase');
                   const config = (SLOT_CONFIG as any)[id];
                   const count = slotAvailability[id] || 0;
